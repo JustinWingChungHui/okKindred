@@ -1,0 +1,79 @@
+Concept:
+To model our family tree
+
+Ideas:
+- Adding a member and an email will automatically assign a login (email and auto-generated password to the site)
+- This login will be emailed out to the person that has been added
+- Django website on PythonAnywhere.com, allows scaling
+- Biographies need to be available in different languages (probably need help of Hilson, Vicky, Ola and Kati)
+- Notification emails of anyone new that is added (if this explodes may need to restrict this)
+
+Requirements:
+- Multilingual (English, Traditional Chinese, Simplified Chinese, Polish, Finish... from what we know already)
+
+
+Data Model:
+- Person:
+	- email (optional, if supplied, automatically create a Django user)
+	- user_id (Django user id if email exists)
+	- name (Free text because inversion of last and first names in different cultures)
+	- birth_year (optional)
+	- location ( GPS coord, allow to enter on a map optional)
+	- picture (optional)
+	- gender (M/F/Neutral) Helps to draw a chart if all the females are on one side.  Also help to identify bloodlines.
+	- telephone_number (optional)
+	- website (optional could be a Facebook link)
+	- hierarchy_score (Calculated field if Justin is 100 then Shirley is 99)
+	
+
+- Biographies (Separate object to allow for different languages)
+	- person_id (Foreign Key to Person)
+	- language_code (English/Chinese Traditional/Chinese Simplified/Polish/Finnish)
+	- biography_text
+	
+- Relation:
+	- from_person_id (Foreign Key to Person)
+	- to_person_id (Foreign Key to Person)
+	-relation_type:
+		- Partnered (can include divorcees, from and to are equivalent so assigned same hierarchy_score)
+		- Raised (from_person_id is parent/guardian and to_person_id is child/dependent)
+		- Raised by (resolves to the above inverted)
+
+- Telemetry (who's looked at what just for administrators ie you and me to see)
+	- person_id
+	- utc_datetime
+	- ip_address
+	- action_text
+		- viewed biog of
+		- viewed map of
+		- etc
+
+		
+Views
+	- Home page:
+		- Description of site and who we are
+		- Login Screen
+	
+	- Hierarchy view starts centred on logged in user
+		- Shows relation diagram
+		- Shows only 2 levels deep
+		- Each person shows name and picture
+		- Lines show relation type
+		- Lowest hierarchy score at the top
+		- Clicking on a person reloads view centred on that person
+		- Centred person shows link to show biography
+		- Centred person show link to add a relation to a new person
+		
+	- Map View. 
+		- Same as hierarchy view but on map
+		
+	- Show all Map view (this could be awesome)
+	
+	- Edit/Create user
+		- To start, allow anyone to edit anyone else's profile and links, maybe look to only allow edit 2 levels away in future.  
+		(we have to assume that Grandparents profiles will be maintained by Grandchildren)
+		
+	- Change my Password
+		
+
+	
