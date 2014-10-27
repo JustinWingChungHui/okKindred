@@ -9,7 +9,7 @@ Ideas:
 - Notification emails of anyone new that is added (if this explodes may need to restrict this)
 
 Requirements:
-- Multilingual (English, Traditional Chinese, Simplified Chinese, Polish, Finish... from what we know already)
+- Multilingual (English, Traditional Chinese, Simplified Chinese, Polish, Finnish... from what we know already)
 
 
 Data Model:
@@ -21,7 +21,7 @@ Data Model:
 	- location ( GPS coord, allow to enter on a map optional)
 	- picture (optional)
 	- gender (M/F/Neutral) Helps to draw a chart if all the females are on one side.  Also help to identify bloodlines.
-	- telephone_number (optional)
+	- telephone_number (optional) ** PRIVACY :S **
 	- website (optional could be a Facebook link)
 	- hierarchy_score (Calculated field if Justin is 100 then Shirley is 99)
 	
@@ -64,6 +64,15 @@ Views
 		- Centred person shows link to show biography
 		- Centred person show link to add a relation to a new person
 		
+		- Deceased family members: Would be quite neat to show these photos in greyscale, and slightly faded out. 
+		  They could be re-saturated when the user hovers over the branches or clicks on the picture.
+		  
+		  
+	- More!
+		- Buttons for More and Less
+		- When clicked, the site will draw in the next layers in the heirarchy (up and down) for all nodes
+		
+		
 	- Map View. 
 		- Same as hierarchy view but on map
 		
@@ -72,6 +81,10 @@ Views
 	- Edit/Create user
 		- To start, allow anyone to edit anyone else's profile and links, maybe look to only allow edit 2 levels away in future.  
 		(we have to assume that Grandparents profiles will be maintained by Grandchildren)
+		
+		- Some kind of Wikipedia-style editorial control might be appropriate, e.g.
+		-- Users can edit anyone's profile (default)
+		-- Users can change their profile to retain editorial control (updates to be authorised or disabled)
 		
 	- Change my Password
 		
