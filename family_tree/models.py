@@ -17,6 +17,7 @@ class Person(models.model):
     #Only required fields
     name = models.CharField(max_length=255, db_index = True, null = False, blank = False)
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES, null = False, blank = False)
+    locked = models.BooleanField(default = False) #Allows a user to lock their profile
 
     #Optional Fields
     birth_year = models.IntegerField(blank=True, null=True)
@@ -36,3 +37,6 @@ class Person(models.model):
     user = models.ForeignKey(User, blank=True, null=True) #link this to a user if they have an email address
     deceased = models.BooleanField(default = False)
     hierarchy_score = birth_year = models.IntegerField(default = 100) #parents have lower score, children have higher
+
+
+class
