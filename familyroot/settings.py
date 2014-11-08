@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 """
 Django settings for familyroot project.
 
@@ -66,9 +68,31 @@ DATABASES = {
 # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'en-gb'
 
 TIME_ZONE = 'UTC'
+
+
+# From http://msdn.microsoft.com/en-us/library/ms533052(v=vs.85).aspx
+# http://stackoverflow.com/questions/7728977/django-how-to-add-chinese-support-to-the-application
+LOCALES = (
+    #English
+    ('en', u'English'),
+
+    #Traditional Chinese
+    ('zh-hk', u'繁體中文'),
+
+    #Simplified Chinese
+    ('zh-cn', u'简体中文'),
+
+    #Polish
+    ('pl', u'Polski'),
+
+    #Finish
+    ('fi', u'Suomi'),
+
+)
+
 
 USE_I18N = True
 
