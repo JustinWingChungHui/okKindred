@@ -106,3 +106,47 @@ class Person(models.Model):
         '''
         self.create_update_user()
         super(Person, self).save(*args, **kwargs) # Call the "real" save() method.
+
+
+    def set_hierarchy_score(self, relation = None):
+        '''
+        Sets a hierachy score to help organise tree views
+        First person is set to 100, his/her parents have score 99
+        His/Her children have score 101
+        '''
+        from family_tree.models.relation import RAISED, PARTNERED
+
+        if relation is None:
+            relation = self._get_first_relation()
+
+        if relation.from_person_id == self.id:
+            other_person = relation.to_person
+        else:
+            other_person = relation.from_person
+
+        if relation.relation_type == PARTNERED:
+            self.hierarchy_score = other_person.hierarchy_score
+
+        elif relation.relation_type == RAISED:
+            if relation.from_person_id == self.id:
+                self.hierarchy_score = other_person.hierarchy_score - 1
+            else:
+                self.hierarchy_score = other_person.hierarchy_score + 1
+
+
+
+    def _get_first_relation(self):
+        '''
+        Gets a relation in order to calculate hierarchy
+        '''
+        if self.to_person.all().count() > 0:
+            relation = self.to_person.all()[0]
+
+        elif self.from_person.all().count() > 0:
+            relation = self.from_person.all()[0]
+
+        else:
+            #Orphaned!
+            raise Exception("Orphaned person!")
+
+        return relation

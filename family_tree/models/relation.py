@@ -68,3 +68,9 @@ class Relation(models.Model):
         self.to_person_id = from_id
 
 
+    def save(self, *args, **kwargs):
+        '''
+        Overrides the save method to allow normalisation
+        '''
+        self.normalise()
+        super(Relation, self).save(*args, **kwargs) # Call the "real" save() method.
