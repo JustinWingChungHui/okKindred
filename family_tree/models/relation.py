@@ -34,6 +34,12 @@ class Relation(models.Model):
     creation_date = models.DateTimeField(auto_now_add=True)
     last_updated_date = models.DateTimeField(auto_now=True)
 
+
+
+    def __str__(self): # __unicode__ on Python 2
+        return self.from_person.name + '-' + self.to_person.name
+
+
     def normalise(self):
         '''
         This normalises the relations.

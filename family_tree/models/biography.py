@@ -11,6 +11,8 @@ class Biography(models.Model):
         #Allows one biog per person per language
         unique_together = (('person', 'language'),)
 
+        verbose_name_plural = "Biographies"
+
     #Fields
     person = models.ForeignKey(Person, null = False, blank = False, db_index = True)
     language = models.CharField(max_length=5, choices=settings.LOCALES, null = False, blank = False, db_index = True)
@@ -21,4 +23,5 @@ class Biography(models.Model):
     last_updated_date = models.DateTimeField(auto_now=True)
 
 
-
+    def __str__(self): # __unicode__ on Python 2
+        return self.person.name + ' ' + self.language

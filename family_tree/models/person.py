@@ -8,6 +8,23 @@ GENDER_CHOICES = (
 )
 
 
+class NullableEmailField(models.EmailField):
+    '''
+    This allows an unique email field that stores Null but return ""
+    Taken from http://bitofpixels.com/blog/unique-on-charfield-when-blanktrue/
+    '''
+
+    description = "EmailField that stores NULL but returns ''"
+    __metaclass__ = models.SubfieldBase
+    def to_python(self, value):
+        if isinstance(value, models.EmailField):
+            return value
+        return value or ''
+    def get_prep_value(self, value):
+        return value or None
+
+
+
 class Person(models.Model):
     '''
     Represents a family member
@@ -16,6 +33,7 @@ class Person(models.Model):
     class Meta:
         #Allows models.py to be spp[lit up across multiple files
         app_label = 'family_tree'
+        verbose_name_plural = "People"
 
     #Only required fields
     name = models.CharField(max_length=255, db_index = True, unique = True, null = False, blank = False)
@@ -28,10 +46,10 @@ class Person(models.Model):
     year_of_death = models.IntegerField(blank=True, null=False, default = 0)
 
     photo = models.ImageField(upload_to='profile_photos', blank=True, null=False)
-    email =  models.CharField(max_length=100, blank=True, null=False)
+    email = NullableEmailField(blank=True, null=True, default=None, unique=True)
     telephone_number = models.CharField(max_length=30, blank=True, null=False)
     website = models.CharField(max_length=100, blank=True, null=False)
-
+    address = models.CharField(max_length=255, blank=True, null=False)
 
     #Location use https://pypi.python.org/pypi/googlemaps?
     latitude = models.FloatField(blank=True, null=False, default = 0) #(0,0) is in the middle of the ocean so can set this to 0 to avoid nulls
@@ -39,12 +57,15 @@ class Person(models.Model):
 
     #Calculated Fields
     user = models.ForeignKey(User, blank=True, null=True) #link this to a user if they have an email address
-    hierarchy_score = models.IntegerField(default = 100) #parents have lower score, children have higher
+    hierarchy_score = models.IntegerField(default = 100, db_index = True) #parents have lower score, children have higher
 
     #Tracking
     creation_date = models.DateTimeField(auto_now_add=True)
     last_updated_date = models.DateTimeField(auto_now=True)
 
+
+    def __str__(self): # __unicode__ on Python 2
+        return self.name
 
 
     def __init__(self, *args, **kwargs):
@@ -54,6 +75,8 @@ class Person(models.Model):
         '''
         super(Person, self).__init__(*args, **kwargs)
         self._original_email = self.email
+
+
 
 
     def is_valid_email(self,email):
@@ -80,6 +103,7 @@ class Person(models.Model):
 
         if User.objects.filter(username = self.email).count() == 0:
 
+            #User does not exist
             if not self.is_valid_email(self._original_email) or User.objects.filter(username = self._original_email).count() == 0:
 
                 #Create a new user
@@ -97,7 +121,11 @@ class Person(models.Model):
                 user.email = self.email
                 user.save()
 
-            self.user = user
+        else:
+            #User already exists, link this profile with the user
+            user = User.objects.get(username = self.email)
+
+        self.user = user
 
 
     def save(self, *args, **kwargs):
@@ -132,7 +160,6 @@ class Person(models.Model):
                 self.hierarchy_score = other_person.hierarchy_score - 1
             else:
                 self.hierarchy_score = other_person.hierarchy_score + 1
-
 
 
     def _get_first_relation(self):
