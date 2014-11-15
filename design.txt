@@ -23,6 +23,7 @@ Data Model:
 	- gender (M/F/Neutral) Helps to draw a chart if all the females are on one side.  Also help to identify bloodlines.
 	- telephone_number (optional) ** PRIVACY :S **
 	- website (optional could be a Facebook link)
+	- deceased (defaults to false)
 	- hierarchy_score (Calculated field if Justin is 100 then Shirley is 99)
 	
 
