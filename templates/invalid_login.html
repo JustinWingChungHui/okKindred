@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block content %}
+<div class="container">
+
+    <p>{% trans "Invalid Login" %}</p>
+    <p><a href = "/accounts/login/">{% trans "Try Again" %}</a></p>
+</div>
+{% endblock %}

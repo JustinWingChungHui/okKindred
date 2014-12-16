@@ -48,7 +48,7 @@ coverage.xml
 *.log
 sqlite3.db
 db.sqlite3
-
+media/
 
 # Sphinx documentation
 docs/_build/
