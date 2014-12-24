@@ -5,17 +5,19 @@
 
  <!-- Main jumbotron for a primary marketing message or call to action -->
 
-{% if not user.is_authenticated %}
 
-<div class="jumbotron" id="top"> <!-- To  allow for the nav bar -->
+{% if user.is_authenticated %}
+<div id="top"  style="padding-top: 30px;"></div>
+{% else %}
+<div class="jumbotron" id="top">
   <div class="container">
     <h1>{% trans "Welcome to okGeneration!" %}</h1>
     <p>{% trans "Greetings from Justin & Adrian.  This is a website to keep track of our family tree.  It is now spread across the world and is growing." %}</p>
     <a class="btn btn-primary btn-lg" href="/accounts/login/" role="button">{%trans "Sign In" %} &raquo;</a></p>
   </div>
 </div>
-
 {% endif %}
+
 
 <div class="container">
 
@@ -46,7 +48,7 @@
         <p>{% trans "As a person is added to the family tree, they receive an email so they may become a user and add more people to it." %}</p>
         <p>{% trans "I several family gatherings with my girlfriend and have struggled to explain how we are all related.  My family is now very diverse with several ethnicities and resides across several continents." %}</p>
         <p>{% trans "We wanted someway of documenting everyone and keep in touch as the family grows." %}</p>
-        <p><a class="btn btn-default" href="#top" role="button">{%trans "Back" %}&raquo;</a></p>
+        <p><a class="btn btn-default" href="#top" role="button">&laquo;{%trans "Back" %}</a></p>
     </div>
 
     <hr>
@@ -65,7 +67,7 @@
         <p>{% trans "This project is made available through the GNU Public Licence.  This guarantees your freedom to use, study, share (copy), and modify the software." %}</p>
         <p>{% trans "We do however ask you to mention us if you decide to use the code we have written!" %}</p>
 
-        <p><a class="btn btn-default" href="#top" role="button">{%trans "Back" %}&raquo;</a></p>
+        <p><a class="btn btn-default" href="#top" role="button">&laquo;{%trans "Back" %}</a></p>
     </div>
 
     <hr>
@@ -75,7 +77,7 @@
         <p>{% trans "If you are in our family we want to hear from you and are welcome to visit and stay round any time.  If you have a login to this site and are part of my family, you can get my telephone number and address from my profile!" %}</p>
 
         <p>{% trans "We're quite nice people and do like to talk to people interested in the sames things we are: Geek stuff, software, music and crazy pan global Chinese families.." %} </p>
-        <p><a class="btn btn-default" href="#top" role="button">{%trans "Back" %}&raquo;</a></p>
+        <p><a class="btn btn-default" href="#top" role="button">&laquo;{%trans "Back" %}</a></p>
     </div>
 
     <hr>

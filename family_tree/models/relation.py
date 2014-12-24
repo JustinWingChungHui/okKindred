@@ -19,7 +19,7 @@ class Relation(models.Model):
     '''
 
     class Meta:
-        #Allows models.py to be spp[lit up across multiple files
+        #Allows models.py to be split up across multiple files
         app_label = 'family_tree'
 
         #Allows one relation betwen two people

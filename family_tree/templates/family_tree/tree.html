@@ -1,0 +1,238 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load i18n %}
+
+{% block extrastyle %}
+
+<style type="text/css">
+
+    #mum {
+        left:0em;
+        top: 5em;
+    }
+    #dad {
+        left:20em;
+        top: 5em;
+    }
+
+    #me {
+        left:10em;
+        top: 20em;
+    }
+
+    .w {
+        padding: 16px;
+        position: absolute;
+        border: 1px solid black;
+        z-index: 4;
+        border-radius: 1em;
+        border: 1px solid #2e6f9a;
+        box-shadow: 2px 2px 19px #e0e0e0;
+        -o-box-shadow: 2px 2px 19px #e0e0e0;
+        -webkit-box-shadow: 2px 2px 19px #e0e0e0;
+        -moz-box-shadow: 2px 2px 19px #e0e0e0;
+        -moz-border-radius: 8px;
+        border-radius: 8px;
+        opacity: 0.8;
+        filter: alpha(opacity=80);
+        cursor: move;
+        background-color: white;
+        font-size: 12px;
+        -webkit-transition: background-color 0.25s ease-in;
+        -moz-transition: background-color 0.25s ease-in;
+        transition: background-color 0.25s ease-in;
+    }
+
+    .w:hover {
+	background-color: #5c96bc;
+	color:white;
+
+    }
+
+    .aLabel {
+    	-webkit-transition:background-color 0.25s ease-in;
+    	-moz-transition:background-color 0.25s ease-in;
+    	transition:background-color 0.25s ease-in;
+    }
+
+    .aLabel._jsPlumb_hover, ._jsPlumb_source_hover, ._jsPlumb_target_hover {
+    	background-color:#1e8151;
+    	color:white;
+    }
+
+    .aLabel {
+    	background-color:white;
+    	opacity:0.8;
+    	padding:0.3em;
+    	border-radius:0.5em;
+    	border:1px solid #346789;
+    	cursor:pointer;
+    	font-size: 10px;
+    }
+
+    .ep {
+    	position:absolute;
+    	bottom: 37%;
+    	right: 5px;
+    	width:1em;
+    	height:1em;
+    	background-color:orange;
+    	cursor:pointer;
+    	box-shadow: 0px 0px 2px black;
+    	-webkit-transition:-webkit-box-shadow 0.25s ease-in;
+    	-moz-transition:-moz-box-shadow 0.25s ease-in;
+    	transition:box-shadow 0.25s ease-in;
+    }
+
+    .ep:hover {
+    	box-shadow: 0px 0px 6px black;
+    }
+
+    .family_tree_container ._jsPlumb_endpoint {
+    	z-index:3;
+    	position: relative;
+    }
+
+    .dragHover { border:2px solid orange; }
+
+    path { cursor:pointer; }
+
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="family_tree_container" id="family_tree_container" style="position: relative;"> <!--I don't understand why this needs to inline! -->
+        <div id="mum" class="w">
+            <p>Mum</p>
+            <p></p><a href="/about/">Centre</a></p>
+        </div>
+        <div id="dad" class="w">
+            Dad
+        </div>
+        <div id="me" class="w">
+            Me
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+{% block extrascript %}
+    <script src="{% static "js/dom.jsPlumb-1.7.2-min.js" %}"></script>
+
+    <script>
+        jsPlumb.ready(function() {
+
+            // your jsPlumb related init code goes here
+
+        	// setup some defaults for jsPlumb.
+        	var instance = jsPlumb.getInstance({
+        		Endpoint : ["Dot", {radius:2}],
+        		HoverPaintStyle : {strokeStyle:"#1e8151", lineWidth:2 },
+        		Container:"family_tree_container"
+        	});
+
+
+             window.jsp = instance;
+
+    	var windows = jsPlumb.getSelector(".family_tree_container .w");
+
+        // initialise draggable elements.  Stops anchor tags working on touch devices.
+    	instance.draggable(windows);
+
+        // bind a click listener to each connection; the connection is deleted. you could of course
+    	// just do this: jsPlumb.bind("click", jsPlumb.detach), but I wanted to make it clear what was
+    	// happening.
+    	instance.bind("click", function(c) {
+    		instance.detach(c);
+    	});
+
+
+
+    	// suspend drawing and initialise.
+    	instance.doWhileSuspended(function() {
+    		var isFilterSupported = instance.isDragFilterSupported();
+    		// make each ".ep" div a source and give it some parameters to work with.  here we tell it
+    		// to use a Continuous anchor and the StateMachine connectors, and also we give it the
+    		// connector's paint style.  note that in this demo the strokeStyle is dynamically generated,
+    		// which prevents us from just setting a jsPlumb.Defaults.PaintStyle.  but that is what i
+    		// would recommend you do. Note also here that we use the 'filter' option to tell jsPlumb
+    		// which parts of the element should actually respond to a drag start.
+    		// here we test the capabilities of the library, to see if we
+    		// can provide a `filter` (our preference, support by vanilla
+    		// jsPlumb and the jQuery version), or if that is not supported,
+    		// a `parent` (YUI and MooTools). I want to make it perfectly
+    		// clear that `filter` is better. Use filter when you can.
+    		if (isFilterSupported) {
+    			instance.makeSource(windows, {
+    				filter:".ep",
+    				anchor:"Continuous",
+    				connector:[ "StateMachine", { curviness:20 } ],
+    				connectorStyle:{ strokeStyle:"#5c96bc", lineWidth:2, outlineColor:"transparent", outlineWidth:4 },
+    				maxConnections:5,
+    				onMaxConnections:function(info, e) {
+    					alert("Maximum connections (" + info.maxConnections + ") reached");
+    				}
+    			});
+    		}
+    		else {
+    			var eps = jsPlumb.getSelector(".ep");
+    			for (var i = 0; i < eps.length; i++) {
+    				var e = eps[i], p = e.parentNode;
+    				instance.makeSource(e, {
+    					parent:p,
+    					anchor:"Continuous",
+    					connector:[ "StateMachine", { curviness:20 } ],
+    					connectorStyle:{ strokeStyle:"#5c96bc",lineWidth:2, outlineColor:"transparent", outlineWidth:4 },
+    					maxConnections:5,
+    					onMaxConnections:function(info, e) {
+    						alert("Maximum connections (" + info.maxConnections + ") reached");
+    					}
+    				});
+    			}
+    		}
+    	});
+
+    	// initialise all '.w' elements as connection targets.
+    	instance.makeTarget(windows, {
+    		dropOptions:{ hoverClass:"dragHover" },
+    		anchor:"Continuous",
+    		allowLoopback:true
+    	});
+
+
+
+        instance.connect({
+            source:"mum",
+            target:"me",
+            overlays:[
+                [ "Arrow", { location:1, direction: 1, id:"1"} ],
+                [ "Label", { label:"raised", id:"2", cssClass:"aLabel"} ]
+                ],
+        });
+
+        instance.connect({
+            source:"mum",
+            target:"dad",
+            overlays:[
+                [ "Arrow", { location:1, direction: 1, id:"3"} ],
+                [ "Arrow", { location:0, direction: -1, id:"4"} ],
+                [ "Label", { label:"partnered", id:"5", cssClass:"aLabel"} ]
+                ],
+        });
+
+        instance.connect({
+            source:"dad",
+            target:"me",
+            overlays:[
+                [ "Arrow", { location:1, direction: 1, id:"6"} ],
+                [ "Label", { label:"raised", id:"7", cssClass:"aLabel"} ]
+                ],
+        });
+
+        jsPlumb.fire("jsPlumbDemoLoaded", instance);
+    });
+    </script>
+
+{% endblock %}

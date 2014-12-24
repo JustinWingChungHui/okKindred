@@ -7,7 +7,6 @@ from django.shortcuts import render_to_response
 from django.http import HttpResponseRedirect
 from django.contrib import auth
 from django.core.context_processors import csrf
-from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.template import RequestContext, loader
 
@@ -16,7 +15,7 @@ def index(request):
     Index page this redirects to users home page if they are logged in
     '''
     if request.user.is_authenticated():
-        return home(request)
+        return HttpResponseRedirect('/home/')
     else:
         return about(request)
 
@@ -34,16 +33,6 @@ def about(request):
         c = {}
         c.update(csrf(request))
         return render_to_response('about.html', c)
-
-@login_required
-def home(request):
-    '''
-    Users home page
-    '''
-    template = loader.get_template('home.html')
-    context = RequestContext(request)
-    response = template.render(context)
-    return HttpResponse(response)
 
 
 

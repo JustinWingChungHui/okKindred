@@ -147,6 +147,10 @@ class Person(models.Model):
         if relation is None:
             relation = self._get_first_relation()
 
+        #Orphaned
+        if relation is None:
+            return
+
         if relation.from_person_id == self.id:
             other_person = relation.to_person
         else:
@@ -173,7 +177,6 @@ class Person(models.Model):
             relation = self.from_person.all()[0]
 
         else:
-            #Orphaned!
-            raise Exception("Orphaned person!")
+            return None
 
         return relation
