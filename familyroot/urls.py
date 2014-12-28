@@ -21,5 +21,6 @@ urlpatterns = patterns('',
     #Tree Views
 
     url(r'^home/$', 'family_tree.views.tree', name='tree'),
+    url(r'^person=(?P<person_id>\d+)/$', 'family_tree.views.tree', name='tree'),
 
 )

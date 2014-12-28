@@ -2,7 +2,7 @@ from django.test import TestCase
 from django.contrib.auth.models import User
 from family_tree.models import Person, Relation
 from family_tree.models.relation import PARTNERED, RAISED
-from family_tree.views import get_related_data
+from family_tree.views import get_related_data, get_css
 
 class TestTreeViews(TestCase):
 
@@ -15,6 +15,51 @@ class TestTreeViews(TestCase):
 
         person = Person.objects.create(name='Roger Taylor', gender='M', user_id = user.id)
         person.save()
+
+        self.create_related_data_for_tests()
+
+    def create_related_data_for_tests(self):
+        '''
+        Create a small family tree for testing
+        '''
+        self.person = Person.objects.create(name='patient zero', gender='M',hierarchy_score=100)
+        self.person.save()
+
+        self.wife = Person.objects.create(name='wife', gender='F', hierarchy_score=100)
+        self.wife.save()
+        self.wife_to_person = Relation.objects.create(from_person=self.wife, to_person=self.person, relation_type=PARTNERED)
+        self.wife_to_person.save()
+
+        self.son = Person.objects.create(name='son', gender='M',hierarchy_score=101)
+        self.son.save()
+        self.person_to_son = Relation.objects.create(from_person=self.person, to_person=self.son, relation_type=RAISED)
+        self.person_to_son.save()
+
+        self.daughter = Person.objects.create(name='daughter', gender='F',hierarchy_score=101)
+        self.daughter.save()
+        self.person_to_daughter = Relation.objects.create(from_person=self.person, to_person=self.daughter, relation_type=RAISED)
+        self.person_to_daughter.save()
+
+        self.mum = Person.objects.create(name='mum', gender='F', hierarchy_score=99)
+        self.mum.save()
+        self.mum_to_person = Relation.objects.create(from_person=self.mum, to_person=self.person, relation_type=RAISED)
+        self.mum_to_person.save()
+
+        self.dad = Person.objects.create(name='dad', gender='M', hierarchy_score=99)
+        self.dad.save()
+        self.dad_to_person = Relation.objects.create(from_person=self.dad, to_person=self.person, relation_type=RAISED)
+        self.dad_to_person.save()
+
+        self.grandma = Person.objects.create(name='grandma', gender='F', hierarchy_score=98)
+        self.grandma.save()
+        self.grandma_to_mum = Relation.objects.create(from_person=self.grandma, to_person=self.mum, relation_type=RAISED)
+        self.grandma_to_mum.save()
+
+        self.grandson = Person.objects.create(name='grandson', gender='M', hierarchy_score=102)
+        self.grandson.save()
+        self.son_to_grandson = Relation.objects.create(from_person=self.son, to_person=self.grandson, relation_type=RAISED)
+        self.son_to_grandson.save()
+
 
     def test_home_tree_view_loads(self):
         '''
@@ -43,57 +88,38 @@ class TestTreeViews(TestCase):
 
     def test_get_related_data(self):
         '''
-        Tests the get_related function.  Set up a small family tree with parents and children
-        We set hierarchry scores manually as we are not testing them
+        Tests the get_related function.
         '''
-        person = Person.objects.create(name='patient zero', gender='M',hierarchy_score=100)
-        person.save()
 
-        wife = Person.objects.create(name='wife', gender='F', hierarchy_score=100)
-        wife.save()
-        wife_to_person = Relation.objects.create(from_person=wife, to_person=person, relation_type=PARTNERED)
-        wife_to_person.save()
+        related_data = get_related_data(self.person)
 
-        son = Person.objects.create(name='son', gender='M',hierarchy_score=101)
-        son.save()
-        person_to_son = Relation.objects.create(from_person=person, to_person=son, relation_type=RAISED)
-        person_to_son.save()
+        self.assertEqual(related_data.people_upper[0].id, self.mum.id)
+        self.assertEqual(related_data.people_upper[1].id, self.dad.id)
 
-        daughter = Person.objects.create(name='daughter', gender='F',hierarchy_score=101)
-        daughter.save()
-        person_to_daughter = Relation.objects.create(from_person=person, to_person=daughter, relation_type=RAISED)
-        person_to_daughter.save()
+        self.assertEqual(len(list(related_data.people_upper)), 2) #raw query sets don't have a count function
 
-        mum = Person.objects.create(name='mum', gender='F', hierarchy_score=99)
-        mum.save()
-        mum_to_person = Relation.objects.create(from_person=mum, to_person=person, relation_type=RAISED)
-        mum_to_person.save()
 
-        dad = Person.objects.create(name='dad', gender='M', hierarchy_score=99)
-        dad.save()
-        dad_to_person = Relation.objects.create(from_person=dad, to_person=person, relation_type=RAISED)
-        dad_to_person.save()
+        self.assertEqual(related_data.people_same_level[0].id, self.wife.id)
 
-        grandma = Person.objects.create(name='grandma', gender='F', hierarchy_score=98)
-        grandma.save()
-        grandma_to_mum = Relation.objects.create(from_person=grandma, to_person=mum, relation_type=RAISED)
-        grandma_to_mum.save()
-
-        grandson = Person.objects.create(name='grandson', gender='M', hierarchy_score=102)
-        grandson.save()
-        son_to_grandson = Relation.objects.create(from_person=son, to_person=grandson, relation_type=RAISED)
-        son_to_grandson.save()
-
-        related_data = get_related_data(person)
-
-        self.assertEqual(related_data.people_upper[0].id, mum.id)
-        self.assertEqual(related_data.people_upper[1].id, dad.id)
-        self.assertEqual(related_data.people_upper[2].id, wife.id)
-        self.assertEqual(len(list(related_data.people_upper)), 3) #raw query sets don't have a count function
-
-        self.assertEqual(related_data.people_lower[0].id, daughter.id)
-        self.assertEqual(related_data.people_lower[1].id, son.id)
+        self.assertEqual(related_data.people_lower[0].id, self.daughter.id)
+        self.assertEqual(related_data.people_lower[1].id, self.son.id)
         self.assertEqual(len(list(related_data.people_lower)), 2)
 
         self.assertEqual(len(list(related_data.relations)), 5)
+
+
+    def test_get_css(self):
+        '''
+        '''
+        related_data = get_related_data(self.person)
+
+        css =  get_css(self.person, related_data, 300)
+
+        mum_css = "#person%s{left: 100px; top: 0px;}" % (self.mum.id)
+        self.assertEqual(True, mum_css in css)
+
+        dad_css = "#person%s{left: 200px; top: 0px;}" % (self.dad.id)
+        self.assertEqual(True, dad_css in css)
+
+
 

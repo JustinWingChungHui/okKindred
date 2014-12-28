@@ -6,96 +6,51 @@
 
 <style type="text/css">
 
-    #mum {
-        left:0em;
-        top: 5em;
-    }
-    #dad {
-        left:20em;
-        top: 5em;
+    /* Smartphones (portrait and landscape) --  --  --  --  -- - */
+    @media only screen
+    and (min-device-width : 320px)
+    and (max-device-width : 479px) {
+        {{ css_320 }}
     }
 
-    #me {
-        left:10em;
-        top: 20em;
+    @media only screen
+    and (min-device-width : 480px)
+    and (max-device-width : 767px) {
+    /* Styles */
+        {{ css_480 }}
     }
 
-    .w {
-        padding: 16px;
-        position: absolute;
-        border: 1px solid black;
-        z-index: 4;
-        border-radius: 1em;
-        border: 1px solid #2e6f9a;
-        box-shadow: 2px 2px 19px #e0e0e0;
-        -o-box-shadow: 2px 2px 19px #e0e0e0;
-        -webkit-box-shadow: 2px 2px 19px #e0e0e0;
-        -moz-box-shadow: 2px 2px 19px #e0e0e0;
-        -moz-border-radius: 8px;
-        border-radius: 8px;
-        opacity: 0.8;
-        filter: alpha(opacity=80);
-        cursor: move;
-        background-color: white;
-        font-size: 12px;
-        -webkit-transition: background-color 0.25s ease-in;
-        -moz-transition: background-color 0.25s ease-in;
-        transition: background-color 0.25s ease-in;
+    /* iPads (portrait and landscape) --  --  --  --  -- - */
+    @media only screen
+    and (min-device-width : 768px)
+    and (max-device-width : 1023px) {
+        {{ css_768 }}
     }
 
-    .w:hover {
-	background-color: #5c96bc;
-	color:white;
 
+    /* Desktops and laptops --  --  --  --  -- - */
+    @media only screen
+    and (min-device-width : 1024px)
+    and (max-device-width : 1223px) {
+        {{ css_1024 }}
     }
 
-    .aLabel {
-    	-webkit-transition:background-color 0.25s ease-in;
-    	-moz-transition:background-color 0.25s ease-in;
-    	transition:background-color 0.25s ease-in;
+    @media only screen
+    and (min-device-width : 1200px)
+        {{ css_1200 }}
     }
 
-    .aLabel._jsPlumb_hover, ._jsPlumb_source_hover, ._jsPlumb_target_hover {
-    	background-color:#1e8151;
-    	color:white;
+    /* Large screens --  --  --  --  -- - */
+    @media only screen
+    and (min-width : 1900px) {
+        {{ css_1900 }}
     }
 
-    .aLabel {
-    	background-color:white;
-    	opacity:0.8;
-    	padding:0.3em;
-    	border-radius:0.5em;
-    	border:1px solid #346789;
-    	cursor:pointer;
-    	font-size: 10px;
+    /* Large screens --  --  --  --  -- - */
+    @media only screen
+    and (min-width : 2400px) {
+        {{ css_2400 }}
     }
-
-    .ep {
-    	position:absolute;
-    	bottom: 37%;
-    	right: 5px;
-    	width:1em;
-    	height:1em;
-    	background-color:orange;
-    	cursor:pointer;
-    	box-shadow: 0px 0px 2px black;
-    	-webkit-transition:-webkit-box-shadow 0.25s ease-in;
-    	-moz-transition:-moz-box-shadow 0.25s ease-in;
-    	transition:box-shadow 0.25s ease-in;
-    }
-
-    .ep:hover {
-    	box-shadow: 0px 0px 6px black;
-    }
-
-    .family_tree_container ._jsPlumb_endpoint {
-    	z-index:3;
-    	position: relative;
-    }
-
-    .dragHover { border:2px solid orange; }
-
-    path { cursor:pointer; }
 
 </style>
 {% endblock %}
@@ -103,23 +58,49 @@
 {% block content %}
 <div class="container">
     <div class="family_tree_container" id="family_tree_container" style="position: relative;"> <!--I don't understand why this needs to inline! -->
-        <div id="mum" class="w">
-            <p>Mum</p>
-            <p></p><a href="/about/">Centre</a></p>
+
+        {% for relative in people %}
+            <div id="person{{relative.id}}" class="w">
+                <a href="/person={{relative.id}}/">
+                    {% if relative.photo %}
+                        <img src="/media/{{relative.photo}}"/>
+                    {% else %}
+                        <img src="{% static "img/smiley.png" %}"/>
+                    {% endif %}
+                    <p>
+                        {{ relative.name }}
+                    </p>
+                </a>
+            </div>
+        {% endfor %}
+
+
+
+        <div id ="person{{person.id}}" class="w">
+            {% if person.photo %}
+                <img src="/media/{{person.photo}}"/>
+            {% else %}
+                <img src="{% static "img/smiley.png" %}"/>
+            {% endif %}
+            <p>
+                {{ person.name }}
+            </p>
+
+            <p><a class="btn btn-default" href="/about/" role="button">{%trans "Profile" %}&raquo;</a></p>
+            <p><a class="btn btn-default" href="/about/" role="button">{%trans "Add Relation" %}&raquo;</a></p>
+
         </div>
-        <div id="dad" class="w">
-            Dad
-        </div>
-        <div id="me" class="w">
-            Me
-        </div>
+
+
     </div>
 </div>
 {% endblock %}
 
 
 {% block extrascript %}
-    <script src="{% static "js/dom.jsPlumb-1.7.2-min.js" %}"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script>
+    <script src="{% static "js/jquery.jsPlumb-1.7.2-min.js" %}"></script>
 
     <script>
         jsPlumb.ready(function() {
@@ -140,14 +121,6 @@
 
         // initialise draggable elements.  Stops anchor tags working on touch devices.
     	instance.draggable(windows);
-
-        // bind a click listener to each connection; the connection is deleted. you could of course
-    	// just do this: jsPlumb.bind("click", jsPlumb.detach), but I wanted to make it clear what was
-    	// happening.
-    	instance.bind("click", function(c) {
-    		instance.detach(c);
-    	});
-
 
 
     	// suspend drawing and initialise.
@@ -202,34 +175,23 @@
     	});
 
 
+        {% for relation in relations %}
+            instance.connect({
+                source:"person{{ relation.from_person_id }}",
+                target:"person{{ relation.to_person_id }}",
+                overlays:[
+                    [ "Arrow", { location:1, direction: 1, id:"arrow{{ relation.id }}"} ],
+                    {% if relation.relation_type == 1 %}
+                        [ "Arrow", { location:0, direction: -1, id:"inverse_arrow{{ relation.id }}"} ],
+                        [ "Label", { label:"{% trans "partnered" %}", id:"label{{ relation.id }}", cssClass:"aLabel"} ]
+                    {% else %}
+                        [ "Label", { label:"raised", id:"label{{ relation.id }}", cssClass:"aLabel"} ]
+                    {% endif %}
+                    ],
+            });
+        {% endfor %}
 
-        instance.connect({
-            source:"mum",
-            target:"me",
-            overlays:[
-                [ "Arrow", { location:1, direction: 1, id:"1"} ],
-                [ "Label", { label:"raised", id:"2", cssClass:"aLabel"} ]
-                ],
-        });
 
-        instance.connect({
-            source:"mum",
-            target:"dad",
-            overlays:[
-                [ "Arrow", { location:1, direction: 1, id:"3"} ],
-                [ "Arrow", { location:0, direction: -1, id:"4"} ],
-                [ "Label", { label:"partnered", id:"5", cssClass:"aLabel"} ]
-                ],
-        });
-
-        instance.connect({
-            source:"dad",
-            target:"me",
-            overlays:[
-                [ "Arrow", { location:1, direction: 1, id:"6"} ],
-                [ "Label", { label:"raised", id:"7", cssClass:"aLabel"} ]
-                ],
-        });
 
         jsPlumb.fire("jsPlumbDemoLoaded", instance);
     });

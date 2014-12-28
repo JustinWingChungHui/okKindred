@@ -110,8 +110,8 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 
 MEDIA_URL = '/media/'
-#MEDIA_ROOT = os.path.join(BASE_DIR, '/media/')
-MEDIAFILES_DIRS = (os.path.join(BASE_DIR, 'media'),)
+MEDIA_ROOT = '/home/justinhui/media/familyroot/'
+#MEDIAFILES_DIRS = (os.path.join(BASE_DIR, 'media'),)
 
 TEMPLATE_DIRS = (
 	# Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".

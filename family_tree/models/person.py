@@ -31,7 +31,7 @@ class Person(models.Model):
     Most fields are nullable as a lot of information will be incomplete or private
     '''
     class Meta:
-        #Allows models.py to be spp[lit up across multiple files
+        #Allows models.py to be split up across multiple files
         app_label = 'family_tree'
         verbose_name_plural = "People"
 
