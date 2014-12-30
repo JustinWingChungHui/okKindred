@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load i18n %}
+
+
+{% block content %}
+<div class="container">
+    <p>
+        <a class="btn btn-default" href="/person={{ person.id }}/" role="button">&laquo;{%trans "Back" %}</a>
+        {% if person.locked %}
+            {% trans "This profile has been locked by this user." %}
+        {% else %}
+            <a class="btn btn-default" href="#" role="button">{% trans "Edit" %}</a>
+        {% endif %}
+    </p>
+    <div class="col-md-4">
+        {% if person.photo %}
+            <img src="/media/{{person.photo}}"/>
+        {% else %}
+            <img src="{% static "img/smiley.png" %}"/>
+        {% endif %}
+    </div>
+    <div class="col-md-8">
+        <table class="table table-striped">
+
+            <tr>
+              <th>{% trans "Name" %}</th>
+              <td>{{ person.name }}</td>
+            </tr>
+
+            <tr>
+              <th>{% trans "Gender" %}</th>
+              <td>{{ person.get_gender_display }}</td>
+            </tr>
+
+            {% if person.birth_year %}
+                <tr>
+                  <th>{% trans "Birth Year" %}</th>
+                  <td>{{ person.birth_year }}</td>
+                </tr>
+            {% endif %}
+
+            {% if person.year_of_death %}
+                <tr>
+                  <th>{% trans "Death Year" %}</th>
+                  <td>{{ person.year_of_death }}</td>
+                </tr>
+            {% endif %}
+
+            {% if person.email %}
+                <tr>
+                  <th>{% trans "Email" %}</th>
+                  <td><a href="mailto:{{ person.email }}">{{ person.email }}</a></td>
+                </tr>
+            {% endif %}
+
+            {% if person.telephone_number %}
+                <tr>
+                  <th>{% trans "Tel Number" %}</th>
+                  <td>{{ person.telephone_number }}</td>
+                </tr>
+            {% endif %}
+
+            {% if person.website %}
+                <tr>
+                  <th>{% trans "Website" %}</th>
+                  <td>{{ person.website }}</td>
+                </tr>
+            {% endif %}
+
+            {% if person.address %}
+                <tr>
+                  <th>{% trans "Location" %}</th>
+                  <td>{{ person.address }}</td>
+                </tr>
+            {% endif %}
+
+        </table>
+    </div>
+    <!-- Biographies-->
+    <div class="col-md-12">
+        <h3>{% trans "Biography" %}</h3>
+        <div class="dropdown">
+            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+                {{ biography.get_language_display }}
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                {% for language_code, language_display in languages %}
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="/profile={{ person.id }}/ln={{ language_code }}/">{{ language_display }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+        <p>
+            {% if biography %}
+                {{ biography.content | safe }}
+            {% else %}
+                {% trans "A biography has not yet been written for this language." %}
+            {% endif %}
+        </p>
+    </div>
+</div>
+{% endblock %}
+
+

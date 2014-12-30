@@ -2,7 +2,7 @@ from django.test import TestCase
 from django.contrib.auth.models import User
 from family_tree.models import Person, Relation
 from family_tree.models.relation import PARTNERED, RAISED
-from family_tree.views import get_related_data, get_css
+from family_tree.views import get_css
 
 class TestTreeViews(TestCase):
 
@@ -70,6 +70,15 @@ class TestTreeViews(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'family_tree/tree.html')
 
+    def test_person_tree_view_loads(self):
+        '''
+        Tests that a tree view loads for a given person and uses correct template
+        '''
+        self.client.login(username='roger_taylor', password='nation of haircuts')
+        response = self.client.get('/person={0}/'.format(self.person.id))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'family_tree/tree.html')
+
 
     def test_shows_error_screen_if_person_not_found_for_user(self):
         '''
@@ -86,32 +95,11 @@ class TestTreeViews(TestCase):
         self.assertTemplateUsed(response, 'family_tree/no_match_found.html')
 
 
-    def test_get_related_data(self):
-        '''
-        Tests the get_related function.
-        '''
-
-        related_data = get_related_data(self.person)
-
-        self.assertEqual(related_data.people_upper[0].id, self.mum.id)
-        self.assertEqual(related_data.people_upper[1].id, self.dad.id)
-
-        self.assertEqual(len(list(related_data.people_upper)), 2) #raw query sets don't have a count function
-
-
-        self.assertEqual(related_data.people_same_level[0].id, self.wife.id)
-
-        self.assertEqual(related_data.people_lower[0].id, self.daughter.id)
-        self.assertEqual(related_data.people_lower[1].id, self.son.id)
-        self.assertEqual(len(list(related_data.people_lower)), 2)
-
-        self.assertEqual(len(list(related_data.relations)), 5)
-
 
     def test_get_css(self):
         '''
         '''
-        related_data = get_related_data(self.person)
+        related_data = Person.objects.get_related_data(self.person)
 
         css =  get_css(self.person, related_data, 300)
 

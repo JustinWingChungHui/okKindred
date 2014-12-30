@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.template import RequestContext, loader
 from family_tree.models import Person
-from family_tree.models import Relation
+
 
 
 @login_required
@@ -22,7 +22,7 @@ def tree(request, person_id = 0):
     except:
         return no_match_found(request)
 
-    related_data = get_related_data(person)
+    related_data = Person.objects.get_related_data(person)
 
     template = loader.get_template('family_tree/tree.html')
 
@@ -84,54 +84,6 @@ def get_css(centred_person, related_data, pixel_width):
 
 
 
-def get_related_data(person):
-    '''
-    Gets all the relations and people that are related to the arguement person as a named tuple
-    people_upper: People with a higher hierachy score (e.g. parents)
-    people_lower: People with a lower hierachy score (e.g. kids)
-    relations: List of relations
-    '''
-    import collections
-    related_data = collections.namedtuple('related_data', ['people_upper', 'people_same_level', 'people_lower', 'relations'])
-
-    from django.db.models import Q
-    relations = Relation.objects.filter(Q(from_person=person) | Q(to_person=person))
-
-    #Yeah get some raw SQL on!  We are assuming that the 'from' has a higher hierarchy than the 'to'
-    people_upper = list(Person.objects.raw("""   SELECT p.*
-                                            FROM family_tree_person p
-                                            INNER JOIN family_tree_relation r
-                                                ON r.from_person_id = p.id
-                                            WHERE r.to_person_id = %s AND r.relation_type = 2
-                                            ORDER BY p.hierarchy_score, gender
-                                    """, [person.id]))
-
-    people_same_level = list(Person.objects.raw("""  SELECT p.*
-                                                FROM family_tree_person p
-                                                INNER JOIN family_tree_relation r
-                                                    ON r.from_person_id = p.id
-                                                WHERE r.to_person_id = {0} AND r.relation_type = 1
-                                                UNION ALL
-                                                SELECT p.*
-                                                FROM family_tree_person p
-                                                INNER JOIN family_tree_relation r
-                                                    ON r.to_person_id = p.id
-                                                WHERE r.from_person_id = {0} AND r.relation_type = 1
-                                                ORDER BY p.hierarchy_score, gender
-                                    """.format(person.id)))
-
-    people_lower = list(Person.objects.raw("""   SELECT p.*
-                                            FROM family_tree_person p
-                                            INNER JOIN family_tree_relation r
-                                                ON r.to_person_id = p.id
-                                            WHERE r.from_person_id = %s AND r.relation_type = 2
-                                            ORDER BY p.hierarchy_score, gender
-                                    """, [person.id]))
-
-    return related_data(people_upper, people_same_level, people_lower, relations)
-
-
-
 @login_required
 def no_match_found(request):
     '''
@@ -144,25 +96,3 @@ def no_match_found(request):
     response = template.render(context)
     return HttpResponse(response)
 
-@login_required
-def jquery(request, person_id = 0):
-    '''
-    Experimental view using jquery
-    '''
-
-    #If no id is supplied then we centre the view on the user
-    try:
-        if person_id == 0:
-            person = Person.objects.get(user_id = request.user.id)
-        else:
-            person = Person.objects.get(id = person_id)
-    except:
-        return no_match_found(request)
-
-    template = loader.get_template('family_tree/jquery.html')
-
-    context = RequestContext(request)
-
-
-    response = template.render(context)
-    return HttpResponse(response)
