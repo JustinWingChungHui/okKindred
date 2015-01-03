@@ -1,11 +1,67 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils.translation import ugettext_lazy as _
 
+#Localised Gender choices
 GENDER_CHOICES = (
-    ('F', 'Female'),
-    ('M', 'Male'),
-    ('O', 'Other'),
+    ('F', _('Female')),
+    ('M', _('Male')),
+    ('O', _('Other')),
 )
+
+
+class PersonManager(models.Manager):
+    '''
+    Manager extended to get related family members
+    '''
+
+
+    def get_related_data(self,person):
+        '''
+        Gets all the relations and people that are related to the arguement person as a named tuple
+        people_upper: People with a higher hierachy score (e.g. parents)
+        people_lower: People with a lower hierachy score (e.g. kids)
+        relations: List of relations
+        '''
+        import collections
+        related_data = collections.namedtuple('related_data', ['people_upper', 'people_same_level', 'people_lower', 'relations'])
+
+        from django.db.models import Q
+        from family_tree.models import Relation
+        relations = Relation.objects.filter(Q(from_person=person) | Q(to_person=person))
+
+        #Yeah get some raw SQL on!  We are assuming that the 'from' has a higher hierarchy than the 'to'
+        people_upper = list(Person.objects.raw("""   SELECT p.*
+                                                FROM family_tree_person p
+                                                INNER JOIN family_tree_relation r
+                                                    ON r.from_person_id = p.id
+                                                WHERE r.to_person_id = %s AND r.relation_type = 2
+                                                ORDER BY p.hierarchy_score, gender
+                                        """, [person.id]))
+
+        people_same_level = list(Person.objects.raw("""  SELECT p.*
+                                                    FROM family_tree_person p
+                                                    INNER JOIN family_tree_relation r
+                                                        ON r.from_person_id = p.id
+                                                    WHERE r.to_person_id = {0} AND r.relation_type = 1
+                                                    UNION ALL
+                                                    SELECT p.*
+                                                    FROM family_tree_person p
+                                                    INNER JOIN family_tree_relation r
+                                                        ON r.to_person_id = p.id
+                                                    WHERE r.from_person_id = {0} AND r.relation_type = 1
+                                                    ORDER BY p.hierarchy_score, gender
+                                        """.format(person.id)))
+
+        people_lower = list(Person.objects.raw("""   SELECT p.*
+                                                FROM family_tree_person p
+                                                INNER JOIN family_tree_relation r
+                                                    ON r.to_person_id = p.id
+                                                WHERE r.from_person_id = %s AND r.relation_type = 2
+                                                ORDER BY p.hierarchy_score, gender
+                                        """, [person.id]))
+
+        return related_data(people_upper, people_same_level, people_lower, relations)
 
 
 class NullableEmailField(models.EmailField):
@@ -31,9 +87,12 @@ class Person(models.Model):
     Most fields are nullable as a lot of information will be incomplete or private
     '''
     class Meta:
-        #Allows models.py to be spp[lit up across multiple files
+        #Allows models.py to be split up across multiple files
         app_label = 'family_tree'
         verbose_name_plural = "People"
+
+    #Customer Manager
+    objects = PersonManager()
 
     #Only required fields
     name = models.CharField(max_length=255, db_index = True, unique = True, null = False, blank = False)
@@ -75,8 +134,6 @@ class Person(models.Model):
         '''
         super(Person, self).__init__(*args, **kwargs)
         self._original_email = self.email
-
-
 
 
     def is_valid_email(self,email):
@@ -147,6 +204,10 @@ class Person(models.Model):
         if relation is None:
             relation = self._get_first_relation()
 
+        #Orphaned
+        if relation is None:
+            return
+
         if relation.from_person_id == self.id:
             other_person = relation.to_person
         else:
@@ -173,7 +234,6 @@ class Person(models.Model):
             relation = self.from_person.all()[0]
 
         else:
-            #Orphaned!
-            raise Exception("Orphaned person!")
+            return None
 
         return relation

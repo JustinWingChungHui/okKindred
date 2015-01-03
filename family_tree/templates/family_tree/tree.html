@@ -1,0 +1,200 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load i18n %}
+
+{% block extrastyle %}
+
+<style type="text/css">
+
+    /* Smartphones (portrait and landscape) --  --  --  --  -- - */
+    @media only screen
+    and (min-device-width : 320px)
+    and (max-device-width : 479px) {
+        {{ css_320 }}
+    }
+
+    @media only screen
+    and (min-device-width : 480px)
+    and (max-device-width : 767px) {
+    /* Styles */
+        {{ css_480 }}
+    }
+
+    /* iPads (portrait and landscape) --  --  --  --  -- - */
+    @media only screen
+    and (min-device-width : 768px)
+    and (max-device-width : 1023px) {
+        {{ css_768 }}
+    }
+
+
+    /* Desktops and laptops --  --  --  --  -- - */
+    @media only screen
+    and (min-device-width : 1024px)
+    and (max-device-width : 1223px) {
+        {{ css_1024 }}
+    }
+
+    @media only screen
+    and (min-device-width : 1200px)
+        {{ css_1200 }}
+    }
+
+    /* Large screens --  --  --  --  -- - */
+    @media only screen
+    and (min-width : 1900px) {
+        {{ css_1900 }}
+    }
+
+    /* Large screens --  --  --  --  -- - */
+    @media only screen
+    and (min-width : 2400px) {
+        {{ css_2400 }}
+    }
+
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="family_tree_container" id="family_tree_container" style="position: relative;"> <!--I don't understand why this needs to inline! -->
+
+        {% for relative in people %}
+            <div id="person{{relative.id}}" class="w">
+                <a href="/person={{relative.id}}/">
+                    {% if relative.photo %}
+                        <img src="/media/{{relative.photo}}"/>
+                    {% else %}
+                        <img src="{% static "img/smiley.png" %}"/>
+                    {% endif %}
+                    <p>
+                        {{ relative.name }}
+                    </p>
+                </a>
+            </div>
+        {% endfor %}
+
+
+
+        <div id ="person{{person.id}}" class="w">
+            {% if person.photo %}
+                <img src="/media/{{person.photo}}"/>
+            {% else %}
+                <img src="{% static "img/smiley.png" %}"/>
+            {% endif %}
+            <p>
+                {{ person.name }}
+            </p>
+
+            <p><a class="btn btn-default" href="/profile={{ person.id }}/" role="button">{%trans "Profile" %}&raquo;</a></p>
+            <p><a class="btn btn-default" href="/about/" role="button">{%trans "Add Relation" %}&raquo;</a></p>
+
+        </div>
+
+
+    </div>
+</div>
+{% endblock %}
+
+
+{% block extrascript %}
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script>
+    <script src="{% static "js/jquery.jsPlumb-1.7.2-min.js" %}"></script>
+
+    <script>
+        jsPlumb.ready(function() {
+
+            // your jsPlumb related init code goes here
+
+        	// setup some defaults for jsPlumb.
+        	var instance = jsPlumb.getInstance({
+        		Endpoint : ["Dot", {radius:2}],
+        		HoverPaintStyle : {strokeStyle:"#1e8151", lineWidth:2 },
+        		Container:"family_tree_container"
+        	});
+
+
+             window.jsp = instance;
+
+    	var windows = jsPlumb.getSelector(".family_tree_container .w");
+
+        // initialise draggable elements.  Stops anchor tags working on touch devices.
+    	instance.draggable(windows);
+
+
+    	// suspend drawing and initialise.
+    	instance.doWhileSuspended(function() {
+    		var isFilterSupported = instance.isDragFilterSupported();
+    		// make each ".ep" div a source and give it some parameters to work with.  here we tell it
+    		// to use a Continuous anchor and the StateMachine connectors, and also we give it the
+    		// connector's paint style.  note that in this demo the strokeStyle is dynamically generated,
+    		// which prevents us from just setting a jsPlumb.Defaults.PaintStyle.  but that is what i
+    		// would recommend you do. Note also here that we use the 'filter' option to tell jsPlumb
+    		// which parts of the element should actually respond to a drag start.
+    		// here we test the capabilities of the library, to see if we
+    		// can provide a `filter` (our preference, support by vanilla
+    		// jsPlumb and the jQuery version), or if that is not supported,
+    		// a `parent` (YUI and MooTools). I want to make it perfectly
+    		// clear that `filter` is better. Use filter when you can.
+    		if (isFilterSupported) {
+    			instance.makeSource(windows, {
+    				filter:".ep",
+    				anchor:"Continuous",
+    				connector:[ "StateMachine", { curviness:20 } ],
+    				connectorStyle:{ strokeStyle:"#5c96bc", lineWidth:2, outlineColor:"transparent", outlineWidth:4 },
+    				maxConnections:5,
+    				onMaxConnections:function(info, e) {
+    					alert("Maximum connections (" + info.maxConnections + ") reached");
+    				}
+    			});
+    		}
+    		else {
+    			var eps = jsPlumb.getSelector(".ep");
+    			for (var i = 0; i < eps.length; i++) {
+    				var e = eps[i], p = e.parentNode;
+    				instance.makeSource(e, {
+    					parent:p,
+    					anchor:"Continuous",
+    					connector:[ "StateMachine", { curviness:20 } ],
+    					connectorStyle:{ strokeStyle:"#5c96bc",lineWidth:2, outlineColor:"transparent", outlineWidth:4 },
+    					maxConnections:5,
+    					onMaxConnections:function(info, e) {
+    						alert("Maximum connections (" + info.maxConnections + ") reached");
+    					}
+    				});
+    			}
+    		}
+    	});
+
+    	// initialise all '.w' elements as connection targets.
+    	instance.makeTarget(windows, {
+    		dropOptions:{ hoverClass:"dragHover" },
+    		anchor:"Continuous",
+    		allowLoopback:true
+    	});
+
+
+        {% for relation in relations %}
+            instance.connect({
+                source:"person{{ relation.from_person_id }}",
+                target:"person{{ relation.to_person_id }}",
+                overlays:[
+                    [ "Arrow", { location:1, direction: 1, id:"arrow{{ relation.id }}"} ],
+                    {% if relation.relation_type == 1 %}
+                        [ "Arrow", { location:0, direction: -1, id:"inverse_arrow{{ relation.id }}"} ],
+                        [ "Label", { label:"{% trans "partnered" %}", id:"label{{ relation.id }}", cssClass:"aLabel"} ]
+                    {% else %}
+                        [ "Label", { label:"raised", id:"label{{ relation.id }}", cssClass:"aLabel"} ]
+                    {% endif %}
+                    ],
+            });
+        {% endfor %}
+
+
+
+        jsPlumb.fire("jsPlumbDemoLoaded", instance);
+    });
+    </script>
+
+{% endblock %}

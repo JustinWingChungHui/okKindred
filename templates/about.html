@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+{% load staticfiles %}{% load url from future %}
+{% load i18n %}
+{% block content %}
+
+ <!-- Main jumbotron for a primary marketing message or call to action -->
+
+
+{% if user.is_authenticated %}
+<div id="top"  style="padding-top: 30px;"></div>
+{% else %}
+<div class="jumbotron" id="top">
+  <div class="container">
+    <h1>{% trans "Welcome to ok!Kindred" %}</h1>
+    <p>{% trans "Greetings from Justin & Adrian.  This is a website to keep track of our family tree.  It is now spread across the world and is growing." %}</p>
+    <a class="btn btn-primary btn-lg" href="/accounts/login/" role="button">{%trans "Sign In" %} &raquo;</a></p>
+  </div>
+</div>
+{% endif %}
+
+
+<div class="container">
+
+    <div class="row">
+        <div class="col-md-4">
+            <h2>{% trans "Our Story" %}</h2>
+            <p>{% trans "Would you like to know the story of how and why we created this site?" %}</p>
+            <p><a class="btn btn-default" href="#story" role="button">{%trans "View details" %}&raquo;</a></p>
+        </div>
+        <div class="col-md-4">
+            <h2>{% trans "Contribute" %}</h2>
+            <p>{% trans "This site has been open sourced.  You can help contribute or set up your own family tree tracker!" %}</p>
+            <p><a class="btn btn-default" href="#contribute" role="button">{%trans "View details" %} &raquo;</a></p>
+        </div>
+        <div class="col-md-4">
+            <h2>{% trans "Contact Us" %}</h2>
+            <p>{% trans "If you have any questions, need help using the site or have forgotten your password" %}</p>
+            <p><a class="btn btn-default" href="#contact" role="button">{%trans "View details" %} &raquo;</a></p>
+        </div>
+    </div>
+
+    <hr>
+    <div id="story" style="padding-top: 30px;">
+        <h2>{% trans "How it started" %}</h2>
+        <img src="{% static "img/justin_and_adrian.jpg" %}"/>
+        <p>{% trans "Hello.  I'm Justin on the left.  And I'm Adrian on the right." %}</p>
+        <p>{% trans "This is a website records our family tree and is a bit like a social network.  Our family members can maintain a profile on here and discover how far the tree reaches." %}</p>
+        <p>{% trans "As a person is added to the family tree, they receive an email so they may become a user and add more people to it." %}</p>
+        <p>{% trans "I several family gatherings with my girlfriend and have struggled to explain how we are all related.  My family is now very diverse with several ethnicities and resides across several continents." %}</p>
+        <p>{% trans "We wanted someway of documenting everyone and keep in touch as the family grows." %}</p>
+        <p><a class="btn btn-default" href="#top" role="button">&laquo;{%trans "Back" %}</a></p>
+    </div>
+
+    <hr>
+    <div id="contribute" style="padding-top: 30px;">
+        <h2>{% trans "Contribute" %}</h2>
+        <p>{% trans "This is an open source project, and if you have input or want to set up your own, we'd be happy to hear from you!" %}</p>
+        <p>{% trans "The source code is accessible from:" %}</p>
+        <p><a href = "https://github.com/JustinWingChungHui/MyFamilyRoot">https://github.com/JustinWingChungHui/MyFamilyRoot</a></p>
+
+        <p>{% trans "This project is built using the Python Django webstack:" %}</p>
+        <p><a href = "https://www.djangoproject.com/">https://www.djangoproject.com/</a></p>
+
+        <p>{% trans "The layout was using Twitter bootstrap:" %}</p>
+        <p><a href = "http://getbootstrap.com/">http://getbootstrap.com/</a></p>
+
+        <p>{% trans "This project is made available through the GNU Public Licence.  This guarantees your freedom to use, study, share (copy), and modify the software." %}</p>
+        <p>{% trans "We do however ask you to mention us if you decide to use the code we have written!" %}</p>
+
+        <p><a class="btn btn-default" href="#top" role="button">&laquo;{%trans "Back" %}</a></p>
+    </div>
+
+    <hr>
+    <div id="contact" style="padding-top: 30px;">
+        <h2>{% trans "Contact" %}</h2>
+        <p>{% trans "Contact us via email info@okgeneration.com" %}</p>
+        <p>{% trans "If you are in our family we want to hear from you and are welcome to visit and stay round any time.  If you have a login to this site and are part of my family, you can get my telephone number and address from my profile!" %}</p>
+
+        <p>{% trans "We're quite nice people and do like to talk to people interested in the sames things we are: Geek stuff, software, music and crazy pan global Chinese families.." %} </p>
+        <p><a class="btn btn-default" href="#top" role="button">&laquo;{%trans "Back" %}</a></p>
+    </div>
+
+    <hr>
+    <footer style="padding-top: 50px;">
+        <p>Justin Wing Chung Hui & Adrian Chu</p>
+    </footer>
+
+</div> <!-- /container -->
+
+{% endblock %}
+
+{% block extrascript %}
+<!--
+From http://www.paulund.co.uk/smooth-scroll-to-internal-links-with-jquery
+Allows scrolling by clicking links
+-->
+<script>
+    $(document).ready(function(){
+    	$('a[href^="#"]').on('click',function (e) {
+    	    e.preventDefault();
+
+    	    var target = this.hash;
+    	    $target = $(target);
+
+    	    $('html, body').stop().animate({
+    	        'scrollTop': $target.offset().top
+    	    }, 900, 'swing', function () {
+    	        window.location.hash = target;
+    	    });
+    	});
+    });
+</script>
+{% endblock %}
