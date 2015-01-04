@@ -96,10 +96,22 @@
                 </td>
             </tr>
 
+            {% if show_locked %}
+                <tr>
+                    <th>{% trans "Lock my profile (so only I can edit it)" %}</th>
+                    <td>
+                        <a href="#" id="locked" data-type="select" data-pk="{{ person.id }}" data-url="/update_person/" data-params="{csrfmiddlewaretoken:'{{csrf_token}}'}">
+                            {% if person.locked %} {% trans "Yes" %} {% else %} {% trans "No" %} {% endif %}
+                        </a>
+                    </td>
+                </tr>
+            {% endif %}
+
             <tr>
-              <th></th>
-              <td>*<i>{% trans "Required" %}</i></td>
+              <th><i>*{% trans "Required" %}</i></th>
+              <td></td>
             </tr>
+
 
         </table>
     </div>
@@ -123,7 +135,6 @@
 
 
             $('#gender').editable({
-                prepend: "{% trans "not selected" %}",
                 source: [
                             {value: 'F', text: '{% trans "Female" %}'},
                             {value: 'M', text: '{% trans "Male" %}'},
@@ -131,7 +142,7 @@
                         ],
                 validate: function(value) {
                     if(!value) return '{% trans "Required field!" %}';
-                }
+                },
             });
 
             $('#email').editable();
@@ -140,6 +151,14 @@
             $('#telephone_number').editable();
             $('#website').editable();
             $('#address').editable();
+
+            //Pass through an empty string for false
+            $('#locked').editable({
+                source: [
+                            {value: '', text: '{% trans "No" %}'},
+                            {value: 1, text: '{% trans "Yes" %}'},
+                        ],
+            });
         });
 
     </script>

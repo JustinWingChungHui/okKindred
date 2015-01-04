@@ -7,7 +7,7 @@
     <div class="col-md-12">
         <p>
             <a class="btn btn-default" href="/person={{ person.id }}/" role="button">&laquo;{%trans "Back" %}</a>
-            {% if person.locked %}
+            {% if locked %}
                 {% trans "This profile has been locked by this user." %}
             {% else %}
                 {% if requested_language %}
@@ -95,7 +95,11 @@
                     <li role="presentation"><a role="menuitem" tabindex="-1" href="/profile={{ person.id }}/ln={{ language_code }}/">{{ language_display }}</a></li>
                 {% endfor %}
             </ul>
-            <a class="btn btn-default" href="#" role="button">{% trans "Edit Biography" %}</a>
+            {% if locked %}
+
+            {% else %}
+                <a class="btn btn-default" href="/edit_biography={{ person.id }}/ln={{ biography.language }}/" role="button">{% trans "Edit Biography" %}</a>
+            {% endif %}
         </div>
 
         <p>

@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load i18n %}
+
+{% block extrastyle %}
+    <link rel="stylesheet" type="text/css" href="{% static "css/bootstrap-wysihtml5-0.0.2.css" %}"></link>
+{% endblock %}
+
+{% block content %}
+<div class="container" style="padding-top: 20px;">
+
+    <div class="col-md-12">
+        <p><a class="btn btn-default" href="/profile={{ person_id }}/" role="button">&laquo;{%trans "Back" %}</a></p>
+
+        <form role="form" action="/update_biography={{ person_id }}/ln={{ language }}/" method="post">
+            {% csrf_token %}
+            <textarea id="biography" type="biography" name="biography" >{{ biography.content }}</textarea>
+            <button class="btn btn-lg btn-primary btn-block" type="submit">{% trans "Save" %}</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block extrascript %}
+
+    <script src="{% static "js/wysihtml5-0.3.0.min.js" %}"></script>
+    <script src="{% static "js/bootstrap-wysihtml5-0.0.2.min.js" %}"></script>
+
+    <script type="text/javascript">
+	    $('#biography').wysihtml5();
+    </script>
+{% endblock %}

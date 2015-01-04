@@ -30,7 +30,14 @@ class TestProfileViews(TestCase):
         self.assertEqual(200, response.status_code)
         self.assertTemplateUsed(response, 'family_tree/profile.html')
 
-
+    def test_edit_profile_loads(self):
+        '''
+        Tests that the edit profile view loads and uses the correct template
+        '''
+        self.client.login(username='john_deacon', password='invisible man')
+        response = self.client.get('/edit_profile={0}/'.format(self.person.id))
+        self.assertEqual(200, response.status_code)
+        self.assertTemplateUsed(response, 'family_tree/edit_profile.html')
 
     def test_update_person_denies_get_requests(self):
         '''
@@ -73,5 +80,17 @@ class TestProfileViews(TestCase):
         self.assertEqual("new name", self.person.name)
 
 
+    def test_update_person_can_update_boolean(self):
+        '''
+        Tests that a boolean field can be updated through api
+        '''
+        self.client.login(username='john_deacon', password='invisible man')
+        response = self.client.post('/update_person/', {'pk': self.person.id, 'name': 'locked', 'value': '1'})
+        self.assertEqual(200, response.status_code)
+        self.person = Person.objects.get(id=self.person.id)
+        self.assertEqual(True, self.person.locked)
 
-
+        response = self.client.post('/update_person/', {'pk': self.person.id, 'name': 'locked', 'value': ''})
+        self.assertEqual(200, response.status_code)
+        self.person = Person.objects.get(id=self.person.id)
+        self.assertEqual(False, self.person.locked)
