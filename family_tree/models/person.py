@@ -159,7 +159,7 @@ class Person(models.Model):
         Creates a django user if an email address is supplied with  Person
         '''
         #No email, then don't create a user
-        if len(self.email) == 0 or not self.is_valid_email(self.email):
+        if not self.email or not self.is_valid_email(self.email):
             return
 
 

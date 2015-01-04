@@ -4,10 +4,10 @@
 Django settings for familyroot project.
 
 For more information on this file, see
-https://docs.djangoproject.com/en/1.6/topics/settings/
+https://docs.djangoproject.com/en/1.7/topics/settings/
 
 For the full list of settings and their values, see
-https://docs.djangoproject.com/en/1.6/ref/settings/
+https://docs.djangoproject.com/en/1.7/ref/settings/
 """
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -19,7 +19,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'l9cd@e@5msh4h#@)b+a+w-#c8zveht-kij0p5ndcb6cix222vr'
+SECRET_KEY = 'tzmna-ijs#1+)gq5!-!v$+dsl%!9k&ed-5e94v-&w-n$z7m3-'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -110,7 +110,7 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = '/home/justinhui/media/familyroot/'
+MEDIA_ROOT = '/home/justinhui/media/okkindred/'
 #MEDIAFILES_DIRS = (os.path.join(BASE_DIR, 'media'),)
 
 TEMPLATE_DIRS = (
