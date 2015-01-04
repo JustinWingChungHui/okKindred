@@ -14,6 +14,7 @@ and will have prerequisites:
 - Python 3.4
 - Django 1.6
 - Pillow
+- Bleach
 
 
 Instructions for cloning the repository:
