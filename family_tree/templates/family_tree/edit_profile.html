@@ -1,0 +1,146 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load i18n %}
+
+{% block extrastyle %}
+    <link href="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet"/>
+{% endblock %}
+
+{% block content %}
+<div class="container" style="padding-top: 20px;">
+    <div class="col-md-12">
+        <p><a class="btn btn-default" href="/profile={{ person.id }}/" role="button">&laquo;{%trans "Back" %}</a></p>
+    </div>
+    <div class="col-md-4">
+        {% if person.photo %}
+            <img src="/media/{{person.photo}}"/>
+        {% else %}
+            <img src="{% static "img/smiley.png" %}"/>
+        {% endif %}
+    </div>
+    <div class="col-md-8">
+        <p>{% trans "Click to edit" %}</p>
+        <table class="table table-striped">
+
+            <tr>
+                <th>{% trans "Name" %}*</th>
+                <td>
+                    <a href="#" id="name" data-type="text" data-pk="{{ person.id }}" data-url="/update_person/" data-placeholder="{% trans "Required" %}" data-params="{csrfmiddlewaretoken:'{{csrf_token}}'}">
+                        {{ person.name }}
+                    </a>
+                </td>
+            </tr>
+
+            <tr>
+                <th>{% trans "Gender" %}*</th>
+                <td>
+                    <a href="#" id="gender" data-type="select" data-pk="{{ person.id }}" data-url="/update_person/" data-params="{csrfmiddlewaretoken:'{{csrf_token}}'}">
+                        {{ person.get_gender_display }}
+                    </a>
+                </td>
+            </tr>
+
+            <tr>
+                <th>{% trans "Birth Year" %}</th>
+                <td>
+                    <a href="#" id="birth_year" data-type="number" data-pk="{{ person.id }}" data-url="/update_person/" data-params="{csrfmiddlewaretoken:'{{csrf_token}}'}">
+                        {{ person.birth_year }}
+                    </a>
+                </td>
+            </tr>
+
+            <tr>
+                <th>{% trans "Death Year (0 if still alive)" %}</th>
+                <td>
+                    <a href="#" id="year_of_death" data-type="number" data-pk="{{ person.id }}" data-url="/update_person/" data-params="{csrfmiddlewaretoken:'{{csrf_token}}'}">
+                        {{ person.year_of_death }}
+                    </a>
+                </td>
+            </tr>
+
+            <tr>
+                <th>{% trans "Email" %}</th>
+                <td>
+                    <a href="#" id="email" data-type="text" data-pk="{{ person.id }}" data-url="/update_person/" data-params="{csrfmiddlewaretoken:'{{csrf_token}}'}">
+                        {{ person.email }}
+                    </a>
+                </td>
+            </tr>
+
+            <tr>
+                <th>{% trans "Tel Number" %}</th>
+                <td>
+                    <a href="#" id="telephone_number" data-type="text" data-pk="{{ person.id }}" data-url="/update_person/" data-params="{csrfmiddlewaretoken:'{{csrf_token}}'}">
+                        {{ person.telephone_number }}
+                    </a>
+                </td>
+            </tr>
+
+
+            <tr>
+                <th>{% trans "Website/Facebook" %}</th>
+                <td>
+                    <a href="#" id="website" data-type="text" data-pk="{{ person.id }}" data-url="/update_person/" data-params="{csrfmiddlewaretoken:'{{csrf_token}}'}">
+                        {{ person.website }}
+                    </a>
+                </td>
+            </tr>
+
+
+            <tr>
+                <th>{% trans "Location" %}</th>
+                <td>
+                    <a href="#" id="address" data-type="text" data-pk="{{ person.id }}" data-url="/update_person/" data-params="{csrfmiddlewaretoken:'{{csrf_token}}'}">
+                        {{ person.address }}
+                    </a>
+                </td>
+            </tr>
+
+            <tr>
+              <th></th>
+              <td>*<i>{% trans "Required" %}</i></td>
+            </tr>
+
+        </table>
+    </div>
+</div>
+{% endblock %}
+
+{% block extrascript %}
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
+    <script>
+        //turn to inline mode
+        $.fn.editable.defaults.mode = 'inline';
+
+        $(document).ready(function() {
+
+            $('#name').editable({
+                validate: function(value) {
+                    if(!value) return '{% trans "Required field!" %}';
+                }
+            });
+
+
+            $('#gender').editable({
+                prepend: "{% trans "not selected" %}",
+                source: [
+                            {value: 'F', text: '{% trans "Female" %}'},
+                            {value: 'M', text: '{% trans "Male" %}'},
+                            {value: 'O', text: '{% trans "Other" %}'},
+                        ],
+                validate: function(value) {
+                    if(!value) return '{% trans "Required field!" %}';
+                }
+            });
+
+            $('#email').editable();
+            $('#birth_year').editable();
+            $('#year_of_death').editable();
+            $('#telephone_number').editable();
+            $('#website').editable();
+            $('#address').editable();
+        });
+
+    </script>
+{% endblock %}

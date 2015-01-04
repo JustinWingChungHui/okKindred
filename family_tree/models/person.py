@@ -2,12 +2,17 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
 
-#Localised Gender choices
+#Localised Gender choices https://docs.djangoproject.com/en/1.7/ref/models/fields/#choices
+FEMALE ='F'
+MALE ='M'
+OTHER = 'O'
+
 GENDER_CHOICES = (
-    ('F', _('Female')),
-    ('M', _('Male')),
-    ('O', _('Other')),
+    (FEMALE, _('Female')),
+    (MALE, _('Male')),
+    (OTHER, _('Other')),
 )
+
 
 
 class PersonManager(models.Manager):

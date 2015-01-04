@@ -2,17 +2,22 @@
 {% load staticfiles %}
 {% load i18n %}
 
-
 {% block content %}
-<div class="container">
-    <p>
-        <a class="btn btn-default" href="/person={{ person.id }}/" role="button">&laquo;{%trans "Back" %}</a>
-        {% if person.locked %}
-            {% trans "This profile has been locked by this user." %}
-        {% else %}
-            <a class="btn btn-default" href="#" role="button">{% trans "Edit" %}</a>
-        {% endif %}
-    </p>
+<div class="container" style="padding-top: 20px;">
+    <div class="col-md-12">
+        <p>
+            <a class="btn btn-default" href="/person={{ person.id }}/" role="button">&laquo;{%trans "Back" %}</a>
+            {% if person.locked %}
+                {% trans "This profile has been locked by this user." %}
+            {% else %}
+                {% if requested_language %}
+                    <a class="btn btn-default" href="/edit_profile={{ person.id }}/ln={{ requested_language }}/" role="button">{% trans "Edit Profile" %}</a>
+                {% else %}
+                    <a class="btn btn-default" href="/edit_profile={{ person.id }}/" role="button">{% trans "Edit Profile" %}</a>
+                {% endif %}
+            {% endif %}
+        </p>
+    </div>
     <div class="col-md-4">
         {% if person.photo %}
             <img src="/media/{{person.photo}}"/>
@@ -90,7 +95,9 @@
                     <li role="presentation"><a role="menuitem" tabindex="-1" href="/profile={{ person.id }}/ln={{ language_code }}/">{{ language_display }}</a></li>
                 {% endfor %}
             </ul>
+            <a class="btn btn-default" href="#" role="button">{% trans "Edit Biography" %}</a>
         </div>
+
         <p>
             {% if biography %}
                 {{ biography.content | safe }}
@@ -101,5 +108,6 @@
     </div>
 </div>
 {% endblock %}
+
 
 

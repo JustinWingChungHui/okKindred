@@ -26,4 +26,7 @@ urlpatterns = patterns('',
     #Profile Views
     url(r'^profile=(?P<person_id>\d+)/$', 'family_tree.views.profile', name='profile'),
     url(r'^profile=(?P<person_id>\d+)/ln=(?P<requested_language>[a-zA-Z]{1,8}(-[a-zA-Z0-9]{1,8})*)/$', 'family_tree.views.profile', name='profile'),
+    url(r'^edit_profile=(?P<person_id>\d+)/$', 'family_tree.views.edit_profile', name='edit_profile'),
+    url(r'^edit_profile=(?P<person_id>\d+)/ln=(?P<requested_language>[a-zA-Z]{1,8}(-[a-zA-Z0-9]{1,8})*)/$', 'family_tree.views.edit_profile', name='edit_profile'),
+    url(r'^update_person/$', 'family_tree.views.update_person', name='update_person'),
 )
