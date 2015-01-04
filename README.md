@@ -24,6 +24,7 @@ Instructions for cloning the repository:
  - Activate the virtualenv
  - pip install django
  - pip install pillow
+ - pip install bleach
  - Install Git (http://www.git-scm.com/)
  - git clone https://github.com/JustinWingChungHui/MyFamilyRoot.git
 
