@@ -76,12 +76,13 @@ class Biography(models.Model):
     allowed_print_tags = [
             # tags whitelist
             "h1", "h2", "h3", "h4", "h5", "h6",
-            "b", "i", "strong", "em", "tt",
+            "b", "i", "strong", "em", "tt","u","small",
             "p", "br",
             "span", "div", "blockquote", "code", "hr",
             "ul", "ol", "li", "dd", "dt",
             "table","thead","tbody","tfoot","tr","th","td",
             "img",
+            "a",
             ]
 
 

@@ -3,7 +3,8 @@
 {% load i18n %}
 
 {% block extrastyle %}
-    <link rel="stylesheet" type="text/css" href="{% static "css/bootstrap-wysihtml5-0.0.2.css" %}"></link>
+    <!-- Uses https://github.com/Waxolunist/bootstrap3-wysihtml5-bower/ -->
+    <link rel="stylesheet" type="text/css" href="{% static "css/bootstrap3-wysihtml5.min.css" %}"></link>
 {% endblock %}
 
 {% block content %}
@@ -24,9 +25,19 @@
 {% block extrascript %}
 
     <script src="{% static "js/wysihtml5-0.3.0.min.js" %}"></script>
-    <script src="{% static "js/bootstrap-wysihtml5-0.0.2.min.js" %}"></script>
+    <script src="{% static "js/handlebars.runtime.min.js" %}"></script>
+    <script src="{% static "js/bootstrap3-wysihtml5.min.js" %}"></script>
 
     <script type="text/javascript">
-	    $('#biography').wysihtml5();
+	    $('#biography').wysihtml5({
+            "font-styles": true, //Font styling, e.g. h1, h2, etc. Default true
+            "emphasis": true, //Italics, bold, etc. Default true
+            "lists": true, //(Un)ordered lists, e.g. Bullets, Numbers. Default true
+            "html": false, //Button which allows you to edit the generated HTML. Default false
+            "link": false, //Button to insert a link. Default true
+            "image": false, //Button to insert an image. Default true,
+            "color": false, //Button to change color of font
+            "blockquote": true, //Blockquote
+	    });
     </script>
 {% endblock %}
