@@ -15,6 +15,7 @@ and will have prerequisites:
 - Django 1.6
 - Pillow
 - Bleach
+- Django SSLify
 
 
 Instructions for cloning the repository:
