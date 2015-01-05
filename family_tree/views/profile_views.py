@@ -139,9 +139,9 @@ def update_biography(request, person_id, requested_language):
         return HttpResponse(status=405, content="Access denied to locked profile")
 
     try:
-        biography = Biography.objects.get_biography(person_id, requested_language)
+        biography = Biography.objects.get(person_id=person_id, language=requested_language)
     except:
-        biography = Biography(person_id = person_id, langauage = requested_language)
+        biography = Biography(person_id = person_id, language = requested_language)
 
     biography.content = request.POST.get("biography","")
     biography.save()
