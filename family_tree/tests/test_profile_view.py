@@ -1,7 +1,9 @@
 from django.test import TestCase
 from django.contrib.auth.models import User
 from family_tree.models import Person, Biography
+from django.test.utils import override_settings
 
+@override_settings(SSLIFY_DISABLE=True)
 class TestProfileViews(TestCase):
 
     def setUp(self):

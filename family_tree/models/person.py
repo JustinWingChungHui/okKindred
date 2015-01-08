@@ -242,3 +242,46 @@ class Person(models.Model):
             return None
 
         return relation
+
+
+    def geocode_address(self):
+        '''
+        Gets the logitude and latitude of address for plotting on a map
+        '''
+        if not self.address:
+            return
+
+        from familyroot.secrets import GOOGLE_API_KEY
+
+        #Attempt to google the location, if it fails, try bing as backup
+        try:
+            from geopy.geocoders import GoogleV3
+            google_locator = GoogleV3(api_key = GOOGLE_API_KEY)
+            location = google_locator.geocode(self.address)
+
+            self.latitude = location.latitude
+            self.longitude = location.longitude
+
+        except:
+            self._geocode_address_using_backup()
+
+
+
+    def _geocode_address_using_backup(self):
+        '''
+        Gets the logitude and latitude of address for plotting on a map from backup service (Bing)
+        '''
+        try:
+
+            from familyroot.secrets import BING_MAPS_API_KEY
+            from geopy.geocoders import Bing
+            bing_locator = Bing(api_key = BING_MAPS_API_KEY)
+
+            location = bing_locator.geocode(self.address)
+
+            self.latitude = location.latitude
+            self.longitude = location.longitude
+
+        except:
+            return
+

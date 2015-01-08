@@ -3,7 +3,9 @@ from django.contrib.auth.models import User
 from family_tree.models import Person, Relation
 from family_tree.models.relation import PARTNERED, RAISED
 from family_tree.views import get_css
+from django.test.utils import override_settings
 
+@override_settings(SSLIFY_DISABLE=True)
 class TestTreeViews(TestCase):
 
     def setUp(self):

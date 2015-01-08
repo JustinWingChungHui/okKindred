@@ -239,3 +239,49 @@ class PersonTestCase(TestCase):
 
         self.assertEqual(len(list(related_data.relations)), 5)
 
+
+
+    def test_geocode_address_UK(self):
+        '''
+        Tests that the correct longitude and latitude are returned for a UK location
+        '''
+        person = Person.objects.create(name='Kate Bush', gender='F', address='Bexleyheath, England')
+        person.geocode_address()
+
+        self.assertEqual(51.45, round(person.latitude,2))
+        self.assertEqual(0.14, round(person.longitude,2))
+
+
+    def test_geocode_address_China(self):
+        '''
+        Tests that the correct longitude and latitude are returned for a location in China
+        '''
+        person = Person.objects.create(name='Jackie Chan', gender='M', address='扯旗山 香港')
+        person.geocode_address()
+
+        self.assertEqual(22.28, round(person.latitude,2))
+        self.assertEqual(114.14, round(person.longitude,2))
+
+
+    def test_geocode_address_using_backup_UK(self):
+        '''
+        Tests that the correct longitude and latitude are returned for a UK address
+        using the backup geocoding service
+        '''
+        person = Person.objects.create(name='Brian Blessed', gender='M', address='Mexborough, Yorkshire')
+        person._geocode_address_using_backup()
+
+        self.assertEqual(53.5, round(person.latitude,1))
+        self.assertEqual(-1.3, round(person.longitude,1))
+
+
+    def test_geocode_address_using_backup_China(self):
+        '''
+        Tests that the correct longitude and latitude are returned for a location in China
+        using the backup geocoding service
+        '''
+        person = Person.objects.create(name='Sammo Hung', gender='M', address='星光大道 香港')
+        person._geocode_address_using_backup()
+
+        self.assertEqual(22.3, round(person.latitude,1))
+        self.assertEqual(114.2, round(person.longitude,1))

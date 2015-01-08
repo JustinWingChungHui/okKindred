@@ -25,7 +25,7 @@
             <tr>
                 <th>{% trans "Name" %}*</th>
                 <td>
-                    <a href="#" id="name" data-type="text" data-pk="{{ person.id }}" data-url="/update_person/" data-placeholder="{% trans "Required" %}" data-params="{csrfmiddlewaretoken:'{{csrf_token}}'}">
+                    <a href="#" id="name" data-type="text" data-title="{% trans "Name" %}" data-pk="{{ person.id }}" data-url="/update_person/" data-placeholder="{% trans "Required" %}" data-params="{csrfmiddlewaretoken:'{{csrf_token}}'}">
                         {{ person.name }}
                     </a>
                 </td>
@@ -34,7 +34,7 @@
             <tr>
                 <th>{% trans "Gender" %}*</th>
                 <td>
-                    <a href="#" id="gender" data-type="select" data-pk="{{ person.id }}" data-url="/update_person/" data-params="{csrfmiddlewaretoken:'{{csrf_token}}'}">
+                    <a href="#" id="gender" data-type="select" data-title="{% trans "Gender" %}" data-pk="{{ person.id }}" data-url="/update_person/" data-params="{csrfmiddlewaretoken:'{{csrf_token}}'}">
                         {{ person.get_gender_display }}
                     </a>
                 </td>
@@ -43,16 +43,16 @@
             <tr>
                 <th>{% trans "Birth Year" %}</th>
                 <td>
-                    <a href="#" id="birth_year" data-type="number" data-pk="{{ person.id }}" data-url="/update_person/" data-params="{csrfmiddlewaretoken:'{{csrf_token}}'}">
+                    <a href="#" id="birth_year" data-type="number" data-title="{% trans "Birth Year" %}" data-pk="{{ person.id }}" data-url="/update_person/" data-params="{csrfmiddlewaretoken:'{{csrf_token}}'}">
                         {{ person.birth_year }}
                     </a>
                 </td>
             </tr>
 
             <tr>
-                <th>{% trans "Death Year (0 if still alive)" %}</th>
+                <th>{% trans "Death Year (enter 0 if still alive)" %}</th>
                 <td>
-                    <a href="#" id="year_of_death" data-type="number" data-pk="{{ person.id }}" data-url="/update_person/" data-params="{csrfmiddlewaretoken:'{{csrf_token}}'}">
+                    <a href="#" id="year_of_death" data-type="number" data-title="{% trans "Death Year.  Enter 0 if still alive." %}" data-pk="{{ person.id }}" data-url="/update_person/" data-params="{csrfmiddlewaretoken:'{{csrf_token}}'}">
                         {{ person.year_of_death }}
                     </a>
                 </td>
@@ -61,7 +61,7 @@
             <tr>
                 <th>{% trans "Email" %}</th>
                 <td>
-                    <a href="#" id="email" data-type="text" data-pk="{{ person.id }}" data-url="/update_person/" data-params="{csrfmiddlewaretoken:'{{csrf_token}}'}">
+                    <a href="#" id="email" data-type="text" data-title="{% trans "Email" %}" data-pk="{{ person.id }}" data-url="/update_person/" data-params="{csrfmiddlewaretoken:'{{csrf_token}}'}">
                         {{ person.email }}
                     </a>
                 </td>
@@ -70,7 +70,7 @@
             <tr>
                 <th>{% trans "Tel Number" %}</th>
                 <td>
-                    <a href="#" id="telephone_number" data-type="text" data-pk="{{ person.id }}" data-url="/update_person/" data-params="{csrfmiddlewaretoken:'{{csrf_token}}'}">
+                    <a href="#" id="telephone_number" data-type="text" data-title="{% trans "Telephone/Mobile Number.  Include the country code if your family is across several countries" %}" data-pk="{{ person.id }}" data-url="/update_person/" data-params="{csrfmiddlewaretoken:'{{csrf_token}}'}">
                         {{ person.telephone_number }}
                     </a>
                 </td>
@@ -78,9 +78,9 @@
 
 
             <tr>
-                <th>{% trans "Website/Facebook" %}</th>
+                <th>{% trans "Website/Facebook/Twitter..." %}</th>
                 <td>
-                    <a href="#" id="website" data-type="text" data-pk="{{ person.id }}" data-url="/update_person/" data-params="{csrfmiddlewaretoken:'{{csrf_token}}'}">
+                    <a href="#" id="website" data-type="text" data-title="{% trans "Website/Facebook/Twitter etc..." %}" data-pk="{{ person.id }}" data-url="/update_person/" data-params="{csrfmiddlewaretoken:'{{csrf_token}}'}">
                         {{ person.website }}
                     </a>
                 </td>
@@ -90,7 +90,7 @@
             <tr>
                 <th>{% trans "Location" %}</th>
                 <td>
-                    <a href="#" id="address" data-type="text" data-pk="{{ person.id }}" data-url="/update_person/" data-params="{csrfmiddlewaretoken:'{{csrf_token}}'}">
+                    <a href="#" id="address" data-type="text" data-title="{% trans "Location.  Can be approximate e.g. Coventry, UK or 筲箕灣 香港" %}" data-pk="{{ person.id }}" data-url="/update_person/" data-params="{csrfmiddlewaretoken:'{{csrf_token}}'}">
                         {{ person.address }}
                     </a>
                 </td>
@@ -98,9 +98,9 @@
 
             {% if show_locked %}
                 <tr>
-                    <th>{% trans "Lock my profile (so only I can edit it)" %}</th>
+                    <th>{% trans "Locked" %}</th>
                     <td>
-                        <a href="#" id="locked" data-type="select" data-pk="{{ person.id }}" data-url="/update_person/" data-params="{csrfmiddlewaretoken:'{{csrf_token}}'}">
+                        <a href="#" id="locked" data-title="{% trans "Lock your profile, so only you can edit it?" %}" data-type="select" data-pk="{{ person.id }}" data-url="/update_person/" data-params="{csrfmiddlewaretoken:'{{csrf_token}}'}">
                             {% if person.locked %} {% trans "Yes" %} {% else %} {% trans "No" %} {% endif %}
                         </a>
                     </td>

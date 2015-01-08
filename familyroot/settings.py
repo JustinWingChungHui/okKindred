@@ -19,12 +19,15 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'tzmna-ijs#1+)gq5!-!v$+dsl%!9k&ed-5e94v-&w-n$z7m3-'
+from familyroot import secrets
+SECRET_KEY = secrets.SECRET_KEY
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
 TEMPLATE_DEBUG = False
+
+SSLIFY_DISABLE = False #Set this to true to run the unit tests!
 
 ALLOWED_HOSTS = [
                 '.okkindred.com',  # Allow domain and subdomains
@@ -60,8 +63,6 @@ WSGI_APPLICATION = 'familyroot.wsgi.application'
 
 
 # Database
-# https://docs.djangoproject.com/en/1.6/ref/settings/#databases
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
