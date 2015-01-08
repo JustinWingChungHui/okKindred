@@ -139,6 +139,7 @@ class Person(models.Model):
         '''
         super(Person, self).__init__(*args, **kwargs)
         self._original_email = self.email
+        self._original_address = self.address
 
 
     def is_valid_email(self,email):
@@ -194,7 +195,13 @@ class Person(models.Model):
         '''
         Overrides the save method to determine the calculated fields
         '''
+
         self.create_update_user()
+
+        #If address has changed, geocode it
+        if self._original_address != self.address:
+            self.geocode_address()
+
         super(Person, self).save(*args, **kwargs) # Call the "real" save() method.
 
 
