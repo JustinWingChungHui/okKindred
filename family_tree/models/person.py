@@ -2,6 +2,7 @@ from django.db import models
 from custom_user.models import User
 from django.utils.translation import ugettext_lazy as _
 from django.core.validators import validate_email
+from family_tree.models.family import Family
 
 #Localised Gender choices https://docs.djangoproject.com/en/1.7/ref/models/fields/#choices
 FEMALE ='F'
@@ -104,7 +105,7 @@ class Person(models.Model):
     name = models.CharField(max_length=255, db_index = True, unique = True, null = False, blank = False)
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES, null = False, blank = False)
     locked = models.BooleanField(default = False, null=False) #Allows a user to lock their profile
-
+    family = models.ForeignKey(Family, blank=False, null=False) #Family
 
     #Optional Fields
     birth_year = models.IntegerField(blank=True, null=False, default = 0)

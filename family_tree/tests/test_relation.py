@@ -1,5 +1,6 @@
 from django.test import TestCase
 from family_tree.models.person import Person
+from family_tree.models.family import Family
 from family_tree.models.relation import Relation, RAISED, RAISED_BY, PARTNERED
 
 class RelationTestCase(TestCase):
@@ -9,6 +10,10 @@ class RelationTestCase(TestCase):
 
 
     def setUp(self):
+
+        self.family = Family()
+        self.family.save()
+
         super(RelationTestCase, self).setUp()
 
 
@@ -16,10 +21,10 @@ class RelationTestCase(TestCase):
         '''
         Tests when a relation that a child is raised by parent, it resolves to parent raised child
         '''
-        parent = Person(name="parent", gender="F")
+        parent = Person(name="parent", gender="F", family_id=self.family.id)
         parent.save()
 
-        child = Person(name="child", gender="O")
+        child = Person(name="child", gender="O", family_id=self.family.id)
         child.save()
 
         relation = Relation(from_person_id = child.id, to_person_id = parent.id, relation_type = RAISED_BY)
@@ -35,10 +40,10 @@ class RelationTestCase(TestCase):
         '''
         Tests when a male partners a female, it resolves to females partners a male
         '''
-        male = Person(name="male", gender="M")
+        male = Person(name="male", gender="M", family_id=self.family.id)
         male.save()
 
-        female = Person(name="female", gender="F")
+        female = Person(name="female", gender="F", family_id=self.family.id)
         female.save()
 
         relation = Relation(from_person_id = male.id, to_person_id = female.id, relation_type = PARTNERED)
@@ -53,10 +58,10 @@ class RelationTestCase(TestCase):
         '''
         Tests when an other gender partners a female, it resolves to females partners an other gender
         '''
-        other = Person(name="other", gender="O")
+        other = Person(name="other", gender="O", family_id=self.family.id)
         other.save()
 
-        female = Person(name="female", gender="F")
+        female = Person(name="female", gender="F", family_id=self.family.id)
         female.save()
 
         relation = Relation(from_person_id = other.id, to_person_id = female.id, relation_type = PARTNERED)
@@ -72,10 +77,10 @@ class RelationTestCase(TestCase):
         Tests when a male partners an other gender, it resolves to other partners a male
         '''
 
-        other = Person(name="other", gender="O")
+        other = Person(name="other", gender="O", family_id=self.family.id)
         other.save()
 
-        male = Person(name="male", gender="M")
+        male = Person(name="male", gender="M", family_id=self.family.id)
         male.save()
 
         relation = Relation(from_person_id = other.id, to_person_id = male.id, relation_type = PARTNERED)
@@ -91,10 +96,10 @@ class RelationTestCase(TestCase):
         Tests when a female partners a male, the relationship does not change
         '''
 
-        female = Person(name="female", gender="F")
+        female = Person(name="female", gender="F", family_id=self.family.id)
         female.save()
 
-        male = Person(name="male", gender="M")
+        male = Person(name="male", gender="M", family_id=self.family.id)
         male.save()
 
 

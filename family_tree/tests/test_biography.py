@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from django.test import TestCase
+from family_tree.models.family import Family
 from family_tree.models.person import Person
 from family_tree.models.biography import Biography
 
@@ -11,6 +12,10 @@ class BiographyTestCase(TestCase):
 
 
     def setUp(self):
+
+        self.family = Family()
+        self.family.save()
+
         super(BiographyTestCase, self).setUp()
 
 
@@ -19,7 +24,7 @@ class BiographyTestCase(TestCase):
         Tests that a biography name can be written in non-latin characters
         """
 
-        person = Person(name='nonlatin', gender='M', email='nonlatin@example.com')
+        person = Person(name='nonlatin', gender='M', email='nonlatin@example.com', family_id=self.family.id)
         person.save()
 
         #Traditional Chinese
@@ -40,7 +45,7 @@ class BiographyTestCase(TestCase):
         '''
         Tests get_biography
         '''
-        person = Person(name='test_get_biography', gender='M', email='test_get_biography@example.com')
+        person = Person(name='test_get_biography', gender='M', email='test_get_biography@example.com', family_id=self.family.id)
         person.save()
 
         english = Biography(person_id = person.id, language = 'en', content='biography in english')
@@ -77,7 +82,7 @@ class BiographyTestCase(TestCase):
         '''
         Tests get_biography when no default, requested or english language exists, function returns whatever it can
         '''
-        person = Person(name='no_requested_no_default_no_english', gender='M', email='test_get_biography_no_requested_no_default_no_english@example.com')
+        person = Person(name='no_requested_no_default_no_english', gender='M', email='test_get_biography_no_requested_no_default_no_english@example.com', family_id=self.family.id)
         person.save()
 
         polish = Biography(person_id = person.id, language = 'pl', content='biography in polish')
@@ -90,7 +95,7 @@ class BiographyTestCase(TestCase):
         '''
         Tests get_biography when no biographies exist at all
         '''
-        person = Person(name='test_get_biography_no_biographies_at_all', gender='M', email='test_get_biography_no_biographies_at_all@example.com')
+        person = Person(name='test_get_biography_no_biographies_at_all', gender='M', email='test_get_biography_no_biographies_at_all@example.com', family_id=self.family.id)
         person.save()
 
         biog = Biography.objects.get_biography(person_id = person.id, requested_language = 'zh-hk', default_language = 'zh-hk')

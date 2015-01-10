@@ -1,6 +1,6 @@
 from django.test import TestCase
 from custom_user.models import User
-from family_tree.models import Person, Biography
+from family_tree.models import Person, Biography, Family
 from django.test.utils import override_settings
 
 @override_settings(SSLIFY_DISABLE=True)
@@ -10,10 +10,13 @@ class TestProfileViews(TestCase):
         '''
         Creates credientials as all views require login
         '''
-        self.user = User.objects.create_user(email='john_deacon@email.com', password='invisible man', name='John Deacon' )
+        self.family = Family()
+        self.family.save()
+
+        self.user = User.objects.create_user(email='john_deacon@email.com', password='invisible man', name='John Deacon')
         self.user.save()
 
-        self.person = Person.objects.create(name='John Deacon', gender='M', user_id=self.user.id, email='john_deacon@email.com')
+        self.person = Person.objects.create(name='John Deacon', gender='M', user_id=self.user.id, email='john_deacon@email.com', family_id=self.family.id)
         self.person.save()
 
         self.biography = Biography(person_id=self.person.id, language='en', content='')
@@ -22,7 +25,7 @@ class TestProfileViews(TestCase):
         self.user2 = User.objects.create_user(email='freddie_mercury@email.com', password='my love is dangerous', name='Freddie Mercury')
         self.user2.save()
 
-        self.person2 = Person.objects.create(name='Freddie Mercury', gender='M', user_id=self.user2.id, locked=True, email='freddie_mercury@email.com')
+        self.person2 = Person.objects.create(name='Freddie Mercury', gender='M', user_id=self.user2.id, locked=True, email='freddie_mercury@email.com', family_id=self.family.id)
         self.person2.save()
 
 
