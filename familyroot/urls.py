@@ -12,11 +12,11 @@ urlpatterns = patterns('',
     url(r'^$', 'familyroot.views.index', name='index'),
 
     #user auth urls
-    url(r'^accounts/login/$', 'familyroot.views.login'),
-    url(r'^accounts/auth/$', 'familyroot.views.auth_view'),
-    url(r'^accounts/logout/$', 'familyroot.views.logout'),
-    url(r'^accounts/logged_in/$', 'familyroot.views.logged_in'),
-    url(r'^accounts/invalid/$', 'familyroot.views.invalid_login'),
+    url(r'^accounts/login/$', 'custom_user.views.login'),
+    url(r'^accounts/auth/$', 'custom_user.views.auth_view'),
+    url(r'^accounts/logout/$', 'custom_user.views.logout'),
+    url(r'^accounts/logged_in/$', 'custom_user.views.logged_in'),
+    url(r'^accounts/invalid/$', 'custom_user.views.invalid_login'),
 
     #Tree Views
 

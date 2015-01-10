@@ -1,6 +1,7 @@
 from django.db import models
-from django.contrib.auth.models import User
+from custom_user.models import User
 from django.utils.translation import ugettext_lazy as _
+from django.core.validators import validate_email
 
 #Localised Gender choices https://docs.djangoproject.com/en/1.7/ref/models/fields/#choices
 FEMALE ='F'
@@ -142,53 +143,49 @@ class Person(models.Model):
         self._original_address = self.address
 
 
-    def is_valid_email(self,email):
-        '''
-        Tests if valid email address using regular expression
-        (from http://stackoverflow.com/questions/8022530/python-check-for-valid-email-address
-        and http://stackoverflow.com/questions/201323/using-a-regular-expression-to-validate-an-email-address)
-        '''
-        import re
-        if re.match("^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$", email):
-            return True
-        else:
-            return False
-
 
     def create_update_user(self):
         '''
         Creates a django user if an email address is supplied with  Person
         '''
-        #No email, then don't create a user
-        if not self.email or not self.is_valid_email(self.email):
+        #No email or email hasn't changed, then don't create a user
+        if not self.email or (self._original_email == self.email and self.id):
             return
 
+        if self.email:
+            validate_email(self.email)
 
-        if User.objects.filter(username = self.email).count() == 0:
+        #If person is already linked to a user
+        if self.user:
 
-            #User does not exist
-            if not self.is_valid_email(self._original_email) or User.objects.filter(username = self._original_email).count() == 0:
+            #Update user details
+            self.user.name=self.name
+            self.user.email = self.email
+            self.user.save()
+
+        else: #Person is not already linked to a user
+
+            user = User.objects.filter(email = self.email).first() #returns None if none already exists
+
+            #No user with this email already exists
+            if not user:
+
+                password=User.objects.make_random_password(length=8)
 
                 #Create a new user
-                user = User(username=self.email,
-                            email=self.email,
-                            password=User.objects.make_random_password(length=8))
-
+                user = User(email=self.email, name=self.name, password=password)
                 user.save()
+                self.user = user
 
+                return password
 
             else:
-                #Update existing user
-                user = User.objects.get(username = self._original_email)
-                user.username = self.email
-                user.email = self.email
-                user.save()
 
-        else:
-            #User already exists, link this profile with the user
-            user = User.objects.get(username = self.email)
-
-        self.user = user
+                #if user already is taken
+                if Person.objects.filter(user_id = user.id).count() > 0:
+                    raise Exception(_("Email Address is already in use!"))
+                else:
+                    self.user_id = user.id
 
 
     def save(self, *args, **kwargs):
@@ -201,6 +198,11 @@ class Person(models.Model):
         #If address has changed, geocode it
         if self._original_address != self.address:
             self.geocode_address()
+
+        #If no address then reset it to 0
+        if not self.address:
+            self.latitude = 0
+            self.longitude = 0
 
         super(Person, self).save(*args, **kwargs) # Call the "real" save() method.
 
@@ -265,6 +267,10 @@ class Person(models.Model):
             from geopy.geocoders import GoogleV3
             google_locator = GoogleV3(api_key = GOOGLE_API_KEY)
             location = google_locator.geocode(self.address)
+
+
+            if location.latitude == 0 and location.longitude ==0:
+                self._geocode_address_using_backup()
 
             self.latitude = location.latitude
             self.longitude = location.longitude

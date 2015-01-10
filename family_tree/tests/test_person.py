@@ -2,7 +2,7 @@
 
 from django.test import TestCase
 from family_tree.models.person import Person
-from django.contrib.auth.models import User
+from custom_user.models import User
 from family_tree.models.relation import Relation, RAISED, PARTNERED
 
 class PersonTestCase(TestCase):
@@ -12,17 +12,6 @@ class PersonTestCase(TestCase):
 
     def setUp(self):
         super(PersonTestCase, self).setUp()
-
-
-    def test_is_valid_email(self):
-        '''
-        test that a valid email passes, and an invalid fails
-        '''
-        person = Person.objects.create(name='John Wong', gender='M')
-        self.assertEqual(True, person.is_valid_email('adrianwas@amassivegayorgyandcollectedsomuchjizzhehastocarryitinajizzb.us'))
-        self.assertEqual(False, person.is_valid_email('adrianwasamassivegayorgyandcollectedsomuchjizzhehastocarryitinajizzb.us'))
-        self.assertEqual(False, person.is_valid_email('adrianwas@amassivegayorgyandcollectedsomuchjizzhehastocarryitinajizzbus'))
-
 
 
     def test_create_user_with_no_email(self):
@@ -47,8 +36,8 @@ class PersonTestCase(TestCase):
         person = Person(name='John Wong', gender='M', email='john1.wong@example.com')
         person.create_update_user()
 
-        self.assertEqual(1, User.objects.filter(username='john1.wong@example.com').count())
-        self.assertEqual(person.user_id, User.objects.get(username='john1.wong@example.com').id)
+        self.assertEqual(1, User.objects.filter(email='john1.wong@example.com').count())
+        self.assertEqual(person.user_id, User.objects.get(email='john1.wong@example.com').id)
 
 
     def test_update_user_when_email_changed(self):
@@ -62,9 +51,9 @@ class PersonTestCase(TestCase):
         person.email = 'a_different_email@example.com'
         person.create_update_user()
 
-        self.assertEqual(1, User.objects.filter(username='a_different_email@example.com').count())
-        self.assertEqual(0, User.objects.filter(username='john.wong2@example.com').count())
-        self.assertEqual(person.user_id, User.objects.get(username='a_different_email@example.com').id)
+        self.assertEqual(1, User.objects.filter(email='a_different_email@example.com').count())
+        self.assertEqual(0, User.objects.filter(email='john.wong2@example.com').count())
+        self.assertEqual(person.user_id, User.objects.get(email='a_different_email@example.com').id)
 
 
     def test_person_name_can_be_in_non_latic_characters(self):

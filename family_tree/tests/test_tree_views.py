@@ -1,5 +1,5 @@
 from django.test import TestCase
-from django.contrib.auth.models import User
+from custom_user.models import User
 from family_tree.models import Person, Relation
 from family_tree.models.relation import PARTNERED, RAISED
 from family_tree.views import get_css
@@ -12,10 +12,10 @@ class TestTreeViews(TestCase):
         '''
         Creates credientials as all views require login
         '''
-        user = User.objects.create_user(username='roger_taylor', password='nation of haircuts')
+        user = User.objects.create_user(email='roger_taylor@queenonline.com', password='nation of haircuts', name='Roger Taylor')
         user.save()
 
-        person = Person.objects.create(name='Roger Taylor', gender='M', user_id = user.id)
+        person = Person(name='Roger Taylor', gender='M', user_id = user.id, email='roger_taylor@queenonline.com')
         person.save()
 
         self.create_related_data_for_tests()
@@ -67,7 +67,7 @@ class TestTreeViews(TestCase):
         '''
         Tests that the users home screen loads and uses the correct template
         '''
-        self.client.login(username='roger_taylor', password='nation of haircuts')
+        self.client.login(email='roger_taylor@queenonline.com', password='nation of haircuts')
         response = self.client.get('/home/')
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'family_tree/tree.html')
@@ -76,7 +76,7 @@ class TestTreeViews(TestCase):
         '''
         Tests that a tree view loads for a given person and uses correct template
         '''
-        self.client.login(username='roger_taylor', password='nation of haircuts')
+        self.client.login(email='roger_taylor@queenonline.com', password='nation of haircuts')
         response = self.client.get('/person={0}/'.format(self.person.id))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'family_tree/tree.html')
@@ -87,11 +87,11 @@ class TestTreeViews(TestCase):
         Tests that the error screen loads and uses the correct template
         when a person is not found
         '''
-        user = User.objects.create_user(username='brian_may', password='resurrection')
+        user = User.objects.create_user(email='leroy_brown@queenonline.com', password='bring back that')
         user.save()
 
 
-        self.client.login(username='brian_may', password='resurrection')
+        self.client.login(email='leroy_brown@queenonline.com', password='bring back that')
         response = self.client.get('/home/')
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'family_tree/no_match_found.html')
