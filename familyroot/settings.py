@@ -23,9 +23,9 @@ from familyroot import secrets
 SECRET_KEY = secrets.SECRET_KEY
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-TEMPLATE_DEBUG = False
+TEMPLATE_DEBUG = True
 
 SSLIFY_DISABLE = False #Set this to true to run the unit tests!
 
@@ -43,6 +43,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'custom_user',
     'family_tree',
 )
 
@@ -56,6 +57,9 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
+
+# Custom user model
+AUTH_USER_MODEL = 'custom_user.User'
 
 ROOT_URLCONF = 'familyroot.urls'
 

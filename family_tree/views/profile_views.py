@@ -95,8 +95,8 @@ def update_person(request):
         person.save()
         return HttpResponse(status=200, content="OK")
 
-    except Exception:
-        return HttpResponse(status=405, content="Error updating person")
+    except Exception as e:
+        return HttpResponse(status=405, content=e)
 
 
 
