@@ -37,8 +37,8 @@ class User(AbstractBaseUser):
     http://stackoverflow.com/questions/16638414/set-email-as-username-in-django-1-5
     '''
 
-    email = models.EmailField(_('Email Address'), unique=True)
-    name = models.CharField(_('Name'), max_length=255, db_index = True, unique = True, null = False, blank = False)
+    email = models.EmailField(_('Email Address'), unique=True, db_index = True)
+    name = models.CharField(_('Name'), max_length=255, null = False, blank = False)
     is_staff = models.BooleanField(_('Staff status'), default=False, help_text=_('Designates whether the user can log into this admin site.'))
     is_superuser = models.BooleanField(_('Superuser'), default=False, help_text=_('Designates whether the user is superuser'))
     is_confirmed = models.BooleanField(_('Confirmed'), default=False, help_text=_('Designates whether the user has confirmed their membership'))

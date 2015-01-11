@@ -102,7 +102,7 @@ class Person(models.Model):
     objects = PersonManager()
 
     #Only required fields
-    name = models.CharField(max_length=255, db_index = True, unique = True, null = False, blank = False)
+    name = models.CharField(max_length=255, db_index = True, null = False, blank = False)
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES, null = False, blank = False)
     locked = models.BooleanField(default = False, null=False) #Allows a user to lock their profile
     family = models.ForeignKey(Family, blank=False, null=False) #Family
