@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load i18n %}
+
+{% block extrastyle %}
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/blueimp-file-upload/9.5.7/css/jquery.fileupload.min.css"/>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>{% trans "Image Upload" %}</h1>
+    <blockquote>
+        <p>
+            {% trans "Upload the profile photo for" %} {{person.name}}
+       </p>
+    </blockquote>
+
+    <span class="btn btn-success fileinput-button">
+        <i class="glyphicon glyphicon-plus"></i>
+        <span>{% trans "Select file..." %}</span>
+        <!-- The file input field used as target for the file upload widget -->
+        <input id="fileupload" type="file" name="picture">
+    </span>
+    <br/>
+    <br/>
+    <!-- The global progress bar -->
+    <div id="progress" class="progress">
+        <div class="progress-bar progress-bar-success"></div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extrascript %}
+    <!--From https://github.com/blueimp/jQuery-File-Upload/blob/master/basic.html -->
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-file-upload/9.5.7/jquery.iframe-transport.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-file-upload/9.5.7/jquery.fileupload.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+
+    <script>
+        /*jslint unparam: true */
+        /*global window, $ */
+        function csrfSafeMethod(method) {
+            // these HTTP methods do not require CSRF protection
+            return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+        }
+        $(function () {
+            'use strict';
+            // Change this to the location of your server-side upload handler:
+            var url = '/image_upload={{ person.id }}/';
+            var csrftoken = $.cookie('csrftoken');
+            $('#fileupload').fileupload({
+                url: url,
+                crossDomain: false,
+                beforeSend: function(xhr, settings) {
+                    if (!csrfSafeMethod(settings.type)) {
+                        xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                    }
+                },
+                dataType: 'json',
+
+                //navigate to resize image once uploaded
+                done: function (e, data) {
+                     $.each(data.result.files, function (index, file) {
+                         $('<p/>').text(file.name).appendTo('#files');
+                     });
+                 },
+
+
+                //Show uploading status
+                progressall: function (e, data) {
+                    var progress = parseInt(data.loaded / data.total * 100, 10);
+                    $('#progress .progress-bar').css(
+                        'width',
+                        progress + '%'
+                    );
+                }
+            }).prop('disabled', !$.support.fileInput)
+                .parent().addClass($.support.fileInput ? undefined : 'disabled');
+        });
+    </script>
+{% endblock %}

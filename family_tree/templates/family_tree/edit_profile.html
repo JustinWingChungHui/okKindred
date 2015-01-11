@@ -12,11 +12,13 @@
         <p><a class="btn btn-default" href="/profile={{ person.id }}/" role="button">&laquo;{%trans "Back" %}</a></p>
     </div>
     <div class="col-md-4">
-        {% if person.photo %}
-            <img src="/media/{{person.photo}}"/>
-        {% else %}
-            <img src="{% static "img/smiley.png" %}"/>
-        {% endif %}
+        <a href="/edit_profile_photo={{ person.id }}/">
+            {% if person.photo %}
+                <img src="/media/{{person.photo}}"/>
+            {% else %}
+                <img src="{% static "img/smiley.png" %}"/>
+            {% endif %}
+        </a>
     </div>
     <div class="col-md-8">
         <p>{% trans "Click to edit" %}</p>

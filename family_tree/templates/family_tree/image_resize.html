@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load i18n %}
+
+{% block extrastyle %}
+    <link rel="stylesheet" type="text/css" href="{% static "css/jquery.Jcrop.min.css" %}"/>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>{% trans "Image Resize" %}</h1>
+    <p>
+        {% trans "Please crop the image to suit a profile picture:" %}
+    </p>
+    <img src="{{ person.photo }}" id="target" />
+
+</div>
+{% endblock %}
+
+{% block extrascript %}
+    <script src={% static "js/jquery.Jcrop.min.js" %}></script>
+
+    <script language="Javascript">
+        jQuery(function($) {
+            $('#target').Jcrop({
+                bgColor:     'black',
+                bgOpacity:   .4,
+                setSelect:   [ 100, 100, 50, 50 ],
+                aspectRatio: 1
+            });
+        });
+    </script>
+
+{% endblock %}
