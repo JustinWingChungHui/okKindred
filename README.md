@@ -12,7 +12,7 @@ https://www.djangoproject.com/
 
 and will have prerequisites:
 - Python 3.4
-- Django 1.6
+- Django 1.7
 - Pillow
 - Bleach
 - Django SSLify
