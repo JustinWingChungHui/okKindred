@@ -1,14 +1,20 @@
 # encoding: utf-8
+
+import os
+import uuid
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.template import RequestContext, loader
 from family_tree.models import Person
-from django.utils.translation import ugettext_lazy as _
+#from django.utils.translation import ugettext_lazy as _
 from django.shortcuts import get_object_or_404
 from django.http import Http404
 from django.conf import settings
-from django.http import HttpResponseRedirect
+#from django.http import HttpResponseRedirect
+import json
+from django.core.urlresolvers import reverse
 
+#https://github.com/Alem/django-jfu
 #https://github.com/sigurdga/django-jquery-file-upload
 
 @login_required
@@ -31,7 +37,7 @@ def edit_profile_photo(request, person_id):
     response = template.render(context)
     return HttpResponse(response)
 
-
+#https://bitbucket.org/gruy/django-jquery-uploader/src/767bd9f2bf59fc9d0d2a228358e5f70608d2536a/jquery_uploader/views.py?at=default
 @login_required
 def image_upload(request, person_id):
     '''
@@ -45,22 +51,37 @@ def image_upload(request, person_id):
         raise Http404
 
     try:
-        import uuid
-        photo_file = settings.MEDIA_ROOT + '/profile_photos/' + str(uuid.uuid4())
-        f = request.FILES['picture']
+        uploaded = request.FILES['picture']
+
+        #get the name, and extension and create a unique filename
+        name, ext = os.path.splitext(uploaded.name)
+        filename =  str(uuid.uuid4()) + ext
+        photo_file = settings.MEDIA_ROOT + '/profile_photos/' + filename
+
+        #Write the file to the destination
         destination = open(photo_file, 'wb+')
 
-        for chunk in f.chunks():
+        for chunk in uploaded.chunks():
             destination.write(chunk)
         destination.close()
 
-        person.photo = photo_file
+        #Update the person object with the new photo
+        person.photo = 'profile_photos/' + filename
         person.save()
 
     except:
         raise Http404
 
-    return HttpResponseRedirect('/image_resize=%s/' % person_id)
+    result = []
+    result.append({
+        'delete_type': 'POST',
+        'delete_url': reverse('jquery_uploader_delete', args=[uploaded.name, ]),
+        'name': uploaded.name,
+        'size': uploaded.size,
+        'url': photo_file,
+    })
+    results = {'picture': result}
+    return HttpResponse(json.dumps(results), mimetype='application/json')
 
 
 @login_required

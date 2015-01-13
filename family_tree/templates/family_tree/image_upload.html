@@ -8,10 +8,10 @@
 
 {% block content %}
 <div class="container">
-    <h1>{% trans "Image Upload" %}</h1>
+    <h1>{% trans "New Profile Photo" %}</h1>
     <blockquote>
         <p>
-            {% trans "Upload the profile photo for" %} {{person.name}}
+            {% trans "Upload the new profile photo for" %} {{person.name}}
        </p>
     </blockquote>
 
@@ -27,6 +27,7 @@
     <div id="progress" class="progress">
         <div class="progress-bar progress-bar-success"></div>
     </div>
+    <div class="files" id="files"></div>
 </div>
 {% endblock %}
 
@@ -59,11 +60,12 @@
                     }
                 },
                 dataType: 'json',
-
+                acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
+                maxFileSize: 15000000, // 15 MB
                 //navigate to resize image once uploaded
                 done: function (e, data) {
                      $.each(data.result.files, function (index, file) {
-                         $('<p/>').text(file.name).appendTo('#files');
+                         $('<p/>').text('file.name').appendTo('#files');
                      });
                  },
 
