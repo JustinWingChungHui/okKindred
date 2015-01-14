@@ -48,12 +48,12 @@ class TestImageUploadViews(TestCase):
         #Check file has been uploaded and remove it
         import json
         data = json.loads(response.content.decode('utf-8'))
-        filename = settings.MEDIA_ROOT + 'profile_photos/' + data['picture']['filename']
+        filename = settings.MEDIA_ROOT + 'profile_photos/' + data['filename']
         os.remove(filename)
 
         #Reload object
         self.person = Person.objects.get(pk=self.person.id)
-        self.assertEqual('profile_photos/' + data['picture']['filename'],self.person.photo)
+        self.assertEqual('profile_photos/' + data['filename'],self.person.photo)
 
 
 
@@ -68,7 +68,10 @@ class TestImageUploadViews(TestCase):
             response = self.client.post('/image_upload={0}/'.format(self.person.id),{'picture': fp})
 
         self.assertEqual(200, response.status_code)
-        self.assertEqual(b'Invalid image!', response.content)
+        import json
+        data = json.loads(response.content.decode('utf-8'))
+
+        self.assertEqual('Invalid image!', data['error'])
 
         #Check no new files
         self.assertEqual(num_files, len([item for item in os.listdir( settings.MEDIA_ROOT + 'profile_photos/')]))

@@ -6,13 +6,24 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.template import RequestContext, loader
 from family_tree.models import Person
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import ugettext as _
 from django.shortcuts import get_object_or_404
 from django.http import Http404
 from django.conf import settings
-#from django.http import HttpResponseRedirect
-import json
 from PIL import Image
+import json
+import re
+
+
+MAX_FILE_SIZE = 15000000  # bytes
+
+
+def get_file_size(file):
+    file.seek(0, 2)  # Seek to the end of the file
+    size = file.tell()  # Get the position of EOF
+    file.seek(0)  # Reset the file position to the beginning
+    return size
+
 
 #https://blueimp.github.io/jQuery-File-Upload/basic-plus.html
 @login_required
@@ -48,45 +59,52 @@ def image_upload(request, person_id):
     if request.user.id != person.user_id and person.locked == True:
         raise Http404
 
-    try:
-        uploaded = request.FILES['picture']
 
-        #get the name, and extension and create a unique filename
-        name, ext = os.path.splitext(uploaded.name)
-        filename =  str(uuid.uuid4()) + ext
-        photo_file = settings.MEDIA_ROOT + 'profile_photos/' + filename
+    uploaded = request.FILES['picture']
 
-        #Write the file to the destination
-        destination = open(photo_file, 'wb+')
-
-        for chunk in uploaded.chunks():
-            destination.write(chunk)
-        destination.close()
-
-        #Check this is a valid image
-        try:
-            trial_image = Image.open(photo_file)
-            trial_image.verify()
-        except:
-            os.remove(photo_file)
-            return HttpResponse(_('Invalid image!'))
-
-
-        #Update the person object with the new photo
-        person.photo = 'profile_photos/' + filename
-        person.save()
-
-    except:
-        raise Http404
+    #get the name, and extension and create a unique filename
+    name, ext = os.path.splitext(uploaded.name)
+    filename =  str(uuid.uuid4()) + ext
+    photo_file = settings.MEDIA_ROOT + 'profile_photos/' + filename
 
     result = {
-            'name': uploaded.name,
-            'size': uploaded.size,
-            'url': '/media/profile_photos/' + filename,
-            'filename': filename,
-        }
-    results = {'picture': result}
-    return HttpResponse(json.dumps(results), content_type='application/json')
+        'name': uploaded.name,
+        'size': uploaded.size,
+        'url': '/media/profile_photos/' + filename,
+        'filename': filename,
+    }
+
+    if uploaded.size > MAX_FILE_SIZE:
+        result['error'] = _('File is too big')
+        return HttpResponse(json.dumps(result), content_type='application/json')
+
+    #Write the file to the destination
+    destination = open(photo_file, 'wb+')
+
+    for chunk in uploaded.chunks():
+        destination.write(chunk)
+    destination.close()
+
+    #Check this is a valid image
+    try:
+        trial_image = Image.open(photo_file)
+        trial_image.verify()
+    except:
+        os.remove(photo_file)
+        result['error'] = _('Invalid image!')
+        return HttpResponse(json.dumps(result), content_type='application/json')
+
+
+    #Update the person object with the new photo
+    person.photo = 'profile_photos/' + filename
+    person.save()
+
+
+
+
+    return HttpResponse(json.dumps(result), content_type='application/json')
+
+
 
 
 @login_required
