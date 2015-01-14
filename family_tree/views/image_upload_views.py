@@ -6,17 +6,15 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.template import RequestContext, loader
 from family_tree.models import Person
-#from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import ugettext_lazy as _
 from django.shortcuts import get_object_or_404
 from django.http import Http404
 from django.conf import settings
 #from django.http import HttpResponseRedirect
 import json
-from django.core.urlresolvers import reverse
+from PIL import Image
 
-#https://github.com/Alem/django-jfu
-#https://github.com/sigurdga/django-jquery-file-upload
-
+#https://blueimp.github.io/jQuery-File-Upload/basic-plus.html
 @login_required
 def edit_profile_photo(request, person_id):
     '''
@@ -37,7 +35,7 @@ def edit_profile_photo(request, person_id):
     response = template.render(context)
     return HttpResponse(response)
 
-#https://bitbucket.org/gruy/django-jquery-uploader/src/767bd9f2bf59fc9d0d2a228358e5f70608d2536a/jquery_uploader/views.py?at=default
+
 @login_required
 def image_upload(request, person_id):
     '''
@@ -56,7 +54,7 @@ def image_upload(request, person_id):
         #get the name, and extension and create a unique filename
         name, ext = os.path.splitext(uploaded.name)
         filename =  str(uuid.uuid4()) + ext
-        photo_file = settings.MEDIA_ROOT + '/profile_photos/' + filename
+        photo_file = settings.MEDIA_ROOT + 'profile_photos/' + filename
 
         #Write the file to the destination
         destination = open(photo_file, 'wb+')
@@ -65,6 +63,15 @@ def image_upload(request, person_id):
             destination.write(chunk)
         destination.close()
 
+        #Check this is a valid image
+        try:
+            trial_image = Image.open(photo_file)
+            trial_image.verify()
+        except:
+            os.remove(photo_file)
+            return HttpResponse(_('Invalid image!'))
+
+
         #Update the person object with the new photo
         person.photo = 'profile_photos/' + filename
         person.save()
@@ -72,16 +79,14 @@ def image_upload(request, person_id):
     except:
         raise Http404
 
-    result = []
-    result.append({
-        'delete_type': 'POST',
-        'delete_url': reverse('jquery_uploader_delete', args=[uploaded.name, ]),
-        'name': uploaded.name,
-        'size': uploaded.size,
-        'url': photo_file,
-    })
+    result = {
+            'name': uploaded.name,
+            'size': uploaded.size,
+            'url': '/media/profile_photos/' + filename,
+            'filename': filename,
+        }
     results = {'picture': result}
-    return HttpResponse(json.dumps(results), mimetype='application/json')
+    return HttpResponse(json.dumps(results), content_type='application/json')
 
 
 @login_required
@@ -107,3 +112,4 @@ def image_resize(request, person_id):
 
     response = template.render(context)
     return HttpResponse(response)
+
