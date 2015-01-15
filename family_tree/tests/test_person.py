@@ -279,3 +279,34 @@ class PersonTestCase(TestCase):
 
         self.assertEqual(22.3, round(person.latitude,1))
         self.assertEqual(114.2, round(person.longitude,1))
+
+
+    def test_set_hires_photo(self):
+        '''
+        Tests that the function correctly sets sets the photo field on a person and converts an image.
+        '''
+        from django.conf import settings
+
+        #Copy test image to media area
+        import shutil
+        import os
+        shutil.copy2(os.path.join(settings.BASE_DIR, 'family_tree/tests/large_test_image.jpg'), settings.MEDIA_ROOT + 'profile_photos/large_test_image.jpg')
+
+        person = Person(name='陳港生', gender='M', family_id=self.family.id)
+        person.set_hires_photo('large_test_image.jpg')
+
+        self.assertEqual('profile_photos/large_test_image.jpg', person.photo)
+
+        #Check this image is valid
+        from PIL import Image
+        image = Image.open(settings.MEDIA_ROOT + 'profile_photos/large_test_image.jpg')
+        image.verify()
+        width, height = image.size
+
+        self.assertEqual(300, width)
+        self.assertEqual(206, height) #maintains aspect ratio
+
+        self.assertEqual('profile_photos/large_test_image.jpg', person.photo)
+
+        #Clear up mess afterwards
+        os.remove(settings.MEDIA_ROOT + 'profile_photos/large_test_image.jpg')

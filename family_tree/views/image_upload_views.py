@@ -10,9 +10,8 @@ from django.utils.translation import ugettext as _
 from django.shortcuts import get_object_or_404
 from django.http import Http404
 from django.conf import settings
-from PIL import Image
 import json
-import re
+
 
 
 MAX_FILE_SIZE = 15000000  # bytes
@@ -64,14 +63,14 @@ def image_upload(request, person_id):
 
     #get the name, and extension and create a unique filename
     name, ext = os.path.splitext(uploaded.name)
-    filename =  str(uuid.uuid4()) + ext
-    photo_file = settings.MEDIA_ROOT + 'profile_photos/' + filename
+    filename =  str(uuid.uuid4()) +'.jpg'
+    photo_file = ''.join([settings.MEDIA_ROOT, 'profile_photos/', filename])
 
     result = {
         'name': uploaded.name,
         'size': uploaded.size,
         'url': '/media/profile_photos/' + filename,
-        'filename': filename,
+        'filename': filename ,
     }
 
     if uploaded.size > MAX_FILE_SIZE:
@@ -87,23 +86,15 @@ def image_upload(request, person_id):
 
     #Check this is a valid image
     try:
-        trial_image = Image.open(photo_file)
-        trial_image.verify()
-    except:
-        os.remove(photo_file)
-        result['error'] = _('Invalid image!')
+        person.set_hires_photo(filename)
+
+    except Exception as ex:
+        result['error'] = str(ex)
         return HttpResponse(json.dumps(result), content_type='application/json')
 
-
-    #Update the person object with the new photo
-    person.photo = 'profile_photos/' + filename
     person.save()
 
-
-
-
     return HttpResponse(json.dumps(result), content_type='application/json')
-
 
 
 

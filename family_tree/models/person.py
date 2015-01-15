@@ -1,8 +1,12 @@
 from django.db import models
 from custom_user.models import User
 from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import ugettext as tran
 from django.core.validators import validate_email
 from family_tree.models.family import Family
+from django.conf import settings
+from PIL import Image
+import os
 
 #Localised Gender choices https://docs.djangoproject.com/en/1.7/ref/models/fields/#choices
 FEMALE ='F'
@@ -301,4 +305,32 @@ class Person(models.Model):
 
         except:
             return
+
+
+    def set_hires_photo(self, filename):
+        '''
+        Checks file is an image and converts it to a small jpeg
+        '''
+        #Check this is a valid image
+        try:
+
+            path_and_filename = ''.join([settings.MEDIA_ROOT, 'profile_photos/', filename])
+            im = Image.open(path_and_filename)
+            im.verify()
+
+            #Open it again!
+            #http://stackoverflow.com/questions/12413649/python-image-library-attributeerror-nonetype-object-has-no-attribute-xxx
+            im = Image.open(path_and_filename).convert('RGB') #Convert to RGB
+            im.thumbnail((300,300), Image.ANTIALIAS) #Reasonble size to allow cropping down to 100x100
+
+            im.save(path_and_filename, "JPEG", quality=75)
+
+
+            self.photo = 'profile_photos/' + filename
+
+        except:
+            os.remove(path_and_filename)
+            raise Exception(tran("Invalid image!")) #Use tran here as it gets serialized so lazy tran fails
+
+
 
