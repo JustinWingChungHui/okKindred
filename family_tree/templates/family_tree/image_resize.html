@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load i18n %}
+
+{% block extrastyle %}
+    <link rel="stylesheet" type="text/css" href="{% static "css/jquery.Jcrop.min.css" %}"/>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>{% trans "Image Resize" %}</h1>
+    <p>
+		<form style="margin: 0; padding: 0;" action="/image_crop={{ person.id }}/" onsubmit="return checkCoords();" method="post">
+		    {% csrf_token %}
+		    <a class="btn btn-default" href="/profile={{ person.id }}/" role="button">&laquo;{%trans "Back" %}</a>
+			<input type="hidden" id="x" name="x" />
+			<input type="hidden" id="y" name="y" />
+			<input type="hidden" id="w" name="w" />
+			<input type="hidden" id="h" name="h" />
+			<input type="hidden" id="display_height" name="display_height" />
+			<input type="submit" value="{%trans "Save" %}&raquo;" class="btn btn-default" />
+		</form>
+
+    </p>
+    <p>
+        {% trans "Please trim the image to suit a profile picture:" %}
+    </p>
+    <img src="/media/{{ person.photo }}" id="crop_target"/>
+
+</div>
+{% endblock %}
+
+{% block extrascript %}
+    <script src={% static "js/jquery.Jcrop.min.js" %}></script>
+
+    <script language="Javascript">
+        jQuery(function($) {
+            $('#crop_target').Jcrop({
+                bgColor:     'black',
+                bgOpacity:   .4,
+                setSelect:   [ 200, 200, 50, 50 ],
+                aspectRatio: 1,
+                onSelect: updateCoords,
+                onChange: updateCoords,
+            });
+        });
+
+        function updateCoords(c)
+            {
+                $('#x').val(c.x);
+                $('#y').val(c.y);
+                $('#w').val(c.w);
+                $('#h').val(c.h);
+                $('#display_height').val($('#crop_target').height());
+            };
+
+          function checkCoords()
+            {
+                if (parseInt($('#w').val())) return true;
+                    alert('{% trans "Please select a trimmed region" %}');
+                return false;
+            };
+    </script>
+
+{% endblock %}

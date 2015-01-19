@@ -1,8 +1,13 @@
 from django.db import models
 from custom_user.models import User
 from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import ugettext as tran
 from django.core.validators import validate_email
 from family_tree.models.family import Family
+from django.conf import settings
+from PIL import Image
+import uuid
+import os
 
 #Localised Gender choices https://docs.djangoproject.com/en/1.7/ref/models/fields/#choices
 FEMALE ='F'
@@ -112,6 +117,9 @@ class Person(models.Model):
     year_of_death = models.IntegerField(blank=True, null=False, default = 0)
 
     photo = models.ImageField(upload_to='profile_photos', blank=True, null=False)
+    small_thumbnail = models.ImageField(upload_to='profile_photos', blank=True, null=False)
+    large_thumbnail = models.ImageField(upload_to='profile_photos', blank=True, null=False)
+
     email = NullableEmailField(blank=True, null=True, default=None, unique=True)
     telephone_number = models.CharField(max_length=30, blank=True, null=False)
     website = models.CharField(max_length=100, blank=True, null=False)
@@ -122,7 +130,7 @@ class Person(models.Model):
     longitude = models.FloatField(blank=True, null=False, default = 0)
 
     #Calculated Fields
-    user = models.ForeignKey(User, blank=True, null=True) #link this to a user if they have an email address
+    user = models.ForeignKey(User, blank=True, null=True, db_index = True) #link this to a user if they have an email address
     hierarchy_score = models.IntegerField(default = 100, db_index = True) #parents have lower score, children have higher
 
     #Tracking
@@ -299,3 +307,57 @@ class Person(models.Model):
         except:
             return
 
+
+    def set_hires_photo(self, filename):
+        '''
+        Checks file is an image and converts it to a small jpeg
+        '''
+        #Check this is a valid image
+        try:
+
+            path_and_filename = ''.join([settings.MEDIA_ROOT, 'profile_photos/', filename])
+            im = Image.open(path_and_filename)
+            im.verify()
+
+            #Open it again!
+            #http://stackoverflow.com/questions/12413649/python-image-library-attributeerror-nonetype-object-has-no-attribute-xxx
+            im = Image.open(path_and_filename).convert('RGB') #Convert to RGB
+            im.thumbnail((500,500), Image.ANTIALIAS) #Reasonble size to allow cropping down to 200x200
+
+            im.save(path_and_filename, "JPEG", quality=90)
+
+
+            self.photo = 'profile_photos/' + filename
+
+        except:
+            os.remove(path_and_filename)
+            raise Exception(tran("Invalid image!")) #Use tran here as it gets serialized so lazy tran fails
+
+
+
+    def crop_and_resize_photo(self, x, y, w, h, display_height):
+        '''
+        Crops the photo and produces a large and small thumbnail
+        '''
+
+        path_and_filename = ''.join([settings.MEDIA_ROOT, str(self.photo)])
+        im = Image.open(path_and_filename)
+
+        width, height=im.size
+        ratio = height / display_height
+
+        x = int(x * ratio)
+        y = int(y * ratio)
+        w = int(w * ratio)
+        h = int(h * ratio)
+
+        small_thumb_name = ''.join([str(uuid.uuid4()), 'small_thumb', '.jpg'])
+        large_thumb_name = ''.join([str(uuid.uuid4()), 'large_thumb', '.jpg'])
+
+        small_thumb = im.copy()
+        small_thumb.crop((x, y, x + w, y + h)).resize((80,80), Image.ANTIALIAS).save(''.join([settings.MEDIA_ROOT, 'profile_photos/', small_thumb_name]), "JPEG", quality=75)
+        self.small_thumbnail = 'profile_photos/' + small_thumb_name
+
+        large_thumb = im.copy()
+        large_thumb.crop((x, y, x + w, y + h)).resize((200,200), Image.ANTIALIAS).save(''.join([settings.MEDIA_ROOT, 'profile_photos/', large_thumb_name]), "JPEG", quality=75)
+        self.large_thumbnail = 'profile_photos/' + large_thumb_name

@@ -6,12 +6,13 @@
 <div class="container" style="padding-top: 20px;">
 
     <div class="col-md-12">
-        <p><a class="btn btn-default" href="/profile={{ person_id }}/" role="button">&laquo;{%trans "Back" %}</a></p>
-
-        <form role="form" action="/update_biography={{ person_id }}/ln={{ language }}/" method="post">
+        <form style="margin: 0; padding: 0;" role="form" action="/update_biography={{ person_id }}/ln={{ language }}/" method="post">
+            <p>
+                <a class="btn btn-default" href="/profile={{ person_id }}/" role="button">&laquo;{%trans "Back" %}</a>
+                <button class="btn btn-default" type="submit">{% trans "Save" %}&raquo;</button>
+            </p>
             {% csrf_token %}
             <textarea id="biography" type="biography" name="biography" >{{ biography.content }}</textarea>
-            <button class="btn btn-lg btn-primary btn-block" type="submit">{% trans "Save" %}</button>
         </form>
     </div>
 </div>

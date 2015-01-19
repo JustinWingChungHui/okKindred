@@ -9,19 +9,20 @@
 {% block content %}
 <div class="container" style="padding-top: 20px;">
     <div class="col-md-12">
-        <p><a class="btn btn-default" href="/profile={{ person.id }}/" role="button">&laquo;{%trans "Back" %}</a></p>
+        <p><a class="btn btn-default" href="/profile={{ person.id }}/" role="button">&laquo;{%trans "Done" %}</a></p>
     </div>
     <div class="col-md-4">
-        {% if person.photo %}
-            <img src="/media/{{person.photo}}"/>
-        {% else %}
-            <img src="{% static "img/smiley.png" %}"/>
-        {% endif %}
+        <a href="/edit_profile_photo={{ person.id }}/">
+            {% if person.large_thumbnail %}
+                <img src="/media/{{person.large_thumbnail}}"/>
+            {% else %}
+                <img src="{% static "img/smiley_200.jpg" %}"/>
+            {% endif %}
+        </a>
+        <p>{% trans "Click photo to upload new one" %}</p>
     </div>
     <div class="col-md-8">
-        <p>{% trans "Click to edit" %}</p>
         <table class="table table-striped">
-
             <tr>
                 <th>{% trans "Name" %}*</th>
                 <td>

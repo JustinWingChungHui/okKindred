@@ -146,3 +146,7 @@ def update_biography(request, person_id, requested_language):
     biography.content = request.POST.get("biography","")
     biography.save()
     return profile(request, person_id, requested_language)
+
+
+
+

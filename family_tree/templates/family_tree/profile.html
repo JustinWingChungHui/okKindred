@@ -19,11 +19,12 @@
         </p>
     </div>
     <div class="col-md-4">
-        {% if person.photo %}
-            <img src="/media/{{person.photo}}"/>
+        {% if person.large_thumbnail %}
+            <img src="/media/{{person.large_thumbnail}}"/>
         {% else %}
-            <img src="{% static "img/smiley.png" %}"/>
+            <img src="{% static "img/smiley_200.jpg" %}"/>
         {% endif %}
+            <br/>
     </div>
     <div class="col-md-8">
         <table class="table table-striped">
