@@ -62,10 +62,10 @@
         {% for relative in people %}
             <div id="person{{relative.id}}" class="w">
                 <a href="/person={{relative.id}}/">
-                    {% if relative.photo %}
-                        <img src="/media/{{relative.photo}}"/>
+                    {% if relative.small_thumbnail %}
+                        <img src="/media/{{relative.small_thumbnail}}"/>
                     {% else %}
-                        <img src="{% static "img/smiley.png" %}"/>
+                        <img src="{% static "img/smiley_80.jpg" %}"/>
                     {% endif %}
                     <p>
                         {{ relative.name }}
@@ -77,10 +77,10 @@
 
 
         <div id ="person{{person.id}}" class="w">
-            {% if person.photo %}
-                <img src="/media/{{person.photo}}"/>
+            {% if person.small_thumbnail %}
+                <img src="/media/{{person.small_thumbnail}}"/>
             {% else %}
-                <img src="{% static "img/smiley.png" %}"/>
+                <img src="{% static "img/smiley_80.jpg" %}"/>
             {% endif %}
             <p>
                 {{ person.name }}

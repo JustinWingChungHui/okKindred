@@ -3,7 +3,10 @@ from custom_user.models import User
 from family_tree.models import Person, Family
 from django.test.utils import override_settings
 from django.conf import settings
+import json
 import os
+import shutil
+
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 @override_settings(SSLIFY_DISABLE=True)
@@ -46,7 +49,6 @@ class TestImageUploadViews(TestCase):
         self.assertEqual(200, response.status_code)
 
         #Check file has been uploaded and remove it
-        import json
         data = json.loads(response.content.decode('utf-8'))
         filename = settings.MEDIA_ROOT + 'profile_photos/' + data['filename']
         os.remove(filename)
@@ -68,10 +70,40 @@ class TestImageUploadViews(TestCase):
             response = self.client.post('/image_upload={0}/'.format(self.person.id),{'picture': fp})
 
         self.assertEqual(200, response.status_code)
-        import json
         data = json.loads(response.content.decode('utf-8'))
 
         self.assertEqual('Invalid image!', data['error'])
 
         #Check no new files
         self.assertEqual(num_files, len([item for item in os.listdir( settings.MEDIA_ROOT + 'profile_photos/')]))
+
+
+    def test_image_resize_view_loads(self):
+        '''
+        test that we can upload a file
+        '''
+        self.client.login(email='fairy_fellar@email.com', password='masterstroke')
+
+        response = self.client.get('/image_resize={0}/'.format(self.person.id))
+
+        self.assertEqual(200, response.status_code)
+        self.assertTemplateUsed(response, 'family_tree/image_resize.html')
+
+    def test_image_crop_can_be_posted_to(self):
+        '''
+        Tests that the image_crop view can posted to
+        '''
+
+        #Copy test image to media area
+        shutil.copy2(os.path.join(settings.BASE_DIR, 'family_tree/tests/large_test_image.jpg'), settings.MEDIA_ROOT + 'profile_photos/large_test_image.jpg')
+
+        self.person.photo = 'profile_photos/large_test_image.jpg'
+        self.person.save()
+        self.client.login(email='fairy_fellar@email.com', password='masterstroke')
+
+        response = self.client.post('/image_crop={0}/'.format(self.person.id),{'x': 100, 'y': 200, 'w': 300, 'h': 300, 'display_height' : 1})
+
+        #Clear up mess afterwards
+        os.remove(settings.MEDIA_ROOT + 'profile_photos/large_test_image.jpg')
+
+        self.assertEqual(302, response.status_code)

@@ -5,6 +5,7 @@ from family_tree.models.person import Person
 from family_tree.models.family import Family
 from custom_user.models import User
 from family_tree.models.relation import Relation, RAISED, PARTNERED
+from PIL import Image
 
 class PersonTestCase(TestCase):
     '''
@@ -298,15 +299,52 @@ class PersonTestCase(TestCase):
         self.assertEqual('profile_photos/large_test_image.jpg', person.photo)
 
         #Check this image is valid
-        from PIL import Image
         image = Image.open(settings.MEDIA_ROOT + 'profile_photos/large_test_image.jpg')
         image.verify()
         width, height = image.size
 
-        self.assertEqual(300, width)
-        self.assertEqual(206, height) #maintains aspect ratio
+        self.assertEqual(500, width)
+        self.assertEqual(343, height) #maintains aspect ratio
 
         self.assertEqual('profile_photos/large_test_image.jpg', person.photo)
 
         #Clear up mess afterwards
         os.remove(settings.MEDIA_ROOT + 'profile_photos/large_test_image.jpg')
+
+
+    def test_crop_and_resize_photo(self):
+        '''
+        Tests that the function correctly sets two thumbnails of correct size
+        '''
+        from django.conf import settings
+
+        #Copy test image to media area
+        import shutil
+        import os
+        shutil.copy2(os.path.join(settings.BASE_DIR, 'family_tree/tests/large_test_image.jpg'), settings.MEDIA_ROOT + 'profile_photos/large_test_image.jpg')
+
+        person = Person(name='譚詠麟', gender='M', family_id=self.family.id)
+        person.photo = 'profile_photos/large_test_image.jpg'
+
+        person.crop_and_resize_photo(50, 50, 20, 20, 1)
+
+        #Check small thumbnail is valid
+        small = Image.open(settings.MEDIA_ROOT + str(person.small_thumbnail))
+        small.verify()
+        width, height = small.size
+
+        self.assertEqual(80, width)
+        self.assertEqual(80, height)
+
+        #Check large thumbnail is valid
+        large = Image.open(settings.MEDIA_ROOT + str(person.large_thumbnail))
+        large.verify()
+        width, height = large.size
+
+        self.assertEqual(200, width)
+        self.assertEqual(200, height)
+
+
+        #Clear up mess afterwards
+        os.remove(settings.MEDIA_ROOT + 'profile_photos/large_test_image.jpg')
+

@@ -6,6 +6,7 @@ from django.core.validators import validate_email
 from family_tree.models.family import Family
 from django.conf import settings
 from PIL import Image
+import uuid
 import os
 
 #Localised Gender choices https://docs.djangoproject.com/en/1.7/ref/models/fields/#choices
@@ -117,7 +118,7 @@ class Person(models.Model):
 
     photo = models.ImageField(upload_to='profile_photos', blank=True, null=False)
     small_thumbnail = models.ImageField(upload_to='profile_photos', blank=True, null=False)
-    large_thubnail = models.ImageField(upload_to='profile_photos', blank=True, null=False)
+    large_thumbnail = models.ImageField(upload_to='profile_photos', blank=True, null=False)
 
     email = NullableEmailField(blank=True, null=True, default=None, unique=True)
     telephone_number = models.CharField(max_length=30, blank=True, null=False)
@@ -321,9 +322,9 @@ class Person(models.Model):
             #Open it again!
             #http://stackoverflow.com/questions/12413649/python-image-library-attributeerror-nonetype-object-has-no-attribute-xxx
             im = Image.open(path_and_filename).convert('RGB') #Convert to RGB
-            im.thumbnail((300,300), Image.ANTIALIAS) #Reasonble size to allow cropping down to 100x100
+            im.thumbnail((500,500), Image.ANTIALIAS) #Reasonble size to allow cropping down to 200x200
 
-            im.save(path_and_filename, "JPEG", quality=75)
+            im.save(path_and_filename, "JPEG", quality=90)
 
 
             self.photo = 'profile_photos/' + filename
@@ -334,3 +335,29 @@ class Person(models.Model):
 
 
 
+    def crop_and_resize_photo(self, x, y, w, h, display_height):
+        '''
+        Crops the photo and produces a large and small thumbnail
+        '''
+
+        path_and_filename = ''.join([settings.MEDIA_ROOT, str(self.photo)])
+        im = Image.open(path_and_filename)
+
+        width, height=im.size
+        ratio = height / display_height
+
+        x = int(x * ratio)
+        y = int(y * ratio)
+        w = int(w * ratio)
+        h = int(h * ratio)
+
+        small_thumb_name = ''.join([str(uuid.uuid4()), 'small_thumb', '.jpg'])
+        large_thumb_name = ''.join([str(uuid.uuid4()), 'large_thumb', '.jpg'])
+
+        small_thumb = im.copy()
+        small_thumb.crop((x, y, x + w, y + h)).resize((80,80), Image.ANTIALIAS).save(''.join([settings.MEDIA_ROOT, 'profile_photos/', small_thumb_name]), "JPEG", quality=75)
+        self.small_thumbnail = 'profile_photos/' + small_thumb_name
+
+        large_thumb = im.copy()
+        large_thumb.crop((x, y, x + w, y + h)).resize((200,200), Image.ANTIALIAS).save(''.join([settings.MEDIA_ROOT, 'profile_photos/', large_thumb_name]), "JPEG", quality=75)
+        self.large_thumbnail = 'profile_photos/' + large_thumb_name

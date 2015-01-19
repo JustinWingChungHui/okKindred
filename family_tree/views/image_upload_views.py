@@ -10,6 +10,7 @@ from django.utils.translation import ugettext as _
 from django.shortcuts import get_object_or_404
 from django.http import Http404
 from django.conf import settings
+from django.http import HttpResponseRedirect
 import json
 
 
@@ -58,8 +59,10 @@ def image_upload(request, person_id):
     if request.user.id != person.user_id and person.locked == True:
         raise Http404
 
-
-    uploaded = request.FILES['picture']
+    try:
+        uploaded = request.FILES['picture']
+    except:
+        raise Http404
 
     #get the name, and extension and create a unique filename
     name, ext = os.path.splitext(uploaded.name)
@@ -122,3 +125,38 @@ def image_resize(request, person_id):
     response = template.render(context)
     return HttpResponse(response)
 
+
+@login_required
+def image_crop(request, person_id):
+    '''
+    Crops the image and assigns the thumbnails to the profile
+    '''
+    person = get_object_or_404(Person, id = person_id)
+
+    #Ensure that profile is not locked
+    if request.user.id != person.user_id and person.locked == True:
+        raise Http404
+
+    #Ensure that profile is not locked
+    if request.user.id != person.user_id and person.locked == True:
+        raise Http404
+
+    try:
+        x = int(request.POST.get("x"))
+        y = int(request.POST.get("y"))
+        w = int(request.POST.get("w"))
+        h = int(request.POST.get("h"))
+        display_height = int(request.POST.get("display_height"))
+    except:
+        raise Http404
+
+    if w != h:
+        raise Http404
+
+    if display_height == 0:
+        raise Http404
+
+    person.crop_and_resize_photo(x, y, w, h, display_height)
+    person.save()
+
+    return HttpResponseRedirect('/person={0}/'.format(person_id))
