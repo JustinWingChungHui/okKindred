@@ -2,24 +2,17 @@
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.template import RequestContext, loader
-from family_tree.models import Person, Biography
+from family_tree.models import Biography
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
-from django.shortcuts import get_object_or_404
-
+from family_tree.decorators import same_family_required
 
 @login_required
-def profile(request, person_id = 0, requested_language = '', edit_mode = False):
+@same_family_required
+def profile(request, person_id = 0, person = None, requested_language = '', edit_mode = False):
     '''
     Shows the profile of a person
     '''
-
-    #If no id is supplied then get users profile
-    if person_id == 0:
-        person = get_object_or_404(Person, user_id = request.user.id)
-    else:
-        person = get_object_or_404(Person, id = person_id)
-
 
     #Cannot enter edit mode if profile is locked
     if request.user.id != person.user_id and person.locked == True:
@@ -60,7 +53,8 @@ def profile(request, person_id = 0, requested_language = '', edit_mode = False):
 
 
 @login_required
-def edit_profile(request, person_id = 0, requested_language = ''):
+@same_family_required
+def edit_profile(request, person_id = 0, person = None, requested_language = ''):
     '''
     The form that allows a user to edit the details of a person.  It displays the for and processes it
     '''
@@ -70,7 +64,8 @@ def edit_profile(request, person_id = 0, requested_language = ''):
 
 
 @login_required
-def update_person(request):
+@same_family_required
+def update_person(request, person_id = 0, person = None):
     '''
     This is an API to set the property of a person field
     Expecting POST values of:
@@ -81,11 +76,6 @@ def update_person(request):
 
     if request.method != 'POST':
         return HttpResponse(status=405, content="Only POST requests allowed")
-
-    try:
-        person = Person.objects.get(id = request.POST.get("pk"))
-    except:
-        return HttpResponse(status=405, content="Person ID is invalid")
 
     if person.locked and person.user_id != request.user.id:
         return HttpResponse(status=405, content="Access denied to locked profile")
@@ -101,11 +91,11 @@ def update_person(request):
 
 
 @login_required
-def edit_biography(request, person_id = 0, requested_language = 'en'):
+@same_family_required
+def edit_biography(request, person_id = 0, person = None, requested_language = 'en'):
     '''
     View to edit the biography in a particular language
     '''
-
     try:
         biography = Biography.objects.get_biography(person_id, requested_language)
     except:
@@ -125,15 +115,11 @@ def edit_biography(request, person_id = 0, requested_language = 'en'):
 
 
 @login_required
-def update_biography(request, person_id, requested_language):
+@same_family_required
+def update_biography(request, person_id = 0, person = None, requested_language = 'en'):
     '''
     API to update biography
     '''
-
-    try:
-        person = Person.objects.get(id = person_id)
-    except:
-        return HttpResponse(status=405, content="Person ID is invalid")
 
     if person.locked and person.user_id != request.user.id:
         return HttpResponse(status=405, content="Access denied to locked profile")

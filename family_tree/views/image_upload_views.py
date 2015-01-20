@@ -5,12 +5,11 @@ import uuid
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.template import RequestContext, loader
-from family_tree.models import Person
 from django.utils.translation import ugettext as _
-from django.shortcuts import get_object_or_404
 from django.http import Http404
 from django.conf import settings
 from django.http import HttpResponseRedirect
+from family_tree.decorators import same_family_required
 import json
 
 
@@ -25,13 +24,12 @@ def get_file_size(file):
     return size
 
 
-#https://blueimp.github.io/jQuery-File-Upload/basic-plus.html
 @login_required
-def edit_profile_photo(request, person_id):
+@same_family_required
+def edit_profile_photo(request, person_id = 0, person = None):
     '''
     That shows the upload form
     '''
-    person = get_object_or_404(Person, id = person_id)
 
     #Ensure that profile is not locked
     if request.user.id != person.user_id and person.locked == True:
@@ -48,12 +46,11 @@ def edit_profile_photo(request, person_id):
 
 
 @login_required
-def image_upload(request, person_id):
+@same_family_required
+def image_upload(request, person_id = 0, person = None):
     '''
     View that receives the uploaded image
     '''
-
-    person = get_object_or_404(Person, id = person_id)
 
     #Ensure that profile is not locked
     if request.user.id != person.user_id and person.locked == True:
@@ -102,11 +99,11 @@ def image_upload(request, person_id):
 
 
 @login_required
-def image_resize(request, person_id):
+@same_family_required
+def image_resize(request, person_id = 0, person = None):
     '''
     Shows the image resize page
     '''
-    person = get_object_or_404(Person, id = person_id)
 
     #Ensure that profile is not locked
     if request.user.id != person.user_id and person.locked == True:
@@ -127,11 +124,11 @@ def image_resize(request, person_id):
 
 
 @login_required
-def image_crop(request, person_id):
+@same_family_required
+def image_crop(request, person_id = 0, person = None):
     '''
     Crops the image and assigns the thumbnails to the profile
     '''
-    person = get_object_or_404(Person, id = person_id)
 
     #Ensure that profile is not locked
     if request.user.id != person.user_id and person.locked == True:

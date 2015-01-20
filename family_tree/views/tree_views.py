@@ -3,24 +3,16 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.template import RequestContext, loader
 from family_tree.models import Person
-
+from family_tree.decorators import same_family_required
 
 
 @login_required
-def tree(request, person_id = 0):
+@same_family_required
+def tree(request, person_id = 0, person = None):
     '''
     Shows a tree view centred on the person
     Shows by default one relation distance
     '''
-
-    #If no id is supplied then we centre the view on the user
-    try:
-        if person_id == 0:
-            person = Person.objects.get(user_id = request.user.id)
-        else:
-            person = Person.objects.get(id = person_id)
-    except:
-        return no_match_found(request)
 
     related_data = Person.objects.get_related_data(person)
 
@@ -83,16 +75,4 @@ def get_css(centred_person, related_data, pixel_width):
     return ''.join(css)
 
 
-
-@login_required
-def no_match_found(request):
-    '''
-    Error page if person is not found
-    '''
-
-    template = loader.get_template('family_tree/no_match_found.html')
-
-    context = RequestContext(request)
-    response = template.render(context)
-    return HttpResponse(response)
 

@@ -70,7 +70,7 @@ class MyUserAdmin(UserAdmin):
     list_display = ('email', 'is_superuser')
     list_filter = ('is_superuser',)
     fieldsets = (
-        (None, {'fields': ('email', 'password')}),
+        (None, {'fields': ('email', 'password', 'family')}),
         ('Permissions', {'fields': ('is_superuser','is_confirmed')}),
     )
     # add_fieldsets is not a standard ModelAdmin attribute. UserAdmin

@@ -170,6 +170,7 @@ class Person(models.Model):
             #Update user details
             self.user.name=self.name
             self.user.email = self.email
+            self.user.family_id = self.family_id
             self.user.save()
 
         else: #Person is not already linked to a user
@@ -183,6 +184,7 @@ class Person(models.Model):
 
                 #Create a new user
                 user = User(email=self.email, name=self.name, password=password)
+                user.family_id = self.family_id
                 user.save()
                 self.user = user
 

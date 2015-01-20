@@ -45,6 +45,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'custom_user',
     'family_tree',
+    'axes',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -56,6 +57,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'axes.middleware.FailedLoginMiddleware',
 )
 
 # Custom user model
@@ -65,6 +67,11 @@ ROOT_URLCONF = 'familyroot.urls'
 
 WSGI_APPLICATION = 'familyroot.wsgi.application'
 
+
+#Django Axes config https://github.com/django-pci/django-axes
+AXES_LOGIN_FAILURE_LIMIT = 5
+AXES_COOLOFF_TIME = 24
+AXES_USERNAME_FORM_FIELD = "email"
 
 # Database
 DATABASES = {

@@ -44,6 +44,7 @@ class PersonTestCase(TestCase):
 
         self.assertEqual(1, User.objects.filter(email='john1.wong@example.com').count())
         self.assertEqual(person.user_id, User.objects.get(email='john1.wong@example.com').id)
+        self.assertEqual(person.family_id, User.objects.get(email='john1.wong@example.com').family_id)
 
 
     def test_update_user_when_email_changed(self):
@@ -60,6 +61,7 @@ class PersonTestCase(TestCase):
         self.assertEqual(1, User.objects.filter(email='a_different_email@example.com').count())
         self.assertEqual(0, User.objects.filter(email='john.wong2@example.com').count())
         self.assertEqual(person.user_id, User.objects.get(email='a_different_email@example.com').id)
+        self.assertEqual(person.family_id, User.objects.get(email='a_different_email@example.com').family_id)
 
 
     def test_person_name_can_be_in_non_latic_characters(self):

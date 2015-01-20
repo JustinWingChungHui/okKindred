@@ -45,6 +45,8 @@ class User(AbstractBaseUser):
     is_active = models.BooleanField(_('Active'), default=True, help_text=_('Designates whether this user should be treated as active. Unselect this instead of deleting accounts.'))
     date_joined = models.DateTimeField(_('Date Joined'),auto_now_add=True)
 
+    family = models.ForeignKey('family_tree.Family', null=True) #Use of model string name to prevent circular import
+
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['name'] #should not contain the USERNAME_FIELD or password as these fields will always be prompted for.
 

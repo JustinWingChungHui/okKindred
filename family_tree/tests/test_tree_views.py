@@ -91,19 +91,19 @@ class TestTreeViews(TestCase):
         Tests that the error screen loads and uses the correct template
         when a person is not found
         '''
-        user = User.objects.create_user(email='leroy_brown@queenonline.com', password='bring back that')
+        user = User.objects.create_user(email='leroy_brown@queenonline.com', password='bring back that', family_id = self.family.id)
         user.save()
 
 
         self.client.login(email='leroy_brown@queenonline.com', password='bring back that')
         response = self.client.get('/home/')
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'family_tree/no_match_found.html')
+        self.assertEqual(response.status_code, 404)
 
 
 
     def test_get_css(self):
         '''
+        Checks that the css returned from the get_css function is correct
         '''
         related_data = Person.objects.get_related_data(self.person)
 
@@ -116,4 +116,16 @@ class TestTreeViews(TestCase):
         self.assertEqual(True, dad_css in css)
 
 
+    def test_other_family_can_not_view_my_family_tree(self):
+        '''
+        Check people from different families cannot view each others profiles
+        '''
+        another_family = Family()
+        another_family.save()
 
+        user = User.objects.create_user(email='khashoggi@queenonline.com', password='party', family_id = another_family.id)
+        user.save()
+
+        self.client.login(email='khashoggi@queenonline.com', password='party')
+        response = self.client.get('/person={0}/'.format(self.person.id))
+        self.assertEqual(response.status_code, 404)

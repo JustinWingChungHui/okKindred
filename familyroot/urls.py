@@ -1,5 +1,6 @@
 from django.conf.urls import patterns, include, url
-
+from custom_user.views import login, auth_view
+from axes.decorators import watch_login
 from django.contrib import admin
 admin.autodiscover()
 
@@ -12,8 +13,8 @@ urlpatterns = patterns('',
     url(r'^$', 'familyroot.views.index', name='index'),
 
     #user auth urls
-    url(r'^accounts/login/$', 'custom_user.views.login'),
-    url(r'^accounts/auth/$', 'custom_user.views.auth_view'),
+    url(r'^accounts/login/$', watch_login(login)),
+    url(r'^accounts/auth/$', watch_login(auth_view)),
     url(r'^accounts/logout/$', 'custom_user.views.logout'),
     url(r'^accounts/logged_in/$', 'custom_user.views.logged_in'),
     url(r'^accounts/invalid/$', 'custom_user.views.invalid_login'),
@@ -30,7 +31,7 @@ urlpatterns = patterns('',
     #Edit Profile
     url(r'^edit_profile=(?P<person_id>\d+)/$', 'family_tree.views.edit_profile', name='edit_profile'),
     url(r'^edit_profile=(?P<person_id>\d+)/ln=(?P<requested_language>[a-zA-Z]{1,8}(-[a-zA-Z0-9]{1,8})*)/$', 'family_tree.views.edit_profile', name='edit_profile'),
-    url(r'^update_person/$', 'family_tree.views.update_person', name='update_person'),
+    url(r'^update_person=(?P<person_id>\d+)/$', 'family_tree.views.update_person', name='update_person'),
 
     #Editing biography
     url(r'^edit_biography=(?P<person_id>\d+)/ln=(?P<requested_language>[a-zA-Z]{1,8}(-[a-zA-Z0-9]{1,8})*)/$', 'family_tree.views.edit_biography', name='edit_biography'),
