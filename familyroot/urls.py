@@ -1,6 +1,5 @@
 from django.conf.urls import patterns, include, url
 from custom_user.views import login, auth_view
-from axes.decorators import watch_login
 from django.contrib import admin
 admin.autodiscover()
 
@@ -13,8 +12,8 @@ urlpatterns = patterns('',
     url(r'^$', 'familyroot.views.index', name='index'),
 
     #user auth urls
-    url(r'^accounts/login/$', watch_login(login)),
-    url(r'^accounts/auth/$', watch_login(auth_view)),
+    url(r'^accounts/login/$', login),
+    url(r'^accounts/auth/$', auth_view),
     url(r'^accounts/logout/$', 'custom_user.views.logout'),
     url(r'^accounts/logged_in/$', 'custom_user.views.logged_in'),
     url(r'^accounts/invalid/$', 'custom_user.views.invalid_login'),

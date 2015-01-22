@@ -72,6 +72,7 @@ WSGI_APPLICATION = 'familyroot.wsgi.application'
 AXES_LOGIN_FAILURE_LIMIT = 5
 AXES_COOLOFF_TIME = 24
 AXES_USERNAME_FORM_FIELD = "email"
+AXES_PROTECTED_LOGINS = ('/accounts/login/', '/accounts/auth/')
 
 # Database
 DATABASES = {

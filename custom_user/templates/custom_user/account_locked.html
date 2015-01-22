@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block content %}
+<div class="container">
+
+    <h4>{% trans "Your account has now been locked for 24 hours after 5 failed login attempts" %}</h4>
+    <h4>{% trans "If you need assistance, please email: " %}<a href = "mailto:info@okkindred.com">info@okkindred.com</a></h4>
+</div>
+{% endblock %}

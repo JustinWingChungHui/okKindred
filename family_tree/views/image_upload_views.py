@@ -134,10 +134,6 @@ def image_crop(request, person_id = 0, person = None):
     if request.user.id != person.user_id and person.locked == True:
         raise Http404
 
-    #Ensure that profile is not locked
-    if request.user.id != person.user_id and person.locked == True:
-        raise Http404
-
     try:
         x = int(request.POST.get("x"))
         y = int(request.POST.get("y"))

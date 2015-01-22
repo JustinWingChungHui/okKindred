@@ -26,9 +26,6 @@ class TestImageUploadViews(TestCase):
         self.person = Person.objects.create(name='Fairy Fellar', gender='M', user_id=self.user.id, email='fairy_fellar@email.com', family_id=self.family.id)
         self.person.save()
 
-        self.person_locked = Person.objects.create(name='', gender='M', user_id=self.user.id, email='fairy_fellar@email.com', family_id=self.family.id)
-        self.person.save()
-
         self.another_family = Family()
         self.another_family.save()
         self.another_user = User.objects.create_user(email='dale_arden@email.com', password="flash i love you", name='Dale Arden', family_id=self.another_family.id)
