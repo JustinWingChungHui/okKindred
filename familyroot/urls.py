@@ -19,7 +19,6 @@ urlpatterns = patterns('',
     url(r'^accounts/invalid/$', 'custom_user.views.invalid_login'),
 
     #Tree Views
-
     url(r'^home/$', 'family_tree.views.tree', name='tree'),
     url(r'^person=(?P<person_id>\d+)/$', 'family_tree.views.tree', name='tree'),
 
@@ -40,4 +39,8 @@ urlpatterns = patterns('',
     url(r'^image_upload=(?P<person_id>\d+)/$', 'family_tree.views.image_upload', name='image_upload'),
     url(r'^image_resize=(?P<person_id>\d+)/$', 'family_tree.views.image_resize', name='image_resize'),
     url(r'^image_crop=(?P<person_id>\d+)/$', 'family_tree.views.image_crop', name='image_crop'),
+
+    #Maps Views
+    url(r'^map/$', 'family_tree.views.map', name='map'),
+    url(r'^map=(?P<person_id>\d+)/$', 'family_tree.views.map', name='map'),
 )

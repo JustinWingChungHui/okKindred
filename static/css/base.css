@@ -113,3 +113,23 @@ textarea {
         max-width: 500px;
     }
 }
+
+/**CSS for maps**/
+#map_canvas {
+    height: 100%;
+    width: 100%;
+    left: 0;
+    position: absolute;
+    top: 50px;
+}
+
+.img-with-text {
+    text-align: center;
+    width: 90px;
+    float: left;
+}
+
+.img-with-text img {
+    display: block;
+    margin: 0 auto;
+}
