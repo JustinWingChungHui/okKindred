@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load i18n %}
+
+{% block extrastyle %}
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div id="map_canvas">Google Map</div>
+</div>
+{% endblock %}
+
+{% block extrascript %}
+
+    <script src="https://maps.google.com/maps/api/js?sensor=false" type="text/javascript"></script>
+
+    <script type="text/javascript">
+    $(document).ready(function() { initialize(); });
+
+    function initialize() {
+        var map_options = {
+            center: new google.maps.LatLng({{ this_person.latitude }},{{ this_person.longitude}}),
+            zoom: {{ zoom }},
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+
+        var google_map = new google.maps.Map(document.getElementById("map_canvas"), map_options);
+
+        var info_window = new google.maps.InfoWindow({
+            content: 'loading'
+        });
+
+        var t = [];
+        var x = [];
+        var y = [];
+        var h = [];
+        {% for location in locations %}
+            t.push('{{ location.name }}');
+            x.push({{ location.latitude }});
+            y.push({{ location.longitude }});
+
+            var marker =
+                        [
+                        {% for person in location.people %}
+                            '<div class="img-with-text"><a href="/profile={{ person.id }}/">',
+                            {% if person.small_thumbnail %}
+                                '<img src="/media/{{person.small_thumbnail}}"/>',
+                            {% else %}
+                                '<img src="{% static "img/smiley_80.jpg" %}"/>',
+                            {% endif %}
+                            '{{ person.name }}',
+                            '</a></div>',
+                        {% endfor %}
+                        ].join('');
+
+            h.push(marker);
+
+
+        {% endfor %}
+
+
+        var i = 0;
+        for ( item in t ) {
+            var m = new google.maps.Marker({
+                map:       google_map,
+                animation: google.maps.Animation.DROP,
+                title:     t[i],
+                position:  new google.maps.LatLng(x[i],y[i]),
+                html:      h[i]
+            });
+
+            google.maps.event.addListener(m, 'click', function() {
+                info_window.setContent(this.html);
+                info_window.open(google_map, this);
+            });
+            i++;
+        }
+    }
+</script>
+
+{% endblock %}

@@ -27,15 +27,17 @@
             <p>{% trans "Would you like to know the story of how and why we created this site?" %}</p>
             <p><a class="btn btn-default" href="#story" role="button">{%trans "View details" %}&raquo;</a></p>
         </div>
-        <div class="col-md-4">
-            <h2>{% trans "Contribute" %}</h2>
-            <p>{% trans "This site has been open sourced.  You can help contribute or set up your own family tree tracker!" %}</p>
-            <p><a class="btn btn-default" href="#contribute" role="button">{%trans "View details" %} &raquo;</a></p>
-        </div>
+
         <div class="col-md-4">
             <h2>{% trans "Contact Us" %}</h2>
             <p>{% trans "If you have any questions, need help using the site or have forgotten your password" %}</p>
             <p><a class="btn btn-default" href="#contact" role="button">{%trans "View details" %} &raquo;</a></p>
+        </div>
+
+        <div class="col-md-4">
+            <h2>{% trans "Security & Privacy" %}</h2>
+            <p>{% trans "The privacy and security of my family's data is of high importance" %}</p>
+            <p><a class="btn btn-default" href="#security" role="button">{%trans "View details" %} &raquo;</a></p>
         </div>
     </div>
 
@@ -43,53 +45,92 @@
     <div id="story" style="padding-top: 30px;">
         <h2>{% trans "How it started" %}</h2>
         <img src="{% static "img/justin_and_adrian.jpg" %}"/>
-        <p>{% trans "Hello.  I'm Justin on the left.  And I'm Adrian on the right." %}</p>
-        <p>{% trans "This is a website records our family tree and is a bit like a social network.  Our family members can maintain a profile on here and discover how far the tree reaches." %}</p>
-        <p>{% trans "As a person is added to the family tree, they receive an email so they may become a user and add more people to it." %}</p>
-        <p>{% trans "I several family gatherings with my girlfriend and have struggled to explain how we are all related.  My family is now very diverse with several ethnicities and resides across several continents." %}</p>
-        <p>{% trans "We wanted someway of documenting everyone and keep in touch as the family grows." %}</p>
-        <p><a class="btn btn-default" href="#top" role="button">&laquo;{%trans "Back" %}</a></p>
-    </div>
-
-    <hr>
-    <div id="contribute" style="padding-top: 30px;">
-        <h2>{% trans "Contribute" %}</h2>
-        <p>{% trans "This is an open source project, and if you have input or want to set up your own, we'd be happy to hear from you!" %}</p>
-        <p>{% trans "The source code is accessible from:" %}</p>
-        <p><a href = "https://github.com/JustinWingChungHui/MyFamilyRoot">https://github.com/JustinWingChungHui/MyFamilyRoot</a></p>
-
         <p>
-            {% trans "This project is built using the Python Django web framework:" %} <a href = "https://www.djangoproject.com/">https://www.djangoproject.com/</a>
-            {% trans "Many thanks to PyCon UK and to DjangoCon for inspiration." %} <a href="http://pyconuk.org/">PyCon UK</a>
-            {% trans "We also use Bleach and Pillow." %}
-        </p>
-
-        <p>{% trans "The layout was using Twitter bootstrap:" %} <a href = "http://getbootstrap.com/">http://getbootstrap.com/</a></p>
-
-        <p>{% trans "The family tree diagrams were made using jsPlumb:" %} <a href = "https://jsplumbtoolkit.com/doc/home.html">https://jsplumbtoolkit.com/doc/home.html</a></p>
-
-        <p>{% trans "We also use JQuery for various different things:" %} <a href = "http://jquery.com/">http://jquery.com/</a></p>
-
+        {% blocktrans %}
         <p>
-            {% trans "Form editing was created using X-editable:" %} <a href = "https://vitalets.github.io/x-editable/index.html">https://vitalets.github.io/x-editable/index.html</a>
-            {% trans "WYSIWYG editting is made using TinyMCE:" %} <a href = "http://www.tinymce.com/">http://www.tinymce.com/</a>
+            Hello.  I'm Justin on the left.  And I'm Adrian on the right.
         </p>
-
-        <p>{% trans "This project is made available through the GNU Public Licence.  This guarantees your freedom to use, study, share (copy), and modify the software." %}</p>
-        <p>{% trans "We do however ask you to mention us if you decide to use the code we have written!" %}</p>
-
+        <p>
+            This is a website to record our family tree and and act a bit like a social network.  Our family members can maintain a profile on here and discover how far the tree reaches
+            As a person is added to the family tree, they receive an email so they may become a user and add more people to it.
+            I attended several family gatherings recently and have struggled to explain how we are all related to others.  My family is now very diverse with several ethnicities and resides across several continents.
+            We wanted someway of documenting everyone and keep in touch as the family grows.
+        </p>
+        {% endblocktrans %}
         <p><a class="btn btn-default" href="#top" role="button">&laquo;{%trans "Back" %}</a></p>
     </div>
 
     <hr>
     <div id="contact" style="padding-top: 30px;">
         <h2>{% trans "Contact" %}</h2>
-        <p>{% trans "Contact us via email info@okkindred.com" %}</p>
-        <p>{% trans "If you are in our family we want to hear from you and are welcome to visit and stay round any time.  If you have a login to this site and are part of my family, you can get my telephone number and address from my profile!" %}</p>
+        {% blocktrans %}
+        <p>Contact us via email info@okkindred.com</p>
+        <p>
+            If you are in our family we want to hear from you and are welcome to visit and stay round any time.
+            If you have a login to this site and are part of my family, you can get my telephone number and address from my profile!
+        </p>
 
-        <p>{% trans "We're quite nice people and do like to talk to people interested in the sames things we are: Geek stuff, software, music and crazy pan global Chinese families.." %} </p>
+        <p>
+            Alternatively, if you are looking for some help using the site, or even if you want us to help you set up your own similar site please drop us a line!
+        </p>
+
+        <p>
+            We're quite nice people and do like to talk to people interested in the sames things we are: Geek stuff, software, music and crazy pan global Chinese families..
+        </p>
+        {% endblocktrans %}
         <p><a class="btn btn-default" href="#top" role="button">&laquo;{%trans "Back" %}</a></p>
     </div>
+
+    <hr>
+    <div id="security" style="padding-top: 30px;">
+        <h2>{% trans "Security & Privacy" %}</h2>
+        <p>
+        {% blocktrans %}
+        <p>
+            Obviously as this is our family data, we take security and privacy very seriously.  This will hopefully expose some of the measures we have taken.
+        </p>
+        <h4>Security</h4>
+        <p>
+            This entire site is loaded over <a href="https://www.globalsign.com/en/ssl-information-center/what-is-ssl/">Secure Socket Layer</a> (SSL).
+            This means that the information sent between you and this website is encrypted so people cannot listen in and steal the information as it is transmitted to the site.
+            We use 128 bit encryption which is an <a href ="http://www.inet2000.com/public/encryption.htm">industry standard</a>.
+            You should notice a padlock at the top of your web browser to show you that the connection to this website is secure.
+        </p>
+
+        <p>
+            We encrypt all stored passwords using the <a href="https://en.wikipedia.org/wiki/PBKDF2">PBKDF2 algorithm</a> with a
+            <a href="https://en.wikipedia.org/wiki/SHA-2">SHA256 hash</a>.  This is a recommendation by <a href="http://csrc.nist.gov/publications/nistpubs/800-132/nist-sp800-132.pdf">NIST</a>.
+            Our servers are located in the USA, and therefore are subject to USA law.
+        </p>
+        <p>
+            We adopt appropriate data collection, storage and processing practices and security measures to protect against unauthorized access, alteration, disclosure
+            or destruction of your personal information and transaction information and data stored on our site.
+        </p>
+
+        <h4>Privacy</h4>
+        <p>
+            Our site uses <a href="https://en.wikipedia.org/wiki/HTTP_cookie">cookies</a> to enhance your experience. Your web browser places cookies on your hard drive for record-keeping purposes and sometimes to track information about you.
+            In particular we use cookies to identify you so that you may our login to the site.
+        </p>
+
+        <p>
+            We do not sell, trade, or rent your personal identification information to others.
+            We do use third party <a href="https://en.wikipedia.org/wiki/Geocoding">geocoding</a> services.  This is to convert a location into a longitude and latitude so we can plot it on a map.
+            However no other identifying pieces of information (e.g. name) are supplied with this location.
+            We also may share generic aggregated demographic information not linked to any personal identification information.  For example we may disclose how many users we have in China.
+        </p>
+
+        <h4>Summary</h4>
+        <p>
+            In essence, the details of our family are on this site.  We would never try to do anything we think would jeapordise this data!
+        </p>
+
+        {% endblocktrans %}
+        </p>
+    </div>
+
+    <hr>
+
 
     <hr>
     <footer style="padding-top: 50px;">

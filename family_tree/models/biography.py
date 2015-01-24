@@ -81,8 +81,6 @@ class Biography(models.Model):
             "span", "div", "blockquote", "code", "hr",
             "ul", "ol", "li", "dd", "dt",
             "table","thead","tbody","tfoot","tr","th","td",
-            "img",
-            "a",
             ]
 
 
