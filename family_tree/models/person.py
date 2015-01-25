@@ -111,6 +111,7 @@ class Person(models.Model):
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES, null = False, blank = False)
     locked = models.BooleanField(default = False, null=False) #Allows a user to lock their profile
     family = models.ForeignKey(Family, blank=False, null=False, db_index = True) #Family
+    language = models.CharField(max_length=5, choices=settings.LOCALES, null = False, blank = False, default='en')
 
     #Optional Fields
     birth_year = models.IntegerField(blank=True, null=False, default = 0)
@@ -150,7 +151,30 @@ class Person(models.Model):
         super(Person, self).__init__(*args, **kwargs)
         self._original_email = self.email
         self._original_address = self.address
+        self.original_language = self.language
 
+
+    def have_user_details_changed(self):
+        '''
+        Do we need to update the user object?
+        '''
+        #No email no user
+        if not self.email:
+            return False
+
+        #Change in email
+        if (self._original_email != self.email):
+            return True
+
+        #Change in language
+        if (self.original_language != self.language):
+            return True
+
+        #New record
+        if not self.id:
+            return True
+
+        return False
 
 
     def create_update_user(self):
@@ -158,7 +182,7 @@ class Person(models.Model):
         Creates a django user if an email address is supplied with  Person
         '''
         #No email or email hasn't changed, then don't create a user
-        if not self.email or (self._original_email == self.email and self.id):
+        if not self.have_user_details_changed():
             return
 
         if self.email:
@@ -171,6 +195,7 @@ class Person(models.Model):
             self.user.name=self.name
             self.user.email = self.email
             self.user.family_id = self.family_id
+            self.user.language = self.language
             self.user.save()
 
         else: #Person is not already linked to a user
@@ -185,6 +210,7 @@ class Person(models.Model):
                 #Create a new user
                 user = User(email=self.email, name=self.name, password=password)
                 user.family_id = self.family_id
+                user.language = self.language
                 user.save()
                 self.user = user
 

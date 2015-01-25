@@ -59,14 +59,27 @@
                 </td>
             </tr>
 
-            <tr>
-                <th>{% trans "Email" %}</th>
-                <td>
-                    <a href="#" id="email" data-type="text" data-title="{% trans "Email" %}" data-pk="{{ person.id }}" data-url="/update_person={{ person.id }}/" data-params="{csrfmiddlewaretoken:'{{csrf_token}}'}">
-                        {{ person.email }}
-                    </a>
-                </td>
-            </tr>
+
+            {% if show_email_and_language %}
+                <tr>
+                    <th>{% trans "First Language" %}*</th>
+                    <td>
+                        <a href="#" id="language" data-type="select" data-title="{% trans "First Language" %}" data-pk="{{ person.id }}" data-url="/update_person={{ person.id }}/" data-params="{csrfmiddlewaretoken:'{{csrf_token}}'}">
+                            {{ person.get_language_display }}
+                        </a>
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <th>{% trans "Email" %}</th>
+                    <td>
+                        <a href="#" id="email" data-type="text" data-title="{% trans "Email" %}" data-pk="{{ person.id }}" data-url="/update_person={{ person.id }}/" data-params="{csrfmiddlewaretoken:'{{csrf_token}}'}">
+                            {{ person.email }}
+                        </a>
+                    </td>
+                </tr>
+            {% endif %}
 
             <tr>
                 <th>{% trans "Tel Number" %}</th>
@@ -145,6 +158,20 @@
                     if(!value) return '{% trans "Required field!" %}';
                 },
             });
+
+            $('#language').editable({
+                source: [
+                            {value: 'en', text: '{% trans "English" %}'},
+                            {value: 'zh-hk', text: '{% trans "Traditional Chinese" %}'},
+                            {value: 'zh-cn', text: '{% trans "Simplified Chinese" %}'},
+                            {value: 'pl', text: '{% trans "Polish" %}'},
+                            {value: 'fi', text: '{% trans "Finish" %}'},
+                        ],
+                validate: function(value) {
+                    if(!value) return '{% trans "Required field!" %}';
+                },
+            });
+
 
             $('#email').editable();
             $('#birth_year').editable();

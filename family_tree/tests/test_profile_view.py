@@ -33,13 +33,20 @@ class TestProfileViews(TestCase):
         self.another_user = User.objects.create_user(email='prince_vultan@email.com', password="gordon's alive", name='Prince Vultan', family_id=self.another_family.id)
         self.another_user.save()
 
+        self.confirmed_user = User.objects.create_user(email='general_kala@email.com', password='bring back his body', name='General Kala', family_id=self.family.id)
+        self.confirmed_user.is_confirmed = True
+        self.confirmed_user.save()
+
+        self.confirmed_person = Person.objects.create(name='General Kala', gender='F', user_id=self.confirmed_user.id, locked=False, email='general_kala@email.com', family_id=self.family.id)
+        self.confirmed_person.save()
+
 
     def test_home_profile_loads(self):
         '''
         Tests that the users home screen loads and uses the correct template
         '''
         self.client.login(email='john_deacon@email.com', password='invisible man')
-        response = self.client.get('/profile={0}/'.format(self.person.id))
+        response = self.client.get('/en/profile={0}/'.format(self.person.id))
         self.assertEqual(200, response.status_code)
         self.assertTemplateUsed(response, 'family_tree/profile.html')
 
@@ -49,7 +56,7 @@ class TestProfileViews(TestCase):
         Test that people in different families cannot see profile
         '''
         self.client.login(email='prince_vultan@email.com', password="gordon's alive")
-        response = self.client.get('/profile={0}/'.format(self.person.id))
+        response = self.client.get('/en/profile={0}/'.format(self.person.id))
         self.assertEqual(404, response.status_code)
 
 
@@ -58,7 +65,7 @@ class TestProfileViews(TestCase):
         Tests that the edit profile view loads and uses the correct template
         '''
         self.client.login(email='john_deacon@email.com', password='invisible man')
-        response = self.client.get('/edit_profile={0}/'.format(self.person.id))
+        response = self.client.get('/en/edit_profile={0}/'.format(self.person.id))
         self.assertEqual(200, response.status_code)
         self.assertTemplateUsed(response, 'family_tree/edit_profile.html')
 
@@ -68,7 +75,7 @@ class TestProfileViews(TestCase):
         Test that people in different families cannot see profile
         '''
         self.client.login(email='prince_vultan@email.com', password="gordon's alive")
-        response = self.client.get('/edit_profile={0}/'.format(self.person.id))
+        response = self.client.get('/en/edit_profile={0}/'.format(self.person.id))
         self.assertEqual(404, response.status_code)
 
 
@@ -132,6 +139,7 @@ class TestProfileViews(TestCase):
         self.assertEqual("John Richard Deacon", self.person.name)
 
 
+
     def test_update_person_can_update_boolean(self):
         '''
         Tests that a boolean field can be updated through api
@@ -146,6 +154,17 @@ class TestProfileViews(TestCase):
         self.assertEqual(200, response.status_code)
         self.person = Person.objects.get(id=self.person.id)
         self.assertEqual(False, self.person.locked)
+
+    def test_update_person_cannot_update_email_with_confirmed_user(self):
+        '''
+        Tests that an invalid response is sent when trying to change a persons profile that is attached
+        to a confirmed user
+        '''
+        self.client.login(email='john_deacon@email.com', password='invisible man')
+        response = self.client.post('/update_person={0}/'.format(self.confirmed_person.id), {'pk': self.confirmed_person.id, 'name': 'email', 'value': 'general_kala@evil.com'})
+        self.assertEqual(405, response.status_code)
+        self.assertEqual(b"Access denied to change confirmed user settings", response.content)
+
 
     def test_update_biography_denied_with_invalid_person_id(self):
         '''

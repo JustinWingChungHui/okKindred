@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.utils.translation import ugettext_lazy as _
+from django.conf import settings
 
 class UserManager(BaseUserManager):
 
@@ -46,6 +47,8 @@ class User(AbstractBaseUser):
     date_joined = models.DateTimeField(_('Date Joined'),auto_now_add=True)
 
     family = models.ForeignKey('family_tree.Family', null=True) #Use of model string name to prevent circular import
+    language = models.CharField(max_length=5, choices=settings.LOCALES, null = False, blank = False, default='en')
+
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['name'] #should not contain the USERNAME_FIELD or password as these fields will always be prompted for.

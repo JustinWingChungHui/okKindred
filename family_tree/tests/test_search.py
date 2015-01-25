@@ -36,7 +36,7 @@ class TestSearchViews(TestCase):
         Tests the search page loads correctly
         '''
         self.client.login(email='killer_queen@email.com', password='gunpowder')
-        response = self.client.get('/search/')
+        response = self.client.get('/en/search/')
 
         self.assertEqual(200, response.status_code)
         self.assertTrue(b'Search' in response.content)

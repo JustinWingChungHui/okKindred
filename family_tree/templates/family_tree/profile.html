@@ -53,6 +53,11 @@
                 </tr>
             {% endif %}
 
+                <tr>
+                  <th>{% trans "First Language" %}</th>
+                  <td>{{ person.get_language_display }}</td>
+                </tr>
+
             {% if person.email %}
                 <tr>
                   <th>{% trans "Email" %}</th>

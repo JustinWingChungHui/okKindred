@@ -96,7 +96,7 @@ class Email(models.Model):
 
 class FamilyNewsLetter(models.Model):
     '''
-    Represents a daily newsletter to infor an entire family of updates
+    Represents a daily newsletter to inform an entire family of updates
     '''
     class Meta:
         #Allows models.py to be split up across multiple files
