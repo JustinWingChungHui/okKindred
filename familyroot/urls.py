@@ -26,6 +26,14 @@ urlpatterns = patterns('',
     url(r'^profile=(?P<person_id>\d+)/$', 'family_tree.views.profile', name='profile'),
     url(r'^profile=(?P<person_id>\d+)/ln=(?P<requested_language>[a-zA-Z]{1,8}(-[a-zA-Z0-9]{1,8})*)/$', 'family_tree.views.profile', name='profile'),
 
+    #Maps Views
+    url(r'^map/$', 'family_tree.views.map', name='map'),
+    url(r'^map=(?P<person_id>\d+)/$', 'family_tree.views.map', name='map'),
+
+    #Search Views
+    url(r'^search/$', 'family_tree.views.search', name='search'),
+    url(r'^get_search_results_json/$', 'family_tree.views.get_search_results_json', name='get_search_results'),
+
     #Edit Profile
     url(r'^edit_profile=(?P<person_id>\d+)/$', 'family_tree.views.edit_profile', name='edit_profile'),
     url(r'^edit_profile=(?P<person_id>\d+)/ln=(?P<requested_language>[a-zA-Z]{1,8}(-[a-zA-Z0-9]{1,8})*)/$', 'family_tree.views.edit_profile', name='edit_profile'),
@@ -40,7 +48,5 @@ urlpatterns = patterns('',
     url(r'^image_resize=(?P<person_id>\d+)/$', 'family_tree.views.image_resize', name='image_resize'),
     url(r'^image_crop=(?P<person_id>\d+)/$', 'family_tree.views.image_crop', name='image_crop'),
 
-    #Maps Views
-    url(r'^map/$', 'family_tree.views.map', name='map'),
-    url(r'^map=(?P<person_id>\d+)/$', 'family_tree.views.map', name='map'),
+
 )

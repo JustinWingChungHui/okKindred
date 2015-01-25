@@ -55,23 +55,15 @@ Based on Twitters bootstrap http://getbootstrap.com/getting-started/#whats-inclu
 
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                  <li><a href="/">{% trans "Tree" %}</a></li> <!--use  class="active" to highlight it -->
-                  <li><a href="/map/">{% trans "Map" %}</a></li>
-                  <li><a href="/about/">{% trans "About" %}</a></li>
-
+                    <li><a href="/">{% trans "Tree" %}</a></li> <!--use  class="active" to highlight it -->
+                    <li><a href="/map/">{% trans "Map" %}</a></li>
+                    <li><a href="/search/">{% trans "Search" %}</a></li>
+                    <li><a href="/about/">{% trans "About" %}</a></li>
                 </ul>
 
 
 
                 <ul class="nav navbar-nav navbar-right">
-                    <li>
-                        <form class="navbar-form navbar-right" role="form" action="/search/" method="GET">{% csrf_token %}
-                            <div class="form-group">
-                              <input type="text" class="form-control">
-                            </div>
-                            <button type="submit" class="btn btn-success">{% trans "Search" %}</button>
-                        </form>
-                    </li>
                   <li><a href="/accounts/logout/">{% trans "Log Out" %}</a></li>
                 </ul>
             </div><!--/.navbar-collapse -->
