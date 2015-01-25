@@ -348,6 +348,10 @@ class Person(models.Model):
         width, height=im.size
         ratio = height / display_height
 
+        #Prevent picture becoming too big during crop
+        if ratio > 6:
+            raise Exception(tran("Invalid image!"))
+
         x = int(x * ratio)
         y = int(y * ratio)
         w = int(w * ratio)

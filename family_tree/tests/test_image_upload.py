@@ -136,7 +136,7 @@ class TestImageUploadViews(TestCase):
         self.person.save()
         self.client.login(email='fairy_fellar@email.com', password='masterstroke')
 
-        response = self.client.post('/image_crop={0}/'.format(self.person.id),{'x': 100, 'y': 200, 'w': 300, 'h': 300, 'display_height' : 1})
+        response = self.client.post('/image_crop={0}/'.format(self.person.id),{'x': 100, 'y': 200, 'w': 300, 'h': 300, 'display_height' : 550})
 
         #Clear up mess afterwards
         os.remove(settings.MEDIA_ROOT + 'profile_photos/large_test_image.jpg')
@@ -154,7 +154,7 @@ class TestImageUploadViews(TestCase):
         self.person.save()
 
         self.client.login(email='dale_arden@email.com', password='flash i love you')
-        response = self.client.post('/image_crop={0}/'.format(self.person.id),{'x': 100, 'y': 200, 'w': 300, 'h': 300, 'display_height' : 1})
+        response = self.client.post('/image_crop={0}/'.format(self.person.id),{'x': 100, 'y': 200, 'w': 300, 'h': 300, 'display_height' : 550})
 
         #Clear up mess afterwards
         os.remove(settings.MEDIA_ROOT + 'profile_photos/large_test_image.jpg')

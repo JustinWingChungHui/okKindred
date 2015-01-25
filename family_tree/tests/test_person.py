@@ -328,7 +328,7 @@ class PersonTestCase(TestCase):
         person = Person(name='譚詠麟', gender='M', family_id=self.family.id)
         person.photo = 'profile_photos/large_test_image.jpg'
 
-        person.crop_and_resize_photo(50, 50, 20, 20, 1)
+        person.crop_and_resize_photo(50, 50, 20, 20, 800)
 
         #Check small thumbnail is valid
         small = Image.open(settings.MEDIA_ROOT + str(person.small_thumbnail))

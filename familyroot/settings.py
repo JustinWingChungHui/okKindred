@@ -46,6 +46,7 @@ INSTALLED_APPS = (
     'custom_user',
     'family_tree',
     'axes',
+    'emailer',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -73,6 +74,15 @@ AXES_LOGIN_FAILURE_LIMIT = 5
 AXES_COOLOFF_TIME = 24
 AXES_USERNAME_FORM_FIELD = "email"
 AXES_PROTECTED_LOGINS = ('/accounts/login/', '/accounts/auth/')
+
+#Email Configuration
+EMAIL_SUBJECT_PREFIX = ''
+EMAIL_USE_SSL = True
+EMAIL_HOST = secrets.EMAIL_HOST
+EMAIL_PORT = secrets.EMAIL_PORT
+EMAIL_HOST_USER = secrets.EMAIL_HOST_USER
+EMAIL_HOST_PASSWORD = secrets.EMAIL_HOST_PASSWORD
+
 
 # Database
 DATABASES = {
