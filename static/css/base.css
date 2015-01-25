@@ -133,3 +133,11 @@ textarea {
     display: block;
     margin: 0 auto;
 }
+
+
+
+/** CSS for search page **/
+.search_photo {
+    width:60px;
+}
+
