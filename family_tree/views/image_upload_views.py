@@ -54,12 +54,13 @@ def image_upload(request, person_id = 0, person = None):
 
     #Ensure that profile is not locked
     if request.user.id != person.user_id and person.locked == True:
-        raise Http404
+        return Http404
 
     try:
         uploaded = request.FILES['picture']
     except:
         raise Http404
+
 
     #get the name, and extension and create a unique filename
     name, ext = os.path.splitext(uploaded.name)

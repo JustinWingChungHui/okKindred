@@ -20,12 +20,24 @@ def profile(request, person_id = 0, person = None, requested_language = '', edit
 
 
     if edit_mode:
+
+        #Cannot edit the first language or email of someone else if they are a confirmed user
+        if not person.user_id:
+            show_email_and_language = True
+        else:
+            if not person.user.is_confirmed or request.user.id == person.user_id:
+                show_email_and_language = True
+            else:
+                show_email_and_language = False
+
+
         template = loader.get_template('family_tree/edit_profile.html')
         context = RequestContext(request,{
                                     'person' : person,
                                     'languages' : settings.LOCALES,
                                     'requested_language': requested_language,
                                     'show_locked': (True if request.user.id == person.user_id else False),
+                                    'show_email_and_language' : show_email_and_language,
                                 })
     else:
 
@@ -77,11 +89,19 @@ def update_person(request, person_id = 0, person = None):
     if request.method != 'POST':
         return HttpResponse(status=405, content="Only POST requests allowed")
 
+    #Make sure we can't change locked profiles
     if person.locked and person.user_id != request.user.id:
         return HttpResponse(status=405, content="Access denied to locked profile")
 
+    field_name = request.POST.get("name")
+
+    #Check we don't change any settings for a confirmed user
+    if person.user_id and field_name in ['email', 'language']:
+        if person.user.is_confirmed and person.user_id != request.user.id:
+            return HttpResponse(status=405, content="Access denied to change confirmed user settings")
+
     try:
-        setattr(person, request.POST.get("name"), request.POST.get("value"))
+        setattr(person, field_name, request.POST.get("value"))
         person.save()
         return HttpResponse(status=200, content="OK")
 

@@ -24,7 +24,7 @@ def map(request, person_id = 0, person = None):
     context = RequestContext(request,{
                                     'this_person' : person,
                                     'locations' : locations.values(),
-                                    'zoom' : 3 if request.user.id == person.user_id else 10
+                                    'zoom' : 6 if request.user.id == person.user_id else 10
                                 })
 
     response = template.render(context)

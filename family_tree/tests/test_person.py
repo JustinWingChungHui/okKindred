@@ -39,19 +39,20 @@ class PersonTestCase(TestCase):
         Tests that a user is created when a person is created with an email
         '''
 
-        person = Person(name='John Wong', gender='M', email='john1.wong@example.com', family_id=self.family.id)
+        person = Person(name='John Wong', gender='M', email='john1.wong@example.com', family_id=self.family.id, language='pl')
         person.create_update_user()
 
         self.assertEqual(1, User.objects.filter(email='john1.wong@example.com').count())
         self.assertEqual(person.user_id, User.objects.get(email='john1.wong@example.com').id)
         self.assertEqual(person.family_id, User.objects.get(email='john1.wong@example.com').family_id)
+        self.assertEqual('pl', User.objects.get(email='john1.wong@example.com').language)
 
 
     def test_update_user_when_email_changed(self):
         '''
         Tests that a user is updated when a person's email is modified
         '''
-        person = Person(name='John Wong', gender='M', email='john.wong2@example.com', family_id=self.family.id)
+        person = Person(name='John Wong', gender='M', email='john.wong2@example.com', family_id=self.family.id, language='pl')
         person.create_update_user()
         person.save()
 
@@ -62,6 +63,7 @@ class PersonTestCase(TestCase):
         self.assertEqual(0, User.objects.filter(email='john.wong2@example.com').count())
         self.assertEqual(person.user_id, User.objects.get(email='a_different_email@example.com').id)
         self.assertEqual(person.family_id, User.objects.get(email='a_different_email@example.com').family_id)
+        self.assertEqual('pl', User.objects.get(email='a_different_email@example.com').language)
 
 
     def test_person_name_can_be_in_non_latic_characters(self):
@@ -328,7 +330,7 @@ class PersonTestCase(TestCase):
         person = Person(name='譚詠麟', gender='M', family_id=self.family.id)
         person.photo = 'profile_photos/large_test_image.jpg'
 
-        person.crop_and_resize_photo(50, 50, 20, 20, 1)
+        person.crop_and_resize_photo(50, 50, 20, 20, 800)
 
         #Check small thumbnail is valid
         small = Image.open(settings.MEDIA_ROOT + str(person.small_thumbnail))

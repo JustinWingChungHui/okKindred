@@ -46,6 +46,7 @@ INSTALLED_APPS = (
     'custom_user',
     'family_tree',
     'axes',
+    'emailer',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -74,13 +75,25 @@ AXES_COOLOFF_TIME = 24
 AXES_USERNAME_FORM_FIELD = "email"
 AXES_PROTECTED_LOGINS = ('/accounts/login/', '/accounts/auth/')
 
+#Email Configuration
+EMAIL_SUBJECT_PREFIX = ''
+EMAIL_USE_SSL = True
+EMAIL_HOST = secrets.EMAIL_HOST
+EMAIL_PORT = secrets.EMAIL_PORT
+EMAIL_HOST_USER = secrets.EMAIL_HOST_USER
+EMAIL_HOST_PASSWORD = secrets.EMAIL_HOST_PASSWORD
+
+
 # Database
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.sqlite3',
+#        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#    }
+#}
+
+DATABASES = secrets.DATABASES
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/

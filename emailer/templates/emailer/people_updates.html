@@ -1,0 +1,38 @@
+{% extends "emailer/base_email.html" %}
+{% load i18n %}
+
+{% block content %}
+{% if new_people %}
+<p>
+    {% trans "The following people have been added to your family in ok!Kindred.  Click on them to find out more:" %}
+    <ul>
+        {% for person in new_people %}
+        <li>
+            <a href ="https://www.okkindred.com/profile={{ person.person_id }}">
+                {{ person.person_name }}
+            </a>
+        </li>
+        {% endfor %}
+
+    </ul>
+
+</p>
+{% endif %}
+
+{% if updated_people %}
+<p>
+    {% trans "The following people's profiles have been updated.   Click on them to find out more:" %}
+    <ul>
+        {% for person in updated_people %}
+        <li>
+            <a href ="https://www.okkindred.com/profile={{ person.person_id }}">
+                {{ person.person_name }}
+            </a>
+        </li>
+        {% endfor %}
+
+    </ul>
+</p>
+{% endif %}
+
+{% endblock %}

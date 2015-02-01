@@ -27,6 +27,10 @@
     <div id="progress" class="progress">
         <div class="progress-bar progress-bar-success"></div>
     </div>
+    <div id="processing_wait" style="display:none;">
+        <img src="{% static "img/ajax-loader.gif" %}"/> {% trans "Processing..." %}
+    </div>
+    <div id="error_text" style="display:none;">{% trans "Error uploading image" %}</div>
     <div class="files" id="files"></div>
 </div>
 {% endblock %}
@@ -38,47 +42,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-file-upload/9.5.7/jquery.iframe-transport.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-file-upload/9.5.7/jquery.fileupload.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+    <script src="{% static "js/app_file_upload.js" %}"></script>
 
-    <script>
-        /*jslint unparam: true */
-        /*global window, $ */
-        function csrfSafeMethod(method) {
-            // these HTTP methods do not require CSRF protection
-            return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
-        }
-        $(function () {
-            'use strict';
-            // Change this to the location of your server-side upload handler:
-            var url = '/image_upload={{ person.id }}/';
-            var csrftoken = $.cookie('csrftoken');
-            $('#fileupload').fileupload({
-                url: url,
-                crossDomain: false,
-                beforeSend: function(xhr, settings) {
-                    if (!csrfSafeMethod(settings.type)) {
-                        xhr.setRequestHeader("X-CSRFToken", csrftoken);
-                    }
-                },
-                dataType: 'json',
-                acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
-                maxFileSize: 15000000, // 15 MB
-                //navigate to resize image once uploaded
-                done: function (e, data) {
-                     window.location.href = '/image_resize={{ person.id }}/';
-                     //TODO Display Error messages
-                 },
-
-
-                //Show uploading status
-                progressall: function (e, data) {
-                    var progress = parseInt(data.loaded / data.total * 100, 10);
-                    $('#progress .progress-bar').css(
-                        'width',
-                        progress + '%'
-                    );
-                }
-            }).prop('disabled', !$.support.fileInput)
-                .parent().addClass($.support.fileInput ? undefined : 'disabled');
-        });
-    </script>
 {% endblock %}
