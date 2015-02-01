@@ -84,7 +84,7 @@ class TestProfileViews(TestCase):
         Tests that get requests are not allowed
         '''
         self.client.login(email='john_deacon@email.com', password='invisible man')
-        response = self.client.get('/update_person=1/')
+        response = self.client.get('/update_person={0}/'.format(self.person2.id))
         self.assertEqual(405, response.status_code)
         self.assertEqual(b"Only POST requests allowed", response.content)
 

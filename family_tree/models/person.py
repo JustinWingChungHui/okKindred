@@ -48,29 +48,29 @@ class PersonManager(models.Manager):
                                                 INNER JOIN family_tree_relation r
                                                     ON r.from_person_id = p.id
                                                 WHERE r.to_person_id = %s AND r.relation_type = 2
-                                                ORDER BY p.hierarchy_score, gender
+                                                ORDER BY hierarchy_score, gender;
                                         """, [person.id]))
 
         people_same_level = list(Person.objects.raw("""  SELECT p.*
                                                     FROM family_tree_person p
                                                     INNER JOIN family_tree_relation r
                                                         ON r.from_person_id = p.id
-                                                    WHERE r.to_person_id = {0} AND r.relation_type = 1
+                                                        AND r.to_person_id = {0} AND r.relation_type = 1
                                                     UNION ALL
                                                     SELECT p.*
                                                     FROM family_tree_person p
                                                     INNER JOIN family_tree_relation r
                                                         ON r.to_person_id = p.id
-                                                    WHERE r.from_person_id = {0} AND r.relation_type = 1
-                                                    ORDER BY p.hierarchy_score, gender
+                                                        AND r.from_person_id = {0} AND r.relation_type = 1
+                                                    ORDER BY hierarchy_score, gender;
                                         """.format(person.id)))
 
         people_lower = list(Person.objects.raw("""   SELECT p.*
                                                 FROM family_tree_person p
                                                 INNER JOIN family_tree_relation r
                                                     ON r.to_person_id = p.id
-                                                WHERE r.from_person_id = %s AND r.relation_type = 2
-                                                ORDER BY p.hierarchy_score, gender
+                                                    AND r.from_person_id = %s AND r.relation_type = 2
+                                                ORDER BY hierarchy_score, gender;
                                         """, [person.id]))
 
         return related_data(people_upper, people_same_level, people_lower, relations)

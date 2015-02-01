@@ -86,14 +86,14 @@ def update_person(request, person_id = 0, person = None):
         value: new value
     '''
 
-    field_name = request.POST.get("name")
-
     if request.method != 'POST':
         return HttpResponse(status=405, content="Only POST requests allowed")
 
     #Make sure we can't change locked profiles
     if person.locked and person.user_id != request.user.id:
         return HttpResponse(status=405, content="Access denied to locked profile")
+
+    field_name = request.POST.get("name")
 
     #Check we don't change any settings for a confirmed user
     if person.user_id and field_name in ['email', 'language']:

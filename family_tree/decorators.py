@@ -1,7 +1,7 @@
 from family_tree.models import Person
 from django.shortcuts import get_object_or_404
-from django.http import Http404
 from functools import wraps
+from django.http import HttpResponse
 
 def same_family_required(func):
     '''
@@ -12,15 +12,19 @@ def same_family_required(func):
     @wraps(func)
     def inner(request, person_id = 0, person = None, *args, **kwargs):
 
-        if person_id == 0:
-            person = get_object_or_404(Person, user_id = request.user.id)
-        else:
-            person = get_object_or_404(Person, id = person_id)
+        try:
 
-        if request.user.family_id == person.family_id:
-            request.session['django_language'] = request.user.language
+            if person_id == 0:
+                person = get_object_or_404(Person, user_id = request.user.id)
+            else:
+                person = get_object_or_404(Person, id = person_id)
+
+            if request.user.family_id == person.family_id:
+                request.session['django_language'] = request.user.language
+
             return func(request=request, person_id=person_id, person=person, *args, **kwargs)
-        else:
-            raise Http404
+
+        except Exception as e:
+            return HttpResponse(str(e))
 
     return inner
