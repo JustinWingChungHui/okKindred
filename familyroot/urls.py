@@ -13,6 +13,7 @@ urlpatterns = patterns('',
     url(r'^image_crop=(?P<person_id>\d+)/$', 'family_tree.views.image_crop', name='image_crop'),
     url(r'^image_upload=(?P<person_id>\d+)/$', 'family_tree.views.image_upload', name='image_upload'),
     url(r'^get_search_results_json/$', 'family_tree.views.get_search_results_json', name='get_search_results'),
+    url(r'^delete=(?P<person_id>\d+)/$', 'family_tree.views.delete_profile', name='delete_profile'),
 )
 
 

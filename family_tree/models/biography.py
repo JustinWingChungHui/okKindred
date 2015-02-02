@@ -1,6 +1,7 @@
 from django.db import models
 from family_tree.models.person import Person
 from django.conf import settings
+import bleach
 
 class BiographyManager(models.Manager):
     '''
@@ -93,6 +94,5 @@ class Biography(models.Model):
         '''
         Overrides the save method to sanitise the content field
         '''
-        import bleach
         self.content = bleach.clean(text=self.content, tags=self.allowed_print_tags)
         super(Biography, self).save(*args, **kwargs) # Call the "real" save() method.

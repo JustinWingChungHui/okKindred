@@ -5,7 +5,6 @@ from django.http import HttpResponse
 from django.template import RequestContext, loader
 from family_tree.models import Person
 
-
 @login_required
 @same_family_required
 def map(request, person_id = 0, person = None):
@@ -20,11 +19,12 @@ def map(request, person_id = 0, person = None):
 
         locations[point].people.append(member)
 
+
     template = loader.get_template('family_tree/family_map.html')
     context = RequestContext(request,{
                                     'this_person' : person,
                                     'locations' : locations.values(),
-                                    'zoom' : 6 if request.user.id == person.user_id else 10
+                                    'zoom' : 6 if request.user.id == person.user_id else 10,
                                 })
 
     response = template.render(context)

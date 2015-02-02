@@ -6,6 +6,7 @@ from family_tree.models import Biography
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 from family_tree.decorators import same_family_required
+from django.http import HttpResponseRedirect
 
 @login_required
 @same_family_required
@@ -24,11 +25,17 @@ def profile(request, person_id = 0, person = None, requested_language = '', edit
         #Cannot edit the first language or email of someone else if they are a confirmed user
         if not person.user_id:
             show_email_and_language = True
+            can_delete= True
         else:
             if not person.user.is_confirmed or request.user.id == person.user_id:
                 show_email_and_language = True
             else:
                 show_email_and_language = False
+
+            if person.user.is_confirmed:
+                can_delete= False
+            else:
+                can_delete= True
 
 
         template = loader.get_template('family_tree/edit_profile.html')
@@ -38,6 +45,7 @@ def profile(request, person_id = 0, person = None, requested_language = '', edit
                                     'requested_language': requested_language,
                                     'show_locked': (True if request.user.id == person.user_id else False),
                                     'show_email_and_language' : show_email_and_language,
+                                    'can_delete' : can_delete,
                                 })
     else:
 
@@ -109,6 +117,22 @@ def update_person(request, person_id = 0, person = None):
         return HttpResponse(status=405, content=e)
 
 
+@login_required
+@same_family_required
+def delete_profile(request, person_id = 0, person = None):
+    '''
+    API to delete a person
+    '''
+
+    #Cannot delete any profile of a confirmed user
+    if person.user_id and person.user.is_confirmed:
+        return HttpResponse(status=405, content="Cannot delete user profile")
+
+    person.delete()
+
+    return HttpResponseRedirect('/home/')
+
+
 
 @login_required
 @same_family_required
@@ -151,6 +175,10 @@ def update_biography(request, person_id = 0, person = None, requested_language =
 
     biography.content = request.POST.get("biography","")
     biography.save()
+
+    #Set last updated date on person
+    person.save()
+
     return profile(request, person_id, requested_language)
 
 
