@@ -14,6 +14,7 @@ class TestProfileViews(TestCase):
         self.family.save()
 
         self.user = User.objects.create_user(email='john_deacon@email.com', password='invisible man', name='John Deacon', family_id=self.family.id)
+        self.user.is_confirmed = True
         self.user.save()
 
         self.person = Person.objects.create(name='John Deacon', gender='M', user_id=self.user.id, email='john_deacon@email.com', family_id=self.family.id)
@@ -212,3 +213,35 @@ class TestProfileViews(TestCase):
         self.assertEqual(200, response.status_code)
         biography = Biography.objects.get(person_id=self.person2.id, language='en')
         self.assertEqual('new content', biography.content)
+
+    def test_cannot_delete_profile_of_a_confirmed_user(self):
+        '''
+        Make sure that you cannot delete the profile of someone who is a user
+        '''
+        self.client.login(email='freddie_mercury@email.com', password='my love is dangerous')
+
+        response = self.client.get('/delete={0}/'.format(self.person.id))
+
+
+        self.assertEqual(405, response.status_code)
+
+        #Check it exists
+        person = Person.objects.get(id=self.person.id)
+        self.assertEqual(self.person.id, person.id)
+
+
+    def test_cannot_delete_profile(self):
+        '''
+        Make sure that you cannot delete the profile of someone who is a user
+        '''
+        person = Person.objects.create(name='David Tennant', gender='M', family_id=self.family.id)
+        person.save()
+
+        self.client.login(email='freddie_mercury@email.com', password='my love is dangerous')
+
+        response = self.client.get('/delete={0}/'.format(person.id))
+
+        self.assertEqual(302, response.status_code)
+
+        #Check it has been deleted
+        self.assertEqual(0, Person.objects.filter(id = person.id).count())
