@@ -31,26 +31,29 @@
     /* Desktops and laptops --  --  --  --  -- - */
     @media only screen
     and (min-device-width : 1024px)
-    and (max-device-width : 1223px) {
+    and (max-device-width : 1199px) {
         {{ css_1024 }}
     }
 
     @media only screen
     and (min-device-width : 1200px)
+    and (max-device-width : 1899px) {
         {{ css_1200 }}
     }
 
-    /* Large screens --  --  --  --  -- - */
+    /* Large screens --  --  --  --  -- -*/
     @media only screen
-    and (min-width : 1900px) {
+    and (min-device-width : 1900px)
+    and (max-device-width : 2399px) {
         {{ css_1900 }}
     }
 
-    /* Large screens --  --  --  --  -- - */
+    /* Large screens --  --  --  --  -- -*/
     @media only screen
-    and (min-width : 2400px) {
+    and (min-device-width : 2400px) {
         {{ css_2400 }}
     }
+
 
 </style>
 {% endblock %}

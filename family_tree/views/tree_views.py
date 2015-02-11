@@ -44,8 +44,8 @@ def get_css(centred_person, related_data, pixel_width):
 
     #People above
     if len(related_data.people_upper) > 0:
-        gap = int(pixel_width / (len(related_data.people_upper) + 1))
-        position_left = gap
+        gap = int(pixel_width / (len(related_data.people_upper) * 2 - 1))
+        position_left = 0
 
         for person in related_data.people_upper:
             css.append('#person%s{left: %spx; top: 0px;}'% (person.id, position_left))
@@ -53,24 +53,24 @@ def get_css(centred_person, related_data, pixel_width):
 
     #Same Level
     if len(related_data.people_same_level) > 0:
-        gap = int(pixel_width / (len(related_data.people_same_level) + 1))
-        position_left = gap
+        gap = int(pixel_width / (len(related_data.people_same_level) * 2 - 1))
+        position_left = 0
 
         for person in related_data.people_same_level:
-            css.append('#person%s{left: %spx; top: 100px;}'% (person.id, position_left))
+            css.append('#person%s{left: %spx; top: 200px;}'% (person.id, position_left))
             position_left = position_left + gap
 
     #People below
     if len(related_data.people_lower) > 0:
-        gap = int(pixel_width / (len(related_data.people_lower) + 1))
-        position_left = gap
+        gap = int(pixel_width / (len(related_data.people_lower) * 2 - 1))
+        position_left = 0
 
         for person in related_data.people_lower:
-            css.append('#person%s{left: %spx; top: 200px;}'% (person.id, position_left))
+            css.append('#person%s{left: %spx; top: 400px;}'% (person.id, position_left))
             position_left = position_left + gap
 
     position_left = int(pixel_width / 3)
-    css.append('#person%s{left: %spx; top: 100px;}' % (centred_person.id, position_left))
+    css.append('#person%s{left: %spx; top: 200px;}' % (centred_person.id, position_left))
 
     return ''.join(css)
 
