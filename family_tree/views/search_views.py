@@ -30,6 +30,7 @@ def get_search_results_json(request):
 
     '''
     #break search term into words so they can be any order i.e. Zhang Ziyi can return Ziyi Zhang
+
     search_words = request.POST.get("search_text").split()
 
     #http://stackoverflow.com/questions/4824759/django-query-using-contains-each-value-in-a-list

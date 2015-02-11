@@ -102,10 +102,31 @@ class RelationTestCase(TestCase):
         male = Person(name="male", gender="M", family_id=self.family.id)
         male.save()
 
-
         relation = Relation(from_person_id = female.id, to_person_id = male.id, relation_type = PARTNERED)
         relation.normalise()
 
         self.assertEqual(female.id, relation.from_person_id)
 
         self.assertEqual(male.id, relation.to_person_id)
+
+
+    def test_existing_relations_get_replaced(self):
+        '''
+        Tests that when a relations is added between two people, it replaces any existing relations between them
+        '''
+        existing1 = Person(name="existing1", gender="F", family_id=self.family.id)
+        existing1.save()
+
+        existing2 = Person(name="existing2", gender="F", family_id=self.family.id)
+        existing2.save()
+
+        relation = Relation(from_person_id = existing1.id, to_person_id = existing2.id, relation_type = RAISED)
+        relation.save()
+
+        new_relation = Relation(from_person_id = existing1.id, to_person_id = existing2.id, relation_type = PARTNERED)
+        new_relation.save()
+
+        self.assertEqual(1, Relation.objects.filter(from_person_id = existing1.id, to_person_id = existing2.id).count())
+        self.assertEqual(PARTNERED, Relation.objects.get(from_person_id = existing1.id, to_person_id = existing2.id).relation_type)
+
+

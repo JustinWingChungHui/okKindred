@@ -41,7 +41,7 @@ def profile(request, person_id = 0, person = None, requested_language = '', edit
         template = loader.get_template('family_tree/edit_profile.html')
         context = RequestContext(request,{
                                     'person' : person,
-                                    'languages' : settings.LOCALES,
+                                    'languages' : settings.LANGUAGES,
                                     'requested_language': requested_language,
                                     'show_locked': (True if request.user.id == person.user_id else False),
                                     'show_email_and_language' : show_email_and_language,
@@ -62,7 +62,7 @@ def profile(request, person_id = 0, person = None, requested_language = '', edit
 
         context = RequestContext(request,{
                                     'person' : person,
-                                    'languages' : settings.LOCALES,
+                                    'languages' : settings.LANGUAGES,
                                     'biography' : biography,
                                     'requested_language': requested_language,
                                     'locked': (True if request.user.id != person.user_id and person.locked else False),

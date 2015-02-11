@@ -74,5 +74,3 @@ def get_css(centred_person, related_data, pixel_width):
 
     return ''.join(css)
 
-
-

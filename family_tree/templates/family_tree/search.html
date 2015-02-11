@@ -9,9 +9,9 @@
     <form id="search_form" role="form" method="post">
         {% csrf_token %}
         <div class="form-group">
-            <h2>{% trans "Search Name:" %}</h2>
+            <h4>{% trans "Search Name:" %}</h4>
             <div class="form-group">
-                <input type="search_text" id="search_text" name="search_text" class="form-control" placeholder="Name" required autofocus>
+                <input type="search_text" id="search_text" name="search_text" class="form-control" placeholder="{% trans "Name" %}" required autofocus>
             </div>
         </div>
     </form>

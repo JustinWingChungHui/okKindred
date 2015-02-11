@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/1.7/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.7/ref/settings/
 """
+from django.utils.translation import ugettext_lazy as _
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
@@ -103,23 +104,14 @@ LANGUAGE_CODE = 'en-gb'
 TIME_ZONE = 'UTC'
 
 
-# From http://msdn.microsoft.com/en-us/library/ms533052(v=vs.85).aspx
-# http://stackoverflow.com/questions/7728977/django-how-to-add-chinese-support-to-the-application
-LOCALES = (
-    #English
-    ('en', u'English'),
 
-    #Traditional Chinese
-    ('zh-hk', u'繁體中文'),
+LANGUAGES = (
 
-    #Simplified Chinese
-    ('zh-cn', u'简体中文'),
-
-    #Polish
-    ('pl', u'Polski'),
-
-    #Finish
-    ('fi', u'Suomi'),
+    ('en', _('English')),
+    ('zh-hk', _('Traditional Chinese')),
+    ('zh-cn', _('Simplified Chinese')),
+    ('pl', _('Polish')),
+    ('fi', _('Finish')),
 
 )
 

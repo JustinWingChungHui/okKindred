@@ -162,14 +162,15 @@ class EmailTestCase(TestCase):
         from custom_user.models import User
         User.objects.all().delete()
         user = User.objects.create_user(email='fabio_testi@email.com', password='a lot of surveillance', name='Fabio Testi', language='pl', family_id= family.id)
+        user.is_confirmed = True
         user.save()
 
         user2 = User.objects.create_user(email='ron_nummi@email.com', password='a bit of surveillance', name='Ron Nummi', language='pl', family_id= family.id)
+        user2.is_confirmed = True
         user2.save()
 
         Email.objects.all().delete()
         Email.objects._create_single_language_emails('pl', family.id, "subject", "content's","content's html") #use ' to check injection errors
-
 
 
         self.assertEqual(2,Email.objects.all().count())
@@ -187,9 +188,11 @@ class EmailTestCase(TestCase):
         from custom_user.models import User
         User.objects.all().delete()
         user = User.objects.create_user(email='fabio_testi@email.com', password='a lot of surveillance', name='Fabio Testi', language='pl', family_id= family.id)
+        user.is_confirmed = True
         user.save()
 
         user2 = User.objects.create_user(email='ron_nummi@email.com', password='a bit of surveillance', name='Ron Nummi', language='pl', family_id= family.id)
+        user2.is_confirmed = True
         user2.save()
 
         FamilyNewsLetterEvents.objects.all().delete()

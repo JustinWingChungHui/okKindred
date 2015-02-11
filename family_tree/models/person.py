@@ -111,7 +111,7 @@ class Person(models.Model):
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES, null = False, blank = False)
     locked = models.BooleanField(default = False, null=False) #Allows a user to lock their profile
     family = models.ForeignKey(Family, blank=False, null=False, db_index = True) #Family
-    language = models.CharField(max_length=5, choices=settings.LOCALES, null = False, blank = False, default='en')
+    language = models.CharField(max_length=5, choices=settings.LANGUAGES, null = False, blank = False, default='en')
 
     #Optional Fields
     birth_year = models.IntegerField(blank=True, null=False, default = 0)

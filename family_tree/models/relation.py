@@ -79,4 +79,9 @@ class Relation(models.Model):
         Overrides the save method to allow normalisation
         '''
         self.normalise()
+
+        #Delete any relations already defined between both people
+        Relation.objects.filter(from_person_id = self.from_person_id, to_person_id = self.to_person_id).delete()
+        Relation.objects.filter(from_person_id = self.to_person_id, to_person_id = self.from_person_id).delete()
+
         super(Relation, self).save(*args, **kwargs) # Call the "real" save() method.

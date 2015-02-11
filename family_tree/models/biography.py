@@ -67,7 +67,7 @@ class Biography(models.Model):
 
     #Fields
     person = models.ForeignKey(Person, null = False, blank = False, db_index = True)
-    language = models.CharField(max_length=5, choices=settings.LOCALES, null = False, blank = False, db_index = True)
+    language = models.CharField(max_length=5, choices=settings.LANGUAGES, null = False, blank = False, db_index = True)
     content = models.TextField(null = True, blank = True)
 
     #Tracking
