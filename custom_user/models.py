@@ -12,7 +12,7 @@ class UserManager(BaseUserManager):
         if not email:
             raise ValueError('The given email must be set')
 
-        email = UserManager.normalize_email(email)
+        email = UserManager.normalize_email(email).lower()
         user = self.model(email=email,
                           is_staff=False, is_active=True, is_superuser=False, **extra_fields)
 

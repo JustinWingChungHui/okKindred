@@ -31,7 +31,7 @@ def auth_view(request):
     if is_already_locked(request):
         return account_locked(request)
 
-    username = request.POST.get('username', '')
+    username = request.POST.get('username', '').lower()
     password = request.POST.get('password', '')
     user = auth.authenticate(username=username, password=password)
 

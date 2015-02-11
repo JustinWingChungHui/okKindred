@@ -109,10 +109,10 @@ class TestTreeViews(TestCase):
 
         css =  get_css(self.person, related_data, 300)
 
-        mum_css = "#person%s{left: 100px; top: 0px;}" % (self.mum.id)
+        mum_css = "#person%s{left:" % (self.mum.id)
         self.assertEqual(True, mum_css in css)
 
-        dad_css = "#person%s{left: 200px; top: 0px;}" % (self.dad.id)
+        dad_css = "#person%s{left:" % (self.dad.id)
         self.assertEqual(True, dad_css in css)
 
 
