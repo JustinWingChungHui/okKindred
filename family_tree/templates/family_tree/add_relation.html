@@ -1,0 +1,133 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load i18n %}
+
+{% block extrastyle %}
+<style>
+    .boxed {
+        padding: 16px;
+        border: 1px solid black;
+        border-radius: 1em;
+        border: 1px solid #2e6f9a;
+        box-shadow: 2px 2px 19px #e0e0e0;
+        -o-box-shadow: 2px 2px 19px #e0e0e0;
+        -webkit-box-shadow: 2px 2px 19px #e0e0e0;
+        -moz-box-shadow: 2px 2px 19px #e0e0e0;
+        -moz-border-radius: 8px;
+        border-radius: 8px;
+        background-color: white;
+        font-size: 12px;
+        -webkit-transition: background-color 0.25s ease-in;
+        -moz-transition: background-color 0.25s ease-in;
+        transition: background-color 0.25s ease-in;
+        margin-bottom: 15px;
+    }
+
+    #add_relation {
+        width: 300px ;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container" style="padding-top: 20px;">
+    <div class="col-md-12">
+        <p>
+            <a class="btn btn-default" href="/person={{ person.id }}/" role="button">&laquo;{%trans "Back" %}</a>
+        </p>
+    </div>
+
+    <form id="add_relation" role="form" action="/add_relation_post={{ person.id }}/" method="post">
+        {% csrf_token %}
+        <div id="from_person" class="boxed">
+            <div style="text-align: center;">
+                {% if person.small_thumbnail %}
+                    <img src="/media/{{person.small_thumbnail}}"/>
+                {% else %}
+                    <img src="{% static "img/smiley_80.jpg" %}"/>
+                {% endif %}
+            </div>
+            <div>
+                <h3>{{ person.name }}</h3>
+            </div>
+        </div>
+
+
+        <div id="relation" class="boxed" >
+            <select class="form-control" name="relation_type" id="relation_type">
+                <option value="1">{% trans "Partnered" %}</option>
+                <option value="2">{% trans "Raised" %}</option>
+                <option value="3">{% trans "Raised By" %}</option>
+            </select>
+        </div>
+
+        <div id="to_person" class="boxed">
+
+            <div class="form-group">
+                <input type="radio" name="group1" value="existing" checked>{% trans "Existing Person" %}
+                <input type="radio" name="group1" value="new">{% trans "New Person" %}
+            </div>
+
+            <div id="new_person_data" style="display: None;">
+                <div class="form-group">
+                    <label for="input_new_name">{% trans "Name" %}</label>
+                    <input type="text" class="form-control" id="input_new_name" name="name">
+                </div>
+
+                <div class="form-group">
+                    <label for="input_gender">{% trans "Gender" %}</label>
+                    <select class="form-control" name="gender" id="gender">
+                        <option value="F">{% trans "Female" %}</option>
+                        <option value="M">{% trans "Male" %}</option>
+                        <option value="O">{% trans "Other" %}</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="input_first_language">{% trans "First Language" %}</label>
+                    <select class="form-control" name="language" id="language">
+
+                        {% for language_code, language_display in languages %}
+                            <option value="{{ language_code }}">{{ language_display }}</option>
+                        {% endfor %}
+
+                    </select>
+                </div>
+            </div>
+            <div id="existing_person_data">
+
+                <input type="hidden" id="existing_person" name="existing_person" class="form-control" value="1">
+
+                <div class="form-group">
+                    <label for="input_existing_name">{% trans "Search Name" %}</label>
+                    <input type="hidden" id="relation_id" name="relation_id" class="form-control">
+                    <input type="search_text" id="input_existing_name" name="search_text" class="form-control" placeholder="{% trans "Name" %}">
+                </div>
+
+                <div id="searching_in_progress" style="display:none;">
+                    <img src="{% static "img/ajax-loader.gif" %}"/> {% trans "Searching..." %}
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                          <tbody id="results">
+                          </tbody>
+                    </table>
+                </div>
+
+            </div>
+
+
+        </div>
+
+        <button id="relation_submit" class="btn btn-lg btn-primary btn-block" type="submit" style="display: None;" >{% trans "Save" %}</button>
+    </form>
+
+</div>
+{% endblock %}
+
+{% block extrascript %}
+     <script src="{% static "js/app_add_relation.js" %}"></script>
+{% endblock %}

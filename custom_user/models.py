@@ -47,7 +47,7 @@ class User(AbstractBaseUser):
     date_joined = models.DateTimeField(_('Date Joined'),auto_now_add=True)
 
     family = models.ForeignKey('family_tree.Family', null=True, db_index = True) #Use of model string name to prevent circular import
-    language = models.CharField(max_length=5, choices=settings.LOCALES, null = False, blank = False, default='en', db_index = True)
+    language = models.CharField(max_length=5, choices=settings.LANGUAGES, null = False, blank = False, default='en', db_index = True)
 
 
     USERNAME_FIELD = 'email'

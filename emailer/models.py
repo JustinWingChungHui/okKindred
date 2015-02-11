@@ -6,7 +6,8 @@ from common import query_to_dicts
 from django.template.loader import get_template
 from django.template import Context
 from django.utils import translation
-from datetime import date, timedelta
+from datetime import timedelta
+from django.utils import timezone
 
 
 
@@ -87,7 +88,7 @@ class EmailManager(models.Manager):
                     "(recipient, subject, content, content_html, send_attempts, send_successful) "
                     "SELECT email, %s, %s, %s, 0 , 0 "
                     "FROM custom_user_user "
-                    "WHERE language = %s AND family_id = %s;")
+                    "WHERE language = %s AND family_id = %s AND is_confirmed = 1 AND is_active = 1;")
 
 
 
@@ -177,7 +178,7 @@ class FamilyNewsLetterEventsManager(models.Manager):
         last_event_date = FamilyNewsLetterEvents.objects.aggregate(Max('creation_date'))['creation_date__max']
 
         if last_event_date is None: #Get a week ago
-            last_event_date = date.today() - timedelta(7)
+            last_event_date = timezone.now() - timedelta(7)
 
 
         #Check how many there were before adding in new ones
@@ -225,6 +226,7 @@ class FamilyNewsLetterEvents(models.Model):
     class Meta:
         #Allows models.py to be split up across multiple files
         app_label = 'emailer'
+        verbose_name_plural = "FamilyNewsLetterEvents"
 
     #Customer Manager
     objects = FamilyNewsLetterEventsManager()

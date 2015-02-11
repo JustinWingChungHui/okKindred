@@ -1,6 +1,6 @@
 /* Navbar overrides */
 .navbar-inverse {
-    background-color: #350082;
+    background-color: #250042;
     border-color: #080808;
     color: #FFFFFF;
 }
@@ -23,7 +23,12 @@
     border-color: #006000;
 }
 
+.btn-primary:hover,.btn-primary:focus,.btn-primary.focus,.btn-primary:active,.btn-primary.active,.open>.dropdown-toggle.btn-primary {
+    color:#fff;
+    background-color:#00CC00;
+    border-color:#00CC00
 
+}
 
 /* Move down content because we have a fixed navbar that is 50px tall */
 body {
@@ -53,8 +58,6 @@ body {
     -moz-box-shadow: 2px 2px 19px #e0e0e0;
     -moz-border-radius: 8px;
     border-radius: 8px;
-    opacity: 0.8;
-    filter: alpha(opacity=80);
     cursor: move;
     background-color: white;
     font-size: 12px;

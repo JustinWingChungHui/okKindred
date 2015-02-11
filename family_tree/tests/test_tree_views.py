@@ -129,3 +129,6 @@ class TestTreeViews(TestCase):
         self.client.login(email='khashoggi@queenonline.com', password='party')
         response = self.client.get('/en/person={0}/'.format(self.person.id))
         self.assertEqual(response.status_code, 404)
+
+
+
