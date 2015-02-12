@@ -6,6 +6,7 @@ from django.core.validators import validate_email
 from family_tree.models.family import Family
 from django.conf import settings
 from PIL import Image
+import collections
 import uuid
 import os
 
@@ -27,7 +28,6 @@ class PersonManager(models.Manager):
     Manager extended to get related family members
     '''
 
-
     def get_related_data(self,person):
         '''
         Gets all the relations and people that are related to the arguement person as a named tuple
@@ -35,45 +35,47 @@ class PersonManager(models.Manager):
         people_lower: People with a lower hierachy score (e.g. kids)
         relations: List of relations
         '''
-        import collections
-        related_data = collections.namedtuple('related_data', ['people_upper', 'people_same_level', 'people_lower', 'relations'])
 
-        from django.db.models import Q
-        from family_tree.models import Relation
-        relations = Relation.objects.filter(Q(from_person=person) | Q(to_person=person))
-
-        #Yeah get some raw SQL on!  We are assuming that the 'from' has a higher hierarchy than the 'to'
-        people_upper = list(Person.objects.raw("""   SELECT p.*
+        #Yeah get some raw SQL on!  I wonder if it would be easier to select all people in a family...
+        all_relatives= Person.objects.raw("""   SELECT p.*
                                                 FROM family_tree_person p
                                                 INNER JOIN family_tree_relation r
                                                     ON r.from_person_id = p.id
-                                                WHERE r.to_person_id = %s AND r.relation_type = 2
-                                                ORDER BY hierarchy_score, gender;
-                                        """, [person.id]))
-
-        people_same_level = list(Person.objects.raw("""  SELECT p.*
-                                                    FROM family_tree_person p
-                                                    INNER JOIN family_tree_relation r
-                                                        ON r.from_person_id = p.id
-                                                        AND r.to_person_id = {0} AND r.relation_type = 1
-                                                    UNION ALL
-                                                    SELECT p.*
-                                                    FROM family_tree_person p
-                                                    INNER JOIN family_tree_relation r
-                                                        ON r.to_person_id = p.id
-                                                        AND r.from_person_id = {0} AND r.relation_type = 1
-                                                    ORDER BY hierarchy_score, gender;
-                                        """.format(person.id)))
-
-        people_lower = list(Person.objects.raw("""   SELECT p.*
+                                                    AND r.to_person_id = {0}
+                                                UNION ALL
+                                                SELECT p.*
                                                 FROM family_tree_person p
                                                 INNER JOIN family_tree_relation r
                                                     ON r.to_person_id = p.id
-                                                    AND r.from_person_id = %s AND r.relation_type = 2
+                                                    AND r.from_person_id = {0}
                                                 ORDER BY hierarchy_score, gender;
-                                        """, [person.id]))
+                                            """.format(person.id))
 
+        people_upper = []
+        people_same_level = []
+        people_lower = []
+        person_ids =[]
+
+        #Separate into above, below and same level
+        for relative in all_relatives:
+
+            person_ids.append(relative.id)
+
+            if relative.hierarchy_score < person.hierarchy_score:
+                people_upper.append(relative)
+            elif relative.hierarchy_score > person.hierarchy_score:
+                people_lower.append(relative)
+            else:
+                people_same_level.append(relative)
+
+        #Get all the relations
+        person_ids.append(person.id)
+        from family_tree.models import Relation
+        relations = Relation.objects.filter(from_person__in=person_ids, to_person__in=person_ids)
+
+        related_data = collections.namedtuple('related_data', ['people_upper', 'people_same_level', 'people_lower', 'relations'])
         return related_data(people_upper, people_same_level, people_lower, relations)
+
 
 
 class NullableEmailField(models.EmailField):

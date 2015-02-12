@@ -57,7 +57,14 @@ def add_relation_post(request, person_id = 0, person = None):
             raise Http404
 
         new_person = Person(name=new_name, gender=gender,language=language,family_id=person.family_id)
+        if relation_type == PARTNERED:
+            new_person.hierarchy_score = person.hierarchy_score
+        elif relation_type == RAISED:
+            new_person.hierarchy_score = person.hierarchy_score + 1
+        elif relation_type == RAISED_BY:
+            new_person.hierarchy_score = person.hierarchy_score - 1
         new_person.save()
+
         relation_id = new_person.id
 
     else: #Existing person

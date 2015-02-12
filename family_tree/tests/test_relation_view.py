@@ -17,7 +17,7 @@ class TestRelationViews(TestCase):
         self.user = User.objects.create_user(email='prince_barin@flash.com', password='arboria', name='Prince Barin')
         self.user.save()
 
-        self.person = Person(name='Prince Barin', gender='M', user_id = self.user.id, email='prince_barin@flash.com', family_id=self.family.id)
+        self.person = Person(name='Prince Barin', gender='M', user_id = self.user.id, email='prince_barin@flash.com', family_id=self.family.id, hierarchy_score=100)
         self.person.save()
 
         #http://flashgordon.wikia.com/wiki/Prince_Barin
@@ -86,10 +86,28 @@ class TestRelationViews(TestCase):
         self.assertEqual('en', aura.language)
         self.assertEqual('F', aura.gender)
         self.assertEqual(self.family.id, aura.family_id)
+        self.assertEqual(100, aura.hierarchy_score)
 
         relation =Relation.objects.get(from_person_id = aura.id, to_person_id = self.person.id)
         self.assertEqual(1, relation.relation_type)
 
+
+    def test_add_parent_creates_person_and_relation_and_sets_correct_hierarchy(self):
+        '''
+        Test that the add relation api correctly creates the right records
+        '''
+        self.client.login(email='prince_barin@flash.com', password='arboria')
+        response = self.client.post('/add_relation_post={0}/'.format(self.person.id),{'existing_person': '0', 'relation_type': '3', 'name': 'King Barin', 'language': 'en', 'gender': 'M'})
+        self.assertEqual(302, response.status_code)
+
+        king = Person.objects.get(name = 'King Barin')
+        self.assertEqual('en', king.language)
+        self.assertEqual('M', king.gender)
+        self.assertEqual(self.family.id, king.family_id)
+        self.assertEqual(99, king.hierarchy_score)
+
+        relation =Relation.objects.get(from_person_id = king.id, to_person_id = self.person.id)
+        self.assertEqual(2, relation.relation_type)
 
     def test_add_relation_to_existing_people(self):
         '''
