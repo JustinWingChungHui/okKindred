@@ -9,6 +9,7 @@ from family_tree.models.person import MALE, FEMALE, OTHER
 from family_tree.decorators import same_family_required
 from django.conf import settings
 from django.http import HttpResponseRedirect
+from django.db.models import Q
 
 @login_required
 @same_family_required
@@ -68,4 +69,34 @@ def add_relation_post(request, person_id = 0, person = None):
     return HttpResponseRedirect('/person={0}/'.format(person_id))
 
 
+@login_required
+@same_family_required
+def break_relation_view(request, person_id = 0, person = None):
+    '''
+    Shows the view to break relations
+    '''
+    relations = Relation.objects.filter(Q(from_person_id = person_id) | Q(to_person_id = person_id))
 
+    template = loader.get_template('family_tree/break_relation.html')
+
+    context = RequestContext(request,{
+                                'person': person,
+                                'relations' : relations,
+                            })
+
+    response = template.render(context)
+    return HttpResponse(response)
+
+
+@login_required
+@same_family_required
+def break_relation_post(request, person_id = 0, person = None):
+    '''
+    Deletes a relation
+    '''
+
+    relation_id = int(request.POST.get("relation_id"))
+
+    Relation.objects.filter(id=relation_id).delete()
+
+    return HttpResponseRedirect('/break_relation={0}/'.format(person_id))

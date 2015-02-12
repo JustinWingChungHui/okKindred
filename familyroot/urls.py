@@ -15,7 +15,7 @@ urlpatterns = patterns('',
     url(r'^get_search_results_json/$', 'family_tree.views.get_search_results_json', name='get_search_results'),
     url(r'^delete=(?P<person_id>\d+)/$', 'family_tree.views.delete_profile', name='delete_profile'),
     url(r'^add_relation_post=(?P<person_id>\d+)/$', 'family_tree.views.add_relation_post', name='add_relation_post'),
-
+    url(r'^break_relation_post=(?P<person_id>\d+)/$', 'family_tree.views.break_relation_post', name='break_relation_post'),
 )
 
 
@@ -36,7 +36,10 @@ urlpatterns += i18n_patterns('',
     #Tree Views
     url(r'^home/$', 'family_tree.views.tree', name='tree'),
     url(r'^person=(?P<person_id>\d+)/$', 'family_tree.views.tree', name='tree'),
+
+    #Relation Views
     url(r'^add_relation=(?P<person_id>\d+)/$', 'family_tree.views.add_relation_view', name='add_relation_view'),
+    url(r'^break_relation=(?P<person_id>\d+)/$', 'family_tree.views.break_relation_view', name='break_relation_view'),
 
     #Profile Views
     url(r'^profile=(?P<person_id>\d+)/$', 'family_tree.views.profile', name='profile'),
