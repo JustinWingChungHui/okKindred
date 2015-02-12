@@ -111,7 +111,7 @@ LANGUAGES = (
     ('zh-hk', _('Traditional Chinese')),
     ('zh-cn', _('Simplified Chinese')),
     ('pl', _('Polish')),
-    ('fi', _('Finish')),
+    ('fi', _('Finnish')),
 
 )
 
