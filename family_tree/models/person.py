@@ -27,6 +27,20 @@ class PersonManager(models.Manager):
     Manager extended to get related family members
     '''
 
+    def get_related_data2(self,person):
+        all_people = list(Person.objects.raw("""  SELECT p.*
+                                                    FROM family_tree_person p
+                                                    INNER JOIN family_tree_relation r
+                                                        ON r.from_person_id = p.id
+                                                        AND r.to_person_id = {0}
+                                                    UNION ALL
+                                                    SELECT p.*
+                                                    FROM family_tree_person p
+                                                    INNER JOIN family_tree_relation r
+                                                        ON r.to_person_id = p.id
+                                                        AND r.from_person_id = {0}
+                                                    ORDER BY hierarchy_score, gender;
+                                            """.format(person.id)))
 
     def get_related_data(self,person):
         '''
