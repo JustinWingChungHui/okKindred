@@ -12,6 +12,7 @@
         <p>
             <a class="btn btn-default" href="/profile={{ person.id }}/" role="button">&laquo;{%trans "Done" %}</a>
             <a class="btn btn-default" href="/add_relation={{ person.id }}/" role="button">{%trans "Add Relation" %}</a>
+            <a class="btn btn-default" href="/break_relation={{ person.id }}/" role="button">{%trans "Break Relation" %}</a>
             {% if can_delete %}
                 <a class="btn btn-default" role="button" href="#modal_delete" data-toggle="modal">{%trans "Delete" %}</a>
             {% endif %}
@@ -148,7 +149,7 @@
                     {% trans "Are you sure you want to delete profile?" %}
                 </div>
                 <div class="modal-footer">
-                    <a href="/delete={{ person.id }}/" type="button" class="btn btn-default">{% trans "Yes" %}</a>
+                    <a href="/delete={{ person.id }}/" type="button" class="btn btn-danger">{% trans "Yes" %}</a>
                     <button type="button" class="btn btn-primary" data-dismiss="modal">{% trans "NO!!!" %}</button>
                 </div>
             </div>

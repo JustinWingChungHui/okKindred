@@ -259,7 +259,7 @@ class PersonTestCase(TestCase):
         person.geocode_address()
 
         self.assertEqual(22.28, round(person.latitude,2))
-        self.assertEqual(114.14, round(person.longitude,2))
+        self.assertEqual(114.15, round(person.longitude,2))
 
 
     def test_geocode_address_using_backup_UK(self):

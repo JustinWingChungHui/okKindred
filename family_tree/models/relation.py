@@ -1,5 +1,6 @@
 from django.db import models
 from family_tree.models.person import Person
+from django.utils.translation import ugettext_lazy as _
 
 #Relation types.  Note that 'raised by' will resolve to 'raised' but inverse
 PARTNERED = 1
@@ -7,9 +8,9 @@ RAISED = 2
 RAISED_BY = 3
 
 RELATION_TYPES = (
-    (PARTNERED, 'Partnered'),
-    (RAISED, 'Raised'),
-    (RAISED_BY, 'Raised By'),
+    (PARTNERED, _('Partnered')),
+    (RAISED, _('Raised')),
+    (RAISED_BY, _('Raised By')),
 )
 
 
