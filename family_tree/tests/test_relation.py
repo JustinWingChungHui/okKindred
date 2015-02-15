@@ -130,3 +130,43 @@ class RelationTestCase(TestCase):
         self.assertEqual(PARTNERED, Relation.objects.get(from_person_id = existing1.id, to_person_id = existing2.id).relation_type)
 
 
+    def test_create_inverted_relation(self):
+        '''
+        Tests an inverted relationship is correctly created when using manager function
+        '''
+        from_person = Person(name="from_person", gender="F", family_id=self.family.id)
+        from_person.save()
+
+        to_person = Person(name="to_person", gender="F", family_id=self.family.id)
+        to_person.save()
+
+        relation = Relation(from_person_id = from_person.id, to_person_id = to_person.id, relation_type = RAISED)
+
+        inverted = Relation.objects._create_inverted_relation(relation)
+
+        self.assertEqual(from_person.id, inverted.to_person_id)
+        self.assertEqual(to_person.id, inverted.from_person_id)
+        self.assertEqual(RAISED_BY, inverted.relation_type)
+
+
+    def test_get_navigable_relations(self):
+
+        my_family = Family()
+        my_family.save()
+
+        person = Person.objects.create(name='patient zero', gender='M',hierarchy_score=100, family_id=my_family.id)
+
+        wife = Person.objects.create(name='wife', gender='F', hierarchy_score=100, family_id=my_family.id)
+        Relation.objects.create(from_person=wife, to_person=person, relation_type=PARTNERED)
+
+        son = Person.objects.create(name='son', gender='M',hierarchy_score=101, family_id=my_family.id)
+        Relation.objects.create(from_person=person, to_person=son, relation_type=RAISED)
+
+        daughter = Person.objects.create(name='daughter', gender='F',hierarchy_score=101, family_id=my_family.id)
+        Relation.objects.create(from_person=person, to_person=daughter, relation_type=RAISED)
+
+        paths_by_person = Relation.objects.get_navigable_relations(my_family.id)
+
+        self.assertEqual(3, len(paths_by_person[person.id]))
+        self.assertEqual(1, len(paths_by_person[son.id]))
+        self.assertEqual(Relation, type(paths_by_person[son.id][0]))
