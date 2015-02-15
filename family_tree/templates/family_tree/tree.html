@@ -85,12 +85,12 @@
             {% else %}
                 <img src="{% static "img/smiley_80.jpg" %}"/>
             {% endif %}
-            <p>
+            <div>
                 {{ person.name }}
-            </p>
+            </div>
 
-            <p><a class="btn btn-default" href="/profile={{ person.id }}/" role="button">{%trans "Profile" %}</a></p>
-            <p><a class="btn btn-default" href="/add_relation={{ person.id }}/" role="button">{%trans "Add Relation" %}</a></p>
+            <div><a class="btn btn-default" href="/profile={{ person.id }}/" role="button">{%trans "Profile" %}</a></div>
+            <div><a class="btn btn-default" href="/add_relation={{ person.id }}/" role="button">{%trans "Add Relation" %}</a></div>
 
         </div>
 
