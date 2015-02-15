@@ -2,69 +2,13 @@
 {% load staticfiles %}
 {% load i18n %}
 
-{% block extrastyle %}
-
-<style type="text/css">
-
-    /* Smartphones (portrait and landscape) --  --  --  --  -- - */
-    @media only screen
-    and (min-device-width : 320px)
-    and (max-device-width : 479px) {
-        {{ css_320 }}
-    }
-
-    @media only screen
-    and (min-device-width : 480px)
-    and (max-device-width : 767px) {
-    /* Styles */
-        {{ css_480 }}
-    }
-
-    /* iPads (portrait and landscape) --  --  --  --  -- - */
-    @media only screen
-    and (min-device-width : 768px)
-    and (max-device-width : 1023px) {
-        {{ css_768 }}
-    }
-
-
-    /* Desktops and laptops --  --  --  --  -- - */
-    @media only screen
-    and (min-device-width : 1024px)
-    and (max-device-width : 1199px) {
-        {{ css_1024 }}
-    }
-
-    @media only screen
-    and (min-device-width : 1200px)
-    and (max-device-width : 1899px) {
-        {{ css_1200 }}
-    }
-
-    /* Large screens --  --  --  --  -- -*/
-    @media only screen
-    and (min-device-width : 1900px)
-    and (max-device-width : 2399px) {
-        {{ css_1900 }}
-    }
-
-    /* Large screens --  --  --  --  -- -*/
-    @media only screen
-    and (min-device-width : 2400px) {
-        {{ css_2400 }}
-    }
-
-
-</style>
-{% endblock %}
-
 {% block content %}
 <div class="container" style="padding-top: 20px;">
     <div class="family_tree_container" id="family_tree_container" style="position: relative;"> <!--I don't understand why this needs to inline! -->
 
         {% for relative in people %}
-            <div id="person{{relative.id}}" class="w">
-                <a href="/person={{relative.id}}/">
+            <div id="person{{relative.id}}" class="boxed_chained">
+                <a href="/profile={{relative.id}}/">
                     {% if relative.small_thumbnail %}
                         <img src="/media/{{relative.small_thumbnail}}"/>
                     {% else %}
@@ -75,30 +19,12 @@
                     </div>
                 </a>
             </div>
+
         {% endfor %}
-
-
-
-        <div id ="person{{person.id}}" class="w">
-            {% if person.small_thumbnail %}
-                <img src="/media/{{person.small_thumbnail}}"/>
-            {% else %}
-                <img src="{% static "img/smiley_80.jpg" %}"/>
-            {% endif %}
-            <div>
-                {{ person.name }}
-            </div>
-
-            <div><a class="btn btn-default" href="/profile={{ person.id }}/" role="button">{%trans "Profile" %}</a></div>
-            <div><a class="btn btn-default" href="/add_relation={{ person.id }}/" role="button">{%trans "Add Relation" %}</a></div>
-
-        </div>
-
 
     </div>
 </div>
 {% endblock %}
-
 
 {% block extrascript %}
     <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
@@ -120,10 +46,7 @@
 
              window.jsp = instance;
 
-    	var windows = jsPlumb.getSelector(".family_tree_container .w");
-
-        // initialise draggable elements.  Stops anchor tags working on touch devices.
-    	instance.draggable(windows);
+    	var windows = jsPlumb.getSelector(".family_tree_container .boxed_chained");
 
 
     	// suspend drawing and initialise.
@@ -173,6 +96,7 @@
     	// initialise all '.w' elements as connection targets.
     	instance.makeTarget(windows, {
     		anchor:"Continuous",
+    		allowLoopback:true
     	});
 
 
@@ -182,12 +106,7 @@
                 target:"person{{ relation.to_person_id }}",
                 overlays:[
                     [ "Arrow", { location:1, direction: 1, id:"arrow{{ relation.id }}"} ],
-                    {% if relation.relation_type == 1 %}
-                        [ "Arrow", { location:0, direction: -1, id:"inverse_arrow{{ relation.id }}"} ],
-                        [ "Label", { label:"{% trans "partnered" %}", id:"label{{ relation.id }}", cssClass:"aLabel"} ]
-                    {% else %}
-                        [ "Label", { label:"raised", id:"label{{ relation.id }}", cssClass:"aLabel"} ]
-                    {% endif %}
+                    [ "Label", { label:"{{ relation.get_relation_type_display }}", id:"label{{ relation.id }}", cssClass:"aLabel"} ]
                     ],
             });
         {% endfor %}
@@ -197,5 +116,4 @@
         jsPlumb.fire("jsPlumbDemoLoaded", instance);
     });
     </script>
-
 {% endblock %}

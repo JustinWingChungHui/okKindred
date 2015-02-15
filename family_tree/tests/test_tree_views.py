@@ -19,52 +19,29 @@ class TestTreeViews(TestCase):
         user = User.objects.create_user(email='roger_taylor@queenonline.com', password='nation of haircuts', name='Roger Taylor')
         user.save()
 
-        person = Person(name='Roger Taylor', gender='M', user_id = user.id, email='roger_taylor@queenonline.com', family_id=self.family.id)
-        person.save()
-
-        self.create_related_data_for_tests()
-
-    def create_related_data_for_tests(self):
-        '''
-        Create a small family tree for testing
-        '''
-        self.person = Person.objects.create(name='patient zero', gender='M',hierarchy_score=100, family_id=self.family.id)
+        self.person = Person(name='Roger Taylor', gender='M', user_id = user.id, email='roger_taylor@queenonline.com', family_id=self.family.id)
         self.person.save()
 
         self.wife = Person.objects.create(name='wife', gender='F', hierarchy_score=100, family_id=self.family.id)
-        self.wife.save()
         self.wife_to_person = Relation.objects.create(from_person=self.wife, to_person=self.person, relation_type=PARTNERED)
-        self.wife_to_person.save()
 
         self.son = Person.objects.create(name='son', gender='M',hierarchy_score=101, family_id=self.family.id)
-        self.son.save()
         self.person_to_son = Relation.objects.create(from_person=self.person, to_person=self.son, relation_type=RAISED)
-        self.person_to_son.save()
 
         self.daughter = Person.objects.create(name='daughter', gender='F',hierarchy_score=101, family_id=self.family.id)
-        self.daughter.save()
         self.person_to_daughter = Relation.objects.create(from_person=self.person, to_person=self.daughter, relation_type=RAISED)
-        self.person_to_daughter.save()
 
         self.mum = Person.objects.create(name='mum', gender='F', hierarchy_score=99, family_id=self.family.id)
-        self.mum.save()
         self.mum_to_person = Relation.objects.create(from_person=self.mum, to_person=self.person, relation_type=RAISED)
-        self.mum_to_person.save()
 
         self.dad = Person.objects.create(name='dad', gender='M', hierarchy_score=99, family_id=self.family.id)
-        self.dad.save()
         self.dad_to_person = Relation.objects.create(from_person=self.dad, to_person=self.person, relation_type=RAISED)
-        self.dad_to_person.save()
 
         self.grandma = Person.objects.create(name='grandma', gender='F', hierarchy_score=98, family_id=self.family.id)
-        self.grandma.save()
         self.grandma_to_mum = Relation.objects.create(from_person=self.grandma, to_person=self.mum, relation_type=RAISED)
-        self.grandma_to_mum.save()
 
         self.grandson = Person.objects.create(name='grandson', gender='M', hierarchy_score=102, family_id=self.family.id)
-        self.grandson.save()
         self.son_to_grandson = Relation.objects.create(from_person=self.son, to_person=self.grandson, relation_type=RAISED)
-        self.son_to_grandson.save()
 
 
     def test_home_tree_view_loads(self):
@@ -130,5 +107,19 @@ class TestTreeViews(TestCase):
         response = self.client.get('/en/person={0}/'.format(self.person.id))
         self.assertEqual(response.status_code, 404)
 
+
+    def test_how_am_i_related_view_loads(self):
+        '''
+        Tests that the users home screen loads and uses the correct template
+        '''
+        self.client.login(email='roger_taylor@queenonline.com', password='nation of haircuts')
+        response = self.client.get('/en/how_am_i_related={0}/'.format(self.grandma.id))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'family_tree/how_am_i_related.html')
+
+        self.assertEqual(True,b'grandma' in response.content)
+        self.assertEqual(True,b'mum' in response.content)
+        self.assertEqual(True,b'Roger Taylor' in response.content)
+        self.assertEqual(True,b'Raised' in response.content)
 
 

@@ -4,6 +4,7 @@ from django.http import HttpResponse
 from django.template import RequestContext, loader
 from family_tree.models import Person
 from family_tree.decorators import same_family_required
+from django.http import Http404
 
 
 @login_required
@@ -73,4 +74,32 @@ def get_css(centred_person, related_data, pixel_width):
     css.append('#person%s{left: %spx; top: 200px;}' % (centred_person.id, position_left))
 
     return ''.join(css)
+
+
+@login_required
+@same_family_required
+def how_am_i_related_view(request, person_id = 0, person = None):
+    '''
+    Gets the how am i related view
+    '''
+
+    #Get user person
+    user_person = Person.objects.get(user_id = request.user.id)
+
+
+    people, relations = Person.objects.get_related_path(user_person, person)
+
+    if people is None:
+        raise Http404
+
+
+    template = loader.get_template('family_tree/how_am_i_related.html')
+
+    context = RequestContext(request,{
+                                'people': people,
+                                'relations' :relations,
+                            })
+
+    response = template.render(context)
+    return HttpResponse(response)
 
