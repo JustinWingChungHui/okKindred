@@ -191,11 +191,9 @@
 
             $('#language').editable({
                 source: [
-                            {value: 'en', text: '{% trans "English" %}'},
-                            {value: 'zh-hk', text: '{% trans "Traditional Chinese" %}'},
-                            {value: 'zh-cn', text: '{% trans "Simplified Chinese" %}'},
-                            {value: 'pl', text: '{% trans "Polish" %}'},
-                            {value: 'fi', text: '{% trans "Finish" %}'},
+                        {% for code, display in languages %}
+                            {value: '{{ code }}', text: '{{ display }}'},
+                        {% endfor %}
                         ],
                 validate: function(value) {
                     if(!value) return '{% trans "Required field!" %}';

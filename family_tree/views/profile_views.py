@@ -66,6 +66,7 @@ def profile(request, person_id = 0, person = None, requested_language = '', edit
                                     'biography' : biography,
                                     'requested_language': requested_language,
                                     'locked': (True if request.user.id != person.user_id and person.locked else False),
+                                    'show_relation_to_me': (True if request.user.id != person.user_id else False),
                                 })
 
     response = template.render(context)

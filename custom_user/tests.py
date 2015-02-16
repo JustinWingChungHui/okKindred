@@ -26,3 +26,13 @@ class TestCustomUserViews(TestCase):
         '''
         response = self.client.post('/accounts/auth/',  {'username': 'Bruce_Lee@email.com', 'password': 'enter the dragon'}, follow=True)
         self.assertEqual(False, ('http://testserver/accounts/invalid', 302) in response.redirect_chain)
+
+
+    def test_settings_view_displays(self):
+        '''
+        Test that the settings view is displayed correctly
+        '''
+        self.client.login(email='bruce_lee@email.com', password='enter the dragon')
+        response = self.client.get('/en/settings/')
+        self.assertEqual(200, response.status_code)
+        self.assertTemplateUsed(response, 'custom_user/settings.html')

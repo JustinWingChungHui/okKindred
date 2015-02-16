@@ -1,0 +1,150 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load i18n %}
+
+
+{% block content %}
+
+<div class="container">
+
+    <h3>{% trans "Settings" %}</h3>
+
+    <!-- Overide padding to align with boxed divs -->
+    <div class="col-sm-12" style="padding-left: 0px;">
+        <p>
+            <a class="btn btn-default" href="/home/" role="button">&laquo;{%trans "Done" %}</a>
+        </p>
+    </div>
+
+    <div class="col-sm-8 boxed">
+        <h4>{% trans "Options" %}</h4>
+        <table class="table table-striped">
+
+            <tr>
+                <th>{% trans "First Language" %}</th>
+                <td>
+                    <a href="#" id="language" data-type="select" data-title="{% trans "First Language" %}" data-pk="{{ request.user.id }}" data-url="/update_user_post={{ request.user.id }}/" data-params="{csrfmiddlewaretoken:'{{csrf_token}}'}">
+                        {{ user.get_language_display }}
+                    </a>
+                </td>
+            </tr>
+
+            <tr>
+                <th>{% trans "Receive email when a new family member is added" %}</th>
+                <td>
+                    <a href="#" id="receive_new_family_member_emails" data-title="{% trans "Do you want to receive emails when a new family member is added?" %}" data-type="select" data-pk="{{ request.user.id }}" data-url="/update_user_post={{ request.user.id }}/" data-params="{csrfmiddlewaretoken:'{{csrf_token}}'}">
+                        {% if request.user.receive_new_family_member_emails %} {% trans "Yes" %} {% else %} {% trans "No" %} {% endif %}
+                    </a>
+                </td>
+            </tr>
+            <tr>
+                <th>{% trans "Receive email when a profile is updated" %}</th>
+                <td>
+                    <a href="#" id="receive_update_emails" data-title="{% trans "Do you want to receive emails when a profile is updated?" %}" data-type="select" data-pk="{{ request.user.id }}" data-url="/update_user_post={{ request.user.id }}/" data-params="{csrfmiddlewaretoken:'{{csrf_token}}'}">
+                        {% if request.user.receive_update_emails %} {% trans "Yes" %} {% else %} {% trans "No" %} {% endif %}
+                    </a>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+
+
+
+    <form role="form" action="/password_change/" method="post" data-toggle="validator">{% csrf_token %}
+        <div class="form-group col-sm-8 boxed">
+            <div class="form-group">
+
+                <h4>{% trans "Change Password" %}</h4>
+                <p>
+                    <input type="password" data-minlength="8" class="form-control" id="inputPassword" placeholder="{% trans "New Password" %} " required>
+                    <span class="help-block">{% trans "Minimum of 8 characters" %}</span>
+                </p>
+                <p>
+                    <input type="password" class="form-control" id="inputPasswordConfirm" data-match="#inputPassword"
+                            data-match-error="{% trans "Whoops, they must match!" %}" placeholder="{% trans "Confirm Password" %}" required>
+                    <div class="help-block with-errors"></div>
+                </p>
+            </div>
+
+            <button class="btn btn-primary disabled" style="cursor: pointer; pointer-events: all;" type="submit">{% trans "Update Password" %}</button>
+        </div>
+    </form>
+
+    <!-- Overide padding to align with boxed divs -->
+    <div class="col-sm-12" style="padding-left: 0px;">
+        <p>
+            <a class="btn btn-default" href="/home/" role="button">&laquo;{%trans "Done" %}</a>
+        </p>
+    </div>
+
+    <div class="col-sm-8 boxed">
+        <h4>{% trans "Goodbye and Farewell" %}</h4>
+        <a class="btn btn-danger" role="button" href="#modal_delete" data-toggle="modal">{%trans "Leave ok!Kindred forever..." %}</a>
+    </div>
+
+
+    <div class="modal fade" id="modal_delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">{% trans "Delete Profile" %}</h4>
+                </div>
+                <div class="modal-body">
+                    {% trans "Are you sure you want to leave ok!Kindred?  We would be very sad to see you leave!" %}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" style="margin-bottom:5px;">{% trans "NO!!! I don't want to quit" %}</button>
+                    <a href="/accounts/delete/" type="button" class="btn btn-danger" style="margin-bottom:5px;">{% trans "Yes and delete my profile" %}</a>
+                    <a href="/account/delete_related/" type="button" class="btn btn-warning" style="margin-bottom:5px;">{% trans "Yes but leave my profile" %}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block extrascript %}
+<!--http://1000hz.github.io/bootstrap-validator/ -->
+<script src="{% static "js/validator.min.js" %}"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
+    <script>
+        //turn to inline mode
+        $.fn.editable.defaults.mode = 'inline';
+
+        $(document).ready(function() {
+
+
+            $('#language').editable({
+                source: [
+                        {% for code, display in languages %}
+                            {value: '{{ code }}', text: '{{ display }}'},
+                        {% endfor %}
+                        ],
+                validate: function(value) {
+                    if(!value) return '{% trans "Required field!" %}';
+                },
+            });
+
+
+            //Pass through an empty string for false
+            $('#receive_new_family_member_emails').editable({
+                source: [
+                            {value: '', text: '{% trans "No" %}'},
+                            {value: 1, text: '{% trans "Yes" %}'},
+                        ],
+            });
+
+            $('#receive_update_emails').editable({
+                source: [
+                            {value: '', text: '{% trans "No" %}'},
+                            {value: 1, text: '{% trans "Yes" %}'},
+                        ],
+            });
+        });
+
+    </script>
+{% endblock %}

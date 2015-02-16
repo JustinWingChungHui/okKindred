@@ -1,15 +1,13 @@
-'''
-This is for site wide views
-http://procrastinatingdev.com/django/using-configurable-user-models-in-django-1-5/
-'''
-
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render_to_response
 from django.http import HttpResponseRedirect
 from django.contrib import auth
 from django.core.context_processors import csrf
 from axes.decorators import is_already_locked, get_ip, check_request
 from axes.models import AccessLog
-
+from django.http import HttpResponse
+from django.template import RequestContext, loader
+from django.conf import settings
 
 '''
 Authentication views based on https://www.youtube.com/watch?v=CFypO_LNmcc
@@ -72,3 +70,19 @@ def logout(request):
 
 def account_locked(request):
     return render_to_response('custom_user/account_locked.html')
+
+@login_required
+def settings_view(request):
+    '''
+    Shows the settings view
+    '''
+
+    template = loader.get_template('custom_user/settings.html')
+
+    context = RequestContext(request,{
+                                'user' : request.user,
+                                'languages' : settings.LANGUAGES,
+                            })
+
+    response = template.render(context)
+    return HttpResponse(response)

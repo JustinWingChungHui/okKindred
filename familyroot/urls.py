@@ -69,5 +69,7 @@ urlpatterns += i18n_patterns('',
     url(r'^image_resize=(?P<person_id>\d+)/$', 'family_tree.views.image_resize', name='image_resize'),
 
 
+    #User Settings
+    url(r'^settings/$', 'custom_user.views.settings_view', name='settings_view'),
 
 )
