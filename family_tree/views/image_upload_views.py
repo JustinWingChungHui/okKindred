@@ -10,6 +10,7 @@ from django.http import Http404
 from django.conf import settings
 from django.http import HttpResponseRedirect
 from family_tree.decorators import same_family_required
+from custom_user.decorators import set_language
 import json
 
 
@@ -25,6 +26,7 @@ def get_file_size(file):
 
 
 @login_required
+@set_language
 @same_family_required
 def edit_profile_photo(request, person_id = 0, person = None):
     '''
@@ -46,6 +48,7 @@ def edit_profile_photo(request, person_id = 0, person = None):
 
 
 @login_required
+@set_language
 @same_family_required
 def image_upload(request, person_id = 0, person = None):
     '''
@@ -100,6 +103,7 @@ def image_upload(request, person_id = 0, person = None):
 
 
 @login_required
+@set_language
 @same_family_required
 def image_resize(request, person_id = 0, person = None):
     '''
@@ -125,6 +129,7 @@ def image_resize(request, person_id = 0, person = None):
 
 
 @login_required
+@set_language
 @same_family_required
 def image_crop(request, person_id = 0, person = None):
     '''

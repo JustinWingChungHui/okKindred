@@ -37,7 +37,7 @@ class TestRelationViews(TestCase):
         Tests that the add_relation_view loads and uses the correct template
         '''
         self.client.login(email='prince_barin@flash.com', password='arboria')
-        response = self.client.get('/en/add_relation={0}/'.format(self.person.id))
+        response = self.client.get('/add_relation={0}/'.format(self.person.id))
         self.assertEqual(200, response.status_code)
         self.assertTemplateUsed(response, 'family_tree/add_relation.html')
 
@@ -129,7 +129,7 @@ class TestRelationViews(TestCase):
         relation.save()
 
         self.client.login(email='prince_barin@flash.com', password='arboria')
-        response = self.client.get('/en/break_relation={0}/'.format(self.vultan.id))
+        response = self.client.get('/break_relation={0}/'.format(self.vultan.id))
         self.assertEqual(200, response.status_code)
         self.assertTemplateUsed(response, 'family_tree/break_relation.html')
         self.assertEquals(True, b'Lura' in response.content)

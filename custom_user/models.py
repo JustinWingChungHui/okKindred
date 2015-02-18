@@ -49,8 +49,7 @@ class User(AbstractBaseUser):
     family = models.ForeignKey('family_tree.Family', null=True, db_index = True) #Use of model string name to prevent circular import
     language = models.CharField(max_length=5, choices=settings.LANGUAGES, null = False, blank = False, default='en', db_index = True)
 
-    receive_new_family_member_emails = models.BooleanField(_('Receive New Family Meber Emails'), default=True, help_text=_('Sends out emails if a new family member has been added'))
-    receive_update_emails = models.BooleanField(_('Receive Update Emails'), default=True, help_text=_('Sends out emails if a profile has been changed'))
+    receive_update_emails = models.BooleanField(_('Receive Update Emails'), default=True, help_text=_('Sends out emails if family has been updated'))
 
 
     USERNAME_FIELD = 'email'
@@ -83,3 +82,21 @@ class User(AbstractBaseUser):
         "Does the user have permissions to view the app `app_label`?"
         # Simplest possible answer: yes, if superuser
         return self.is_superuser
+
+    def save(self, *args, **kwargs):
+        '''
+        Overrides the save method to determine the calculated fields
+        '''
+
+        #Update profile language
+        from family_tree.models import Person
+
+        if self.id is not None and self.id > 0:
+            try:
+                person = Person.objects.get(user_id=self.id)
+                person.language = self.language
+                person.save()
+            except:
+                pass
+
+        super(User, self).save(*args, **kwargs) # Call the "real" save() method.

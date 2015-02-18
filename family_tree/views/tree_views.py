@@ -4,10 +4,12 @@ from django.http import HttpResponse
 from django.template import RequestContext, loader
 from family_tree.models import Person
 from family_tree.decorators import same_family_required
+from custom_user.decorators import set_language
 from django.http import Http404
 
 
 @login_required
+@set_language
 @same_family_required
 def tree(request, person_id = 0, person = None):
     '''
@@ -77,6 +79,7 @@ def get_css(centred_person, related_data, pixel_width):
 
 
 @login_required
+@set_language
 @same_family_required
 def how_am_i_related_view(request, person_id = 0, person = None):
     '''

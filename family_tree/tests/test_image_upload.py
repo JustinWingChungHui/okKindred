@@ -36,7 +36,7 @@ class TestImageUploadViews(TestCase):
         tests that the view loads if someone navigates to it
         '''
         self.client.login(email='fairy_fellar@email.com', password='masterstroke')
-        response = self.client.get('/en/edit_profile_photo={0}/'.format(self.person.id))
+        response = self.client.get('/edit_profile_photo={0}/'.format(self.person.id))
         self.assertEqual(200, response.status_code)
         self.assertTemplateUsed(response, 'family_tree/image_upload.html')
 
@@ -46,7 +46,7 @@ class TestImageUploadViews(TestCase):
         tests that the view does not load if a person from a different family is trying to access it
         '''
         self.client.login(email='dale_arden@email.com', password='flash i love you')
-        response = self.client.get('/en/edit_profile_photo={0}/'.format(self.person.id))
+        response = self.client.get('/edit_profile_photo={0}/'.format(self.person.id))
         self.assertEqual(404, response.status_code)
 
 
@@ -109,7 +109,7 @@ class TestImageUploadViews(TestCase):
         '''
         self.client.login(email='fairy_fellar@email.com', password='masterstroke')
 
-        response = self.client.get('/en/image_resize={0}/'.format(self.person.id))
+        response = self.client.get('/image_resize={0}/'.format(self.person.id))
 
         self.assertEqual(200, response.status_code)
         self.assertTemplateUsed(response, 'family_tree/image_resize.html')
@@ -120,7 +120,7 @@ class TestImageUploadViews(TestCase):
         tests that the view does not load if a person from a different family is trying to access it
         '''
         self.client.login(email='dale_arden@email.com', password='flash i love you')
-        response = self.client.get('/en/image_resize={0}/'.format(self.person.id))
+        response = self.client.get('/image_resize={0}/'.format(self.person.id))
         self.assertEqual(404, response.status_code)
 
 

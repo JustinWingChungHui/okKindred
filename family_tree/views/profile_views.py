@@ -7,6 +7,8 @@ from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 from family_tree.decorators import same_family_required
 from django.http import HttpResponseRedirect
+from custom_user.decorators import set_language
+
 
 @login_required
 @same_family_required
@@ -85,6 +87,7 @@ def edit_profile(request, person_id = 0, person = None, requested_language = '')
 
 
 @login_required
+@set_language
 @same_family_required
 def update_person(request, person_id = 0, person = None):
     '''
@@ -119,6 +122,7 @@ def update_person(request, person_id = 0, person = None):
 
 
 @login_required
+@set_language
 @same_family_required
 def delete_profile(request, person_id = 0, person = None):
     '''

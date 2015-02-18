@@ -1,7 +1,6 @@
 from family_tree.models import Person
 from django.shortcuts import get_object_or_404
 from functools import wraps
-from django.http import HttpResponse
 from django.http import Http404
 
 def same_family_required(func):
@@ -21,10 +20,6 @@ def same_family_required(func):
         if request.user.family_id != person.family_id:
             raise Http404
 
-        try:
-            request.session['django_language'] = request.user.language
-        except:
-            pass
 
         return func(request=request, person_id=person_id, person=person, *args, **kwargs)
 

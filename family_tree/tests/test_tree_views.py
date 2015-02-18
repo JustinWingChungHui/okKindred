@@ -49,7 +49,7 @@ class TestTreeViews(TestCase):
         Tests that the users home screen loads and uses the correct template
         '''
         self.client.login(email='roger_taylor@queenonline.com', password='nation of haircuts')
-        response = self.client.get('/en/home/')
+        response = self.client.get('/home/')
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'family_tree/tree.html')
 
@@ -58,7 +58,7 @@ class TestTreeViews(TestCase):
         Tests that a tree view loads for a given person and uses correct template
         '''
         self.client.login(email='roger_taylor@queenonline.com', password='nation of haircuts')
-        response = self.client.get('/en/person={0}/'.format(self.person.id))
+        response = self.client.get('/person={0}/'.format(self.person.id))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'family_tree/tree.html')
 
@@ -73,7 +73,7 @@ class TestTreeViews(TestCase):
 
 
         self.client.login(email='leroy_brown@queenonline.com', password='bring back that')
-        response = self.client.get('/en/home/')
+        response = self.client.get('/home/')
         self.assertEqual(response.status_code, 404)
 
 
@@ -104,7 +104,7 @@ class TestTreeViews(TestCase):
         user.save()
 
         self.client.login(email='khashoggi@queenonline.com', password='party')
-        response = self.client.get('/en/person={0}/'.format(self.person.id))
+        response = self.client.get('/person={0}/'.format(self.person.id))
         self.assertEqual(response.status_code, 404)
 
 
@@ -113,7 +113,7 @@ class TestTreeViews(TestCase):
         Tests that the users home screen loads and uses the correct template
         '''
         self.client.login(email='roger_taylor@queenonline.com', password='nation of haircuts')
-        response = self.client.get('/en/how_am_i_related={0}/'.format(self.grandma.id))
+        response = self.client.get('/how_am_i_related={0}/'.format(self.grandma.id))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'family_tree/how_am_i_related.html')
 

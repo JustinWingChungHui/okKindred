@@ -70,8 +70,9 @@ class MyUserAdmin(UserAdmin):
     list_display = ('email', 'is_superuser')
     list_filter = ('is_superuser',)
     fieldsets = (
-        (None, {'fields': ('email', 'password', 'family')}),
-        ('Permissions', {'fields': ('is_superuser','is_confirmed')}),
+        (None, {'fields': ('email','name', 'password', 'family')}),
+        ('Permissions', {'fields': ('is_superuser','is_confirmed','is_active',)}),
+        ('Settings', {'fields': ('language','receive_update_emails')}),
     )
     # add_fieldsets is not a standard ModelAdmin attribute. UserAdmin
     # overrides get_fieldsets to use this attribute when creating a user.
