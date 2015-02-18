@@ -46,7 +46,7 @@ body {
 
 /* Family Tree */
 .w {
-    padding: 16px;
+    padding: 12px;
     position: absolute;
     border: 1px solid black;
     z-index: 4;
@@ -67,10 +67,32 @@ body {
 }
 
 .w:hover {
-background-color: #5c96bc;
-color:white;
-
+    background-color: #5c96bc;
+    color:white;
 }
+
+.tree_thumb {
+    height: 80px;
+    width: 80px;
+}
+
+/* Smartphones (portrait and landscape) --  --  --  --  -- - */
+@media only screen
+and (min-device-width : 320px)
+and (max-device-width : 767px) {
+
+    .tree_thumb {
+        height: 48px;
+        width: 48px;
+    }
+
+    .w {
+       width: 90px;
+    }
+}
+
+
+
 
 .aLabel {
 	-webkit-transition:background-color 0.25s ease-in;
@@ -128,22 +150,6 @@ textarea {
 }
 
 /** Custom CSS for image cropping **/
-.glyphicon.spinning {
-    -animation: spin 1s infinite linear;
-    -webkit-animation: spin2 1s infinite linear;
-}
-
-@-webkit-keyframes spin2 {
-    from { -webkit-transform: rotate(0deg);}
-    to { -webkit-transform: rotate(360deg);}
-}
-
-@keyframes spin {
-    from { transform: scale(1) rotate(0deg);}
-    to { transform: scale(1) rotate(360deg);}
-}
-
-
 @media only screen and (max-device-width: 500px) {
 
     #crop_target {

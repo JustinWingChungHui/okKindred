@@ -66,9 +66,9 @@
             <div id="person{{relative.id}}" class="w">
                 <a href="/person={{relative.id}}/">
                     {% if relative.small_thumbnail %}
-                        <img src="/media/{{relative.small_thumbnail}}"/>
+                        <img class="tree_thumb" src="/media/{{relative.small_thumbnail}}"/>
                     {% else %}
-                        <img src="{% static "img/smiley_80.jpg" %}"/>
+                        <img class="tree_thumb" src="{% static "img/smiley_80.jpg" %}"/>
                     {% endif %}
                     <div>
                         {{ relative.name }}
@@ -79,11 +79,11 @@
 
 
 
-        <div id ="person{{person.id}}" class="w">
+        <div id ="person{{person.id}}" class="w" style="width: auto;">
             {% if person.small_thumbnail %}
-                <img src="/media/{{person.small_thumbnail}}"/>
+                <img class="tree_thumb" src="/media/{{person.small_thumbnail}}"/>
             {% else %}
-                <img src="{% static "img/smiley_80.jpg" %}"/>
+                <img class="tree_thumb" src="{% static "img/smiley_80.jpg" %}"/>
             {% endif %}
             <div>
                 {{ person.name }}
