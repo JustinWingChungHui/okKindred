@@ -10,8 +10,10 @@ from family_tree.decorators import same_family_required
 from django.conf import settings
 from django.http import HttpResponseRedirect
 from django.db.models import Q
+from custom_user.decorators import set_language
 
 @login_required
+@set_language
 @same_family_required
 def add_relation_view(request, person_id = 0, person = None):
     '''
@@ -30,6 +32,7 @@ def add_relation_view(request, person_id = 0, person = None):
 
 
 @login_required
+@set_language
 @same_family_required
 def add_relation_post(request, person_id = 0, person = None):
     '''
@@ -77,6 +80,7 @@ def add_relation_post(request, person_id = 0, person = None):
 
 
 @login_required
+@set_language
 @same_family_required
 def break_relation_view(request, person_id = 0, person = None):
     '''
@@ -96,6 +100,7 @@ def break_relation_view(request, person_id = 0, person = None):
 
 
 @login_required
+@set_language
 @same_family_required
 def break_relation_post(request, person_id = 0, person = None):
     '''

@@ -4,8 +4,10 @@ from family_tree.decorators import same_family_required
 from django.http import HttpResponse
 from django.template import RequestContext, loader
 from family_tree.models import Person
+from custom_user.decorators import set_language
 
 @login_required
+@set_language
 @same_family_required
 def map(request, person_id = 0, person = None):
 
@@ -24,7 +26,7 @@ def map(request, person_id = 0, person = None):
     context = RequestContext(request,{
                                     'this_person' : person,
                                     'locations' : locations.values(),
-                                    'zoom' : 6 if request.user.id == person.user_id else 10,
+                                    'zoom' : 7 if request.user.id == person.user_id else 12,
                                 })
 
     response = template.render(context)

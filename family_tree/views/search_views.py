@@ -7,8 +7,10 @@ from django.db.models import Q
 import operator
 from functools import reduce
 from django.core import serializers
+from custom_user.decorators import set_language
 
 @login_required
+@set_language
 def search(request):
     '''
     Shows the search page
@@ -24,6 +26,7 @@ def search(request):
 
 
 @login_required
+@set_language
 def get_search_results_json(request):
     '''
     Does the search

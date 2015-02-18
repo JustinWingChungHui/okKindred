@@ -31,7 +31,7 @@ class TestMapViews(TestCase):
         Tests that the users home screen loads and uses the correct template
         '''
         self.client.login(email='adam_lambert@queenonline.com', password='sexy boy')
-        response = self.client.get('/en/map/')
+        response = self.client.get('/map/')
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'family_tree/family_map.html')
 
@@ -54,7 +54,7 @@ class TestMapViews(TestCase):
         Tests that the users home screen loads and uses the correct template
         '''
         self.client.login(email='adam_lambert@queenonline.com', password='sexy boy')
-        response = self.client.get('/en/map={0}/'.format(self.person2.id))
+        response = self.client.get('/map={0}/'.format(self.person2.id))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'family_tree/family_map.html')
 

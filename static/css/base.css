@@ -188,7 +188,7 @@ textarea {
 
 /** Add relation page **/
 .boxed {
-        padding: 16px;
+        padding: 12px;
         border: 1px solid black;
         border-radius: 1em;
         border: 1px solid #2e6f9a;
@@ -214,7 +214,7 @@ textarea {
 
 /** How Am I Related Page **/
 .boxed_chained {
-        padding: 16px;
+        padding: 10px;
         border: 1px solid black;
         border-radius: 1em;
         border: 1px solid #2e6f9a;
@@ -229,7 +229,7 @@ textarea {
         -webkit-transition: background-color 0.25s ease-in;
         -moz-transition: background-color 0.25s ease-in;
         transition: background-color 0.25s ease-in;
-        margin-bottom: 80px;
+        margin-bottom: 68px;
         margin-left: auto;
         margin-right: auto;
         text-align: center;

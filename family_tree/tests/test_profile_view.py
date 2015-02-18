@@ -47,7 +47,7 @@ class TestProfileViews(TestCase):
         Tests that the users home screen loads and uses the correct template
         '''
         self.client.login(email='john_deacon@email.com', password='invisible man')
-        response = self.client.get('/en/profile={0}/'.format(self.person.id))
+        response = self.client.get('/profile={0}/'.format(self.person.id))
         self.assertEqual(200, response.status_code)
         self.assertTemplateUsed(response, 'family_tree/profile.html')
 
@@ -57,7 +57,7 @@ class TestProfileViews(TestCase):
         Test that people in different families cannot see profile
         '''
         self.client.login(email='prince_vultan@email.com', password="gordon's alive")
-        response = self.client.get('/en/profile={0}/'.format(self.person.id))
+        response = self.client.get('/profile={0}/'.format(self.person.id))
         self.assertEqual(404, response.status_code)
 
 
@@ -66,7 +66,7 @@ class TestProfileViews(TestCase):
         Tests that the edit profile view loads and uses the correct template
         '''
         self.client.login(email='john_deacon@email.com', password='invisible man')
-        response = self.client.get('/en/edit_profile={0}/'.format(self.person.id))
+        response = self.client.get('/edit_profile={0}/'.format(self.person.id))
         self.assertEqual(200, response.status_code)
         self.assertTemplateUsed(response, 'family_tree/edit_profile.html')
 
@@ -76,7 +76,7 @@ class TestProfileViews(TestCase):
         Test that people in different families cannot see profile
         '''
         self.client.login(email='prince_vultan@email.com', password="gordon's alive")
-        response = self.client.get('/en/edit_profile={0}/'.format(self.person.id))
+        response = self.client.get('/edit_profile={0}/'.format(self.person.id))
         self.assertEqual(404, response.status_code)
 
 

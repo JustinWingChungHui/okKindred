@@ -1,13 +1,15 @@
 from django.conf.urls import include, url, patterns
-from custom_user.views import login, auth_view
 from django.contrib import admin
-from django.conf.urls.i18n import i18n_patterns
+#from django.conf.urls.i18n import i18n_patterns
 
 admin.autodiscover()
 
 #Non-tranlated urls.  These will be mostly post views etc
 urlpatterns = patterns('',
-    url(r'^accounts/auth/$', auth_view),
+    url(r'^accounts/auth/$', 'custom_user.views.auth_view'),
+    url(r'^accounts/change_password/$', 'custom_user.views.change_password_post'),
+    url(r'^accounts/update_settings/$', 'custom_user.views.update_user_setting_post'),
+    url(r'^accounts/delete/$', 'custom_user.views.delete_account_post'),
     url(r'^update_person=(?P<person_id>\d+)/$', 'family_tree.views.update_person', name='update_person'),
     url(r'^update_biography=(?P<person_id>\d+)/ln=(?P<requested_language>[a-zA-Z]{1,8}(-[a-zA-Z0-9]{1,8})*)/$', 'family_tree.views.update_biography', name='update_biography'),
     url(r'^image_crop=(?P<person_id>\d+)/$', 'family_tree.views.image_crop', name='image_crop'),
@@ -21,14 +23,14 @@ urlpatterns = patterns('',
 
 
 #Translated urls
-urlpatterns += i18n_patterns('',
+urlpatterns += patterns('',
 
     url(r'^admin/', include(admin.site.urls)),
     url(r'^about/$', 'familyroot.views.about', name='about'),
     url(r'^$', 'familyroot.views.index', name='index'),
 
     #user auth urls
-    url(r'^accounts/login/$', login),
+    url(r'^accounts/login/$', 'custom_user.views.login'),
     url(r'^accounts/logout/$', 'custom_user.views.logout'),
     url(r'^accounts/logged_in/$', 'custom_user.views.logged_in'),
     url(r'^accounts/invalid/$', 'custom_user.views.invalid_login'),
@@ -69,5 +71,7 @@ urlpatterns += i18n_patterns('',
     url(r'^image_resize=(?P<person_id>\d+)/$', 'family_tree.views.image_resize', name='image_resize'),
 
 
+    #User Settings
+    url(r'^settings/$', 'custom_user.views.settings_view', name='settings_view'),
 
 )
