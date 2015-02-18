@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load staticfiles %}
 {% load i18n %}
+{% load l10n %}
 
 {% block extrastyle %}
 {% endblock %}
@@ -12,7 +13,7 @@
 {% endblock %}
 
 {% block extrascript %}
-
+    {% localize off %}
     <script src="https://maps.google.com/maps/api/js?sensor=false" type="text/javascript"></script>
 
     <script type="text/javascript">
@@ -20,7 +21,7 @@
 
     function initialize() {
         var map_options = {
-            center: new google.maps.LatLng({{ this_person.latitude }},{{ this_person.longitude}}),
+            center: new google.maps.LatLng({{ this_person.latitude }},{{ this_person.longitude }}),
             zoom: {{ zoom }},
             mapTypeId: google.maps.MapTypeId.ROADMAP
         };
@@ -77,6 +78,7 @@
             i++;
         }
     }
+    {% endlocalize %}
 </script>
 
 {% endblock %}
