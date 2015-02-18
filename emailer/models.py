@@ -88,7 +88,8 @@ class EmailManager(models.Manager):
                     "(recipient, subject, content, content_html, send_attempts, send_successful) "
                     "SELECT email, %s, %s, %s, 0 , 0 "
                     "FROM custom_user_user "
-                    "WHERE language = %s AND family_id = %s AND is_confirmed = 1 AND is_active = 1;")
+                    "WHERE language = %s AND family_id = %s "
+                    "AND is_confirmed = 1 AND is_active = 1 AND receive_update_emails = 1;")
 
 
 
