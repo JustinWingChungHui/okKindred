@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load i18n %}
+
+
+
+{% block content %}
+<div class="container">
+
+    <h3>{% trans "Welcome to ok!Kindred" %} {{ person.name }}</h3>
+    <p>
+         {% blocktrans %} Thank you for accepting the invitation from {% endblocktrans %}
+         {{ user_who_invited_person.name }}
+         {% blocktrans %}
+         to join ok!kindred, share your family tree and keep in contact with your family members!
+         {% endblocktrans %}
+    </p>
+
+    <form role="form" action="/accounts/confirmation={{ invite.confirmation_key }}/" method="post" data-toggle="validator">
+        <div class="form-group">
+            {% csrf_token %}
+            <h4>{% trans "Please create a new password:" %}</h4>
+            <p>
+                <input type="password" name="password" data-minlength="8" class="form-control" id="inputPassword" placeholder="{% trans "New Password" %} " required>
+                <span class="help-block">{% trans "Minimum of 8 characters" %}</span>
+            </p>
+            <p>
+                <input type="password" class="form-control" id="inputPasswordConfirm" data-match="#inputPassword"
+                        data-match-error="{% trans "Whoops, they must match!" %}" placeholder="{% trans "Confirm Password" %}" required>
+                <div class="help-block with-errors"></div>
+            </p>
+            <input type="hidden" name="confirmation_key" value="invite.confirmation_key">
+        </div>
+        <button class="btn btn-primary disabled" style="cursor: pointer; pointer-events: all;" type="submit">{% trans "Join ok!Kindred" %}</button>
+    </form>
+
+
+</div>
+{% endblock %}
+
+{% block extrascript %}
+
+<!--http://1000hz.github.io/bootstrap-validator/ to validate password-->
+<script src="{% static "js/validator.min.js" %}"></script>
+
+{% endblock %}

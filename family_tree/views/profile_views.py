@@ -10,6 +10,7 @@ from django.http import HttpResponseRedirect
 from custom_user.decorators import set_language
 
 
+
 @login_required
 @same_family_required
 def profile(request, person_id = 0, person = None, requested_language = '', edit_mode = False):
@@ -24,20 +25,17 @@ def profile(request, person_id = 0, person = None, requested_language = '', edit
 
     if edit_mode:
 
-        #Cannot edit the first language or email of someone else if they are a confirmed user
+        #Cannot edit the first language or email of someone else if they are a user
         if not person.user_id:
             show_email_and_language = True
             can_delete= True
         else:
-            if not person.user.is_confirmed or request.user.id == person.user_id:
+            if request.user.id == person.user_id:
                 show_email_and_language = True
             else:
                 show_email_and_language = False
 
-            if person.user.is_confirmed:
-                can_delete= False
-            else:
-                can_delete= True
+            can_delete= False
 
 
         template = loader.get_template('family_tree/edit_profile.html')
@@ -50,6 +48,21 @@ def profile(request, person_id = 0, person = None, requested_language = '', edit
                                     'can_delete' : can_delete,
                                 })
     else:
+
+        invite_allowed = False
+        if not person.user_id and person.email:
+
+            #check no pending invites to email address
+            from email_confirmation.models import EmailConfirmation
+            try:
+                invite = EmailConfirmation.objects.get(person_id = person.id, email_address = person.email)
+                if invite.email_address != person.email:
+                    invite_allowed = True
+
+            except:
+                invite_allowed = True
+
+
 
 
         #Get the biography
@@ -69,6 +82,7 @@ def profile(request, person_id = 0, person = None, requested_language = '', edit
                                     'requested_language': requested_language,
                                     'locked': (True if request.user.id != person.user_id and person.locked else False),
                                     'show_relation_to_me': (True if request.user.id != person.user_id else False),
+                                    'invite_allowed' : invite_allowed,
                                 })
 
     response = template.render(context)
@@ -109,7 +123,7 @@ def update_person(request, person_id = 0, person = None):
 
     #Check we don't change any settings for a confirmed user
     if person.user_id and field_name in ['email', 'language']:
-        if person.user.is_confirmed and person.user_id != request.user.id:
+        if person.user_id != request.user.id:
             return HttpResponse(status=405, content="Access denied to change confirmed user settings")
 
     try:
@@ -130,7 +144,7 @@ def delete_profile(request, person_id = 0, person = None):
     '''
 
     #Cannot delete any profile of a confirmed user
-    if person.user_id and person.user.is_confirmed:
+    if person.user_id:
         return HttpResponse(status=405, content="Cannot delete user profile")
 
     person.delete()

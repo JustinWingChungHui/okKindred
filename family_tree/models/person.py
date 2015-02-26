@@ -281,37 +281,15 @@ class Person(models.Model):
         if self.user:
 
             #Update user details
-            self.user.name=self.name
-            self.user.email = self.email
-            self.user.family_id = self.family_id
-            self.user.language = self.language
-            self.user.save()
+            if self.user.name != self.name or self.user.email != self.email \
+                or self.user.family_id != self.family_id or self.user.language != self.language:
+                self.user.name = self.name
+                self.user.email = self.email
+                self.user.family_id = self.family_id
+                self.user.language = self.language
+                self.user.save_user_only()
 
-        else: #Person is not already linked to a user
 
-            user = User.objects.filter(email = self.email).first() #returns None if none already exists
-
-            #No user with this email already exists
-            if not user:
-
-                password=User.objects.make_random_password(length=8)
-
-                #Create a new user
-                user = User(email=self.email, name=self.name, password=password)
-                user.family_id = self.family_id
-                user.language = self.language
-                user.save()
-                self.user = user
-
-                return password
-
-            else:
-
-                #if user already is taken
-                if Person.objects.filter(user_id = user.id).count() > 0:
-                    raise Exception(_("Email Address is already in use!"))
-                else:
-                    self.user_id = user.id
 
 
     def save(self, *args, **kwargs):
@@ -330,6 +308,12 @@ class Person(models.Model):
             self.latitude = 0
             self.longitude = 0
 
+        super(Person, self).save(*args, **kwargs) # Call the "real" save() method.
+
+    def save_person_only(self, *args, **kwargs):
+        '''
+        Save method without any extras
+        '''
         super(Person, self).save(*args, **kwargs) # Call the "real" save() method.
 
 

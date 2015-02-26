@@ -89,7 +89,7 @@ class EmailManager(models.Manager):
                     "SELECT email, %s, %s, %s, 0 , 0 "
                     "FROM custom_user_user "
                     "WHERE language = %s AND family_id = %s "
-                    "AND is_confirmed = 1 AND is_active = 1 AND receive_update_emails = 1;")
+                    "AND is_active = 1 AND receive_update_emails = 1;")
 
 
 

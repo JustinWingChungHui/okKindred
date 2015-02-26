@@ -12,7 +12,11 @@
 <div class="jumbotron" id="top">
   <div class="container">
     <h1>{% trans "Welcome to ok!Kindred" %}</h1>
-    <p>{% trans "Greetings from Justin & Adrian.  This is a website to keep track of our family tree.  It is now spread across the world and is growing." %}</p>
+    <p>
+        {% blocktrans %}
+        Greetings from Justin & Adrian.  This is a website to keep track of our family tree.  It is now spread across the world and is growing.
+        {% endblocktrans %}
+    </p>
     <a class="btn btn-primary btn-lg" href="/accounts/login/" role="button">{%trans "Sign In" %} &raquo;</a></p>
   </div>
 </div>
@@ -46,38 +50,48 @@
         <h2>{% trans "How it started" %}</h2>
         <img src="{% static "img/justin_and_adrian.jpg" %}"/>
         <p>
-        {% blocktrans %}
+
         <p>
+            {% blocktrans %}
             Hello.  I'm Justin on the left.  And I'm Adrian on the right.
+            {% endblocktrans %}
         </p>
         <p>
+            {% blocktrans %}
             This is a website to record our family tree and and act a bit like a social network.  Our family members can maintain a profile on here and discover how far the tree reaches
             As a person is added to the family tree, they receive an email so they may become a user and add more people to it.
             I attended several family gatherings recently and have struggled to explain how we are all related to others.  My family is now very diverse with several ethnicities and resides across several continents.
             We wanted someway of documenting everyone and keep in touch as the family grows.
+            {% endblocktrans %}
         </p>
-        {% endblocktrans %}
+
         <p><a class="btn btn-default" href="#top" role="button">&laquo;{%trans "Back" %}</a></p>
     </div>
 
     <hr>
     <div id="contact" style="padding-top: 30px;">
         <h2>{% trans "Contact" %}</h2>
-        {% blocktrans %}
-        <p>Contact us via email info@okkindred.com</p>
+
+        <p>{% blocktrans %}Contact us via email info@okkindred.com{% endblocktrans %}</p>
         <p>
+            {% blocktrans %}
             If you are in our family we want to hear from you and are welcome to visit and stay round any time.
             If you have a login to this site and are part of my family, you can get my telephone number and address from my profile!
+            {% endblocktrans %}
         </p>
 
         <p>
+            {% blocktrans %}
             Alternatively, if you are looking for some help using the site, or even if you want us to help you set up your own similar site please drop us a line!
+            {% endblocktrans %}
         </p>
 
         <p>
-            We're quite nice people and do like to talk to people interested in the sames things we are: Geek stuff, software, music and crazy pan global Chinese families..
+            {% blocktrans %}
+            We're quite nice people and do like to talk to people interested in the sames things we are: Geek stuff, software, music and crazy pan global Chinese families...
+            {% endblocktrans %}
         </p>
-        {% endblocktrans %}
+
         <p><a class="btn btn-default" href="#top" role="button">&laquo;{%trans "Back" %}</a></p>
     </div>
 
@@ -85,45 +99,57 @@
     <div id="security" style="padding-top: 30px;">
         <h2>{% trans "Security & Privacy" %}</h2>
         <p>
-        {% blocktrans %}
+
         <p>
+            {% blocktrans %}
              The details of our family are on this site.  We would never try to do anything we think would jeapordise this data!
              Obviously we take security and privacy very seriously.  This will hopefully summarise some of the measures we have taken.
+             {% endblocktrans %}
         </p>
-        <h3>Security</h3>
+        <h3>{% trans "Security" %}</h3>
         <p>
+            {% blocktrans %}
             This entire site is loaded over <a href="https://www.globalsign.com/en/ssl-information-center/what-is-ssl/">Secure Socket Layer</a> (SSL).
             As a result, the connection between you and this website is encrypted.
             This protects against other people listening and stealing the information that is transmitted between you and the website.
             We use 128 bit encryption which is an <a href ="http://www.inet2000.com/public/encryption.htm">industry standard</a>.
             You should notice a padlock at the top of your web browser to show you that the connection to this website is secure.
+            {% endblocktrans %}
         </p>
 
         <p>
+            {% blocktrans %}
             We encrypt all stored passwords using the <a href="https://en.wikipedia.org/wiki/PBKDF2">PBKDF2 algorithm</a> with a
             <a href="https://en.wikipedia.org/wiki/SHA-2">SHA256 hash</a>.  This is a recommendation by <a href="http://csrc.nist.gov/publications/nistpubs/800-132/nist-sp800-132.pdf">NIST</a>.
             Our servers are located in the USA, and therefore are subject to USA law.
+            {% endblocktrans %}
         </p>
         <p>
+            {% blocktrans %}
             We adopt appropriate data collection, storage and processing practices and security measures to protect against unauthorized access, alteration, disclosure
             or destruction of your personal information and transaction information and data stored on our site.
+            {% endblocktrans %}
         </p>
 
-        <h3>Privacy</h3>
+        <h3>{% trans "Privacy" %}</h3>
         <p>
+            {% blocktrans %}
             Our site uses <a href="https://en.wikipedia.org/wiki/HTTP_cookie">cookies</a> to enhance your experience. Your web browser places cookies on your hard drive for record-keeping purposes and sometimes to track information about you.
             In particular we use cookies to identify you so that you may our login to the site.
+            {% endblocktrans %}
         </p>
 
         <p>
+            {% blocktrans %}
             We do not sell, trade, or rent your personal identification information to others.
             We do use third party <a href="https://en.wikipedia.org/wiki/Geocoding">geocoding</a> services.  This is to convert a location into a longitude and latitude so we can plot it on a map.
             However no other identifying pieces of information (e.g. name) are supplied with this location.
             We also may share generic aggregated demographic information not linked to any personal identification information.  For example we may disclose how many users we have in China.
+            {% endblocktrans %}
         </p>
 
 
-        {% endblocktrans %}
+
         <p><a class="btn btn-default" href="#top" role="button">&laquo;{%trans "Back" %}</a></p>
 
     </div>

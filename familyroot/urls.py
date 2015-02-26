@@ -18,6 +18,7 @@ urlpatterns = patterns('',
     url(r'^delete=(?P<person_id>\d+)/$', 'family_tree.views.delete_profile', name='delete_profile'),
     url(r'^add_relation_post=(?P<person_id>\d+)/$', 'family_tree.views.add_relation_post', name='add_relation_post'),
     url(r'^break_relation_post=(?P<person_id>\d+)/$', 'family_tree.views.break_relation_post', name='break_relation_post'),
+    url(r'^accounts/invite_person=(?P<person_id>\d+)/$', 'email_confirmation.views.invite_person', name='invite_person'),
 )
 
 
@@ -34,6 +35,7 @@ urlpatterns += patterns('',
     url(r'^accounts/logout/$', 'custom_user.views.logout'),
     url(r'^accounts/logged_in/$', 'custom_user.views.logged_in'),
     url(r'^accounts/invalid/$', 'custom_user.views.invalid_login'),
+    url(r'^accounts/confirmation=(?P<confirmation_key>\w+)/$', 'email_confirmation.views.confirm_invite'),
 
     #Tree Views
     url(r'^home/$', 'family_tree.views.tree', name='tree'),

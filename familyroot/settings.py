@@ -48,6 +48,7 @@ INSTALLED_APPS = (
     'family_tree',
     'axes',
     'emailer',
+    'email_confirmation',
 )
 
 MIDDLEWARE_CLASSES = (
