@@ -20,41 +20,16 @@ class PersonTestCase(TestCase):
         super(PersonTestCase, self).setUp()
 
 
-    def test_create_user_with_no_email(self):
-        '''
-        Tests that a user is not created when a person is created with no email
-        '''
-
-        num_users = User.objects.all().count()
-
-        person = Person.objects.create(name='John Wong', gender='M', family_id=self.family.id)
-        person.create_update_user()
-
-        self.assertEqual(num_users,User.objects.all().count())
-        self.assertIsNone(person.user)
-
-
-    def test_create_user_with_email(self):
-        '''
-        Tests that a user is created when a person is created with an email
-        '''
-
-        person = Person(name='John Wong', gender='M', email='john1.wong@example.com', family_id=self.family.id, language='pl')
-        person.create_update_user()
-
-        self.assertEqual(1, User.objects.filter(email='john1.wong@example.com').count())
-        self.assertEqual(person.user_id, User.objects.get(email='john1.wong@example.com').id)
-        self.assertEqual(person.family_id, User.objects.get(email='john1.wong@example.com').family_id)
-        self.assertEqual('pl', User.objects.get(email='john1.wong@example.com').language)
-
 
     def test_update_user_when_email_changed(self):
         '''
         Tests that a user is updated when a person's email is modified
         '''
-        person = Person(name='John Wong', gender='M', email='john.wong2@example.com', family_id=self.family.id, language='pl')
-        person.create_update_user()
+
+        user = User.objects.create(email='john.wong2@example.com', password='char sui', name='John Wong')
+        person = Person(name='John Wong', gender='M', email='john.wong2@example.com', family_id=self.family.id, language='pl', user_id=user.id)
         person.save()
+
 
         person.email = 'a_different_email@example.com'
         person.create_update_user()

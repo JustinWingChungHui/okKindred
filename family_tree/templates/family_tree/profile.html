@@ -29,7 +29,15 @@
         {% else %}
             <img src="{% static "img/smiley_200.jpg" %}"/>
         {% endif %}
-            <br/>
+
+
+        {% if invite_allowed %}
+        <form role="form" action="/accounts/invite_person={{ person.id }}/" method="post">
+            {% csrf_token %}
+            <button class="btn btn-primary" type="submit" style ="width:200px;">{% trans "Invite to join" %}</button>
+        </form>
+        {% endif %}
+
     </div>
     <div class="col-md-8">
         <table class="table table-striped">

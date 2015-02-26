@@ -98,16 +98,16 @@
                     <button type="button" class="btn btn-primary" data-dismiss="modal" style="margin-bottom:5px;">{% trans "NO!!! I don't want to quit" %}</button>
 
                     <!--Display forms inline-->
-                    <form  action="/accounts/delete/" method="post" style="margin: 0; padding: 0; display: inline;">
+                    <form  action="/accounts/delete/" method="post" class="form-inline">
                         {% csrf_token %}
                         <input type="hidden" name="delete_profile" value="0">
-                        <button class="btn btn-warning" type="submit" style="margin-bottom:5px; display: inline;">{% trans "Yes but leave my profile" %}</button>
+                        <button class="btn btn-warning" type="submit" class="form-inline" style="margin-bottom:5px;">{% trans "Yes but leave my profile" %}</button>
                     </form>
 
-                    <form  action="/accounts/delete/" method="post" style="margin: 0; padding: 0; display: inline;">
+                    <form  action="/accounts/delete/" method="post" class="form-inline">
                         {% csrf_token %}
                         <input type="hidden" name="delete_profile" value="1">
-                        <button class="btn btn-danger" type="submit" style="margin-bottom:5px; display: inline;">{% trans "Yes and delete my profile" %}</button>
+                        <button class="btn btn-danger" type="submit" class="form-inline" style="margin-bottom:5px;">{% trans "Yes and delete my profile" %}</button>
                     </form>
                 </div>
             </div>

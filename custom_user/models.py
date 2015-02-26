@@ -42,7 +42,6 @@ class User(AbstractBaseUser):
     name = models.CharField(_('Name'), max_length=255, null = False, blank = False)
     is_staff = models.BooleanField(_('Staff status'), default=False, help_text=_('Designates whether the user can log into this admin site.'))
     is_superuser = models.BooleanField(_('Superuser'), default=False, help_text=_('Designates whether the user is superuser'))
-    is_confirmed = models.BooleanField(_('Confirmed'), default=False, help_text=_('Designates whether the user has confirmed their membership'))
     is_active = models.BooleanField(_('Active'), default=True, help_text=_('Designates whether this user should be treated as active. Unselect this instead of deleting accounts.'))
     date_joined = models.DateTimeField(_('Date Joined'),auto_now_add=True)
 
@@ -94,9 +93,16 @@ class User(AbstractBaseUser):
         if self.id is not None and self.id > 0:
             try:
                 person = Person.objects.get(user_id=self.id)
-                person.language = self.language
-                person.save()
+                if person.language != self.language:
+                    person.language = self.language
+                    person.save_person_only()
             except:
                 pass
 
+        super(User, self).save(*args, **kwargs) # Call the "real" save() method.
+
+    def save_user_only(self, *args, **kwargs):
+        '''
+        Call to just save user with no extra stuff
+        '''
         super(User, self).save(*args, **kwargs) # Call the "real" save() method.

@@ -1,0 +1,35 @@
+{% extends "base_email.html" %}
+{% load i18n %}
+
+{% block content %}
+    <p>
+        {% trans "Hello" %} {{ person_name }}
+    </p>
+
+    <p>
+        {% blocktrans %}
+        You have been invited by {{ user_who_invited_person }} to join ok!Kindred: a collaborative family tree and private social network for you and your family.
+        A network has already been set up by one of your family members to help you keep in touch.
+        {% endblocktrans %}
+    </p>
+    <p>
+        {% blocktrans %}
+        Don't worry, it's absolutely free, and we take your security and privacy seriously.
+        If you would like to join, please click on the following link and choose a secure password that you will remember.
+        {% endblocktrans %}
+    </p>
+    <p>
+        <a href="https://www.okkindred.com/accounts/confirmation={{ confirmation_key }}/">https://www.okkindred.com/accounts/confirmation={{ confirmation_key }}/</a>
+    </p>
+    <p>
+        {% blocktrans %}
+        Please, click the link and check it out.  You can always leave if you wish.  If you want to find out more, just go to <a href = "https://www.okkindred.com">https://okkindred.com</a> to find out more!
+        {% endblocktrans %}
+    </p>
+
+    <p>
+        {% blocktrans %}
+        Thanks and lots of love from Justin & Adrian @ ok!Kindred
+        {% endblocktrans %}
+    </p>
+{% endblock %}
