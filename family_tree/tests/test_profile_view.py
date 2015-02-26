@@ -108,6 +108,14 @@ class TestProfileViews(TestCase):
         self.assertEqual(405, response.status_code)
         self.assertEqual(b"Access denied to locked profile", response.content)
 
+    def test_cannot_update_family_id_through_api(self):
+        '''
+        Test cannot update non-whitelisted properties through api
+        '''
+        self.client.login(email='john_deacon@email.com', password='invisible man')
+        response = self.client.post('/update_person={0}/'.format(self.person2.id), {'pk': self.person2.id, 'name': 'family_id', 'value': self.family.id})
+        self.assertEqual(405, response.status_code)
+        self.assertEqual(b"Access denied to locked profile", response.content)
 
     def test_update_person_can_update_name(self):
         '''
@@ -118,6 +126,17 @@ class TestProfileViews(TestCase):
         self.assertEqual(200, response.status_code)
         self.person = Person.objects.get(id=self.person.id)
         self.assertEqual("Brian Harold May", self.person.name)
+
+    def test_update_email_saves_to_lowercase(self):
+        '''
+        Tests that email field can be updated through api and is always saved as
+        lower case
+        '''
+        self.client.login(email='john_deacon@email.com', password='invisible man')
+        response = self.client.post('/update_person={0}/'.format(self.person.id), {'pk': self.person.id, 'name': 'email', 'value': 'BrianHaroldMay@QueenOnline.com'})
+        self.assertEqual(200, response.status_code)
+        self.person = Person.objects.get(id=self.person.id)
+        self.assertEqual("brianharoldmay@queenonline.com", self.person.email)
 
 
     def test_another_family_cannot_update_person_name(self):
