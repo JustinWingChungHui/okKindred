@@ -121,8 +121,14 @@ def update_person(request, person_id = 0, person = None):
 
     field_name = request.POST.get("name")
 
+    if field_name not in ['email', 'language','locked'
+                            , 'birth_year','birth_year'
+                            'telephone_number','website','address'
+                            ,'name','gender',]:
+        return HttpResponse(status=405, content="Access denied to change confirmed user settings")
+
     #Check we don't change any settings for a confirmed user
-    if person.user_id and field_name in ['email', 'language']:
+    if person.user_id and field_name in ['email', 'language',]:
         if person.user_id != request.user.id:
             return HttpResponse(status=405, content="Access denied to change confirmed user settings")
 
