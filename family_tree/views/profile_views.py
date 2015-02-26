@@ -133,14 +133,7 @@ def update_person(request, person_id = 0, person = None):
             return HttpResponse(status=405, content="Access denied to change confirmed user settings")
 
     try:
-
-
-        if field_name == 'email':
-            value = request.POST.get("value").lower()
-        else:
-            value = request.POST.get("value")
-
-        setattr(person, field_name, value)
+        setattr(person, field_name, request.POST.get("value"))
         person.save()
         return HttpResponse(status=200, content="OK")
 

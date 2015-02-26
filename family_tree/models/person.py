@@ -297,6 +297,10 @@ class Person(models.Model):
         Overrides the save method to determine the calculated fields
         '''
 
+        #Ensure email is in lowercase
+        if self.email:
+            self.email = self.email.lower()
+
         self.create_update_user()
 
         #If address has changed, geocode it
