@@ -276,6 +276,7 @@ class Person(models.Model):
 
         if self.email:
             validate_email(self.email)
+            #Check not used by another user
 
         #If person is already linked to a user
         if self.user:
