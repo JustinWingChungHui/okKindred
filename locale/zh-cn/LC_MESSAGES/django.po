@@ -2,38 +2,36 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# 
+#
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-02-27 23:50+0000\n"
-"PO-Revision-Date: 2015-02-28 21:57+0000\n"
-"Last-Translator: b'Anonymous User <wingchung@justinhui.co.uk>'\n"
+"POT-Creation-Date: 2015-02-28 19:24+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: \n"
-"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Translated-Using: django-rosetta 0.7.5\n"
 
 #: custom_user/admin.py:20 custom_user/templates/custom_user/login.html:11
 msgid "Password"
-msgstr "Hasło"
+msgstr ""
 
 #: custom_user/admin.py:21
 msgid "Password confirmation"
-msgstr "Potwierdź hasło"
+msgstr ""
 
 #: custom_user/admin.py:32
 msgid "Passwords don't match"
-msgstr "Hasła nie są identyczne"
+msgstr ""
 
 #: custom_user/models.py:41 custom_user/templates/custom_user/login.html:9
 msgid "Email Address"
-msgstr "Adres E-Mail"
+msgstr ""
 
 #: custom_user/models.py:42
 #: family_tree/templates/family_tree/add_relation.html:46
@@ -43,104 +41,100 @@ msgstr "Adres E-Mail"
 #: family_tree/templates/family_tree/profile.html:46
 #: family_tree/templates/family_tree/search.html:14
 msgid "Name"
-msgstr "Nazwa"
+msgstr ""
 
 #: custom_user/models.py:43
 msgid "Staff status"
-msgstr "Status pracowników"
+msgstr ""
 
 #: custom_user/models.py:43
 msgid "Designates whether the user can log into this admin site."
-msgstr "Określa, czy użytkownik może się zalogować w to administrator strony."
+msgstr ""
 
 #: custom_user/models.py:44
 msgid "Superuser"
-msgstr "Superuser"
+msgstr ""
 
 #: custom_user/models.py:44
 msgid "Designates whether the user is superuser"
-msgstr "Określa, czy użytkownik jest superuser"
+msgstr ""
 
 #: custom_user/models.py:45
 msgid "Active"
-msgstr "Active"
+msgstr ""
 
 #: custom_user/models.py:45
 msgid ""
 "Designates whether this user should be treated as active. Unselect this "
 "instead of deleting accounts."
 msgstr ""
-"Określa, czy użytkownik ten powinien być traktowany jako aktywny. Zdejmij to"
-" zamiast usuwania kont."
 
 #: custom_user/models.py:46
 msgid "Date Joined"
-msgstr "Data Dołączył"
+msgstr ""
 
 #: custom_user/models.py:51
 msgid "Receive Update Emails"
-msgstr "Otrzymywać E-Maile Z"
+msgstr ""
 
 #: custom_user/models.py:51
 msgid "Sends out emails if family has been updated"
-msgstr "Wysyła e-maile, jeśli rodzina została zaktualizowana"
+msgstr ""
 
 #: custom_user/models.py:60
 msgid "user"
-msgstr "użytkownik"
+msgstr ""
 
 #: custom_user/models.py:61
 msgid "users"
-msgstr "użytkownicy"
+msgstr ""
 
 #: custom_user/templates/custom_user/account_locked.html:6
 msgid ""
 "Your account has now been locked for 24 hours after 5 failed login attempts"
 msgstr ""
-"Twoje konto od teraz jest aktywna w ciągu 24 godzin po 5 nieudanych prób "
-"logowania"
 
 #: custom_user/templates/custom_user/account_locked.html:7
 msgid "If you need assistance, please email: "
-msgstr "Jeśli potrzebujesz pomocy, napisz do: "
+msgstr ""
 
 #: custom_user/templates/custom_user/invalid_login.html:6
 msgid "Invalid Login"
-msgstr "Nieprawidłowy Login"
+msgstr ""
 
 #: custom_user/templates/custom_user/invalid_login.html:7
 msgid "Try Again"
-msgstr "Spróbuj Ponownie"
+msgstr ""
 
 #: custom_user/templates/custom_user/logged_in.html:6
 msgid "Logged In"
-msgstr "Zarejestrowany W"
+msgstr ""
 
 #: custom_user/templates/custom_user/logged_out.html:6
 msgid "Logged Out"
-msgstr "Logged Out"
+msgstr ""
 
 #: custom_user/templates/custom_user/login.html:8
 msgid "Please sign in"
-msgstr "Zaloguj się"
+msgstr ""
 
 #: custom_user/templates/custom_user/login.html:13 templates/about.html:20
 msgid "Sign In"
-msgstr "Znak W"
+msgstr ""
 
 #: custom_user/templates/custom_user/settings.html:13 templates/base.html:67
 msgid "Settings"
-msgstr "Opcje"
+msgstr ""
 
 #: custom_user/templates/custom_user/settings.html:18
 #: custom_user/templates/custom_user/settings.html:75
 #: family_tree/templates/family_tree/edit_profile.html:13
 msgid "Done"
-msgstr "Zrobione"
+msgstr ""
 
 #: custom_user/templates/custom_user/settings.html:23
 msgid "Options"
-msgstr "Opcje"
+msgstr ""
 
 #: custom_user/templates/custom_user/settings.html:27
 #: custom_user/templates/custom_user/settings.html:29
@@ -149,15 +143,15 @@ msgstr "Opcje"
 #: family_tree/templates/family_tree/edit_profile.html:75
 #: family_tree/templates/family_tree/profile.html:70
 msgid "First Language"
-msgstr "Pierwszy Język"
+msgstr ""
 
 #: custom_user/templates/custom_user/settings.html:37
 msgid "Receive family update emails"
-msgstr "Otrzymywania rodzinne aktualizacji na e-mail"
+msgstr ""
 
 #: custom_user/templates/custom_user/settings.html:39
 msgid "Do you want to receive family update emails?"
-msgstr "Chcesz otrzymywać aktualizacje z rodziny e-maile?"
+msgstr ""
 
 #: custom_user/templates/custom_user/settings.html:41
 #: custom_user/templates/custom_user/settings.html:148
@@ -165,174 +159,164 @@ msgstr "Chcesz otrzymywać aktualizacje z rodziny e-maile?"
 #: family_tree/templates/family_tree/edit_profile.html:153
 #: family_tree/templates/family_tree/edit_profile.html:216
 msgid "Yes"
-msgstr "Tak"
+msgstr ""
 
 #: custom_user/templates/custom_user/settings.html:41
 #: custom_user/templates/custom_user/settings.html:147
 #: family_tree/templates/family_tree/edit_profile.html:126
 #: family_tree/templates/family_tree/edit_profile.html:215
 msgid "No"
-msgstr "Nie"
+msgstr ""
 
 #: custom_user/templates/custom_user/settings.html:56
 msgid "Change Password"
-msgstr "Zmień Hasło"
+msgstr ""
 
 #: custom_user/templates/custom_user/settings.html:58
 #: email_confirmation/templates/email_confirmation/confirm_invite.html:24
 msgid "New Password"
-msgstr "Nowe Hasło"
+msgstr ""
 
 #: custom_user/templates/custom_user/settings.html:59
 #: email_confirmation/templates/email_confirmation/confirm_invite.html:25
 msgid "Minimum of 8 characters"
-msgstr "Co najmniej 8 znaków"
+msgstr ""
 
 #: custom_user/templates/custom_user/settings.html:63
 #: email_confirmation/templates/email_confirmation/confirm_invite.html:29
 msgid "Whoops, they must match!"
-msgstr "Niestety, oni muszą się zgadzać!"
+msgstr ""
 
 #: custom_user/templates/custom_user/settings.html:63
 #: email_confirmation/templates/email_confirmation/confirm_invite.html:29
 msgid "Confirm Password"
-msgstr "Potwierdź Hasło"
+msgstr ""
 
 #: custom_user/templates/custom_user/settings.html:68
 msgid "Update Password"
-msgstr "Aktualizacja Hasła"
+msgstr ""
 
 #: custom_user/templates/custom_user/settings.html:80
 msgid "Goodbye and Farewell"
-msgstr "Do widzenia i do widzenia"
+msgstr ""
 
 #: custom_user/templates/custom_user/settings.html:81
 msgid "Leave ok!Kindred forever..."
-msgstr "Pozostaw ok!Kumple na zawsze..."
+msgstr ""
 
 #: custom_user/templates/custom_user/settings.html:91
 #: family_tree/templates/family_tree/edit_profile.html:147
 msgid "Delete Profile"
-msgstr "Usuń Profil"
+msgstr ""
 
 #: custom_user/templates/custom_user/settings.html:94
 msgid ""
 "Are you sure you want to leave ok!Kindred?  We would be very sad to see you "
 "leave!"
 msgstr ""
-"Czy jesteś pewien, że chcesz opuścić ok!Pokrewne? Bylibyśmy bardzo smutne "
-"widzieć was opuścić!"
 
 #: custom_user/templates/custom_user/settings.html:98
 msgid "NO!!! I don't want to quit"
-msgstr "Nie!!! Nie chcę, aby wyjść"
+msgstr ""
 
 #: custom_user/templates/custom_user/settings.html:104
 msgid "Yes but leave my profile"
-msgstr "Tak, ale zostawić mój profil"
+msgstr ""
 
 #: custom_user/templates/custom_user/settings.html:110
 msgid "Yes and delete my profile"
-msgstr "Tak i usuń mój profil"
+msgstr ""
 
 #: custom_user/templates/custom_user/settings.html:139
 #: family_tree/templates/family_tree/edit_profile.html:177
 #: family_tree/templates/family_tree/edit_profile.html:189
 #: family_tree/templates/family_tree/edit_profile.html:200
 msgid "Required field!"
-msgstr "Pole wymagane!"
+msgstr ""
 
 #: custom_user/views.py:126
 msgid "Access denied"
-msgstr "Odmowa dostępu"
+msgstr ""
 
 #: email_confirmation/models.py:46
 #, python-brace-format
 msgid "An invitation to ok!Kindred from {0}"
-msgstr "Zaproszenie jest ok!Kindred od {0}"
+msgstr ""
 
 #: email_confirmation/models.py:48
 #, python-brace-format
 msgid ""
 "Hi {0}\n"
-"                                            You have been invited by {1} to join ok!Kindred.\n"
-"                                            ok!Kindred is a collaborative family tree and private social network for you and you family.\n"
-"                                            A network has already been set up by one of your family members to help you keep in touch.\n"
-"                                            To join, please go to https://www.okkindred.com/accounts/confirmation={2}/\n"
+"                                            You have been invited by {1} to "
+"join ok!Kindred.\n"
+"                                            ok!Kindred is a collaborative "
+"family tree and private social network for you and you family.\n"
+"                                            A network has already been set "
+"up by one of your family members to help you keep in touch.\n"
+"                                            To join, please go to https://"
+"www.okkindred.com/accounts/confirmation={2}/\n"
 "                                        "
 msgstr ""
-"Hi {0}\n"
-" Zostałeś zaproszony na {1}, aby przyłączyć się ok!Pokrewne.\n"
-" ok!Kindred-jest to wspólne drzewo rodzinne i prywatny serwis społecznościowy dla ciebie i twojej rodziny.\n"
-" Już sieć stworzona jest jednym z członków swojej rodziny, aby pomóc, bądź na bieżąco.\n"
-" Aby dołączyć, przejdź do https://www.okkindred.com/accounts/confirmation={2}/\n"
-"                                        "
 
 #: email_confirmation/templates/email_confirmation/confirm_invite.html:10
 #: templates/about.html:14
 msgid "Welcome to ok!Kindred"
-msgstr "Witamy ok!Kindred"
+msgstr ""
 
 #: email_confirmation/templates/email_confirmation/confirm_invite.html:12
 msgid " Thank you for accepting the invitation from "
-msgstr " Dziękuję za przyjęcie zaproszenia od "
+msgstr ""
 
 #: email_confirmation/templates/email_confirmation/confirm_invite.html:14
 msgid ""
 "\n"
-"         to join ok!kindred, share your family tree and keep in contact with your family members!\n"
+"         to join ok!kindred, share your family tree and keep in contact with "
+"your family members!\n"
 "         "
 msgstr ""
-"\n"
-" dołącz ok!kindred, udział rodzinnego drzewa i utrzymywanie kontaktu z członkami rodziny!\n"
-"         "
 
 #: email_confirmation/templates/email_confirmation/confirm_invite.html:22
 msgid "Please create a new password:"
-msgstr "Proszę utworzyć nowe hasło:"
+msgstr ""
 
 #: email_confirmation/templates/email_confirmation/confirm_invite.html:34
 msgid "Join ok!Kindred"
-msgstr "Dołącz ok!Kindred"
+msgstr ""
 
 #: email_confirmation/templates/email_confirmation/invite.html:6
 msgid "Hello"
-msgstr "Witam"
+msgstr ""
 
 #: email_confirmation/templates/email_confirmation/invite.html:10
 #, python-format
 msgid ""
 "\n"
-"        You have been invited by %(user_who_invited_person)s to join ok!Kindred: a collaborative family tree and private social network for you and your family.\n"
-"        A network has already been set up by one of your family members to help you keep in touch.\n"
+"        You have been invited by %(user_who_invited_person)s to join ok!"
+"Kindred: a collaborative family tree and private social network for you and "
+"your family.\n"
+"        A network has already been set up by one of your family members to "
+"help you keep in touch.\n"
 "        "
 msgstr ""
-"\n"
-" Zostałeś zaproszony <code>%(user_who_invited_person)s</code> , aby przyłączyć się ok!Kindred: wspólne drzewo rodzinne i prywatny serwis społecznościowy dla ciebie i twojej rodziny.\n"
-" Już sieć stworzona jest jednym z członków swojej rodziny, aby pomóc, bądź na bieżąco.\n"
-"        "
 
 #: email_confirmation/templates/email_confirmation/invite.html:16
 msgid ""
 "\n"
-"        Don't worry, it's absolutely free, and we take your security and privacy seriously.\n"
-"        If you would like to join, please click on the following link and choose a secure password that you will remember.\n"
+"        Don't worry, it's absolutely free, and we take your security and "
+"privacy seriously.\n"
+"        If you would like to join, please click on the following link and "
+"choose a secure password that you will remember.\n"
 "        "
 msgstr ""
-"\n"
-" Nie przejmuj się, to jest zupełnie za darmo, i traktujemy bezpieczeństwo i prywatność bardzo poważnie.\n"
-" Jeśli chcesz się przyłączyć, proszę, kliknij na poniższy link i wybrać bezpieczne hasło, które będziesz pamiętać.\n"
-"        "
 
 #: email_confirmation/templates/email_confirmation/invite.html:25
 msgid ""
 "\n"
-"        Please, click the link and check it out.  You can always leave if you wish.  If you want to find out more, just go to <a href = \"https://www.okkindred.com\">https://okkindred.com</a> to find out more!\n"
+"        Please, click the link and check it out.  You can always leave if "
+"you wish.  If you want to find out more, just go to <a href = \"https://www."
+"okkindred.com\">https://okkindred.com</a> to find out more!\n"
 "        "
 msgstr ""
-"\n"
-" Proszę kliknąć i sprawdzić. Zawsze możesz odejść, jeśli chcesz. Jeśli chcesz dowiedzieć się więcej, po prostu przejdź do <a href = \"https://www.okkindred.com\">https://okkindred.com</a> aby dowiedzieć się więcej!\n"
-"        "
 
 #: email_confirmation/templates/email_confirmation/invite.html:31
 msgid ""
@@ -340,68 +324,59 @@ msgid ""
 "        Thanks and lots of love from Justin & Adrian @ ok!Kindred\n"
 "        "
 msgstr ""
-"\n"
-" Dziękuję i dużo miłości od Justin &amp; Adrian @ ok!Kindred\n"
-"        "
 
 #: emailer/models.py:64
 msgid "ok!Kindred family update"
-msgstr "ok!Pokrewne rodzinne aktualizacji"
+msgstr ""
 
 #: emailer/models.py:66
 msgid "One or more of your family has had details in ok!Kindred updated."
 msgstr ""
-"Jeden lub więcej z twojej rodziny miał szczegóły w ok!Pokrewne "
-"aktualizowana."
 
 #: emailer/templates/emailer/people_updates.html:7
 msgid ""
-"The following people have been added to your family in ok!Kindred.  Click on"
-" them to find out more:"
+"The following people have been added to your family in ok!Kindred.  Click on "
+"them to find out more:"
 msgstr ""
-"Następujące osoby zostały dodane rodziny w ok!Pokrewne. Kliknij, aby "
-"dowiedzieć się więcej:"
 
 #: emailer/templates/emailer/people_updates.html:24
 msgid ""
 "The following people's profiles have been updated.   Click on them to find "
 "out more:"
 msgstr ""
-"Następujące profile osób zostały zaktualizowane. Kliknij, aby dowiedzieć się"
-" więcej:"
 
 #: family_tree/models/person.py:19
 #: family_tree/templates/family_tree/add_relation.html:53
 #: family_tree/templates/family_tree/edit_profile.html:184
 msgid "Female"
-msgstr "Kobieta"
+msgstr ""
 
 #: family_tree/models/person.py:20
 #: family_tree/templates/family_tree/add_relation.html:54
 #: family_tree/templates/family_tree/edit_profile.html:185
 msgid "Male"
-msgstr "Mężczyzna"
+msgstr ""
 
 #: family_tree/models/person.py:21
 #: family_tree/templates/family_tree/add_relation.html:55
 #: family_tree/templates/family_tree/edit_profile.html:186
 msgid "Other"
-msgstr "Inne"
+msgstr ""
 
 #: family_tree/models/relation.py:11
 #: family_tree/templates/family_tree/add_relation.html:31
 msgid "Partnered"
-msgstr "W partnerstwie"
+msgstr ""
 
 #: family_tree/models/relation.py:12
 #: family_tree/templates/family_tree/add_relation.html:32
 msgid "Raised"
-msgstr "Podniósł"
+msgstr ""
 
 #: family_tree/models/relation.py:13
 #: family_tree/templates/family_tree/add_relation.html:33
 msgid "Raised By"
-msgstr "Podniesione"
+msgstr ""
 
 #: family_tree/templates/family_tree/add_relation.html:9
 #: family_tree/templates/family_tree/break_relation.html:10
@@ -409,303 +384,294 @@ msgstr "Podniesione"
 #: family_tree/templates/family_tree/image_resize.html:15
 #: templates/about.html:68 templates/about.html.py:95 templates/about.html:153
 msgid "Back"
-msgstr "Temu"
+msgstr ""
 
 #: family_tree/templates/family_tree/add_relation.html:40
 msgid "Existing Person"
-msgstr "Prawdziwy Mężczyzna"
+msgstr ""
 
 #: family_tree/templates/family_tree/add_relation.html:41
 msgid "New Person"
-msgstr "Nowy Człowiek"
+msgstr ""
 
 #: family_tree/templates/family_tree/add_relation.html:51
 #: family_tree/templates/family_tree/edit_profile.html:44
 #: family_tree/templates/family_tree/edit_profile.html:46
 #: family_tree/templates/family_tree/profile.html:51
 msgid "Gender"
-msgstr "Płeć"
+msgstr ""
 
 #: family_tree/templates/family_tree/add_relation.html:75
 msgid "Search Name"
-msgstr "Szukaj Według Nazwy"
+msgstr ""
 
 #: family_tree/templates/family_tree/add_relation.html:81
 #: family_tree/templates/family_tree/search.html:19
 msgid "Searching..."
-msgstr "Wyszukiwanie..."
+msgstr ""
 
 #: family_tree/templates/family_tree/add_relation.html:95
 #: family_tree/templates/family_tree/edit_biography.html:12
 #: family_tree/templates/family_tree/image_resize.html:21
 msgid "Save"
-msgstr "Zapisz"
+msgstr ""
 
 #: family_tree/templates/family_tree/break_relation.html:13
 msgid "Break Relations"
-msgstr "Zerwanie Stosunków"
+msgstr ""
 
 #: family_tree/templates/family_tree/break_relation.html:27
 msgid "Break"
-msgstr "Przerwa"
+msgstr ""
 
 #: family_tree/templates/family_tree/edit_profile.html:14
 #: family_tree/templates/family_tree/tree.html:93
 msgid "Add Relation"
-msgstr "Dodaj Odniesieniu Do"
+msgstr ""
 
 #: family_tree/templates/family_tree/edit_profile.html:15
 msgid "Break Relation"
-msgstr "Przerwa W Związku"
+msgstr ""
 
 #: family_tree/templates/family_tree/edit_profile.html:17
 msgid "Delete"
-msgstr "Usuń"
+msgstr ""
 
 #: family_tree/templates/family_tree/edit_profile.html:29
 msgid "Click photo to upload new one"
-msgstr "Kliknij zdjęcie, aby pobrać nowy"
+msgstr ""
 
 #: family_tree/templates/family_tree/edit_profile.html:37
 #: family_tree/templates/family_tree/edit_profile.html:133
 msgid "Required"
-msgstr "Chcesz"
+msgstr ""
 
 #: family_tree/templates/family_tree/edit_profile.html:53
 #: family_tree/templates/family_tree/edit_profile.html:55
 #: family_tree/templates/family_tree/profile.html:57
 msgid "Birth Year"
-msgstr "Rok Urodzenia"
+msgstr ""
 
 #: family_tree/templates/family_tree/edit_profile.html:62
 msgid "Death Year (enter 0 if still alive)"
-msgstr "Rok śmierci (wpisz 0, Jeśli jeszcze żyje)"
+msgstr ""
 
 #: family_tree/templates/family_tree/edit_profile.html:64
 msgid "Death Year.  Enter 0 if still alive."
-msgstr "Śmierć Rok. Wpisz wartość 0, Jeśli jeszcze żyje."
+msgstr ""
 
 #: family_tree/templates/family_tree/edit_profile.html:83
 #: family_tree/templates/family_tree/edit_profile.html:85
 #: family_tree/templates/family_tree/profile.html:76
 msgid "Email"
-msgstr "Adres"
+msgstr ""
 
 #: family_tree/templates/family_tree/edit_profile.html:93
 #: family_tree/templates/family_tree/profile.html:83
 msgid "Tel Number"
-msgstr "Numer Tel"
+msgstr ""
 
 #: family_tree/templates/family_tree/edit_profile.html:95
 msgid ""
 "Telephone/Mobile Number.  Include the country code if your family is across "
 "several countries"
 msgstr ""
-"Telefon/Numer Telefonu Komórkowego. Zawiera kod kraju, jeśli twoja rodzina w"
-" kilku krajach"
 
 #: family_tree/templates/family_tree/edit_profile.html:103
 msgid "Website/Facebook/Twitter..."
-msgstr "Strona/Facebook/Twitter..."
+msgstr ""
 
 #: family_tree/templates/family_tree/edit_profile.html:105
 msgid "Website/Facebook/Twitter etc..."
-msgstr "Strona/Facebook/Twitter itd..."
+msgstr ""
 
 #: family_tree/templates/family_tree/edit_profile.html:113
 #: family_tree/templates/family_tree/profile.html:97
 msgid "Location"
-msgstr "Lokalizacja"
+msgstr ""
 
 #: family_tree/templates/family_tree/edit_profile.html:115
 msgid "Location.  Can be approximate e.g. Coventry, UK or 筲箕灣 香港"
 msgstr ""
-"Położenie. Może być przybliżony np., Coventry, wielka Brytania lub 筲箕灣 香港"
 
 #: family_tree/templates/family_tree/edit_profile.html:123
 msgid "Locked"
-msgstr "Zablokowany"
+msgstr ""
 
 #: family_tree/templates/family_tree/edit_profile.html:125
 msgid "Lock your profile, so only you can edit it?"
-msgstr "Blokada profilu, tak, że tylko ty możesz go edytować?"
+msgstr ""
 
 #: family_tree/templates/family_tree/edit_profile.html:150
 msgid "Are you sure you want to delete profile?"
-msgstr "Czy jesteś pewien, że chcesz usunąć profil?"
+msgstr ""
 
 #: family_tree/templates/family_tree/edit_profile.html:154
 msgid "NO!!!"
-msgstr "Nie!!!"
+msgstr ""
 
 #: family_tree/templates/family_tree/image_resize.html:11
 msgid "Image Resize"
-msgstr "Image Resize"
+msgstr ""
 
 #: family_tree/templates/family_tree/image_resize.html:26
 msgid "Please trim the image to suit a profile picture:"
-msgstr "Proszę przyciąć zdjęcia, aby zaspokoić zdjęcie w profilu:"
+msgstr ""
 
 #: family_tree/templates/family_tree/image_resize.html:60
 msgid "Please select a trimmed region"
-msgstr "Wybierz przycięć"
+msgstr ""
 
 #: family_tree/templates/family_tree/image_upload.html:11
 msgid "New Profile Photo"
-msgstr "Nowe Zdjęcie W Profilu"
+msgstr ""
 
 #: family_tree/templates/family_tree/image_upload.html:14
 msgid "Upload the new profile photo for"
-msgstr "Pobierz nowe zdjęcia do profilu"
+msgstr ""
 
 #: family_tree/templates/family_tree/image_upload.html:20
 msgid "Select file..."
-msgstr "Wybierz plik..."
+msgstr ""
 
 #: family_tree/templates/family_tree/image_upload.html:31
 msgid "Processing..."
-msgstr "Przetwarzanie..."
+msgstr ""
 
 #: family_tree/templates/family_tree/image_upload.html:33
 msgid "Error uploading image"
-msgstr "Błąd ładowania obrazu"
+msgstr ""
 
 #: family_tree/templates/family_tree/no_match_found.html:9
 msgid "No Match Found!"
-msgstr "No Match Found!"
+msgstr ""
 
 #: family_tree/templates/family_tree/profile.html:9 templates/base.html:58
 msgid "Tree"
-msgstr "Drzewo"
+msgstr ""
 
 #: family_tree/templates/family_tree/profile.html:12
 msgid "Relation To Me"
-msgstr "Wobec Mnie"
+msgstr ""
 
 #: family_tree/templates/family_tree/profile.html:16
 msgid "This profile has been locked by this user."
-msgstr "Ten profil został zablokowany użytkownik."
+msgstr ""
 
 #: family_tree/templates/family_tree/profile.html:19
 #: family_tree/templates/family_tree/profile.html:21
 msgid "Edit Profile"
-msgstr "Edycja Profilu"
+msgstr ""
 
 #: family_tree/templates/family_tree/profile.html:37
 msgid "Invite to join"
-msgstr "Zapraszamy do przyłączenia się"
+msgstr ""
 
 #: family_tree/templates/family_tree/profile.html:64
 msgid "Death Year"
-msgstr "Śmierć Rok"
+msgstr ""
 
 #: family_tree/templates/family_tree/profile.html:90
 msgid "Website"
-msgstr "Stronie"
+msgstr ""
 
 #: family_tree/templates/family_tree/profile.html:106
 msgid "Biography"
-msgstr "Biografia"
+msgstr ""
 
 #: family_tree/templates/family_tree/profile.html:120
 msgid "Edit Biography"
-msgstr "Edytuj Życiorys"
+msgstr ""
 
 #: family_tree/templates/family_tree/profile.html:128
 msgid "A biography has not yet been written for this language."
-msgstr "Biografia jeszcze nie zostały napisane w tym języku."
+msgstr ""
 
 #: family_tree/templates/family_tree/search.html:12
 msgid "Search Name:"
-msgstr "Wyszukiwanie Opisu:"
+msgstr ""
 
 #: family_tree/templates/family_tree/tree.html:92
 msgid "Profile"
-msgstr "Profil"
+msgstr ""
 
 #: family_tree/templates/family_tree/tree.html:187
 msgid "partnered"
-msgstr "w partnerstwie"
+msgstr ""
 
 #: family_tree/templates/family_tree/tree.html:189
-#| msgid "Raised"
 msgid "raised"
-msgstr "Podniósł"
+msgstr ""
 
 #: family_tree/views/image_upload_views.py:81
 msgid "File is too big"
-msgstr "Plik jest zbyt duży"
+msgstr ""
 
 #: family_tree/views/profile_views.py:74
 msgid "A biography has not yet been written for this language"
-msgstr "Biografia jeszcze nie zostały zapisane w tym języku"
+msgstr ""
 
 #: familyroot/settings.py:114
 msgid "English"
-msgstr "Angielski"
+msgstr ""
 
 #: familyroot/settings.py:115
 msgid "Traditional Chinese"
-msgstr "Tradycyjny Chiński"
+msgstr ""
 
 #: familyroot/settings.py:116
 msgid "Simplified Chinese"
-msgstr "Chiński Uproszczony"
+msgstr ""
 
 #: familyroot/settings.py:117
 msgid "Polish"
-msgstr "Polski"
+msgstr ""
 
 #: familyroot/settings.py:118
 msgid "Finnish"
-msgstr "Fińska"
+msgstr ""
 
 #: templates/about.html:16
 msgid ""
 "\n"
-"        Greetings from Justin & Adrian.  This is a website to keep track of our family tree.  It is now spread across the world and is growing.\n"
+"        Greetings from Justin & Adrian.  This is a website to keep track of "
+"our family tree.  It is now spread across the world and is growing.\n"
 "        "
 msgstr ""
-"\n"
-" Witam od Justin i Adrian. Jest to strona, aby śledzić naszą rodzinę. Teraz rozprzestrzeniła się po całym świecie rośnie.\n"
-"        "
 
 #: templates/about.html:30
 msgid "Our Story"
-msgstr "Nasza Historia"
+msgstr ""
 
 #: templates/about.html:31
 msgid "Would you like to know the story of how and why we created this site?"
 msgstr ""
-"Chcesz dowiedzieć się historię o tym, jak i dlaczego stworzyliśmy tę stronę?"
 
 #: templates/about.html:32 templates/about.html.py:38 templates/about.html:44
 msgid "View details"
-msgstr "Wyświetlanie informacji"
+msgstr ""
 
 #: templates/about.html:36
 msgid "Contact Us"
-msgstr "Skontaktuj Się Z Nami"
+msgstr ""
 
 #: templates/about.html:37
 msgid ""
 "If you have any questions, need help using the site or have forgotten your "
 "password"
 msgstr ""
-"Jeśli masz jakieś pytania, potrzebujesz pomocy w korzystaniu z serwisu lub "
-"zapomniane hasło"
 
 #: templates/about.html:42 templates/about.html.py:100
 msgid "Security & Privacy"
-msgstr "Security &amp; Privacy"
+msgstr ""
 
 #: templates/about.html:43
 msgid "The privacy and security of my family's data is of high importance"
-msgstr "Poufność i bezpieczeństwo mojej rodziny danych ma duże znaczenie"
+msgstr ""
 
 #: templates/about.html:50
 msgid "How it started"
-msgstr "Jak to się zaczęło"
+msgstr ""
 
 #: templates/about.html:55
 msgid ""
@@ -713,174 +679,161 @@ msgid ""
 "            Hello.  I'm Justin on the left.  And I'm Adrian on the right.\n"
 "            "
 msgstr ""
-"\n"
-" Witam. Ja Justin po lewej stronie. I ja, Adrian po prawej stronie.\n"
-"            "
 
 #: templates/about.html:60
 msgid ""
 "\n"
-"            This is a website to record our family tree and and act a bit like a social network.  Our family members can maintain a profile on here and discover how far the tree reaches\n"
-"            As a person is added to the family tree, they receive an email so they may become a user and add more people to it.\n"
-"            I attended several family gatherings recently and have struggled to explain how we are all related to others.  My family is now very diverse with several ethnicities and resides across several continents.\n"
-"            We wanted someway of documenting everyone and keep in touch as the family grows.\n"
+"            This is a website to record our family tree and and act a bit "
+"like a social network.  Our family members can maintain a profile on here "
+"and discover how far the tree reaches\n"
+"            As a person is added to the family tree, they receive an email "
+"so they may become a user and add more people to it.\n"
+"            I attended several family gatherings recently and have struggled "
+"to explain how we are all related to others.  My family is now very diverse "
+"with several ethnicities and resides across several continents.\n"
+"            We wanted someway of documenting everyone and keep in touch as "
+"the family grows.\n"
 "            "
 msgstr ""
-"\n"
-" Jest to strona dla nagrywania drzewo naszej rodziny i działa tak jak społecznościowych. Członkowie naszej rodziny mogą obsługiwać profil tutaj i dowiedz się, jak daleko dociera\n"
-" Jak człowiek jest dodawany w drzewo rodziny, otrzymują wiadomości e-mail, aby mogli stać się jego użytkownikiem i dodaj więcej ludzi.\n"
-" Uczestniczyłem w kilku spotkaniach rodziny niedawno i starają się wyjaśnić, jak wszyscy jesteśmy ze sobą połączeni innym. Teraz moja rodzina jest bardzo urozmaicona, a wiele grup etnicznych i znajduje się na wielu kontynentach.\n"
-" Chcieliśmy w jakiś sposób dokumentować wszystkie i wiem, jak rodzina rośnie.\n"
-"            "
 
 #: templates/about.html:73
 msgid "Contact"
-msgstr "Kontakt"
+msgstr ""
 
 #: templates/about.html:75
 msgid "Contact us via email info@okkindred.com"
-msgstr "Skontaktuj się z nami przez e-mail info@okkindred.com"
+msgstr ""
 
 #: templates/about.html:77
 msgid ""
 "\n"
-"            If you are in our family we want to hear from you and are welcome to visit and stay round any time.\n"
-"            If you have a login to this site and are part of my family, you can get my telephone number and address from my profile!\n"
+"            If you are in our family we want to hear from you and are "
+"welcome to visit and stay round any time.\n"
+"            If you have a login to this site and are part of my family, you "
+"can get my telephone number and address from my profile!\n"
 "            "
 msgstr ""
-"\n"
-" Jeśli jesteś w naszej rodzinie chcemy usłyszeć od was i zapraszam do odwiedzenia i pobyt przez cały dowolnym czasie.\n"
-" Jeśli masz login na tej stronie i są częścią mojej rodziny, można dostać mój numer telefonu i adres z mojego profilu!\n"
-"            "
 
 #: templates/about.html:84
 msgid ""
 "\n"
-"            Alternatively, if you are looking for some help using the site, or even if you want us to help you set up your own similar site please drop us a line!\n"
+"            Alternatively, if you are looking for some help using the site, "
+"or even if you want us to help you set up your own similar site please drop "
+"us a line!\n"
 "            "
 msgstr ""
-"\n"
-" Ponadto, jeśli szukasz pomocy, za pomocą strony internetowej, lub jeśli chcesz nam pomóc stworzyć podobny strony, proszę napisz do nas!\n"
-"            "
 
 #: templates/about.html:90
 msgid ""
 "\n"
-"            We're quite nice people and do like to talk to people interested in the sames things we are: Geek stuff, software, music and crazy pan global Chinese families...\n"
+"            We're quite nice people and do like to talk to people interested "
+"in the sames things we are: Geek stuff, software, music and crazy pan global "
+"Chinese families...\n"
 "            "
 msgstr ""
-"\n"
-" Jesteśmy dość dobrzy ludzie i miłość do rozmowy osoby zainteresowane sames rzeczy: Geek stuff, filmy, muzyka i szalony pan globalnej chińskiej rodziny...\n"
-"            "
 
 #: templates/about.html:104
 msgid ""
 "\n"
-"             The details of our family are on this site.  We would never try to do anything we think would jeapordise this data!\n"
-"             Obviously we take security and privacy very seriously.  This will hopefully summarise some of the measures we have taken.\n"
+"             The details of our family are on this site.  We would never try "
+"to do anything we think would jeapordise this data!\n"
+"             Obviously we take security and privacy very seriously.  This "
+"will hopefully summarise some of the measures we have taken.\n"
 "             "
 msgstr ""
-"\n"
-" Szczegóły w naszej rodzinie na tej stronie. Nigdy nie próbują robić nic, to myślę, że byłoby jeapordise te dane!\n"
-" Jest oczywiste, że mamy do bezpieczeństwa danych i prywatności bardzo poważnie. To będzie, mam nadzieję, określić w wymienione są niektóre działania, które podjęliśmy.\n"
-"             "
 
 #: templates/about.html:109
 msgid "Security"
-msgstr "Bezpieczeństwa"
+msgstr ""
 
 #: templates/about.html:111
 msgid ""
 "\n"
-"            This entire site is loaded over <a href=\"https://www.globalsign.com/en/ssl-information-center/what-is-ssl/\">Secure Socket Layer</a> (SSL).\n"
-"            As a result, the connection between you and this website is encrypted.\n"
-"            This protects against other people listening and stealing the information that is transmitted between you and the website.\n"
-"            We use 128 bit encryption which is an <a href =\"http://www.inet2000.com/public/encryption.htm\">industry standard</a>.\n"
-"            You should notice a padlock at the top of your web browser to show you that the connection to this website is secure.\n"
+"            This entire site is loaded over <a href=\"https://www.globalsign."
+"com/en/ssl-information-center/what-is-ssl/\">Secure Socket Layer</a> (SSL).\n"
+"            As a result, the connection between you and this website is "
+"encrypted.\n"
+"            This protects against other people listening and stealing the "
+"information that is transmitted between you and the website.\n"
+"            We use 128 bit encryption which is an <a href =\"http://www."
+"inet2000.com/public/encryption.htm\">industry standard</a>.\n"
+"            You should notice a padlock at the top of your web browser to "
+"show you that the connection to this website is secure.\n"
 "            "
 msgstr ""
-"\n"
-" Cały ten strona ładuje się przez <a href=\"https://www.globalsign.com/pl/ssl-information center/what-is-ssl/\">Secure Socket Layer</a> (SSL).\n"
-" W rezultacie, komunikacja między tobą a tym serwisem jest szyfrowane.\n"
-" To chroni od innych ludzi, słuchać i kradzież informacji, która jest przekazywana między użytkownikiem i serwisem.\n"
-" Używamy szyfrowania 128-bitowego, który stanowi <a href =\"http://www.inet2000.com/public/encryption.htm\">industry norma</a>.\n"
-" Należy zauważyć zamku w górnej części przeglądarki internetowej, aby pokazać, że połączenie na tej stronie jest bezpieczny.\n"
-"            "
 
 #: templates/about.html:121
 msgid ""
 "\n"
-"            We encrypt all stored passwords using the <a href=\"https://en.wikipedia.org/wiki/PBKDF2\">PBKDF2 algorithm</a> with a\n"
-"            <a href=\"https://en.wikipedia.org/wiki/SHA-2\">SHA256 hash</a>.  This is a recommendation by <a href=\"http://csrc.nist.gov/publications/nistpubs/800-132/nist-sp800-132.pdf\">NIST</a>.\n"
-"            Our servers are located in the USA, and therefore are subject to USA law.\n"
+"            We encrypt all stored passwords using the <a href=\"https://en."
+"wikipedia.org/wiki/PBKDF2\">PBKDF2 algorithm</a> with a\n"
+"            <a href=\"https://en.wikipedia.org/wiki/SHA-2\">SHA256 hash</"
+"a>.  This is a recommendation by <a href=\"http://csrc.nist.gov/publications/"
+"nistpubs/800-132/nist-sp800-132.pdf\">NIST</a>.\n"
+"            Our servers are located in the USA, and therefore are subject to "
+"USA law.\n"
 "            "
 msgstr ""
-"\n"
-" Możemy szyfrować wszystkie zapisane hasła za pomocą <a href=\"https://pl.w Википедии.org/wiki/PBKDF2\">алгоритм PBKDF2</a> \n"
-" <a href=\"https://pl.w Википедии.org/wiki/SHA-2\">SHA256 hash</a>. To zalecenia <a href=\"http://csrc.nist.gov/publications/nistpubs/800-132/nist-sp800-132.pdf>NIST</a>.\n"
-" Nasze serwery znajdują się w USA, i dlatego podlegają STANACH zjednoczonych prawo.\n"
-"            "
 
 #: templates/about.html:128
 msgid ""
 "\n"
-"            We adopt appropriate data collection, storage and processing practices and security measures to protect against unauthorized access, alteration, disclosure\n"
-"            or destruction of your personal information and transaction information and data stored on our site.\n"
+"            We adopt appropriate data collection, storage and processing "
+"practices and security measures to protect against unauthorized access, "
+"alteration, disclosure\n"
+"            or destruction of your personal information and transaction "
+"information and data stored on our site.\n"
 "            "
 msgstr ""
-"\n"
-" Przyjmujemy odpowiednią zbierania, przechowywania i przetwarzania oraz środki bezpieczeństwa, w celu ochrony przed nieautoryzowanym dostępem, zmianą, ujawnieniem\n"
-" lub zniszczeniem danych osobowych i informacji o transakcjach oraz informacje przechowywane na naszej stronie.\n"
-"            "
 
 #: templates/about.html:134
 msgid "Privacy"
-msgstr "Prywatności"
+msgstr ""
 
 #: templates/about.html:136
 msgid ""
 "\n"
-"            Our site uses <a href=\"https://en.wikipedia.org/wiki/HTTP_cookie\">cookies</a> to enhance your experience. Your web browser places cookies on your hard drive for record-keeping purposes and sometimes to track information about you.\n"
-"            In particular we use cookies to identify you so that you may our login to the site.\n"
+"            Our site uses <a href=\"https://en.wikipedia.org/wiki/HTTP_cookie"
+"\">cookies</a> to enhance your experience. Your web browser places cookies "
+"on your hard drive for record-keeping purposes and sometimes to track "
+"information about you.\n"
+"            In particular we use cookies to identify you so that you may our "
+"login to the site.\n"
 "            "
 msgstr ""
-"\n"
-" Nasza strona korzysta z <a href=\"https://pl.w Википедии.org/wiki/HTTP_cookie\">печенье</a> dla zwiększenia własnego doświadczenia. Twoja przeglądarka internetowa przechowuje pliki cookies na twoim dysku twardym dla celów księgowych, a czasem i śledzić informacje o was.\n"
-" W szczególności, używamy cookies do identyfikacji ciebie, więc, co może nasz login na stronie.\n"
-"            "
 
 #: templates/about.html:143
 msgid ""
 "\n"
-"            We do not sell, trade, or rent your personal identification information to others.\n"
-"            We do use third party <a href=\"https://en.wikipedia.org/wiki/Geocoding\">geocoding</a> services.  This is to convert a location into a longitude and latitude so we can plot it on a map.\n"
-"            However no other identifying pieces of information (e.g. name) are supplied with this location.\n"
-"            We also may share generic aggregated demographic information not linked to any personal identification information.  For example we may disclose how many users we have in China.\n"
+"            We do not sell, trade, or rent your personal identification "
+"information to others.\n"
+"            We do use third party <a href=\"https://en.wikipedia.org/wiki/"
+"Geocoding\">geocoding</a> services.  This is to convert a location into a "
+"longitude and latitude so we can plot it on a map.\n"
+"            However no other identifying pieces of information (e.g. name) "
+"are supplied with this location.\n"
+"            We also may share generic aggregated demographic information not "
+"linked to any personal identification information.  For example we may "
+"disclose how many users we have in China.\n"
 "            "
 msgstr ""
-"\n"
-" Nie będziemy sprzedawać, wymieniać lub wynajmować danych osobowych zidentyfikować informacje dla innych.\n"
-" Korzystamy z innych <a href=\"https://pl.w Википедии.org/wiki/Геокодирование\">геокодирование</a> usługi. To aby przekonwertować location w długości i szerokości, dzięki czemu możemy nanieść je na mapę.\n"
-" Jednak żaden inny identyfikacji jednostek informacji (np. nazwa) dostarczane są z tego miejsca.\n"
-" Możemy ujawnić także ogólnych informacji demograficznych, która nie jest związana z żadnym danych osobowych. Na przykład, możemy ujawnić, ile osób mamy w Chinach.\n"
-"            "
 
 #: templates/base.html:44
 msgid "Toggle navigation"
-msgstr "Toggle navigation"
+msgstr ""
 
 #: templates/base.html:59
 msgid "Map"
-msgstr "Mapa"
+msgstr ""
 
 #: templates/base.html:60
 msgid "Search"
-msgstr "Wyszukiwanie"
+msgstr ""
 
 #: templates/base.html:61
 msgid "About"
-msgstr "O"
+msgstr ""
 
 #: templates/base.html:68
 msgid "Log Out"
-msgstr "Log Out"
+msgstr ""

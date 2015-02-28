@@ -186,7 +186,7 @@
                         [ "Arrow", { location:0, direction: -1, id:"inverse_arrow{{ relation.id }}"} ],
                         [ "Label", { label:"{% trans "partnered" %}", id:"label{{ relation.id }}", cssClass:"aLabel"} ]
                     {% else %}
-                        [ "Label", { label:"raised", id:"label{{ relation.id }}", cssClass:"aLabel"} ]
+                        [ "Label", { label:"{% trans "raised" %}", id:"label{{ relation.id }}", cssClass:"aLabel"} ]
                     {% endif %}
                     ],
             });

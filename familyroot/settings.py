@@ -49,6 +49,7 @@ INSTALLED_APPS = (
     'axes',
     'emailer',
     'email_confirmation',
+     'rosetta',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -86,6 +87,10 @@ EMAIL_HOST_USER = secrets.EMAIL_HOST_USER
 EMAIL_HOST_PASSWORD = secrets.EMAIL_HOST_PASSWORD
 
 
+#Rosetta
+ROSETTA_ENABLE_TRANSLATION_SUGGESTIONS = True
+YANDEX_TRANSLATE_KEY  = secrets.YANDEX_TRANSLATE_KEY
+
 # Database
 #DATABASES = {
 #    'default': {
@@ -100,11 +105,9 @@ DATABASES = secrets.DATABASES
 # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/
 
-LANGUAGE_CODE = 'en-gb'
+LANGUAGE_CODE = 'en'
 
 TIME_ZONE = 'UTC'
-
-
 
 LANGUAGES = (
 
@@ -120,6 +123,11 @@ LANGUAGES = (
 USE_I18N = True
 
 USE_L10N = True
+
+LOCALE_PATHS = (
+    os.path.join(BASE_DIR, 'locale'),
+)
+
 
 USE_TZ = True
 
@@ -141,3 +149,4 @@ TEMPLATE_DIRS = (
 	# Don't forget to use absolute paths, not relative paths.
 	os.path.join(BASE_DIR, 'templates'),
 )
+

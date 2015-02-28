@@ -1,5 +1,6 @@
 from django.conf.urls import include, url, patterns
 from django.contrib import admin
+from django.conf import settings
 #from django.conf.urls.i18n import i18n_patterns
 
 admin.autodiscover()
@@ -77,3 +78,8 @@ urlpatterns += patterns('',
     url(r'^settings/$', 'custom_user.views.settings_view', name='settings_view'),
 
 )
+
+if 'rosetta' in settings.INSTALLED_APPS:
+    urlpatterns += patterns('',
+        url(r'^translate/', include('rosetta.urls')),
+    )
