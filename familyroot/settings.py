@@ -90,6 +90,7 @@ EMAIL_HOST_PASSWORD = secrets.EMAIL_HOST_PASSWORD
 #Rosetta
 ROSETTA_ENABLE_TRANSLATION_SUGGESTIONS = True
 YANDEX_TRANSLATE_KEY  = secrets.YANDEX_TRANSLATE_KEY
+ROSETTA_WSGI_AUTO_RELOAD = DEBUG
 
 # Database
 #DATABASES = {
@@ -109,6 +110,8 @@ LANGUAGE_CODE = 'en'
 
 TIME_ZONE = 'UTC'
 
+
+#http://stackoverflow.com/questions/7728977/django-how-to-add-chinese-support-to-the-application
 LANGUAGES = (
 
     ('en', _('English')),

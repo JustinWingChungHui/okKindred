@@ -121,7 +121,7 @@ def confirm_invite_post(request, invite):
         raise Http404
 
 
-    user = User.objects.create_user(email=invite.email_address, password=password, name=invite.person.name, family_id=invite.person.family_id)
+    user = User.objects.create_user(email=invite.email_address, password=password, name=invite.person.name, family_id=invite.person.family_id, language=invite.person.language)
     invite.person.user_id = user.id
     invite.person.save()
     invite.delete()
