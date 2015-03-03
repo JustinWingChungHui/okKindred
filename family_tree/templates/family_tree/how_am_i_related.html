@@ -10,9 +10,9 @@
             <div id="person{{relative.id}}" class="boxed_chained">
                 <a href="/profile={{relative.id}}/">
                     {% if relative.small_thumbnail %}
-                        <img class="tree_thumb" src="/media/{{relative.small_thumbnail}}"/>
+                        <img class="tree_thumb" src="/media/{{relative.small_thumbnail}}" alt="{{ relative.name }}"/>
                     {% else %}
-                        <img class="tree_thumb" src="{% static "img/smiley_80.jpg" %}"/>
+                        <img class="tree_thumb" src="{% static "img/smiley_80.jpg" %}" alt="{{ relative.name }}"/>
                     {% endif %}
                     <div>
                         {{ relative.name }}

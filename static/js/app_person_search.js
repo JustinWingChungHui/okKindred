@@ -38,12 +38,13 @@ $(document).ready(function(){
                 row.push('<td class="search_photo"><a href="/profile=' + data[i].pk + '">');
 
                 if (data[i].fields.small_thumbnail == '' || data[i].fields.small_thumbnail == null){
-                    row.push('<img src="/static/img/smiley_80.jpg"/>');
+                    row.push('<img src="/static/img/smiley_80.jpg" ');
                 }
                 else{
-                    row.push('<img src="/media/' + data[i].fields.small_thumbnail + '"/>');
+                    row.push('<img src="/media/' + data[i].fields.small_thumbnail + '" ');
                 }
-
+                row.push('alt="' + data[i].fields.name +'"')
+                row.push('/>');
                 row.push('</a></td>');
                 row.push('<td style="padding-top:40px"><a href="/profile=' + data[i].pk + '">' + data[i].fields.name);
                 row.push('</a></td>');

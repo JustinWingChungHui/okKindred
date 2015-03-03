@@ -25,9 +25,9 @@
     </div>
     <div class="col-md-4">
         {% if person.large_thumbnail %}
-            <img src="/media/{{person.large_thumbnail}}"/>
+            <img src="/media/{{person.large_thumbnail}}" alt="{{ person.name }}"/>
         {% else %}
-            <img src="{% static "img/smiley_200.jpg" %}"/>
+            <img src="{% static "img/smiley_200.jpg" %}" alt="{% trans "No photo uploaded for " %} {{ person.name }}"/>
         {% endif %}
 
 

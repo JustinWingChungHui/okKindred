@@ -46,9 +46,9 @@
                         {% for person in location.people %}
                             '<div class="img-with-text"><a href="/profile={{ person.id }}/">',
                             {% if person.small_thumbnail %}
-                                '<img src="/media/{{person.small_thumbnail}}"/>',
+                                '<img src="/media/{{person.small_thumbnail}}" alt="{{ person.name }}"/>',
                             {% else %}
-                                '<img src="{% static "img/smiley_80.jpg" %}"/>',
+                                '<img src="{% static "img/smiley_80.jpg" %}" alt="{{ person.name }}"/>',
                             {% endif %}
                             '{{ person.name }}',
                             '</a></div>',
