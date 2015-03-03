@@ -90,9 +90,11 @@ EMAIL_HOST_PASSWORD = secrets.EMAIL_HOST_PASSWORD
 #Rosetta
 ROSETTA_ENABLE_TRANSLATION_SUGGESTIONS = True
 YANDEX_TRANSLATE_KEY  = secrets.YANDEX_TRANSLATE_KEY
-ROSETTA_WSGI_AUTO_RELOAD = DEBUG
 
-# Database
+#Doesn't work...
+#ROSETTA_WSGI_AUTO_RELOAD = DEBUG
+
+#SQLite Database for dev
 #DATABASES = {
 #    'default': {
 #        'ENGINE': 'django.db.backends.sqlite3',

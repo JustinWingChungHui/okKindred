@@ -14,7 +14,7 @@
 
 {% block extrascript %}
     {% localize off %}
-    <script src="https://maps.google.com/maps/api/js?sensor=false" type="text/javascript"></script>
+    <script src="https://maps.google.com/maps/api/js?sensor=false&language={{ LANGUAGE_CODE }}" type="text/javascript"></script>
 
     <script type="text/javascript">
     $(document).ready(function() { initialize(); });

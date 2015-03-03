@@ -98,3 +98,6 @@ class TestMapViews(TestCase):
         self.assertTrue(b'y.push(-86.158)' in response.content)
 
         self.assertTrue(b'center: new google.maps.LatLng(54.574,-1.235)' in response.content)
+
+        #Check map is localised
+        self.assertTrue(b'&language=pl' in response.content)
