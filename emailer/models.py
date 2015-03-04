@@ -33,6 +33,16 @@ class EmailManager(models.Manager):
             #Send the emails
             self._process_emails()
 
+    def create_daily_emails(self):
+        '''
+        Creates the daily emails to be sent
+        '''
+
+        #Create a list of events since last mailout
+        if FamilyNewsLetterEvents.objects.create_news_letter_events():
+
+            #Create the emails from the events
+            self._create_emails()
 
 
     def _process_emails(self):
@@ -54,26 +64,22 @@ class EmailManager(models.Manager):
         #Clean up any that have already been sent
         self.filter(send_successful = True).delete()
 
-        num_to_send = self._get_proportion_of_emails_to_send()
+        num_to_send = self._get_number_of_emails_to_send(timezone.now().hour)
+
+        if num_to_send == 0:
+            return
 
         #Only attempt to send emails that have low number of fails
-        for email in self.filter(send_attempts__lt = 4).order_by('id')[:num_to_send]:
+        for email in self.filter(send_successful=False, send_attempts__lt = 4).order_by('id')[:num_to_send]:
             email.send()
 
 
 
-    def _get_proportion_of_emails_to_send(self):
+    def _get_number_of_emails_to_send(self, hour):
         '''
         Gets the proportion of emails to send.
         Assume we send out a twelfth every hour for 12 hours
         '''
-        num_emails = self.all.count()
-
-        #No emails -> end
-        if num_emails == 0:
-            return
-
-        hour = timezone.now().hour
 
         #Can define a profile here to reduce network load
         proportion_to_send =  {
@@ -91,7 +97,10 @@ class EmailManager(models.Manager):
                         12: 1,
                     }.get(hour, 0)
 
-        return math.ceil(num_emails * proportion_to_send)
+        if proportion_to_send == 0:
+            return 0
+
+        return math.ceil(self.filter(send_successful=False, send_attempts__lt = 4).count() * proportion_to_send)
 
 
     def _create_emails(self):

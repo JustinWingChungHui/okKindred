@@ -210,3 +210,91 @@ class EmailTestCase(TestCase):
         self.assertEqual(2,Email.objects.all().count())
 
 
+    def test_get_number_of_emails_to_send(self):
+        '''
+        Tests that the correct number of emails is ascertained
+        '''
+        #Ensure we have a clean table
+        Email.objects.all().delete()
+
+        email1 = Email(
+                    recipient = 'info@okkindred.com'
+                    ,subject = 'test_process_emails'
+                    ,content = ' emailer.tests.py'
+                    ,content_html = ' emailer.tests.py html'
+                )
+        email1.save()
+
+        email2 = Email(
+                    recipient = 'info@okkindred.com'
+                    ,subject = 'test_process_emails'
+                    ,content = ' emailer.tests.py'
+                    ,content_html = ' emailer.tests.py html'
+                )
+        email2.save()
+
+        email3 = Email(
+                    recipient = 'info@okkindred.com'
+                    ,subject = 'test_process_emails'
+                    ,content = ' emailer.tests.py'
+                    ,content_html = ' emailer.tests.py html'
+                )
+        email3.save()
+
+        email4 = Email(
+                    recipient = 'info@okkindred.com'
+                    ,subject = 'test_process_emails'
+                    ,content = ' emailer.tests.py'
+                    ,content_html = ' emailer.tests.py html'
+                )
+        email4.save()
+
+        self.assertEqual(2, Email.objects._get_number_of_emails_to_send(11))
+        self.assertEqual(1, Email.objects._get_number_of_emails_to_send(1))
+        self.assertEqual(4, Email.objects._get_number_of_emails_to_send(12))
+
+
+    def test_get_number_of_emails_to_send_when_some_have_already_been_sent(self):
+        '''
+        Tests that the correct number of emails is ascertained
+        '''
+        #Ensure we have a clean table
+        Email.objects.all().delete()
+
+        email1 = Email(
+                    recipient = 'info@okkindred.com'
+                    ,subject = 'test_process_emails'
+                    ,content = ' emailer.tests.py'
+                    ,content_html = ' emailer.tests.py html'
+                )
+        email1.save()
+
+        email2 = Email(
+                    recipient = 'info@okkindred.com'
+                    ,subject = 'test_process_emails'
+                    ,content = ' emailer.tests.py'
+                    ,content_html = ' emailer.tests.py html'
+                    ,send_successful = True
+                )
+        email2.save()
+
+        email3 = Email(
+                    recipient = 'info@okkindred.com'
+                    ,subject = 'test_process_emails'
+                    ,content = ' emailer.tests.py'
+                    ,content_html = ' emailer.tests.py html'
+                )
+        email3.save()
+
+        email4 = Email(
+                    recipient = 'info@okkindred.com'
+                    ,subject = 'test_process_emails'
+                    ,content = ' emailer.tests.py'
+                    ,content_html = ' emailer.tests.py html'
+                    ,send_attempts = 4
+                )
+        email4.save()
+
+        self.assertEqual(1, Email.objects._get_number_of_emails_to_send(11))
+        self.assertEqual(1, Email.objects._get_number_of_emails_to_send(1))
+        self.assertEqual(2, Email.objects._get_number_of_emails_to_send(12))

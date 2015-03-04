@@ -123,7 +123,7 @@ def update_person(request, person_id = 0, person = None):
 
     if field_name not in ['email', 'language','locked'
                             , 'birth_year','birth_year'
-                            'telephone_number','website','address'
+                            ,'telephone_number','website','address'
                             ,'name','gender',]:
         return HttpResponse(status=405, content="Access denied to change confirmed user settings")
 
