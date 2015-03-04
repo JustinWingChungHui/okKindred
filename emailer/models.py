@@ -8,6 +8,7 @@ from django.template import Context
 from django.utils import translation
 from datetime import timedelta
 from django.utils import timezone
+import math
 
 
 
@@ -45,6 +46,53 @@ class EmailManager(models.Manager):
         #Only attempt to send emails that have low number of fails
         for email in self.filter(send_attempts__lt = 4).order_by('id'):
             email.send()
+
+    def process_hourly_emails(self):
+        '''
+        Sends a proportion of the days emails
+        '''
+        #Clean up any that have already been sent
+        self.filter(send_successful = True).delete()
+
+        num_to_send = self._get_proportion_of_emails_to_send()
+
+        #Only attempt to send emails that have low number of fails
+        for email in self.filter(send_attempts__lt = 4).order_by('id')[:num_to_send]:
+            email.send()
+
+
+
+    def _get_proportion_of_emails_to_send(self):
+        '''
+        Gets the proportion of emails to send.
+        Assume we send out a twelfth every hour for 12 hours
+        '''
+        num_emails = self.all.count()
+
+        #No emails -> end
+        if num_emails == 0:
+            return
+
+        hour = timezone.now().hour
+
+        #Can define a profile here to reduce network load
+        proportion_to_send =  {
+                        1: 0.084,
+                        2: 0.091,
+                        3: 0.1,
+                        4: 0.111,
+                        5: 0.125,
+                        6: 0.143,
+                        7: 0.167,
+                        8: 0.2,
+                        9: 0.25,
+                        10: 0.333,
+                        11: 0.5,
+                        12: 1,
+                    }.get(hour, 0)
+
+        return math.ceil(num_emails * proportion_to_send)
+
 
     def _create_emails(self):
         '''

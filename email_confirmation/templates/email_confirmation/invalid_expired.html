@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load i18n %}
+
+
+
+{% block content %}
+<div class="container">
+
+    <h3>{% trans "Invalid Email Confirmation" %}</h3>
+    <p>
+         {% blocktrans %}
+         Unfortunately either your invite to join has expired, or is invalid.
+         Please ask a member of your family to re-invite you.
+         {% endblocktrans %}
+    </p>
+
+</div>
+{% endblock %}
+

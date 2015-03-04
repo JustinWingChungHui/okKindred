@@ -75,7 +75,7 @@ def confirm_invite(request, confirmation_key):
 
 
         check_request(request, True)
-        raise Http404
+        return invalid_expired(request)
 
     if request.method != 'POST':
 
@@ -131,6 +131,13 @@ def confirm_invite_post(request, invite):
     return HttpResponseRedirect('/home/')
 
 
-
+def invalid_expired(request):
+    '''
+    Shows invalid or expired confirmation
+    '''
+    template = loader.get_template('email_confirmation/invalid_expired.html')
+    context = RequestContext(request)
+    response = template.render(context)
+    return HttpResponse(response)
 
 

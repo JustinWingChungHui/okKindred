@@ -37,6 +37,7 @@ urlpatterns += patterns('',
     url(r'^accounts/logged_in/$', 'custom_user.views.logged_in'),
     url(r'^accounts/invalid/$', 'custom_user.views.invalid_login'),
     url(r'^accounts/confirmation=(?P<confirmation_key>\w+)/$', 'email_confirmation.views.confirm_invite'),
+    url(r'^accounts/invalid_expired/$', 'email_confirmation.views.invalid_expired'),
 
     #Tree Views
     url(r'^home/$', 'family_tree.views.tree', name='tree'),
