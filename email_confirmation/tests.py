@@ -110,16 +110,25 @@ class EmailConfirmationTestCase(TestCase):
         self.assertEqual(True, b'Zandra Rhodes' in response.content)
 
 
+    def test_expired_invite_view_loads(self):
+        '''
+        Tests that the view for an expired invite loads
+        '''
+        response = self.client.get('/accounts/invalid_expired/')
+
+        self.assertEqual(200, response.status_code)
+        self.assertTemplateUsed(response, 'email_confirmation/invalid_expired.html')
 
 
     def test_confirm_invite_view_does_not_load_with_invalid_confirmation_code(self):
         '''
-        Tests that the view for confirming an invite gives access denied error with incorrect confirmation code
+        Tests that the view for confirming an invite shows invalid/expired page
         '''
 
         response = self.client.get('/accounts/confirmation=not_a_real_confirmation_code/')
 
-        self.assertEqual(404, response.status_code)
+        self.assertEqual(200, response.status_code)
+        self.assertTemplateUsed(response, 'email_confirmation/invalid_expired.html')
 
 
     def test_confirm_invite_view_post_does_all_the_correct_stuff(self):
@@ -159,10 +168,12 @@ class EmailConfirmationTestCase(TestCase):
 
         #check confirmation address no longer valid
         response = self.client.get('/accounts/confirmation={0}/'.format(invite.confirmation_key))
-        self.assertEqual(404, response.status_code)
+        self.assertEqual(200, response.status_code)
+        self.assertTemplateUsed(response, 'email_confirmation/invalid_expired.html')
 
         response = self.client.post('/accounts/confirmation={0}/'.format(invite.confirmation_key),{'password': 'My Fairy King'})
-        self.assertEqual(404, response.status_code)
+        self.assertEqual(200, response.status_code)
+        self.assertTemplateUsed(response, 'email_confirmation/invalid_expired.html')
 
 
     def test_confirm_invite_view_post_404_with_incorrect_confirmation_key(self):
@@ -171,7 +182,8 @@ class EmailConfirmationTestCase(TestCase):
         '''
         response = self.client.post('/accounts/confirmation=not_a_real_confirmation_code/',{'password': 'My Fairy King'})
 
-        self.assertEqual(404, response.status_code)
+        self.assertEqual(200, response.status_code)
+        self.assertTemplateUsed(response, 'email_confirmation/invalid_expired.html')
 
 
     def test_invite_person_creates_fails_for_existing_user(self):
