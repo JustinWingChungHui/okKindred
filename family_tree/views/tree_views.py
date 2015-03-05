@@ -24,11 +24,10 @@ def tree(request, person_id = 0, person = None):
     context = RequestContext(request,{
                                 'css_320' : get_css(person, related_data, pixel_width=320),
                                 'css_480' : get_css(person, related_data, pixel_width=480),
-                                'css_768' : get_css(person, related_data, pixel_width=768),
-                                'css_1024' : get_css(person, related_data, pixel_width=1024),
-                                'css_1200' : get_css(person, related_data, pixel_width=1200),
-                                'css_1900' : get_css(person, related_data, pixel_width=1900),
-                                'css_2400' : get_css(person, related_data, pixel_width=2400),
+                                #Matches bootstrap media queries
+                                'css_768' : get_css(person, related_data, pixel_width=750),
+                                'css_992' : get_css(person, related_data, pixel_width=970),
+                                'css_1200' : get_css(person, related_data, pixel_width=1170),
                                 'people': related_data.people_upper + related_data.people_lower + related_data.people_same_level,
                                 'relations': related_data.relations,
                                 'person' : person,
@@ -37,43 +36,81 @@ def tree(request, person_id = 0, person = None):
     response = template.render(context)
     return HttpResponse(response)
 
+
+
 def get_css(centred_person, related_data, pixel_width):
     '''
     Gets the css for a load of people
     Handles the media queries as well
     '''
 
+    #Mobile devices scale down nodes
+    if pixel_width < 768:
+        node_width = 90
+        height_change = 150
+    else:
+        node_width = 120
+        height_change = 200
+
     css = []
 
+    height = 0
+
     #People above
-    if len(related_data.people_upper) > 0:
-        gap = int(pixel_width / (len(related_data.people_upper) * 2 - 1))
+    if len(related_data.people_upper) > 1:
+
+        gap = int((pixel_width - len(related_data.people_upper) * node_width)  / (len(related_data.people_upper) - 1))
         position_left = 0
 
         for person in related_data.people_upper:
             css.append('#person%s{left: %spx; top: 0px;}'% (person.id, position_left))
-            position_left = position_left + gap
+            position_left = position_left + node_width + gap
+
+        height = height_change
+
+    if len(related_data.people_upper) == 1:
+        person = related_data.people_upper[0]
+        position_left = int((pixel_width - node_width) / 2)
+        css.append('#person%s{left: %spx; top: 0px;}'% (person.id, position_left))
+
+        height = height_change
+
 
     #Same Level
     if len(related_data.people_same_level) > 0:
-        gap = int(pixel_width / (len(related_data.people_same_level) * 2 - 1))
+        gap = int((pixel_width - (len(related_data.people_same_level) + 1) * node_width)  / (len(related_data.people_same_level)))
         position_left = 0
 
+        count = 1
         for person in related_data.people_same_level:
-            css.append('#person%s{left: %spx; top: 200px;}'% (person.id, position_left))
-            position_left = position_left + gap
+            css.append('#person%s{left: %spx; top: %spx;}'% (person.id, position_left, height))
+
+            count +=1
+            if count <= (len(related_data.people_same_level) + 1) / 2:
+                position_left = position_left + gap
+            else:
+                position_left = position_left + gap + node_width + gap
+
+
+    position_left = int((pixel_width - node_width) / 2)
+    css.append('#person%s{left: %spx; top: %spx;}' % (centred_person.id, position_left, height))
+
+    height = height + height_change + 50
 
     #People below
-    if len(related_data.people_lower) > 0:
-        gap = int(pixel_width / (len(related_data.people_lower) * 2 - 1))
+    if len(related_data.people_lower) > 1:
+        gap = int((pixel_width - len(related_data.people_lower) * node_width)  / (len(related_data.people_lower) - 1))
         position_left = 0
 
         for person in related_data.people_lower:
-            css.append('#person%s{left: %spx; top: 400px;}'% (person.id, position_left))
-            position_left = position_left + gap
+            css.append('#person%s{left: %spx; top: %spx;}'% (person.id, position_left, height))
+            position_left = position_left + node_width + gap
 
-    position_left = int(pixel_width / 3)
-    css.append('#person%s{left: %spx; top: 200px;}' % (centred_person.id, position_left))
+    if len(related_data.people_lower) == 1:
+        person = related_data.people_lower[0]
+        position_left = int((pixel_width - node_width) / 2)
+        css.append('#person%s{left: %spx; top: %spx;}'% (person.id, position_left, height))
+
 
     return ''.join(css)
 

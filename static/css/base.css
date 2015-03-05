@@ -88,12 +88,14 @@ and (min-device-width : 320px)
 and (max-device-width : 767px) {
 
     .tree_thumb {
-        height: 48px;
-        width: 48px;
+        height: 40px;
+        width: 40px;
     }
 
     .w {
-       width: 90px;
+        padding: 6px;
+        width: 80px;
+        max-width: 120px;
     }
 }
 
