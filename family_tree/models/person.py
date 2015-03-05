@@ -6,6 +6,7 @@ from django.core.validators import validate_email
 from family_tree.models.family import Family
 from django.conf import settings
 from PIL import Image
+from django.db.models import Q
 import collections
 import uuid
 import os
@@ -71,7 +72,11 @@ class PersonManager(models.Manager):
         #Get all the relations
         person_ids.append(person.id)
         from family_tree.models import Relation
-        relations = Relation.objects.filter(from_person__in=person_ids, to_person__in=person_ids)
+        if len(people_lower) > 2:
+            #Reduce number of drawn relations if more than two children
+            relations = Relation.objects.filter(Q(from_person_id=person.id) | Q(to_person_id=person.id))
+        else:
+            relations = Relation.objects.filter(from_person__in=person_ids, to_person__in=person_ids)
 
         related_data = collections.namedtuple('related_data', ['people_upper', 'people_same_level', 'people_lower', 'relations'])
         return related_data(people_upper, people_same_level, people_lower, relations)
