@@ -6,8 +6,20 @@
     $('#input_new_name').bind('input',new_relation_validate);
 
 
-    //input event only works on IE > 9
-    $("#input_existing_name").bind('input', do_relation_search);
+    //input event only works on IE > 8
+    $("#input_existing_name").on('input', function() {
+        do_relation_search();
+    });
+
+    //IE8 Compatibility
+    if( $("html").hasClass("ie8") ) {
+
+        //Event does not work on touch screen
+        $('#input_existing_name').keyup(function() {
+            do_relation_search();
+        });
+    };
+
 
     $(document).on('click',".add_relation_existing_person",add_relation_existing_person);
 });
