@@ -22,6 +22,7 @@ def tree(request, person_id = 0, person = None):
     template = loader.get_template('family_tree/tree.html')
 
     context = RequestContext(request,{
+                                'css_normal' : get_css(person, related_data, pixel_width=970),
                                 'css_320' : get_css(person, related_data, pixel_width=320),
                                 'css_480' : get_css(person, related_data, pixel_width=480),
                                 #Matches bootstrap media queries

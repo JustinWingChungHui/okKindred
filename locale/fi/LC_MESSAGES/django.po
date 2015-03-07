@@ -2,20 +2,20 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# 
+#
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-02-28 19:24+0000\n"
+"POT-Creation-Date: 2015-03-07 00:53+0000\n"
 "PO-Revision-Date: 2015-03-04 09:17+0000\n"
 "Last-Translator: b'Anonymous User <wingchung@justinhui.co.uk>'\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: \n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Translated-Using: django-rosetta 0.7.5\n"
 
@@ -70,8 +70,8 @@ msgid ""
 "Designates whether this user should be treated as active. Unselect this "
 "instead of deleting accounts."
 msgstr ""
-"Määrittää, onko tämä käyttäjä on kohdeltava aktiivinen. Poista valinta tästä"
-" poistamisen sijasta tilit."
+"Määrittää, onko tämä käyttäjä on kohdeltava aktiivinen. Poista valinta tästä "
+"poistamisen sijasta tilit."
 
 #: custom_user/models.py:46
 msgid "Date Joined"
@@ -254,17 +254,22 @@ msgstr "Kutsun ok!Kindred {0}"
 #, python-brace-format
 msgid ""
 "Hi {0}\n"
-"                                            You have been invited by {1} to join ok!Kindred.\n"
-"                                            ok!Kindred is a collaborative family tree and private social network for you and you family.\n"
-"                                            A network has already been set up by one of your family members to help you keep in touch.\n"
-"                                            To join, please go to https://www.okkindred.com/accounts/confirmation={2}/\n"
+"                                            You have been invited by {1} to "
+"join ok!Kindred.\n"
+"                                            ok!Kindred is a collaborative "
+"family tree and private social network for you and you family.\n"
+"                                            A network has already been set "
+"up by one of your family members to help you keep in touch.\n"
+"                                            To join, please go to https://"
+"www.okkindred.com/accounts/confirmation={2}/\n"
 "                                        "
 msgstr ""
 "Hi {0}\n"
 " Sinut on kutsuttu {1} liittyä ok!Suku.\n"
 " ok!Suku on yhteisöllinen sukupuu ja oma sosiaalinen verkosto, et perhe.\n"
 " Verkko on jo perustaneet perheenjäsenesi auttaa sinua pitämään yhteyttä.\n"
-" Jos haluat liittyä, siirry osoitteeseen https://www.okkindred.com/accounts/confirmation={2}/\n"
+" Jos haluat liittyä, siirry osoitteeseen https://www.okkindred.com/accounts/"
+"confirmation={2}/\n"
 "                                        "
 
 #: email_confirmation/templates/email_confirmation/confirm_invite.html:10
@@ -279,11 +284,13 @@ msgstr " Kiitos hyväksyä kutsun "
 #: email_confirmation/templates/email_confirmation/confirm_invite.html:14
 msgid ""
 "\n"
-"         to join ok!kindred, share your family tree and keep in contact with your family members!\n"
+"         to join ok!kindred, share your family tree and keep in contact with "
+"your family members!\n"
 "         "
 msgstr ""
 "\n"
-" jos haluat liittyä ok!kindred, osake-sukupuusi ja pitää yhteyttä perheen jäsenet!\n"
+" jos haluat liittyä ok!kindred, osake-sukupuusi ja pitää yhteyttä perheen "
+"jäsenet!\n"
 "         "
 
 #: email_confirmation/templates/email_confirmation/confirm_invite.html:22
@@ -294,6 +301,19 @@ msgstr "Luo uusi salasana:"
 msgid "Join ok!Kindred"
 msgstr "Liity ok!Kindred"
 
+#: email_confirmation/templates/email_confirmation/invalid_expired.html:10
+msgid "Invalid Email Confirmation"
+msgstr ""
+
+#: email_confirmation/templates/email_confirmation/invalid_expired.html:12
+msgid ""
+"\n"
+"         Unfortunately either your invite to join has expired, or is "
+"invalid.\n"
+"         Please ask a member of your family to re-invite you.\n"
+"         "
+msgstr ""
+
 #: email_confirmation/templates/email_confirmation/invite.html:6
 msgid "Hello"
 msgstr "Hei"
@@ -302,35 +322,48 @@ msgstr "Hei"
 #, python-format
 msgid ""
 "\n"
-"        You have been invited by %(user_who_invited_person)s to join ok!Kindred: a collaborative family tree and private social network for you and your family.\n"
-"        A network has already been set up by one of your family members to help you keep in touch.\n"
+"        You have been invited by %(user_who_invited_person)s to join ok!"
+"Kindred: a collaborative family tree and private social network for you and "
+"your family.\n"
+"        A network has already been set up by one of your family members to "
+"help you keep in touch.\n"
 "        "
 msgstr ""
 "\n"
-" Sinut on kutsuttu mukaan <code>%(user_who_invited_person)s</code> liittyä ok!Suku: yhteisöllinen sukupuu ja oma sosiaalinen verkosto sinulle ja perheellesi.\n"
+" Sinut on kutsuttu mukaan <code>%(user_who_invited_person)s</code> liittyä "
+"ok!Suku: yhteisöllinen sukupuu ja oma sosiaalinen verkosto sinulle ja "
+"perheellesi.\n"
 " Verkko on jo perustaneet perheenjäsenesi auttaa sinua pitämään yhteyttä.\n"
 "        "
 
 #: email_confirmation/templates/email_confirmation/invite.html:16
 msgid ""
 "\n"
-"        Don't worry, it's absolutely free, and we take your security and privacy seriously.\n"
-"        If you would like to join, please click on the following link and choose a secure password that you will remember.\n"
+"        Don't worry, it's absolutely free, and we take your security and "
+"privacy seriously.\n"
+"        If you would like to join, please click on the following link and "
+"choose a secure password that you will remember.\n"
 "        "
 msgstr ""
 "\n"
-" Älä huoli, se on täysin ilmainen, ja otamme suojaus ja tietosuoja vakavasti.\n"
-" Jos haluat liittyä, klikkaa seuraavaa linkkiä ja valitse turvallisen salasanan, jonka tulet muistamaan.\n"
+" Älä huoli, se on täysin ilmainen, ja otamme suojaus ja tietosuoja "
+"vakavasti.\n"
+" Jos haluat liittyä, klikkaa seuraavaa linkkiä ja valitse turvallisen "
+"salasanan, jonka tulet muistamaan.\n"
 "        "
 
 #: email_confirmation/templates/email_confirmation/invite.html:25
 msgid ""
 "\n"
-"        Please, click the link and check it out.  You can always leave if you wish.  If you want to find out more, just go to <a href = \"https://www.okkindred.com\">https://okkindred.com</a> to find out more!\n"
+"        Please, click the link and check it out.  You can always leave if "
+"you wish.  If you want to find out more, just go to <a href = \"https://www."
+"okkindred.com\">https://okkindred.com</a> to find out more!\n"
 "        "
 msgstr ""
 "\n"
-" Ole hyvä ja klikkaa linkkiä ja check it out. Voit aina jättää, jos haluat. Jos haluat tietää lisää, mene <a href = \"https://www.okkindred.com\">https://okkindred.com</a> lue lisää!\n"
+" Ole hyvä ja klikkaa linkkiä ja check it out. Voit aina jättää, jos haluat. "
+"Jos haluat tietää lisää, mene <a href = \"https://www.okkindred.com"
+"\">https://okkindred.com</a> lue lisää!\n"
 "        "
 
 #: email_confirmation/templates/email_confirmation/invite.html:31
@@ -343,19 +376,19 @@ msgstr ""
 " Kiitos ja paljon rakkautta Justin &amp; Adrian @ ok!Kindred\n"
 "        "
 
-#: emailer/models.py:64
+#: emailer/models.py:121
 msgid "ok!Kindred family update"
 msgstr "ok!Suku perhe-päivitys"
 
-#: emailer/models.py:66
+#: emailer/models.py:123
 msgid "One or more of your family has had details in ok!Kindred updated."
 msgstr ""
 "Yhden tai useamman perheesi on ollut yksityiskohtia ok!Kindred päivitetty."
 
 #: emailer/templates/emailer/people_updates.html:7
 msgid ""
-"The following people have been added to your family in ok!Kindred.  Click on"
-" them to find out more:"
+"The following people have been added to your family in ok!Kindred.  Click on "
+"them to find out more:"
 msgstr ""
 "Seuraavat ihmisiä on lisätty perheesi ok!Suku. Klikkaa niitä ja lue lisää:"
 
@@ -366,19 +399,19 @@ msgid ""
 msgstr ""
 "Seuraavat ihmisten profiilit on päivitetty. Klikkaa niitä ja lue lisää:"
 
-#: family_tree/models/person.py:19
+#: family_tree/models/person.py:20
 #: family_tree/templates/family_tree/add_relation.html:53
 #: family_tree/templates/family_tree/edit_profile.html:184
 msgid "Female"
 msgstr "Narttu"
 
-#: family_tree/models/person.py:20
+#: family_tree/models/person.py:21
 #: family_tree/templates/family_tree/add_relation.html:54
 #: family_tree/templates/family_tree/edit_profile.html:185
 msgid "Male"
 msgstr "Mies"
 
-#: family_tree/models/person.py:21
+#: family_tree/models/person.py:22
 #: family_tree/templates/family_tree/add_relation.html:55
 #: family_tree/templates/family_tree/edit_profile.html:186
 msgid "Other"
@@ -403,7 +436,7 @@ msgstr "Esille"
 #: family_tree/templates/family_tree/break_relation.html:10
 #: family_tree/templates/family_tree/edit_biography.html:11
 #: family_tree/templates/family_tree/image_resize.html:15
-#: templates/about.html:68 templates/about.html.py:95 templates/about.html:153
+#: templates/about.html:68 templates/about.html.py:95 templates/about.html:146
 msgid "Back"
 msgstr "Takaisin"
 
@@ -446,7 +479,7 @@ msgid "Break"
 msgstr "Tauko"
 
 #: family_tree/templates/family_tree/edit_profile.html:14
-#: family_tree/templates/family_tree/tree.html:93
+#: family_tree/templates/family_tree/tree.html:83
 msgid "Add Relation"
 msgstr "Lisää Suhde"
 
@@ -458,6 +491,8 @@ msgstr "Tauko Suhde"
 msgid "Delete"
 msgstr "Poista"
 
+#: family_tree/templates/family_tree/edit_profile.html:24
+#: family_tree/templates/family_tree/edit_profile.html:26
 #: family_tree/templates/family_tree/edit_profile.html:29
 msgid "Click photo to upload new one"
 msgstr "Valitse valokuva ja ladata uuden"
@@ -586,6 +621,13 @@ msgstr "Tämä profiili on lukittu tämä käyttäjä."
 msgid "Edit Profile"
 msgstr "Muokkaa Profiilia"
 
+#: family_tree/templates/family_tree/profile.html:30
+#: family_tree/templates/family_tree/tree.html:61
+#, fuzzy
+#| msgid "Click photo to upload new one"
+msgid "No photo uploaded for "
+msgstr "Valitse valokuva ja ladata uuden"
+
 #: family_tree/templates/family_tree/profile.html:37
 msgid "Invite to join"
 msgstr "Kutsu liittyä"
@@ -614,15 +656,15 @@ msgstr "Elämäkerta ei ole vielä kirjoitettu tällä kielellä."
 msgid "Search Name:"
 msgstr "Hae Nimellä:"
 
-#: family_tree/templates/family_tree/tree.html:92
+#: family_tree/templates/family_tree/tree.html:82
 msgid "Profile"
 msgstr "Profiili"
 
-#: family_tree/templates/family_tree/tree.html:187
+#: family_tree/templates/family_tree/tree.html:177
 msgid "partnered"
 msgstr "kumppanuuteen"
 
-#: family_tree/templates/family_tree/tree.html:189
+#: family_tree/templates/family_tree/tree.html:179
 msgid "raised"
 msgstr "esille"
 
@@ -634,34 +676,36 @@ msgstr "Tiedosto on liian suuri"
 msgid "A biography has not yet been written for this language"
 msgstr "Elämäkerta ei ole vielä kirjoitettu tällä kielellä"
 
-#: familyroot/settings.py:114
+#: familyroot/settings.py:119
 msgid "English"
 msgstr "Englanti"
 
-#: familyroot/settings.py:115
+#: familyroot/settings.py:120
 msgid "Traditional Chinese"
 msgstr "Perinteinen Kiina"
 
-#: familyroot/settings.py:116
+#: familyroot/settings.py:121
 msgid "Simplified Chinese"
 msgstr "Yksinkertaistettu Kiina"
 
-#: familyroot/settings.py:117
+#: familyroot/settings.py:122
 msgid "Polish"
 msgstr "Puola"
 
-#: familyroot/settings.py:118
+#: familyroot/settings.py:123
 msgid "Finnish"
 msgstr "Suomen"
 
 #: templates/about.html:16
 msgid ""
 "\n"
-"        Greetings from Justin & Adrian.  This is a website to keep track of our family tree.  It is now spread across the world and is growing.\n"
+"        Greetings from Justin & Adrian.  This is a website to keep track of "
+"our family tree.  It is now spread across the world and is growing.\n"
 "        "
 msgstr ""
 "\n"
-" Terveisiä Justin &amp; Adrian. Tämä on sivusto, seurata meidän perhe puu. Se on nyt levinnyt ympäri maailmaa ja kasvaa.\n"
+" Terveisiä Justin &amp; Adrian. Tämä on sivusto, seurata meidän perhe puu. "
+"Se on nyt levinnyt ympäri maailmaa ja kasvaa.\n"
 "        "
 
 #: templates/about.html:30
@@ -714,17 +758,29 @@ msgstr ""
 #: templates/about.html:60
 msgid ""
 "\n"
-"            This is a website to record our family tree and and act a bit like a social network.  Our family members can maintain a profile on here and discover how far the tree reaches\n"
-"            As a person is added to the family tree, they receive an email so they may become a user and add more people to it.\n"
-"            I attended several family gatherings recently and have struggled to explain how we are all related to others.  My family is now very diverse with several ethnicities and resides across several continents.\n"
-"            We wanted someway of documenting everyone and keep in touch as the family grows.\n"
+"            This is a website to record our family tree and and act a bit "
+"like a social network.  Our family members can maintain a profile on here "
+"and discover how far the tree reaches\n"
+"            As a person is added to the family tree, they receive an email "
+"so they may become a user and add more people to it.\n"
+"            I attended several family gatherings recently and have struggled "
+"to explain how we are all related to others.  My family is now very diverse "
+"with several ethnicities and resides across several continents.\n"
+"            We wanted someway of documenting everyone and keep in touch as "
+"the family grows.\n"
 "            "
 msgstr ""
 "\n"
-" Tämä on sivusto tallentaa meidän sukupuu ja toimivat vähän kuin sosiaalinen verkosto. Meidän perheen jäsenet voivat ylläpitää profiilin tänne ja huomata, kuinka pitkälle puu saavuttaa\n"
-" Koska henkilö lisätään perheen puu, ne saavat sähköpostin, jotta ne voivat tulla käyttäjän ja lisää ihmisiä siihen.\n"
-" Kävin useita perhejuhliin äskettäin, ja on vaikea selittää, kuinka me olemme kaikki sukua muille. Perheeni on nyt erittäin monipuolinen useita ethnicities ja asuu eri mantereilla.\n"
-" Halusimme jollain tavalla sekä dokumentointi kaikille ja pitää yhteyttä kun perhe kasvaa.\n"
+" Tämä on sivusto tallentaa meidän sukupuu ja toimivat vähän kuin sosiaalinen "
+"verkosto. Meidän perheen jäsenet voivat ylläpitää profiilin tänne ja "
+"huomata, kuinka pitkälle puu saavuttaa\n"
+" Koska henkilö lisätään perheen puu, ne saavat sähköpostin, jotta ne voivat "
+"tulla käyttäjän ja lisää ihmisiä siihen.\n"
+" Kävin useita perhejuhliin äskettäin, ja on vaikea selittää, kuinka me "
+"olemme kaikki sukua muille. Perheeni on nyt erittäin monipuolinen useita "
+"ethnicities ja asuu eri mantereilla.\n"
+" Halusimme jollain tavalla sekä dokumentointi kaikille ja pitää yhteyttä kun "
+"perhe kasvaa.\n"
 "            "
 
 #: templates/about.html:73
@@ -738,45 +794,61 @@ msgstr "Ota yhteyttä sähköpostitse info@okkindred.com"
 #: templates/about.html:77
 msgid ""
 "\n"
-"            If you are in our family we want to hear from you and are welcome to visit and stay round any time.\n"
-"            If you have a login to this site and are part of my family, you can get my telephone number and address from my profile!\n"
+"            If you are in our family we want to hear from you and are "
+"welcome to visit and stay round any time.\n"
+"            If you have a login to this site and are part of my family, you "
+"can get my telephone number and address from my profile!\n"
 "            "
 msgstr ""
 "\n"
-" Jos olet meidän perhe-haluamme kuulla sinusta ja ovat tervetulleita tutustumaan ja pysyä pyöreä tahansa.\n"
-" Jos sinulla on kirjautua tämän sivuston ja ovat osa perhettäni, voit saada minun puhelinnumero ja osoite oma profiili!\n"
+" Jos olet meidän perhe-haluamme kuulla sinusta ja ovat tervetulleita "
+"tutustumaan ja pysyä pyöreä tahansa.\n"
+" Jos sinulla on kirjautua tämän sivuston ja ovat osa perhettäni, voit saada "
+"minun puhelinnumero ja osoite oma profiili!\n"
 "            "
 
 #: templates/about.html:84
 msgid ""
 "\n"
-"            Alternatively, if you are looking for some help using the site, or even if you want us to help you set up your own similar site please drop us a line!\n"
+"            Alternatively, if you are looking for some help using the site, "
+"or even if you want us to help you set up your own similar site please drop "
+"us a line!\n"
 "            "
 msgstr ""
 "\n"
-" Vaihtoehtoisesti, jos etsit apua käyttämällä sivuston, tai jopa jos haluat, voimme auttaa sinua perustaa oman vastaavaa sivustoa ota pudottaa meidät linja!\n"
+" Vaihtoehtoisesti, jos etsit apua käyttämällä sivuston, tai jopa jos haluat, "
+"voimme auttaa sinua perustaa oman vastaavaa sivustoa ota pudottaa meidät "
+"linja!\n"
 "            "
 
 #: templates/about.html:90
 msgid ""
 "\n"
-"            We're quite nice people and do like to talk to people interested in the sames things we are: Geek stuff, software, music and crazy pan global Chinese families...\n"
+"            We're quite nice people and do like to talk to people interested "
+"in the sames things we are: Geek stuff, software, music and crazy pan global "
+"Chinese families...\n"
 "            "
 msgstr ""
 "\n"
-" Olemme melko mukavia ihmisiä ja tehdä kuin puhua ihmisiä kiinnostaa samat asiat meillä ovat: Pelle juttuja, ohjelmistoja, musiikkia ja hullu pan global Kiinan perheille...\n"
+" Olemme melko mukavia ihmisiä ja tehdä kuin puhua ihmisiä kiinnostaa samat "
+"asiat meillä ovat: Pelle juttuja, ohjelmistoja, musiikkia ja hullu pan "
+"global Kiinan perheille...\n"
 "            "
 
 #: templates/about.html:104
 msgid ""
 "\n"
-"             The details of our family are on this site.  We would never try to do anything we think would jeapordise this data!\n"
-"             Obviously we take security and privacy very seriously.  This will hopefully summarise some of the measures we have taken.\n"
+"             The details of our family are on this site.  We would never try "
+"to do anything we think would jeapordise this data!\n"
+"             Obviously we take security and privacy very seriously.  This "
+"will hopefully summarise some of the measures we have taken.\n"
 "             "
 msgstr ""
 "\n"
-" Tietoja meidän perhe on tällä sivustolla. Emme koskaan yritä tehdä mitään mielestämme olisi jeapordise näitä tietoja!\n"
-" Ilmeisesti otamme turvallisuuteen ja tietosuojaan hyvin vakavasti. Tämä toivottavasti lyhyesti joitakin toimenpiteitä, olemme tehneet.\n"
+" Tietoja meidän perhe on tällä sivustolla. Emme koskaan yritä tehdä mitään "
+"mielestämme olisi jeapordise näitä tietoja!\n"
+" Ilmeisesti otamme turvallisuuteen ja tietosuojaan hyvin vakavasti. Tämä "
+"toivottavasti lyhyesti joitakin toimenpiteitä, olemme tehneet.\n"
 "             "
 
 #: templates/about.html:109
@@ -786,77 +858,106 @@ msgstr "Turvallisuus"
 #: templates/about.html:111
 msgid ""
 "\n"
-"            This entire site is loaded over <a href=\"https://www.globalsign.com/en/ssl-information-center/what-is-ssl/\">Secure Socket Layer</a> (SSL).\n"
-"            As a result, the connection between you and this website is encrypted.\n"
-"            This protects against other people listening and stealing the information that is transmitted between you and the website.\n"
-"            We use 128 bit encryption which is an <a href =\"http://www.inet2000.com/public/encryption.htm\">industry standard</a>.\n"
-"            You should notice a padlock at the top of your web browser to show you that the connection to this website is secure.\n"
+"            This entire site is loaded over <a href=\"https://www.globalsign."
+"com/en/ssl-information-center/what-is-ssl/\">Secure Socket Layer</a> (SSL).\n"
+"            As a result, the connection between you and this website is "
+"encrypted.\n"
+"            This protects against other people listening and stealing the "
+"information that is transmitted between you and the website.\n"
+"            We use 128 bit encryption which is an <a href =\"http://www."
+"inet2000.com/public/encryption.htm\">industry standard</a>.\n"
+"            You should notice a padlock at the top of your web browser to "
+"show you that the connection to this website is secure.\n"
 "            "
 msgstr ""
 "\n"
-" Tämä koko sivusto on ladattu yli <a href=\"https://www.globalsign.com/fi/ssl-tieto-center/what-is-ssl/\">Secure Socket Layer</a> (SSL).\n"
+" Tämä koko sivusto on ladattu yli <a href=\"https://www.globalsign.com/fi/"
+"ssl-tieto-center/what-is-ssl/\">Secure Socket Layer</a> (SSL).\n"
 " Tämän seurauksena yhteys sinun ja tämä sivusto on salattu.\n"
-" Tämä suojaa muita ihmisiä kuunnellen ja varastaa tietoja, jotka on lähetetty sinun välillä ja verkkosivuilla.\n"
-" Käytämme 128-bittistä salausta, joka on <a href =\"http://www.inet2000.com/public/encryption.htm\">industry standardi</a>.\n"
-" Sinun pitäisi huomata riippulukko yläosassa web-selain näyttää, että yhteys tämä sivusto on turvallinen.\n"
+" Tämä suojaa muita ihmisiä kuunnellen ja varastaa tietoja, jotka on "
+"lähetetty sinun välillä ja verkkosivuilla.\n"
+" Käytämme 128-bittistä salausta, joka on <a href =\"http://www.inet2000.com/"
+"public/encryption.htm\">industry standardi</a>.\n"
+" Sinun pitäisi huomata riippulukko yläosassa web-selain näyttää, että yhteys "
+"tämä sivusto on turvallinen.\n"
 "            "
 
 #: templates/about.html:121
+#, fuzzy
+#| msgid ""
+#| "\n"
+#| "            We adopt appropriate data collection, storage and processing "
+#| "practices and security measures to protect against unauthorized access, "
+#| "alteration, disclosure\n"
+#| "            or destruction of your personal information and transaction "
+#| "information and data stored on our site.\n"
+#| "            "
 msgid ""
 "\n"
-"            We encrypt all stored passwords using the <a href=\"https://en.wikipedia.org/wiki/PBKDF2\">PBKDF2 algorithm</a> with a\n"
-"            <a href=\"https://en.wikipedia.org/wiki/SHA-2\">SHA256 hash</a>.  This is a recommendation by <a href=\"http://csrc.nist.gov/publications/nistpubs/800-132/nist-sp800-132.pdf\">NIST</a>.\n"
-"            Our servers are located in the USA, and therefore are subject to USA law.\n"
+"            We adopt appropriate data collection, storage and processing "
+"practices and security measures to protect against unauthorized access, "
+"alteration, disclosure\n"
+"            or destruction of your personal information and transaction "
+"information and data stored on our site.  Our servers are located in the "
+"USA, and therefore are subject to USA law.\n"
 "            "
 msgstr ""
 "\n"
-" Me salaa kaikki tallennetut salasanat käytät <a href=\"https://fi.wikipedia.org/wiki/PBKDF2\">PBKDF2 algoritmi</a> kanssa\n"
-" <a href=\"https://fi.wikipedia.org/wiki/SHA-2\">SHA256 hash</a>. Tämä on suositus <a href=\"http://csrc.nist.gov/publications/nistpubs/800-132/nist-sp800-132.pdf-tiedosto\">NIST</a>.\n"
-" Palvelimemme sijaitsevat USA: ssa, ja siksi sovelletaan USA lakia.\n"
+" Me toteuttaa tarvittavat tietojen keräys -, tallennus-ja "
+"käsittelykäytäntöjämme ja turvatoimet luvattoman käytön, muuttamisen, "
+"luovuttamisen\n"
+" tai tuhoamisen henkilökohtaiset tiedot ja tapahtumatiedot ja tallennettuja "
+"tietoja sivustollamme.\n"
 "            "
 
-#: templates/about.html:128
-msgid ""
-"\n"
-"            We adopt appropriate data collection, storage and processing practices and security measures to protect against unauthorized access, alteration, disclosure\n"
-"            or destruction of your personal information and transaction information and data stored on our site.\n"
-"            "
-msgstr ""
-"\n"
-" Me toteuttaa tarvittavat tietojen keräys -, tallennus-ja käsittelykäytäntöjämme ja turvatoimet luvattoman käytön, muuttamisen, luovuttamisen\n"
-" tai tuhoamisen henkilökohtaiset tiedot ja tapahtumatiedot ja tallennettuja tietoja sivustollamme.\n"
-"            "
-
-#: templates/about.html:134
+#: templates/about.html:127
 msgid "Privacy"
 msgstr "Tietosuoja"
+
+#: templates/about.html:129
+msgid ""
+"\n"
+"            Our site uses <a href=\"https://en.wikipedia.org/wiki/HTTP_cookie"
+"\">cookies</a> to enhance your experience. Your web browser places cookies "
+"on your hard drive for record-keeping purposes and sometimes to track "
+"information about you.\n"
+"            In particular we use cookies to identify you so that you may our "
+"login to the site.\n"
+"            "
+msgstr ""
+"\n"
+" Sivustomme käyttää <a href=\"https://fi.wikipedia.org/wiki/HTTP_cookie"
+"\">evästeet</a> ostokokemuksen. Web-selain asettaa evästeitä kiintolevyn "
+"kirjanpitoa varten ja joskus seurata sinua koskevia tietoja.\n"
+" Erityisesti käytämme evästeitä tunnistaakseen niin, että et voi meidän "
+"kirjaudu sivustolle.\n"
+"            "
 
 #: templates/about.html:136
 msgid ""
 "\n"
-"            Our site uses <a href=\"https://en.wikipedia.org/wiki/HTTP_cookie\">cookies</a> to enhance your experience. Your web browser places cookies on your hard drive for record-keeping purposes and sometimes to track information about you.\n"
-"            In particular we use cookies to identify you so that you may our login to the site.\n"
-"            "
-msgstr ""
-"\n"
-" Sivustomme käyttää <a href=\"https://fi.wikipedia.org/wiki/HTTP_cookie\">evästeet</a> ostokokemuksen. Web-selain asettaa evästeitä kiintolevyn kirjanpitoa varten ja joskus seurata sinua koskevia tietoja.\n"
-" Erityisesti käytämme evästeitä tunnistaakseen niin, että et voi meidän kirjaudu sivustolle.\n"
-"            "
-
-#: templates/about.html:143
-msgid ""
-"\n"
-"            We do not sell, trade, or rent your personal identification information to others.\n"
-"            We do use third party <a href=\"https://en.wikipedia.org/wiki/Geocoding\">geocoding</a> services.  This is to convert a location into a longitude and latitude so we can plot it on a map.\n"
-"            However no other identifying pieces of information (e.g. name) are supplied with this location.\n"
-"            We also may share generic aggregated demographic information not linked to any personal identification information.  For example we may disclose how many users we have in China.\n"
+"            We do not sell, trade, or rent your personal identification "
+"information to others.\n"
+"            We do use third party <a href=\"https://en.wikipedia.org/wiki/"
+"Geocoding\">geocoding</a> services.  This is to convert a location into a "
+"longitude and latitude so we can plot it on a map.\n"
+"            However no other identifying pieces of information (e.g. name) "
+"are supplied with this location.\n"
+"            We also may share generic aggregated demographic information not "
+"linked to any personal identification information.  For example we may "
+"disclose how many users we have in China.\n"
 "            "
 msgstr ""
 "\n"
 " Emme myy, vaihda tai vuokraa henkilökohtaisia tunnistetietoja muille.\n"
-" Käytämme kolmannen osapuolen <a href=\"https://fi.wikipedia.org/wiki/Geokoodaus\">geokoodaus</a> palvelut. Tämä on muuntaa sijainti osaksi pituutta ja leveyttä, joten emme voi piirtää sen kartalle.\n"
-" Ei kuitenkaan ole muita tunnistetietoja kappaletta tietoja (esim. nimi), ovat mukana tämän sijainnin.\n"
-" Saatamme myös jakaa yleistä yhdistettyjä demografisia tietoja ei liity mitään henkilökohtaista tietoa. Esimerkiksi, emme voi paljastaa, kuinka monet käyttäjät meillä on Kiinassa.\n"
+" Käytämme kolmannen osapuolen <a href=\"https://fi.wikipedia.org/wiki/"
+"Geokoodaus\">geokoodaus</a> palvelut. Tämä on muuntaa sijainti osaksi "
+"pituutta ja leveyttä, joten emme voi piirtää sen kartalle.\n"
+" Ei kuitenkaan ole muita tunnistetietoja kappaletta tietoja (esim. nimi), "
+"ovat mukana tämän sijainnin.\n"
+" Saatamme myös jakaa yleistä yhdistettyjä demografisia tietoja ei liity "
+"mitään henkilökohtaista tietoa. Esimerkiksi, emme voi paljastaa, kuinka "
+"monet käyttäjät meillä on Kiinassa.\n"
 "            "
 
 #: templates/base.html:44
@@ -878,3 +979,23 @@ msgstr "Noin"
 #: templates/base.html:68
 msgid "Log Out"
 msgstr "Kirjaudu Ulos"
+
+#~ msgid ""
+#~ "\n"
+#~ "            We encrypt all stored passwords using the <a href=\"https://"
+#~ "en.wikipedia.org/wiki/PBKDF2\">PBKDF2 algorithm</a> with a\n"
+#~ "            <a href=\"https://en.wikipedia.org/wiki/SHA-2\">SHA256 hash</"
+#~ "a>.  This is a recommendation by <a href=\"http://csrc.nist.gov/"
+#~ "publications/nistpubs/800-132/nist-sp800-132.pdf\">NIST</a>.\n"
+#~ "            Our servers are located in the USA, and therefore are subject "
+#~ "to USA law.\n"
+#~ "            "
+#~ msgstr ""
+#~ "\n"
+#~ " Me salaa kaikki tallennetut salasanat käytät <a href=\"https://fi."
+#~ "wikipedia.org/wiki/PBKDF2\">PBKDF2 algoritmi</a> kanssa\n"
+#~ " <a href=\"https://fi.wikipedia.org/wiki/SHA-2\">SHA256 hash</a>. Tämä on "
+#~ "suositus <a href=\"http://csrc.nist.gov/publications/nistpubs/800-132/"
+#~ "nist-sp800-132.pdf-tiedosto\">NIST</a>.\n"
+#~ " Palvelimemme sijaitsevat USA: ssa, ja siksi sovelletaan USA lakia.\n"
+#~ "            "
