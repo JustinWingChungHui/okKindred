@@ -5,8 +5,9 @@
 <!--
 Based on Twitters bootstrap http://getbootstrap.com/getting-started/#whats-included
 -->
-
-<html lang="{{ LANGUAGE_CODE|default:"en-us" }}" {% if LANGUAGE_BIDI %}dir="rtl"{% endif %}>
+<!--[if lt IE 8]> <html lang="{{ LANGUAGE_CODE|default:"en-us" }}" {% if LANGUAGE_BIDI %}dir="rtl"{% endif %} class="no-js ie7 oldie"> <![endif]-->
+<!--[if IE 8]>    <html lang="{{ LANGUAGE_CODE|default:"en-us" }}" {% if LANGUAGE_BIDI %}dir="rtl"{% endif %} class="no-js ie8 oldie"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="{{ LANGUAGE_CODE|default:"en-us" }}" {% if LANGUAGE_BIDI %}dir="rtl"{% endif %}>  <!--<![endif]-->
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -34,6 +35,8 @@ Based on Twitters bootstrap http://getbootstrap.com/getting-started/#whats-inclu
 </head>
 
 <body>
+
+
     {% block nav %}
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
       <div class="container">

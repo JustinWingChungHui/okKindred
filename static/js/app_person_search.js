@@ -1,7 +1,24 @@
 $(document).ready(function(){
 
-    //input event only works on IE > 9
-    $("#search_form").bind('input', function() {
+    //http://stackoverflow.com/questions/11054511/how-to-handle-lack-of-javascript-object-bind-method-in-ie-8
+
+
+    //input event only works on IE > 8
+    $("#search_text").on('input', function() {
+        do_search();
+    });
+
+    //IE8 Compatibility
+    if( $("html").hasClass("ie8") ) {
+
+        //Event does not work on touch screen
+        $('#search_text').keyup(function() {
+            do_search();
+        });
+    };
+
+
+    function do_search() {
 
         if($('#search_text').val()==null || $('#search_text').val()=="")
         {
@@ -11,13 +28,13 @@ $(document).ready(function(){
 
         $('#searching_in_progress').show();
 
-        var $form = $(this);
+        var $form = $("#search_form");
 
         // Serialize the data in the form
         var serializedData = $form.serialize();
 
 
-            // Fire off the request to /form.php
+        // Fire off the request
         request = $.ajax({
             url: "/get_search_results_json/",
             dataType: "json",
@@ -55,7 +72,6 @@ $(document).ready(function(){
             }
 
         });
-
-    });
+    }
 
 });
