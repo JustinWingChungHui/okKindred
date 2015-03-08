@@ -33,18 +33,18 @@ class TestMapViews(TestCase):
         self.client.login(email='adam_lambert@queenonline.com', password='sexy boy')
         response = self.client.get('/map/')
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'family_tree/family_map.html')
+        self.assertTemplateUsed(response, 'family_tree/open_street_map.html')
 
         self.assertTrue(b'Paul Rodgers' in response.content)
 
-        self.assertTrue(b'x.push(54.574)' in response.content)
-        self.assertTrue(b'y.push(-1.235)' in response.content)
+        self.assertTrue(b'54.574' in response.content)
+        self.assertTrue(b'-1.235' in response.content)
 
         self.assertTrue(b'Adam Lambert' in response.content)
-        self.assertTrue(b'x.push(39.768)' in response.content)
-        self.assertTrue(b'y.push(-86.158)' in response.content)
+        self.assertTrue(b'39.768' in response.content)
+        self.assertTrue(b'-86.158' in response.content)
 
-        self.assertTrue(b'center: new google.maps.LatLng(39.768,-86.158)' in response.content)
+        self.assertTrue(b"L.map('map').setView([39.768,-86.158]" in response.content)
 
 
 
@@ -56,18 +56,18 @@ class TestMapViews(TestCase):
         self.client.login(email='adam_lambert@queenonline.com', password='sexy boy')
         response = self.client.get('/map={0}/'.format(self.person2.id))
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'family_tree/family_map.html')
+        self.assertTemplateUsed(response, 'family_tree/open_street_map.html')
 
         self.assertTrue(b'Paul Rodgers' in response.content)
 
-        self.assertTrue(b'x.push(54.574)' in response.content)
-        self.assertTrue(b'y.push(-1.235)' in response.content)
+        self.assertTrue(b'54.574' in response.content)
+        self.assertTrue(b'-1.235' in response.content)
 
         self.assertTrue(b'Adam Lambert' in response.content)
-        self.assertTrue(b'x.push(39.768)' in response.content)
-        self.assertTrue(b'y.push(-86.158)' in response.content)
+        self.assertTrue(b'39.768' in response.content)
+        self.assertTrue(b'-86.158' in response.content)
 
-        self.assertTrue(b'center: new google.maps.LatLng(54.574,-1.235)' in response.content)
+        self.assertTrue(b"L.map('map').setView([54.574,-1.235]" in response.content)
 
 
     def test_map_view_loads_in_polish(self):
@@ -86,18 +86,16 @@ class TestMapViews(TestCase):
         response = self.client.get('/map={0}/'.format(self.person2.id))
 
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'family_tree/family_map.html')
+        self.assertTemplateUsed(response, 'family_tree/open_street_map.html')
 
         self.assertTrue(b'Paul Rodgers' in response.content)
 
-        self.assertTrue(b'x.push(54.574)' in response.content)
-        self.assertTrue(b'y.push(-1.235)' in response.content)
+        self.assertTrue(b'54.574' in response.content)
+        self.assertTrue(b'-1.235' in response.content)
 
         self.assertTrue(b'Adam Lambert' in response.content)
-        self.assertTrue(b'x.push(39.768)' in response.content)
-        self.assertTrue(b'y.push(-86.158)' in response.content)
+        self.assertTrue(b'39.768' in response.content)
+        self.assertTrue(b'-86.158' in response.content)
 
-        self.assertTrue(b'center: new google.maps.LatLng(54.574,-1.235)' in response.content)
+        self.assertTrue(b"L.map('map').setView([54.574,-1.235]" in response.content)
 
-        #Check map is localised
-        self.assertTrue(b'&language=pl' in response.content)

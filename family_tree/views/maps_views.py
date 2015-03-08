@@ -9,8 +9,10 @@ from custom_user.decorators import set_language
 @login_required
 @set_language
 @same_family_required
-def map(request, person_id = 0, person = None):
-
+def open_map(request, person_id = 0, person = None):
+    '''
+    View to show open map
+    '''
     locations = {}
     for member in list(Person.objects.filter(family_id = request.user.family_id).exclude(latitude = 0, longitude = 0)):
 
@@ -19,10 +21,10 @@ def map(request, person_id = 0, person = None):
         if not point in locations:
             locations[point] = Location(str(point), member.latitude, member.longitude)
 
-        locations[point].people.append(member)
+        locations[point].add_person(member)
 
 
-    template = loader.get_template('family_tree/family_map.html')
+    template = loader.get_template('family_tree/open_street_map.html')
     context = RequestContext(request,{
                                     'this_person' : person,
                                     'locations' : locations.values(),
@@ -34,11 +36,26 @@ def map(request, person_id = 0, person = None):
 
 
 class Location(object):
+    '''
+    Represents a location on a map
+    It can have multiple peopl on it
+    '''
 
     def __init__(self, name, latitude, longitude):
         self.name = name
         self.latitude = latitude
         self.longitude = longitude
         self.people = []
+        self.double_width =  False
 
+    def add_person(self, person):
+        '''
+        Adds a person to the location
+        '''
+
+        self.people.append(person)
+
+        if len(self.people) > 1:
+            #Used for map formatting
+            self.double_width =  True
 
