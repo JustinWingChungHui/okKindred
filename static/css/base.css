@@ -193,7 +193,17 @@ textarea {
     margin: 0 auto;
 }
 
+/**CSS for open street maps**/
+.img-with-text-osm {
+    text-align: center;
+    width: 90px;
+    float: left;
+}
 
+.img-with-text-osm img {
+    display: block;
+    margin: 0 auto;
+}
 
 /** CSS for search page **/
 .search_photo {

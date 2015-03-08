@@ -37,11 +37,8 @@
 
                 //navigate to resize image once uploaded
                 done: function (e, data) {
-
                     //Pull the id from the url
                     window.location.href = '/image_resize=' + person_id + '/';
-
-                    //TODO Display Error messages
                  },
 
 
