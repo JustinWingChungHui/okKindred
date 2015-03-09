@@ -41,6 +41,7 @@ class TestImageUploadViews(TestCase):
         self.assertTemplateUsed(response, 'family_tree/image_upload.html')
 
 
+
     def test_image_upload_view_does_not_load_for_another_family(self):
         '''
         tests that the view does not load if a person from a different family is trying to access it
