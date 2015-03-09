@@ -55,7 +55,7 @@ $(document).ready(function(){
                 row.push('<td class="search_photo"><a href="/profile=' + data[i].pk + '">');
 
                 if (data[i].fields.small_thumbnail == '' || data[i].fields.small_thumbnail == null){
-                    row.push('<img src="/static/img/smiley_80.jpg" ');
+                    row.push('<img src="/static/img/portrait_80.png" ');
                 }
                 else{
                     row.push('<img src="/media/' + data[i].fields.small_thumbnail + '" ');
