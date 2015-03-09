@@ -47,6 +47,7 @@ def edit_profile_photo(request, person_id = 0, person = None):
     return HttpResponse(response)
 
 
+
 @login_required
 @set_language
 @same_family_required
@@ -57,7 +58,7 @@ def image_upload(request, person_id = 0, person = None):
 
     #Ensure that profile is not locked
     if request.user.id != person.user_id and person.locked == True:
-        return Http404
+        raise Http404
 
     try:
         uploaded = request.FILES['picture']
@@ -74,7 +75,7 @@ def image_upload(request, person_id = 0, person = None):
         'name': uploaded.name,
         'size': uploaded.size,
         'url': '/media/profile_photos/' + filename,
-        'filename': filename ,
+        'filename': filename
     }
 
     if uploaded.size > MAX_FILE_SIZE:
@@ -94,9 +95,11 @@ def image_upload(request, person_id = 0, person = None):
 
     except Exception as ex:
         result['error'] = str(ex)
+
         return HttpResponse(json.dumps(result), content_type='application/json')
 
     person.save()
+
 
     return HttpResponse(json.dumps(result), content_type='application/json')
 
