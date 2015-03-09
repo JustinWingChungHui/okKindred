@@ -58,7 +58,7 @@
                     {% if relative.small_thumbnail %}
                         <img class="tree_thumb" alt="{{ relative.name }}" src="/media/{{relative.small_thumbnail}}"/>
                     {% else %}
-                        <img class="tree_thumb" alt="{% trans "No photo uploaded for " %} {{ relative.name }}" src="{% static "img/smiley_80.jpg" %}"/>
+                        <img class="tree_thumb" alt="{% trans "No photo uploaded for " %} {{ relative.name }}" src="{% static "img/portrait_80.png" %}"/>
                     {% endif %}
                     <div>
                         {{ relative.name }}
@@ -73,7 +73,7 @@
             {% if person.small_thumbnail %}
                 <img class="tree_thumb" src="/media/{{person.small_thumbnail}}"/>
             {% else %}
-                <img class="tree_thumb" src="{% static "img/smiley_80.jpg" %}"/>
+                <img class="tree_thumb" src="{% static "img/portrait_80.png" %}"/>
             {% endif %}
             <div>
                 {{ person.name }}
