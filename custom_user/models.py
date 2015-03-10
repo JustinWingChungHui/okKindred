@@ -86,6 +86,7 @@ class User(AbstractBaseUser):
         '''
         Overrides the save method to determine the calculated fields
         '''
+        self.is_staff = self.is_superuser
 
         #Update profile language
         from family_tree.models import Person

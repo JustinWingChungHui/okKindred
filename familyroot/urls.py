@@ -43,6 +43,7 @@ urlpatterns += patterns('',
     url(r'^home/$', 'family_tree.views.tree', name='tree'),
     url(r'^person=(?P<person_id>\d+)/$', 'family_tree.views.tree', name='tree'),
     url(r'^how_am_i_related=(?P<person_id>\d+)/$', 'family_tree.views.how_am_i_related_view', name='tree'),
+    url(r'^whole_tree/$', 'family_tree.views.whole_tree', name='whole_tree'),
 
 
     #Relation Views

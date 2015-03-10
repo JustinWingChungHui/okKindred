@@ -44,7 +44,6 @@ class TestMapViews(TestCase):
         self.assertTrue(b'39.768' in response.content)
         self.assertTrue(b'-86.158' in response.content)
 
-        self.assertTrue(b"L.map('map').setView([39.768,-86.158]" in response.content)
 
 
 
@@ -67,7 +66,6 @@ class TestMapViews(TestCase):
         self.assertTrue(b'39.768' in response.content)
         self.assertTrue(b'-86.158' in response.content)
 
-        self.assertTrue(b"L.map('map').setView([54.574,-1.235]" in response.content)
 
 
     def test_map_view_loads_in_polish(self):
@@ -97,5 +95,4 @@ class TestMapViews(TestCase):
         self.assertTrue(b'39.768' in response.content)
         self.assertTrue(b'-86.158' in response.content)
 
-        self.assertTrue(b"L.map('map').setView([54.574,-1.235]" in response.content)
 

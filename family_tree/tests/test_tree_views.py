@@ -123,3 +123,11 @@ class TestTreeViews(TestCase):
         self.assertEqual(True,b'Raised' in response.content)
 
 
+    def test_whole_tree_view_loads(self):
+        '''
+        Tests that the whole tree view loads
+        '''
+        self.client.login(email='roger_taylor@queenonline.com', password='nation of haircuts')
+        response = self.client.get('/whole_tree/')
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'family_tree/whole_tree.html')
