@@ -2,7 +2,7 @@
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.template import RequestContext, loader
-from family_tree.models import Person
+from family_tree.models import Person, Relation
 from family_tree.decorators import same_family_required
 from custom_user.decorators import set_language
 from django.http import Http404
@@ -144,3 +144,38 @@ def how_am_i_related_view(request, person_id = 0, person = None):
     response = template.render(context)
     return HttpResponse(response)
 
+
+@login_required
+@set_language
+def whole_tree(request):
+    '''
+    Generates view to show entire family tree
+    Crazy!!!
+    '''
+    people = Person.objects.filter(family_id = request.user.family_id).order_by("hierarchy_score")
+
+    people_ids = [person.id for person in people]
+
+    relations = Relation.objects.filter(from_person__in=people_ids, to_person__in=people_ids)
+
+    template = loader.get_template('family_tree/whole_tree.html')
+
+    context = RequestContext(request,{
+                                'people': people,
+                                'relations' :relations,
+                                'css_normal' : get_css_all(people, pixel_width=970),
+                                'css_320' : get_css_all(people, pixel_width=320),
+                                'css_480' : get_css_all(people, pixel_width=480),
+                                #Matches bootstrap media queries
+                                'css_768' : get_css_all(people, pixel_width=750),
+                                'css_992' : get_css_all(people, pixel_width=970),
+                                'css_1200' : get_css_all(people, pixel_width=1170),
+                            })
+
+    response = template.render(context)
+    return HttpResponse(response)
+
+def get_css_all(people, pixel_width):
+    '''
+    Returns css to display entire family tree
+    '''

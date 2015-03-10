@@ -13,9 +13,10 @@
             width:100%;
             padding:0px;
             margin:0px;
+            overflow: hidden;
         }
         #map{
-            margin-top: 50px;
+            padding-top: 50px;
         }
 
     </style>
@@ -39,14 +40,20 @@ $(document).ready(function() { initialize(); });
 
 function initialize() {
 
-    var map = L.map('map').setView([{{ this_person.latitude }},{{ this_person.longitude }}], {{ zoom }});
+    var map = L.map('map', {
+        center: [{{ this_person.latitude }}, {{ this_person.longitude }}],
+        zoom: {{ zoom }},
+        zoomControl: false,
+    });
 
-        L.tileLayer('https://{s}.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={token}', {
-			maxZoom: 18,
-			subdomains: ['a','b','c','d'],
-			id: 'okkindred.ldfc645h',
-			token: 'pk.eyJ1Ijoib2traW5kcmVkIiwiYSI6Ild2MnY5dDQifQ.EHr6blIYPYeg4bWmSStT-g'
-		}).addTo(map);
+    L.tileLayer('https://{s}.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={token}', {
+		maxZoom: 18,
+		subdomains: ['a','b','c','d'],
+		id: 'okkindred.ldfc645h',
+		token: 'pk.eyJ1Ijoib2traW5kcmVkIiwiYSI6Ild2MnY5dDQifQ.EHr6blIYPYeg4bWmSStT-g'
+	}).addTo(map);
+
+    map.addControl( L.control.zoom({position: 'bottomleft'}) )
 
     var marker_icon = L.icon({
             iconUrl: '{% static "img/map_marker.png" %}',
