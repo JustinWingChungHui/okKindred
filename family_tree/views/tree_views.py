@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.template import RequestContext, loader
 from family_tree.models import Person, Relation
+from family_tree.services import tree_service
 from family_tree.decorators import same_family_required
 from custom_user.decorators import set_language
 from django.http import Http404
@@ -17,7 +18,7 @@ def tree(request, person_id = 0, person = None):
     Shows by default one relation distance
     '''
 
-    related_data = Person.objects.get_related_data(person)
+    related_data = tree_service.get_related_data(person)
 
     template = loader.get_template('family_tree/tree.html')
 
@@ -128,7 +129,7 @@ def how_am_i_related_view(request, person_id = 0, person = None):
     user_person = Person.objects.get(user_id = request.user.id)
 
 
-    people, relations = Person.objects.get_related_path(user_person, person)
+    people, relations = tree_service.get_related_path(user_person, person)
 
     if people is None:
         raise Http404
@@ -152,30 +153,52 @@ def whole_tree(request):
     Generates view to show entire family tree
     Crazy!!!
     '''
-    people = Person.objects.filter(family_id = request.user.family_id).order_by("hierarchy_score")
 
-    people_ids = [person.id for person in people]
+    people_list_by_hierarchy, relations = tree_service.get_whole_tree(request.user.family_id)
+    people = []
+    largest_layer = 0
 
-    relations = Relation.objects.filter(from_person__in=people_ids, to_person__in=people_ids)
+    for hierarchy, people_list in people_list_by_hierarchy.items():
+
+        if largest_layer < len(people_list):
+            largest_layer = len(people_list)
+
+        for person in people_list:
+            people.append(person)
+
 
     template = loader.get_template('family_tree/whole_tree.html')
 
     context = RequestContext(request,{
                                 'people': people,
                                 'relations' :relations,
-                                'css_normal' : get_css_all(people, pixel_width=970),
-                                'css_320' : get_css_all(people, pixel_width=320),
-                                'css_480' : get_css_all(people, pixel_width=480),
-                                #Matches bootstrap media queries
-                                'css_768' : get_css_all(people, pixel_width=750),
-                                'css_992' : get_css_all(people, pixel_width=970),
-                                'css_1200' : get_css_all(people, pixel_width=1170),
+                                'css' : get_css_all(largest_layer, people_list_by_hierarchy)
                             })
 
     response = template.render(context)
     return HttpResponse(response)
 
-def get_css_all(people, pixel_width):
+
+def get_css_all(largest_layer, people_list_by_hierarchy):
     '''
     Returns css to display entire family tree
     '''
+    total_width = 150 * largest_layer
+    css = []
+    hierarchy_score = 0
+    left = 0
+    top = -300
+
+    for hierarchy, people_list in people_list_by_hierarchy.items():
+
+        if hierarchy > hierarchy_score:
+            hierarchy_score = hierarchy
+            top = top + 300
+            gap = (total_width) / (len(people_list) + 1)
+            left = 0
+
+        for person in people_list:
+            left = left + gap
+            css.append('#person%s{left: %spx; top: %spx;}'% (person.id, left, top))
+
+    return ''.join(css)

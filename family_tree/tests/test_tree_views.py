@@ -1,6 +1,7 @@
 from django.test import TestCase
 from custom_user.models import User
 from family_tree.models import Person, Relation, Family
+from family_tree.services import tree_service
 from family_tree.models.relation import PARTNERED, RAISED
 from family_tree.views import get_css
 from django.test.utils import override_settings
@@ -82,7 +83,7 @@ class TestTreeViews(TestCase):
         '''
         Checks that the css returned from the get_css function is correct
         '''
-        related_data = Person.objects.get_related_data(self.person)
+        related_data = tree_service.get_related_data(self.person)
 
         css =  get_css(self.person, related_data, 300)
 
