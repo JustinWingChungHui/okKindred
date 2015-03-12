@@ -46,7 +46,11 @@ function initialize() {
         zoomControl: false,
         minZoom: 2,
         scrollWheelZoom: true,
+        detectRetina: true,
+        maxBounds: [[-90, -200],[90, 200]]
     });
+
+
 
     L.tileLayer('https://{s}.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={token}', {
 		subdomains: ['a','b','c','d'],
