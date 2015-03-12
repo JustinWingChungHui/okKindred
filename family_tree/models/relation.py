@@ -19,18 +19,27 @@ class RelationManager(models.Manager):
     Custom manager to represent relations
     '''
 
-    def get_navigable_relations(self, family_id):
+    def get_all_relations_for_family_id(self, family_id):
+        '''
+        Gets all the relations for a family
+        '''
+        return self.raw("""
+                        SELECT r.*
+                        FROM family_tree_person p
+                        INNER JOIN family_tree_relation r
+                        ON r.from_person_id = p.id
+                        AND p.family_id={0}
+                        """.format(family_id))
+
+
+    def get_navigable_relations(self, family_id, relations=None):
         '''
         Gets the relations in a navigable format to determine paths
         returns a dictionary of paths by person id
         '''
-        relations = self.raw("""
-                                SELECT r.*
-                                FROM family_tree_person p
-                                INNER JOIN family_tree_relation r
-                                ON r.from_person_id = p.id
-                                AND p.family_id={0}
-                                """.format(family_id))
+
+        if not relations:
+            relations = self.get_all_relations_for_family_id(family_id)
 
         paths_by_person = {}
 

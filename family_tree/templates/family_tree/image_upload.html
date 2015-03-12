@@ -41,11 +41,12 @@
 
 {% block extrascript %}
 
-    <!--From https://github.com/blueimp/jQuery-File-Upload/blob/master/basic.html -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+    <!--From https://github.com/blueimp/jQuery-File-Upload/blob/master/basic.html
     <script src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-file-upload/9.5.7/jquery.iframe-transport.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-file-upload/9.5.7/jquery.fileupload.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+    -->
+    <script src="{% static "js/jquery.file_upload.compiled.js" %}"></script>
     <script src="{% static "js/app_file_upload.js" %}"></script>
 
 {% endblock %}

@@ -32,7 +32,7 @@
 
 {% block extrascript %}
 
-<!--<script src="{% static "js/leaflet.js" %}"></script>-->
+<script src="{% static "js/leaflet.js" %}"></script>
 
 <script type="text/javascript">
 {% localize off %}
@@ -44,21 +44,22 @@ function initialize() {
         center: [{{ this_person.latitude }}, {{ this_person.longitude }}],
         zoom: {{ zoom }},
         zoomControl: false,
+        minZoom: 2,
+        scrollWheelZoom: true,
     });
 
     L.tileLayer('https://{s}.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={token}', {
-		maxZoom: 18,
 		subdomains: ['a','b','c','d'],
 		id: 'okkindred.ldfc645h',
-		token: 'pk.eyJ1Ijoib2traW5kcmVkIiwiYSI6Ild2MnY5dDQifQ.EHr6blIYPYeg4bWmSStT-g'
+		token: 'pk.eyJ1Ijoib2traW5kcmVkIiwiYSI6Ild2MnY5dDQifQ.EHr6blIYPYeg4bWmSStT-g',
 	}).addTo(map);
 
-    map.addControl( L.control.zoom({position: 'bottomleft'}) )
+    map.addControl( L.control.zoom({position: 'bottomleft'}));
+
 
     var marker_icon = L.icon({
             iconUrl: '{% static "img/map_marker.png" %}',
             shadowUrl: '{% static "img/map_marker_shadow.png" %}',
-
             iconSize:     [25, 41], // size of the icon
             shadowSize:   [50, 60], // size of the shadow
             iconAnchor:   [13, 42], // point of the icon which will correspond to marker's location
