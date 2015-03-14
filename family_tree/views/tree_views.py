@@ -2,7 +2,7 @@
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.template import RequestContext, loader
-from family_tree.models import Person, Relation
+from family_tree.models import Person
 from family_tree.services import tree_service
 from family_tree.decorators import same_family_required
 from custom_user.decorators import set_language
@@ -179,9 +179,42 @@ def whole_tree(request):
     return HttpResponse(response)
 
 
+@login_required
+@set_language
+@same_family_required
+def get_descendants(request, person_id = 0, person = None):
+    '''
+    Gets a view of the descendants
+    '''
+    people_list_by_hierarchy, relations = tree_service.get_descendants(person)
+    people = []
+    largest_layer = 0
+
+    for hierarchy, people_list in people_list_by_hierarchy.items():
+
+        if largest_layer < len(people_list):
+            largest_layer = len(people_list)
+
+        for person in people_list:
+            people.append(person)
+
+
+    template = loader.get_template('family_tree/whole_tree.html')
+
+    context = RequestContext(request,{
+                                'people': people,
+                                'relations' :relations,
+                                'css' : get_css_all(largest_layer, people_list_by_hierarchy),
+                                'css_mobile' : get_css_all_mobile(largest_layer, people_list_by_hierarchy)
+                            })
+
+    response = template.render(context)
+    return HttpResponse(response)
+
+
 def get_css_all(largest_layer, people_list_by_hierarchy):
     '''
-    Returns css to display entire family tree
+    Returns css to display all large family tree
     '''
     total_width = 150 * largest_layer
     css = []
@@ -201,4 +234,27 @@ def get_css_all(largest_layer, people_list_by_hierarchy):
             left = left + gap
             css.append('#person%s{left: %spx; top: %spx;}'% (person.id, left, top))
 
+    return ''.join(css)
+
+def get_css_all_mobile(largest_layer, people_list_by_hierarchy):
+    '''
+    Returns css to display all large family tree
+    '''
+    total_width = 100 * largest_layer
+    css = []
+    hierarchy_score = 0
+    left = 0
+    top = -180
+
+    for hierarchy, people_list in people_list_by_hierarchy.items():
+
+        if hierarchy > hierarchy_score:
+            hierarchy_score = hierarchy
+            top = top + 180
+            gap = (total_width) / (len(people_list) + 1)
+            left = 0
+
+        for person in people_list:
+            left = left + gap
+            css.append('#person%s{left: %spx; top: %spx;}'% (person.id, left, top))
     return ''.join(css)

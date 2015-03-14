@@ -12,13 +12,15 @@
                 <a class="btn btn-default" href="/how_am_i_related={{ person.id }}/" role="button">{%trans "Relation To Me" %}</a>
             {% endif %}
 
+            <a class="btn btn-default" href="/descendants={{ person.id }}/" role="button">{%trans "Descendants" %}</a>
+
             {% if locked %}
                 {% trans "This profile has been locked by this user." %}
             {% else %}
                 {% if requested_language %}
-                    <a class="btn btn-default" href="/edit_profile={{ person.id }}/ln={{ requested_language }}/" role="button">{% trans "Edit Profile" %}</a>
+                    <a class="btn btn-default" href="/edit_profile={{ person.id }}/ln={{ requested_language }}/" role="button">{% trans "Edit" %}</a>
                 {% else %}
-                    <a class="btn btn-default" href="/edit_profile={{ person.id }}/" role="button">{% trans "Edit Profile" %}</a>
+                    <a class="btn btn-default" href="/edit_profile={{ person.id }}/" role="button">{% trans "Edit" %}</a>
                 {% endif %}
             {% endif %}
         </p>
