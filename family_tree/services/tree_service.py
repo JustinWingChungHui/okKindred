@@ -1,5 +1,5 @@
 from family_tree.models import Person,Relation
-from family_tree.models.relation import PARTNERED
+from family_tree.models.relation import PARTNERED,RAISED, RAISED_BY
 from django.db.models import Q
 import collections
 
@@ -185,40 +185,64 @@ def get_whole_tree(family_id):
     return list_of_people_by_hierachy, relations
 
 
-def _add_related(person, people_by_id, list_of_people_by_hierachy, people_included, relations_by_person):
+
+def get_descendants(person):
+    '''
+    Gets the descendants of the person
+    '''
+
+    list_of_people_by_hierachy = collections.OrderedDict()
+    people_included = {}
+    people_by_id = {}
+
+    #Add this person to the descendants
+    list_of_people_by_hierachy[person.hierarchy_score] = [person,]
+    people_included[person.id] = person
+
+    #Get all the people in family to navigate through
+    people = Person.objects.filter(family_id = person.family_id).order_by("hierarchy_score", "gender")
+    for p in people:
+        people_by_id[p.id] =  p
+
+
+    #Get relations to navigate through
+    all_relations = Relation.objects.get_all_relations_for_family_id(person.family_id)
+    relations_by_person = Relation.objects.get_navigable_relations(person.family_id, all_relations)
+
+    #Recurse through raised
+    _add_related(person, people_by_id, list_of_people_by_hierachy, people_included, relations_by_person, relation_types=(RAISED,))
+
+    #Only return relevant relations in the descendants
+    relations = []
+    for relation in all_relations:
+        if relation.from_person_id in people_by_id and relation.to_person_id in people_by_id:
+            relations.append(relation)
+
+    return list_of_people_by_hierachy, relations
+
+
+def _add_related(person, people_by_id, list_of_people_by_hierachy, people_included, relations_by_person, relation_types=(PARTNERED, RAISED, RAISED_BY)):
     '''
     Recursively adds people to a sorted tree
+    Looks to add in order of relation_types parameter
     '''
 
-    #2 Get Partners
-    for path in relations_by_person[person.id]:
+    for relation_type in relation_types:
 
-        if path.to_person_id not in people_included and path.relation_type == PARTNERED:
+        for path in relations_by_person[person.id]:
 
-            relation = people_by_id[path.to_person_id]
+            if path.to_person_id not in people_included and path.relation_type == relation_type:
 
-            if relation.hierarchy_score not in list_of_people_by_hierachy:
-                list_of_people_by_hierachy[relation.hierarchy_score] = []
+                relation = people_by_id[path.to_person_id]
 
-            list_of_people_by_hierachy[relation.hierarchy_score].append(relation)
-            people_included[relation.id] = relation
+                if relation.hierarchy_score not in list_of_people_by_hierachy:
+                    list_of_people_by_hierachy[relation.hierarchy_score] = []
 
-            _add_related(relation, people_by_id, list_of_people_by_hierachy, people_included, relations_by_person)
+                list_of_people_by_hierachy[relation.hierarchy_score].append(relation)
+                people_included[relation.id] = relation
 
+                _add_related(relation, people_by_id, list_of_people_by_hierachy, people_included, relations_by_person, relation_types)
 
-    #Get related people
-    for path in relations_by_person[person.id]:
-        if path.to_person_id not in people_included:
-
-            relation = people_by_id[path.to_person_id]
-
-            if relation.hierarchy_score not in list_of_people_by_hierachy:
-                list_of_people_by_hierachy[relation.hierarchy_score] = []
-
-            list_of_people_by_hierachy[relation.hierarchy_score].append(relation)
-            people_included[relation.id] = relation
-
-            _add_related(relation, people_by_id, list_of_people_by_hierachy, people_included, relations_by_person)
 
 
 
