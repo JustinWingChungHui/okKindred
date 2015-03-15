@@ -17,6 +17,11 @@
     color: #DDDDDD;
 }
 
+.btn{
+    margin-top: 5px;
+}
+
+/*
 .btn-primary{
     color: #fff;
     background-color: #008000;
@@ -29,6 +34,7 @@
     border-color:#00CC00
 
 }
+*/
 
 /* Move down content because we have a fixed navbar that is 50px tall */
 body {

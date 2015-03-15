@@ -396,3 +396,66 @@ class TreeServiceTestCase(TestCase):
         self.assertTrue(son in result[101])
         self.assertTrue(daughter in result[101])
         self.assertTrue(distant_nephew in result[101])
+
+
+    def test_get_ancestors(self):
+        '''
+        Tests the test_get_descendants function.
+        '''
+
+        another_family = Family()
+        another_family.save()
+
+        person = Person.objects.create(name='patient zero a', gender='M',hierarchy_score=100, family_id=another_family.id)
+
+        wife = Person.objects.create(name='wife a', gender='F', hierarchy_score=100, family_id=another_family.id)
+        Relation.objects.create(from_person=wife, to_person=person, relation_type=PARTNERED)
+
+        son = Person.objects.create(name='son a', gender='M',hierarchy_score=101, family_id=another_family.id)
+        Relation.objects.create(from_person=person, to_person=son, relation_type=RAISED)
+        Relation.objects.create(from_person=wife, to_person=son, relation_type=RAISED)
+
+        daughter = Person.objects.create(name='daughter a', gender='F',hierarchy_score=101, family_id=another_family.id)
+        Relation.objects.create(from_person=person, to_person=daughter, relation_type=RAISED)
+
+        mum = Person.objects.create(name='mum a', gender='F', hierarchy_score=99, family_id=another_family.id)
+        Relation.objects.create(from_person=mum, to_person=person, relation_type=RAISED)
+
+        dad = Person.objects.create(name='dad a', gender='M', hierarchy_score=99, family_id=another_family.id)
+        Relation.objects.create(from_person=dad, to_person=person, relation_type=RAISED)
+
+        grandma = Person.objects.create(name='grandma a', gender='F', hierarchy_score=98, family_id=another_family.id)
+        Relation.objects.create(from_person=grandma, to_person=mum, relation_type=RAISED)
+
+        wifes_dad = Person.objects.create(name='wifes_dad a', gender='F', hierarchy_score=99, family_id=another_family.id)
+        Relation.objects.create(from_person=wifes_dad, to_person=wife, relation_type=RAISED)
+
+        uncle = Person.objects.create(name='uncle a', gender='M', hierarchy_score=99, family_id=another_family.id)
+        Relation.objects.create(from_person=grandma, to_person=uncle, relation_type=RAISED)
+
+        cousin = Person.objects.create(name='cousin a', gender='F', hierarchy_score=100, family_id=another_family.id)
+        Relation.objects.create(from_person=uncle, to_person=cousin, relation_type=RAISED)
+
+
+        distant_nephew = Person.objects.create(name='distant_nephew a', gender='M', hierarchy_score=101, family_id=another_family.id)
+        Relation.objects.create(from_person=cousin, to_person=distant_nephew, relation_type=RAISED)
+
+        result, relations = tree_service.get_ancestors(son)
+
+        self.assertEqual(1, len(result[101]))
+        self.assertTrue(son in result[101])
+
+        self.assertEqual(2, len(result[100]))
+        self.assertTrue(person in result[100])
+        self.assertTrue(wife in result[100])
+
+        self.assertEqual(3, len(result[99]))
+        self.assertTrue(mum in result[99])
+        self.assertTrue(wifes_dad in result[99])
+        self.assertTrue(dad in result[99])
+
+        self.assertEqual(1, len(result[98]))
+        self.assertEqual(grandma.id, result[98][0].id)
+
+
+

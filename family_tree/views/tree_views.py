@@ -23,13 +23,13 @@ def tree(request, person_id = 0, person = None):
     template = loader.get_template('family_tree/tree.html')
 
     context = RequestContext(request,{
-                                'css_normal' : get_css(person, related_data, pixel_width=970),
-                                'css_320' : get_css(person, related_data, pixel_width=320),
-                                'css_480' : get_css(person, related_data, pixel_width=480),
+                                'css_normal' : _get_css(person, related_data, pixel_width=970),
+                                'css_320' : _get_css(person, related_data, pixel_width=320),
+                                'css_480' : _get_css(person, related_data, pixel_width=480),
                                 #Matches bootstrap media queries
-                                'css_768' : get_css(person, related_data, pixel_width=750),
-                                'css_992' : get_css(person, related_data, pixel_width=970),
-                                'css_1200' : get_css(person, related_data, pixel_width=1170),
+                                'css_768' : _get_css(person, related_data, pixel_width=750),
+                                'css_992' : _get_css(person, related_data, pixel_width=970),
+                                'css_1200' : _get_css(person, related_data, pixel_width=1170),
                                 'people': related_data.people_upper + related_data.people_lower + related_data.people_same_level,
                                 'relations': related_data.relations,
                                 'person' : person,
@@ -40,7 +40,7 @@ def tree(request, person_id = 0, person = None):
 
 
 
-def get_css(centred_person, related_data, pixel_width):
+def _get_css(centred_person, related_data, pixel_width):
     '''
     Gets the css for a load of people
     Handles the media queries as well
@@ -172,7 +172,7 @@ def whole_tree(request):
     context = RequestContext(request,{
                                 'people': people,
                                 'relations' :relations,
-                                'css' : get_css_all(largest_layer, people_list_by_hierarchy)
+                                'css' : _get_css_all(largest_layer, people_list_by_hierarchy)
                             })
 
     response = template.render(context)
@@ -187,6 +187,24 @@ def get_descendants(request, person_id = 0, person = None):
     Gets a view of the descendants
     '''
     people_list_by_hierarchy, relations = tree_service.get_descendants(person)
+    return _render_blood_relations(request, people_list_by_hierarchy, relations )
+
+
+@login_required
+@set_language
+@same_family_required
+def get_ancestors(request, person_id = 0, person = None):
+    '''
+    Gets a view of the descendants
+    '''
+    people_list_by_hierarchy, relations = tree_service.get_ancestors(person)
+    return _render_blood_relations(request, people_list_by_hierarchy, relations )
+
+
+def _render_blood_relations(request, people_list_by_hierarchy, relations):
+    '''
+    Gets a view of all blood relations
+    '''
     people = []
     largest_layer = 0
 
@@ -204,19 +222,20 @@ def get_descendants(request, person_id = 0, person = None):
     context = RequestContext(request,{
                                 'people': people,
                                 'relations' :relations,
-                                'css' : get_css_all(largest_layer, people_list_by_hierarchy),
-                                'css_mobile' : get_css_all_mobile(largest_layer, people_list_by_hierarchy)
+                                'css' : _get_css_all(largest_layer, people_list_by_hierarchy),
+                                'css_mobile' : _get_css_all_mobile(largest_layer, people_list_by_hierarchy)
                             })
 
     response = template.render(context)
     return HttpResponse(response)
 
 
-def get_css_all(largest_layer, people_list_by_hierarchy):
+
+def _get_css_all(largest_layer, people_list_by_hierarchy):
     '''
     Returns css to display all large family tree
     '''
-    total_width = 150 * largest_layer
+    total_width = 150 * (largest_layer + 1)
     css = []
     hierarchy_score = 0
     left = 0
@@ -228,7 +247,7 @@ def get_css_all(largest_layer, people_list_by_hierarchy):
             hierarchy_score = hierarchy
             top = top + 300
             gap = (total_width) / (len(people_list) + 1)
-            left = 0
+            left = -150
 
         for person in people_list:
             left = left + gap
@@ -236,11 +255,11 @@ def get_css_all(largest_layer, people_list_by_hierarchy):
 
     return ''.join(css)
 
-def get_css_all_mobile(largest_layer, people_list_by_hierarchy):
+def _get_css_all_mobile(largest_layer, people_list_by_hierarchy):
     '''
     Returns css to display all large family tree
     '''
-    total_width = 100 * largest_layer
+    total_width = 100 * (largest_layer + 1)
     css = []
     hierarchy_score = 0
     left = 0
@@ -252,7 +271,7 @@ def get_css_all_mobile(largest_layer, people_list_by_hierarchy):
             hierarchy_score = hierarchy
             top = top + 180
             gap = (total_width) / (len(people_list) + 1)
-            left = 0
+            left = -100
 
         for person in people_list:
             left = left + gap
