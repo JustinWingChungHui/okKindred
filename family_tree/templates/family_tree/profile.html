@@ -6,22 +6,27 @@
 <div class="container" style="padding-top: 20px;">
     <div class="col-md-12">
         <p>
-            <a class="btn btn-default" href="/person={{ person.id }}/" role="button">&laquo;{%trans "Tree" %}</a>
+            <a class="btn btn-success" href="/person={{ person.id }}/" role="button">&laquo;{%trans "Tree" %}</a>
 
-            {% if show_relation_to_me %}
-                <a class="btn btn-default" href="/how_am_i_related={{ person.id }}/" role="button">{%trans "Relation To Me" %}</a>
+            {% if not locked %}
+                {% if requested_language %}
+                    <a class="btn btn-primary" href="/edit_profile={{ person.id }}/ln={{ requested_language }}/" role="button">{% trans "Edit" %}</a>
+                {% else %}
+                    <a class="btn btn-primary" href="/edit_profile={{ person.id }}/" role="button">{% trans "Edit" %}</a>
+                {% endif %}
             {% endif %}
 
-            <a class="btn btn-default" href="/descendants={{ person.id }}/" role="button">{%trans "Descendants" %}</a>
+            {% if show_relation_to_me %}
+                <a class="btn btn-warning" href="/how_am_i_related={{ person.id }}/" role="button">{%trans "Relation To Me" %}</a>
+            {% endif %}
 
+            <a class="btn btn-info" href="/ancestors={{ person.id }}/" role="button">{%trans "Ancestors" %}</a>
+            <a class="btn btn-info" href="/descendants={{ person.id }}/" role="button">{%trans "Descendants" %}</a>
+
+        </p>
+        <p>
             {% if locked %}
                 {% trans "This profile has been locked by this user." %}
-            {% else %}
-                {% if requested_language %}
-                    <a class="btn btn-default" href="/edit_profile={{ person.id }}/ln={{ requested_language }}/" role="button">{% trans "Edit" %}</a>
-                {% else %}
-                    <a class="btn btn-default" href="/edit_profile={{ person.id }}/" role="button">{% trans "Edit" %}</a>
-                {% endif %}
             {% endif %}
         </p>
     </div>
@@ -107,7 +112,7 @@
     <div class="col-md-12">
         <h3>{% trans "Biography" %}</h3>
         <div class="dropdown">
-            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+            <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
                 {{ biography.get_language_display }}
                 <span class="caret"></span>
             </button>
@@ -119,7 +124,7 @@
             {% if locked %}
 
             {% else %}
-                <a class="btn btn-default" href="/edit_biography={{ person.id }}/ln={{ biography.language }}/" role="button">{% trans "Edit Biography" %}</a>
+                <a class="btn btn-primary" href="/edit_biography={{ person.id }}/ln={{ biography.language }}/" role="button">{% trans "Edit Biography" %}</a>
             {% endif %}
         </div>
 

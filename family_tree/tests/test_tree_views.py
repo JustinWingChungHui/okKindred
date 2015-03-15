@@ -3,7 +3,7 @@ from custom_user.models import User
 from family_tree.models import Person, Relation, Family
 from family_tree.services import tree_service
 from family_tree.models.relation import PARTNERED, RAISED
-from family_tree.views import get_css
+from family_tree.views.tree_views import _get_css
 from django.test.utils import override_settings
 
 @override_settings(SSLIFY_DISABLE=True)
@@ -85,7 +85,7 @@ class TestTreeViews(TestCase):
         '''
         related_data = tree_service.get_related_data(self.person)
 
-        css =  get_css(self.person, related_data, 300)
+        css =  _get_css(self.person, related_data, 300)
 
         mum_css = "#person%s{left:" % (self.mum.id)
         self.assertEqual(True, mum_css in css)
@@ -140,5 +140,15 @@ class TestTreeViews(TestCase):
         '''
         self.client.login(email='roger_taylor@queenonline.com', password='nation of haircuts')
         response = self.client.get('/descendants={0}/'.format( self.grandma.id))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'family_tree/whole_tree.html')
+
+
+    def test_ancestors_view_loads(self):
+        '''
+        Tests that the descendants view loads
+        '''
+        self.client.login(email='roger_taylor@queenonline.com', password='nation of haircuts')
+        response = self.client.get('/ancestors={0}/'.format( self.grandson.id))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'family_tree/whole_tree.html')

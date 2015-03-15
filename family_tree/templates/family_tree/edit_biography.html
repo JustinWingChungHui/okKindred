@@ -8,8 +8,8 @@
     <div class="col-md-12">
         <form style="margin: 0; padding: 0;" role="form" action="/update_biography={{ person_id }}/ln={{ language }}/" method="post">
             <p>
-                <a class="btn btn-default" href="/profile={{ person_id }}/" role="button">&laquo;{%trans "Back" %}</a>
-                <button class="btn btn-default" type="submit">{% trans "Save" %}&raquo;</button>
+                <a class="btn btn-danger" href="/profile={{ person_id }}/" role="button">&laquo;{%trans "Cancel" %}</a>
+                <button class="btn btn-success" type="submit">{% trans "Save" %}&raquo;</button>
             </p>
             {% csrf_token %}
             <textarea id="biography" type="biography" name="biography" >{{ biography.content }}</textarea>

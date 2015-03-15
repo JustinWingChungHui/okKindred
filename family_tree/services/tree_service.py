@@ -190,6 +190,21 @@ def get_descendants(person):
     '''
     Gets the descendants of the person
     '''
+    return _get_blood_relations(person, RAISED)
+
+
+def get_ancestors(person):
+    '''
+    Gets the ancestors of the person
+    '''
+    return _get_blood_relations(person, RAISED_BY)
+
+
+def _get_blood_relations(person, relation_type):
+    '''
+    Gets the blood relations of a person by setting relation_type to RAISED or RAISED_BY
+    RAISED gets descendants, RAISED_BY gets ancestors
+    '''
 
     list_of_people_by_hierachy = collections.OrderedDict()
     people_included = {}
@@ -210,7 +225,7 @@ def get_descendants(person):
     relations_by_person = Relation.objects.get_navigable_relations(person.family_id, all_relations)
 
     #Recurse through raised
-    _add_related(person, people_by_id, list_of_people_by_hierachy, people_included, relations_by_person, relation_types=(RAISED,))
+    _add_related(person, people_by_id, list_of_people_by_hierachy, people_included, relations_by_person, relation_types=(relation_type,))
 
     #Only return relevant relations in the descendants
     relations = []
@@ -218,7 +233,8 @@ def get_descendants(person):
         if relation.from_person_id in people_by_id and relation.to_person_id in people_by_id:
             relations.append(relation)
 
-    return list_of_people_by_hierachy, relations
+    return collections.OrderedDict(sorted(list_of_people_by_hierachy.items())), relations
+
 
 
 def _add_related(person, people_by_id, list_of_people_by_hierachy, people_included, relations_by_person, relation_types=(PARTNERED, RAISED, RAISED_BY)):
@@ -242,12 +258,3 @@ def _add_related(person, people_by_id, list_of_people_by_hierachy, people_includ
                 people_included[relation.id] = relation
 
                 _add_related(relation, people_by_id, list_of_people_by_hierachy, people_included, relations_by_person, relation_types)
-
-
-
-
-
-
-
-
-
