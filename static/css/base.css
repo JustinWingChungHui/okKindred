@@ -73,7 +73,7 @@ body {
 }
 
 .w:hover {
-    background-color: #5c96bc;
+    background-color:#6ed171;
     color:white;
 }
 
@@ -109,7 +109,6 @@ and (max-device-width : 767px) {
 }
 
 .aLabel._jsPlumb_hover, ._jsPlumb_source_hover, ._jsPlumb_target_hover {
-	/*background-color:#1e8151;*/
 	background-color:#6ed171;
 	color:white;
 }
