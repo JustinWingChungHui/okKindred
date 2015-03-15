@@ -121,6 +121,7 @@ LANGUAGES = (
     ('zh-cn', _('Simplified Chinese')),
     ('pl', _('Polish')),
     ('fi', _('Finnish')),
+    ('fr', _('French')),
 
 )
 
