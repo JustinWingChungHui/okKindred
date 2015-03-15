@@ -38,10 +38,11 @@ function relation_toggle_slide() {
        $('#relation_submit').slideToggle("slow");
 
        if ($('#existing_person').val() == 1) {
-           $('#existing_person').val("0")
+           $('#existing_person').val("0");
+           $('#input_new_name').val($('#input_existing_name').val());
        }
        else {
-           $('#existing_person').val("1")
+           $('#existing_person').val("1");
        }
 }
 
