@@ -109,9 +109,11 @@ and (max-device-width : 767px) {
 }
 
 .aLabel._jsPlumb_hover, ._jsPlumb_source_hover, ._jsPlumb_target_hover {
-	background-color:#1e8151;
+	/*background-color:#1e8151;*/
+	background-color:#6ed171;
 	color:white;
 }
+
 
 .aLabel {
 	background-color:white;
@@ -122,6 +124,7 @@ and (max-device-width : 767px) {
 	cursor:pointer;
 	font-size: 10px;
 }
+
 
 .ep {
 	position:absolute;
