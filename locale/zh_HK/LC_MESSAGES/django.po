@@ -2,20 +2,20 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-03-15 17:45+0000\n"
-"PO-Revision-Date: 2015-03-02 23:07+0000\n"
+"POT-Creation-Date: 2015-03-15 20:51+0000\n"
+"PO-Revision-Date: 2015-03-15 20:54+0000\n"
 "Last-Translator: b'Anonymous User <wingchung@justinhui.co.uk>'\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: \n"
 "X-Translated-Using: django-rosetta 0.7.5\n"
 
 #: custom_user/admin.py:20 custom_user/templates/custom_user/login.html:11
@@ -39,7 +39,7 @@ msgstr "電子郵件地址"
 #: family_tree/templates/family_tree/add_relation.html:77
 #: family_tree/templates/family_tree/edit_profile.html:35
 #: family_tree/templates/family_tree/edit_profile.html:37
-#: family_tree/templates/family_tree/profile.html:48
+#: family_tree/templates/family_tree/profile.html:53
 #: family_tree/templates/family_tree/search.html:14
 msgid "Name"
 msgstr ""
@@ -145,7 +145,7 @@ msgstr "選項"
 #: family_tree/templates/family_tree/add_relation.html:60
 #: family_tree/templates/family_tree/edit_profile.html:73
 #: family_tree/templates/family_tree/edit_profile.html:75
-#: family_tree/templates/family_tree/profile.html:72
+#: family_tree/templates/family_tree/profile.html:77
 msgid "First Language"
 msgstr "一是語言"
 
@@ -251,14 +251,10 @@ msgstr "邀請ok!Kindred 血族{0}"
 #, python-brace-format
 msgid ""
 "Hi {0}\n"
-"                                            You have been invited by {1} to "
-"join ok!Kindred.\n"
-"                                            ok!Kindred is a collaborative "
-"family tree and private social network for you and you family.\n"
-"                                            A network has already been set "
-"up by one of your family members to help you keep in touch.\n"
-"                                            To join, please go to https://"
-"www.okkindred.com/accounts/confirmation={2}/\n"
+"                                            You have been invited by {1} to join ok!Kindred.\n"
+"                                            ok!Kindred is a collaborative family tree and private social network for you and you family.\n"
+"                                            A network has already been set up by one of your family members to help you keep in touch.\n"
+"                                            To join, please go to https://www.okkindred.com/accounts/confirmation={2}/\n"
 "                                        "
 msgstr ""
 "喜{0}\n"
@@ -279,8 +275,7 @@ msgstr "感謝您接受來自邀請"
 #: email_confirmation/templates/email_confirmation/confirm_invite.html:14
 msgid ""
 "\n"
-"         to join ok!kindred, share your family tree and keep in contact with "
-"your family members!\n"
+"         to join ok!kindred, share your family tree and keep in contact with your family members!\n"
 "         "
 msgstr ""
 "\n"
@@ -296,16 +291,18 @@ msgstr "加入 ok!Kindred"
 
 #: email_confirmation/templates/email_confirmation/invalid_expired.html:10
 msgid "Invalid Email Confirmation"
-msgstr ""
+msgstr "無效的電子郵件確認"
 
 #: email_confirmation/templates/email_confirmation/invalid_expired.html:12
 msgid ""
 "\n"
-"         Unfortunately either your invite to join has expired, or is "
-"invalid.\n"
+"         Unfortunately either your invite to join has expired, or is invalid.\n"
 "         Please ask a member of your family to re-invite you.\n"
 "         "
 msgstr ""
+"\n"
+"不幸的是無論你的邀請加入已經過期，或者是無效的。\n"
+" 請詢問您的家庭成員重新邀請您。"
 
 #: email_confirmation/templates/email_confirmation/invite.html:6
 msgid "Hello"
@@ -315,25 +312,19 @@ msgstr "您好"
 #, python-format
 msgid ""
 "\n"
-"        You have been invited by %(user_who_invited_person)s to join ok!"
-"Kindred: a collaborative family tree and private social network for you and "
-"your family.\n"
-"        A network has already been set up by one of your family members to "
-"help you keep in touch.\n"
+"        You have been invited by %(user_who_invited_person)s to join ok!Kindred: a collaborative family tree and private social network for you and your family.\n"
+"        A network has already been set up by one of your family members to help you keep in touch.\n"
 "        "
 msgstr ""
 "\n"
-"你已經邀請％（user_who_invited_person）■加盟OK Kindred：一個協作的家譜和私人"
-"社交網絡，為您和您的家人。\n"
+"你已經邀請％（user_who_invited_person）■加盟OK Kindred：一個協作的家譜和私人社交網絡，為您和您的家人。\n"
 " 網絡已經成立了由你的家庭成員之一，幫助您保持聯繫。"
 
 #: email_confirmation/templates/email_confirmation/invite.html:16
 msgid ""
 "\n"
-"        Don't worry, it's absolutely free, and we take your security and "
-"privacy seriously.\n"
-"        If you would like to join, please click on the following link and "
-"choose a secure password that you will remember.\n"
+"        Don't worry, it's absolutely free, and we take your security and privacy seriously.\n"
+"        If you would like to join, please click on the following link and choose a secure password that you will remember.\n"
 "        "
 msgstr ""
 "\n"
@@ -343,14 +334,11 @@ msgstr ""
 #: email_confirmation/templates/email_confirmation/invite.html:25
 msgid ""
 "\n"
-"        Please, click the link and check it out.  You can always leave if "
-"you wish.  If you want to find out more, just go to <a href = \"https://www."
-"okkindred.com\">https://okkindred.com</a> to find out more!\n"
+"        Please, click the link and check it out.  You can always leave if you wish.  If you want to find out more, just go to <a href = \"https://www.okkindred.com\">https://okkindred.com</a> to find out more!\n"
 "        "
 msgstr ""
 "\n"
-"請點擊鏈接，並檢查出來。如果你願意，你可以隨時離開。如果您想了解更多，只是去"
-"<a href=\"https://www.okkindred.com\"> https://okkindred.com</a>以了解更多！"
+"請點擊鏈接，並檢查出來。如果你願意，你可以隨時離開。如果您想了解更多，只是去<a href=\"https://www.okkindred.com\"> https://okkindred.com</a>以了解更多！"
 
 #: email_confirmation/templates/email_confirmation/invite.html:31
 msgid ""
@@ -371,8 +359,8 @@ msgstr "一個或多個你的家人有過細節ok！Kindred!更新。"
 
 #: emailer/templates/emailer/people_updates.html:7
 msgid ""
-"The following people have been added to your family in ok!Kindred.  Click on "
-"them to find out more:"
+"The following people have been added to your family in ok!Kindred.  Click on"
+" them to find out more:"
 msgstr "下面的人都被添加到您的家人在OK！Kindred。他們點擊了解更多："
 
 #: emailer/templates/emailer/people_updates.html:24
@@ -416,7 +404,6 @@ msgstr "上調"
 
 #: family_tree/templates/family_tree/add_relation.html:9
 #: family_tree/templates/family_tree/break_relation.html:10
-#: family_tree/templates/family_tree/edit_biography.html:11
 #: family_tree/templates/family_tree/image_resize.html:15
 #: templates/about.html:68 templates/about.html.py:95 templates/about.html:146
 msgid "Back"
@@ -433,7 +420,7 @@ msgstr "新的人"
 #: family_tree/templates/family_tree/add_relation.html:51
 #: family_tree/templates/family_tree/edit_profile.html:44
 #: family_tree/templates/family_tree/edit_profile.html:46
-#: family_tree/templates/family_tree/profile.html:53
+#: family_tree/templates/family_tree/profile.html:58
 msgid "Gender"
 msgstr "性別"
 
@@ -459,6 +446,10 @@ msgstr "歇關係"
 #: family_tree/templates/family_tree/break_relation.html:27
 msgid "Break"
 msgstr "休息"
+
+#: family_tree/templates/family_tree/edit_biography.html:11
+msgid "Cancel"
+msgstr "取消"
 
 #: family_tree/templates/family_tree/edit_profile.html:14
 #: family_tree/templates/family_tree/tree.html:83
@@ -489,7 +480,7 @@ msgstr ""
 
 #: family_tree/templates/family_tree/edit_profile.html:53
 #: family_tree/templates/family_tree/edit_profile.html:55
-#: family_tree/templates/family_tree/profile.html:59
+#: family_tree/templates/family_tree/profile.html:64
 msgid "Birth Year"
 msgstr "出生年份"
 
@@ -503,12 +494,12 @@ msgstr "死亡年。如果還活著輸入0。"
 
 #: family_tree/templates/family_tree/edit_profile.html:83
 #: family_tree/templates/family_tree/edit_profile.html:85
-#: family_tree/templates/family_tree/profile.html:78
+#: family_tree/templates/family_tree/profile.html:83
 msgid "Email"
 msgstr "電子郵件"
 
 #: family_tree/templates/family_tree/edit_profile.html:93
-#: family_tree/templates/family_tree/profile.html:85
+#: family_tree/templates/family_tree/profile.html:90
 msgid "Tel Number"
 msgstr "電話號碼"
 
@@ -527,7 +518,7 @@ msgid "Website/Facebook/Twitter etc..."
 msgstr "網站/ Facebook的/微博等.."
 
 #: family_tree/templates/family_tree/edit_profile.html:113
-#: family_tree/templates/family_tree/profile.html:99
+#: family_tree/templates/family_tree/profile.html:104
 msgid "Location"
 msgstr "地點"
 
@@ -591,24 +582,28 @@ msgstr "未找到匹配！"
 msgid "Tree"
 msgstr "樹"
 
-#: family_tree/templates/family_tree/profile.html:12
+#: family_tree/templates/family_tree/profile.html:13
+#: family_tree/templates/family_tree/profile.html:15
+msgid "Edit"
+msgstr "編輯"
+
+#: family_tree/templates/family_tree/profile.html:20
 msgid "Relation To Me"
 msgstr "關於我"
 
-#: family_tree/templates/family_tree/profile.html:15
-msgid "Descendants"
-msgstr ""
+#: family_tree/templates/family_tree/profile.html:23
+msgid "Ancestors"
+msgstr "祖先"
 
-#: family_tree/templates/family_tree/profile.html:18
+#: family_tree/templates/family_tree/profile.html:24
+msgid "Descendants"
+msgstr "後人"
+
+#: family_tree/templates/family_tree/profile.html:29
 msgid "This profile has been locked by this user."
 msgstr "此檔案已經被鎖定該用戶。"
 
-#: family_tree/templates/family_tree/profile.html:21
-#: family_tree/templates/family_tree/profile.html:23
-msgid "Edit"
-msgstr ""
-
-#: family_tree/templates/family_tree/profile.html:32
+#: family_tree/templates/family_tree/profile.html:37
 #: family_tree/templates/family_tree/tree.html:61
 #: family_tree/templates/family_tree/whole_tree.html:32
 #, fuzzy
@@ -616,27 +611,27 @@ msgstr ""
 msgid "No photo uploaded for "
 msgstr "點擊圖片上傳新的"
 
-#: family_tree/templates/family_tree/profile.html:39
+#: family_tree/templates/family_tree/profile.html:44
 msgid "Invite to join"
 msgstr "誠邀加盟"
 
-#: family_tree/templates/family_tree/profile.html:66
+#: family_tree/templates/family_tree/profile.html:71
 msgid "Death Year"
 msgstr "死亡新年"
 
-#: family_tree/templates/family_tree/profile.html:92
+#: family_tree/templates/family_tree/profile.html:97
 msgid "Website"
 msgstr "網站"
 
-#: family_tree/templates/family_tree/profile.html:108
+#: family_tree/templates/family_tree/profile.html:113
 msgid "Biography"
 msgstr "傳記"
 
-#: family_tree/templates/family_tree/profile.html:122
+#: family_tree/templates/family_tree/profile.html:127
 msgid "Edit Biography"
 msgstr "編輯簡歷"
 
-#: family_tree/templates/family_tree/profile.html:130
+#: family_tree/templates/family_tree/profile.html:135
 msgid "A biography has not yet been written for this language."
 msgstr "傳記還沒有被寫入該語言。"
 
@@ -689,13 +684,11 @@ msgstr "芬蘭"
 #: templates/about.html:16
 msgid ""
 "\n"
-"        Greetings from Justin & Adrian.  This is a website to keep track of "
-"our family tree.  It is now spread across the world and is growing.\n"
+"        Greetings from Justin & Adrian.  This is a website to keep track of our family tree.  It is now spread across the world and is growing.\n"
 "        "
 msgstr ""
 "\n"
-"問候賈斯汀與阿德里安。這是一個網站，跟踪我們的家譜中。它現在遍布世界，越來越"
-"大。"
+"問候賈斯汀與阿德里安。這是一個網站，跟踪我們的家譜中。它現在遍布世界，越來越大。"
 
 #: templates/about.html:30
 msgid "Our Story"
@@ -743,25 +736,16 @@ msgstr ""
 #: templates/about.html:60
 msgid ""
 "\n"
-"            This is a website to record our family tree and and act a bit "
-"like a social network.  Our family members can maintain a profile on here "
-"and discover how far the tree reaches\n"
-"            As a person is added to the family tree, they receive an email "
-"so they may become a user and add more people to it.\n"
-"            I attended several family gatherings recently and have struggled "
-"to explain how we are all related to others.  My family is now very diverse "
-"with several ethnicities and resides across several continents.\n"
-"            We wanted someway of documenting everyone and keep in touch as "
-"the family grows.\n"
+"            This is a website to record our family tree and and act a bit like a social network.  Our family members can maintain a profile on here and discover how far the tree reaches\n"
+"            As a person is added to the family tree, they receive an email so they may become a user and add more people to it.\n"
+"            I attended several family gatherings recently and have struggled to explain how we are all related to others.  My family is now very diverse with several ethnicities and resides across several continents.\n"
+"            We wanted someway of documenting everyone and keep in touch as the family grows.\n"
 "            "
 msgstr ""
 "\n"
-"這是一個網站，來記錄我們的家譜，並和行為有點像一個社交網絡。我們的家庭成員可"
-"以保持一個配置文件放在這裡，發現樹上達到多遠\n"
-" 作為一個人被添加到家譜，他們收到的電子郵件，這樣他們可能會成為一個用戶，並添"
-"加更多的人給它。\n"
-" 我參加過幾次家庭聚會和最近一直在努力解釋如何，我們都與其他人。我的家人現在非"
-"常不同的幾個種族和居住橫跨幾大洲。\n"
+"這是一個網站，來記錄我們的家譜，並和行為有點像一個社交網絡。我們的家庭成員可以保持一個配置文件放在這裡，發現樹上達到多遠\n"
+" 作為一個人被添加到家譜，他們收到的電子郵件，這樣他們可能會成為一個用戶，並添加更多的人給它。\n"
+" 我參加過幾次家庭聚會和最近一直在努力解釋如何，我們都與其他人。我的家人現在非常不同的幾個種族和居住橫跨幾大洲。\n"
 " 我們想記錄每個人好歹和保持聯繫的家庭長大。"
 
 #: templates/about.html:73
@@ -775,54 +759,41 @@ msgstr "通過電子郵件info@okkindred.com聯繫我們"
 #: templates/about.html:77
 msgid ""
 "\n"
-"            If you are in our family we want to hear from you and are "
-"welcome to visit and stay round any time.\n"
-"            If you have a login to this site and are part of my family, you "
-"can get my telephone number and address from my profile!\n"
+"            If you are in our family we want to hear from you and are welcome to visit and stay round any time.\n"
+"            If you have a login to this site and are part of my family, you can get my telephone number and address from my profile!\n"
 "            "
 msgstr ""
 "\n"
-"如果您在我們的家庭，我們希望收到你的來信，並歡迎各界人士光臨，留一輪的任何時"
-"間。\n"
-" 如果你有一個登錄到這個網站，都是我家庭的一部分，你可以得到我的電話號碼和地"
-"址，從我的個人資料！"
+"如果您在我們的家庭，我們希望收到你的來信，並歡迎各界人士光臨，留一輪的任何時間。\n"
+" 如果你有一個登錄到這個網站，都是我家庭的一部分，你可以得到我的電話號碼和地址，從我的個人資料！"
 
 #: templates/about.html:84
 msgid ""
 "\n"
-"            Alternatively, if you are looking for some help using the site, "
-"or even if you want us to help you set up your own similar site please drop "
-"us a line!\n"
+"            Alternatively, if you are looking for some help using the site, or even if you want us to help you set up your own similar site please drop us a line!\n"
 "            "
 msgstr ""
 "\n"
-"另外，如果你正在尋找一些幫助使用該網站，或者即使你想讓我們幫你建立自己的類似"
-"的網站請給我們一條線！"
+"另外，如果你正在尋找一些幫助使用該網站，或者即使你想讓我們幫你建立自己的類似的網站請給我們一條線！"
 
 #: templates/about.html:90
 msgid ""
 "\n"
-"            We're quite nice people and do like to talk to people interested "
-"in the sames things we are: Geek stuff, software, music and crazy pan global "
-"Chinese families...\n"
+"            We're quite nice people and do like to talk to people interested in the sames things we are: Geek stuff, software, music and crazy pan global Chinese families...\n"
 "            "
 msgstr ""
 "\n"
-"我們是相當不錯的人不喜歡說話感興趣的薩姆斯事情，我們也是人：野人的東西，軟"
-"件，音樂和瘋狂的泛全球中國人的家庭......"
+"我們是相當不錯的人不喜歡說話感興趣的薩姆斯事情，我們也是人：野人的東西，軟件，音樂和瘋狂的泛全球中國人的家庭......"
 
 #: templates/about.html:104
 msgid ""
 "\n"
-"             The details of our family are on this site.  We would never try "
-"to do anything we think would jeapordise this data!\n"
-"             Obviously we take security and privacy very seriously.  This "
-"will hopefully summarise some of the measures we have taken.\n"
+"             The details of our family are on this site.  We would never try to do anything we think would jeapordise this data!\n"
+"             Obviously we take security and privacy very seriously.  This will hopefully summarise some of the measures we have taken.\n"
 "             "
 msgstr ""
 "\n"
-"我們家的細節在此網站上。我們絕不會嘗試做任何事情，我們認為會jeapordise這個數"
-"據！\n"
+"我們家的細節在此網站上。我們絕不會嘗試做任何事情，我們認為會jeapordise這個數據！\n"
 " 很顯然，我們採取的安全和隱私非常重視。希望這將總結一些我們已經採取的措施。"
 
 #: templates/about.html:109
@@ -832,50 +803,34 @@ msgstr "安全"
 #: templates/about.html:111
 msgid ""
 "\n"
-"            This entire site is loaded over <a href=\"https://www.globalsign."
-"com/en/ssl-information-center/what-is-ssl/\">Secure Socket Layer</a> (SSL).\n"
-"            As a result, the connection between you and this website is "
-"encrypted.\n"
-"            This protects against other people listening and stealing the "
-"information that is transmitted between you and the website.\n"
-"            We use 128 bit encryption which is an <a href =\"http://www."
-"inet2000.com/public/encryption.htm\">industry standard</a>.\n"
-"            You should notice a padlock at the top of your web browser to "
-"show you that the connection to this website is secure.\n"
+"            This entire site is loaded over <a href=\"https://www.globalsign.com/en/ssl-information-center/what-is-ssl/\">Secure Socket Layer</a> (SSL).\n"
+"            As a result, the connection between you and this website is encrypted.\n"
+"            This protects against other people listening and stealing the information that is transmitted between you and the website.\n"
+"            We use 128 bit encryption which is an <a href =\"http://www.inet2000.com/public/encryption.htm\">industry standard</a>.\n"
+"            You should notice a padlock at the top of your web browser to show you that the connection to this website is secure.\n"
 "            "
 msgstr ""
 "\n"
-"整個網站加載超過<a href=\"https://www.globalsign.com/en/ssl信息-center/what-"
-"是-ssl/\">安全套接字層</A>（SSL）。\n"
+"整個網站加載超過<a href=\"https://www.globalsign.com/en/ssl信息-center/what-是-ssl/\">安全套接字層</A>（SSL）。\n"
 " 這樣一來，您和本網站之間的連接進行加密。\n"
 " 這可以防止其他人聽，偷的是你和網站之間傳輸的信息。\n"
-" 我們使用128位加密這是一個<a href=\"http://www.inet2000.com/public/"
-"encryption.htm\">行業標準</A>。\n"
+" 我們使用128位加密這是一個<a href=\"http://www.inet2000.com/public/encryption.htm\">行業標準</A>。\n"
 " 你應該注意到了掛鎖在你的網頁瀏覽器的頂部，以顯示你的連接到這個網站是安全的。"
 
 #: templates/about.html:121
 #, fuzzy
 #| msgid ""
-#| "\n"
-#| "            We adopt appropriate data collection, storage and processing "
-#| "practices and security measures to protect against unauthorized access, "
-#| "alteration, disclosure\n"
-#| "            or destruction of your personal information and transaction "
-#| "information and data stored on our site.\n"
-#| "            "
+#| "         We adopt appropriate data collection, storage and processing ctices and security measures to protect against unauthorized access, eration, disclosure\n"
+#| "         or destruction of your personal information and transaction ormation and data stored on our site.\n"
+#| "         "
 msgid ""
 "\n"
-"            We adopt appropriate data collection, storage and processing "
-"practices and security measures to protect against unauthorized access, "
-"alteration, disclosure\n"
-"            or destruction of your personal information and transaction "
-"information and data stored on our site.  Our servers are located in the "
-"USA, and therefore are subject to USA law.\n"
+"            We adopt appropriate data collection, storage and processing practices and security measures to protect against unauthorized access, alteration, disclosure\n"
+"            or destruction of your personal information and transaction information and data stored on our site.  Our servers are located in the USA, and therefore are subject to USA law.\n"
 "            "
 msgstr ""
 "\n"
-"我們採取適當的數據收集，存儲和處理方法和安全措施，以防止未經授權的訪問，篡"
-"改，洩露\n"
+"我們採取適當的數據收集，存儲和處理方法和安全措施，以防止未經授權的訪問，篡改，洩露\n"
 " 或銷毀您的個人信息和交易信息和數據存儲在我們的網站。"
 
 #: templates/about.html:127
@@ -885,42 +840,28 @@ msgstr "隱私"
 #: templates/about.html:129
 msgid ""
 "\n"
-"            Our site uses <a href=\"https://en.wikipedia.org/wiki/HTTP_cookie"
-"\">cookies</a> to enhance your experience. Your web browser places cookies "
-"on your hard drive for record-keeping purposes and sometimes to track "
-"information about you.\n"
-"            In particular we use cookies to identify you so that you may our "
-"login to the site.\n"
+"            Our site uses <a href=\"https://en.wikipedia.org/wiki/HTTP_cookie\">cookies</a> to enhance your experience. Your web browser places cookies on your hard drive for record-keeping purposes and sometimes to track information about you.\n"
+"            In particular we use cookies to identify you so that you may our login to the site.\n"
 "            "
 msgstr ""
 "\n"
-"我們的網站使用<a href=\"https://en.wikipedia.org/wiki/HTTP_cookie\">餅乾</a>"
-"以提高你的經驗。您的瀏覽器的cookies放置在硬盤上保存記錄，並有時追踪您的信"
-"息。\n"
+"我們的網站使用<a href=\"https://en.wikipedia.org/wiki/HTTP_cookie\">餅乾</a>以提高你的經驗。您的瀏覽器的cookies放置在硬盤上保存記錄，並有時追踪您的信息。\n"
 " 特別是，我們使用cookie來識別你，讓你可以登錄我們的網站。"
 
 #: templates/about.html:136
 msgid ""
 "\n"
-"            We do not sell, trade, or rent your personal identification "
-"information to others.\n"
-"            We do use third party <a href=\"https://en.wikipedia.org/wiki/"
-"Geocoding\">geocoding</a> services.  This is to convert a location into a "
-"longitude and latitude so we can plot it on a map.\n"
-"            However no other identifying pieces of information (e.g. name) "
-"are supplied with this location.\n"
-"            We also may share generic aggregated demographic information not "
-"linked to any personal identification information.  For example we may "
-"disclose how many users we have in China.\n"
+"            We do not sell, trade, or rent your personal identification information to others.\n"
+"            We do use third party <a href=\"https://en.wikipedia.org/wiki/Geocoding\">geocoding</a> services.  This is to convert a location into a longitude and latitude so we can plot it on a map.\n"
+"            However no other identifying pieces of information (e.g. name) are supplied with this location.\n"
+"            We also may share generic aggregated demographic information not linked to any personal identification information.  For example we may disclose how many users we have in China.\n"
 "            "
 msgstr ""
 "\n"
 "我們不會出售，交易或出租您的個人身份信息給他人。\n"
-" 我們使用第三方<a href=\"https://en.wikipedia.org/wiki/Geocoding\">地理編碼</"
-"A>服務。這是轉換一個位置成經度和緯度，所以我們可以在地圖上繪製。\n"
+" 我們使用第三方<a href=\"https://en.wikipedia.org/wiki/Geocoding\">地理編碼</A>服務。這是轉換一個位置成經度和緯度，所以我們可以在地圖上繪製。\n"
 " 但信息沒有其他識別件（如姓名）都配有這個位置。\n"
-" 我們也可以共享不會鏈接到任何個人身份信息的通用匯總的人口統計信息。例如，我們"
-"可能會透露有多少用戶在中國。"
+" 我們也可以共享不會鏈接到任何個人身份信息的通用匯總的人口統計信息。例如，我們可能會透露有多少用戶在中國。"
 
 #: templates/base.html:48
 msgid "Toggle navigation"
@@ -947,19 +888,12 @@ msgstr "註銷"
 
 #~ msgid ""
 #~ "\n"
-#~ "            We encrypt all stored passwords using the <a href=\"https://"
-#~ "en.wikipedia.org/wiki/PBKDF2\">PBKDF2 algorithm</a> with a\n"
-#~ "            <a href=\"https://en.wikipedia.org/wiki/SHA-2\">SHA256 hash</"
-#~ "a>.  This is a recommendation by <a href=\"http://csrc.nist.gov/"
-#~ "publications/nistpubs/800-132/nist-sp800-132.pdf\">NIST</a>.\n"
-#~ "            Our servers are located in the USA, and therefore are subject "
-#~ "to USA law.\n"
+#~ "            We encrypt all stored passwords using the <a href=\"https://en.wikipedia.org/wiki/PBKDF2\">PBKDF2 algorithm</a> with a\n"
+#~ "            <a href=\"https://en.wikipedia.org/wiki/SHA-2\">SHA256 hash</a>.  This is a recommendation by <a href=\"http://csrc.nist.gov/publications/nistpubs/800-132/nist-sp800-132.pdf\">NIST</a>.\n"
+#~ "            Our servers are located in the USA, and therefore are subject to USA law.\n"
 #~ "            "
 #~ msgstr ""
 #~ "\n"
-#~ "我們加密使用<a href=\"https://en.wikipedia.org/wiki/PBKDF2\"> PBKDF2算法</"
-#~ "A>了所有存儲的密碼\n"
-#~ " <a href=\"https://en.wikipedia.org/wiki/SHA-2\"> SHA256哈希</A>。這是<a "
-#~ "href=\"http://csrc.nist.gov/publications/nistpubs/800-132/nist-sp800-132."
-#~ "pdf\"> NIST</a>的建議。\n"
+#~ "我們加密使用<a href=\"https://en.wikipedia.org/wiki/PBKDF2\"> PBKDF2算法</A>了所有存儲的密碼\n"
+#~ " <a href=\"https://en.wikipedia.org/wiki/SHA-2\"> SHA256哈希</A>。這是<a href=\"http://csrc.nist.gov/publications/nistpubs/800-132/nist-sp800-132.pdf\"> NIST</a>的建議。\n"
 #~ " 我們的服務器位於美國，因此受到美國法律。"

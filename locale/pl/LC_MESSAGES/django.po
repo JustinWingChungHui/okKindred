@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-03-15 17:45+0000\n"
+"POT-Creation-Date: 2015-03-15 20:51+0000\n"
 "PO-Revision-Date: 2015-03-09 23:13+0000\n"
 "Last-Translator: b'Anonymous User <atancula@hotmail.com>'\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -41,7 +41,7 @@ msgstr "Adres E-Mail"
 #: family_tree/templates/family_tree/add_relation.html:77
 #: family_tree/templates/family_tree/edit_profile.html:35
 #: family_tree/templates/family_tree/edit_profile.html:37
-#: family_tree/templates/family_tree/profile.html:48
+#: family_tree/templates/family_tree/profile.html:53
 #: family_tree/templates/family_tree/search.html:14
 msgid "Name"
 msgstr "Imię"
@@ -148,7 +148,7 @@ msgstr "Opcje"
 #: family_tree/templates/family_tree/add_relation.html:60
 #: family_tree/templates/family_tree/edit_profile.html:73
 #: family_tree/templates/family_tree/edit_profile.html:75
-#: family_tree/templates/family_tree/profile.html:72
+#: family_tree/templates/family_tree/profile.html:77
 msgid "First Language"
 msgstr "Pierwszy Język"
 
@@ -441,7 +441,6 @@ msgstr "Podniesione"
 
 #: family_tree/templates/family_tree/add_relation.html:9
 #: family_tree/templates/family_tree/break_relation.html:10
-#: family_tree/templates/family_tree/edit_biography.html:11
 #: family_tree/templates/family_tree/image_resize.html:15
 #: templates/about.html:68 templates/about.html.py:95 templates/about.html:146
 msgid "Back"
@@ -458,7 +457,7 @@ msgstr "Nowy Człowiek"
 #: family_tree/templates/family_tree/add_relation.html:51
 #: family_tree/templates/family_tree/edit_profile.html:44
 #: family_tree/templates/family_tree/edit_profile.html:46
-#: family_tree/templates/family_tree/profile.html:53
+#: family_tree/templates/family_tree/profile.html:58
 msgid "Gender"
 msgstr "Płeć"
 
@@ -484,6 +483,10 @@ msgstr "Zerwanie Stosunków"
 #: family_tree/templates/family_tree/break_relation.html:27
 msgid "Break"
 msgstr "Przerwa"
+
+#: family_tree/templates/family_tree/edit_biography.html:11
+msgid "Cancel"
+msgstr ""
 
 #: family_tree/templates/family_tree/edit_profile.html:14
 #: family_tree/templates/family_tree/tree.html:83
@@ -511,7 +514,7 @@ msgstr "Chcesz"
 
 #: family_tree/templates/family_tree/edit_profile.html:53
 #: family_tree/templates/family_tree/edit_profile.html:55
-#: family_tree/templates/family_tree/profile.html:59
+#: family_tree/templates/family_tree/profile.html:64
 msgid "Birth Year"
 msgstr "Rok Urodzenia"
 
@@ -525,12 +528,12 @@ msgstr "Śmierć Rok. Wpisz wartość 0, Jeśli jeszcze żyje."
 
 #: family_tree/templates/family_tree/edit_profile.html:83
 #: family_tree/templates/family_tree/edit_profile.html:85
-#: family_tree/templates/family_tree/profile.html:78
+#: family_tree/templates/family_tree/profile.html:83
 msgid "Email"
 msgstr "Adres"
 
 #: family_tree/templates/family_tree/edit_profile.html:93
-#: family_tree/templates/family_tree/profile.html:85
+#: family_tree/templates/family_tree/profile.html:90
 msgid "Tel Number"
 msgstr "Numer Tel"
 
@@ -551,7 +554,7 @@ msgid "Website/Facebook/Twitter etc..."
 msgstr "Strona/Facebook/Twitter itd..."
 
 #: family_tree/templates/family_tree/edit_profile.html:113
-#: family_tree/templates/family_tree/profile.html:99
+#: family_tree/templates/family_tree/profile.html:104
 msgid "Location"
 msgstr "Lokalizacja"
 
@@ -617,24 +620,28 @@ msgstr "No Match Found!"
 msgid "Tree"
 msgstr "Drzewo"
 
-#: family_tree/templates/family_tree/profile.html:12
-msgid "Relation To Me"
-msgstr "Wobec Mnie"
-
+#: family_tree/templates/family_tree/profile.html:13
 #: family_tree/templates/family_tree/profile.html:15
-msgid "Descendants"
-msgstr ""
-
-#: family_tree/templates/family_tree/profile.html:18
-msgid "This profile has been locked by this user."
-msgstr "Ten profil został zablokowany użytkownik."
-
-#: family_tree/templates/family_tree/profile.html:21
-#: family_tree/templates/family_tree/profile.html:23
 msgid "Edit"
 msgstr ""
 
-#: family_tree/templates/family_tree/profile.html:32
+#: family_tree/templates/family_tree/profile.html:20
+msgid "Relation To Me"
+msgstr "Wobec Mnie"
+
+#: family_tree/templates/family_tree/profile.html:23
+msgid "Ancestors"
+msgstr ""
+
+#: family_tree/templates/family_tree/profile.html:24
+msgid "Descendants"
+msgstr ""
+
+#: family_tree/templates/family_tree/profile.html:29
+msgid "This profile has been locked by this user."
+msgstr "Ten profil został zablokowany użytkownik."
+
+#: family_tree/templates/family_tree/profile.html:37
 #: family_tree/templates/family_tree/tree.html:61
 #: family_tree/templates/family_tree/whole_tree.html:32
 #, fuzzy
@@ -642,27 +649,27 @@ msgstr ""
 msgid "No photo uploaded for "
 msgstr "Kliknij zdjęcie, aby pobrać nowy"
 
-#: family_tree/templates/family_tree/profile.html:39
+#: family_tree/templates/family_tree/profile.html:44
 msgid "Invite to join"
 msgstr "Zapraszamy do przyłączenia się"
 
-#: family_tree/templates/family_tree/profile.html:66
+#: family_tree/templates/family_tree/profile.html:71
 msgid "Death Year"
 msgstr "Śmierć Rok"
 
-#: family_tree/templates/family_tree/profile.html:92
+#: family_tree/templates/family_tree/profile.html:97
 msgid "Website"
 msgstr "Stronie"
 
-#: family_tree/templates/family_tree/profile.html:108
+#: family_tree/templates/family_tree/profile.html:113
 msgid "Biography"
 msgstr "Biografia"
 
-#: family_tree/templates/family_tree/profile.html:122
+#: family_tree/templates/family_tree/profile.html:127
 msgid "Edit Biography"
 msgstr "Edytuj Życiorys"
 
-#: family_tree/templates/family_tree/profile.html:130
+#: family_tree/templates/family_tree/profile.html:135
 msgid "A biography has not yet been written for this language."
 msgstr "Biografia jeszcze nie zostały napisane w tym języku."
 
