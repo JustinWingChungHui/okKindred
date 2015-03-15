@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-03-15 21:18+0000\n"
-"PO-Revision-Date: 2015-03-15 21:57+0000\n"
+"PO-Revision-Date: 2015-03-15 22:30+0000\n"
 "Last-Translator: b'Anonymous User <wingchung@justinhui.co.uk>'\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -131,7 +131,7 @@ msgstr "Connecter"
 
 #: custom_user/templates/custom_user/settings.html:13 templates/base.html:71
 msgid "Settings"
-msgstr "Paramètres"
+msgstr "Réglage"
 
 #: custom_user/templates/custom_user/settings.html:18
 #: custom_user/templates/custom_user/settings.html:75
@@ -150,11 +150,11 @@ msgstr "Options"
 #: family_tree/templates/family_tree/edit_profile.html:75
 #: family_tree/templates/family_tree/profile.html:77
 msgid "First Language"
-msgstr "Première Langue"
+msgstr "Langue Maternelle"
 
 #: custom_user/templates/custom_user/settings.html:37
 msgid "Receive family update emails"
-msgstr "Recevoir mises à jour des emails famille"
+msgstr "Recevoir des emails mises à jour"
 
 #: custom_user/templates/custom_user/settings.html:39
 msgid "Do you want to receive family update emails?"
@@ -209,7 +209,7 @@ msgstr "Au revoir et Adieu"
 
 #: custom_user/templates/custom_user/settings.html:81
 msgid "Leave ok!Kindred forever..."
-msgstr "Quitter ok!Famille à tout jamais..."
+msgstr "Quitter ok!kindred à tout jamais..."
 
 #: custom_user/templates/custom_user/settings.html:91
 #: family_tree/templates/family_tree/edit_profile.html:147
@@ -234,7 +234,7 @@ msgstr "Oui, mais laisser mon profil"
 
 #: custom_user/templates/custom_user/settings.html:110
 msgid "Yes and delete my profile"
-msgstr "Oui et supprimer mon profil"
+msgstr "Oui et effacer mon profil"
 
 #: custom_user/templates/custom_user/settings.html:139
 #: family_tree/templates/family_tree/edit_profile.html:177
@@ -444,7 +444,7 @@ msgstr "Sexe"
 
 #: family_tree/templates/family_tree/add_relation.html:75
 msgid "Search Name"
-msgstr "Rechercher le nom"
+msgstr "Recherche par nom"
 
 #: family_tree/templates/family_tree/add_relation.html:81
 #: family_tree/templates/family_tree/search.html:19
@@ -653,7 +653,7 @@ msgstr "Une biographie n'a pas encore été écrit pour cette langue."
 
 #: family_tree/templates/family_tree/search.html:12
 msgid "Search Name:"
-msgstr "Recherché Nom:"
+msgstr "Recherche par Nom:"
 
 #: family_tree/templates/family_tree/tree.html:82
 msgid "Profile"
@@ -907,7 +907,7 @@ msgstr "Recherche"
 
 #: templates/base.html:65
 msgid "About"
-msgstr "À propos"
+msgstr "À Propos"
 
 #: templates/base.html:72
 msgid "Log Out"
