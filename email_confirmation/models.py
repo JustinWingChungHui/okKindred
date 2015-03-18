@@ -1,12 +1,11 @@
 from django.db import models
-import random
-import hashlib
 from django.utils import translation
 from django.template.loader import get_template
 from django.template import Context
 from django.core.mail import send_mail
 from django.utils import timezone
 from datetime import timedelta
+from common import create_hash
 
 
 class EmailConfirmationManager(models.Manager):
@@ -26,6 +25,9 @@ class EmailConfirmationManager(models.Manager):
 # and https://github.com/pinax/django-user-accounts/
 
 class EmailConfirmation(models.Model):
+    '''
+    Represents an email confirmation sent out to confirm joining website
+    '''
 
     email_address = models.EmailField(null=False, unique=True)
     person = models.ForeignKey('family_tree.Person', null=True, db_index = True, unique=True) #Use of model string name to prevent circular import
@@ -63,12 +65,11 @@ class EmailConfirmation(models.Model):
 
 
     #https://github.com/pinax/django-user-accounts/blob/dfa66fdffa4c2b81515658e65b39415b237ae29b/account/hooks.py
-    def generate_confirmation_key(self, hash_func=hashlib.sha256):
+    def generate_confirmation_key(self):
         '''
         Creates a confirmation key to be emailed to new user
         '''
-        bits = [self.email_address] + [str(random.SystemRandom().getrandbits(512))]
-        self.confirmation_key = hash_func("".join(bits).encode("utf-8")).hexdigest()
+        self.confirmation_key = create_hash(self.email_address)
 
 
     def _create_email_body_html(self):

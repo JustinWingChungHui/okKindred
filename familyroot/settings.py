@@ -49,7 +49,8 @@ INSTALLED_APPS = (
     'axes',
     'emailer',
     'email_confirmation',
-     'rosetta',
+    'rosetta',
+    'gallery',
 )
 
 MIDDLEWARE_CLASSES = (

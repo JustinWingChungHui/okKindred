@@ -4,7 +4,6 @@ from https://docs.djangoproject.com/en/1.7/topics/auth/customizing/#specifying-a
 
 from django import forms
 from django.contrib import admin
-from django.contrib.auth.models import Group
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 from django.utils.translation import ugettext_lazy as _
@@ -85,6 +84,7 @@ class MyUserAdmin(UserAdmin):
     search_fields = ('email',)
     ordering = ('email',)
     filter_horizontal = ()
+    raw_id_fields = ('family',)
 
 # Now register the new UserAdmin...
 admin.site.register(User, MyUserAdmin)
