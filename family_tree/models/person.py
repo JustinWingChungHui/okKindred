@@ -8,6 +8,7 @@ from django.conf import settings
 from PIL import Image
 import uuid
 import os
+from common import create_hash
 
 #Localised Gender choices https://docs.djangoproject.com/en/1.7/ref/models/fields/#choices
 FEMALE ='F'
@@ -325,8 +326,8 @@ class Person(models.Model):
         w = int(w * ratio)
         h = int(h * ratio)
 
-        small_thumb_name = ''.join([str(uuid.uuid4()), 'small_thumb', '.jpg'])
-        large_thumb_name = ''.join([str(uuid.uuid4()), 'large_thumb', '.jpg'])
+        small_thumb_name = ''.join([create_hash(self.name), 'small_thumb', '.jpg'])
+        large_thumb_name = ''.join([create_hash(self.name), 'large_thumb', '.jpg'])
 
         small_thumb = im.copy()
         small_thumb.crop((x, y, x + w, y + h)).resize((80,80), Image.ANTIALIAS).save(''.join([settings.MEDIA_ROOT, 'profile_photos/', small_thumb_name]), "JPEG", quality=75)

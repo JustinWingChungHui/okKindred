@@ -1,5 +1,6 @@
 from django.db import connection
-
+import random
+import hashlib
 
 
 def query_to_dicts(query_string, *query_args):
@@ -20,3 +21,10 @@ def query_to_dicts(query_string, *query_args):
         yield row_dict
 
     return
+
+def create_hash(seed_string):
+    '''
+    Creates a hash string to use in secure stuff
+    '''
+    bits = [seed_string] + [str(random.SystemRandom().getrandbits(512))]
+    return hashlib.sha256("".join(bits).encode("utf-8")).hexdigest()
