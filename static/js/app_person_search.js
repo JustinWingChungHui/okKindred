@@ -51,7 +51,7 @@ $(document).ready(function(){
 
             for (var i in data){
                 //Build an array using the data
-                var row = ['<tr>']
+                var row = ['<tr>'];
                 row.push('<td class="search_photo"><a href="/profile=' + data[i].pk + '">');
 
                 if (data[i].fields.small_thumbnail == '' || data[i].fields.small_thumbnail == null){
