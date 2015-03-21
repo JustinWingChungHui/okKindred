@@ -1,1 +1,1 @@
-from gallery_views import *
+from gallery.views.gallery_views import *

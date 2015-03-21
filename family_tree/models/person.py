@@ -6,7 +6,6 @@ from django.core.validators import validate_email
 from family_tree.models.family import Family
 from django.conf import settings
 from PIL import Image
-import uuid
 import os
 from common import create_hash
 

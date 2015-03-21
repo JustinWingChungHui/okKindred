@@ -1,7 +1,5 @@
 # encoding: utf-8
-
 import os
-import uuid
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.template import RequestContext, loader
@@ -11,8 +9,8 @@ from django.conf import settings
 from django.http import HttpResponseRedirect
 from family_tree.decorators import same_family_required
 from custom_user.decorators import set_language
+from common import create_hash
 import json
-
 
 
 MAX_FILE_SIZE = 15000000  # bytes
@@ -68,7 +66,7 @@ def image_upload(request, person_id = 0, person = None):
 
     #get the name, and extension and create a unique filename
     name, ext = os.path.splitext(uploaded.name)
-    filename =  str(uuid.uuid4()) +'.jpg'
+    filename =  create_hash(person.name) +'.jpg'
     photo_file = ''.join([settings.MEDIA_ROOT, 'profile_photos/', filename])
 
     result = {
