@@ -1,5 +1,10 @@
 from django.db import models
 from gallery.models import Gallery
+from common import create_hash
+from django.conf import settings
+import PIL
+import os
+
 
 # look at http://stackoverflow.com/questions/23977483/fit-images-with-different-aspect-ratios-into-multiple-rows-evenly
 #Look to add comments?
@@ -10,6 +15,10 @@ def upload_to(instance, filename):
     Defines a dynamic directory for files to be uploaded to
     http://stackoverflow.com/questions/6350153/getting-username-in-imagefield-upload-to-path
     '''
+    directory = ''.join([settings.MEDIA_ROOT, 'galleries/', str(instance.family_id), '/', str(instance.gallery.id)])
+    if not os.path.exists(directory):
+        os.makedirs(directory)
+
     return 'galleries/%s/%s/%s' % (instance.family_id,instance.gallery.id,filename)
 
 
@@ -52,19 +61,53 @@ class Image(models.Model):
         '''
         self.family_id = self.gallery.family_id
 
+        #Need to call save first before making thumbnails so image path is set properly
+        super(Image, self).save(*args, **kwargs) # Call the "real" save() method.
+
+        self.make_thumbnails()
+        super(Image, self).save(*args, **kwargs) # Call the "real" save() method.
+
+
+    def make_thumbnails(self):
+        '''
+        Creates the thumbnails for the images
+        It also sets a thumbnail for the gallery if none exists
+        '''
+        if not self.original_image:
+            return
+
         if not self.thumbnail:
-            self._create_thumbnail(200)
+            self.thumbnail = self._create_thumbnail((200,200))
 
         if not self.large_thumbnail:
-            self._create_thumbnail(960)
+            self.large_thumbnail = self._create_thumbnail((960,960))
 
-        super(Image, self).save(*args, **kwargs) # Call the "real" save() method.
+        #Set the gallery thumbnail
+        if not self.gallery.thumbnail:
+            self.gallery.thumbnail =  self.thumbnail
+            self.gallery.save()
+
 
 
     def _create_thumbnail(self, size):
         '''
         Creates the thumbnails
         '''
+
+        if settings.MEDIA_ROOT in str(self.original_image):
+            image_file = str(self.original_image)
+        else:
+            image_file = settings.MEDIA_ROOT + str(self.original_image)
+
+        im = PIL.Image.open(image_file)
+        im.thumbnail(size)
+
+        filename = create_hash(str(self.original_image)) + '.jpg'
+        path_and_filename = upload_to(self, filename)
+
+        im.save(settings.MEDIA_ROOT + path_and_filename, "JPEG", quality=90)
+
+        return path_and_filename
 
 
 

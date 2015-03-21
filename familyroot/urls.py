@@ -83,6 +83,10 @@ urlpatterns += patterns('',
     #User Settings
     url(r'^settings/$', 'custom_user.views.settings_view', name='settings_view'),
 
+    #Gallery views
+    url(r'^gallery/$', 'gallery.views.gallery_index', name='gallery_index'),
+    url(r'^gallery/gallery_data=(?P<page>\d+)/$', 'gallery.views.gallery_data', name='gallery_data'),
+
 )
 
 if 'rosetta' in settings.INSTALLED_APPS:

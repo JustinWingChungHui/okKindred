@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load i18n %}
+
+{% block content %}
+
+<div class="container">
+
+    <div id="postswrapper">
+       <div id="loadmoreajaxloader" style="display:none;">
+           <center>
+               <img src="{% static "img/ajax-loader.gif" %}" /> {% trans "Loading..." %}
+           </center>
+       </div>
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block extrascript %}
+<script type="text/javascript">
+var page = 0;
+
+//Request the galleries on page load
+$( document ).ready(function() {
+    load_more();
+});
+
+
+//Request more galleries when we scroll to the bottom
+$(window).scroll(function()
+{
+    if($(window).scrollTop() == $(document).height() - $(window).height())
+    {
+        load_more();
+    }
+});
+
+//Ajax request to get more galleries
+function load_more()
+{
+    page = page + 1;
+    $('div#loadmoreajaxloader').show();
+    $.ajax({
+        url: "/gallery/gallery_data=" + page.toString(),
+        success: function(html)
+        {
+            if(html && html != '[]')
+            {
+                $("#postswrapper").append(html);
+                $('div#loadmoreajaxloader').hide();
+
+                //Load more until we reach bottom of page
+                //if($(window).height() >= $(document).height()){
+                //    load_more();
+                //};
+
+            }else
+            {
+                $('div#loadmoreajaxloader').html('<center>{% trans "No more galleries to show" %}.</center>');
+            }
+        }
+    });
+}
+
+</script>
+
+{% endblock %}
