@@ -267,3 +267,48 @@ textarea {
         text-align: center;
         width: 200px;
 }
+
+.gallery_index_row {
+    vertical-align: top;
+    border-top: 1px solid #bbb;
+}
+
+.gallery_index_row a {
+    color: black;
+}
+
+.gallery_index_thumbnail {
+    margin-left: 3px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-right: 30px;
+}
+
+/** Custom CSS for image cropping **/
+@media only screen and (max-device-width: 500px) {
+
+    .masonry_thumbnail {
+        max-width: 100px;
+        max-height: 100px;
+    }
+
+    .gallery_index_thumbnail {
+        max-width: 100px;
+        max-height: 100px;
+    }
+}
+
+@media only screen and (min-device-width: 500px) {
+
+    .masonry_thumbnail {
+        max-width: 200px;
+        max-height: 200px;
+    }
+
+    .gallery_index_thumbnail {
+        max-width: 200px;
+        max-height: 200px;
+    }
+}
+
+

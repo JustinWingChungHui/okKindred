@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load i18n %}
+
+{% block content %}
+
+<div class="container" style="padding-top: 20px;">
+{% if gallery_id %}
+    <form role="form" action="/edit_gallery={{ gallery_id }}/" method="post">
+{% else %}
+    <form role="form" action="/new_gallery/" method="post">
+{% endif %}
+
+        {% csrf_token %}
+        <p>
+            {% if gallery_id %}
+                <a class="btn btn-danger" href="/gallery={{ gallery_id }}/" role="button">&laquo;{%trans "Cancel" %}</a>
+            {% else %}
+                <a class="btn btn-danger" href="/gallery/" role="button">&laquo;{%trans "Cancel" %}</a>
+            {% endif %}
+                <button class="btn btn-success" type="submit">{% trans "Save" %}&raquo;</button>
+        </p>
+
+
+
+        <div class="form-group">
+            <label for="title">{% trans "Title" %}</label>
+            <input type="text" class="form-control" name="title" value="{{ gallery_title }}">
+        </div>
+
+        <div class="form-group">
+            <label for="description">{% trans "Description" %}</label>
+            <textarea rows="3" class="form-control" name="description" value="{{ gallery_description }}" required></textarea>
+        </div>
+
+    </form>
+
+
+</div>
+
+{% endblock %}
+
+{% block extrascript %}
+{% endblock %}
