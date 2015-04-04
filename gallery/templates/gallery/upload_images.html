@@ -19,7 +19,7 @@
         <i class="glyphicon glyphicon-plus"></i>
         <span>{% trans "Select file..." %}</span>
         <!-- The file input field used as target for the file upload widget -->
-        <input id="fileupload" type="file" name="picture">
+        <input id="fileupload" type="file" name="files[]" multiple>
     </span>
     <br/>
     <br/>
@@ -66,19 +66,13 @@ $(document).ready(function(){
     var gallery_id = window.location.pathname.match(/\d+/)[0];
 
     //Server-side upload handler:
-    var url = '/image_upload=' + gallery_id + '/';
+    var url = '/gallery=' + gallery_id + '/upload_images_post/';
     $('#progress .progress-bar').css('width','0%');
 
     var csrftoken = $.cookie('csrftoken');
 
-    if( $("html").hasClass("ie8") || $("html").hasClass("ie9") ) {
-        set_file_upload_ie(gallery_id, url, csrftoken);
-    }
-    else {
-        set_file_upload(gallery_id, url, csrftoken);
-    }
+    set_file_upload(gallery_id, url, csrftoken);
 });
-
 
 
 function set_file_upload(gallery_id, url, csrftoken) {
@@ -103,7 +97,7 @@ function set_file_upload(gallery_id, url, csrftoken) {
         //navigate to resize image once uploaded
         done: function (e, data) {
             //Pull the id from the url
-            window.location.href = '/image_resize=' + gallery_id + '/';
+            window.location.href = '/gallery=' + gallery_id + '/';
          },
 
         //Show uploading status
@@ -122,33 +116,6 @@ function set_file_upload(gallery_id, url, csrftoken) {
     }).prop('disabled', !$.support.fileInput)
         .parent().addClass($.support.fileInput ? undefined : 'disabled');
 }
-
-function set_file_upload_ie(gallery_id, url, csrftoken) {
-
-    $('#fileupload').fileupload({
-        url: url,
-        forceIframeTransport: true,
-        crossDomain: false,
-        dataType: 'json',
-        acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
-        maxFileSize: 15000000, // 15 MB
-
-        fail: function(e, data){
-            $('#processing_wait').hide();
-            $('#error_text').show();
-        },
-
-        //navigate to resize image once uploaded
-        done: function (e, data) {
-            //Pull the id from the url
-            window.location.href = '/image_resize=' + gallery_id + '/';
-         },
-
-
-    }).prop('disabled', !$.support.fileInput)
-        .parent().addClass($.support.fileInput ? undefined : 'disabled');
-}
-
 </script>
 
 {% endblock %}

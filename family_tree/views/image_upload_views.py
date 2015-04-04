@@ -16,13 +16,6 @@ import json
 MAX_FILE_SIZE = 15000000  # bytes
 
 
-def get_file_size(file):
-    file.seek(0, 2)  # Seek to the end of the file
-    size = file.tell()  # Get the position of EOF
-    file.seek(0)  # Reset the file position to the beginning
-    return size
-
-
 @login_required
 @set_language
 @same_family_required

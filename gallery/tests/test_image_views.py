@@ -5,8 +5,12 @@ from family_tree.models import Family
 from django.test.utils import override_settings
 from django.conf import settings
 from django.core import serializers
+from django.core.files import File
 import os
 import shutil
+import json
+
+BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 @override_settings(SSLIFY_DISABLE=True)
 class TestImageViews(TestCase):
@@ -148,3 +152,43 @@ class TestImageViews(TestCase):
         response = self.client.get('/gallery={0}/upload_images/'.format(self.gallery.id))
 
         self.assertEqual(response.status_code, 404)
+
+    def test_process_image(self):
+        '''
+        test that we can process an image file without errors
+        '''
+        from gallery.views.image_views import process_image
+
+        with open(self.test_image, 'rb') as fp:
+            result = process_image(self.test_image, File(fp), self.gallery)
+
+        self.assertEqual("test_image", result["name"])
+        self.assertEqual(False, 'error' in result)
+
+        filename = settings.MEDIA_ROOT + 'galleries/' + str(self.family.id) + '/' + str(self.gallery.id) + '/' + result['filename']
+        os.remove(filename)
+
+    def test_upload_single_photo_via_post(self):
+        '''
+        test we can upload single photo via post
+        '''
+        self.client.login(email='badger@queenonline.com', password='save the badgers')
+        with open(self.test_image, 'rb') as fp:
+            response = self.client.post('/gallery={0}/upload_images_post/'.format(self.gallery.id),{'files': fp})
+
+        self.assertEqual(200, response.status_code)
+
+        #Check file has been uploaded and remove it
+        json.loads(response.content.decode('utf-8'))
+
+
+    def test_upload_single_photo_via_post_for_another_family_fails(self):
+        '''
+        test we can upload single photo via post
+        '''
+        self.client.login(email='weebl@queenonline.com', password='mushroom')
+        with open(self.test_image, 'rb') as fp:
+            response = self.client.post('/gallery={0}/upload_images_post/'.format(self.gallery.id),{'files': fp})
+
+        self.assertEqual(404, response.status_code)
+

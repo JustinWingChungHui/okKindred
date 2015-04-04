@@ -20,6 +20,7 @@ urlpatterns = patterns('',
     url(r'^add_relation_post=(?P<person_id>\d+)/$', 'family_tree.views.add_relation_post', name='add_relation_post'),
     url(r'^break_relation_post=(?P<person_id>\d+)/$', 'family_tree.views.break_relation_post', name='break_relation_post'),
     url(r'^accounts/invite_person=(?P<person_id>\d+)/$', 'email_confirmation.views.invite_person', name='invite_person'),
+    url(r'^gallery=(?P<gallery_id>\d+)/upload_images_post/$', 'gallery.views.upload_images_post', name='upload_images_post'),
 )
 
 
