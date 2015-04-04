@@ -114,14 +114,17 @@ class Image(models.Model):
         return path_and_filename, image
 
 
-    def _get_absolute_image_path(self):
+    def _get_absolute_image_path(self, path = None):
         '''
         Gets the absolute image path
         '''
-        if settings.MEDIA_ROOT in str(self.original_image):
-            image_file = str(self.original_image)
+        if not path:
+            path = self.original_image
+
+        if settings.MEDIA_ROOT in str(path):
+            image_file = str(path)
         else:
-            image_file = settings.MEDIA_ROOT + str(self.original_image)
+            image_file = settings.MEDIA_ROOT + str(path)
 
         return image_file
 
@@ -177,3 +180,11 @@ class Image(models.Model):
             pass
 
 
+    def delete_image_files(self):
+        '''
+        Deletes the original image and thumbails associated with this
+        object
+        '''
+        os.remove(self._get_absolute_image_path(self.original_image))
+        os.remove(self._get_absolute_image_path(self.thumbnail))
+        os.remove(self._get_absolute_image_path(self.large_thumbnail))

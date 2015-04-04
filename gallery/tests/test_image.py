@@ -48,7 +48,7 @@ class ImageTestCase(TestCase):
         os.remove(settings.MEDIA_ROOT +thumbnail)
 
 
-    def test_make_thumbnails(self):
+    def test_make_thumbnails_and_delete(self):
         '''
         Tests the make thumbnails routine
         '''
@@ -62,9 +62,7 @@ class ImageTestCase(TestCase):
         PIL.Image.open(settings.MEDIA_ROOT +str(self.gallery.thumbnail))
 
         #Clear up mess afterwards
-        os.remove(self.test_image_destination)
-        os.remove(settings.MEDIA_ROOT+ str(image.thumbnail))
-        os.remove(settings.MEDIA_ROOT+ str(image.large_thumbnail))
+        image.delete_image_files()
 
 
     def test_get_exif_data(self):

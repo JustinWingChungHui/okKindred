@@ -25,3 +25,19 @@ class Gallery(models.Model):
 
     def __str__(self): # __unicode__ on Python 2
         return str(self.family_id) + ': ' + self.title
+
+
+    def delete_all_images(self):
+        '''
+        Deletes all related images in the gallery
+        '''
+        from gallery.models import Image
+
+        images = Image.objects.filter(gallery_id = self.id)
+
+        #Delete actual files
+        for im in images:
+            im.delete_image_files()
+
+        #Delete database records
+        images.delete()
