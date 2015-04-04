@@ -99,7 +99,7 @@ class TestGalleryViews(TestCase):
         gallery = Gallery.objects.get(title="title1")
 
         self.client.login(email='delilah@queenonline.com', password='meow')
-        response = self.client.get('/edit_gallery={0}/'.format(gallery.id))
+        response = self.client.get('/gallery={0}/edit/'.format(gallery.id))
 
         self.assertEqual(200, response.status_code)
         self.assertTemplateUsed(response, 'gallery/edit_gallery.html')
@@ -112,7 +112,7 @@ class TestGalleryViews(TestCase):
         gallery = Gallery.objects.get(title="title1")
 
         self.client.login(email='mack@queenonline.com', password='theworks')
-        response = self.client.get('/edit_gallery={0}/'.format(gallery.id))
+        response = self.client.get('/gallery={0}/edit/'.format(gallery.id))
 
         self.assertEqual(404, response.status_code)
 
@@ -141,7 +141,7 @@ class TestGalleryViews(TestCase):
 
         self.client.login(email='delilah@queenonline.com', password='meow')
 
-        response = self.client.post('/edit_gallery={0}/'.format(gallery.id), {'title': 'new test gallery edit', 'description': 'new gallery description edit'})
+        response = self.client.post('/gallery={0}/edit/'.format(gallery.id), {'title': 'new test gallery edit', 'description': 'new gallery description edit'})
 
         gallery = Gallery.objects.get(id=gallery.id)
         self.assertEqual(True, gallery.id > 0)
@@ -160,8 +160,30 @@ class TestGalleryViews(TestCase):
 
         self.client.login(email='mack@queenonline.com', password='theworks')
 
-        response = self.client.post('/edit_gallery={0}/'.format(gallery.id), {'id': gallery.id, 'title': 'new test gallery', 'description': 'new gallery description'})
+        response = self.client.post('/gallery={0}/edit/'.format(gallery.id), {'id': gallery.id, 'title': 'new test gallery', 'description': 'new gallery description'})
 
         self.assertEqual(404, response.status_code)
 
 
+    def test_cannot_delete_gallery_created_by_another_family(self):
+        '''
+        test that noone can delete a gallery of another family
+        '''
+        gallery_to_delete = Gallery.objects.create(family_id=self.family.id, title="title")
+
+        self.client.login(email='mack@queenonline.com', password='theworks')
+        response = self.client.post('/gallery={0}/delete/'.format(gallery_to_delete.id))
+
+        self.assertEqual(404, response.status_code)
+
+    def test_can_delete_gallery(self):
+        '''
+        test that noone can delete a gallery of another family
+        '''
+        gallery_to_delete = Gallery.objects.create(family_id=self.family.id, title="title")
+
+        self.client.login(email='delilah@queenonline.com', password='meow')
+        response = self.client.post('/gallery={0}/delete/'.format(gallery_to_delete.id))
+
+        self.assertEqual(302, response.status_code)
+        self.assertEqual(0, Gallery.objects.filter(id=gallery_to_delete.id).count())

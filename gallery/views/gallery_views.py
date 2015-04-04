@@ -93,3 +93,23 @@ def edit_gallery(request, gallery_id = 0):
             gallery = Gallery.objects.create(family_id=family_id, title=title, description=description)
 
         return HttpResponseRedirect('/gallery={0}/'.format(gallery.id))
+
+@login_required
+@set_language
+def delete_gallery(request, gallery_id):
+    '''
+    Deletes a gallery and all associated images
+    '''
+    if request.method != 'POST':
+        raise Http404
+
+    gallery = get_object_or_404(Gallery, pk=gallery_id)
+
+    #Ensure cannot edit another persons family
+    if gallery.family_id != request.user.family_id:
+        raise Http404
+
+    gallery.delete_all_images()
+    gallery.delete()
+
+    return HttpResponseRedirect('/gallery/')

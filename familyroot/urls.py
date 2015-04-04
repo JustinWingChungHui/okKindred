@@ -21,6 +21,7 @@ urlpatterns = patterns('',
     url(r'^break_relation_post=(?P<person_id>\d+)/$', 'family_tree.views.break_relation_post', name='break_relation_post'),
     url(r'^accounts/invite_person=(?P<person_id>\d+)/$', 'email_confirmation.views.invite_person', name='invite_person'),
     url(r'^gallery=(?P<gallery_id>\d+)/upload_images_post/$', 'gallery.views.upload_images_post', name='upload_images_post'),
+    url(r'^gallery=(?P<gallery_id>\d+)/delete/$', 'gallery.views.delete_gallery', name='delete_gallery'),
 )
 
 
@@ -88,7 +89,7 @@ urlpatterns += patterns('',
     url(r'^gallery/$', 'gallery.views.gallery_index', name='gallery_index'),
     url(r'^gallery/gallery_data=(?P<page>\d+)/$', 'gallery.views.gallery_index_data', name='gallery_index_data'),
     url(r'^new_gallery/$', 'gallery.views.edit_gallery', name='edit_gallery'),
-    url(r'^edit_gallery=(?P<gallery_id>\d+)/$', 'gallery.views.edit_gallery', name='edit_gallery'),
+    url(r'^gallery=(?P<gallery_id>\d+)/edit/$', 'gallery.views.edit_gallery', name='edit_gallery'),
 
     #Gallery Image views
     url(r'^gallery=(?P<gallery_id>\d+)/$', 'gallery.views.gallery', name='gallery'),

@@ -11,7 +11,9 @@
 <div class="container" style="padding-top: 20px;">
     <p>
         <a class="btn btn-info" href="/gallery/" role="button">&laquo;{%trans "Back" %}</a>
+        <a class="btn btn-info" href="/gallery={{ gallery.id }}/edit/" role="button">{%trans "Edit" %}</a>
         <a class="btn btn-success" href="/gallery={{ gallery.id }}/upload_images/" role="button">+{%trans "Add New Image" %}</a>
+        <a class="btn btn-danger" role="button" href="#modal_delete" data-toggle="modal">{%trans "Delete" %}</a>
     </p>
     <h2>{{ gallery.title }}</h2>
     <p>
@@ -23,6 +25,32 @@
                <img src="{% static "img/ajax-loader.gif" %}" /> {% trans "Loading..." %}
            </center>
        </div>
+    </div>
+
+     <!--Delete profile popup-->
+    <div class="modal fade" id="modal_delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">{% trans "Delete Gallery" %}</h4>
+                </div>
+                <div class="modal-body">
+                    {% trans "Are you sure you want to leave delete this gallery?  It will delete all the images in it!" %}
+                </div>
+                <div class="modal-footer">
+
+                    <!--Display forms inline-->
+                    <form  action="/gallery={{ gallery.id }}/delete/" method="post" class="form-inline">
+                        {% csrf_token %}
+                        <button class="btn btn-danger" type="submit" class="form-inline" style="margin-bottom:5px;">{% trans "Delete" %}</button>
+                    </form>
+
+                    <button type="button" class="btn btn-success" data-dismiss="modal" style="margin-bottom:5px;">{% trans "Cancel" %}</button>
+
+                </div>
+            </div>
+        </div>
     </div>
 
 </div>
@@ -73,9 +101,9 @@ function load_more()
                     html.push('" data-title="');
                     html.push(data[i].fields.title);
 
-                    html.push(' | &lt;a href=\'/tags=');
+                    html.push('&lt;br/&gt;&lt;a href=\'/image_detail=');
                     html.push(data[i].pk);
-                    html.push('\'&gt; {% trans "Tags" %} &lt;/a&gt');
+                    html.push('\'&gt; {% trans "Details" %} &lt;/a&gt');
 
                     html.push(' | &lt;a href=\'/media/');
                     html.push(data[i].fields.original_image);
