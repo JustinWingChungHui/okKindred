@@ -3,6 +3,15 @@ import random
 import hashlib
 
 
+def get_file_size(file):
+    '''
+    Gets the file size
+    '''
+    file.seek(0, 2)  # Seek to the end of the file
+    size = file.tell()  # Get the position of EOF
+    file.seek(0)  # Reset the file position to the beginning
+    return size
+
 def query_to_dicts(query_string, *query_args):
     '''
     Retrieve a list of dictionaries with keys for the column values.

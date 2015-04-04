@@ -20,6 +20,7 @@ urlpatterns = patterns('',
     url(r'^add_relation_post=(?P<person_id>\d+)/$', 'family_tree.views.add_relation_post', name='add_relation_post'),
     url(r'^break_relation_post=(?P<person_id>\d+)/$', 'family_tree.views.break_relation_post', name='break_relation_post'),
     url(r'^accounts/invite_person=(?P<person_id>\d+)/$', 'email_confirmation.views.invite_person', name='invite_person'),
+    url(r'^gallery=(?P<gallery_id>\d+)/upload_images_post/$', 'gallery.views.upload_images_post', name='upload_images_post'),
 )
 
 
@@ -75,7 +76,7 @@ urlpatterns += patterns('',
     url(r'^edit_biography=(?P<person_id>\d+)/ln=(?P<requested_language>[a-zA-Z]{1,8}(-[a-zA-Z0-9]{1,8})*)/$', 'family_tree.views.edit_biography', name='edit_biography'),
 
 
-    #Image views
+    #Profile Image views
     url(r'^edit_profile_photo=(?P<person_id>\d+)/$', 'family_tree.views.edit_profile_photo', name='edit_profile_photo'),
     url(r'^image_resize=(?P<person_id>\d+)/$', 'family_tree.views.image_resize', name='image_resize'),
 
@@ -85,8 +86,14 @@ urlpatterns += patterns('',
 
     #Gallery views
     url(r'^gallery/$', 'gallery.views.gallery_index', name='gallery_index'),
-    url(r'^gallery/gallery_data=(?P<page>\d+)/$', 'gallery.views.gallery_data', name='gallery_data'),
+    url(r'^gallery/gallery_data=(?P<page>\d+)/$', 'gallery.views.gallery_index_data', name='gallery_index_data'),
+    url(r'^new_gallery/$', 'gallery.views.edit_gallery', name='edit_gallery'),
+    url(r'^edit_gallery=(?P<gallery_id>\d+)/$', 'gallery.views.edit_gallery', name='edit_gallery'),
 
+    #Gallery Image views
+    url(r'^gallery=(?P<gallery_id>\d+)/$', 'gallery.views.gallery', name='gallery'),
+    url(r'^gallery=(?P<gallery_id>\d+)/image_data=(?P<page>\d+)/$', 'gallery.views.gallery_images', name='gallery_images'),
+    url(r'^gallery=(?P<gallery_id>\d+)/upload_images/$', 'gallery.views.upload_images', name='upload_images'),
 )
 
 if 'rosetta' in settings.INSTALLED_APPS:

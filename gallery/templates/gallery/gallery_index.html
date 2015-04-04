@@ -4,15 +4,20 @@
 
 {% block content %}
 
-<div class="container">
-
-    <div id="postswrapper">
-       <div id="loadmoreajaxloader" style="display:none;">
-           <center>
-               <img src="{% static "img/ajax-loader.gif" %}" /> {% trans "Loading..." %}
-           </center>
-       </div>
-    </div>
+<div class="container" style="padding-top: 20px;">
+    <p>
+        <a class="btn btn-success" href="/new_gallery/" role="button">+{%trans "Add New Gallery" %}</a>
+    </p>
+    <h2>
+        {% trans "Galleries" %}
+    </h2>
+    <table id="image_container">
+    </table>
+   <div id="loadmoreajaxloader" style="display:none;">
+       <center>
+           <img src="{% static "img/ajax-loader.gif" %}" /> {% trans "Loading..." %}
+       </center>
+   </div>
 
 </div>
 
@@ -44,20 +49,47 @@ function load_more()
     $('div#loadmoreajaxloader').show();
     $.ajax({
         url: "/gallery/gallery_data=" + page.toString(),
-        success: function(html)
+        success: function(data)
         {
-            if(html && html != '[]')
-            {
-                $("#postswrapper").append(html);
+            if(data && data != '[]') {
+
+                var html =[];
+
+                for (var i in data) {
+                    html.push('<tr class="gallery_index_row">');
+                    html.push('<td>');
+                    html.push('<a href="/gallery=');
+                    html.push(data[i].pk.toString());
+                    if (data[i].fields.thumbnail)
+                    {
+                        html.push('"><img class="gallery_index_thumbnail" src="/media/' + data[i].fields.thumbnail + '" ');
+                    }
+                    else
+                    {
+                        html.push('"><img class="gallery_index_thumbnail" src="/static/img/gallery_thumb.jpg" ');
+                    }
+                    html.push('alt="' + data[i].fields.title +'/"')
+                    html.push('/></a></td>');
+
+                    html.push('<td>');
+                    html.push('<a href="/gallery=');
+                    html.push(data[i].pk.toString());
+                    html.push('"><h4>');
+                    html.push(data[i].fields.title);
+                    html.push('</h4><p>');
+                    html.push(data[i].fields.description);
+                    html.push('</p><p>{% trans "Last Updated:" %}');
+                    html.push(data[i].fields.last_updated_date);
+                    html.push('</p></a></td><td>');
+                    html.push('</td></tr>');
+                }
+
+                $("#image_container").append(html.join(''));
                 $('div#loadmoreajaxloader').hide();
 
-                //Load more until we reach bottom of page
-                //if($(window).height() >= $(document).height()){
-                //    load_more();
-                //};
+            }
 
-            }else
-            {
+            else {
                 $('div#loadmoreajaxloader').html('<center>{% trans "No more galleries to show" %}.</center>');
             }
         }

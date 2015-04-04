@@ -36,6 +36,7 @@ function set_file_upload(person_id, url, csrftoken) {
     $('#fileupload').fileupload({
         url: url,
         crossDomain: false,
+        maxNumberOfFiles: 1,
         beforeSend: function(xhr, settings) {
             if (!csrfSafeMethod(settings.type)) {
                 xhr.setRequestHeader("X-CSRFToken", csrftoken);
