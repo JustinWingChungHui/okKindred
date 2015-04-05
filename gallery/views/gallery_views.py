@@ -38,7 +38,7 @@ def gallery_index_data(request, page):
         galleries = paginator.page(1)
     except EmptyPage:
         # If page is out of range return blank
-        return HttpResponse('', content_type="application/json")
+        return HttpResponse('[]', content_type="application/json")
 
     data = serializers.serialize('json', galleries, fields=('id','title', 'thumbnail', 'description', 'last_updated_date'))
 

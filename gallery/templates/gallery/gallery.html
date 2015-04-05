@@ -20,13 +20,12 @@
         {{ gallery.description }}
     </p>
     <div id="image_container">
-       <div id="loadmoreajaxloader" style="display:none;">
-           <center>
-               <img src="{% static "img/ajax-loader.gif" %}" /> {% trans "Loading..." %}
-           </center>
-       </div>
     </div>
-
+    <div id="loadmoreajaxloader" style="display:none;">
+        <center>
+            <img src="{% static "img/ajax-loader.gif" %}" /> {% trans "Loading..." %}
+        </center>
+    </div>
      <!--Delete profile popup-->
     <div class="modal fade" id="modal_delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -64,6 +63,18 @@
 
 <script type="text/javascript">
 var page = 0;
+var loading = false;
+
+//Initiate  maosnry
+$container = $('#image_container');
+$container.imagesLoaded(function(){
+    $container.masonry({
+        itemSelector: '.image_in_gallery',
+        columnWidth: 1,
+        isFitWidth: true
+    });
+});
+
 
 //Request the galleries on page load
 $( document ).ready(function() {
@@ -74,7 +85,7 @@ $( document ).ready(function() {
 //Request more galleries when we scroll to the bottom
 $(window).scroll(function()
 {
-    if($(window).scrollTop() == $(document).height() - $(window).height())
+    if($(window).scrollTop() > $(document).height() - $(window).height() - 100)
     {
         load_more();
     }
@@ -83,22 +94,21 @@ $(window).scroll(function()
 //Ajax request to get more galleries
 function load_more()
 {
+    if (loading == true) { return; }
+    loading = true;
+
     page = page + 1;
     $('div#loadmoreajaxloader').show();
     $.ajax({
         url: "/gallery={{ gallery.id }}/image_data=" + page.toString(),
-        success: function(data)
-        {
-            if(data && data != '[]')
-            {
+        success: function(data) {
+            if(data && data.length > 0) {
                 var html =[];
-                for (var i in data)
-                {
+                for (var i in data) {
                     html.push('<a class="image_in_gallery" href="/media/');
                     html.push(data[i].fields.large_thumbnail);
-                    html.push('" data-lightbox="');
-                    html.push(data[i].fields.large_thumbnail);
-                    html.push('" data-title="');
+                    html.push('" data-lightbox="{{ gallery.id }}"');
+                    html.push(' data-title="');
                     html.push(data[i].fields.title);
 
                     html.push('&lt;br/&gt;&lt;a href=\'/image_detail=');
@@ -118,27 +128,27 @@ function load_more()
                     html.push('</a>');
                 }
 
-                $("#image_container").append(html.join(''));
-                $('div#loadmoreajaxloader').hide();
+                 $('div#loadmoreajaxloader').hide();
 
+                var $data = $(html.join(''));
+                $container.append($data).imagesLoaded(function(){
+                    $container.masonry( 'appended', $data.filter(".image_in_gallery"), true );
 
-                var $container = $('#image_container');
-                // initialize after all the images have loaded
-
-                $container.imagesLoaded( function() {
-                    $container.masonry({
-                        itemSelector: '.image_in_gallery',
-                        columnWidth: 1,
-                        isFitWidth: true
-
-                    });
+                    loading = false;
+                    //Keep loading images until we see a scroll bar
+                    if ($container.height() < $(window).height()) {
+                        load_more()
+                    }
                 });
-
-
-            }else
-            {
+            }
+            else {
                 $('div#loadmoreajaxloader').html('<center>{% trans "No more images to show" %}.</center>');
             }
+        },
+
+        error: function(jqXHR, textStatus, errorThrown ) {
+            $('div#loadmoreajaxloader').html('<center>{% trans "Error loading images" %}.</center>');
+            loading = false;
         }
     });
 }

@@ -26,6 +26,7 @@
 {% block extrascript %}
 <script type="text/javascript">
 var page = 0;
+var loading = false;
 
 //Request the galleries on page load
 $( document ).ready(function() {
@@ -45,13 +46,16 @@ $(window).scroll(function()
 //Ajax request to get more galleries
 function load_more()
 {
+    if (loading == true) { return; }
+
     page = page + 1;
+    loading = true;
     $('div#loadmoreajaxloader').show();
     $.ajax({
         url: "/gallery/gallery_data=" + page.toString(),
-        success: function(data)
-        {
-            if(data && data != '[]') {
+        success: function(data) {
+
+            if(data && data.length > 0) {
 
                 var html =[];
 
@@ -60,14 +64,14 @@ function load_more()
                     html.push('<td>');
                     html.push('<a href="/gallery=');
                     html.push(data[i].pk.toString());
-                    if (data[i].fields.thumbnail)
-                    {
+
+                    if (data[i].fields.thumbnail) {
                         html.push('"><img class="gallery_index_thumbnail" src="/media/' + data[i].fields.thumbnail + '" ');
                     }
-                    else
-                    {
+                    else {
                         html.push('"><img class="gallery_index_thumbnail" src="/static/img/gallery_thumb.jpg" ');
                     }
+
                     html.push('alt="' + data[i].fields.title +'/"')
                     html.push('/></a></td>');
 
@@ -87,12 +91,21 @@ function load_more()
                 $("#image_container").append(html.join(''));
                 $('div#loadmoreajaxloader').hide();
 
+                loading = false;
+
+                //Keep loading images until we see a scroll bar
+                if ($('#container').height() < $(window).height()) {
+                    load_more()
+                }
             }
 
             else {
                 $('div#loadmoreajaxloader').html('<center>{% trans "No more galleries to show" %}.</center>');
             }
-        }
+        },
+        error: function(jqXHR, textStatus, errorThrown ) {
+            var a;
+        },
     });
 }
 

@@ -79,7 +79,7 @@ class TestGalleryViews(TestCase):
         response = self.client.get('/gallery/gallery_data=3/')
 
         self.assertEqual(200, response.status_code)
-        self.assertEqual(0, len(response.content))
+        self.assertEqual(b'[]', response.content)
 
     def test_new_gallery_loads(self):
         '''

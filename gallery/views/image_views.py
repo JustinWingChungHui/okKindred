@@ -67,7 +67,7 @@ def gallery_images(request, gallery_id, page):
         images = paginator.page(1)
     except EmptyPage:
         # If page is out of range return blank
-        return HttpResponse('', content_type="application/json")
+        return HttpResponse('[]', content_type="application/json")
 
     data = serializers.serialize('json', images, fields=('id','title', 'thumbnail', 'large_thumbnail', 'original_image'))
 
@@ -118,8 +118,12 @@ def upload_images_post(request, gallery_id):
     for filename, file in request.FILES.items():
         try:
             results.append(process_image(filename, file, gallery))
-        except:
-            pass
+
+        except Exception as e:
+            results.append(
+                {
+                    'error': str(e),
+                })
 
     return HttpResponse(json.dumps(results), content_type='application/json')
 

@@ -106,7 +106,7 @@ class TestImageViews(TestCase):
             i.save()
 
         self.client.login(email='badger@queenonline.com', password='save the badgers')
-        response = self.client.get('/gallery={0}/image_data=1/'.format(self.gallery.id))
+        response = self.client.get('/gallery={0}/image_data=2/'.format(self.gallery.id))
 
         #Clear up
         for i in self.images:
@@ -114,6 +114,26 @@ class TestImageViews(TestCase):
 
         self.assertEqual(200, response.status_code)
         self.assertEqual(True, b'test_image.jpg' in response.content)
+
+        #Check that the response is valid json
+        serializers.json.Deserializer(response.content)
+
+
+    def test_get_hundredth_page_gives_blank_response(self):
+        '''
+        Tests that requests for 100th page gives blank response
+        '''
+        for i in self.images:
+            i.save()
+
+        self.client.login(email='badger@queenonline.com', password='save the badgers')
+        response = self.client.get('/gallery={0}/image_data=100/'.format(self.gallery.id))
+
+        #Clear up
+        for i in self.images:
+            i.delete()
+
+        self.assertEqual(200, response.status_code)
 
         #Check that the response is valid json
         serializers.json.Deserializer(response.content)
