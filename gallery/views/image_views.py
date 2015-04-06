@@ -3,7 +3,7 @@ from gallery.models.image import upload_to
 from django.contrib.auth.decorators import login_required
 from custom_user.decorators import set_language
 from django.template import RequestContext, loader
-from django.http import HttpResponse, Http404
+from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core import serializers
 from django.conf import settings
@@ -166,3 +166,75 @@ def process_image(filename, file, gallery):
         result['error'] = tran('Invalid image!')
 
     return result
+
+
+@login_required
+@set_language
+def image_detail(request, image_id):
+    '''
+    Shows the image detail view
+    '''
+    im = get_object_or_404(Image, pk = image_id)
+
+    #Check same family
+    if request.user.family_id != im.family_id:
+        raise Http404
+
+    #Gets the image detail view
+    template = loader.get_template('gallery/image_details.html')
+    context = RequestContext(request,
+                                {
+                                    'image' : im,
+                                })
+
+    response = template.render(context)
+    return HttpResponse(response)
+
+
+@login_required
+@set_language
+def image_detail_update(request, image_id):
+    '''
+    Handles the update of image details
+    '''
+    if request.method != 'POST':
+        return HttpResponse(status=405, content="Only POST requests allowed")
+
+    im = get_object_or_404(Image, pk = image_id)
+
+    #Check same family
+    if request.user.family_id != im.family_id:
+        raise Http404
+
+    field_name = request.POST.get("name")
+    if field_name not in ['title', 'description','date_taken','longitude', 'latitude']:
+        raise Http404
+
+    try:
+        setattr(im, field_name, request.POST.get("value"))
+        im.save()
+        return HttpResponse(status=200, content="OK")
+
+    except Exception as e:
+        return HttpResponse(status=405, content=e)
+
+
+@login_required
+@set_language
+def image_delete(request, image_id):
+    '''
+    Handles the update of image details
+    '''
+    if request.method != 'POST':
+        return HttpResponse(status=405, content="Only POST requests allowed")
+
+    im = get_object_or_404(Image, pk = image_id)
+
+    #Check same family
+    if request.user.family_id != im.family_id:
+        raise Http404
+
+    gallery_id = im.gallery_id
+    im.delete()
+
+    return HttpResponseRedirect('/gallery={0}/'.format(gallery_id))

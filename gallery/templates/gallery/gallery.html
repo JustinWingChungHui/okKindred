@@ -111,9 +111,9 @@ function load_more()
                     html.push(' data-title="');
                     html.push(data[i].fields.title);
 
-                    html.push('&lt;br/&gt;&lt;a href=\'/image_detail=');
+                    html.push('&lt;br/&gt;&lt;a href=\'/image=');
                     html.push(data[i].pk);
-                    html.push('\'&gt; {% trans "Details" %} &lt;/a&gt');
+                    html.push('/details/\'&gt; {% trans "Details" %} &lt;/a&gt');
 
                     html.push(' | &lt;a href=\'/media/');
                     html.push(data[i].fields.original_image);
