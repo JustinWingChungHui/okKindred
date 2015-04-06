@@ -6,7 +6,7 @@
 
 <div class="container" style="padding-top: 20px;">
 {% if gallery_id %}
-    <form role="form" action="/edit_gallery={{ gallery_id }}/" method="post">
+    <form role="form" action="/gallery={{ gallery_id }}/edit/" method="post">
 {% else %}
     <form role="form" action="/new_gallery/" method="post">
 {% endif %}

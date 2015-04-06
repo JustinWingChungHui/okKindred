@@ -106,7 +106,7 @@ class TestImageViews(TestCase):
             i.save()
 
         self.client.login(email='badger@queenonline.com', password='save the badgers')
-        response = self.client.get('/gallery={0}/image_data=1/'.format(self.gallery.id))
+        response = self.client.get('/gallery={0}/image_data=2/'.format(self.gallery.id))
 
         #Clear up
         for i in self.images:
@@ -114,6 +114,26 @@ class TestImageViews(TestCase):
 
         self.assertEqual(200, response.status_code)
         self.assertEqual(True, b'test_image.jpg' in response.content)
+
+        #Check that the response is valid json
+        serializers.json.Deserializer(response.content)
+
+
+    def test_get_hundredth_page_gives_blank_response(self):
+        '''
+        Tests that requests for 100th page gives blank response
+        '''
+        for i in self.images:
+            i.save()
+
+        self.client.login(email='badger@queenonline.com', password='save the badgers')
+        response = self.client.get('/gallery={0}/image_data=100/'.format(self.gallery.id))
+
+        #Clear up
+        for i in self.images:
+            i.delete()
+
+        self.assertEqual(200, response.status_code)
 
         #Check that the response is valid json
         serializers.json.Deserializer(response.content)
@@ -192,3 +212,142 @@ class TestImageViews(TestCase):
 
         self.assertEqual(404, response.status_code)
 
+
+    def test_image_detail_view_loads(self):
+        '''
+        Test that the image detail view loads
+        '''
+        im = Image(
+                    gallery=self.gallery,
+                    family=self.family,
+                    original_image=self.test_image_destination,
+                    thumbnail=self.test_image_destination,
+                    large_thumbnail=self.test_image_destination
+                )
+        im.save()
+
+        self.client.login(email='badger@queenonline.com', password='save the badgers')
+        response = self.client.get('/image={0}/details/'.format(im.id))
+
+        self.assertEqual(200, response.status_code)
+        self.assertTemplateUsed(response, 'gallery/image_details.html')
+
+    def test_image_detail_view_does_not_load_for_another_family(self):
+        '''
+        Test that the image deatil view loads
+        '''
+        im = Image(
+                    gallery=self.gallery,
+                    family=self.family,
+                    original_image=self.test_image_destination,
+                    thumbnail=self.test_image_destination,
+                    large_thumbnail=self.test_image_destination
+                )
+        im.save()
+
+        self.client.login(email='weebl@queenonline.com', password='mushroom')
+        response = self.client.get('/image={0}/details/'.format(im.id))
+
+        self.assertEqual(404, response.status_code)
+
+    def test_image_detail_update(self):
+        '''
+        Tests that you can update a field on the image using api
+        '''
+        im = Image(
+                    gallery=self.gallery,
+                    family=self.family,
+                    original_image=self.test_image_destination,
+                    thumbnail=self.test_image_destination,
+                    large_thumbnail=self.test_image_destination
+                )
+        im.save()
+
+        self.client.login(email='badger@queenonline.com', password='save the badgers')
+        response = self.client.post('/image={0}/update/'.format(im.id), {'pk': im.id, 'name': 'title', 'value': 'the show must go on'})
+
+        #Reload image
+        im = Image.objects.get(id=im.id)
+
+        self.assertEqual(200, response.status_code)
+        self.assertEqual('the show must go on', im.title)
+
+    def test_image_detail_update_does_not_update_for_another_family(self):
+        '''
+        Tests that you can update a field on the image using api
+        '''
+        im = Image(
+                    gallery=self.gallery,
+                    family=self.family,
+                    original_image=self.test_image_destination,
+                    thumbnail=self.test_image_destination,
+                    large_thumbnail=self.test_image_destination,
+                    title='innuendo'
+
+                )
+        im.save()
+
+        self.client.login(email='weebl@queenonline.com', password='mushroom')
+        response = self.client.post('/image={0}/update/'.format(im.id), {'pk': im.id, 'name': 'title', 'value': 'the show must go on'})
+
+        #Reload image
+        im = Image.objects.get(id=im.id)
+
+        self.assertEqual(404, response.status_code)
+
+    def test_image_detail_update_does_not_update_for_non_whitelisted_field(self):
+        '''
+        Tests that you can update a field on the image using api
+        '''
+        im = Image(
+                    gallery=self.gallery,
+                    family=self.family,
+                    original_image=self.test_image_destination,
+                    thumbnail=self.test_image_destination,
+                    large_thumbnail=self.test_image_destination,
+                    title='innuendo'
+
+                )
+        im.save()
+
+        self.client.login(email='weebl@queenonline.com', password='mushroom')
+        response = self.client.post('/image={0}/update/'.format(im.id), {'pk': im.id, 'name': 'id', 'value': 1})
+
+        self.assertEqual(404, response.status_code)
+
+    def test_image_delete(self):
+        '''
+        Tests that you can delete an image through api
+        '''
+        im = Image(
+                    gallery=self.gallery,
+                    family=self.family,
+                    original_image=self.test_image_destination,
+                    thumbnail=self.test_image_destination,
+                    large_thumbnail=self.test_image_destination
+                )
+        im.save()
+
+        self.client.login(email='badger@queenonline.com', password='save the badgers')
+        response = self.client.post('/image={0}/delete/'.format(im.id))
+
+        self.assertEqual(302, response.status_code)
+        self.assertEqual(0, Image.objects.filter(id=im.id).count())
+
+    def test_image_delete_another_family(self):
+        '''
+        Tests that you can't delete another family's image
+        '''
+        im = Image(
+                    gallery=self.gallery,
+                    family=self.family,
+                    original_image=self.test_image_destination,
+                    thumbnail=self.test_image_destination,
+                    large_thumbnail=self.test_image_destination
+                )
+        im.save()
+
+        self.client.login(email='weebl@queenonline.com', password='mushroom')
+        response = self.client.post('/image={0}/delete/'.format(im.id))
+
+        self.assertEqual(404, response.status_code)

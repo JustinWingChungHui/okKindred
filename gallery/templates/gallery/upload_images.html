@@ -8,18 +8,18 @@
 
 {% block content %}
 <div class="container">
-    <h1>{% trans "Upload New Photos" %}</h1>
+    <h1>{% trans "Upload New Photo" %}</h1>
     <blockquote>
         <p>
-            {% trans "Upload new photos" %}
+            {% trans "Upload a new photo to the gallery" %}
        </p>
     </blockquote>
 
     <span class="btn btn-success fileinput-button">
         <i class="glyphicon glyphicon-plus"></i>
-        <span>{% trans "Select file..." %}</span>
+        <span>{% trans "Select files..." %}</span>
         <!-- The file input field used as target for the file upload widget -->
-        <input id="fileupload" type="file" name="files[]" multiple>
+        <input id="fileupload" type="file" name="files[]"> <!--multiple doesn't work for some reason-->
     </span>
     <br/>
     <br/>
@@ -88,6 +88,8 @@ function set_file_upload(gallery_id, url, csrftoken) {
         dataType: 'json',
         acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
         maxFileSize: 15000000, // 15 MB
+        maxNumberOfFiles: 5,
+        limitConcurrentUploads: 3,
 
         fail: function(e, data){
             $('#processing_wait').hide();
