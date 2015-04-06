@@ -351,3 +351,42 @@ class TestImageViews(TestCase):
         response = self.client.post('/image={0}/delete/'.format(im.id))
 
         self.assertEqual(404, response.status_code)
+
+
+    def test_make_image_gallery_thumbnail(self):
+        '''
+        Tests that you can assign a thumbnail to a gallery
+        '''
+        im = Image(
+                    gallery=self.gallery,
+                    family=self.family,
+                    original_image=self.test_image_destination,
+                    thumbnail=self.test_image_destination,
+                    large_thumbnail=self.test_image_destination
+                )
+        im.save()
+
+        self.client.login(email='badger@queenonline.com', password='save the badgers')
+        response = self.client.post('/image={0}/make_gallery_thumbnail/'.format(im.id))
+
+        self.assertEqual(302, response.status_code)
+        self.assertEqual(im.thumbnail, Gallery.objects.get(id=self.gallery.id).thumbnail)
+
+
+    def test_make_image_gallery_thumbnail_another_family(self):
+        '''
+        Tests that you can't assign another family's gallery thumbnail
+        '''
+        im = Image(
+                    gallery=self.gallery,
+                    family=self.family,
+                    original_image=self.test_image_destination,
+                    thumbnail=self.test_image_destination,
+                    large_thumbnail=self.test_image_destination
+                )
+        im.save()
+
+        self.client.login(email='weebl@queenonline.com', password='mushroom')
+        response = self.client.post('/image={0}/make_gallery_thumbnail/'.format(im.id))
+
+        self.assertEqual(404, response.status_code)

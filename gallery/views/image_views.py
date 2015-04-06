@@ -235,6 +235,28 @@ def image_delete(request, image_id):
         raise Http404
 
     gallery_id = im.gallery_id
+    im.delete_image_files()
     im.delete()
 
     return HttpResponseRedirect('/gallery={0}/'.format(gallery_id))
+
+@login_required
+@set_language
+def set_image_as_gallery_thumbnail(request, image_id):
+    '''
+    Sets the image as the gallery thumbnail
+    '''
+    if request.method != 'POST':
+        return HttpResponse(status=405, content="Only POST requests allowed")
+
+    im = get_object_or_404(Image, pk = image_id)
+
+    #Check same family
+    if request.user.family_id != im.family_id:
+        raise Http404
+
+    gallery = Gallery.objects.get(id=im.gallery_id)
+    gallery.thumbnail = im.thumbnail
+    gallery.save()
+
+    return HttpResponseRedirect('/gallery/')
