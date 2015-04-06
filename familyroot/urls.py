@@ -91,7 +91,7 @@ urlpatterns = patterns('',
     url(r'^image=(?P<image_id>\d+)/details/$', 'gallery.views.image_detail', name='image_detail'),
     url(r'^image=(?P<image_id>\d+)/update/$', 'gallery.views.image_detail_update', name='image_detail_update'),
     url(r'^image=(?P<image_id>\d+)/delete/$', 'gallery.views.image_delete', name='image_delete'),
-
+    url(r'^image=(?P<image_id>\d+)/make_gallery_thumbnail/$', 'gallery.views.set_image_as_gallery_thumbnail', name='set_image_as_gallery_thumbnail'),
 )
 
 if 'rosetta' in settings.INSTALLED_APPS:

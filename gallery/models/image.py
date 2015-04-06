@@ -64,17 +64,25 @@ class Image(models.Model):
         '''
         self.family_id = self.gallery.family_id
 
+        if self.id is None or self.id <= 0:
+            new_record = True
+        else:
+            new_record = False
+
         #Need to call save first before making thumbnails so image path is set properly
         super(Image, self).save(*args, **kwargs) # Call the "real" save() method.
+
+        # Don't need to do the rest if editing existing image
+        if new_record == True:
+            return
 
         im = PIL.Image.open(self._get_absolute_image_path())
 
         self._populate_exif_data(im)
         self.make_thumbnails(im)
 
-        #Set last updated dat on Gallery
+        #Set last updated data on Gallery
         self.gallery.save()
-
 
         super(Image, self).save(*args, **kwargs) # Call the "real" save() method.
 
@@ -151,6 +159,9 @@ class Image(models.Model):
         http://stackoverflow.com/questions/6460381/translate-exif-dms-to-dd-geolocation-with-python
         '''
 
+        if self.latitude != 0 and self.longitude != 0:
+            return
+
         if not image:
             image = PIL.Image.open(self._get_absolute_image_path())
 
@@ -185,6 +196,9 @@ class Image(models.Model):
         Deletes the original image and thumbails associated with this
         object
         '''
-        os.remove(self._get_absolute_image_path(self.original_image))
-        os.remove(self._get_absolute_image_path(self.thumbnail))
-        os.remove(self._get_absolute_image_path(self.large_thumbnail))
+        try:
+            os.remove(self._get_absolute_image_path(self.original_image))
+            os.remove(self._get_absolute_image_path(self.thumbnail))
+            os.remove(self._get_absolute_image_path(self.large_thumbnail))
+        except:
+            pass
