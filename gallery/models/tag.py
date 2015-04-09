@@ -10,7 +10,7 @@ class Tag(models.Model):
     class Meta:
         #Allows models.py to be split up across multiple files
         app_label = 'gallery'
-
+        unique_together = ("image", "person")
 
     image = models.ForeignKey(Image, blank=False, null=False, db_index = True)
     person = models.ForeignKey('family_tree.Person', null=False, db_index = True) #Use of model string name to prevent circular import

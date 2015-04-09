@@ -25,12 +25,12 @@
 
         <div class="form-group">
             <label for="title">{% trans "Title" %}</label>
-            <input type="text" class="form-control" name="title" value="{{ gallery_title }}">
+            <input type="text" class="form-control" name="title" value="{{ gallery_title }}" required>
         </div>
 
         <div class="form-group">
             <label for="description">{% trans "Description" %}</label>
-            <textarea rows="3" class="form-control" name="description" value="{{ gallery_description }}" required></textarea>
+            <textarea rows="3" class="form-control" name="description">{{ gallery_description }}</textarea>
         </div>
 
     </form>

@@ -78,57 +78,6 @@ class TreeServiceTestCase(TestCase):
         self.assertEqual(len(list(related_data.relations)), 5)
 
 
-    def test_search_next_node(self):
-        '''
-        Tests the get_related_path function.
-        '''
-
-        person = Person.objects.create(name='patient zero', gender='M',hierarchy_score=100, family_id=self.family.id)
-
-        wife = Person.objects.create(name='wife', gender='F', hierarchy_score=100, family_id=self.family.id)
-        Relation.objects.create(from_person=wife, to_person=person, relation_type=PARTNERED)
-
-        son = Person.objects.create(name='son', gender='M',hierarchy_score=101, family_id=self.family.id)
-        Relation.objects.create(from_person=person, to_person=son, relation_type=RAISED)
-
-        daughter = Person.objects.create(name='daughter', gender='F',hierarchy_score=101, family_id=self.family.id)
-        Relation.objects.create(from_person=person, to_person=daughter, relation_type=RAISED)
-
-        mum = Person.objects.create(name='mum', gender='F', hierarchy_score=99, family_id=self.family.id)
-        Relation.objects.create(from_person=mum, to_person=person, relation_type=RAISED)
-
-        dad = Person.objects.create(name='dad', gender='M', hierarchy_score=99, family_id=self.family.id)
-        Relation.objects.create(from_person=dad, to_person=person, relation_type=RAISED)
-
-        grandma = Person.objects.create(name='grandma', gender='F', hierarchy_score=98, family_id=self.family.id)
-        Relation.objects.create(from_person=grandma, to_person=mum, relation_type=RAISED)
-
-        aunt = Person.objects.create(name='aunt', gender='F', hierarchy_score=99, family_id=self.family.id)
-        Relation.objects.create(from_person=grandma, to_person=aunt, relation_type=RAISED)
-
-        cousin = Person.objects.create(name='cousin', gender='F', hierarchy_score=99, family_id=self.family.id)
-        Relation.objects.create(from_person=aunt, to_person=cousin, relation_type=RAISED)
-
-        other_cousin = Person.objects.create(name='other_cousin', gender='F', hierarchy_score=99, family_id=self.family.id)
-        Relation.objects.create(from_person=aunt, to_person=other_cousin, relation_type=RAISED)
-
-        distant_nephew = Person.objects.create(name='distant_nephew', gender='M', hierarchy_score=99, family_id=self.family.id)
-        Relation.objects.create(from_person=cousin, to_person=distant_nephew, relation_type=RAISED)
-
-        relations_by_person = Relation.objects.get_navigable_relations(self.family.id)
-        visited_person_ids = []
-        route = []
-        route.append(person.id)
-        found_route = tree_service._search_next_node(relations_by_person, visited_person_ids, route, distant_nephew.id)
-
-        self.assertEqual(person.id, found_route[0])
-        self.assertEqual(mum.id, found_route[1])
-        self.assertEqual(grandma.id, found_route[2])
-        self.assertEqual(aunt.id, found_route[3])
-        self.assertEqual(cousin.id, found_route[4])
-        self.assertEqual(distant_nephew.id, found_route[5])
-
-
 
     def test_get_path_relations(self):
         '''
@@ -161,61 +110,6 @@ class TreeServiceTestCase(TestCase):
 
         self.assertEqual(person_to_son.id,path_relations[0].id)
         self.assertEqual(son_to_grandson.id,path_relations[1].id)
-
-
-    def test_get_related_path(self):
-        '''
-        Tests the get_related_path function.
-        '''
-
-        another_family = Family()
-        another_family.save()
-
-        person = Person.objects.create(name='patient zero', gender='M',hierarchy_score=100, family_id=another_family.id)
-
-        wife = Person.objects.create(name='wife', gender='F', hierarchy_score=100, family_id=another_family.id)
-        Relation.objects.create(from_person=wife, to_person=person, relation_type=PARTNERED)
-
-        son = Person.objects.create(name='son', gender='M',hierarchy_score=101, family_id=another_family.id)
-        Relation.objects.create(from_person=person, to_person=son, relation_type=RAISED)
-
-        daughter = Person.objects.create(name='daughter', gender='F',hierarchy_score=101, family_id=another_family.id)
-        Relation.objects.create(from_person=person, to_person=daughter, relation_type=RAISED)
-
-        mum = Person.objects.create(name='mum', gender='F', hierarchy_score=99, family_id=another_family.id)
-        Relation.objects.create(from_person=mum, to_person=person, relation_type=RAISED)
-
-        dad = Person.objects.create(name='dad', gender='M', hierarchy_score=99, family_id=another_family.id)
-        Relation.objects.create(from_person=dad, to_person=person, relation_type=RAISED)
-
-        grandma = Person.objects.create(name='grandma', gender='F', hierarchy_score=98, family_id=another_family.id)
-        Relation.objects.create(from_person=grandma, to_person=mum, relation_type=RAISED)
-
-        aunt = Person.objects.create(name='aunt', gender='F', hierarchy_score=99, family_id=another_family.id)
-        Relation.objects.create(from_person=grandma, to_person=aunt, relation_type=RAISED)
-
-        cousin = Person.objects.create(name='cousin', gender='F', hierarchy_score=99, family_id=another_family.id)
-        Relation.objects.create(from_person=aunt, to_person=cousin, relation_type=RAISED)
-
-        other_cousin = Person.objects.create(name='other_cousin', gender='F', hierarchy_score=99, family_id=another_family.id)
-        Relation.objects.create(from_person=aunt, to_person=other_cousin, relation_type=RAISED)
-
-        distant_nephew = Person.objects.create(name='distant_nephew', gender='M', hierarchy_score=99, family_id=another_family.id)
-        Relation.objects.create(from_person=cousin, to_person=distant_nephew, relation_type=RAISED)
-
-        people, relations = tree_service.get_related_path(other_cousin, person)
-
-
-        self.assertEqual(person.id, people[0].id)
-        self.assertEqual(mum.id, people[1].id)
-        self.assertEqual(grandma.id, people[2].id)
-        self.assertEqual(aunt.id, people[3].id)
-        self.assertEqual(other_cousin.id, people[4].id)
-
-        self.assertEqual(RAISED_BY, relations[0].relation_type)
-        self.assertEqual(RAISED_BY, relations[1].relation_type)
-        self.assertEqual(RAISED, relations[2].relation_type)
-        self.assertEqual(RAISED, relations[3].relation_type)
 
 
     def test_add_related_partner(self):
@@ -458,4 +352,55 @@ class TreeServiceTestCase(TestCase):
         self.assertEqual(grandma.id, result[98][0].id)
 
 
+    def test_get_shortest_path(self):
+        '''
+        Tests the get_related_path function.
+        '''
 
+        another_family = Family()
+        another_family.save()
+
+        person = Person.objects.create(name='patient zero', gender='M',hierarchy_score=100, family_id=another_family.id)
+
+        wife = Person.objects.create(name='wife', gender='F', hierarchy_score=100, family_id=another_family.id)
+        Relation.objects.create(from_person=wife, to_person=person, relation_type=PARTNERED)
+
+        son = Person.objects.create(name='son', gender='M',hierarchy_score=101, family_id=another_family.id)
+        Relation.objects.create(from_person=person, to_person=son, relation_type=RAISED)
+
+        daughter = Person.objects.create(name='daughter', gender='F',hierarchy_score=101, family_id=another_family.id)
+        Relation.objects.create(from_person=person, to_person=daughter, relation_type=RAISED)
+
+        mum = Person.objects.create(name='mum', gender='F', hierarchy_score=99, family_id=another_family.id)
+        Relation.objects.create(from_person=mum, to_person=person, relation_type=RAISED)
+
+        dad = Person.objects.create(name='dad', gender='M', hierarchy_score=99, family_id=another_family.id)
+        Relation.objects.create(from_person=dad, to_person=person, relation_type=RAISED)
+
+        grandma = Person.objects.create(name='grandma', gender='F', hierarchy_score=98, family_id=another_family.id)
+        Relation.objects.create(from_person=grandma, to_person=mum, relation_type=RAISED)
+
+        aunt = Person.objects.create(name='aunt', gender='F', hierarchy_score=99, family_id=another_family.id)
+        Relation.objects.create(from_person=grandma, to_person=aunt, relation_type=RAISED)
+
+        cousin = Person.objects.create(name='cousin', gender='F', hierarchy_score=99, family_id=another_family.id)
+        Relation.objects.create(from_person=aunt, to_person=cousin, relation_type=RAISED)
+
+        other_cousin = Person.objects.create(name='other_cousin', gender='F', hierarchy_score=99, family_id=another_family.id)
+        Relation.objects.create(from_person=aunt, to_person=other_cousin, relation_type=RAISED)
+
+        distant_nephew = Person.objects.create(name='distant_nephew', gender='M', hierarchy_score=99, family_id=another_family.id)
+        Relation.objects.create(from_person=cousin, to_person=distant_nephew, relation_type=RAISED)
+
+        people, relations = tree_service.get_shortest_path(other_cousin, person)
+
+        self.assertEqual(person.id, people[0].id)
+        self.assertEqual(mum.id, people[1].id)
+        self.assertEqual(grandma.id, people[2].id)
+        self.assertEqual(aunt.id, people[3].id)
+        self.assertEqual(other_cousin.id, people[4].id)
+
+        self.assertEqual(RAISED_BY, relations[0].relation_type)
+        self.assertEqual(RAISED_BY, relations[1].relation_type)
+        self.assertEqual(RAISED, relations[2].relation_type)
+        self.assertEqual(RAISED, relations[3].relation_type)

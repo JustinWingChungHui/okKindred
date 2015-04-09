@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-03-15 21:18+0000\n"
-"PO-Revision-Date: 2015-03-15 22:30+0000\n"
+"POT-Creation-Date: 2015-04-06 14:57+0000\n"
+"PO-Revision-Date: 2015-04-06 15:06+0000\n"
 "Last-Translator: b'Anonymous User <wingchung@justinhui.co.uk>'\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -19,15 +19,15 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Translated-Using: django-rosetta 0.7.5\n"
 
-#: custom_user/admin.py:20 custom_user/templates/custom_user/login.html:11
+#: custom_user/admin.py:19 custom_user/templates/custom_user/login.html:11
 msgid "Password"
 msgstr "Mot de passe"
 
-#: custom_user/admin.py:21
+#: custom_user/admin.py:20
 msgid "Password confirmation"
 msgstr "Confirmation du mot de passe"
 
-#: custom_user/admin.py:32
+#: custom_user/admin.py:31
 msgid "Passwords don't match"
 msgstr "Les mots de passe ne correspondent pas"
 
@@ -71,8 +71,8 @@ msgid ""
 "Designates whether this user should be treated as active. Unselect this "
 "instead of deleting accounts."
 msgstr ""
-"Indique si cet utilisateur doit être traité comme actif. "
-"Désélectionner au lieu de supprimer les comptes."
+"Indique si cet utilisateur doit être traité comme actif. Désélectionner au "
+"lieu de supprimer les comptes."
 
 #: custom_user/models.py:46
 msgid "Date Joined"
@@ -129,7 +129,7 @@ msgstr "Veuillez vous connecter"
 msgid "Sign In"
 msgstr "Connecter"
 
-#: custom_user/templates/custom_user/settings.html:13 templates/base.html:71
+#: custom_user/templates/custom_user/settings.html:13 templates/base.html:72
 msgid "Settings"
 msgstr "Réglage"
 
@@ -240,6 +240,8 @@ msgstr "Oui et effacer mon profil"
 #: family_tree/templates/family_tree/edit_profile.html:177
 #: family_tree/templates/family_tree/edit_profile.html:189
 #: family_tree/templates/family_tree/edit_profile.html:200
+#: gallery/templates/gallery/image_details.html:138
+#: gallery/templates/gallery/image_tagging.html:138
 msgid "Required field!"
 msgstr "Champs requis!"
 
@@ -247,12 +249,12 @@ msgstr "Champs requis!"
 msgid "Access denied"
 msgstr "Accès refusé"
 
-#: email_confirmation/models.py:46
+#: email_confirmation/models.py:48
 #, python-brace-format
 msgid "An invitation to ok!Kindred from {0}"
 msgstr "Une invitation à ok!Kindred de {0}"
 
-#: email_confirmation/models.py:48
+#: email_confirmation/models.py:50
 #, python-brace-format
 msgid ""
 "Hi {0}\n"
@@ -368,8 +370,8 @@ msgstr "ok!Kindred Famille mise à jour"
 #: emailer/models.py:123
 msgid "One or more of your family has had details in ok!Kindred updated."
 msgstr ""
-"Un ou plusieurs membres de votre famille a eu ses détails mis à jour"
-"  dans ok!Kindred"
+"Un ou plusieurs membres de votre famille a eu ses détails mis à jour  dans "
+"ok!Kindred"
 
 #: emailer/templates/emailer/people_updates.html:7
 msgid ""
@@ -423,7 +425,10 @@ msgstr "élevé par"
 #: family_tree/templates/family_tree/add_relation.html:9
 #: family_tree/templates/family_tree/break_relation.html:10
 #: family_tree/templates/family_tree/image_resize.html:15
-#: templates/about.html:68 templates/about.html.py:95 templates/about.html:146
+#: gallery/templates/gallery/gallery.html:13
+#: gallery/templates/gallery/image_details.html:24
+#: gallery/templates/gallery/image_tagging.html:24 templates/about.html:68
+#: templates/about.html.py:95 templates/about.html:146
 msgid "Back"
 msgstr "Retour"
 
@@ -454,6 +459,7 @@ msgstr "Recherche en cours..."
 #: family_tree/templates/family_tree/add_relation.html:95
 #: family_tree/templates/family_tree/edit_biography.html:12
 #: family_tree/templates/family_tree/image_resize.html:21
+#: gallery/templates/gallery/edit_gallery.html:21
 msgid "Save"
 msgstr "Enregistrer"
 
@@ -466,6 +472,11 @@ msgid "Break"
 msgstr "Rompre"
 
 #: family_tree/templates/family_tree/edit_biography.html:11
+#: gallery/templates/gallery/edit_gallery.html:17
+#: gallery/templates/gallery/edit_gallery.html:19
+#: gallery/templates/gallery/gallery.html:48
+#: gallery/templates/gallery/image_details.html:97
+#: gallery/templates/gallery/image_tagging.html:97
 msgid "Cancel"
 msgstr "Annuler"
 
@@ -479,6 +490,12 @@ msgid "Break Relation"
 msgstr "Rompre une relation"
 
 #: family_tree/templates/family_tree/edit_profile.html:17
+#: gallery/templates/gallery/gallery.html:16
+#: gallery/templates/gallery/gallery.html:45
+#: gallery/templates/gallery/image_details.html:30
+#: gallery/templates/gallery/image_details.html:94
+#: gallery/templates/gallery/image_tagging.html:30
+#: gallery/templates/gallery/image_tagging.html:94
 msgid "Delete"
 msgstr "Supprimer"
 
@@ -490,6 +507,8 @@ msgstr "Cliquez sur la photo pour télécharger une nouvelle"
 
 #: family_tree/templates/family_tree/edit_profile.html:37
 #: family_tree/templates/family_tree/edit_profile.html:133
+#: gallery/templates/gallery/image_details.html:38
+#: gallery/templates/gallery/image_tagging.html:38
 msgid "Required"
 msgstr "Requis"
 
@@ -585,10 +604,12 @@ msgid "Select file..."
 msgstr "Sélectionnez le fichier..."
 
 #: family_tree/templates/family_tree/image_upload.html:35
+#: gallery/templates/gallery/upload_images.html:35
 msgid "Processing..."
 msgstr "En cours..."
 
 #: family_tree/templates/family_tree/image_upload.html:37
+#: gallery/templates/gallery/upload_images.html:37
 msgid "Error uploading image"
 msgstr "Erreur de téléchargement de l'image"
 
@@ -602,6 +623,7 @@ msgstr "Arbre"
 
 #: family_tree/templates/family_tree/profile.html:13
 #: family_tree/templates/family_tree/profile.html:15
+#: gallery/templates/gallery/gallery.html:14
 msgid "Edit"
 msgstr "Modifier"
 
@@ -669,7 +691,7 @@ msgstr "partenaire"
 msgid "raised"
 msgstr "a élevé"
 
-#: family_tree/views/image_upload_views.py:82
+#: family_tree/views/image_upload_views.py:73
 msgid "File is too big"
 msgstr "Le fichier est trop gros"
 
@@ -677,29 +699,177 @@ msgstr "Le fichier est trop gros"
 msgid "A biography has not yet been written for this language"
 msgstr "Aucune biographie écrite pour cette langue."
 
-#: familyroot/settings.py:119
+#: familyroot/settings.py:120
 msgid "English"
 msgstr "Anglais"
 
-#: familyroot/settings.py:120
+#: familyroot/settings.py:121
 msgid "Traditional Chinese"
 msgstr "Chinois Traditionnel"
 
-#: familyroot/settings.py:121
+#: familyroot/settings.py:122
 msgid "Simplified Chinese"
 msgstr "Chinois Simplifié"
 
-#: familyroot/settings.py:122
+#: familyroot/settings.py:123
 msgid "Polish"
 msgstr "Polonais"
 
-#: familyroot/settings.py:123
+#: familyroot/settings.py:124
 msgid "Finnish"
 msgstr "Finois"
 
-#: familyroot/settings.py:124
+#: familyroot/settings.py:125
 msgid "French"
 msgstr "Français"
+
+#: gallery/templates/gallery/edit_gallery.html:27
+#: gallery/templates/gallery/image_details.html:38
+#: gallery/templates/gallery/image_tagging.html:38
+msgid "Title"
+msgstr "Titre"
+
+#: gallery/templates/gallery/edit_gallery.html:32
+#: gallery/templates/gallery/image_details.html:44
+#: gallery/templates/gallery/image_details.html:46
+#: gallery/templates/gallery/image_tagging.html:44
+#: gallery/templates/gallery/image_tagging.html:46
+msgid "Description"
+msgstr "Description"
+
+#: gallery/templates/gallery/gallery.html:15
+msgid "Add New Image"
+msgstr "Ajouter Image"
+
+#: gallery/templates/gallery/gallery.html:26
+#: gallery/templates/gallery/gallery_index.html:18
+#| msgid "Searching..."
+msgid "Loading..."
+msgstr "Recherche en cours..."
+
+#: gallery/templates/gallery/gallery.html:35
+#| msgid "Delete Profile"
+msgid "Delete Gallery"
+msgstr "Supprimer Le Profil"
+
+#: gallery/templates/gallery/gallery.html:38
+msgid ""
+"Are you sure you want to leave delete this gallery?  It will delete all the "
+"images in it!"
+msgstr ""
+"Êtes-vous sûr de vouloir supprimer cette galerie? Cela supprimera toutes les"
+" images dedans!"
+
+#: gallery/templates/gallery/gallery.html:116
+#| msgid "View details"
+msgid "Details"
+msgstr "Afficher les détails"
+
+#: gallery/templates/gallery/gallery.html:120
+#: gallery/templates/gallery/image_details.html:25
+#: gallery/templates/gallery/image_tagging.html:25
+msgid "Download Original"
+msgstr "Télécharger Originale"
+
+#: gallery/templates/gallery/gallery.html:145
+msgid "No more images to show"
+msgstr "Fin"
+
+#: gallery/templates/gallery/gallery.html:150
+#| msgid "Error uploading image"
+msgid "Error loading images"
+msgstr "Erreur de téléchargement de l'image"
+
+#: gallery/templates/gallery/gallery_index.html:9
+msgid "Add New Gallery"
+msgstr "Ajouter Une Collection"
+
+#: gallery/templates/gallery/gallery_index.html:12
+msgid "Galleries"
+msgstr "Collections"
+
+#: gallery/templates/gallery/gallery_index.html:85
+msgid "Last Updated:"
+msgstr "Dernière Mise À Jour:"
+
+#: gallery/templates/gallery/gallery_index.html:103
+msgid "No more galleries to show"
+msgstr "Fin"
+
+#: gallery/templates/gallery/image_details.html:28
+#: gallery/templates/gallery/image_tagging.html:28
+msgid "Make Gallery Thumbnail"
+msgstr "Attribuer la Vignette à la Collection"
+
+#: gallery/templates/gallery/image_details.html:36
+#: gallery/templates/gallery/image_details.html:121
+#: gallery/templates/gallery/image_details.html:125
+#: gallery/templates/gallery/image_tagging.html:36
+#: gallery/templates/gallery/image_tagging.html:121
+#: gallery/templates/gallery/image_tagging.html:125
+#| msgid "View details"
+msgid "(Edit Details)"
+msgstr "Afficher les détails"
+
+#: gallery/templates/gallery/image_details.html:52
+#: gallery/templates/gallery/image_details.html:54
+#: gallery/templates/gallery/image_tagging.html:52
+#: gallery/templates/gallery/image_tagging.html:54
+msgid "Date Taken"
+msgstr "Date De Prise"
+
+#: gallery/templates/gallery/image_details.html:60
+#: gallery/templates/gallery/image_tagging.html:60
+#| msgid "Location"
+msgid "Location Latitude"
+msgstr "Latitude"
+
+#: gallery/templates/gallery/image_details.html:62
+#: gallery/templates/gallery/image_tagging.html:62
+msgid "Latitude"
+msgstr "Latitude"
+
+#: gallery/templates/gallery/image_details.html:68
+#: gallery/templates/gallery/image_tagging.html:68
+#| msgid "Location"
+msgid "Location Longitude"
+msgstr "Longitude"
+
+#: gallery/templates/gallery/image_details.html:70
+#: gallery/templates/gallery/image_tagging.html:70
+msgid "Longitude"
+msgstr "Longitude"
+
+#: gallery/templates/gallery/image_details.html:84
+#: gallery/templates/gallery/image_tagging.html:84
+#| msgid "Delete"
+msgid "Delete Image"
+msgstr "Supprimer Image"
+
+#: gallery/templates/gallery/image_details.html:87
+#: gallery/templates/gallery/image_tagging.html:87
+#| msgid "Are you sure you want to delete profile?"
+msgid "Are you sure you want to leave delete this image?"
+msgstr "Êtes-vous sûr de vouloir supprimer cet image?"
+
+#: gallery/templates/gallery/image_details.html:122
+#: gallery/templates/gallery/image_tagging.html:122
+msgid "Done Editing"
+msgstr "Fini"
+
+#: gallery/templates/gallery/upload_images.html:11
+msgid "Upload New Photo"
+msgstr "Télécharger Une Nouvelle Photo"
+
+#: gallery/templates/gallery/upload_images.html:14
+#| msgid "Upload the new profile photo for"
+msgid "Upload a new photo to the gallery"
+msgstr "Téléchargez une nouvelle photo à la collection"
+
+#: gallery/templates/gallery/upload_images.html:20
+#| msgid "Select file..."
+msgid "Select files..."
+msgstr "Sélectionnez le fichier..."
 
 #: templates/about.html:16
 msgid ""
@@ -866,10 +1036,13 @@ msgid "Privacy"
 msgstr "Vie privée"
 
 #: templates/about.html:129
+#| msgid ""
+#| "Our site uses <a href=\"https://en.wikipedia.org/wiki/P_cookie\">cookies</a> to enhance your experience. Your web browser ces cookies on your hard drive for record-keeping purposes and etimes to track information about you.\n"
+#| "In particular we use cookies to identify you so that you may in to the site.\n"
 msgid ""
 "\n"
 "            Our site uses <a href=\"https://en.wikipedia.org/wiki/HTTP_cookie\">cookies</a> to enhance your experience. Your web browser places cookies on your hard drive for record-keeping purposes and sometimes to track information about you.\n"
-"            In particular we use cookies to identify you so that you may login to the site.\n"
+"            In particular we use cookies to identify you so that you may our login to the site.\n"
 "            "
 msgstr ""
 "\n"
@@ -902,13 +1075,17 @@ msgid "Map"
 msgstr "Carte"
 
 #: templates/base.html:64
+msgid "Gallery"
+msgstr "Collection"
+
+#: templates/base.html:65
 msgid "Search"
 msgstr "Recherche"
 
-#: templates/base.html:65
+#: templates/base.html:66
 msgid "About"
 msgstr "À Propos"
 
-#: templates/base.html:72
+#: templates/base.html:73
 msgid "Log Out"
 msgstr "Déconnecter"
