@@ -73,7 +73,7 @@ class Image(models.Model):
         super(Image, self).save(*args, **kwargs) # Call the "real" save() method.
 
         # Don't need to do the rest if editing existing image
-        if new_record == True:
+        if new_record == False:
             return
 
         im = PIL.Image.open(self._get_absolute_image_path())

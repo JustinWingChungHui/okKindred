@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-03-15 20:51+0000\n"
+"POT-Creation-Date: 2015-04-06 14:57+0000\n"
 "PO-Revision-Date: 2015-03-02 09:54+0000\n"
 "Last-Translator: b'Anonymous User <wingchung@justinhui.co.uk>'\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,15 +18,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Translated-Using: django-rosetta 0.7.5\n"
 
-#: custom_user/admin.py:20 custom_user/templates/custom_user/login.html:11
+#: custom_user/admin.py:19 custom_user/templates/custom_user/login.html:11
 msgid "Password"
 msgstr "密碼"
 
-#: custom_user/admin.py:21
+#: custom_user/admin.py:20
 msgid "Password confirmation"
 msgstr "確認密碼"
 
-#: custom_user/admin.py:32
+#: custom_user/admin.py:31
 msgid "Passwords don't match"
 msgstr "密碼不匹配"
 
@@ -123,7 +123,7 @@ msgstr ""
 msgid "Sign In"
 msgstr ""
 
-#: custom_user/templates/custom_user/settings.html:13 templates/base.html:71
+#: custom_user/templates/custom_user/settings.html:13 templates/base.html:72
 msgid "Settings"
 msgstr ""
 
@@ -232,6 +232,8 @@ msgstr ""
 #: family_tree/templates/family_tree/edit_profile.html:177
 #: family_tree/templates/family_tree/edit_profile.html:189
 #: family_tree/templates/family_tree/edit_profile.html:200
+#: gallery/templates/gallery/image_details.html:138
+#: gallery/templates/gallery/image_tagging.html:138
 msgid "Required field!"
 msgstr ""
 
@@ -239,12 +241,12 @@ msgstr ""
 msgid "Access denied"
 msgstr ""
 
-#: email_confirmation/models.py:46
+#: email_confirmation/models.py:48
 #, python-brace-format
 msgid "An invitation to ok!Kindred from {0}"
 msgstr ""
 
-#: email_confirmation/models.py:48
+#: email_confirmation/models.py:50
 #, python-brace-format
 msgid ""
 "Hi {0}\n"
@@ -395,7 +397,10 @@ msgstr ""
 #: family_tree/templates/family_tree/add_relation.html:9
 #: family_tree/templates/family_tree/break_relation.html:10
 #: family_tree/templates/family_tree/image_resize.html:15
-#: templates/about.html:68 templates/about.html.py:95 templates/about.html:146
+#: gallery/templates/gallery/gallery.html:13
+#: gallery/templates/gallery/image_details.html:24
+#: gallery/templates/gallery/image_tagging.html:24 templates/about.html:68
+#: templates/about.html.py:95 templates/about.html:146
 msgid "Back"
 msgstr ""
 
@@ -426,6 +431,7 @@ msgstr ""
 #: family_tree/templates/family_tree/add_relation.html:95
 #: family_tree/templates/family_tree/edit_biography.html:12
 #: family_tree/templates/family_tree/image_resize.html:21
+#: gallery/templates/gallery/edit_gallery.html:21
 msgid "Save"
 msgstr ""
 
@@ -438,6 +444,11 @@ msgid "Break"
 msgstr ""
 
 #: family_tree/templates/family_tree/edit_biography.html:11
+#: gallery/templates/gallery/edit_gallery.html:17
+#: gallery/templates/gallery/edit_gallery.html:19
+#: gallery/templates/gallery/gallery.html:48
+#: gallery/templates/gallery/image_details.html:97
+#: gallery/templates/gallery/image_tagging.html:97
 msgid "Cancel"
 msgstr ""
 
@@ -451,6 +462,12 @@ msgid "Break Relation"
 msgstr ""
 
 #: family_tree/templates/family_tree/edit_profile.html:17
+#: gallery/templates/gallery/gallery.html:16
+#: gallery/templates/gallery/gallery.html:45
+#: gallery/templates/gallery/image_details.html:30
+#: gallery/templates/gallery/image_details.html:94
+#: gallery/templates/gallery/image_tagging.html:30
+#: gallery/templates/gallery/image_tagging.html:94
 msgid "Delete"
 msgstr ""
 
@@ -462,6 +479,8 @@ msgstr ""
 
 #: family_tree/templates/family_tree/edit_profile.html:37
 #: family_tree/templates/family_tree/edit_profile.html:133
+#: gallery/templates/gallery/image_details.html:38
+#: gallery/templates/gallery/image_tagging.html:38
 msgid "Required"
 msgstr ""
 
@@ -554,10 +573,12 @@ msgid "Select file..."
 msgstr ""
 
 #: family_tree/templates/family_tree/image_upload.html:35
+#: gallery/templates/gallery/upload_images.html:35
 msgid "Processing..."
 msgstr ""
 
 #: family_tree/templates/family_tree/image_upload.html:37
+#: gallery/templates/gallery/upload_images.html:37
 msgid "Error uploading image"
 msgstr ""
 
@@ -571,6 +592,7 @@ msgstr ""
 
 #: family_tree/templates/family_tree/profile.html:13
 #: family_tree/templates/family_tree/profile.html:15
+#: gallery/templates/gallery/gallery.html:14
 msgid "Edit"
 msgstr ""
 
@@ -638,7 +660,7 @@ msgstr ""
 msgid "raised"
 msgstr ""
 
-#: family_tree/views/image_upload_views.py:82
+#: family_tree/views/image_upload_views.py:73
 msgid "File is too big"
 msgstr ""
 
@@ -646,24 +668,163 @@ msgstr ""
 msgid "A biography has not yet been written for this language"
 msgstr ""
 
-#: familyroot/settings.py:119
+#: familyroot/settings.py:120
 msgid "English"
 msgstr ""
 
-#: familyroot/settings.py:120
+#: familyroot/settings.py:121
 msgid "Traditional Chinese"
 msgstr ""
 
-#: familyroot/settings.py:121
+#: familyroot/settings.py:122
 msgid "Simplified Chinese"
 msgstr ""
 
-#: familyroot/settings.py:122
+#: familyroot/settings.py:123
 msgid "Polish"
 msgstr ""
 
-#: familyroot/settings.py:123
+#: familyroot/settings.py:124
 msgid "Finnish"
+msgstr ""
+
+#: familyroot/settings.py:125
+msgid "French"
+msgstr ""
+
+#: gallery/templates/gallery/edit_gallery.html:27
+#: gallery/templates/gallery/image_details.html:38
+#: gallery/templates/gallery/image_tagging.html:38
+msgid "Title"
+msgstr ""
+
+#: gallery/templates/gallery/edit_gallery.html:32
+#: gallery/templates/gallery/image_details.html:44
+#: gallery/templates/gallery/image_details.html:46
+#: gallery/templates/gallery/image_tagging.html:44
+#: gallery/templates/gallery/image_tagging.html:46
+msgid "Description"
+msgstr ""
+
+#: gallery/templates/gallery/gallery.html:15
+msgid "Add New Image"
+msgstr ""
+
+#: gallery/templates/gallery/gallery.html:26
+#: gallery/templates/gallery/gallery_index.html:18
+msgid "Loading..."
+msgstr ""
+
+#: gallery/templates/gallery/gallery.html:35
+msgid "Delete Gallery"
+msgstr ""
+
+#: gallery/templates/gallery/gallery.html:38
+msgid ""
+"Are you sure you want to leave delete this gallery?  It will delete all the "
+"images in it!"
+msgstr ""
+
+#: gallery/templates/gallery/gallery.html:116
+msgid "Details"
+msgstr ""
+
+#: gallery/templates/gallery/gallery.html:120
+#: gallery/templates/gallery/image_details.html:25
+#: gallery/templates/gallery/image_tagging.html:25
+msgid "Download Original"
+msgstr ""
+
+#: gallery/templates/gallery/gallery.html:145
+msgid "No more images to show"
+msgstr ""
+
+#: gallery/templates/gallery/gallery.html:150
+msgid "Error loading images"
+msgstr ""
+
+#: gallery/templates/gallery/gallery_index.html:9
+msgid "Add New Gallery"
+msgstr ""
+
+#: gallery/templates/gallery/gallery_index.html:12
+msgid "Galleries"
+msgstr ""
+
+#: gallery/templates/gallery/gallery_index.html:85
+msgid "Last Updated:"
+msgstr ""
+
+#: gallery/templates/gallery/gallery_index.html:103
+msgid "No more galleries to show"
+msgstr ""
+
+#: gallery/templates/gallery/image_details.html:28
+#: gallery/templates/gallery/image_tagging.html:28
+msgid "Make Gallery Thumbnail"
+msgstr ""
+
+#: gallery/templates/gallery/image_details.html:36
+#: gallery/templates/gallery/image_details.html:121
+#: gallery/templates/gallery/image_details.html:125
+#: gallery/templates/gallery/image_tagging.html:36
+#: gallery/templates/gallery/image_tagging.html:121
+#: gallery/templates/gallery/image_tagging.html:125
+msgid "(Edit Details)"
+msgstr ""
+
+#: gallery/templates/gallery/image_details.html:52
+#: gallery/templates/gallery/image_details.html:54
+#: gallery/templates/gallery/image_tagging.html:52
+#: gallery/templates/gallery/image_tagging.html:54
+msgid "Date Taken"
+msgstr ""
+
+#: gallery/templates/gallery/image_details.html:60
+#: gallery/templates/gallery/image_tagging.html:60
+msgid "Location Latitude"
+msgstr ""
+
+#: gallery/templates/gallery/image_details.html:62
+#: gallery/templates/gallery/image_tagging.html:62
+msgid "Latitude"
+msgstr ""
+
+#: gallery/templates/gallery/image_details.html:68
+#: gallery/templates/gallery/image_tagging.html:68
+msgid "Location Longitude"
+msgstr ""
+
+#: gallery/templates/gallery/image_details.html:70
+#: gallery/templates/gallery/image_tagging.html:70
+msgid "Longitude"
+msgstr ""
+
+#: gallery/templates/gallery/image_details.html:84
+#: gallery/templates/gallery/image_tagging.html:84
+msgid "Delete Image"
+msgstr ""
+
+#: gallery/templates/gallery/image_details.html:87
+#: gallery/templates/gallery/image_tagging.html:87
+msgid "Are you sure you want to leave delete this image?"
+msgstr ""
+
+#: gallery/templates/gallery/image_details.html:122
+#: gallery/templates/gallery/image_tagging.html:122
+msgid "Done Editing"
+msgstr ""
+
+#: gallery/templates/gallery/upload_images.html:11
+msgid "Upload New Photo"
+msgstr ""
+
+#: gallery/templates/gallery/upload_images.html:14
+msgid "Upload a new photo to the gallery"
+msgstr ""
+
+#: gallery/templates/gallery/upload_images.html:20
+msgid "Select files..."
 msgstr ""
 
 #: templates/about.html:16
@@ -850,13 +1011,17 @@ msgid "Map"
 msgstr "地圖"
 
 #: templates/base.html:64
+msgid "Gallery"
+msgstr ""
+
+#: templates/base.html:65
 msgid "Search"
 msgstr "搜索"
 
-#: templates/base.html:65
+#: templates/base.html:66
 msgid "About"
 msgstr "大約"
 
-#: templates/base.html:72
+#: templates/base.html:73
 msgid "Log Out"
 msgstr "考勤出"

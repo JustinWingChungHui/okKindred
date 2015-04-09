@@ -7,9 +7,11 @@ from django.contrib import admin
 
 
 class GalleryAdmin(admin.ModelAdmin):
+    list_display = ('id','family','title','last_updated_date','creation_date')
     raw_id_fields = ('family',)
 
 class ImageAdmin(admin.ModelAdmin):
+    list_display = ('id','gallery','title','last_updated_date','creation_date')
     raw_id_fields = ('gallery',)
 
 class TagAdmin(admin.ModelAdmin):

@@ -129,7 +129,7 @@ def how_am_i_related_view(request, person_id = 0, person = None):
     user_person = Person.objects.get(user_id = request.user.id)
 
 
-    people, relations = tree_service.get_related_path(user_person, person)
+    people, relations = tree_service.get_shortest_path(user_person, person)
 
     if people is None:
         raise Http404

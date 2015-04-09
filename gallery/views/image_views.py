@@ -260,3 +260,26 @@ def set_image_as_gallery_thumbnail(request, image_id):
     gallery.save()
 
     return HttpResponseRedirect('/gallery/')
+
+
+@login_required
+@set_language
+def image_tagging(request, image_id):
+    '''
+    Shows the image detail view
+    '''
+    im = get_object_or_404(Image, pk = image_id)
+
+    #Check same family
+    if request.user.family_id != im.family_id:
+        raise Http404
+
+    #Gets the image detail view
+    template = loader.get_template('gallery/image_tagging.html')
+    context = RequestContext(request,
+                                {
+                                    'image' : im,
+                                })
+
+    response = template.render(context)
+    return HttpResponse(response)

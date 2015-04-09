@@ -61,30 +61,6 @@ def get_related_data(person):
 
 
 
-def get_related_path(user_person, to_person):
-        '''
-        Gets the path from one relative to another
-        '''
-        relations_by_person = Relation.objects.get_navigable_relations(to_person.family_id)
-
-        visited_person_ids = []
-        route = []
-        route.append(to_person.id)
-        found_route = _search_next_node(relations_by_person, visited_person_ids, route, user_person.id)
-
-        #No path found
-        if found_route is None:
-            return None, None
-
-        #Get the profiles of the people in the route
-        people_path = list(Person.objects.filter(pk__in=found_route))
-
-        #Sort them by the found_route
-        people_path.sort(key=lambda p: found_route.index(p.pk))
-
-        return people_path, _get_path_relations(found_route, relations_by_person)
-
-
 def _get_path_relations(route, relations_by_person):
     '''
     Gets the relation objects associated with the route
@@ -112,39 +88,6 @@ def _get_path_relations(route, relations_by_person):
                 raise Exception("Infinite loop")
 
     return relations
-
-
-def _search_next_node(paths_by_person, visited_person_ids, route, end_node_id):
-    '''
-    Searches the next node to see if the end node is conected to it
-    Recursive path search
-    '''
-
-    #Last element of the list
-    start_node_id = route[-1]
-
-    for path in paths_by_person[start_node_id]:
-        if not path.to_person_id in visited_person_ids:
-
-            visited_person_ids.append(start_node_id)
-
-            #Success!
-            if end_node_id == path.to_person_id:
-                route.append(path.to_person_id)
-                return route
-
-            #Copy lists http://stackoverflow.com/questions/2612802/how-to-clone-or-copy-a-list-in-python
-            new_route = list(route)
-            new_route.append(path.to_person_id)
-
-            #Recursively search next node
-            result = _search_next_node(paths_by_person, visited_person_ids, new_route, end_node_id)
-
-            if not result is None:
-                return result
-
-    #No route found
-    return None
 
 
 def get_whole_tree(family_id):
@@ -258,3 +201,63 @@ def _add_related(person, people_by_id, list_of_people_by_hierachy, people_includ
                 people_included[relation.id] = relation
 
                 _add_related(relation, people_by_id, list_of_people_by_hierachy, people_included, relations_by_person, relation_types)
+
+
+
+def get_shortest_path(user_person, to_person):
+    '''
+    Gets the shortest path from the to_person to the user
+    '''
+    relations_by_person = Relation.objects.get_navigable_relations(to_person.family_id)
+
+    visited_person_ids = []
+    routes = []
+    routes.append([to_person.id])
+
+
+    count = 0
+    found_route = _search_next_relative(relations_by_person, routes, visited_person_ids, user_person.id, count)
+
+    #No path found
+    if found_route is None:
+        return None, None
+
+    #Get the profiles of the people in the route
+    people_path = list(Person.objects.filter(pk__in=found_route))
+
+    #Sort them by the found_route
+    people_path.sort(key=lambda p: found_route.index(p.pk))
+
+    return people_path, _get_path_relations(found_route, relations_by_person)
+
+
+def _search_next_relative(relations_by_person, routes, visited_person_ids, user_person_id, count):
+    '''
+    Searches the next node of relatives
+    '''
+    new_routes = []
+
+    for route in routes:
+
+        #Get last element
+        from_person_id = route[-1]
+
+        for relation in relations_by_person[from_person_id]:
+
+            if relation.to_person_id not in visited_person_ids:
+
+                new_route = list(route)
+                new_route.append(relation.to_person_id)
+
+                new_routes.append(new_route)
+                visited_person_ids.append(relation.to_person_id)
+
+                if relation.to_person_id == user_person_id:
+                    return new_route
+
+    #Infinite loop protection
+    count +=1
+    if count > 1000:
+        return None
+
+    return _search_next_relative(relations_by_person, new_routes, visited_person_ids, user_person_id, count)
