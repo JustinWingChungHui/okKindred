@@ -173,8 +173,8 @@ class TestImageViews(TestCase):
         image.save()
 
         self.client.login(email='queen_of_hearts@queenonline.com', password='Off With Their Heads')
-        response = self.client.post('/image={0}/tags/create/'.format(self.image.id)
-        ,   {
+        response = self.client.post('/image={0}/tags/create/'.format(self.image.id),
+           {
                 'person': self.person.id,
                 'x1': 0.314159,
                 'y1': 0.1,

@@ -311,4 +311,25 @@ textarea {
     }
 }
 
+/** Styling for image details **/
+#image_location_map{
+    width: 300px;
+    height: 300px;
+}
+
+.tag_box {
+    border:2px solid #EEE;
+    z-index:1000;
+    position:absolute;
+    top:0;
+    text-align: center;
+}
+
+.tag_description {
+    background-color: #111;
+    color: white;
+    font-size: 9px;
+    position:absolute;
+    left: 0px;
+}
 

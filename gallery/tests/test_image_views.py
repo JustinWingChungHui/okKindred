@@ -230,11 +230,11 @@ class TestImageViews(TestCase):
         response = self.client.get('/image={0}/details/'.format(im.id))
 
         self.assertEqual(200, response.status_code)
-        self.assertTemplateUsed(response, 'gallery/image_details.html')
+        self.assertTemplateUsed(response, 'gallery/image_tagging.html')
 
     def test_image_detail_view_does_not_load_for_another_family(self):
         '''
-        Test that the image deatil view loads
+        Test that the image detail view loads
         '''
         im = Image(
                     gallery=self.gallery,
