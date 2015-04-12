@@ -10,9 +10,9 @@
 
 <div class="container" style="padding-top: 20px;">
     <p>
-        <a class="btn btn-info" href="/gallery/" role="button">&laquo;{%trans "Back" %}</a>
+        <a class="btn btn-success" href="/gallery/" role="button">&laquo;{%trans "Index" %}</a>
         <a class="btn btn-info" href="/gallery={{ gallery.id }}/edit/" role="button">{%trans "Edit" %}</a>
-        <a class="btn btn-success" href="/gallery={{ gallery.id }}/upload_images/" role="button">+{%trans "Add New Image" %}</a>
+        <a class="btn btn-warning" href="/gallery={{ gallery.id }}/upload_images/" role="button">+{%trans "Add New Image" %}</a>
         <a class="btn btn-danger" role="button" href="#modal_delete" data-toggle="modal">{%trans "Delete" %}</a>
     </p>
     <h2>{{ gallery.title }}</h2>
@@ -109,16 +109,10 @@ function load_more()
                     html.push(data[i].fields.large_thumbnail);
                     html.push('" data-lightbox="{{ gallery.id }}"');
                     html.push(' data-title="');
-                    html.push(data[i].fields.title);
-
-                    html.push('&lt;br/&gt;&lt;a href=\'/image=');
+                    html.push('&lt;a href=\'/image=');
                     html.push(data[i].pk);
-                    html.push('/details/\'&gt; {% trans "Details" %} &lt;/a&gt');
-
-                    html.push(' | &lt;a href=\'/media/');
-                    html.push(data[i].fields.original_image);
-                    html.push('\' target=\'_blank\' &gt; {% trans "Download Original" %} &lt;/a&gt');
-
+                    html.push('/details/\' class=\'btn btn-info\' &gt; {% trans "Details" %} &lt;/a&gt ');
+                    html.push(data[i].fields.title);
                     html.push('">');
 
                     html.push('<img class="masonry_thumbnail" src="/media/' + data[i].fields.thumbnail + '" ');

@@ -93,9 +93,6 @@ urlpatterns = patterns('',
     url(r'^image=(?P<image_id>\d+)/delete/$', 'gallery.views.image_delete', name='image_delete'),
     url(r'^image=(?P<image_id>\d+)/make_gallery_thumbnail/$', 'gallery.views.set_image_as_gallery_thumbnail', name='set_image_as_gallery_thumbnail'),
 
-    #Temporary
-    url(r'^image=(?P<image_id>\d+)/tagging/$', 'gallery.views.image_tagging', name='image_tagging'),
-
     #Tagging API
     url(r'^image=(?P<image_id>\d+)/tags/get/$', 'gallery.views.get_tags', name='get_tags'),
     url(r'^tag=(?P<tag_id>\d+)/delete/$', 'gallery.views.delete_tag', name='delete_tag'),
