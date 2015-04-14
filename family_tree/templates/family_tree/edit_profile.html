@@ -3,7 +3,7 @@
 {% load i18n %}
 
 {% block extrastyle %}
-    <link href="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet"/>
+    <link href="{% static "css/bootstrap-editable.css"%}" rel="stylesheet"/>
 {% endblock %}
 
 {% block content %}
@@ -68,26 +68,42 @@
             </tr>
 
 
-            {% if show_email_and_language %}
-                <tr>
-                    <th>{% trans "First Language" %}*</th>
-                    <td>
-                        <a href="#" id="language" data-type="select" data-title="{% trans "First Language" %}" data-pk="{{ person.id }}" data-url="/update_person={{ person.id }}/" data-params="{csrfmiddlewaretoken:'{{csrf_token}}'}">
-                            {{ person.get_language_display }}
-                        </a>
-                    </td>
-                </tr>
+        {% if show_email_and_language %}
+            <tr>
+                <th>{% trans "First Language" %}*</th>
+                <td>
+                    <a href="#" id="language" data-type="select" data-title="{% trans "First Language" %}" data-pk="{{ person.id }}" data-url="/update_person={{ person.id }}/" data-params="{csrfmiddlewaretoken:'{{csrf_token}}'}">
+                        {{ person.get_language_display }}
+                    </a>
+                </td>
+            </tr>
 
+            <tr>
+                <th>{% trans "Email" %}</th>
+                <td>
+                    <a href="#" id="email" data-type="text" data-title="{% trans "Email" %}" data-pk="{{ person.id }}" data-url="/update_person={{ person.id }}/" data-params="{csrfmiddlewaretoken:'{{csrf_token}}'}">
+                        {{ person.email }}
+                    </a>
+                </td>
+            </tr>
+        {% endif %}
+            <tr>
+                <th>{% trans "Spoken Languages" %}*</th>
+                <td>
+                    <a href="#" id="spoken_languages" data-type="text" data-title="{% trans "Spoken Languages" %}" data-pk="{{ person.id }}" data-url="/update_person={{ person.id }}/" data-params="{csrfmiddlewaretoken:'{{csrf_token}}'}">
+                        {{ person.spoken_languages }}
+                    </a>
+                </td>
+            </tr>
 
-                <tr>
-                    <th>{% trans "Email" %}</th>
-                    <td>
-                        <a href="#" id="email" data-type="text" data-title="{% trans "Email" %}" data-pk="{{ person.id }}" data-url="/update_person={{ person.id }}/" data-params="{csrfmiddlewaretoken:'{{csrf_token}}'}">
-                            {{ person.email }}
-                        </a>
-                    </td>
-                </tr>
-            {% endif %}
+            <tr>
+                <th>{% trans "Occupation" %}</th>
+                <td>
+                    <a href="#" id="occupation" data-type="text" data-title="{% trans "Occupation" %}" data-pk="{{ person.id }}" data-url="/update_person={{ person.id }}/" data-params="{csrfmiddlewaretoken:'{{csrf_token}}'}">
+                        {{ person.occupation }}
+                    </a>
+                </td>
+            </tr>
 
             <tr>
                 <th>{% trans "Tel Number" %}</th>
@@ -98,22 +114,56 @@
                 </td>
             </tr>
 
-
-            <tr>
-                <th>{% trans "Website/Facebook/Twitter..." %}</th>
-                <td>
-                    <a href="#" id="website" data-type="text" data-title="{% trans "Website/Facebook/Twitter etc..." %}" data-pk="{{ person.id }}" data-url="/update_person={{ person.id }}/" data-params="{csrfmiddlewaretoken:'{{csrf_token}}'}">
-                        {{ person.website }}
-                    </a>
-                </td>
-            </tr>
-
-
             <tr>
                 <th>{% trans "Location" %}</th>
                 <td>
                     <a href="#" id="address" data-type="text" data-title="{% trans "Location.  Can be approximate e.g. Coventry, UK or 筲箕灣 香港" %}" data-pk="{{ person.id }}" data-url="/update_person={{ person.id }}/" data-params="{csrfmiddlewaretoken:'{{csrf_token}}'}">
                         {{ person.address }}
+                    </a>
+                </td>
+            </tr>
+
+            <tr>
+                <th>{% trans "Website" %}</th>
+                <td>
+                    <a href="#" id="website" data-type="text" data-title="{% trans "Website" %}" data-pk="{{ person.id }}" data-url="/update_person={{ person.id }}/" data-params="{csrfmiddlewaretoken:'{{csrf_token}}'}">
+                        {{ person.website }}
+                    </a>
+                </td>
+            </tr>
+
+            <tr>
+                <th>{% trans "Skype Name" %}</th>
+                <td>
+                    <a href="#" id="skype_name" data-type="text" data-title="{% trans "Skype Name" %}" data-pk="{{ person.id }}" data-url="/update_person={{ person.id }}/" data-params="{csrfmiddlewaretoken:'{{csrf_token}}'}">
+                        {{ person.skype_name }}
+                    </a>
+                </td>
+            </tr>
+
+            <tr>
+                <th>{% trans "Facebook" %}</th>
+                <td>
+                    <a href="#" id="facebook" data-type="text" data-title="{% trans "Facebook" %}" data-pk="{{ person.id }}" data-url="/update_person={{ person.id }}/" data-params="{csrfmiddlewaretoken:'{{csrf_token}}'}">
+                        {{ person.facebook }}
+                    </a>
+                </td>
+            </tr>
+
+            <tr>
+                <th>{% trans "Twitter" %}</th>
+                <td>
+                    <a href="#" id="twitter" data-type="text" data-title="{% trans "Twitter" %}" data-pk="{{ person.id }}" data-url="/update_person={{ person.id }}/" data-params="{csrfmiddlewaretoken:'{{csrf_token}}'}">
+                        {{ person.twitter }}
+                    </a>
+                </td>
+            </tr>
+
+            <tr>
+                <th>{% trans "LinkedIn" %}</th>
+                <td>
+                    <a href="#" id="linkedin" data-type="text" data-title="{% trans "LinkedIn" %}" data-pk="{{ person.id }}" data-url="/update_person={{ person.id }}/" data-params="{csrfmiddlewaretoken:'{{csrf_token}}'}">
+                        {{ person.linkedin }}
                     </a>
                 </td>
             </tr>
@@ -163,8 +213,7 @@
 {% endblock %}
 
 {% block extrascript %}
-
-    <script src="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
+    <script src="{% static "js/bootstrap-editable.min.js" %}"></script>
     <script>
         //turn to inline mode
         $.fn.editable.defaults.mode = 'inline';
@@ -208,6 +257,12 @@
             $('#telephone_number').editable();
             $('#website').editable();
             $('#address').editable();
+            $('#skype_name').editable();
+            $('#facebook').editable();
+            $('#twitter').editable();
+            $('#linkedin').editable();
+            $('#occupation').editable();
+            $('#spoken_languages').editable();
 
             //Pass through an empty string for false
             $('#locked').editable({
