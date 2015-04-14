@@ -76,7 +76,15 @@ class Person(models.Model):
 
     email = NullableEmailField(blank=True, null=True, default=None, unique=True)
     telephone_number = models.CharField(max_length=30, blank=True, null=False)
+    skype_name = models.CharField(max_length=100, blank=True, null=False)
+
     website = models.CharField(max_length=100, blank=True, null=False)
+    facebook = models.CharField(max_length=100, blank=True, null=False)
+    twitter = models.CharField(max_length=100, blank=True, null=False)
+    linkedin = models.CharField(max_length=100, blank=True, null=False)
+
+    occupation = models.CharField(max_length=100, blank=True, null=False)
+    spoken_languages = models.CharField(max_length=100, blank=True, null=False)
     address = models.CharField(max_length=255, blank=True, null=False)
 
     #Location use https://pypi.python.org/pypi/googlemaps?
@@ -176,6 +184,8 @@ class Person(models.Model):
         if not self.address:
             self.latitude = 0
             self.longitude = 0
+
+        self.format_urls()
 
         super(Person, self).save(*args, **kwargs) # Call the "real" save() method.
 
@@ -335,3 +345,11 @@ class Person(models.Model):
         large_thumb = im.copy()
         large_thumb.crop((x, y, x + w, y + h)).resize((200,200), Image.ANTIALIAS).save(''.join([settings.MEDIA_ROOT, 'profile_photos/', large_thumb_name]), "JPEG", quality=75)
         self.large_thumbnail = 'profile_photos/' + large_thumb_name
+
+
+    def format_urls(self):
+        '''
+        Ensures that urls start with http://
+        '''
+        if self.website and not self.website.startswith('http'):
+            self.website = 'http://' + self.website

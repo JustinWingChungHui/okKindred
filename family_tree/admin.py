@@ -9,9 +9,10 @@ from django.contrib import admin
 class PersonAdmin(admin.ModelAdmin):
 
     fieldsets = [
-          (None, {'fields': ['id','name','gender','family','locked','language','birth_year','year_of_death','photo'
-          ,'small_thumbnail','large_thumbnail','email','telephone_number','website','address'
-          ,'latitude','longitude','user','hierarchy_score']}),
+          (None, {'fields': ['id','name','gender','family','locked','language','birth_year','year_of_death','photo',
+          'small_thumbnail','large_thumbnail','email','telephone_number','website','address',
+          'skype_name','facebook','twitter','linkedin','occupation','spoken_languages',
+          'latitude','longitude','user','hierarchy_score']}),
           ('Tracking',  {'fields':['last_updated_date','creation_date'], 'classes': ['collapse']}),
           ]
 
