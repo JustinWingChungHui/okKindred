@@ -3,7 +3,7 @@
 {% load i18n %}
 
 {% block extrastyle %}
-    <link href="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet"/>
+    <link href="{% static "css/bootstrap-editable.css"%}" rel="stylesheet"/>
 {% endblock %}
 
 {% block content %}
@@ -213,8 +213,7 @@
 {% endblock %}
 
 {% block extrascript %}
-
-    <script src="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
+    <script src="{% static "js/bootstrap-editable.min.js" %}"></script>
     <script>
         //turn to inline mode
         $.fn.editable.defaults.mode = 'inline';
