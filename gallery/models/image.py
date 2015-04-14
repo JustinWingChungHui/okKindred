@@ -22,7 +22,7 @@ def upload_to(instance, filename):
     if not os.path.exists(directory):
         os.makedirs(directory)
 
-    return 'galleries/%s/%s/%s' % (instance.family_id,instance.gallery.id,filename)
+    return 'galleries/%s/%s/%s' % (instance.family_id, instance.gallery.id, filename)
 
 
 class Image(models.Model):
@@ -115,9 +115,9 @@ class Image(models.Model):
         image.thumbnail(size)
 
         filename = create_hash(str(self.original_image)) + '.jpg'
-        path_and_filename = upload_to(self, filename)
+        path_and_filename = upload_to(self, str(filename))
 
-        image.save(settings.MEDIA_ROOT + path_and_filename, "JPEG", quality=90)
+        image.save(settings.MEDIA_ROOT + str(path_and_filename), "JPEG", quality=90)
 
         return path_and_filename, image
 
@@ -146,10 +146,14 @@ class Image(models.Model):
         if not image:
             image = PIL.Image.open(self._get_absolute_image_path())
 
-        info = image._getexif()
-        for tag, value in info.items():
-            decoded = TAGS.get(tag, tag)
-            ret[decoded] = value
+        try:
+            info = image._getexif()
+            for tag, value in info.items():
+                decoded = TAGS.get(tag, tag)
+                ret[decoded] = value
+        except:
+            pass
+
         return ret
 
 

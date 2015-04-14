@@ -96,10 +96,11 @@ function set_file_upload(gallery_id, url, csrftoken) {
             $('#error_text').show();
         },
 
-        //navigate to resize image once uploaded
+        //navigate to tag image once uploaded
         done: function (e, data) {
-            //Pull the id from the url
-            window.location.href = '/gallery=' + gallery_id + '/';
+            var image_id = data.result[0].image_id;
+
+            window.location.href = '/image=' + image_id.toString() + '/details/';
          },
 
         //Show uploading status

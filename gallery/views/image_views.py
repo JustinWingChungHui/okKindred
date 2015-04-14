@@ -161,8 +161,9 @@ def process_image(filename, file, gallery):
     try:
         PIL.Image.open(os.path.join(settings.MEDIA_ROOT, str(im.original_image))).verify()
         im.save()
+        result['image_id'] = im.id
     except:
-        os.remove(''.join([settings.MEDIA_ROOT,im.original_image]))
+        os.remove(''.join([settings.MEDIA_ROOT,str(im.original_image)]))
         result['error'] = tran('Invalid image!')
 
     return result
