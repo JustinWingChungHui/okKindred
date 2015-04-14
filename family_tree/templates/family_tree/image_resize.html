@@ -12,13 +12,13 @@
     <p>
 		<form style="margin: 0; padding: 0;" action="/image_crop={{ person.id }}/" onsubmit="return checkCoords();" method="post">
 		    {% csrf_token %}
-		    <a class="btn btn-default" href="/profile={{ person.id }}/" role="button">&laquo;{%trans "Back" %}</a>
+		    <a class="btn btn-danger" href="/profile={{ person.id }}/" role="button">&laquo;{%trans "Back" %}</a>
 			<input type="hidden" id="x" name="x" />
 			<input type="hidden" id="y" name="y" />
 			<input type="hidden" id="w" name="w" />
 			<input type="hidden" id="h" name="h" />
 			<input type="hidden" id="display_height" name="display_height" />
-			<input type="submit" value="{%trans "Save" %}&raquo;" class="btn btn-default" />
+			<input type="submit" value="{%trans "Save" %}&raquo;" class="btn btn-success" />
 		</form>
 
     </p>
