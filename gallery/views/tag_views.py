@@ -88,7 +88,7 @@ def create_tag(request, image_id):
     tag = Tag.objects.create(image_id=image_id, x1=x1, y1=y1, x2=x2, y2=y2, person_id=person_id)
 
     # Send notification email
-    if person.user:
+    if person.user and person.user.receive_photo_update_emails:
         send_tag_notification_email(person.user, im)
 
     response =  {

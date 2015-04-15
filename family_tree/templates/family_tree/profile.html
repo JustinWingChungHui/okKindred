@@ -41,12 +41,12 @@
         {% if invite_allowed %}
         <form role="form" action="/accounts/invite_person={{ person.id }}/" method="post">
             {% csrf_token %}
-            <button class="btn btn-primary" type="submit" style ="width:200px;">{% trans "Invite to join" %}</button>
+            <button class="btn btn-primary btn-profile" type="submit">{% trans "Invite to join" %}</button>
         </form>
         {% endif %}
 
         {% if show_photos %}
-            <a href="/person={{ person.id }}/photos/" class="btn btn-success" style ="width:200px;">{% trans "Photos" %}</a>
+            <a href="/person={{ person.id }}/photos/" class="btn btn-success btn-profile">{% trans "Photos" %}</a>
         {% endif %}
 
     </div>

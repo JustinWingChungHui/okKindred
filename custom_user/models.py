@@ -49,7 +49,7 @@ class User(AbstractBaseUser):
     language = models.CharField(max_length=5, choices=settings.LANGUAGES, null = False, blank = False, default='en', db_index = True)
 
     receive_update_emails = models.BooleanField(_('Receive Update Emails'), default=True, help_text=_('Sends out emails if family has been updated'))
-
+    receive_photo_update_emails = models.BooleanField(_('Receive Photo Update Emails'), default=True, help_text=_('Sends out emails you have been tagged in a photo'))
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['name'] #should not contain the USERNAME_FIELD or password as these fields will always be prompted for.

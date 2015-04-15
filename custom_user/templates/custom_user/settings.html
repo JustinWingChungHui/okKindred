@@ -42,6 +42,15 @@
                     </a>
                 </td>
             </tr>
+            <tr>
+                <th>{% trans "Receive update emails when you are identified in a photo" %}</th>
+                <td>
+                    <a href="#" id="receive_photo_update_emails" data-title="{% trans "Do you want to receive update emails when you are identified in a photo?" %}" data-type="select"
+                            data-pk="{{ user.id }}" data-url="/accounts/update_settings/" data-params="{csrfmiddlewaretoken:'{{csrf_token}}'}">
+                        {% if user.receive_photo_update_emails %} {% trans "Yes" %} {% else %} {% trans "No" %} {% endif %}
+                    </a>
+                </td>
+            </tr>
         </table>
     </div>
 
@@ -148,6 +157,14 @@
                             {value: 1, text: '{% trans "Yes" %}'},
                         ],
             });
+
+            $('#receive_photo_update_emails').editable({
+                source: [
+                            {value: '', text: '{% trans "No" %}'},
+                            {value: 1, text: '{% trans "Yes" %}'},
+                        ],
+            });
+
         });
 
     </script>

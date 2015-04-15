@@ -71,7 +71,7 @@ class MyUserAdmin(UserAdmin):
     fieldsets = (
         (None, {'fields': ('email','name', 'password', 'family')}),
         ('Permissions', {'fields': ('is_superuser','is_active',)}),
-        ('Settings', {'fields': ('language','receive_update_emails')}),
+        ('Settings', {'fields': ('language','receive_update_emails','receive_photo_update_emails')}),
     )
     # add_fieldsets is not a standard ModelAdmin attribute. UserAdmin
     # overrides get_fieldsets to use this attribute when creating a user.

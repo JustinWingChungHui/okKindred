@@ -28,7 +28,7 @@ def get_related_data(person):
                                             INNER JOIN family_tree_relation r
                                                 ON r.to_person_id = p.id
                                                 AND r.from_person_id = {0}
-                                            ORDER BY hierarchy_score, gender;
+                                            ORDER BY hierarchy_score, birth_year, gender;
                                         """.format(person.id))
 
     people_upper = []
@@ -103,7 +103,7 @@ def get_whole_tree(family_id):
     people_by_id = {}
 
     #Get people by hierarchy
-    people = Person.objects.filter(family_id = family_id).order_by("hierarchy_score", "gender")
+    people = Person.objects.filter(family_id = family_id).order_by("hierarchy_score", "birth_year", "gender")
     for person in people:
         people_by_id[person.id] =  person
 
@@ -158,7 +158,7 @@ def _get_blood_relations(person, relation_type):
     people_included[person.id] = person
 
     #Get all the people in family to navigate through
-    people = Person.objects.filter(family_id = person.family_id).order_by("hierarchy_score", "gender")
+    people = Person.objects.filter(family_id = person.family_id).order_by("hierarchy_score", "birth_year", "gender")
     for p in people:
         people_by_id[p.id] =  p
 
