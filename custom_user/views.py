@@ -117,7 +117,7 @@ def update_user_setting_post(request):
     try:
         field_name = request.POST.get("name")
 
-        if field_name in ['receive_new_family_member_emails', 'receive_update_emails','language']:
+        if field_name in ['receive_update_emails','language','receive_photo_update_emails']:
 
             setattr(request.user, field_name, request.POST.get("value"))
             request.user.save()
