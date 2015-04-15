@@ -97,6 +97,10 @@ urlpatterns = patterns('',
     url(r'^image=(?P<image_id>\d+)/tags/get/$', 'gallery.views.get_tags', name='get_tags'),
     url(r'^tag=(?P<tag_id>\d+)/delete/$', 'gallery.views.delete_tag', name='delete_tag'),
     url(r'^image=(?P<image_id>\d+)/tags/create/$', 'gallery.views.create_tag', name='create_tag'),
+
+    #Person Gallery Views
+    url(r'^person=(?P<person_id>\d+)/photos/$', 'gallery.views.person_gallery', name='person_gallery'),
+    url(r'^person=(?P<person_id>\d+)/photos/image_data=(?P<page>\d+)/$', 'gallery.views.person_gallery_data', name='person_gallery_data'),
 )
 
 if 'rosetta' in settings.INSTALLED_APPS:

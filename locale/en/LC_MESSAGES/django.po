@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-14 19:36+0000\n"
+"POT-Creation-Date: 2015-04-15 23:08+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -40,7 +40,7 @@ msgstr ""
 #: family_tree/templates/family_tree/add_relation.html:77
 #: family_tree/templates/family_tree/edit_profile.html:35
 #: family_tree/templates/family_tree/edit_profile.html:37
-#: family_tree/templates/family_tree/profile.html:53
+#: family_tree/templates/family_tree/profile.html:56
 #: family_tree/templates/family_tree/search.html:14
 msgid "Name"
 msgstr ""
@@ -158,14 +158,14 @@ msgstr ""
 #: custom_user/templates/custom_user/settings.html:148
 #: family_tree/templates/family_tree/edit_profile.html:176
 #: family_tree/templates/family_tree/edit_profile.html:203
-#: family_tree/templates/family_tree/edit_profile.html:272
+#: family_tree/templates/family_tree/edit_profile.html:271
 msgid "Yes"
 msgstr ""
 
 #: custom_user/templates/custom_user/settings.html:41
 #: custom_user/templates/custom_user/settings.html:147
 #: family_tree/templates/family_tree/edit_profile.html:176
-#: family_tree/templates/family_tree/edit_profile.html:271
+#: family_tree/templates/family_tree/edit_profile.html:270
 msgid "No"
 msgstr ""
 
@@ -237,9 +237,9 @@ msgid "Yes and delete my profile"
 msgstr ""
 
 #: custom_user/templates/custom_user/settings.html:139
-#: family_tree/templates/family_tree/edit_profile.html:227
-#: family_tree/templates/family_tree/edit_profile.html:239
-#: family_tree/templates/family_tree/edit_profile.html:250
+#: family_tree/templates/family_tree/edit_profile.html:226
+#: family_tree/templates/family_tree/edit_profile.html:238
+#: family_tree/templates/family_tree/edit_profile.html:249
 #: gallery/templates/gallery/image_tagging.html:200
 msgid "Required field!"
 msgstr ""
@@ -371,19 +371,19 @@ msgstr ""
 
 #: family_tree/models/person.py:18
 #: family_tree/templates/family_tree/add_relation.html:53
-#: family_tree/templates/family_tree/edit_profile.html:234
+#: family_tree/templates/family_tree/edit_profile.html:233
 msgid "Female"
 msgstr ""
 
 #: family_tree/models/person.py:19
 #: family_tree/templates/family_tree/add_relation.html:54
-#: family_tree/templates/family_tree/edit_profile.html:235
+#: family_tree/templates/family_tree/edit_profile.html:234
 msgid "Male"
 msgstr ""
 
 #: family_tree/models/person.py:20
 #: family_tree/templates/family_tree/add_relation.html:55
-#: family_tree/templates/family_tree/edit_profile.html:236
+#: family_tree/templates/family_tree/edit_profile.html:235
 msgid "Other"
 msgstr ""
 
@@ -420,7 +420,7 @@ msgstr ""
 #: family_tree/templates/family_tree/add_relation.html:51
 #: family_tree/templates/family_tree/edit_profile.html:44
 #: family_tree/templates/family_tree/edit_profile.html:46
-#: family_tree/templates/family_tree/profile.html:58
+#: family_tree/templates/family_tree/profile.html:61
 msgid "Gender"
 msgstr ""
 
@@ -489,7 +489,7 @@ msgstr ""
 
 #: family_tree/templates/family_tree/edit_profile.html:53
 #: family_tree/templates/family_tree/edit_profile.html:55
-#: family_tree/templates/family_tree/profile.html:64
+#: family_tree/templates/family_tree/profile.html:67
 msgid "Birth Year"
 msgstr ""
 
@@ -503,24 +503,25 @@ msgstr ""
 
 #: family_tree/templates/family_tree/edit_profile.html:82
 #: family_tree/templates/family_tree/edit_profile.html:84
-#: family_tree/templates/family_tree/profile.html:90
+#: family_tree/templates/family_tree/profile.html:93
 msgid "Email"
 msgstr ""
 
 #: family_tree/templates/family_tree/edit_profile.html:91
 #: family_tree/templates/family_tree/edit_profile.html:93
+#: family_tree/templates/family_tree/profile.html:80
 msgid "Spoken Languages"
 msgstr ""
 
 #: family_tree/templates/family_tree/edit_profile.html:100
 #: family_tree/templates/family_tree/edit_profile.html:102
-#: family_tree/templates/family_tree/profile.html:83
-#: family_tree/templates/family_tree/profile.html:97
+#: family_tree/templates/family_tree/profile.html:86
+#: family_tree/templates/family_tree/profile.html:100
 msgid "Occupation"
 msgstr ""
 
 #: family_tree/templates/family_tree/edit_profile.html:109
-#: family_tree/templates/family_tree/profile.html:104
+#: family_tree/templates/family_tree/profile.html:107
 msgid "Tel Number"
 msgstr ""
 
@@ -531,7 +532,7 @@ msgid ""
 msgstr ""
 
 #: family_tree/templates/family_tree/edit_profile.html:118
-#: family_tree/templates/family_tree/profile.html:111
+#: family_tree/templates/family_tree/profile.html:114
 msgid "Location"
 msgstr ""
 
@@ -541,13 +542,13 @@ msgstr ""
 
 #: family_tree/templates/family_tree/edit_profile.html:127
 #: family_tree/templates/family_tree/edit_profile.html:129
-#: family_tree/templates/family_tree/profile.html:118
+#: family_tree/templates/family_tree/profile.html:121
 msgid "Website"
 msgstr ""
 
 #: family_tree/templates/family_tree/edit_profile.html:136
 #: family_tree/templates/family_tree/edit_profile.html:138
-#: family_tree/templates/family_tree/profile.html:125
+#: family_tree/templates/family_tree/profile.html:128
 msgid "Skype Name"
 msgstr ""
 
@@ -652,39 +653,39 @@ msgstr ""
 msgid "No photo uploaded for "
 msgstr ""
 
-#: family_tree/templates/family_tree/profile.html:44
+#: family_tree/templates/family_tree/profile.html:43
 msgid "Invite to join"
 msgstr ""
 
-#: family_tree/templates/family_tree/profile.html:71
+#: family_tree/templates/family_tree/profile.html:48
+msgid "Photos"
+msgstr ""
+
+#: family_tree/templates/family_tree/profile.html:74
 msgid "Death Year"
 msgstr ""
 
-#: family_tree/templates/family_tree/profile.html:77
-msgid "Spoke Languages"
-msgstr ""
-
-#: family_tree/templates/family_tree/profile.html:132
+#: family_tree/templates/family_tree/profile.html:135
 msgid "Facebook Name"
 msgstr ""
 
-#: family_tree/templates/family_tree/profile.html:139
+#: family_tree/templates/family_tree/profile.html:142
 msgid "Twitter Handle"
 msgstr ""
 
-#: family_tree/templates/family_tree/profile.html:148
+#: family_tree/templates/family_tree/profile.html:151
 msgid "Linked In Profile"
 msgstr ""
 
-#: family_tree/templates/family_tree/profile.html:157
+#: family_tree/templates/family_tree/profile.html:160
 msgid "Biography"
 msgstr ""
 
-#: family_tree/templates/family_tree/profile.html:171
+#: family_tree/templates/family_tree/profile.html:174
 msgid "Edit Biography"
 msgstr ""
 
-#: family_tree/templates/family_tree/profile.html:179
+#: family_tree/templates/family_tree/profile.html:182
 msgid "A biography has not yet been written for this language."
 msgstr ""
 
@@ -693,6 +694,7 @@ msgid "Search Name:"
 msgstr ""
 
 #: family_tree/templates/family_tree/tree.html:82
+#: gallery/templates/gallery/person_gallery.html:13
 msgid "Profile"
 msgstr ""
 
@@ -710,7 +712,7 @@ msgstr ""
 msgid "File is too big"
 msgstr ""
 
-#: family_tree/views/profile_views.py:74
+#: family_tree/views/profile_views.py:75
 msgid "A biography has not yet been written for this language"
 msgstr ""
 
@@ -759,6 +761,7 @@ msgstr ""
 
 #: gallery/templates/gallery/gallery.html:26
 #: gallery/templates/gallery/gallery_index.html:18
+#: gallery/templates/gallery/person_gallery.html:20
 msgid "Loading..."
 msgstr ""
 
@@ -773,14 +776,17 @@ msgid ""
 msgstr ""
 
 #: gallery/templates/gallery/gallery.html:114
+#: gallery/templates/gallery/person_gallery.html:82
 msgid "Details"
 msgstr ""
 
 #: gallery/templates/gallery/gallery.html:139
+#: gallery/templates/gallery/person_gallery.html:107
 msgid "No more images to show"
 msgstr ""
 
 #: gallery/templates/gallery/gallery.html:144
+#: gallery/templates/gallery/person_gallery.html:112
 msgid "Error loading images"
 msgstr ""
 
@@ -875,6 +881,10 @@ msgstr ""
 msgid "Done Editing"
 msgstr ""
 
+#: gallery/templates/gallery/person_gallery.html:15
+msgid "Pictures of"
+msgstr ""
+
 #: gallery/templates/gallery/upload_images.html:11
 msgid "Upload New Photo"
 msgstr ""
@@ -890,20 +900,21 @@ msgstr ""
 #: gallery/templates/gallery/you_have_been_tagged.html:10
 msgid ""
 "\n"
-"        You have been tagged in an image on ok!Kindred.  Click on the "
+"        You have been identified in a photo on ok!Kindred.  Click on the "
 "following link to see it:\n"
 "        "
 msgstr ""
 
 #: gallery/views/tag_views.py:114
-msgid "You have been tagged in a photo in ok!Kindred"
+msgid "You have been identified in a new photo in ok!Kindred"
 msgstr ""
 
 #: gallery/views/tag_views.py:116
 #, python-brace-format
 msgid ""
 "Hi {0}\n"
-"                                        You have been tagged in a photo.\n"
+"                                        You have been identified in a "
+"photo.\n"
 "                                        To see it, please go to https://www."
 "okkindred.com/image={1}/details/\n"
 "                                    "

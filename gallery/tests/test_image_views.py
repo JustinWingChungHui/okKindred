@@ -1,7 +1,7 @@
 from django.test import TestCase
 from custom_user.models import User
-from gallery.models import Gallery, Image
-from family_tree.models import Family
+from gallery.models import Gallery, Image, Tag
+from family_tree.models import Family, Person
 from django.test.utils import override_settings
 from django.conf import settings
 from django.core import serializers
@@ -390,3 +390,54 @@ class TestImageViews(TestCase):
         response = self.client.post('/image={0}/make_gallery_thumbnail/'.format(im.id))
 
         self.assertEqual(404, response.status_code)
+
+
+    def test_person_gallery_view_loads(self):
+        '''
+        Test that the person gallery view loads
+        '''
+        p = Person.objects.create(name='badger', family_id=self.family.id)
+        self.client.login(email='badger@queenonline.com', password='save the badgers')
+        response = self.client.get('/person={0}/photos/'.format(p.id))
+
+        self.assertEqual(200, response.status_code)
+        self.assertTemplateUsed(response, 'gallery/person_gallery.html')
+
+    def test_person_gallery_view_does_not_load_for_another_family(self):
+        '''
+        Test that the person gallery view does not load for another family
+        '''
+        p = Person.objects.create(name='mrs badger', family_id=self.family.id)
+        self.client.login(email='weebl@queenonline.com', password='mushroom')
+        response = self.client.get('/person={0}/photos/'.format(p.id))
+
+        self.assertEqual(404, response.status_code)
+
+
+    def test_person_gallery_data_loads(self):
+        '''
+        Tests that the image data for a person gallery loads
+        '''
+        p = Person.objects.create(name='grandpa badger', family_id=self.family.id)
+
+        for i in self.images:
+            i.save()
+            Tag.objects.create(image=i, person=p, x1=0.1, x2=0.2, y1=0.2, y2=0.3)
+
+        self.client.login(email='badger@queenonline.com', password='save the badgers')
+        response = self.client.get('/person={0}/photos/image_data=1/'.format(p.id))
+
+        self.assertEqual(200, response.status_code)
+        self.assertEqual(True, b'test_image.jpg' in response.content)
+
+        #Check that the response is valid json
+        serializers.json.Deserializer(response.content)
+
+        #Clear up
+        for i in self.images:
+            i.delete()
+
+        #Check cannot be loaded by another family
+        self.client.login(email='weebl@queenonline.com', password='mushroom')
+        new_response = self.client.get('/person={0}/photos/image_data=1/'.format(p.id))
+        self.assertEqual(404, new_response.status_code)

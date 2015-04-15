@@ -8,6 +8,7 @@ from django.utils.translation import ugettext_lazy as _
 from family_tree.decorators import same_family_required
 from django.http import HttpResponseRedirect
 from custom_user.decorators import set_language
+from gallery.models import Tag
 
 
 
@@ -83,6 +84,7 @@ def profile(request, person_id = 0, person = None, requested_language = '', edit
                                     'locked': (True if request.user.id != person.user_id and person.locked else False),
                                     'show_relation_to_me': (True if request.user.id != person.user_id else False),
                                     'invite_allowed' : invite_allowed,
+                                    'show_photos': (True if Tag.objects.filter(person_id=person.id).count() > 0 else False),
                                 })
 
     response = template.render(context)
