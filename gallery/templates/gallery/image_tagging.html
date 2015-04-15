@@ -260,10 +260,10 @@ $(document).ready(function() {
         var height = $('#image_map').height();
         var left_distance = e.pageX - $(this).offset().left;
         var top_distance = e.pageY - $(this).offset().top;
-        var height_diff = 0.05 / height * width;
+        var height_diff = 0.03 / height * width;
 
-        $("#tag_add_modal_x1").val(left_distance / width - 0.05);
-        $("#tag_add_modal_x2").val(left_distance / width + 0.05);
+        $("#tag_add_modal_x1").val(left_distance / width - 0.03);
+        $("#tag_add_modal_x2").val(left_distance / width + 0.03);
         $("#tag_add_modal_y1").val(top_distance / height - height_diff);
         $("#tag_add_modal_y2").val(top_distance / height + height_diff);
     });

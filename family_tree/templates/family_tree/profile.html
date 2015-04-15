@@ -30,13 +30,13 @@
             {% endif %}
         </p>
     </div>
-    <div class="col-md-4">
+
+    <div class="col-md-4" style ="max-width:300px;">
         {% if person.large_thumbnail %}
             <img src="/media/{{person.large_thumbnail}}" alt="{{ person.name }}"/>
         {% else %}
             <img src="{% static "img/portrait_200.png" %}" alt="{% trans "No photo uploaded for " %} {{ person.name }}"/>
         {% endif %}
-
 
         {% if invite_allowed %}
         <form role="form" action="/accounts/invite_person={{ person.id }}/" method="post">
@@ -45,7 +45,12 @@
         </form>
         {% endif %}
 
+        {% if show_photos %}
+            <a href="/person={{ person.id }}/photos/" class="btn btn-success" style ="width:200px;">{% trans "Photos" %}</a>
+        {% endif %}
+
     </div>
+
     <div class="col-md-8">
         <table class="table table-striped">
 
@@ -74,7 +79,7 @@
             {% endif %}
 
                 <tr>
-                  <th>{% trans "Spoke Languages" %}</th>
+                  <th>{% trans "Spoken Languages" %}</th>
                   <td>{{ person.spoken_languages }}</td>
                 </tr>
 
@@ -152,6 +157,7 @@
 
         </table>
     </div>
+
     <!-- Biographies-->
     <div class="col-md-12">
         <h3>{% trans "Biography" %}</h3>

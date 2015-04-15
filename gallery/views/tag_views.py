@@ -111,10 +111,10 @@ def send_tag_notification_email(user, image):
     language = user.language
     translation.activate(language)
 
-    subject = translation.ugettext('You have been tagged in a photo in ok!Kindred')
+    subject = translation.ugettext('You have been identified in a new photo in ok!Kindred')
 
     content = translation.ugettext( """Hi {0}
-                                        You have been tagged in a photo.
+                                        You have been identified in a photo.
                                         To see it, please go to https://www.okkindred.com/image={1}/details/
                                     """.format(user.name, image.id))
 

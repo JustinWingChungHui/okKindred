@@ -7,10 +7,12 @@ from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core import serializers
 from django.conf import settings
+from django.db import connection
 from django.shortcuts import get_object_or_404
 from common import create_hash
 from django.utils.translation import ugettext as tran
 from os.path import basename
+from family_tree.decorators import same_family_required
 import os
 import json
 import PIL
@@ -261,3 +263,61 @@ def set_image_as_gallery_thumbnail(request, image_id):
     gallery.save()
 
     return HttpResponseRedirect('/gallery/')
+
+
+@login_required
+@set_language
+@same_family_required
+def person_gallery(request, person_id, person = None):
+    '''
+    Gets gallery for a particular person
+    '''
+    template = loader.get_template('gallery/person_gallery.html')
+
+    context = RequestContext(request,
+                                {
+                                    'person' : person,
+                                })
+
+    response = template.render(context)
+    return HttpResponse(response)
+
+
+@login_required
+@set_language
+@same_family_required
+def person_gallery_data(request, person_id, person = None, page = 1):
+    '''
+    Gets image data for a particular person
+    '''
+    image_list = Image.objects.raw("""  SELECT i.*
+                                        FROM gallery_image i
+                                        INNER JOIN gallery_tag t
+                                            ON i.id = t.image_id
+                                            AND t.person_id = {0}
+                                        ORDER BY i.creation_date DESC
+                                """.format(person.id))
+    paginator = Paginator(image_list, 12) #show 12 per request, divisable by lots of numbers
+
+    #Get count to paginate raw query
+    cursor = connection.cursor()
+    cursor.execute("""  SELECT COUNT(*)
+                        FROM gallery_image i
+                        INNER JOIN gallery_tag t
+                            ON i.id = t.image_id
+                            AND t.person_id = {0}
+                    """.format(person.id))
+    paginator._count = cursor.fetchone()[0]
+
+    try:
+        images = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        images = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range return blank
+        return HttpResponse('[]', content_type="application/json")
+
+    data = serializers.serialize('json', images, fields=('id','title', 'thumbnail', 'large_thumbnail', 'original_image'))
+
+    return HttpResponse(data, content_type="application/json")

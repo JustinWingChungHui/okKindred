@@ -7,6 +7,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core import serializers
 from django.shortcuts import get_object_or_404
 
+
 @login_required
 @set_language
 def gallery_index(request):
@@ -113,3 +114,4 @@ def delete_gallery(request, gallery_id):
     gallery.delete()
 
     return HttpResponseRedirect('/gallery/')
+
