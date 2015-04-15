@@ -67,7 +67,7 @@ class Person(models.Model):
     language = models.CharField(max_length=5, choices=settings.LANGUAGES, null = False, blank = False, default='en')
 
     #Optional Fields
-    birth_year = models.IntegerField(blank=True, null=False, default = 0)
+    birth_year = models.IntegerField(blank=True, null=False, default = 0, db_index = True)
     year_of_death = models.IntegerField(blank=True, null=False, default = 0)
 
     photo = models.ImageField(upload_to='profile_photos', blank=True, null=False)

@@ -333,3 +333,8 @@ textarea {
     left: 0px;
 }
 
+/** Styling for profile **/
+.btn-profile {
+    width:200px;
+    margin:5px 0px 5px 0px;
+}
