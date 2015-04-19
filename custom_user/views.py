@@ -20,8 +20,10 @@ def login(request):
     '''
     Handles login requests
     '''
-    c = {}
+
+    c = { 'next': request.GET.get('next', '') }
     c.update(csrf(request))
+
     return render_to_response('custom_user/login.html', c)
 
 
@@ -49,14 +51,15 @@ def auth_view(request):
 
     check_request(request, login_unsuccessful)
 
-    if not login_unsuccessful:
-        auth.login(request, user)
-        return HttpResponseRedirect('/')
-
-    else:
-
-
+    if login_unsuccessful:
         return HttpResponseRedirect('/accounts/invalid')
+
+    target_url = request.POST.get('next', '/')
+
+    auth.login(request, user)
+    return HttpResponseRedirect(target_url)
+
+
 
 
 

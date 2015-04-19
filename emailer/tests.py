@@ -249,9 +249,9 @@ class EmailTestCase(TestCase):
                 )
         email4.save()
 
-        self.assertEqual(2, Email.objects._get_number_of_emails_to_send(11))
-        self.assertEqual(1, Email.objects._get_number_of_emails_to_send(1))
-        self.assertEqual(4, Email.objects._get_number_of_emails_to_send(12))
+        self.assertEqual(1, Email.objects._get_number_of_emails_to_send(11))
+        self.assertEqual(0, Email.objects._get_number_of_emails_to_send(1))
+        self.assertEqual(4, Email.objects._get_number_of_emails_to_send(20))
 
 
     def test_get_number_of_emails_to_send_when_some_have_already_been_sent(self):
@@ -296,5 +296,5 @@ class EmailTestCase(TestCase):
         email4.save()
 
         self.assertEqual(1, Email.objects._get_number_of_emails_to_send(11))
-        self.assertEqual(1, Email.objects._get_number_of_emails_to_send(1))
-        self.assertEqual(2, Email.objects._get_number_of_emails_to_send(12))
+        self.assertEqual(0, Email.objects._get_number_of_emails_to_send(1))
+        self.assertEqual(1, Email.objects._get_number_of_emails_to_send(19))

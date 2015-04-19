@@ -91,3 +91,11 @@ class TestCustomUserViews(TestCase):
 
         self.assertEqual(0, Person.objects.filter(name='Lau Fok Wing').count())
         self.assertEqual(0, User.objects.filter(email='andy_lau@email.com').count())
+
+    def test_next_parameter_sent_to_login(self):
+        '''
+        Tests that the next parameter appears as a hidden parameter in the login form
+        '''
+        response = self.client.get('/accounts/login/?next=/nexturl/')
+        self.assertEqual(200, response.status_code)
+        self.assertEqual(True, b'nexturl' in response.content)

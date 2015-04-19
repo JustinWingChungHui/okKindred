@@ -83,18 +83,18 @@ class EmailManager(models.Manager):
 
         #Can define a profile here to reduce network load
         proportion_to_send =  {
-                        1: 0.084,
-                        2: 0.091,
-                        3: 0.1,
-                        4: 0.111,
-                        5: 0.125,
-                        6: 0.143,
-                        7: 0.167,
-                        8: 0.2,
-                        9: 0.25,
-                        10: 0.333,
-                        11: 0.5,
-                        12: 1,
+                        9: 0.084,
+                        10: 0.091,
+                        11: 0.1,
+                        12: 0.111,
+                        13: 0.125,
+                        14: 0.143,
+                        15: 0.167,
+                        16: 0.2,
+                        17: 0.25,
+                        18: 0.333,
+                        19: 0.5,
+                        20: 1,
                     }.get(hour, 0)
 
         if proportion_to_send == 0:
