@@ -20,6 +20,11 @@
         });
     };
 
+    // Do search on load if already populated
+    if ($('#input_existing_name').val().length > 0) {
+        do_relation_search();
+    };
+
 
     $(document).on('click',".add_relation_existing_person",add_relation_existing_person);
 });
@@ -107,7 +112,12 @@ function search_result_returned(data){
         }
 
         row.push('</td>');
-        row.push('<td style="padding-top:40px"><a href="#" id="' + data[i].pk + '" class="add_relation_existing_person">' + data[i].fields.name);
+        row.push('<td style="padding-top:40px">');
+        row.push(data[i].fields.name);
+        row.push('</td>');
+        row.push('<td style="padding-top:30px;"><a href="#" style ="overflow: visible" id="');
+        row.push(data[i].pk);
+        row.push('" class="add_relation_existing_person btn btn-success"><i class="glyphicon glyphicon-plus"></i>');
         row.push('</a></td>');
         row.push('</td></tr>');
 
