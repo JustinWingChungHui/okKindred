@@ -6,7 +6,7 @@
 <div class="container" style="padding-top: 20px;">
     <div class="col-md-12">
         <p>
-            <a class="btn btn-default" href="/person={{ person.id }}/" role="button">&laquo;{%trans "Back" %}</a>
+            <a class="btn btn-danger" href="/person={{ person.id }}/" role="button">&laquo;{%trans "Cancel" %}</a>
         </p>
     </div>
 
@@ -28,9 +28,15 @@
 
         <div id="relation" class="boxed" >
             <select class="form-control" name="relation_type" id="relation_type">
+            {% if suggested_relation %}
+                <option value="1" {% if suggested_relation.relation_type == 1 %}selected{% endif %}>{% trans "Partnered" %}</option>
+                <option value="2" {% if suggested_relation.relation_type == 2 %}selected{% endif %}>{% trans "Raised" %}</option>
+                <option value="3" {% if suggested_relation.relation_type == 3 %}selected{% endif %}>{% trans "Raised By" %}</option>
+            {% else %}
                 <option value="1">{% trans "Partnered" %}</option>
                 <option value="2">{% trans "Raised" %}</option>
                 <option value="3">{% trans "Raised By" %}</option>
+            {% endif %}
             </select>
         </div>
 
@@ -74,13 +80,14 @@
                 <div class="form-group">
                     <label for="input_existing_name">{% trans "Search Name" %}</label>
                     <input type="hidden" id="relation_id" name="relation_id" class="form-control">
-                    <input type="search_text" id="input_existing_name" name="search_text" class="form-control" placeholder="{% trans "Name" %}">
+                    <input type="search_text" id="input_existing_name" name="search_text" class="form-control"
+                            placeholder="{% trans "Name" %}" {% if suggested_person %} value="{{ suggested_person.name }}" {% endif %}>
                 </div>
 
                 <div id="searching_in_progress" style="display:none;">
                     <img src="{% static "img/ajax-loader.gif" %}"/> {% trans "Searching..." %}
                 </div>
-                <div class="table-responsive">
+                <div class="table">
                     <table class="table table-striped">
                           <tbody id="results">
                           </tbody>
@@ -92,7 +99,7 @@
 
         </div>
 
-        <button id="relation_submit" class="btn btn-lg btn-primary btn-block" type="submit" style="display: None;" >{% trans "Save" %}</button>
+        <button id="relation_submit" class="btn btn-lg btn-success btn-block" type="submit" style="display: None;" >{% trans "Save" %}</button>
     </form>
 
 </div>

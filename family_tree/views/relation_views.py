@@ -11,6 +11,7 @@ from django.conf import settings
 from django.http import HttpResponseRedirect
 from django.db.models import Q
 from custom_user.decorators import set_language
+from family_tree.services import relation_suggestion_service
 
 @login_required
 @set_language
@@ -22,9 +23,13 @@ def add_relation_view(request, person_id = 0, person = None):
 
     template = loader.get_template('family_tree/add_relation.html')
 
+    suggested_relation, suggested_person = relation_suggestion_service.get_first_relation_suggestion(person)
+
     context = RequestContext(request,{
                                 'person' : person,
                                 'languages' : settings.LANGUAGES,
+                                'suggested_relation' : suggested_relation,
+                                'suggested_person' : suggested_person,
                             })
 
     response = template.render(context)
