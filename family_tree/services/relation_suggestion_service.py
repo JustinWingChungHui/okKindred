@@ -25,19 +25,21 @@ def get_relation_suggestions(person):
 
     relations_by_person = Relation.objects.get_navigable_relations(person.family_id)
 
-    for first_relation in relations_by_person[person.id]:
+    if person.id in relations_by_person:
 
-        #Suggest all children of partner
-        if first_relation.relation_type == PARTNERED:
-            suggestions.extend(_get_unrelated_childred_of_partner(person.id, first_relation.to_person_id, relations_by_person))
+        for first_relation in relations_by_person[person.id]:
 
-        #Suggest all parents of child
-        if first_relation.relation_type == RAISED:
-            suggestions.extend(_get_unrelated_parents_of_child(person.id, first_relation.to_person_id, relations_by_person))
+            #Suggest all children of partner
+            if first_relation.relation_type == PARTNERED:
+                suggestions.extend(_get_unrelated_childred_of_partner(person.id, first_relation.to_person_id, relations_by_person))
 
-        #Suggest all partners of parent
-        if first_relation.relation_type == RAISED_BY:
-            suggestions.extend(_get_unrelated_partners_of_parent(person.id, first_relation.to_person_id, relations_by_person))
+            #Suggest all parents of child
+            if first_relation.relation_type == RAISED:
+                suggestions.extend(_get_unrelated_parents_of_child(person.id, first_relation.to_person_id, relations_by_person))
+
+            #Suggest all partners of parent
+            if first_relation.relation_type == RAISED_BY:
+                suggestions.extend(_get_unrelated_partners_of_parent(person.id, first_relation.to_person_id, relations_by_person))
 
     return suggestions
 
