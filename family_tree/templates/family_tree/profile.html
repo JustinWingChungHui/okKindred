@@ -78,15 +78,10 @@
                 </tr>
             {% endif %}
 
+            {% if person.spoken_languages %}
                 <tr>
                   <th>{% trans "Spoken Languages" %}</th>
                   <td>{{ person.spoken_languages }}</td>
-                </tr>
-
-            {% if person.occupation %}
-                <tr>
-                  <th>{% trans "Occupation" %}</th>
-                  <td>{{ person.occupation }}</td>
                 </tr>
             {% endif %}
 
