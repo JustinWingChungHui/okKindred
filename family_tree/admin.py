@@ -35,5 +35,8 @@ class RelationAdmin(admin.ModelAdmin):
 
 admin.site.register(Relation,RelationAdmin)
 
-admin.site.register(Family)
+class FamilyAdmin(admin.ModelAdmin):
+    list_display = ('id','description')
+
+admin.site.register(Family, FamilyAdmin)
 

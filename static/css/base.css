@@ -193,6 +193,7 @@ textarea {
 .img-with-text {
     text-align: center;
     width: 90px;
+    height: 115px;
     float: left;
 }
 
@@ -205,12 +206,27 @@ textarea {
 .img-with-text-osm {
     text-align: center;
     width: 90px;
+    height: 115px;
     float: left;
 }
 
 .img-with-text-osm img {
     display: block;
     margin: 0 auto;
+}
+
+.circle {
+    width: 40px;
+    height: 40px;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 20px;
+    background-color: red;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 40px;
 }
 
 /** CSS for search page **/
