@@ -49,3 +49,25 @@ conn.close()
 
 with open("jquery.file_upload.compiled.js", "w") as text_file:
     text_file.write(data)
+
+
+params = urllib.urlencode([
+    ('code_url', 'https://www.okkindred.com/static/js/mapping/leaflet.js'),
+    ('code_url', 'https://www.okkindred.com/static/js/mapping/person_map.js'),
+    ('compilation_level', 'SIMPLE_OPTIMIZATIONS'),
+    ('output_format', 'text'),
+    ('output_info', 'compiled_code'),
+  ])
+
+# Always use the following value for the Content-type header.
+headers = { "Content-type": "application/x-www-form-urlencoded" }
+conn = httplib.HTTPConnection('closure-compiler.appspot.com')
+conn.request('POST', '/compile', params, headers)
+response = conn.getresponse()
+data = response.read()
+conn.close()
+
+
+with open("mapping.js", "w") as text_file:
+    text_file.write(data)
+

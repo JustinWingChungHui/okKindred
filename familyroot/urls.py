@@ -46,8 +46,9 @@ urlpatterns = patterns('',
     url(r'^profile=(?P<person_id>\d+)/ln=(?P<requested_language>[a-zA-Z]{1,8}(-[a-zA-Z0-9]{1,8})*)/$', 'family_tree.views.profile', name='profile'),
 
     #Maps Views
-    url(r'^map/$', 'family_tree.views.open_map', name='open_map'),
-    url(r'^map=(?P<person_id>\d+)/$', 'family_tree.views.open_map', name='open_map'),
+    url(r'^map/$', 'family_tree.views.map', name='map'),
+    url(r'^map=(?P<person_id>\d+)/$', 'family_tree.views.map', name='map'),
+    url(r'^map_points/(?P<division_size>\d+\.\d+)/$', 'family_tree.views.map_points', name='map_points'),
 
     #Search Views
     url(r'^search/$', 'family_tree.views.search', name='search'),
