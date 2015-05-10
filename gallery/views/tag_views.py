@@ -7,6 +7,7 @@ from django.utils import translation
 from django.core.mail import send_mail
 from django.template.loader import get_template
 from django.template import Context
+from django.conf import settings
 import json
 
 @login_required
@@ -115,8 +116,8 @@ def send_tag_notification_email(user, image):
 
     content = translation.ugettext( """Hi {0}
                                         You have been identified in a photo.
-                                        To see it, please go to https://www.okkindred.com/image={1}/details/
-                                    """.format(user.name, image.id))
+                                        To see it, please go to {1}/image={2}/details/
+                                    """.format(user.name, settings.DOMAIN, image.id))
 
     content_html = create_email_body_html(user, image)
 
@@ -136,6 +137,7 @@ def create_email_body_html(user, image):
                                 'language' : language,
                                 'user' : user,
                                 'image' : image,
+                                'domain' : settings.DOMAIN,
                             })
                     )
     return content_html

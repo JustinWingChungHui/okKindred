@@ -34,8 +34,9 @@ ALLOWED_HOSTS = [
                 '.okkindred.com',  # Allow domain and subdomains
                 ]
 
-# Application definition
+DOMAIN = 'https://www.okkindred.com'
 
+# Application definition
 INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.auth',
