@@ -86,21 +86,10 @@
 
     {% block content %}{% endblock %}
 
-    <!--
-        Cannot guarantee CDN in China
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-
-    <script src="{% static "js/jquery-1.11.2.min.js" %}"></script>
-    <script src="{% static "js/bootstrap.min.js" %}"></script>
-    -->
     <script src="{% static "js/app.js" %}"></script>
-
 
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     {% block extrascript %}{% endblock %}
-
-
 
 </body>
 </html>

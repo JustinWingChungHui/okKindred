@@ -19,7 +19,7 @@
         <i class="glyphicon glyphicon-plus"></i>
         <span>{% trans "Select file..." %}</span>
         <!-- The file input field used as target for the file upload widget -->
-        <input id="fileupload" type="file" name="picture">
+        <input id="profile_picture_upload" type="file" name="picture">
     </span>
     <br/>
     <br/>
@@ -40,13 +40,5 @@
 {% endblock %}
 
 {% block extrascript %}
-
-    <!--From https://github.com/blueimp/jQuery-File-Upload/blob/master/basic.html
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-file-upload/9.5.7/jquery.iframe-transport.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-file-upload/9.5.7/jquery.fileupload.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
-    -->
-    <script src="{% static "js/jquery.file_upload.compiled.js" %}"></script>
-    <script src="{% static "js/app_file_upload.js" %}"></script>
-
+<script src="{% static "js/file_upload.min.js" %}"></script>
 {% endblock %}

@@ -121,3 +121,4 @@ function get_map_data(map) {
         }
     );
 }
+
