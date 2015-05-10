@@ -18,6 +18,13 @@ $( document ).ready(function() {
             isFitWidth: true
         });
     });
+
+    //Display the default image if there is one
+    if ($('#default_image').length > 0) {
+        $('#default_image').trigger('click');
+    }
+
+
     gallery_load_more();
 });
 
@@ -25,7 +32,6 @@ $( document ).ready(function() {
 //Request more galleries when we scroll to the bottom
 $(window).scroll(function()
 {
-
     if ($('#image_container').length == 0) {
         return;
     }
@@ -60,7 +66,7 @@ function gallery_load_more()
                 for (var i in data) {
                     html.push('<a class="image_in_gallery" href="/media/');
                     html.push(data[i].fields.large_thumbnail);
-                    html.push('" data-lightbox="{{ gallery.id }}"');
+                    html.push('" data-lightbox="gallery"');
                     html.push(' data-title="');
                     html.push('&lt;a href=\'/image=');
                     html.push(data[i].pk);

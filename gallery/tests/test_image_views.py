@@ -66,7 +66,6 @@ class TestImageViews(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'gallery/gallery.html')
 
-
     def test_gallery_does_not_load_for_another_family(self):
         '''
         Tests gallery does not lad for another family
@@ -413,6 +412,57 @@ class TestImageViews(TestCase):
 
         self.assertEqual(404, response.status_code)
 
+    def test_person_gallery_with_auto_open_image_loads(self):
+        '''
+        Tests that the person gallery view loads when a photo to open by
+        is specified
+        '''
+        p = Person.objects.create(name='badger', family_id=self.family.id)
+
+        #Copy test image to media area
+        shutil.copy2(self.test_image, self.test_image_destination)
+
+        im = Image(
+                    gallery=self.gallery,
+                    family=self.family,
+                    original_image=self.test_image_destination,
+                    thumbnail=self.test_image_destination,
+                    large_thumbnail=self.test_image_destination
+                )
+        im.save()
+
+        self.client.login(email='badger@queenonline.com', password='save the badgers')
+        response = self.client.get('/person={0}/photos/image={1}/'.format(p.id, im.id))
+
+        im.delete_image_files()
+
+        self.assertEqual(200, response.status_code)
+        self.assertTemplateUsed(response, 'gallery/person_gallery.html')
+
+
+    def test_person_gallery_with_auto_open_image_does_not_load_for_another_family(self):
+        '''
+        Tests specified photo does not open if in another family
+        '''
+
+        #Copy test image to media area
+        shutil.copy2(self.test_image, self.test_image_destination)
+
+        image = Image(
+                    gallery=self.gallery,
+                    family=self.another_family,
+                    original_image=self.test_image_destination,
+                    thumbnail=self.test_image_destination,
+                    large_thumbnail=self.test_image_destination
+                    )
+
+        p = Person.objects.create(name='badger', family_id=self.family.id)
+        self.client.login(email='badger@queenonline.com', password='save the badgers')
+        response = self.client.get('/person={0}/photos/image={1}/'.format(p.id, image.id))
+
+        self.assertEqual(404, response.status_code)
+
+        image.delete_image_files()
 
     def test_person_gallery_data_loads(self):
         '''
@@ -435,9 +485,10 @@ class TestImageViews(TestCase):
 
         #Clear up
         for i in self.images:
-            i.delete()
+            i.delete_image_files()
 
         #Check cannot be loaded by another family
         self.client.login(email='weebl@queenonline.com', password='mushroom')
         new_response = self.client.get('/person={0}/photos/image_data=1/'.format(p.id))
         self.assertEqual(404, new_response.status_code)
+

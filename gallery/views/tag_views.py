@@ -90,7 +90,7 @@ def create_tag(request, image_id):
 
     # Send notification email
     if person.user and person.user.receive_photo_update_emails:
-        send_tag_notification_email(person.user, im)
+        send_tag_notification_email(person, im)
 
     response =  {
                     'id': tag.id,
@@ -104,40 +104,41 @@ def create_tag(request, image_id):
     return HttpResponse(json.dumps(response), content_type="application/json")
 
 
-def send_tag_notification_email(user, image):
+def send_tag_notification_email(person, image):
     '''
     Sends out an email to a user that they have been tagged in a photo
     '''
 
-    language = user.language
+    language = person.user.language
     translation.activate(language)
 
     subject = translation.ugettext('You have been identified in a new photo in ok!Kindred')
 
     content = translation.ugettext( """Hi {0}
                                         You have been identified in a photo.
-                                        To see it, please go to {1}/image={2}/details/
-                                    """.format(user.name, settings.DOMAIN, image.id))
+                                        To see it, please go to {1}/person={2}/photos/image={3}/
+                                    """.format(person.user.name, settings.DOMAIN, person.id, image.id))
 
-    content_html = create_email_body_html(user, image)
-
-
-    send_mail(subject, content, 'info@okkindred.com',[user.email], fail_silently=False, html_message=content_html)
+    content_html = create_email_body_html(person, image)
 
 
-def create_email_body_html(user, image):
+    send_mail(subject, content, 'info@okkindred.com',[person.user.email], fail_silently=False, html_message=content_html)
+
+
+def create_email_body_html(person, image):
     '''
     Creates the email from a template
     '''
-    language = user.language
+    language = person.user.language
     translation.activate(language)
 
     content_html = get_template('gallery/you_have_been_tagged.html').render(
                     Context({
                                 'language' : language,
-                                'user' : user,
+                                'user' : person.user,
                                 'image' : image,
                                 'domain' : settings.DOMAIN,
+                                'person' : person,
                             })
                     )
     return content_html

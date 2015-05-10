@@ -268,15 +268,25 @@ def set_image_as_gallery_thumbnail(request, image_id):
 @login_required
 @set_language
 @same_family_required
-def person_gallery(request, person_id, person = None):
+def person_gallery(request, person_id, person = None, image_id = None):
     '''
     Gets gallery for a particular person
     '''
     template = loader.get_template('gallery/person_gallery.html')
 
+    if image_id:
+        im = get_object_or_404(Image, pk = image_id)
+
+        #Check same family
+        if request.user.family_id != im.family_id:
+            raise Http404
+    else:
+        im = None
+
     context = RequestContext(request,
                                 {
                                     'person' : person,
+                                    'image' : im,
                                 })
 
     response = template.render(context)
