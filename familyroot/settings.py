@@ -34,7 +34,6 @@ ALLOWED_HOSTS = [
                 '.okkindred.com',  # Allow domain and subdomains
                 ]
 
-
 # Application definition
 
 INSTALLED_APPS = (

@@ -19,17 +19,15 @@
         <i class="glyphicon glyphicon-plus"></i>
         <span>{% trans "Select files..." %}</span>
         <!-- The file input field used as target for the file upload widget -->
-        <input id="fileupload" type="file" name="files[]"> <!--multiple doesn't work for some reason-->
+        <input id="gallery_photo_upload" type="file" name="files[]"> <!--multiple doesn't work for some reason-->
     </span>
     <br/>
     <br/>
     <!-- The global progress bar -->
 
-    <!--[if gt IE 9]><!-->
     <div id="progress" class="progress">
         <div class="progress-bar progress-bar-success"></div>
     </div>
-    <!--<![endif]-->
 
     <div id="processing_wait" style="display:none;">
         <img src="{% static "img/ajax-loader.gif" %}"/> {% trans "Processing..." %}
@@ -41,84 +39,6 @@
 
 {% block extrascript %}
 
-<!--From https://github.com/blueimp/jQuery-File-Upload/blob/master/basic.html
-<script src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-file-upload/9.5.7/jquery.iframe-transport.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-file-upload/9.5.7/jquery.fileupload.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
--->
-<script src="{% static "js/jquery.file_upload.compiled.js" %}"></script>
-<script>
-
-function csrfSafeMethod(method) {
-    // these HTTP methods do not require CSRF protection
-    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
-}
-
-
-
-$(document).ready(function(){
-    'use strict'; //http://ejohn.org/blog/ecmascript-5-strict-mode-json-and-more/
-
-
-    $('#processing_wait').hide();
-    $('#error_text').hide();
-
-    var gallery_id = window.location.pathname.match(/\d+/)[0];
-
-    //Server-side upload handler:
-    var url = '/gallery=' + gallery_id + '/upload_images_post/';
-    $('#progress .progress-bar').css('width','0%');
-
-    var csrftoken = $.cookie('csrftoken');
-
-    set_file_upload(gallery_id, url, csrftoken);
-});
-
-
-function set_file_upload(gallery_id, url, csrftoken) {
-
-    $('#fileupload').fileupload({
-        url: url,
-        crossDomain: false,
-        beforeSend: function(xhr, settings) {
-            if (!csrfSafeMethod(settings.type)) {
-                xhr.setRequestHeader("X-CSRFToken", csrftoken);
-            }
-        },
-        dataType: 'json',
-        acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
-        maxFileSize: 15000000, // 15 MB
-        maxNumberOfFiles: 5,
-        limitConcurrentUploads: 3,
-
-        fail: function(e, data){
-            $('#processing_wait').hide();
-            $('#error_text').show();
-        },
-
-        //navigate to tag image once uploaded
-        done: function (e, data) {
-            var image_id = data.result[0].image_id;
-
-            window.location.href = '/image=' + image_id.toString() + '/details/';
-         },
-
-        //Show uploading status
-        progressall: function (e, data) {
-            var progress = parseInt(data.loaded / data.total * 100, 10);
-            $('#progress .progress-bar').css(
-                'width',
-                progress + '%'
-            );
-
-            if (progress >= 100) {
-                 $('#processing_wait').show();
-            }
-
-        }
-    }).prop('disabled', !$.support.fileInput)
-        .parent().addClass($.support.fileInput ? undefined : 'disabled');
-}
-</script>
+<script src="{% static "js/file_upload.min.js" %}"></script>
 
 {% endblock %}

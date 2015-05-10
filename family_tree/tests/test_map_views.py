@@ -73,11 +73,16 @@ class TestMapViews(TestCase):
         #Create a Polish user
         user = User.objects.create_user(email='szajka@nowahuta.pl', password='nowa huta', name='Szajka', family_id=self.family.id, language='pl')
         self.client.login(email='szajka@nowahuta.pl', password='nowa huta')
-        Person.objects.create(name='Szajka', gender='M', user_id = user.id, email='szajka@nowahuta.pl', family_id=self.family.id, language='pl', longitude=1.1, latitude=1.2)
+        person = Person.objects.create(name='Szajka', gender='M', user_id = user.id, email='szajka@nowahuta.pl', family_id=self.family.id, language='pl')
+        person.longitude = 1.1
+        person.latitude = 1.2
+
+        super(Person, person).save()
+
         from django.utils import translation
         translation.activate('pl')
 
-        response = self.client.get('/map={0}/'.format(self.person2.id))
+        response = self.client.get('/map/')
 
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'family_tree/map.html')

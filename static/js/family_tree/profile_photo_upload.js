@@ -1,14 +1,9 @@
-
-function csrfSafeMethod(method) {
-    // these HTTP methods do not require CSRF protection
-    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
-}
-
-
-
 $(document).ready(function(){
     'use strict'; //http://ejohn.org/blog/ecmascript-5-strict-mode-json-and-more/
 
+    if ($('#profile_picture_upload').length == 0) {
+        return;
+    }
 
     $('#processing_wait').hide();
     $('#error_text').hide();
@@ -21,27 +16,22 @@ $(document).ready(function(){
 
     var csrftoken = $.cookie('csrftoken');
 
-    if( $("html").hasClass("ie8") || $("html").hasClass("ie9") ) {
-        set_file_upload_ie(person_id, url, csrftoken);
-    }
-    else {
-        set_file_upload(person_id, url, csrftoken);
-    }
+
+    set_profile_picture_upload(person_id, url, csrftoken);
+
 });
 
 
 
-function set_file_upload(person_id, url, csrftoken) {
+function set_profile_picture_upload(person_id, url, csrftoken) {
 
-    $('#fileupload').fileupload({
+    $('#profile_picture_upload').fileupload({
         url: url,
         crossDomain: false,
         maxNumberOfFiles: 1,
         beforeSend: function(xhr, settings) {
-            if (!csrfSafeMethod(settings.type)) {
                 xhr.setRequestHeader("X-CSRFToken", csrftoken);
-            }
-        },
+            },
         dataType: 'json',
         acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
         maxFileSize: 15000000, // 15 MB
@@ -74,28 +64,3 @@ function set_file_upload(person_id, url, csrftoken) {
         .parent().addClass($.support.fileInput ? undefined : 'disabled');
 }
 
-function set_file_upload_ie(person_id, url, csrftoken) {
-
-    $('#fileupload').fileupload({
-        url: url,
-        forceIframeTransport: true,
-        crossDomain: false,
-        dataType: 'json',
-        acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
-        maxFileSize: 15000000, // 15 MB
-
-        fail: function(e, data){
-            $('#processing_wait').hide();
-            $('#error_text').show();
-        },
-
-        //navigate to resize image once uploaded
-        done: function (e, data) {
-            //Pull the id from the url
-            window.location.href = '/image_resize=' + person_id + '/';
-         },
-
-
-    }).prop('disabled', !$.support.fileInput)
-        .parent().addClass($.support.fileInput ? undefined : 'disabled');
-}

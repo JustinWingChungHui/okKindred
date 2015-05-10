@@ -12,20 +12,31 @@
     <p>
         <a class="btn btn-success" href="/gallery/" role="button">&laquo;{%trans "Index" %}</a>
         <a class="btn btn-info" href="/gallery={{ gallery.id }}/edit/" role="button">{%trans "Edit" %}</a>
-        <a class="btn btn-warning" href="/gallery={{ gallery.id }}/upload_images/" role="button">+{%trans "Add New Image" %}</a>
+        <a class="btn btn-warning" href="/gallery={{ gallery.id }}/upload_images/" role="button">+{%trans "Add Image" %}</a>
         <a class="btn btn-danger" role="button" href="#modal_delete" data-toggle="modal">{%trans "Delete" %}</a>
     </p>
     <h2>{{ gallery.title }}</h2>
     <p>
         {{ gallery.description }}
     </p>
-    <div id="image_container">
+
+    <div id="image_container" data-gallery_url="/gallery={{ gallery.id }}/image_data=">
     </div>
+
     <div id="loadmoreajaxloader" style="display:none;">
         <center>
             <img src="{% static "img/ajax-loader.gif" %}" /> {% trans "Loading..." %}
         </center>
     </div>
+
+    <div id="NoMoreImages" style="display: None;">
+        <center>{% trans "No more images to show" %}</center>
+    </div>
+
+    <div id="ErrorLoadingImages" style="display: None;">
+        <center>{% trans "Error loading images" %}</center>
+    </div>
+
      <!--Delete profile popup-->
     <div class="modal fade" id="modal_delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -54,99 +65,10 @@
 
 </div>
 
+<div id="translate" data-details="Details"></div>
+
 {% endblock %}
 
 {% block extrascript %}
-<script src="{% static "js/imagesloaded.pkgd.min.js" %}"></script>
-<script src="{% static "js/masonry.pkgd.min.js" %}"></script>
-<script src="{% static "js/lightbox.min.js" %}"></script>
-
-<script type="text/javascript">
-var page = 0;
-var loading = false;
-
-//Initiate  maosnry
-$container = $('#image_container');
-$container.imagesLoaded(function(){
-    $container.masonry({
-        itemSelector: '.image_in_gallery',
-        columnWidth: 1,
-        isFitWidth: true
-    });
-});
-
-
-//Request the galleries on page load
-$( document ).ready(function() {
-    load_more();
-});
-
-
-//Request more galleries when we scroll to the bottom
-$(window).scroll(function()
-{
-    if($(window).scrollTop() > $(document).height() - $(window).height() - 100)
-    {
-        load_more();
-    }
-});
-
-//Ajax request to get more galleries
-function load_more()
-{
-    if (loading == true) { return; }
-    loading = true;
-
-    page = page + 1;
-    $('div#loadmoreajaxloader').show();
-    $.ajax({
-        url: "/gallery={{ gallery.id }}/image_data=" + page.toString(),
-        success: function(data) {
-            if(data && data.length > 0) {
-                var html =[];
-                for (var i in data) {
-                    html.push('<a class="image_in_gallery" href="/media/');
-                    html.push(data[i].fields.large_thumbnail);
-                    html.push('" data-lightbox="{{ gallery.id }}"');
-                    html.push(' data-title="');
-                    html.push('&lt;a href=\'/image=');
-                    html.push(data[i].pk);
-                    html.push('/details/\' class=\'btn btn-info\' &gt; {% trans "Details" %} &lt;/a&gt ');
-                    html.push(data[i].fields.title);
-                    html.push('">');
-
-                    html.push('<img class="masonry_thumbnail" src="/media/' + data[i].fields.thumbnail + '" ');
-                    html.push('alt="' + data[i].fields.title +'/"')
-                    html.push('/>');
-
-                    html.push('</a>');
-                }
-
-                 $('div#loadmoreajaxloader').hide();
-
-                var $data = $(html.join(''));
-                $container.append($data).imagesLoaded(function(){
-                    $container.masonry( 'appended', $data.filter(".image_in_gallery"), true );
-
-                    loading = false;
-                    //Keep loading images until we see a scroll bar
-                    if ($container.height() < $(window).height()) {
-                        load_more()
-                    }
-                });
-            }
-            else {
-                $('div#loadmoreajaxloader').html('<center>{% trans "No more images to show" %}.</center>');
-            }
-        },
-
-        error: function(jqXHR, textStatus, errorThrown ) {
-            $('div#loadmoreajaxloader').html('<center>{% trans "Error loading images" %}.</center>');
-            loading = false;
-        }
-    });
-}
-
-</script>
-
+<script src="{% static "js/gallery.min.js" %}"></script>
 {% endblock %}

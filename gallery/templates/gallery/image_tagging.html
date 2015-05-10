@@ -27,13 +27,14 @@
     <div id="tag_container">
         <!--http://stackoverflow.com/questions/11417272/links-inside-of-larger-clickable-areas-css-only-->
         <a href="#tag_add_modal" data-toggle="modal">
-            <img src="/media/{{ image.large_thumbnail }}" class="img-responsive" alt="{{ image.title }}" id="image_map"/>
+            <img src="/media/{{ image.large_thumbnail }}" class="img-responsive" alt="{{ image.title }}" id="image_map" data-id="{{ image.id }}"/>
         </a>
     </div>
 
-    <a href="#" id="enable">{% trans "(Edit Details)" %}</a>
+    <a href="#" id="enable" data-trans_edit="{% trans "(Edit Details)" %}" data-trans_done="{% trans "(Done Editing)" %}">{% trans "(Edit Details)" %}</a>
     <h4>
-        <a href="#" id="title" data-type="text" data-title="{% trans "Title" %}" data-pk="{{ image.id }}" data-url="/image={{ image.id }}/update/" data-placeholder="{% trans "Required" %}" data-params="{csrfmiddlewaretoken:'{{csrf_token}}'}">
+        <a href="#" id="title" data-type="text" data-title="{% trans "Title" %}" data-pk="{{ image.id }}"
+            data-url="/image={{ image.id }}/update/" data-placeholder="{% trans "Required" %}" data-params="{csrfmiddlewaretoken:'{{csrf_token}}'}" data-trans_required="{% trans "Required Field" %}">
             {{ image.title }}
         </a>
     </h4>
@@ -72,7 +73,9 @@
         </tr>
     </table>
 
-    <div id="image_location_map"></div>
+    {% localize off %}
+    <div id="image_location_map" data-latitude="{{ image.latitude }}" data-longitude="{{ image.longitude }}"></div>
+    {% endlocalize %}
 
      <!--Delete profile popup-->
     <div class="modal fade" id="modal_delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -168,285 +171,9 @@
 
 {% block extrascript %}
 
-<script src="{% static "js/moment.min.js" %}"></script>
-<script src="{% static "js/bootstrap-editable.min.js" %}"></script>
-<script src="{% static "js/jquery.cookie.js" %}"></script>
-<script src="{% static "js/leaflet.js" %}"></script>
+<script src="{% static "js/editable.min.js" %}"></script>
+<script src="{% static "js/jquery/jquery.cookie.js" %}"></script>
+<script src="{% static "js/mapping.min.js" %}"></script>
+<script src="{% static "js/gallery/image_tagging.js" %}"></script>
 
-<script>
-$(document).ready(function() {
-
-     //enable / disable
-   $('#enable').click(function(e) {
-
-        $('#editable_content .editable').editable('toggleDisabled');
-        if ($('#enable').html() == '{% trans "(Edit Details)" %}') {
-           $('#enable').text('{% trans "Done Editing" %}');
-        }
-        else {
-           $('#enable').text('{% trans "(Edit Details)" %}');
-        }
-        e.preventDefault();
-	    $('html, body').stop().animate({
-	        'scrollTop': $('#enable').offset().top
-	    }, 900, 'swing', function () {
-	        window.location.hash = $('#enable');
-	    });
-    });
-
-
-    $('#title').editable({
-        validate: function(value) {
-            if(!value) return '{% trans "Required field!" %}';
-        },
-        disabled: true
-    });
-
-
-    $('#description').editable({
-        disabled: true
-    });
-
-    $('#date_taken').editable({
-        placement: 'right',
-        combodate: {
-            firstItem: 'name'
-        },
-        disabled: true
-    });
-
-    $('#latitude').editable({
-        disabled: true
-    });
-
-    $('#longitude').editable({
-        disabled: true
-    });
-
-    set_map();
-
-    get_tags();
-
-
-    $('#tag_detail_modal').on('show.bs.modal', function(e) {
-        var person_id = e.relatedTarget.dataset.person_id;
-        $("#tag_detail_profile_link").attr("href", "/profile=" + person_id + "/");
-        $("#tag_detail_description").html(e.relatedTarget.dataset.person_name);
-        $("#tag_detail_delete_button").attr("data-tag_id", e.relatedTarget.dataset.tag_id)
-    });
-
-    $("#tag_detail_delete_button").click(function(e) {
-
-        var csrftoken = $.cookie('csrftoken');
-        $.ajax({
-            url: "/tag=" + e.currentTarget.dataset.tag_id + "/delete/",
-            type: "POST",
-            beforeSend: function(xhr, settings) {
-                xhr.setRequestHeader("X-CSRFToken", csrftoken);
-            },
-            success: function (data) {
-                var id = "#tag" + data.id.toString();
-                $(id).remove();
-            },
-            error: function (e) {
-                var i = e;
-            }
-        });
-    });
-
-    $("#image_map").click(function(e) {
-        //http://www.1stwebdesigner.com/image-tagging-tutorial/
-        var width = $('#image_map').width();
-        var height = $('#image_map').height();
-        var left_distance = e.pageX - $(this).offset().left;
-        var top_distance = e.pageY - $(this).offset().top;
-        var height_diff = 0.03 / height * width;
-
-        $("#tag_add_modal_x1").val(left_distance / width - 0.03);
-        $("#tag_add_modal_x2").val(left_distance / width + 0.03);
-        $("#tag_add_modal_y1").val(top_distance / height - height_diff);
-        $("#tag_add_modal_y2").val(top_distance / height + height_diff);
-    });
-
-    //input event only works on IE > 8
-    $("#search_text").on('input', function() {
-        do_search();
-    });
-});
-
-function create_tag(e) {
-    // Set the person_id value on the hidden form
-    var person_id = e.target.dataset.person_id;
-    $("#tag_add_modal_person").val(person_id);
-
-    // Submit it
-    var serializedData = $("#tag_add_post").serialize();
-
-    request = $.ajax({
-        url: "/image={{ image.id }}/tags/create/",
-        dataType: "json",
-        type: "post",
-        data: serializedData,
-    });
-
-    request.done(function (data) {
-        var image_position = $('#image_map').position();
-        var width = $('#image_map').width();
-        var height = $('#image_map').height();
-        $('#tag_container').append(create_tag_ui(data, image_position, width, height));
-    });
-}
-
-function do_search() {
-
-    if($('#search_text').val()==null || $('#search_text').val()=="")
-    {
-        $('#results').html("");
-        return false;
-    }
-
-    $('#searching_in_progress').show();
-
-    var $form = $("#search_form");
-
-    // Serialize the data in the form
-    var serializedData = $form.serialize();
-
-
-    // Fire off the request
-    request = $.ajax({
-        url: "/get_search_results_json/",
-        dataType: "json",
-        type: "post",
-        data: serializedData
-    });
-
-    // Callback handler that will be called on success
-    request.done(function (data){
-
-        //Clear results
-        $('#results').html('');
-        $('#searching_in_progress').hide();
-
-        for (var i in data){
-            //Build an array using the data
-            var row = ['<tr>'];
-            row.push('<td class="search_photo"><a href="/profile=' + data[i].pk + '">');
-
-            if (data[i].fields.small_thumbnail == '' || data[i].fields.small_thumbnail == null){
-                row.push('<img src="/static/img/portrait_80.png" ');
-            }
-            else{
-                row.push('<img src="/media/' + data[i].fields.small_thumbnail + '" ');
-            }
-            row.push('alt="');
-            row.push(data[i].fields.name);
-            row.push('"/>');
-            row.push('</a></td>');
-            row.push('<td style="padding-top:40px"><a href="#" class="person_tag_add" data-dismiss="modal" data-person_id ="');
-            row.push(data[i].pk);
-            row.push('">');
-            row.push(data[i].fields.name);
-            row.push('</a></td>');
-            row.push('</td></tr>');
-
-            //Append it to the table
-            $('#results').append(row.join(''));
-        }
-
-        $(".person_tag_add").click(function(e) {
-           create_tag(e);
-        });
-    });
-}
-
-function get_tags() {
-    $.ajax({
-        url: "/image={{ image.id }}/tags/get/",
-        dataType: "json",
-        success: function(data) {
-
-            var image_position = $('#image_map').position();
-            var width = $('#image_map').width();
-            var height = $('#image_map').height();
-
-            var html =[];
-            for (var i in data) {
-                html.push(create_tag_ui(data[i], image_position, width, height));
-            }
-            $('#tag_container').append($(html.join('')));
-            //http://stackoverflow.com/questions/24323895/send-parameter-to-bootstrap-modal-window
-        }
-    });
-}
-
-function create_tag_ui(data, image_position, width, height)
-{
-    var html = [];
-    html.push('<a href="#tag_detail_modal" data-toggle="modal" id="tag');
-    html.push(data.id);
-    html.push('" data-person_id="');
-    html.push(data.person);
-    html.push('" data-person_name="');
-    html.push(data.name);
-    html.push('" data-tag_id="');
-    html.push(data.id);
-    html.push('" class="tag_box" style="left:');
-    html.push(data.x1 * width + image_position.left);
-    html.push('px;top:');
-    html.push(data.y1 * height + image_position.top);
-    html.push('px;width:');
-    html.push((data.x2 - data.x1) * width);
-    html.push('px;height:');
-    html.push((data.y2 - data.y1) * height);
-    html.push('px">');
-    html.push('<div class="tag_description" style="top:');
-    html.push((data.y2 - data.y1) * height + 3);
-    html.push('px">');
-    html.push(data.name)
-    html.push('</div>');
-    html.push('</a>');
-    return html.join('');
-}
-
-//Sets up the maps
-{% localize off %}
-function set_map() {
-
-    var map = L.map('image_location_map', {
-        center: [{{ image.latitude }}, {{ image.longitude }}],
-        zoom: 14,
-        zoomControl: false,
-        minZoom: 2,
-        scrollWheelZoom: true,
-        detectRetina: true,
-        maxBounds: [[-90, -200],[90, 200]]
-    });
-
-
-
-    L.tileLayer('https://{s}.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={token}', {
-    	subdomains: ['a','b','c','d'],
-    	id: 'okkindred.ldfc645h',
-    	token: 'pk.eyJ1Ijoib2traW5kcmVkIiwiYSI6Ild2MnY5dDQifQ.EHr6blIYPYeg4bWmSStT-g',
-    }).addTo(map);
-
-    map.addControl( L.control.zoom({position: 'bottomleft'}));
-
-
-    var marker_icon = L.icon({
-            iconUrl: '{% static "img/map_marker.png" %}',
-            shadowUrl: '{% static "img/map_marker_shadow.png" %}',
-            iconSize:     [25, 41], // size of the icon
-            shadowSize:   [50, 60], // size of the shadow
-            iconAnchor:   [13, 42], // point of the icon which will correspond to marker's location
-            shadowAnchor: [16, 62],  // the same for the shadow
-            popupAnchor:  [0, -30] // point from which the popup should open relative to the iconAnchor
-    });
-
-
-    var marker = L.marker([{{ image.latitude }},{{ image.longitude }}], {icon: marker_icon}).addTo(map);
-}
-{% endlocalize %}
-</script>
 {% endblock %}

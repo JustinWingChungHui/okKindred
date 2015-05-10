@@ -11,104 +11,22 @@
     <h2>
         {% trans "Galleries" %}
     </h2>
-    <table id="image_container">
+    <table id="gallery_container">
     </table>
    <div id="loadmoreajaxloader" style="display:none;">
        <center>
            <img src="{% static "img/ajax-loader.gif" %}" /> {% trans "Loading..." %}
        </center>
    </div>
+   <div id="no_more_galleries" style="display:none;"><center>{% trans "No more galleries to show" %}.</center></div>
 
 </div>
 
+<div id="translation" data-lastupdated="{% trans "Last Updated:" %}"></div>
 {% endblock %}
 
 {% block extrascript %}
-<script type="text/javascript">
-var page = 0;
-var loading = false;
 
-//Request the galleries on page load
-$( document ).ready(function() {
-    load_more();
-});
-
-
-//Request more galleries when we scroll to the bottom
-$(window).scroll(function()
-{
-    if($(window).scrollTop() == $(document).height() - $(window).height())
-    {
-        load_more();
-    }
-});
-
-//Ajax request to get more galleries
-function load_more()
-{
-    if (loading == true) { return; }
-
-    page = page + 1;
-    loading = true;
-    $('div#loadmoreajaxloader').show();
-    $.ajax({
-        url: "/gallery/gallery_data=" + page.toString(),
-        success: function(data) {
-
-            if(data && data.length > 0) {
-
-                var html =[];
-
-                for (var i in data) {
-                    html.push('<tr class="gallery_index_row">');
-                    html.push('<td>');
-                    html.push('<a href="/gallery=');
-                    html.push(data[i].pk.toString());
-
-                    if (data[i].fields.thumbnail) {
-                        html.push('"><img class="gallery_index_thumbnail" src="/media/' + data[i].fields.thumbnail + '" ');
-                    }
-                    else {
-                        html.push('"><img class="gallery_index_thumbnail" src="/static/img/gallery_thumb.jpg" ');
-                    }
-
-                    html.push('alt="' + data[i].fields.title +'/"')
-                    html.push('/></a></td>');
-
-                    html.push('<td>');
-                    html.push('<a href="/gallery=');
-                    html.push(data[i].pk.toString());
-                    html.push('"><h4>');
-                    html.push(data[i].fields.title);
-                    html.push('</h4><p>');
-                    html.push(data[i].fields.description);
-                    html.push('</p><p>{% trans "Last Updated:" %}');
-                    html.push(data[i].fields.last_updated_date);
-                    html.push('</p></a></td><td>');
-                    html.push('</td></tr>');
-                }
-
-                $("#image_container").append(html.join(''));
-                $('div#loadmoreajaxloader').hide();
-
-                loading = false;
-
-                //Keep loading images until we see a scroll bar
-                if ($('#container').height() < $(window).height()) {
-                    load_more()
-                }
-            }
-
-            else {
-                $('div#loadmoreajaxloader').html('<center>{% trans "No more galleries to show" %}.</center>');
-            }
-        },
-        error: function(jqXHR, textStatus, errorThrown ) {
-            var a;
-        },
-    });
-}
-
-</script>
+<script src="{% static "js/gallery/gallery_index.js" %}"></script>
 
 {% endblock %}
