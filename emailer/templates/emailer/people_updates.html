@@ -8,7 +8,7 @@
     <ul>
         {% for person in new_people %}
         <li>
-            <a href ="https://www.okkindred.com/profile={{ person.person_id }}">
+            <a href ="{{ domain }}/profile={{ person.person_id }}">
                 {{ person.person_name }}
             </a>
         </li>
@@ -25,7 +25,7 @@
     <ul>
         {% for person in updated_people %}
         <li>
-            <a href ="https://www.okkindred.com/profile={{ person.person_id }}">
+            <a href ="{{ domain }}/profile={{ person.person_id }}">
                 {{ person.person_name }}
             </a>
         </li>

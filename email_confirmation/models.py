@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.db import models
 from django.utils import translation
 from django.template.loader import get_template
@@ -51,8 +52,8 @@ class EmailConfirmation(models.Model):
                                             You have been invited by {1} to join ok!Kindred.
                                             ok!Kindred is a collaborative family tree and private social network for you and you family.
                                             A network has already been set up by one of your family members to help you keep in touch.
-                                            To join, please go to https://www.okkindred.com/accounts/confirmation={2}/
-                                        """.format(self.person.name, self.user_who_invited_person.name, self.confirmation_key))
+                                            To join, please go to {2}/accounts/confirmation={3}/
+                                        """.format(self.person.name, self.user_who_invited_person.name, settings.DOMAIN, self.confirmation_key))
 
         content_html = self._create_email_body_html()
 
@@ -85,6 +86,7 @@ class EmailConfirmation(models.Model):
                                     'confirmation_key': self.confirmation_key,
                                     'person_name' : self.person.name,
                                     'user_who_invited_person' : self.user_who_invited_person.name,
+                                    'domain' : settings.DOMAIN
                                 })
                         )
 

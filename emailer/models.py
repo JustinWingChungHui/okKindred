@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.db import models
 from django.core.mail import send_mail
 from django.db.models import Max
@@ -9,8 +10,6 @@ from django.utils import translation
 from datetime import timedelta
 from django.utils import timezone
 import math
-
-
 
 
 class EmailManager(models.Manager):
@@ -126,7 +125,8 @@ class EmailManager(models.Manager):
                         Context({
                                     'language' : language,
                                     'new_people' : new_people,
-                                    'updated_people' : updated_people
+                                    'updated_people' : updated_people,
+                                    'domain' : settings.DOMAIN
                                 })
                         )
 
