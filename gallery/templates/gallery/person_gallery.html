@@ -15,6 +15,16 @@
     <h2>{%trans "Pictures of" %} {{ person.name }}</h2>
 
     <div id="image_container" data-gallery_url="/person={{ person.id }}/photos/image_data=">
+
+    {% if image %}
+
+        <a id="default_image" class="image_in_gallery" href="/media/{{ image.large_thumbnail }}"  style="display:None;" data-lightbox="gallery"
+            data-title="&lt;a href='/image={{ image.id }}/details/' class='btn btn-info' &gt; {% trans "Details" %}  &lt;/a&gt {{ image.title }}">
+            default
+        </a>
+
+    {% endif %}
+
     </div>
 
     <div id="loadmoreajaxloader" style="display:none;">
@@ -24,11 +34,10 @@
     </div>
 </div>
 
-<div id="translate" data-details="Details"></div>
+<div id="translate" data-details="{% trans "Details" %}"></div>
 
 {% endblock %}
 
 {% block extrascript %}
 <script src="{% static "js/gallery.min.js" %}"></script>
-
 {% endblock %}

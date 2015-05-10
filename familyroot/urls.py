@@ -101,6 +101,7 @@ urlpatterns = patterns('',
 
     #Person Gallery Views
     url(r'^person=(?P<person_id>\d+)/photos/$', 'gallery.views.person_gallery', name='person_gallery'),
+    url(r'^person=(?P<person_id>\d+)/photos/image=(?P<image_id>\d+)/$', 'gallery.views.person_gallery', name='person_gallery'),
     url(r'^person=(?P<person_id>\d+)/photos/image_data=(?P<page>\d+)/$', 'gallery.views.person_gallery_data', name='person_gallery_data'),
 )
 
