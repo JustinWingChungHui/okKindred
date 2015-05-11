@@ -331,3 +331,16 @@ def person_gallery_data(request, person_id, person = None, page = 1):
     data = serializers.serialize('json', images, fields=('id','title', 'thumbnail', 'large_thumbnail', 'original_image'))
 
     return HttpResponse(data, content_type="application/json")
+
+
+def gallery_map(request, gallery_id):
+    '''
+    Loads a map view of the image gallery
+    '''
+
+    gallery = get_object_or_404(Gallery, pk = gallery_id)
+
+    #Check same family
+    if request.user.family_id != gallery.family_id:
+        raise Http404
+

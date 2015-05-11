@@ -28,4 +28,24 @@ def about(request):
     else:
         c = {}
         c.update(csrf(request))
-        return render_to_response('about.html', c)
+        return render_to_response
+
+
+def handler404(request):
+    '''
+    Custom 404 handler
+    '''
+    response = render_to_response('404.html', {},
+                                  context_instance=RequestContext(request))
+    response.status_code = 404
+    return response
+
+
+def handler505(request):
+    '''
+    Custom 505 handler
+    '''
+    response = render_to_response('505.html', {},
+                                  context_instance=RequestContext(request))
+    response.status_code = 505
+    return response

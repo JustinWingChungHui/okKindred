@@ -12,7 +12,7 @@ def get_person_location_points(family_id, division_size):
     people = Person.objects.filter(family_id = family_id).exclude(latitude = 0, longitude = 0)
 
     for person in people:
-        loc = _get_snapped_location(person, division_size)
+        loc = get_snapped_location(person, division_size)
 
         key = str(loc) #Needs to be a string to serialize
 
@@ -30,18 +30,18 @@ def get_person_location_points(family_id, division_size):
     return location_points
 
 
-def _get_snapped_location(person, division_size):
+def get_snapped_location(object, division_size):
     '''
     Gets the snapped location [Lat, Lon] given the bounds [[Lat1, Lon1,], [Lat2,Lon2]] and division size
     '''
     mid_division = division_size / 2
 
     #Get number of divisions from south pole
-    n_across = math.floor((person.latitude + 90.0) / division_size)
+    n_across = math.floor((object.latitude + 90.0) / division_size)
     snapped_latitude = -90.0 + mid_division + n_across * division_size
 
     #Get number of divisions from date line
-    n_up = math.floor((person.longitude + 180.0) / division_size)
+    n_up = math.floor((object.longitude + 180.0) / division_size)
     snapped_longitude = -180.0 + mid_division + n_up * division_size
 
     return (snapped_latitude, snapped_longitude)
