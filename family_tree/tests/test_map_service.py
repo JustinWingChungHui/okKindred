@@ -27,7 +27,7 @@ class MapServiceTestCase(TestCase):
 
         division_size = 1.0
 
-        result = map_service._get_snapped_location(person1, division_size)
+        result = map_service.get_snapped_location(person1, division_size)
 
         self.assertEqual(1.5, result[0])
         self.assertEqual(4.5, result[1])

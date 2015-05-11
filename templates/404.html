@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load staticfiles %}{% load url from future %}
+{% load i18n %}
+{% block content %}
+
+<div class="container">
+
+    <h3>
+        {% blocktrans %}We are sorry.  Unfortunately the page you are looking for has not been found.{% endblocktrans %}
+    </h3>
+    <p>
+        <a href="/home/">
+            {% blocktrans %}Click here to return{% endblocktrans %}
+        </a>
+    </p>
+
+</div> <!-- /container -->
+
+{% endblock %}
+
+
