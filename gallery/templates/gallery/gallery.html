@@ -11,6 +11,7 @@
 <div class="container" style="padding-top: 20px;">
     <p>
         <a class="btn btn-success" href="/gallery/" role="button">&laquo;{%trans "Index" %}</a>
+        <a id="map_button" class="btn btn-warning" href="/gallery={{ gallery.id }}/map/" role="button" style="display: None;">{%trans "Map" %}</a>
         <a class="btn btn-info" href="/gallery={{ gallery.id }}/edit/" role="button">{%trans "Edit" %}</a>
         <a class="btn btn-warning" href="/gallery={{ gallery.id }}/upload_images/" role="button">+{%trans "Add Image" %}</a>
         <a class="btn btn-danger" role="button" href="#modal_delete" data-toggle="modal">{%trans "Delete" %}</a>
@@ -65,7 +66,7 @@
 
 </div>
 
-<div id="translate" data-details="Details"></div>
+<div id="translate" data-details="{% trans "Details" %}"></div>
 
 {% endblock %}
 

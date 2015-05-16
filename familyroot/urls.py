@@ -103,6 +103,10 @@ urlpatterns = patterns('',
     url(r'^person=(?P<person_id>\d+)/photos/$', 'gallery.views.person_gallery', name='person_gallery'),
     url(r'^person=(?P<person_id>\d+)/photos/image=(?P<image_id>\d+)/$', 'gallery.views.person_gallery', name='person_gallery'),
     url(r'^person=(?P<person_id>\d+)/photos/image_data=(?P<page>\d+)/$', 'gallery.views.person_gallery_data', name='person_gallery_data'),
+
+    #Gallery Map Views
+    url(r'^gallery=(?P<gallery_id>\d+)/map/$', 'gallery.views.gallery_map', name='gallery_map'),
+    url(r'^gallery=(?P<gallery_id>\d+)/map_data/(?P<division_size>\d+\.\d+)/$', 'gallery.views.gallery_map_data', name='gallery_map_data'),
 )
 
 if 'rosetta' in settings.INSTALLED_APPS:
