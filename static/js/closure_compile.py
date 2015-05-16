@@ -56,6 +56,7 @@ params = urllib.urlencode([
     ('code_url', 'https://www.okkindred.com/static/js/mapping/leaflet.js'),
     ('code_url', 'https://www.okkindred.com/static/js/mapping/person_map.js'),
     ('code_url', 'https://www.okkindred.com/static/js/mapping/image_map.js'),
+    ('code_url', 'https://www.okkindred.com/static/js/mapping/gallery_map.js'),
     ('compilation_level', 'SIMPLE_OPTIMIZATIONS'),
     ('output_format', 'text'),
     ('output_info', 'compiled_code'),

@@ -24,7 +24,6 @@ $( document ).ready(function() {
         $('#default_image').trigger('click');
     }
 
-
     gallery_load_more();
 });
 
@@ -81,6 +80,11 @@ function gallery_load_more()
                     html.push('/>');
 
                     html.push('</a>');
+
+                    if (data[i].fields.latitude != 0) {
+                        $('#map_button').show();
+                    }
+
                 }
 
                  $('div#loadmoreajaxloader').hide();

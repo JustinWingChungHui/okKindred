@@ -1,0 +1,47 @@
+ {% extends "base.html" %}
+{% load staticfiles %}
+{% load i18n %}
+{% load l10n %}
+
+
+{% block extrastyle %}
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <link rel="stylesheet" href="{% static "css/leaflet.css" %}" />
+
+    <!--Allows fullscreen map-->
+    <style>
+        html, body, .fullscreen_map {
+            height:100%;
+            width:100%;
+            padding:0px;
+            margin:0px;
+            overflow: hidden;
+        }
+        .fullscreen_map{
+            padding-top: 50px;
+        }
+    </style>
+
+    <link rel="stylesheet" type="text/css" href="{% static "css/lightbox.css" %}" />
+
+{% endblock %}
+
+
+{% block content %}
+
+    {% localize off %}
+
+    <div id="gallery_map" class="fullscreen_map" data-gallery_id="{{ gallery.id }}" data-latitude="{{ latitude }}" data-longitude="{{ longitude }}" data-zoom="{{ zoom }}"></div>
+
+    {% endlocalize %}
+
+    <div id="translate" data-details="{% trans "Details" %}"></div>
+
+{% endblock %}
+
+{% block extrascript %}
+
+<script src="{% static "js/gallery/gallery.min.js" %}"></script>
+<script src="{% static "js/mapping.min.js" %}"></script>
+
+{% endblock %}

@@ -342,3 +342,19 @@ textarea {
     width:200px;
     margin:5px 0px 5px 0px;
 }
+
+/** Gallery map view **/
+.map_thumbnail {
+    max-width: 90px;
+    max-height: 90px;
+    margin:5px 5px 5px 5px;
+}
+
+@media only screen and (max-device-width: 500px) {
+    .map_thumbnail {
+        max-width: 45px;
+        max-height: 45px;
+        margin:5px 5px 5px 5px;
+    }
+}
+
