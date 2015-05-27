@@ -455,6 +455,7 @@ class TestImageViews(TestCase):
                     thumbnail=self.test_image_destination,
                     large_thumbnail=self.test_image_destination
                     )
+        image.save
 
         p = Person.objects.create(name='badger', family_id=self.family.id)
         self.client.login(email='badger@queenonline.com', password='save the badgers')
@@ -491,4 +492,68 @@ class TestImageViews(TestCase):
         self.client.login(email='weebl@queenonline.com', password='mushroom')
         new_response = self.client.get('/person={0}/photos/image_data=1/'.format(p.id))
         self.assertEqual(404, new_response.status_code)
+
+
+    def test_geocode_image_location_post(self):
+        '''
+        Test you can geocode image view
+        '''
+
+        #Copy test image to media area
+        shutil.copy2(self.test_image, self.test_image_destination)
+
+        im = Image(
+                    gallery=self.gallery,
+                    family=self.family,
+                    original_image=self.test_image_destination,
+                    thumbnail=self.test_image_destination,
+                    large_thumbnail=self.test_image_destination
+                )
+        im.save()
+
+        self.client.login(email='badger@queenonline.com', password='save the badgers')
+        response = self.client.post('/image={0}/address/'.format(im.id), {'address': 'Freddie Mercury Montreux'})
+
+        im.delete_image_files()
+
+        self.assertEqual(200, response.status_code)
+        self.assertEqual(True, b'46.43' in response.content)
+        self.assertEqual(True, b'6.9' in response.content)
+
+        im = Image.objects.get(id=im.id)
+        self.assertEqual(46.43, round(im.latitude,2))
+        self.assertEqual(6.9, round(im.longitude,1))
+
+    def test_geocode_image_location_post_other_family(self):
+        '''
+        Test another family cannot geocode image
+        '''
+
+        #Copy test image to media area
+        shutil.copy2(self.test_image, self.test_image_destination)
+
+        im = Image(
+                    gallery=self.gallery,
+                    family=self.family,
+                    original_image=self.test_image_destination,
+                    thumbnail=self.test_image_destination,
+                    large_thumbnail=self.test_image_destination
+                )
+        im.save()
+
+        self.client.login(email='weebl@queenonline.com', password='mushroom')
+        response = self.client.post('/image={0}/address/'.format(im.id), {'address': 'Freddie Mercury Montreux'})
+
+        im.delete_image_files()
+
+        self.assertEqual(404, response.status_code)
+
+    def test_geocode_image_location_post_invalid_image_id(self):
+        '''
+        Test a404 raised with invalid image id
+        '''
+        self.client.login(email='badger@queenonline.com', password='save the badgers')
+        response = self.client.post('/image=997/address/', {'address': 'Freddie Mercury Montreux'})
+
+        self.assertEqual(404, response.status_code)
 

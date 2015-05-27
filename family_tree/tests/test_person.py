@@ -5,6 +5,7 @@ from family_tree.models.person import Person
 from family_tree.models.family import Family
 from custom_user.models import User
 from family_tree.models.relation import Relation, RAISED, PARTNERED, RAISED_BY
+from common import geocoder
 from PIL import Image
 
 class PersonTestCase(TestCase):
@@ -182,11 +183,10 @@ class PersonTestCase(TestCase):
         Tests that the correct longitude and latitude are returned for a UK address
         using the backup geocoding service
         '''
-        person = Person.objects.create(name='Brian Blessed', gender='M', address='Mexborough, Yorkshire', family_id=self.family.id)
-        person._geocode_address_using_backup()
+        location = geocoder._geocode_address_using_backup('Mexborough, Yorkshire')
 
-        self.assertEqual(53.5, round(person.latitude,1))
-        self.assertEqual(-1.3, round(person.longitude,1))
+        self.assertEqual(53.5, round(location.latitude,1))
+        self.assertEqual(-1.3, round(location.longitude,1))
 
 
     def test_geocode_address_using_backup_China(self):
@@ -194,11 +194,9 @@ class PersonTestCase(TestCase):
         Tests that the correct longitude and latitude are returned for a location in China
         using the backup geocoding service
         '''
-        person = Person.objects.create(name='Sammo Hung', gender='M', address='星光大道 香港', family_id=self.family.id)
-        person._geocode_address_using_backup()
-
-        self.assertEqual(22.3, round(person.latitude,1))
-        self.assertEqual(114.2, round(person.longitude,1))
+        location = geocoder._geocode_address_using_backup('星光大道 香港')
+        self.assertEqual(22.3, round(location.latitude,1))
+        self.assertEqual(114.2, round(location.longitude,1))
 
 
     def test_set_hires_photo(self):

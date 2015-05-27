@@ -13,9 +13,11 @@ $(document).ready(function() {
         $('#editable_content .editable').editable('toggleDisabled');
         if ($('#enable').html() == trans_edit) {
            $('#enable').text(trans_done);
+           $('#address_search_form').show();
         }
         else {
            $('#enable').text(trans_edit);
+           $('#address_search_form').hide();
         }
         e.preventDefault();
 	    $('html, body').stop().animate({
