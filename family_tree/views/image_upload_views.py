@@ -9,7 +9,7 @@ from django.conf import settings
 from django.http import HttpResponseRedirect
 from family_tree.decorators import same_family_required
 from custom_user.decorators import set_language
-from common import create_hash
+from common.utils import create_hash
 import json
 
 

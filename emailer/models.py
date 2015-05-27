@@ -3,7 +3,7 @@ from django.db import models
 from django.core.mail import send_mail
 from django.db.models import Max
 from django.db import connection
-from common import query_to_dicts
+from common.utils import query_to_dicts
 from django.template.loader import get_template
 from django.template import Context
 from django.utils import translation

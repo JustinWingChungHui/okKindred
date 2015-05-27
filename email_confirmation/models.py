@@ -6,7 +6,7 @@ from django.template import Context
 from django.core.mail import send_mail
 from django.utils import timezone
 from datetime import timedelta
-from common import create_hash
+from common.utils import create_hash
 
 
 class EmailConfirmationManager(models.Manager):

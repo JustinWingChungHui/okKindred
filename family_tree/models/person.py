@@ -7,7 +7,8 @@ from family_tree.models.family import Family
 from django.conf import settings
 from PIL import Image
 import os
-from common import create_hash
+from common.utils import create_hash
+from common.geocoder import geocode_address
 
 #Localised Gender choices https://docs.djangoproject.com/en/1.7/ref/models/fields/#choices
 FEMALE ='F'
@@ -19,15 +20,6 @@ GENDER_CHOICES = (
     (MALE, _('Male')),
     (OTHER, _('Other')),
 )
-
-
-
-class PersonManager(models.Manager):
-    '''
-    Manager extended to get related family members
-    '''
-
-
 
 class NullableEmailField(models.EmailField):
     '''
@@ -55,9 +47,6 @@ class Person(models.Model):
         #Allows models.py to be split up across multiple files
         app_label = 'family_tree'
         verbose_name_plural = "People"
-
-    #Customer Manager
-    objects = PersonManager()
 
     #Only required fields
     name = models.CharField(max_length=255, db_index = True, null = False, blank = False)
@@ -249,43 +238,10 @@ class Person(models.Model):
         if not self.address:
             return
 
-        from familyroot.secrets import GOOGLE_API_KEY
+        location = geocode_address(self.address)
 
-        #Attempt to google the location, if it fails, try bing as backup
-        try:
-            from geopy.geocoders import GoogleV3
-            google_locator = GoogleV3(api_key = GOOGLE_API_KEY)
-            location = google_locator.geocode(self.address)
-
-
-            if location.latitude == 0 and location.longitude ==0:
-                self._geocode_address_using_backup()
-
-            self.latitude = location.latitude
-            self.longitude = location.longitude
-
-        except:
-            self._geocode_address_using_backup()
-
-
-
-    def _geocode_address_using_backup(self):
-        '''
-        Gets the logitude and latitude of address for plotting on a map from backup service (Bing)
-        '''
-        try:
-
-            from familyroot.secrets import BING_MAPS_API_KEY
-            from geopy.geocoders import Bing
-            bing_locator = Bing(api_key = BING_MAPS_API_KEY)
-
-            location = bing_locator.geocode(self.address)
-
-            self.latitude = location.latitude
-            self.longitude = location.longitude
-
-        except:
-            return
+        self.latitude = location.latitude
+        self.longitude = location.longitude
 
 
     def set_hires_photo(self, filename):

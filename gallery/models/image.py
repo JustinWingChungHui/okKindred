@@ -1,6 +1,6 @@
 from django.db import models
 from gallery.models import Gallery
-from common import create_hash
+from common.utils import create_hash
 from django.conf import settings
 from PIL.ExifTags import TAGS
 import PIL

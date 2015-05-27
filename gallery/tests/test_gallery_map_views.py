@@ -98,8 +98,9 @@ class TestGalleryMapViews(TestCase):
         self.client.login(email='gromit@aardman.com', password='cheese')
         response = self.client.get('/gallery={0}/map_data/1.0/'.format(self.gallery.id))
 
-        print(response.content)
-
         self.assertEqual(response.status_code, 200)
         self.assertEqual(True, b'title' in response.content)
+
+
+
 

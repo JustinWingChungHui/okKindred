@@ -65,3 +65,5 @@ def gallery_map_data(request, gallery_id, division_size):
                                     })
 
     return HttpResponse(json.dumps(location_points), content_type="application/json")
+
+

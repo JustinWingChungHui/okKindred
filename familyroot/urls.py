@@ -107,6 +107,7 @@ urlpatterns = patterns('',
     #Gallery Map Views
     url(r'^gallery=(?P<gallery_id>\d+)/map/$', 'gallery.views.gallery_map', name='gallery_map'),
     url(r'^gallery=(?P<gallery_id>\d+)/map_data/(?P<division_size>\d+\.\d+)/$', 'gallery.views.gallery_map_data', name='gallery_map_data'),
+    url(r'^image=(?P<image_id>\d+)/address/$', 'gallery.views.geocode_image_location_post', name='geocode_image_location_post'),
 )
 
 if 'rosetta' in settings.INSTALLED_APPS:

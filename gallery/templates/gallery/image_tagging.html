@@ -73,9 +73,18 @@
         </tr>
     </table>
 
+    <!--Address search-->
+    <form id="address_search_form" class="form-inline" style="display: None;">
+        {% csrf_token %}
+        <input type="address" id="address" name="address" class="form-control" placeholder="{% trans "Search Address" %}">
+        <button id="address_search_button" type="button" class="btn btn-success" style="margin-bottom:5px;">{% trans "Go" %}</button>
+    </form>
+
     {% localize off %}
     <div id="image_location_map" data-latitude="{{ image.latitude }}" data-longitude="{{ image.longitude }}"></div>
     {% endlocalize %}
+
+
 
      <!--Delete profile popup-->
     <div class="modal fade" id="modal_delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -137,10 +146,13 @@
                         <div class="form-group">
                             <h4>{% trans "Who is this?" %}</h4>
                             <div class="form-group">
-                                <input type="search_text" id="search_text" name="search_text" class="form-control" placeholder="{% trans "Search Name" %}" required autofocus>
+                                <input type="search_text" id="search_text" name="search_text" class="form-control" placeholder="{% trans "Search Name" %}">
                             </div>
                         </div>
-                            <div class="table-responsive">
+                        <div id="searching_in_progress" style="display:none;">
+                            <img src="{% static "img/ajax-loader.gif" %}"/> {% trans "Searching..." %}
+                        </div>
+                        <div class="table-responsive">
                             <table class="table table-striped">
                                   <tbody id="results">
                                   </tbody>
@@ -173,7 +185,8 @@
 
 <script src="{% static "js/editable.min.js" %}"></script>
 <script src="{% static "js/jquery/jquery.cookie.js" %}"></script>
-<script src="{% static "js/mapping.min.js" %}"></script>
+<script src="{% static "js/mapping/leaflet.js" %}"></script>
+<script src="{% static "js/mapping/image_map.js" %}"></script>
 <script src="{% static "js/gallery/image_tagging.js" %}"></script>
 
 {% endblock %}

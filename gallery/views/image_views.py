@@ -9,10 +9,11 @@ from django.core import serializers
 from django.conf import settings
 from django.db import connection
 from django.shortcuts import get_object_or_404
-from common import create_hash
+from common.utils import create_hash
 from django.utils.translation import ugettext as tran
 from os.path import basename
 from family_tree.decorators import same_family_required
+from common.geocoder import geocode_address
 import os
 import json
 import PIL
@@ -332,3 +333,27 @@ def person_gallery_data(request, person_id, person = None, page = 1):
 
     return HttpResponse(data, content_type="application/json")
 
+
+def geocode_image_location_post(request, image_id):
+    '''
+    Uses geolocation services to determine lat and lng
+    '''
+    if request.method != 'POST':
+        return HttpResponse(status=405, content="Only POST requests allowed")
+
+    im = get_object_or_404(Image, pk = image_id)
+
+    #Check same family
+    if request.user.family_id != im.family_id:
+        raise Http404
+
+    address = request.POST.get("address")
+    location = geocode_address(address)
+
+    im.latitude = location.latitude
+    im.longitude = location.longitude
+    im.save()
+
+    data = {'latitude': location.latitude, 'longitude': location.longitude}
+
+    return HttpResponse(json.dumps(data), content_type="application/json")
