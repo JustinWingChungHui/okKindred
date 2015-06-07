@@ -41,7 +41,17 @@
 
 {% block extrascript %}
 
-<script src="{% static "js/gallery/gallery.min.js" %}"></script>
+<!--Issue with lightbox on map when compiled -->
+<script src="{% static "js/gallery/imagesloaded.pkgd.min.js" %}"></script>
+<script src="{% static "js/gallery/masonry.pkgd.min.js" %}"></script>
+<script src="{% static "js/gallery/lightbox.min.js" %}"></script>
+<script src="{% static "js/gallery/gallery.js" %}"></script>
+
+
 <script src="{% static "js/mapping.min.js" %}"></script>
+
+
+
+
 
 {% endblock %}
