@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-05-11 08:51+0000\n"
+"POT-Creation-Date: 2015-06-08 20:15+0000\n"
 "PO-Revision-Date: 2015-03-02 09:54+0000\n"
 "Last-Translator: b'Anonymous User <wingchung@justinhui.co.uk>'\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -29,74 +29,6 @@ msgstr "確認密碼"
 #: custom_user/admin.py:31
 msgid "Passwords don't match"
 msgstr "密碼不匹配"
-
-#: custom_user/models.py:41 custom_user/templates/custom_user/login.html:9
-msgid "Email Address"
-msgstr "電子郵件地址"
-
-#: custom_user/models.py:42
-#: family_tree/templates/family_tree/add_relation.html:52
-#: family_tree/templates/family_tree/add_relation.html:84
-#: family_tree/templates/family_tree/edit_profile.html:35
-#: family_tree/templates/family_tree/edit_profile.html:37
-#: family_tree/templates/family_tree/profile.html:58
-#: family_tree/templates/family_tree/search.html:14
-msgid "Name"
-msgstr "名字"
-
-#: custom_user/models.py:43
-msgid "Staff status"
-msgstr "工作人員身份"
-
-#: custom_user/models.py:43
-msgid "Designates whether the user can log into this admin site."
-msgstr "指定用戶是否可以登錄到這個管理站點"
-
-#: custom_user/models.py:44
-msgid "Superuser"
-msgstr "超級用戶"
-
-#: custom_user/models.py:44
-msgid "Designates whether the user is superuser"
-msgstr "指定用戶是否是超級"
-
-#: custom_user/models.py:45
-msgid "Active"
-msgstr "積極"
-
-#: custom_user/models.py:45
-msgid ""
-"Designates whether this user should be treated as active. Unselect this "
-"instead of deleting accounts."
-msgstr ""
-
-#: custom_user/models.py:46
-msgid "Date Joined"
-msgstr ""
-
-#: custom_user/models.py:51
-msgid "Receive Update Emails"
-msgstr ""
-
-#: custom_user/models.py:51
-msgid "Sends out emails if family has been updated"
-msgstr ""
-
-#: custom_user/models.py:52
-msgid "Receive Photo Update Emails"
-msgstr ""
-
-#: custom_user/models.py:52
-msgid "Sends out emails you have been tagged in a photo"
-msgstr ""
-
-#: custom_user/models.py:60
-msgid "user"
-msgstr ""
-
-#: custom_user/models.py:61
-msgid "users"
-msgstr ""
 
 #: custom_user/templates/custom_user/account_locked.html:6
 msgid ""
@@ -126,6 +58,10 @@ msgstr ""
 #: custom_user/templates/custom_user/login.html:8
 msgid "Please sign in"
 msgstr ""
+
+#: custom_user/templates/custom_user/login.html:9
+msgid "Email Address"
+msgstr "電子郵件地址"
 
 #: custom_user/templates/custom_user/login.html:18 templates/about.html:20
 msgid "Sign In"
@@ -381,19 +317,19 @@ msgid ""
 "out more:"
 msgstr ""
 
-#: family_tree/models/person.py:18
+#: family_tree/models/person.py:19
 #: family_tree/templates/family_tree/add_relation.html:59
 #: family_tree/templates/family_tree/edit_profile.html:233
 msgid "Female"
 msgstr ""
 
-#: family_tree/models/person.py:19
+#: family_tree/models/person.py:20
 #: family_tree/templates/family_tree/add_relation.html:60
 #: family_tree/templates/family_tree/edit_profile.html:234
 msgid "Male"
 msgstr ""
 
-#: family_tree/models/person.py:20
+#: family_tree/models/person.py:21
 #: family_tree/templates/family_tree/add_relation.html:61
 #: family_tree/templates/family_tree/edit_profile.html:235
 msgid "Other"
@@ -421,9 +357,9 @@ msgstr ""
 #: family_tree/templates/family_tree/edit_biography.html:11
 #: gallery/templates/gallery/edit_gallery.html:17
 #: gallery/templates/gallery/edit_gallery.html:19
-#: gallery/templates/gallery/gallery.html:59
-#: gallery/templates/gallery/image_tagging.html:99
-#: gallery/templates/gallery/image_tagging.html:152
+#: gallery/templates/gallery/gallery.html:60
+#: gallery/templates/gallery/image_tagging.html:108
+#: gallery/templates/gallery/image_tagging.html:164
 msgid "Cancel"
 msgstr ""
 
@@ -435,6 +371,15 @@ msgstr ""
 msgid "New Person"
 msgstr ""
 
+#: family_tree/templates/family_tree/add_relation.html:52
+#: family_tree/templates/family_tree/add_relation.html:84
+#: family_tree/templates/family_tree/edit_profile.html:35
+#: family_tree/templates/family_tree/edit_profile.html:37
+#: family_tree/templates/family_tree/profile.html:58
+#: family_tree/templates/family_tree/search.html:14
+msgid "Name"
+msgstr "名字"
+
 #: family_tree/templates/family_tree/add_relation.html:57
 #: family_tree/templates/family_tree/edit_profile.html:44
 #: family_tree/templates/family_tree/edit_profile.html:46
@@ -443,12 +388,13 @@ msgid "Gender"
 msgstr ""
 
 #: family_tree/templates/family_tree/add_relation.html:81
-#: gallery/templates/gallery/image_tagging.html:140
+#: gallery/templates/gallery/image_tagging.html:149
 msgid "Search Name"
 msgstr ""
 
 #: family_tree/templates/family_tree/add_relation.html:88
 #: family_tree/templates/family_tree/search.html:19
+#: gallery/templates/gallery/image_tagging.html:153
 msgid "Searching..."
 msgstr ""
 
@@ -483,10 +429,10 @@ msgid "Break Relation"
 msgstr ""
 
 #: family_tree/templates/family_tree/edit_profile.html:17
-#: gallery/templates/gallery/gallery.html:16
-#: gallery/templates/gallery/gallery.html:56
+#: gallery/templates/gallery/gallery.html:17
+#: gallery/templates/gallery/gallery.html:57
 #: gallery/templates/gallery/image_tagging.html:23
-#: gallery/templates/gallery/image_tagging.html:96
+#: gallery/templates/gallery/image_tagging.html:105
 msgid "Delete"
 msgstr ""
 
@@ -641,7 +587,7 @@ msgstr ""
 
 #: family_tree/templates/family_tree/profile.html:13
 #: family_tree/templates/family_tree/profile.html:15
-#: gallery/templates/gallery/gallery.html:14
+#: gallery/templates/gallery/gallery.html:15
 msgid "Edit"
 msgstr ""
 
@@ -730,27 +676,27 @@ msgstr ""
 msgid "A biography has not yet been written for this language"
 msgstr ""
 
-#: familyroot/settings.py:120
+#: familyroot/settings.py:121
 msgid "English"
 msgstr ""
 
-#: familyroot/settings.py:121
+#: familyroot/settings.py:122
 msgid "Traditional Chinese"
 msgstr ""
 
-#: familyroot/settings.py:122
+#: familyroot/settings.py:123
 msgid "Simplified Chinese"
 msgstr ""
 
-#: familyroot/settings.py:123
+#: familyroot/settings.py:124
 msgid "Polish"
 msgstr ""
 
-#: familyroot/settings.py:124
+#: familyroot/settings.py:125
 msgid "Finnish"
 msgstr ""
 
-#: familyroot/settings.py:125
+#: familyroot/settings.py:126
 msgid "French"
 msgstr ""
 
@@ -769,32 +715,43 @@ msgstr ""
 msgid "Index"
 msgstr ""
 
-#: gallery/templates/gallery/gallery.html:15
+#: gallery/templates/gallery/gallery.html:14 templates/base.html:63
+msgid "Map"
+msgstr "地圖"
+
+#: gallery/templates/gallery/gallery.html:16
 msgid "Add Image"
 msgstr ""
 
-#: gallery/templates/gallery/gallery.html:28
+#: gallery/templates/gallery/gallery.html:29
 #: gallery/templates/gallery/gallery_index.html:18
 #: gallery/templates/gallery/person_gallery.html:32
 msgid "Loading..."
 msgstr ""
 
-#: gallery/templates/gallery/gallery.html:33
+#: gallery/templates/gallery/gallery.html:34
 msgid "No more images to show"
 msgstr ""
 
-#: gallery/templates/gallery/gallery.html:37
+#: gallery/templates/gallery/gallery.html:38
 msgid "Error loading images"
 msgstr ""
 
-#: gallery/templates/gallery/gallery.html:46
+#: gallery/templates/gallery/gallery.html:47
 msgid "Delete Gallery"
 msgstr ""
 
-#: gallery/templates/gallery/gallery.html:49
+#: gallery/templates/gallery/gallery.html:50
 msgid ""
 "Are you sure you want to leave delete this gallery?  It will delete all the "
 "images in it!"
+msgstr ""
+
+#: gallery/templates/gallery/gallery.html:69
+#: gallery/templates/gallery/gallery_map.html:38
+#: gallery/templates/gallery/person_gallery.html:22
+#: gallery/templates/gallery/person_gallery.html:37
+msgid "Details"
 msgstr ""
 
 #: gallery/templates/gallery/gallery_index.html:9
@@ -862,41 +819,46 @@ msgstr ""
 msgid "Longitude"
 msgstr ""
 
-#: gallery/templates/gallery/image_tagging.html:86
+#: gallery/templates/gallery/image_tagging.html:79
+#, fuzzy
+#| msgid "Email Address"
+msgid "Search Address"
+msgstr "電子郵件地址"
+
+#: gallery/templates/gallery/image_tagging.html:80
+msgid "Go"
+msgstr ""
+
+#: gallery/templates/gallery/image_tagging.html:95
 msgid "Delete Image"
 msgstr ""
 
-#: gallery/templates/gallery/image_tagging.html:89
+#: gallery/templates/gallery/image_tagging.html:98
 msgid "Are you sure you want to leave delete this image?"
 msgstr ""
 
-#: gallery/templates/gallery/image_tagging.html:112
+#: gallery/templates/gallery/image_tagging.html:121
 msgid "Tag Details"
 msgstr ""
 
-#: gallery/templates/gallery/image_tagging.html:118
+#: gallery/templates/gallery/image_tagging.html:127
 msgid "Go To Profile"
 msgstr ""
 
-#: gallery/templates/gallery/image_tagging.html:119
+#: gallery/templates/gallery/image_tagging.html:128
 msgid "Delete Tag"
 msgstr ""
 
-#: gallery/templates/gallery/image_tagging.html:132
+#: gallery/templates/gallery/image_tagging.html:141
 msgid "Add a New Tag"
 msgstr ""
 
-#: gallery/templates/gallery/image_tagging.html:138
+#: gallery/templates/gallery/image_tagging.html:147
 msgid "Who is this?"
 msgstr ""
 
 #: gallery/templates/gallery/person_gallery.html:15
 msgid "Pictures of"
-msgstr ""
-
-#: gallery/templates/gallery/person_gallery.html:22
-#: gallery/templates/gallery/person_gallery.html:37
-msgid "Details"
 msgstr ""
 
 #: gallery/templates/gallery/upload_images.html:11
@@ -1126,10 +1088,6 @@ msgstr ""
 msgid "Toggle navigation"
 msgstr "切換導航"
 
-#: templates/base.html:63
-msgid "Map"
-msgstr "地圖"
-
 #: templates/base.html:65
 msgid "Search"
 msgstr "搜索"
@@ -1141,3 +1099,18 @@ msgstr "大約"
 #: templates/base.html:73
 msgid "Log Out"
 msgstr "考勤出"
+
+#~ msgid "Staff status"
+#~ msgstr "工作人員身份"
+
+#~ msgid "Designates whether the user can log into this admin site."
+#~ msgstr "指定用戶是否可以登錄到這個管理站點"
+
+#~ msgid "Superuser"
+#~ msgstr "超級用戶"
+
+#~ msgid "Designates whether the user is superuser"
+#~ msgstr "指定用戶是否是超級"
+
+#~ msgid "Active"
+#~ msgstr "積極"
