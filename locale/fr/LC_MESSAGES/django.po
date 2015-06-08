@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-06-08 20:15+0000\n"
+"POT-Creation-Date: 2015-06-08 21:36+0000\n"
 "PO-Revision-Date: 2015-05-11 08:53+0000\n"
 "Last-Translator: b'Anonymous User <wingchung@justinhui.co.uk>'\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -881,7 +881,7 @@ msgid "Search Address"
 msgstr "Adresse Email"
 
 #: gallery/templates/gallery/image_tagging.html:80
-msgid "Go"
+msgid "OK"
 msgstr ""
 
 #: gallery/templates/gallery/image_tagging.html:95
@@ -1252,58 +1252,3 @@ msgstr "À Propos"
 #: templates/base.html:73
 msgid "Log Out"
 msgstr "Déconnecter"
-
-#~ msgid "Staff status"
-#~ msgstr "Le statut du personnel"
-
-#~ msgid "Designates whether the user can log into this admin site."
-#~ msgstr ""
-#~ "Indique si l'utilisateur peut se connecter à ce site d'administration."
-
-#~ msgid "Superuser"
-#~ msgstr "Super utilisateur"
-
-#~ msgid "Designates whether the user is superuser"
-#~ msgstr "Indique si l'utilisateur est super utilisateur"
-
-#~ msgid "Active"
-#~ msgstr "Actif"
-
-#~ msgid ""
-#~ "Designates whether this user should be treated as active. Unselect this "
-#~ "instead of deleting accounts."
-#~ msgstr ""
-#~ "Indique si cet utilisateur doit être traité comme actif. Désélectionner "
-#~ "au lieu de supprimer les comptes."
-
-#~ msgid "Date Joined"
-#~ msgstr "Date d'inscription"
-
-#~ msgid "Receive Update Emails"
-#~ msgstr "Recevez des Emails de mise à jour"
-
-#~ msgid "Sends out emails if family has been updated"
-#~ msgstr "Envoie des emails si la famille a été mise à jour"
-
-#~| msgid "Receive Update Emails"
-#~ msgid "Receive Photo Update Emails"
-#~ msgstr "Recevez des Emails de mise à jour"
-
-#~| msgid "Sends out emails if family has been updated"
-#~ msgid "Sends out emails you have been tagged in a photo"
-#~ msgstr "Envoie des emails si la famille a été mise à jour"
-
-#~ msgid "user"
-#~ msgstr "l'utilisateur"
-
-#~ msgid "users"
-#~ msgstr "utilisateurs"
-
-#~ msgid "Spoke Languages"
-#~ msgstr "Langue Maternelle"
-
-#~ msgid "Website/Facebook/Twitter..."
-#~ msgstr "Site Internet/Facebook/Twitter..."
-
-#~ msgid "Website/Facebook/Twitter etc..."
-#~ msgstr "Site internet/Facebook/Twitter, etc..."
