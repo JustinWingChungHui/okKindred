@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-06-08 20:15+0000\n"
+"POT-Creation-Date: 2015-06-08 21:36+0000\n"
 "PO-Revision-Date: 2015-05-11 08:55+0000\n"
 "Last-Translator: b'Anonymous User <wingchung@justinhui.co.uk>'\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -872,7 +872,7 @@ msgid "Search Address"
 msgstr "Sähköpostiosoite"
 
 #: gallery/templates/gallery/image_tagging.html:80
-msgid "Go"
+msgid "OK"
 msgstr ""
 
 #: gallery/templates/gallery/image_tagging.html:95
@@ -1234,77 +1234,3 @@ msgstr "Noin"
 #: templates/base.html:73
 msgid "Log Out"
 msgstr "Kirjaudu Ulos"
-
-#~ msgid "Staff status"
-#~ msgstr "Henkilöstön asema"
-
-#~ msgid "Designates whether the user can log into this admin site."
-#~ msgstr "Määrittää, voiko käyttäjä voi kirjautua tämän sivuston admin."
-
-#~ msgid "Superuser"
-#~ msgstr "Pääkäyttäjä"
-
-#~ msgid "Designates whether the user is superuser"
-#~ msgstr "Määrittää, voiko käyttäjä on pääkäyttäjä"
-
-#~ msgid "Active"
-#~ msgstr "Aktiivinen"
-
-#~ msgid ""
-#~ "Designates whether this user should be treated as active. Unselect this "
-#~ "instead of deleting accounts."
-#~ msgstr ""
-#~ "Määrittää, onko tämä käyttäjä on kohdeltava aktiivinen. Poista valinta "
-#~ "tästä poistamisen sijasta tilit."
-
-#~ msgid "Date Joined"
-#~ msgstr "Päivämäärä Liittynyt"
-
-#~ msgid "Receive Update Emails"
-#~ msgstr "Vastaanottaa Sähköpostit Päivitys"
-
-#~ msgid "Sends out emails if family has been updated"
-#~ msgstr "Lähettää sähköpostit, jos perhe on päivitetty"
-
-#~| msgid "Receive Update Emails"
-#~ msgid "Receive Photo Update Emails"
-#~ msgstr "Vastaanottaa Sähköpostit Päivitys"
-
-#~| msgid "Sends out emails if family has been updated"
-#~ msgid "Sends out emails you have been tagged in a photo"
-#~ msgstr "Lähettää sähköpostit, jos perhe on päivitetty"
-
-#~ msgid "user"
-#~ msgstr "käyttäjä"
-
-#~ msgid "users"
-#~ msgstr "käyttäjät"
-
-#~ msgid "Spoke Languages"
-#~ msgstr "Ensimmäinen Kieli"
-
-#~ msgid "Website/Facebook/Twitter..."
-#~ msgstr "Sivuston/Facebook/Twitter..."
-
-#~ msgid "Website/Facebook/Twitter etc..."
-#~ msgstr "Sivuston/Facebook/Twitter jne..."
-
-#~ msgid ""
-#~ "\n"
-#~ "            We encrypt all stored passwords using the <a href=\"https://"
-#~ "en.wikipedia.org/wiki/PBKDF2\">PBKDF2 algorithm</a> with a\n"
-#~ "            <a href=\"https://en.wikipedia.org/wiki/SHA-2\">SHA256 hash</"
-#~ "a>.  This is a recommendation by <a href=\"http://csrc.nist.gov/"
-#~ "publications/nistpubs/800-132/nist-sp800-132.pdf\">NIST</a>.\n"
-#~ "            Our servers are located in the USA, and therefore are subject "
-#~ "to USA law.\n"
-#~ "            "
-#~ msgstr ""
-#~ "\n"
-#~ " Me salaa kaikki tallennetut salasanat käytät <a href=\"https://fi."
-#~ "wikipedia.org/wiki/PBKDF2\">PBKDF2 algoritmi</a> kanssa\n"
-#~ " <a href=\"https://fi.wikipedia.org/wiki/SHA-2\">SHA256 hash</a>. Tämä on "
-#~ "suositus <a href=\"http://csrc.nist.gov/publications/nistpubs/800-132/"
-#~ "nist-sp800-132.pdf-tiedosto\">NIST</a>.\n"
-#~ " Palvelimemme sijaitsevat USA: ssa, ja siksi sovelletaan USA lakia.\n"
-#~ "            "

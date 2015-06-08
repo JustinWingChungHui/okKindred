@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-06-08 20:15+0000\n"
+"POT-Creation-Date: 2015-06-08 21:36+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -833,7 +833,7 @@ msgid "Search Address"
 msgstr ""
 
 #: gallery/templates/gallery/image_tagging.html:80
-msgid "Go"
+msgid "OK"
 msgstr ""
 
 #: gallery/templates/gallery/image_tagging.html:95
@@ -1108,12 +1108,3 @@ msgstr ""
 #| msgid "Logged Out"
 msgid "Log Out"
 msgstr "^Logged Out"
-
-#~ msgid "Invalid username or password"
-#~ msgstr "^Invalid username or password"
-
-#~ msgid "Username:"
-#~ msgstr "^Username:"
-
-#~ msgid "login"
-#~ msgstr "^login"

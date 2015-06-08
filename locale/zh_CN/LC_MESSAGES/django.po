@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-06-08 20:15+0000\n"
+"POT-Creation-Date: 2015-06-08 21:36+0000\n"
 "PO-Revision-Date: 2015-03-02 09:54+0000\n"
 "Last-Translator: b'Anonymous User <wingchung@justinhui.co.uk>'\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -826,7 +826,7 @@ msgid "Search Address"
 msgstr "電子郵件地址"
 
 #: gallery/templates/gallery/image_tagging.html:80
-msgid "Go"
+msgid "OK"
 msgstr ""
 
 #: gallery/templates/gallery/image_tagging.html:95
@@ -1099,18 +1099,3 @@ msgstr "大約"
 #: templates/base.html:73
 msgid "Log Out"
 msgstr "考勤出"
-
-#~ msgid "Staff status"
-#~ msgstr "工作人員身份"
-
-#~ msgid "Designates whether the user can log into this admin site."
-#~ msgstr "指定用戶是否可以登錄到這個管理站點"
-
-#~ msgid "Superuser"
-#~ msgstr "超級用戶"
-
-#~ msgid "Designates whether the user is superuser"
-#~ msgstr "指定用戶是否是超級"
-
-#~ msgid "Active"
-#~ msgstr "積極"
