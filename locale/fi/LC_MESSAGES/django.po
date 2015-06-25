@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-06-08 21:36+0000\n"
+"POT-Creation-Date: 2015-06-25 22:57+0000\n"
 "PO-Revision-Date: 2015-05-11 08:55+0000\n"
 "Last-Translator: b'Anonymous User <wingchung@justinhui.co.uk>'\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -222,8 +222,8 @@ msgstr ""
 " Sinut on kutsuttu {1} liittyä ok!Suku.\n"
 " ok!Suku on yhteisöllinen sukupuu ja oma sosiaalinen verkosto, et perhe.\n"
 " Verkko on jo perustaneet perheenjäsenesi auttaa sinua pitämään yhteyttä.\n"
-" Jos haluat liittyä, siirry osoitteeseen https://www.okkindred.com/accounts/"
-"confirmation={2}/\n"
+" Jos haluat liittyä, siirry osoitteeseen {2}/"
+"accounts/confirmation={3}/\n"
 "                                        "
 
 #: email_confirmation/templates/email_confirmation/confirm_invite.html:10
@@ -322,8 +322,8 @@ msgid ""
 msgstr ""
 "\n"
 " Ole hyvä ja klikkaa linkkiä ja check it out. Voit aina jättää, jos haluat. "
-"Jos haluat tietää lisää, mene <a href = \"https://www.okkindred.com"
-"\">https://okkindred.com</a> lue lisää!\n"
+"Jos haluat tietää lisää, mene <a href = \"%(domain)s\">"
+"%(domain)s</a> lue lisää!\n"
 "        "
 
 #: email_confirmation/templates/email_confirmation/invite.html:31
@@ -720,27 +720,27 @@ msgstr "Tiedosto on liian suuri"
 msgid "A biography has not yet been written for this language"
 msgstr "Elämäkerta ei ole vielä kirjoitettu tällä kielellä"
 
-#: familyroot/settings.py:121
+#: familyroot/settings.py:122
 msgid "English"
 msgstr "Englanti"
 
-#: familyroot/settings.py:122
+#: familyroot/settings.py:123
 msgid "Traditional Chinese"
 msgstr "Perinteinen Kiina"
 
-#: familyroot/settings.py:123
+#: familyroot/settings.py:124
 msgid "Simplified Chinese"
 msgstr "Yksinkertaistettu Kiina"
 
-#: familyroot/settings.py:124
+#: familyroot/settings.py:125
 msgid "Polish"
 msgstr "Puola"
 
-#: familyroot/settings.py:125
+#: familyroot/settings.py:126
 msgid "Finnish"
 msgstr "Suomen"
 
-#: familyroot/settings.py:126
+#: familyroot/settings.py:127
 msgid "French"
 msgstr "Ranska"
 
@@ -947,8 +947,8 @@ msgid ""
 msgstr ""
 "Hi {0}\n"
 " Sinun on havaittu valokuva.\n"
-" Ja katso, se, siirry osoitteeseen https://www.okkindred.com/image={1}/"
-"details/\n"
+" Ja katso, se, siirry osoitteeseen {1}/"
+"person={2}/photos/image={3}/\n"
 "                                    "
 
 #: templates/404.html:9
