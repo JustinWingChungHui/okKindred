@@ -109,6 +109,7 @@ and (max-device-width : 767px) {
 
 
 .aLabel {
+    -o-transition:background-color 0.25s ease-in;
 	-webkit-transition:background-color 0.25s ease-in;
 	-moz-transition:background-color 0.25s ease-in;
 	transition:background-color 0.25s ease-in;
