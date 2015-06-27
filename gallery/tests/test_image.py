@@ -88,4 +88,25 @@ class ImageTestCase(TestCase):
         #Clear up mess afterwards
         os.remove(exif_test_image_destination)
 
+    def test_get_exif_data2(self):
+        '''
+        Tests we can extract gps data from an image
+        '''
+        exif_test_image = os.path.join(settings.BASE_DIR, 'gallery/tests/exif_test_2.jpg')
+        exif_test_image_destination = ''.join([settings.MEDIA_ROOT, 'galleries/', str(self.family.id), '/', str(self.gallery.id), '/exif_test.jpg'])
+        shutil.copy2(exif_test_image, exif_test_image_destination)
 
+        image = Image(gallery=self.gallery, family=self.family, original_image=exif_test_image_destination)
+        values = image._get_exif()
+
+        self.assertEqual(True, 'DateTimeOriginal' in values)
+        self.assertEqual(True, 'GPSInfo' in values)
+
+        image._populate_exif_data()
+
+        self.assertEqual(datetime(2015, 6, 21, 13, 50, 35).replace(tzinfo=utc), image.date_taken)
+        self.assertEqual(True, image.latitude != 0)
+        self.assertEqual(True, image.longitude != 0)
+
+        #Clear up mess afterwards
+        os.remove(exif_test_image_destination)

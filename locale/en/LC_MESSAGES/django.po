@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-06-08 21:36+0000\n"
+"POT-Creation-Date: 2015-06-27 13:18+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -685,27 +685,27 @@ msgstr ""
 msgid "A biography has not yet been written for this language"
 msgstr ""
 
-#: familyroot/settings.py:121
+#: familyroot/settings.py:122
 msgid "English"
 msgstr ""
 
-#: familyroot/settings.py:122
+#: familyroot/settings.py:123
 msgid "Traditional Chinese"
 msgstr ""
 
-#: familyroot/settings.py:123
+#: familyroot/settings.py:124
 msgid "Simplified Chinese"
 msgstr ""
 
-#: familyroot/settings.py:124
+#: familyroot/settings.py:125
 msgid "Polish"
 msgstr ""
 
-#: familyroot/settings.py:125
+#: familyroot/settings.py:126
 msgid "Finnish"
 msgstr ""
 
-#: familyroot/settings.py:126
+#: familyroot/settings.py:127
 msgid "French"
 msgstr ""
 
