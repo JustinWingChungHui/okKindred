@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-06-08 21:36+0000\n"
+"POT-Creation-Date: 2015-06-27 13:18+0000\n"
 "PO-Revision-Date: 2015-05-11 08:53+0000\n"
 "Last-Translator: b'Anonymous User <wingchung@justinhui.co.uk>'\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -225,8 +225,7 @@ msgstr ""
 "pour vous et votre famille.\n"
 "Un réseau a déjà été mis en place par l'un des membres de votre famille pour "
 "vous aider à garder le contact.\n"
-" Pour vous inscrire, veuillez aller à https://www.okkindred.com/accounts/"
-"confirmation={2}/\n"
+" Pour vous inscrire, veuillez aller à {2}accounts/confirmation={3}/\n"
 "                                        "
 
 #: email_confirmation/templates/email_confirmation/confirm_invite.html:10
@@ -326,8 +325,8 @@ msgid ""
 msgstr ""
 "\n"
 "Veuillez cliquer sur le lien. Vous pouvez toujours quitter si vous le "
-"souhaitez. Si vous voulez, il suffit d'aller sur <a href = \"https://www."
-"okkindred.com\">https://okkindred.com</a> pour en savoir plus!\n"
+"souhaitez. Si vous voulez, il suffit d'aller sur <a href = \"%(domain)s\">"
+"%(domain)s</a> pour en savoir plus!\n"
 "        "
 
 #: email_confirmation/templates/email_confirmation/invite.html:31
@@ -729,27 +728,27 @@ msgstr "Le fichier est trop gros"
 msgid "A biography has not yet been written for this language"
 msgstr "Aucune biographie écrite pour cette langue."
 
-#: familyroot/settings.py:121
+#: familyroot/settings.py:122
 msgid "English"
 msgstr "Anglais"
 
-#: familyroot/settings.py:122
+#: familyroot/settings.py:123
 msgid "Traditional Chinese"
 msgstr "Chinois Traditionnel"
 
-#: familyroot/settings.py:123
+#: familyroot/settings.py:124
 msgid "Simplified Chinese"
 msgstr "Chinois Simplifié"
 
-#: familyroot/settings.py:124
+#: familyroot/settings.py:125
 msgid "Polish"
 msgstr "Polonais"
 
-#: familyroot/settings.py:125
+#: familyroot/settings.py:126
 msgid "Finnish"
 msgstr "Finois"
 
-#: familyroot/settings.py:126
+#: familyroot/settings.py:127
 msgid "French"
 msgstr "Français"
 
@@ -956,7 +955,7 @@ msgid ""
 msgstr ""
 "Salut {0}\n"
 " Vous avez été identifié dans une photo.\n"
-" Pour le voir, aller à https://www.okkindred.com/image={1}/details/\n"
+" Pour le voir, aller à {1}/person={2}/photos/image={3}/\n"
 "                                    "
 
 #: templates/404.html:9

@@ -1,6 +1,7 @@
 from django.db import models
 from gallery.models import Gallery
 from common.utils import create_hash
+from common.get_lat_lon_exif_pil import get_exif_data, get_lat_lon
 from django.conf import settings
 from PIL.ExifTags import TAGS
 import PIL
@@ -141,20 +142,10 @@ class Image(models.Model):
         '''
         http://www.blog.pythonlibrary.org/2010/03/28/getting-photo-metadata-exif-using-python/
         '''
-        ret = {}
-
         if not image:
             image = PIL.Image.open(self._get_absolute_image_path())
 
-        try:
-            info = image._getexif()
-            for tag, value in info.items():
-                decoded = TAGS.get(tag, tag)
-                ret[decoded] = value
-        except:
-            pass
-
-        return ret
+        return get_exif_data(image)
 
 
     def _populate_exif_data(self, image=None):
@@ -170,24 +161,10 @@ class Image(models.Model):
             image = PIL.Image.open(self._get_absolute_image_path())
 
         data = self._get_exif(image)
+        lat, lon = get_lat_lon(data)
 
-        try:
-            lat = [float(x)/float(y) for x, y in data['GPSInfo'][2]]
-            latref = data['GPSInfo'][1]
-            lon = [float(x)/float(y) for x, y in data['GPSInfo'][4]]
-            lonref = data['GPSInfo'][3]
-
-            lat = lat[0] + lat[1]/60 + lat[2]/3600
-            lon = lon[0] + lon[1]/60 + lon[2]/3600
-            if latref == 'S':
-                lat = -lat
-            if lonref == 'W':
-                lon = -lon
-
-            self.latitude = lat
-            self.longitude = lon
-        except:
-            pass
+        self.latitude = lat
+        self.longitude = lon
 
         try:
             self.date_taken = datetime.strptime(data['DateTimeOriginal'],"%Y:%m:%d %H:%M:%S").replace(tzinfo=utc)
