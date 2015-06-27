@@ -24,11 +24,11 @@ from familyroot import secrets
 SECRET_KEY = secrets.SECRET_KEY
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 TEMPLATE_DEBUG = DEBUG
 
-SSLIFY_DISABLE = False #Set this to true to run the unit tests!
+SSLIFY_DISABLE = True
 
 ALLOWED_HOSTS = [
                 '.okkindred.com',  # Allow domain and subdomains
@@ -38,7 +38,6 @@ DOMAIN = 'https://www.okkindred.com'
 
 # Application definition
 INSTALLED_APPS = (
-    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -51,6 +50,7 @@ INSTALLED_APPS = (
     'email_confirmation',
     'rosetta',
     'gallery',
+    'django.contrib.admin',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -86,6 +86,7 @@ EMAIL_HOST = secrets.EMAIL_HOST
 EMAIL_PORT = secrets.EMAIL_PORT
 EMAIL_HOST_USER = secrets.EMAIL_HOST_USER
 EMAIL_HOST_PASSWORD = secrets.EMAIL_HOST_PASSWORD
+DEFAULT_FROM_EMAIL = 'info@okkindred.com'
 
 
 #Rosetta

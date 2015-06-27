@@ -1,4 +1,5 @@
 from django.conf.urls import include, url
+from django.contrib.auth import views as auth_views
 from django.contrib import admin
 from django.conf import settings
 import familyroot.views
@@ -26,6 +27,10 @@ urlpatterns = [
     url(r'^accounts/update_settings/$', custom_user.views.update_user_setting_post),
     url(r'^accounts/delete/$', custom_user.views.delete_account_post),
     url(r'^settings/$', custom_user.views.settings_view),
+    url(r'^accounts/password_reset/$', auth_views.password_reset, {'template_name': 'custom_user/password_reset.html'}, name='password_reset'),
+    url(r'^accounts/password_reset/done/$', auth_views.password_reset_done, {'template_name': 'custom_user/password_reset_done.html'}, name='password_reset_done'),
+    url(r'^accounts/reset/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$', auth_views.password_reset_confirm, {'template_name': 'custom_user/password_reset_confirm.html'}, name='password_reset_confirm'),
+    url(r'^accounts/reset/done/$', auth_views.password_reset_complete, {'template_name': 'custom_user/password_reset_complete.html'}, name='password_reset_complete'),
 
     #Email cofirmation views
     url(r'^accounts/confirmation=(?P<confirmation_key>\w+)/$', email_confirmation.views.confirm_invite),
@@ -114,7 +119,7 @@ urlpatterns = [
     url(r'^image=(?P<image_id>\d+)/address/$', gallery.views.geocode_image_location_post),
 ]
 
-#if 'rosetta' in settings.INSTALLED_APPS:
-#    urlpatterns.append(url(r'^translate/', include('rosetta.urls')))
+if 'rosetta' in settings.INSTALLED_APPS:
+    urlpatterns.append(url(r'^translate/', include('rosetta.urls')))
 
 
