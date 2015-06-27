@@ -21,12 +21,12 @@
             {% csrf_token %}
             <h4>{% trans "Please create a new password:" %}</h4>
             <p>
-                <input type="password" name="password" data-minlength="8" class="form-control" id="inputPassword" placeholder="{% trans "New Password" %} " required>
+                <input type="password" name="password" data-minlength="8" class="form-control" id="inputPassword" placeholder="{% trans 'New Password' %} " required>
                 <span class="help-block">{% trans "Minimum of 8 characters" %}</span>
             </p>
             <p>
                 <input type="password" class="form-control" id="inputPasswordConfirm" data-match="#inputPassword"
-                        data-match-error="{% trans "Whoops, they must match!" %}" placeholder="{% trans "Confirm Password" %}" required>
+                        data-match-error="{% trans 'Whoops, they must match!' %}" placeholder="{% trans 'Confirm Password' %}" required>
                 <div class="help-block with-errors"></div>
             </p>
             <input type="hidden" name="confirmation_key" value="invite.confirmation_key">
@@ -40,6 +40,6 @@
 
 {% block extrascript %}
 
-<script src="{% static "js/editable.min.js" %}"></script>
+<script src="{% static 'js/editable.min.js' %}"></script>
 
 {% endblock %}
