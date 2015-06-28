@@ -5,7 +5,7 @@ from family_tree.models.relation import Relation, RAISED, PARTNERED, RAISED_BY
 from family_tree.services import relation_suggestion_service
 
 
-class TreeRelationSuggestionService(TestCase):
+class TreeRelationSuggestionService(TestCase): # pragma: no cover
     '''
     This defines all the tests for the relation suggestion service
     '''

@@ -5,7 +5,7 @@ from django.test.utils import override_settings
 from django.core import serializers
 
 @override_settings(SSLIFY_DISABLE=True)
-class TestSearchViews(TestCase):
+class TestSearchViews(TestCase): # pragma: no cover
 
     def setUp(self):
         '''

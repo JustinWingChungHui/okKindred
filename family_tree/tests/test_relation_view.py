@@ -5,7 +5,7 @@ from family_tree.models.relation import PARTNERED
 from django.test.utils import override_settings
 
 @override_settings(SSLIFY_DISABLE=True)
-class TestRelationViews(TestCase):
+class TestRelationViews(TestCase): # pragma: no cover
 
     def setUp(self):
         '''

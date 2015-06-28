@@ -9,7 +9,7 @@ import PIL
 from datetime import datetime
 
 
-class ImageTestCase(TestCase):
+class ImageTestCase(TestCase): # pragma: no cover
     '''
     Tests for the image class
     '''

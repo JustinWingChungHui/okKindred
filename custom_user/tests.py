@@ -4,7 +4,7 @@ from family_tree.models import Person, Family
 from django.test.utils import override_settings
 
 @override_settings(SSLIFY_DISABLE=True)
-class TestCustomUserViews(TestCase):
+class TestCustomUserViews(TestCase): # pragma: no cover
 
     def setUp(self):
         '''

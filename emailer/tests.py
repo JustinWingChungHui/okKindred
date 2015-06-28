@@ -2,7 +2,7 @@ from django.test import TestCase
 from emailer.models import Email, FamilyNewsLetterEvents
 
 
-class EmailTestCase(TestCase):
+class EmailTestCase(TestCase): # pragma: no cover
     '''
     Tests for the email class
     '''

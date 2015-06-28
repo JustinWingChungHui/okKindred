@@ -8,7 +8,7 @@ from family_tree.models.relation import Relation, RAISED, PARTNERED, RAISED_BY
 from common import geocoder
 from PIL import Image
 
-class PersonTestCase(TestCase):
+class PersonTestCase(TestCase): # pragma: no cover
     '''
     This defines all the tests for all model logic for a Person
     '''

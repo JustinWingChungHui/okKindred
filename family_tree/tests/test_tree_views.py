@@ -7,7 +7,7 @@ from family_tree.views.tree_views import _get_css
 from django.test.utils import override_settings
 
 @override_settings(SSLIFY_DISABLE=True)
-class TestTreeViews(TestCase):
+class TestTreeViews(TestCase): # pragma: no cover
 
     def setUp(self):
         '''

@@ -11,7 +11,7 @@ import shutil
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 @override_settings(SSLIFY_DISABLE=True)
-class TestImageViews(TestCase):
+class TestImageViews(TestCase): # pragma: no cover
     '''
     Test class for the gallery views
     '''

@@ -8,7 +8,7 @@ from django.test.utils import override_settings
 
 
 @override_settings(SSLIFY_DISABLE=True)
-class EmailConfirmationTestCase(TestCase):
+class EmailConfirmationTestCase(TestCase): # pragma: no cover
     '''
     Tests for this app
     '''

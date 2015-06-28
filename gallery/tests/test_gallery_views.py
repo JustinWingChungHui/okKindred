@@ -5,7 +5,7 @@ from family_tree.models import Family
 from django.test.utils import override_settings
 
 @override_settings(SSLIFY_DISABLE=True)
-class TestGalleryViews(TestCase):
+class TestGalleryViews(TestCase): # pragma: no cover
     '''
     Test class for the gallery views
     '''

@@ -7,7 +7,7 @@ from family_tree.models.relation import Relation, RAISED, PARTNERED, RAISED_BY
 from family_tree.services import tree_service
 
 
-class TreeServiceTestCase(TestCase):
+class TreeServiceTestCase(TestCase): # pragma: no cover
     '''
     This defines all the tests for the tree service
     '''

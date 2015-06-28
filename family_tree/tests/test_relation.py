@@ -3,7 +3,7 @@ from family_tree.models.person import Person
 from family_tree.models.family import Family
 from family_tree.models.relation import Relation, RAISED, RAISED_BY, PARTNERED
 
-class RelationTestCase(TestCase):
+class RelationTestCase(TestCase): # pragma: no cover
     '''
     This defines all the tests for all model logic for a Relation
     '''

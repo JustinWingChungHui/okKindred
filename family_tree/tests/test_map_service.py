@@ -3,7 +3,7 @@ from family_tree.services import map_service
 from django.test import TestCase
 
 
-class MapServiceTestCase(TestCase):
+class MapServiceTestCase(TestCase): # pragma: no cover
 
     '''
     This defines all the tests for the map service

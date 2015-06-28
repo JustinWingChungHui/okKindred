@@ -5,7 +5,7 @@ from family_tree.models.family import Family
 from family_tree.models.person import Person
 from family_tree.models.biography import Biography
 
-class BiographyTestCase(TestCase):
+class BiographyTestCase(TestCase): # pragma: no cover
     '''
     This defines all the tests for all model logic for a Biography
     '''
