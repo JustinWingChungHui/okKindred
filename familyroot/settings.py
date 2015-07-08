@@ -150,7 +150,7 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = '/home/justinhui/media/okkindred/'
+MEDIA_ROOT = secrets.MEDIA_ROOT
 #MEDIAFILES_DIRS = (os.path.join(BASE_DIR, 'media'),)
 
 TEMPLATE_DIRS = (

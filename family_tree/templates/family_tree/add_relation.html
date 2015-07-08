@@ -17,7 +17,7 @@
                 {% if person.small_thumbnail %}
                     <img src="/media/{{person.small_thumbnail}}" alt="{{ person.name }}"/>
                 {% else %}
-                    <img src="{% static "img/portrait_80.png" %}" alt="{{ person.name }}"/>
+                    <img src="{% static 'img/portrait_80.png' %}" alt="{{ person.name }}"/>
                 {% endif %}
             </div>
             <div>
@@ -67,7 +67,7 @@
                     <select class="form-control" name="language" id="language">
 
                         {% for language_code, language_display in languages %}
-                            <option value="{{ language_code }}">{{ language_display }}</option>
+                            <option value="{{ language_code }}" {% if person.language == language_code %}selected{% endif %}>{{ language_display }}</option>
                         {% endfor %}
 
                     </select>
@@ -81,11 +81,11 @@
                     <label for="input_existing_name">{% trans "Search Name" %}</label>
                     <input type="hidden" id="relation_id" name="relation_id" class="form-control">
                     <input type="search_text" id="input_existing_name" name="search_text" class="form-control"
-                            placeholder="{% trans "Name" %}" {% if suggested_person %} value="{{ suggested_person.name }}" {% endif %}>
+                            placeholder="{% trans 'Name' %}" {% if suggested_person %} value="{{ suggested_person.name }}" {% endif %}>
                 </div>
 
                 <div id="searching_in_progress" style="display:none;">
-                    <img src="{% static "img/ajax-loader.gif" %}"/> {% trans "Searching..." %}
+                    <img src="{% static 'img/ajax-loader.gif' %}"/> {% trans "Searching..." %}
                 </div>
                 <div class="table">
                     <table class="table table-striped">

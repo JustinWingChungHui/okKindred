@@ -15,9 +15,9 @@ class EmailConfirmationManager(models.Manager):
     '''
     def remove_expired_email_confirmations(self):
         '''
-        Remove all pending email confirmations that are over a week old
+        Remove all pending email confirmations that are over 4 weeks old
         '''
-        d = timezone.now() - timedelta(days=7)
+        d = timezone.now() - timedelta(days=28)
         self.filter(sent__lte = d).delete()
 
 
