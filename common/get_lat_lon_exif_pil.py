@@ -115,14 +115,18 @@ def get_lat_lon_backup(path_name):
     lat = 0
     lon = 0
 
-    if gps_latitude and gps_latitude_ref and gps_longitude and gps_longitude_ref:
-        lat = _convert_exif_format_to_degrees(gps_latitude.values)
-        if gps_latitude_ref != "N":
-            lat = 0 - lat
+    try:
+        if gps_latitude and gps_latitude_ref and gps_longitude and gps_longitude_ref:
+            lat = _convert_exif_format_to_degrees(gps_latitude.values)
+            if gps_latitude_ref.printable  != "N":
+                lat = 0 - lat
 
-        lon = _convert_exif_format_to_degrees(gps_longitude.values)
-        if gps_longitude_ref != "E":
-            lon = 0 - lon
+            lon = _convert_exif_format_to_degrees(gps_longitude.values)
+            if gps_longitude_ref.printable != "E":
+                lon = 0 - lon
+    except:
+        # For when the standards change again... groan
+        pass
 
     return lat, lon
 
