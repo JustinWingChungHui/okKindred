@@ -1,5 +1,5 @@
 from PIL.ExifTags import TAGS, GPSTAGS
-
+import exifread
 '''
 From https://gist.github.com/erans/983821
 
@@ -12,7 +12,6 @@ if __name__ == "__main__":
     print get_lat_lon(exif_data)
 
 '''
-
 def get_exif_data(image):
     """Returns a dictionary from the exif data of an PIL Image item. Also converts the GPS Tags"""
     exif_data = {}
@@ -39,7 +38,33 @@ def _get_if_exist(data, key):
 
     return None
 
-def _convert_to_degress(value):
+def get_lat_lon(exif_data):
+    '''
+    Returns the latitude and longitude, if available, from the provided exif_data from PIL
+    '''
+    lat = 0
+    lon = 0
+
+    if "GPSInfo" in exif_data:
+        gps_info = exif_data["GPSInfo"]
+
+        gps_latitude = _get_if_exist(gps_info, "GPSLatitude")
+        gps_latitude_ref = _get_if_exist(gps_info, 'GPSLatitudeRef')
+        gps_longitude = _get_if_exist(gps_info, 'GPSLongitude')
+        gps_longitude_ref = _get_if_exist(gps_info, 'GPSLongitudeRef')
+
+        if gps_latitude and gps_latitude_ref and gps_longitude and gps_longitude_ref:
+            lat = _convert_pil_format_to_degrees(gps_latitude)
+            if gps_latitude_ref != "N":
+                lat = 0 - lat
+
+            lon = _convert_pil_format_to_degrees(gps_longitude)
+            if gps_longitude_ref != "E":
+                lon = 0 - lon
+
+    return lat, lon
+
+def _convert_pil_format_to_degrees(value):
     """Helper function to convert the GPS coordinates stored in the EXIF to degress in float format"""
     d0 = value[0][0]
     d1 = value[0][1]
@@ -55,28 +80,49 @@ def _convert_to_degress(value):
 
     return d + (m / 60.0) + (s / 3600.0)
 
-def get_lat_lon(exif_data):
-    """Returns the latitude and longitude, if available, from the provided exif_data (obtained through get_exif_data above)"""
-    lat = None
-    lon = None
+def _convert_exif_format_to_degrees(values):
+    """Helper function to convert the GPS coordinates stored in the EXIF to degress in float format"""
 
-    if "GPSInfo" in exif_data:
-        gps_info = exif_data["GPSInfo"]
+    d0 = values[0].num
+    d1 = values[0].den
+    d = float(d0) / float(d1)
 
-        gps_latitude = _get_if_exist(gps_info, "GPSLatitude")
-        gps_latitude_ref = _get_if_exist(gps_info, 'GPSLatitudeRef')
-        gps_longitude = _get_if_exist(gps_info, 'GPSLongitude')
-        gps_longitude_ref = _get_if_exist(gps_info, 'GPSLongitudeRef')
+    m0 = values[1].num
+    m1 = values[1].den
+    m = float(m0) / float(m1)
 
-        if gps_latitude and gps_latitude_ref and gps_longitude and gps_longitude_ref:
-            lat = _convert_to_degress(gps_latitude)
-            if gps_latitude_ref != "N":
-                lat = 0 - lat
+    s0 = values[2].num
+    s1 = values[2].den
+    s = float(s0) / float(s1)
 
-            lon = _convert_to_degress(gps_longitude)
-            if gps_longitude_ref != "E":
-                lon = 0 - lon
+    return d + (m / 60.0) + (s / 3600.0)
+
+
+def get_lat_lon_backup(path_name):
+    '''
+    Opens the file using EXIF Read https://pypi.python.org/pypi/ExifRead
+    '''
+    # Open image file for reading (binary mode)
+    f = open(path_name, 'rb')
+
+    tags = exifread.process_file(f, details=False)
+
+    gps_latitude = _get_if_exist(tags, "GPS GPSLatitude")
+    gps_latitude_ref = _get_if_exist(tags, 'GPS GPSLatitudeRef')
+    gps_longitude = _get_if_exist(tags, 'GPS GPSLongitude')
+    gps_longitude_ref = _get_if_exist(tags, 'GPS GPSLongitudeRef')
+
+    lat = 0
+    lon = 0
+
+    if gps_latitude and gps_latitude_ref and gps_longitude and gps_longitude_ref:
+        lat = _convert_exif_format_to_degrees(gps_latitude.values)
+        if gps_latitude_ref != "N":
+            lat = 0 - lat
+
+        lon = _convert_exif_format_to_degrees(gps_longitude.values)
+        if gps_longitude_ref != "E":
+            lon = 0 - lon
 
     return lat, lon
-
 
