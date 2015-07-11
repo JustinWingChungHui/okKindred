@@ -42,11 +42,11 @@ def invite_person(request, person_id = 0, person = None):
         #Delete pending invite if email has changed
         pending_invite.delete()
 
-
-
     #create a new invite
     EmailConfirmation.objects.create(email_address=person.email,person_id=person_id,user_who_invited_person=request.user)
     return HttpResponseRedirect('/profile={0}/'.format(person_id))
+
+
 
 
 def confirm_invite(request, confirmation_key):
