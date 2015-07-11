@@ -1,9 +1,8 @@
 from django.db import models
 from gallery.models import Gallery
 from common.utils import create_hash
-from common.get_lat_lon_exif_pil import get_exif_data, get_lat_lon
+from common.get_lat_lon_exif_pil import get_exif_data, get_lat_lon, get_lat_lon_backup
 from django.conf import settings
-from PIL.ExifTags import TAGS
 import PIL
 import os
 from datetime import datetime
@@ -162,6 +161,10 @@ class Image(models.Model):
 
         data = self._get_exif(image)
         lat, lon = get_lat_lon(data)
+
+        # Issue with PIL GPS tag reading so if 0, try another library
+        if lat == 0 and lon == 0:
+            lat, lon = get_lat_lon_backup(self._get_absolute_image_path())
 
         self.latitude = lat
         self.longitude = lon
