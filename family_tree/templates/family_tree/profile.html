@@ -39,10 +39,15 @@
         {% endif %}
 
         {% if invite_allowed %}
-        <form role="form" action="/accounts/invite_person={{ person.id }}/" method="post">
-            {% csrf_token %}
-            <button class="btn btn-primary btn-profile" type="submit">{% trans "Invite to join" %}</button>
-        </form>
+            <div {% if has_email == False  %}style="display:none;"{% endif %}>
+                <form id="invite_form" role="form" action="/accounts/invite_person={{ person.id }}/" method="post">
+                    {% csrf_token %}
+                    <button class="btn btn-primary btn-profile" type="submit">{% trans "Invite to join" %}</button>
+                </form>
+            </div>
+            {% if has_email == False %}
+            <a class="btn btn-primary btn-profile" role="button" href="#modal_invite" data-toggle="modal">{%trans "Invite to join" %}</a>
+            {% endif %}
         {% endif %}
 
         {% if show_photos %}
@@ -181,8 +186,41 @@
             {% endif %}
         </p>
     </div>
+
+    <!--Invite popup-->
+    <div class="modal fade" id="modal_invite" tabindex="-3" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">{% trans "Invite to join" %}</h4>
+                </div>
+                <div id="tag_add_description" class="modal-body">
+                    <form id="invite_with_email_form" role="form" method="post" data-person_id="{{ person.id }}">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <div class="form-group">
+                                <input type="hidden" value="email" name="name">
+                                <input type="email" id="email" name="value" class="form-control" placeholder="{% trans "Email" %}">
+                            </div>
+                        </div>
+                        <div id="invite_in_progress" style="display:none;">
+                            <img src="{% static "img/ajax-loader.gif" %}"/>
+                        </div>
+                        <div id="email_error"></div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button id="invite_submit" class="btn btn-success">{% trans "Invite to join" %}</button>
+                    <button class="btn btn-danger" data-dismiss="modal">{% trans "Cancel" %}</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock %}
 
-
-
+{% block extrascript %}
+    <script src="{% static "js/family_tree/invite_person.js" %}"></script>
+{% endblock %}

@@ -28,7 +28,7 @@ DEBUG = False
 
 TEMPLATE_DEBUG = DEBUG
 
-SSLIFY_DISABLE = True
+SSLIFY_DISABLE = DEBUG
 
 ALLOWED_HOSTS = [
                 '.okkindred.com',  # Allow domain and subdomains

@@ -66,7 +66,7 @@ class EmailConfirmationTestCase(TestCase): # pragma: no cover
 
     def test_remove_expired_email_confirmations(self):
         '''
-        Tests that email confirmations that are over a week old are removed
+        Tests that email confirmations that are over a month old are removed
         '''
         before_person = Person.objects.create(name='before', gender='M', family_id=self.family.id, language='en')
 
@@ -74,7 +74,7 @@ class EmailConfirmationTestCase(TestCase): # pragma: no cover
                                                                 , person = before_person
                                                                 , user_who_invited_person_id=self.user.id
                                                                 , confirmation_key='12345'
-                                                                , sent=timezone.now() - timedelta(days=14))
+                                                                , sent=timezone.now() - timedelta(days=34))
 
 
         after_person = Person.objects.create(name='after', gender='M', family_id=self.family.id, language='en')

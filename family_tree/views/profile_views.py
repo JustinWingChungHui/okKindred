@@ -11,7 +11,6 @@ from custom_user.decorators import set_language
 from gallery.models import Tag
 
 
-
 @login_required
 @same_family_required
 def profile(request, person_id = 0, person = None, requested_language = '', edit_mode = False):
@@ -51,7 +50,7 @@ def profile(request, person_id = 0, person = None, requested_language = '', edit
     else:
 
         invite_allowed = False
-        if not person.user_id and person.email:
+        if not person.user_id and person.year_of_death == 0:
 
             #check no pending invites to email address
             from email_confirmation.models import EmailConfirmation
@@ -85,6 +84,7 @@ def profile(request, person_id = 0, person = None, requested_language = '', edit
                                     'show_relation_to_me': (True if request.user.id != person.user_id else False),
                                     'invite_allowed' : invite_allowed,
                                     'show_photos': (True if Tag.objects.filter(person_id=person.id).count() > 0 else False),
+                                    'has_email': (True if person.email else False),
                                 })
 
     response = template.render(context)
