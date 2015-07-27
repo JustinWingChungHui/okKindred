@@ -4,9 +4,8 @@ from email_confirmation.models import EmailConfirmation
 from custom_user.models import User
 from django.http import Http404
 from django.template import RequestContext, loader
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib import auth
-from django.http import HttpResponseRedirect
 from family_tree.decorators import same_family_required
 from django.contrib.auth.decorators import login_required
 

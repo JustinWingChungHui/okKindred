@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load i18n %}
+
+{% block content %}
+<div class="container">
+
+    <h3>{% trans "The email is already in use!" %}</h3>
+    <a href="\accounts\sign_up\" class="btn btn-success">{% trans "Back" %}</a>
+
+</div>
+{% endblock %}

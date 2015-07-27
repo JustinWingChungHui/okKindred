@@ -7,6 +7,7 @@ import custom_user.views
 import email_confirmation.views
 import family_tree.views
 import gallery.views
+import sign_up.views
 
 admin.autodiscover()
 
@@ -32,7 +33,11 @@ urlpatterns = [
     url(r'^accounts/reset/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$', auth_views.password_reset_confirm, {'template_name': 'custom_user/password_reset_confirm.html'}, name='password_reset_confirm'),
     url(r'^accounts/reset/done/$', auth_views.password_reset_complete, {'template_name': 'custom_user/password_reset_complete.html'}, name='password_reset_complete'),
 
-    #Email cofirmation views
+    #Sign Up urls
+    url(r'^accounts/sign_up/$', sign_up.views.sign_up),
+    url(r'^accounts/sign_up_confirmation=(?P<confirmation_key>\w+)/$', sign_up.views.sign_up_confirmation),
+
+    #Email confirmation views
     url(r'^accounts/confirmation=(?P<confirmation_key>\w+)/$', email_confirmation.views.confirm_invite),
     url(r'^accounts/invalid_expired/$', email_confirmation.views.invalid_expired),
     url(r'^accounts/invite_person=(?P<person_id>\d+)/$', email_confirmation.views.invite_person),

@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load i18n %}
+
+{% block content %}
+<div class="container">
+
+    <h3>
+    {%blocktrans%}
+    Thank you! {{ new_signup.name }}  Please check your email {{ new_signup.email_address }} to confirm your account.
+    {%endblocktrans%}
+    </h3>
+
+</div>
+{% endblock %}

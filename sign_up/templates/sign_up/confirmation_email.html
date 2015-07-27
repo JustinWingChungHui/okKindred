@@ -1,0 +1,23 @@
+{% extends "base_email.html" %}
+{% load i18n %}
+
+{% block content %}
+    <p>
+        {% trans "Hello" %} {{ person_name }}
+    </p>
+
+    <p>
+        {% blocktrans %}
+        To confirm your account, please click on the following link and choose a secure password that you will remember.
+        {% endblocktrans %}
+    </p>
+    <p>
+        <a href="{{ domain }}/accounts/sign_up_confirmation={{ confirmation_key }}/">{{ domain }}/accounts/sign_up_confirmation={{ confirmation_key }}/</a>
+    </p>
+
+    <p>
+        {% blocktrans %}
+        Thanks and lots of love from Justin & Adrian @ ok!Kindred
+        {% endblocktrans %}
+    </p>
+{% endblock %}
