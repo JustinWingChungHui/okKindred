@@ -62,9 +62,6 @@ class EmailConfirmation(models.Model):
         self.sent = timezone.now()
 
 
-
-
-
     #https://github.com/pinax/django-user-accounts/blob/dfa66fdffa4c2b81515658e65b39415b237ae29b/account/hooks.py
     def generate_confirmation_key(self):
         '''

@@ -31,6 +31,7 @@ TEMPLATE_DEBUG = DEBUG
 SSLIFY_DISABLE = DEBUG
 
 ALLOWED_HOSTS = [
+                'justinhui.pythonanywhere.com',
                 '.okkindred.com',  # Allow domain and subdomains
                 ]
 
@@ -51,6 +52,7 @@ INSTALLED_APPS = (
     'rosetta',
     'gallery',
     'django.contrib.admin',
+    'sign_up',
 )
 
 MIDDLEWARE_CLASSES = (

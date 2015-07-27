@@ -249,6 +249,10 @@ textarea {
     margin-right: auto;
 }
 
+#sign_up_form {
+    max-width: 500px ;
+}
+
 /** How Am I Related Page **/
 .boxed_chained {
         padding: 10px;
