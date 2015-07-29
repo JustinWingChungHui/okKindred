@@ -31,7 +31,6 @@ TEMPLATE_DEBUG = DEBUG
 SSLIFY_DISABLE = DEBUG
 
 ALLOWED_HOSTS = [
-                'justinhui.pythonanywhere.com',
                 '.okkindred.com',  # Allow domain and subdomains
                 ]
 
