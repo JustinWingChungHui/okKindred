@@ -352,6 +352,19 @@ class TreeServiceTestCase(TestCase): # pragma: no cover
         self.assertEqual(grandma.id, result[98][0].id)
 
 
+    def test_get_ancestors_single_person(self):
+        '''
+        Tests get ancestors when only one person
+        '''
+        another_family = Family()
+        another_family.save()
+
+        person = Person.objects.create(name='patient zero a', gender='M',hierarchy_score=100, family_id=another_family.id)
+
+        result, relations = tree_service.get_ancestors(person)
+        self.assertEqual(1, len(result))
+
+
     def test_get_shortest_path(self):
         '''
         Tests the get_related_path function.

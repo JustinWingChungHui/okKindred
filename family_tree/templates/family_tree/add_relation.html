@@ -43,8 +43,8 @@
         <div id="to_person" class="boxed">
 
             <div class="form-group">
-                <input type="radio" name="group1" value="existing" checked>{% trans "Existing Person" %}
-                <input type="radio" name="group1" value="new">{% trans "New Person" %}
+                <input type="radio" name="group1" value="existing" {% if suggested_person %} checked {% endif %}>{% trans "Existing Person" %}
+                <input type="radio" name="group1" value="new" {% if suggested_person == None %} checked {% endif %}>{% trans "New Person" %}
             </div>
 
             <div id="new_person_data" style="display: None;">
