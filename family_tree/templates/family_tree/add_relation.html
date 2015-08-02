@@ -47,7 +47,7 @@
                 <input type="radio" name="group1" value="new" {% if suggested_person == None %} checked {% endif %}>{% trans "New Person" %}
             </div>
 
-            <div id="new_person_data" style="display: None;">
+            <div id="new_person_data" {% if suggested_person %}style="display: None;"{% endif %}>
                 <div class="form-group">
                     <label for="input_new_name">{% trans "Name" %}</label>
                     <input type="text" class="form-control" id="input_new_name" name="name">
@@ -73,7 +73,7 @@
                     </select>
                 </div>
             </div>
-            <div id="existing_person_data">
+            <div id="existing_person_data" {% if suggested_person == None %}style="display: None;"{% endif %}>
 
                 <input type="hidden" id="existing_person" name="existing_person" class="form-control" value="1">
 
