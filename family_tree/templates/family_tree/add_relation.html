@@ -99,7 +99,7 @@
 
         </div>
 
-        <button id="relation_submit" class="btn btn-lg btn-success btn-block" type="submit" style="display: None;" >{% trans "Save" %}</button>
+        <button id="relation_submit" class="btn btn-lg btn-success btn-block" type="submit" {% if suggested_person %}style="display: None;"{% endif %}>{% trans "Save" %}</button>
     </form>
 
 </div>
