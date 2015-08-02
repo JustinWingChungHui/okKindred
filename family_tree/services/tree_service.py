@@ -188,6 +188,9 @@ def _add_related(person, people_by_id, list_of_people_by_hierachy, people_includ
 
     for relation_type in relation_types:
 
+        if len(relations_by_person) == 0:
+            return
+
         for path in relations_by_person[person.id]:
 
             if path.to_person_id not in people_included and path.relation_type == relation_type:
