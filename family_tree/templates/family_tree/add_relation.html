@@ -75,7 +75,7 @@
             </div>
             <div id="existing_person_data" {% if suggested_person == None %}style="display: None;"{% endif %}>
 
-                <input type="hidden" id="existing_person" name="existing_person" class="form-control" value="1">
+                <input type="hidden" id="existing_person" name="existing_person" class="form-control" {% if suggested_person %}value="1"{% else %}value="0"{% endif %}>
 
                 <div class="form-group">
                     <label for="input_existing_name">{% trans "Search Name" %}</label>
