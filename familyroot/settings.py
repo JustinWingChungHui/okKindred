@@ -24,7 +24,7 @@ from familyroot import secrets
 SECRET_KEY = secrets.SECRET_KEY
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 TEMPLATE_DEBUG = DEBUG
 
@@ -32,6 +32,7 @@ SSLIFY_DISABLE = DEBUG
 
 ALLOWED_HOSTS = [
                 '.okkindred.com',  # Allow domain and subdomains
+                'justin.hui@pythonanywhere.com',
                 ]
 
 DOMAIN = 'https://www.okkindred.com'

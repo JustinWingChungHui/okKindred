@@ -7,6 +7,7 @@ import httplib, urllib
 params = urllib.urlencode([
     ('code_url', 'https://www.okkindred.com/static/js/jquery/jquery-1.11.2.min.js'),
     ('code_url', 'https://www.okkindred.com/static/js/bootstrap/bootstrap.min.js'),
+    ('code_url', 'https://www.okkindred.com/static/js/mustache/mustache.min.js'),
     ('compilation_level', 'SIMPLE_OPTIMIZATIONS'),
     ('output_format', 'text'),
     ('output_info', 'compiled_code'),
@@ -120,3 +121,4 @@ conn.close()
 
 with open("editable.min.js", "w") as text_file:
     text_file.write(data)
+

@@ -21,16 +21,15 @@ class RelationManager(models.Manager):
 
     def get_all_relations_for_family_id(self, family_id):
         '''
-        Gets all the relations for a family
+        Gets all the relations for a family, omit the tracking fields for speed
         '''
         return self.raw("""
-                        SELECT r.*
+                        SELECT r.id, r.from_person_id, r.to_person_id, r.relation_type
                         FROM family_tree_person p
                         INNER JOIN family_tree_relation r
                         ON r.from_person_id = p.id
                         AND p.family_id={0}
                         """.format(family_id))
-
 
     def get_navigable_relations(self, family_id, relations=None):
         '''

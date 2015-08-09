@@ -1,13 +1,47 @@
 # encoding: utf-8
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
+from django.core.serializers.json import DjangoJSONEncoder
+from django.http import HttpResponse, Http404
 from django.template import RequestContext, loader
-from family_tree.models import Person
+from family_tree.models import Person, Relation
 from family_tree.services import tree_service
 from family_tree.decorators import same_family_required
 from custom_user.decorators import set_language
-from django.http import Http404
+import json
 
+@login_required
+@set_language
+@same_family_required
+def tree_app(request, person_id = 0, person = None):
+    '''
+    Loads the tree single page app
+    '''
+    template = loader.get_template('family_tree/tree_app.html')
+    context = RequestContext(request)
+    response = template.render(context)
+
+    return HttpResponse(response)
+
+@login_required
+@set_language
+@same_family_required
+def tree_data(request, person_id = 0, person = None):
+    '''
+    Gets all data required to draw a family tree
+    '''
+    people = Person.objects.filter(family_id = request.user.family_id
+                            ).order_by('hierarchy_score', 'birth_year', 'gender'
+                            ).values_list('id','name', 'small_thumbnail','hierarchy_score')
+
+    relations = Relation.objects.filter(from_person__family_id = request.user.family_id).values_list('id', 'from_person_id', 'to_person_id', 'relation_type')
+
+    result = {
+            'people': list(people),
+            'relations': list(relations),
+        }
+
+    result_json = json.dumps(result, cls=DjangoJSONEncoder)
+    return HttpResponse(result_json, content_type="application/json")
 
 @login_required
 @set_language
