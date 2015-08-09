@@ -49,6 +49,10 @@ urlpatterns = [
     url(r'^descendants=(?P<person_id>\d+)/$', family_tree.views.get_descendants),
     url(r'^ancestors=(?P<person_id>\d+)/$', family_tree.views.get_ancestors),
 
+    url(r'tree/$', family_tree.views.tree_app),
+    url(r'tree/(?P<person_id>\d+)/$', family_tree.views.tree_app),
+    url(r'^tree/data/$', family_tree.views.tree_data),
+
     #Not accessible yet
     url(r'^whole_tree/$', family_tree.views.whole_tree),
 

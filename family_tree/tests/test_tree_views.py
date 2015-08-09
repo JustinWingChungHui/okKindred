@@ -152,3 +152,11 @@ class TestTreeViews(TestCase): # pragma: no cover
         response = self.client.get('/ancestors={0}/'.format( self.grandson.id))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'family_tree/whole_tree.html')
+
+    def test_tree_data_loads(self):
+        '''
+        Tests that the descendants view loads
+        '''
+        self.client.login(email='roger_taylor@queenonline.com', password='nation of haircuts')
+        response = self.client.get('/tree/data/')
+        self.assertEqual(response.status_code, 200)
