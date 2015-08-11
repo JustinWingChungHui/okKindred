@@ -10,7 +10,7 @@
 <div class="container" style="padding-top: 20px;">
     <div class="col-md-12">
         <p>
-            <a class="btn btn-success" href="/profile={{ person.id }}/" role="button">&laquo;{%trans "Done" %}</a>
+            <a class="btn btn-success" href="/tree/{{ person.id }}/" role="button">&laquo;{%trans "Done" %}</a>
             <a class="btn btn-primary" href="/add_relation={{ person.id }}/" role="button">{%trans "Add Relation" %}</a>
             <a class="btn btn-warning" href="/break_relation={{ person.id }}/" role="button">{%trans "Break Relation" %}</a>
             {% if can_delete %}

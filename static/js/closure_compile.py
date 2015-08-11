@@ -5,7 +5,7 @@ import httplib, urllib
 # a URL-safe format.
 
 params = urllib.urlencode([
-    ('code_url', 'https://www.okkindred.com/static/js/jquery/jquery-1.11.2.min.js'),
+    ('code_url', 'https://www.okkindred.com/static/js/jquery/jquery-2.1.4.min.js'),
     ('code_url', 'https://www.okkindred.com/static/js/bootstrap/bootstrap.min.js'),
     ('code_url', 'https://www.okkindred.com/static/js/mustache/mustache.min.js'),
     ('compilation_level', 'SIMPLE_OPTIMIZATIONS'),
@@ -122,3 +122,20 @@ conn.close()
 with open("editable.min.js", "w") as text_file:
     text_file.write(data)
 
+# Tree App
+params = urllib.urlencode([
+    ('code_url', 'https://www.okkindred.com/static/js/family_tree/tree_app.js'),
+    ('compilation_level', 'SIMPLE_OPTIMIZATIONS'),
+    ('output_format', 'text'),
+    ('output_info', 'compiled_code'),
+  ])
+# Always use the following value for the Content-type header.
+headers = { "Content-type": "application/x-www-form-urlencoded" }
+conn = httplib.HTTPConnection('closure-compiler.appspot.com')
+conn.request('POST', '/compile', params, headers)
+response = conn.getresponse()
+data = response.read()
+conn.close()
+
+with open("family_tree/tree_app.min.js", "w") as text_file:
+    text_file.write(data)

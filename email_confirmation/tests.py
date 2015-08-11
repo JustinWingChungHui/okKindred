@@ -164,7 +164,7 @@ class EmailConfirmationTestCase(TestCase): # pragma: no cover
 
 
         #Diverted to home page
-        self.assertRedirects(response, '/home/', status_code=302, target_status_code=200, msg_prefix='')
+        self.assertRedirects(response, '/', status_code=302, target_status_code=302, msg_prefix='')
 
         #check confirmation address no longer valid
         response = self.client.get('/accounts/confirmation={0}/'.format(invite.confirmation_key))

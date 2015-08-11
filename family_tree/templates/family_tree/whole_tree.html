@@ -25,7 +25,7 @@
 
         {% for relative in people %}
             <div id="person{{relative.id}}" class="w">
-                <a href="/person={{relative.id}}/">
+                <a href="/tree/{{relative.id}}/">
                     {% if relative.small_thumbnail %}
                         <img class="tree_thumb" alt="{{ relative.name }}" src="/media/{{relative.small_thumbnail}}"/>
                     {% else %}
@@ -66,7 +66,7 @@
 
             instance.makeSource(windows, {
                 filter: ".ep",
-                anchor: "Continuous",
+                anchor: "AutoDefault",
                 connector: [ "StateMachine", { curviness: 20 } ],
                 connectorStyle: { strokeStyle: "#5c96bc", lineWidth: 2, outlineColor: "transparent", outlineWidth: 4 },
                 maxConnections: 5,
@@ -78,7 +78,7 @@
             // initialise all '.w' elements as connection targets.
             instance.makeTarget(windows, {
                 dropOptions: { hoverClass: "dragHover" },
-                anchor: "Continuous",
+                anchor: "AutoDefault",
                 allowLoopback: true
             });
 
@@ -98,7 +98,6 @@
                 });
             {% endfor %}
 
-            jsPlumb.fire("jsPlumbDemoLoaded", instance);
         });
     });
     </script>

@@ -124,7 +124,7 @@ def confirm_invite_post(request, invite):
 
     user = auth.authenticate(username=user.email, password=password)
     auth.login(request, user)
-    return HttpResponseRedirect('/home/')
+    return HttpResponseRedirect('/')
 
 
 def invalid_expired(request):

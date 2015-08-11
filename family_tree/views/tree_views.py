@@ -9,6 +9,7 @@ from family_tree.decorators import same_family_required
 from custom_user.decorators import set_language
 import json
 
+
 @login_required
 @set_language
 @same_family_required

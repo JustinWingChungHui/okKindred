@@ -3,6 +3,7 @@ from django.http import HttpResponseRedirect
 from django.core.context_processors import csrf
 from django.http import HttpResponse
 from django.template import RequestContext, loader
+from family_tree.models import Person
 
 def index(request):
     '''
@@ -10,7 +11,10 @@ def index(request):
     '''
     if request.user != None and request.user.is_authenticated():
         request.session['django_language'] = request.user.language
-        return HttpResponseRedirect('/home/')
+
+        person_id = Person.objects.get(user_id = request.user.id).id
+
+        return HttpResponseRedirect('/tree/{0}/'.format(person_id))
     else:
         return about(request)
 

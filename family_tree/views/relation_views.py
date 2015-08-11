@@ -81,7 +81,7 @@ def add_relation_post(request, person_id = 0, person = None):
     new_relation = Relation(from_person_id=person.id, to_person_id=relation_id, relation_type=relation_type)
     new_relation.save()
 
-    return HttpResponseRedirect('/person={0}/'.format(person_id))
+    return HttpResponseRedirect('/tree/{0}/'.format(person_id))
 
 
 @login_required

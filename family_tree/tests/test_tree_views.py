@@ -129,7 +129,7 @@ class TestTreeViews(TestCase): # pragma: no cover
         Tests that the whole tree view loads
         '''
         self.client.login(email='roger_taylor@queenonline.com', password='nation of haircuts')
-        response = self.client.get('/whole_tree/')
+        response = self.client.get('/tree/all/')
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'family_tree/whole_tree.html')
 
@@ -155,8 +155,17 @@ class TestTreeViews(TestCase): # pragma: no cover
 
     def test_tree_data_loads(self):
         '''
-        Tests that the descendants view loads
+        Tests that the tree data loads
         '''
         self.client.login(email='roger_taylor@queenonline.com', password='nation of haircuts')
         response = self.client.get('/tree/data/')
         self.assertEqual(response.status_code, 200)
+
+    def test_tree_app_loads(self):
+        '''
+        Tests that the tree app loads loads
+        '''
+        self.client.login(email='roger_taylor@queenonline.com', password='nation of haircuts')
+        response = self.client.get('/tree/{0}/'.format(self.person.id))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'family_tree/tree_app.html')

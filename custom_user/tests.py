@@ -10,7 +10,10 @@ class TestCustomUserViews(TestCase): # pragma: no cover
         '''
         Creates credientials as all views require login
         '''
+        self.family = Family()
+        self.family.save()
         self.user = User.objects.create_user(email='bruce_lee@email.com', password='enter the dragon', name='Bruce Lee' )
+        self.person = Person.objects.create(name='Bruce Lee', gender='M', email='bruce_lee@email.com', family_id=self.family.id, language='en', user_id=self.user.id)
 
     def test_invalid_login_with_incorrect_password(self):
         '''
@@ -22,7 +25,7 @@ class TestCustomUserViews(TestCase): # pragma: no cover
 
     def test_can_login_with_uppercase_email(self):
         '''
-        Test user can login with case insensitive password
+        Test user can login with case insensitive email
         '''
         response = self.client.post('/accounts/auth/',  {'username': 'Bruce_Lee@email.com', 'password': 'enter the dragon'}, follow=True)
         self.assertEqual(False, ('http://testserver/accounts/invalid', 302) in response.redirect_chain)

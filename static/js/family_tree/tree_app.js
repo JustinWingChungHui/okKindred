@@ -1,9 +1,12 @@
-var person_id;
-var people_hierarchy_order = [];
-var person_by_id = {};
-var relations_by_id = {};
-var from_relations = {};
-var to_relations = {};
+
+var TreeApp = {}; // global object Container
+TreeApp.person_id = 0;
+TreeApp.people_hierarchy_order = [];
+TreeApp.person_by_id = {};
+TreeApp.relations_by_id = {};
+TreeApp.from_relations = {};
+TreeApp.to_relations = {};
+
 
 $(document).ready(function() {
 
@@ -14,7 +17,7 @@ $(document).ready(function() {
 });
 
 $(window).resize(function () {
-    if (people_hierarchy_order.length > 0) {
+    if (TreeApp.people_hierarchy_order.length > 0) {
         redraw_tree();
     }
 });
@@ -45,42 +48,49 @@ function populate_lookups(data) {
             name : data.people[i][1],
             image : get_image_url(data.people[i][2]),
             hierarchy_score: data.people[i][3],
-            relations: [],
+            relations: []
         };
 
-        person_by_id[data.people[i][0]] = person;
-        people_hierarchy_order.push(person);
+        TreeApp.person_by_id[data.people[i][0]] = person;
+        TreeApp.people_hierarchy_order.push(person);
     }
 
-    // Relations
-    for (var i = 0; i < data.relations.length; i++) {
 
-        var id = data.relations[i][0];
-        var from_id = data.relations[i][1];
-        var to_id = data.relations[i][2];
-        var relation_type = data.relations[i][3];
+
+    // Relations
+    var data_relations = data.relations;
+    var data_relations_length = data_relations.length;
+
+    for (var i = 0; i < data_relations_length; i++) {
+
+        var data_relation = data_relations[i];
+
+        var id = data_relation[0];
+        var from_id = data_relation[1];
+        var to_id = data_relation[2];
+        var relation_type = data_relation[3];
 
         var relation = {
             id : id,
             from_person_id : from_id,
             to_person_id : to_id,
-            relation_type : relation_type,
+            relation_type : relation_type
         };
 
-        person_by_id[from_id].relations.push(relation);
-        person_by_id[to_id].relations.push(relation);
+        TreeApp.person_by_id[from_id].relations.push(relation);
+        TreeApp.person_by_id[to_id].relations.push(relation);
 
-        relations_by_id[id] = relation;
+        TreeApp.relations_by_id[id] = relation;
 
-        if (!(from_id in from_relations)) {
-            from_relations[from_id] = {};
+        if (!(from_id in TreeApp.from_relations)) {
+            TreeApp.from_relations[from_id] = {};
         }
-        from_relations[from_id][to_id] = relation;
+        TreeApp.from_relations[from_id][to_id] = relation;
 
-        if (!(to_id in to_relations)) {
-            to_relations[to_id] = {};
+        if (!(to_id in TreeApp.to_relations)) {
+            TreeApp.to_relations[to_id] = {};
         }
-        to_relations[to_id][from_id] = relation;
+        TreeApp.to_relations[to_id][from_id] = relation;
     }
 }
 
@@ -108,11 +118,11 @@ function build_tree(relatives) {
 
     if ($('#container').width() < 768) {
         node_width = 90;
-        height_change = 150;
+        height_change = 140;
     }
     else {
         node_width = 120;
-        height_change = 200;
+        height_change = 190;
     }
 
     var template = $('#relative_person').html();
@@ -132,7 +142,7 @@ function build_tree(relatives) {
         for (var i = 0; i < relatives.upper.length; i++) {
             var relative = relatives.upper[i];
 
-            if (relatives.relations_by_member_id[relative.id].length < person_by_id[relative.id].relations.length) {
+            if (relatives.relations_by_member_id[relative.id].length < TreeApp.person_by_id[relative.id].relations.length) {
                 html.push(draw_relative(relative, left, top, template_more_up));
             } else {
                 html.push(draw_relative(relative, left, top, template));
@@ -140,22 +150,20 @@ function build_tree(relatives) {
 
             left = left + node_width + gap
         }
-
-        top = height_change;
     }
 
     if (relatives.upper.length == 1) {
         var relative = relatives.upper[0];
         var left = (pixel_width - node_width) / 2;
 
-        if (relatives.relations_by_member_id[relative.id].length < person_by_id[relative.id].relations.length) {
+        if (relatives.relations_by_member_id[relative.id].length < TreeApp.person_by_id[relative.id].relations.length) {
             html.push(draw_relative(relative, left, top, template_more_up));
         } else {
             html.push(draw_relative(relative, left, top, template));
         }
-
-        top = height_change;
     }
+
+    top = height_change;
 
     // Draw partners
     if (relatives.same_level.length > 0)
@@ -169,7 +177,7 @@ function build_tree(relatives) {
         for (var i = 0; i < relatives.same_level.length; i++) {
             var relative = relatives.same_level[i];
 
-            if (relatives.relations_by_member_id[relative.id].length < person_by_id[relative.id].relations.length) {
+            if (relatives.relations_by_member_id[relative.id].length < TreeApp.person_by_id[relative.id].relations.length) {
                 if (count <= threshold) {
                     html.push(draw_relative(relative, left, top, template_more_left));
                 }
@@ -193,7 +201,7 @@ function build_tree(relatives) {
 
     // add centred person
     html.push(draw_centred_person(pixel_width, node_width, top));
-    top = top + height_change + 70; //Include button height
+    top = top + height_change + 60; //Include button height
 
     // Draw descendants
     if (relatives.lower.length > 1) {
@@ -203,7 +211,7 @@ function build_tree(relatives) {
         for (var i = 0; i < relatives.lower.length; i++) {
             var relative = relatives.lower[i];
 
-            if (relatives.relations_by_member_id[relative.id].length < person_by_id[relative.id].relations.length) {
+            if (relatives.relations_by_member_id[relative.id].length < TreeApp.person_by_id[relative.id].relations.length) {
                 html.push(draw_relative(relative, left, top, template_more_down));
             } else {
                 html.push(draw_relative(relative, left, top, template));
@@ -217,7 +225,7 @@ function build_tree(relatives) {
         var left = (pixel_width - node_width) / 2;
         var relative = relatives.lower[0];
 
-        if (relatives.relations_by_member_id[relative.id].length < person_by_id[relative.id].relations.length) {
+        if (relatives.relations_by_member_id[relative.id].length < TreeApp.person_by_id[relative.id].relations.length) {
             html.push(draw_relative(relative, left, top, template_more_down));
         } else {
             html.push(draw_relative(relative, left, top, template));
@@ -231,7 +239,7 @@ function build_tree(relatives) {
 
 function get_related_people() {
 
-    var hierarchy = person_by_id[person_id].hierarchy_score;
+    var hierarchy = TreeApp.person_by_id[person_id].hierarchy_score;
 
     var related_people = {
         all_members: [],
@@ -241,21 +249,22 @@ function get_related_people() {
         relations_by_id: {},
         members_by_id: {},
         relations_by_member_id : {},
-        drawn_relations_by_id: {},
+        drawn_relations_by_id: {}
     };
 
     // Iterate through people
-    for (var i = 0; i < people_hierarchy_order.length; i++) {
-        var relative = people_hierarchy_order[i];
+    var people_hierarchy_order_length = TreeApp.people_hierarchy_order.length;
+    for (var i = 0; i < people_hierarchy_order_length; i++) {
+        var relative = TreeApp.people_hierarchy_order[i];
 
-        if (relative.id in from_relations && person_id in from_relations[relative.id]) {
+        if (relative.id in TreeApp.from_relations && person_id in TreeApp.from_relations[relative.id]) {
             add_relative(related_people, relative, hierarchy);
             related_people.all_members.push(relative);
             related_people.members_by_id[relative.id] = relative;
             related_people.relations_by_member_id[relative.id] = [];
         }
 
-        if (relative.id in to_relations &&  person_id in to_relations[relative.id]) {
+        if (relative.id in TreeApp.to_relations &&  person_id in TreeApp.to_relations[relative.id]) {
             add_relative(related_people, relative, hierarchy);
             related_people.all_members.push(relative);
             related_people.members_by_id[relative.id] = relative;
@@ -264,8 +273,8 @@ function get_related_people() {
     }
 
     // Get all associated relations
-    for (var key in relations_by_id) {
-        var relation = relations_by_id[key];
+    for (var key in TreeApp.relations_by_id) {
+        var relation = TreeApp.relations_by_id[key];
 
         if (relation.from_person_id in related_people.members_by_id && relation.to_person_id == person_id) {
             related_people.relations_by_member_id[relation.from_person_id].push(relation);
@@ -312,7 +321,7 @@ function add_relative(related_people, relative, hierarchy) {
 // Renders the person at the centre of the tree
 function draw_centred_person(pixel_width, node_width, top) {
 
-    var person = person_by_id[person_id];
+    var person = TreeApp.person_by_id[person_id];
     var position_left = Math.round((pixel_width - node_width) / 2)
 
     var template = $('#centre_person').html();
@@ -364,10 +373,10 @@ function draw_relations(related_people) {
 
         instance.makeSource(windows, {
             filter: ".ep",
-            anchor: "Continuous",
+            anchor: "AutoDefault",
             connector: [ "StateMachine", { curviness: 20 } ],
             connectorStyle: { strokeStyle: "#5c96bc", lineWidth: 2, outlineColor: "transparent", outlineWidth: 4 },
-            maxConnections: 5,
+            maxConnections: 15,
             onMaxConnections: function (info, e) {
                 alert("Maximum connections (" + info.maxConnections + ") reached");
             }
@@ -376,7 +385,7 @@ function draw_relations(related_people) {
         // initialise all '.w' elements as connection targets.
         instance.makeTarget(windows, {
             dropOptions: { hoverClass: "dragHover" },
-            anchor: "Continuous",
+            anchor: "AutoDefault",
             allowLoopback: true
         });
 
@@ -397,7 +406,7 @@ function draw_relations(related_people) {
                     overlays:[
                             [ "Arrow", { location:1, direction:1, id:arrow_id } ],
                             [ "Arrow", { location:0, direction: -1, id:inverse_arrow_id } ],
-                            [ "Label", { label:partnered, id:label_id, cssClass:"aLabel" } ],
+                            [ "Label", { label:partnered, id:label_id, cssClass:"aLabel" } ]
                         ]
                 });
 
@@ -408,13 +417,11 @@ function draw_relations(related_people) {
                     target: relation.to_person_id.toString(),
                     overlays:[
                             [ "Arrow", { location:1, direction:1, id:arrow_id } ],
-                            [ "Label", { label:raised, id:label_id, cssClass:"aLabel"} ],
+                            [ "Label", { label:raised, id:label_id, cssClass:"aLabel"} ]
                         ]
                 });
             }
         }
-
-        jsPlumb.fire("jsPlumbDemoLoaded", instance);
     });
 
     // Add click handlers

@@ -54,7 +54,7 @@
 
         {% for relative in people %}
             <div id="person{{relative.id}}" class="w">
-                <a href="/person={{relative.id}}/">
+                <a href="/tree/{{relative.id}}/">
                     {% if relative.small_thumbnail %}
                         <img class="tree_thumb" alt="{{ relative.name }}" src="/media/{{relative.small_thumbnail}}"/>
                     {% else %}

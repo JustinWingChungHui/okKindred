@@ -76,6 +76,7 @@ body {
     -webkit-transition: background-color 0.25s ease-in;
     -moz-transition: background-color 0.25s ease-in;
     transition: background-color 0.25s ease-in;
+    max-width: 200px;
 }
 
 .w_up_arrow {
@@ -142,7 +143,7 @@ and (max-device-width : 767px) {
     }
 
     .w_down_arrow {
-        margin-bottom: -20px;
+        margin-bottom: -24px;
         font-size: 12px;
         color: #5c96bc;
     }
