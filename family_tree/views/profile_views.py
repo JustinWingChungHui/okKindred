@@ -159,7 +159,7 @@ def delete_profile(request, person_id = 0, person = None):
 
     person.delete()
 
-    return HttpResponseRedirect('/home/')
+    return HttpResponseRedirect('/')
 
 
 

@@ -2,6 +2,7 @@ from django.conf.urls import include, url
 from django.contrib.auth import views as auth_views
 from django.contrib import admin
 from django.conf import settings
+from django.views.generic.base import RedirectView
 import familyroot.views
 import custom_user.views
 import email_confirmation.views
@@ -43,7 +44,7 @@ urlpatterns = [
     url(r'^accounts/invite_person=(?P<person_id>\d+)/$', email_confirmation.views.invite_person),
 
     #Tree Views
-    url(r'^home/$', family_tree.views.tree),
+    url(r'^home/$', RedirectView.as_view(url='/')), #No longer used, redirect to root
     url(r'^person=(?P<person_id>\d+)/$', family_tree.views.tree),
     url(r'^how_am_i_related=(?P<person_id>\d+)/$', family_tree.views.how_am_i_related_view),
     url(r'^descendants=(?P<person_id>\d+)/$', family_tree.views.get_descendants),
