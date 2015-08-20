@@ -51,8 +51,7 @@ class TestTreeViews(TestCase): # pragma: no cover
         '''
         self.client.login(email='roger_taylor@queenonline.com', password='nation of haircuts')
         response = self.client.get('/home/')
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'family_tree/tree.html')
+        self.assertRedirects(response, '/', status_code=301, target_status_code=302)
 
     def test_person_tree_view_loads(self):
         '''
@@ -61,22 +60,7 @@ class TestTreeViews(TestCase): # pragma: no cover
         self.client.login(email='roger_taylor@queenonline.com', password='nation of haircuts')
         response = self.client.get('/person={0}/'.format(self.person.id))
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'family_tree/tree.html')
-
-
-    def test_shows_error_screen_if_person_not_found_for_user(self):
-        '''
-        Tests that the error screen loads and uses the correct template
-        when a person is not found
-        '''
-        user = User.objects.create_user(email='leroy_brown@queenonline.com', password='bring back that', family_id = self.family.id)
-        user.save()
-
-
-        self.client.login(email='leroy_brown@queenonline.com', password='bring back that')
-        response = self.client.get('/home/')
-        self.assertEqual(response.status_code, 404)
-
+        self.assertTemplateUsed(response, 'family_tree/tree_app.html')
 
 
     def test_get_css(self):

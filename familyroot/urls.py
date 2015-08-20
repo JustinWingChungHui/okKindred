@@ -44,8 +44,8 @@ urlpatterns = [
     url(r'^accounts/invite_person=(?P<person_id>\d+)/$', email_confirmation.views.invite_person),
 
     #Tree Views
-    url(r'^home/$', RedirectView.as_view(url='/')), #No longer used, redirect to root
-    url(r'^person=(?P<person_id>\d+)/$', family_tree.views.tree),
+    url(r'^home/$', RedirectView.as_view(url='/')), #Deprecated
+    url(r'^person=(?P<person_id>\d+)/$', family_tree.views.tree_app), #Deprecated
     url(r'^how_am_i_related=(?P<person_id>\d+)/$', family_tree.views.how_am_i_related_view),
     url(r'^descendants=(?P<person_id>\d+)/$', family_tree.views.get_descendants),
     url(r'^ancestors=(?P<person_id>\d+)/$', family_tree.views.get_ancestors),

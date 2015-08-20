@@ -51,6 +51,7 @@ def tree(request, person_id = 0, person = None):
     '''
     Shows a tree view centred on the person
     Shows by default one relation distance
+    This is now deprecated
     '''
 
     related_data = tree_service.get_related_data(person)
