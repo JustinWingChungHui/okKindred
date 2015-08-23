@@ -62,6 +62,8 @@ function get_map_data(map) {
             }
             markers.length = 0;
 
+            var template = $('#map_person_template').html();
+
             for (var key in data) {
                 var loc = data[key];
 
@@ -92,26 +94,23 @@ function get_map_data(map) {
 
                 for (var i = 0; i < loc.length; i++)
                 {
-                    var person = loc[i];
-                    html.push('<div class="img-with-text"><a href="/profile=');
-                    html.push(person.id);
-                    html.push('/">');
+                    var row = loc[i];
 
-                    html.push('<img src="');
-
-                    if (person.small_thumbnail) {
-                        html.push('/media/');
-                        html.push(person.small_thumbnail);
-                    }
-                    else {
-                        html.push('/static/img/portrait_80.png');
+                    var image_url;
+                    if (row.small_thumbnail) {
+                        image_url = '/media/' + row.small_thumbnail;
+                    } else {
+                        image_url = '/static/img/portrait_80.png';
                     }
 
-                    html.push('" alt="');
-                    html.push(person.name);
-                    html.push('"/>');
-                    html.push(person.name);
-                    html.push('</a></div>');
+                    var person = {
+                        id : row.id,
+                        name : row.name,
+                        image_url : image_url
+                    }
+
+                    var output = Mustache.render(template, person);
+                    html.push(output);
                 }
 
                 html.push('</div>');
