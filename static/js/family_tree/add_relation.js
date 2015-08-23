@@ -99,30 +99,30 @@ function search_result_returned(data){
 
     var this_person_id = document.URL.match(/\d+/g)
 
-    for (var i in data){
-        //Build an array using the data
-        var row = ['<tr>']
-        row.push('<td class="search_photo">');
+    var template = $('#add_relation_template').html();
+    var html =[];
 
-        if (data[i].fields.small_thumbnail == '' || data[i].fields.small_thumbnail == null){
-            row.push('<img src="/static/img/portrait_80.png"/>');
+    for (var i in data){
+        var row = data[i];
+
+        var image_url;
+        if (row.fields.small_thumbnail == '' || row.fields.small_thumbnail == null){
+            image_url = "/static/img/portrait_80.png";
         }
         else{
-            row.push('<img src="/media/' + data[i].fields.small_thumbnail + '"/>');
+            image_url = "/media/" + data[i].fields.small_thumbnail;
         }
 
-        row.push('</td>');
-        row.push('<td style="padding-top:40px">');
-        row.push(data[i].fields.name);
-        row.push('</td>');
-        row.push('<td style="padding-top:30px;"><a href="#" style ="overflow: visible" id="');
-        row.push(data[i].pk);
-        row.push('" class="add_relation_existing_person btn btn-success"><i class="glyphicon glyphicon-plus"></i>');
-        row.push('</a></td>');
-        row.push('</td></tr>');
+        var search_result = {
+            id :  data[i].pk,
+            name : data[i].fields.name,
+            image_url : image_url
+        };
 
-        //Append it to the table
-        $('#results').append(row.join(''));
+        var output = Mustache.render(template, search_result);
+        html.push(output);
     }
+
+    $('#results').append(html.join(''));
 
 }

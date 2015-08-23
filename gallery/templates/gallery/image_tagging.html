@@ -183,6 +183,36 @@
 
 {% block extrascript %}
 
+<!-- Templates -->
+{% verbatim %}
+<script id="search_person_row" type="text/html">
+    <tr>
+        <td class="search_photo">
+            <a href="#" class="person_tag_add" data-dismiss="modal" data-person_id ="{{id}}">
+                <img src="{{image_url}}" alt="{{name}}"/>
+            </a>
+        </td>
+        <td style="padding-top:40px">
+            <a href="#" class="person_tag_add" data-dismiss="modal" data-person_id ="{{id}}">
+                {{name}}
+            </a>
+        </td>
+    </tr>
+</script>
+
+<script id="tag_template" type="text/html">
+    <a href="#tag_detail_modal" data-toggle="modal" id="tag{{id}}"
+        data-person_id="{{person}}" data-person_name="{{name}}" data-tag_id="{{id}}"
+        class="tag_box" style="left:{{left}}px; top:{{top}}px;width:{{width}}px;height:{{height}}px;">
+
+        <div class="tag_description" style="top:{{description_top}}px;">
+            {{name}}
+        </div>
+    </a>
+</script>
+
+{% endverbatim %}
+
 <script src="{% static "js/editable.min.js" %}"></script>
 <script src="{% static "js/jquery/jquery.cookie.js" %}"></script>
 <script src="{% static "js/mapping/leaflet.js" %}"></script>

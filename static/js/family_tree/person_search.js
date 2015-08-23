@@ -49,28 +49,31 @@ $(document).ready(function(){
             $('#results').html('');
             $('#searching_in_progress').hide();
 
-            for (var i in data){
-                //Build an array using the data
-                var row = ['<tr>'];
-                row.push('<td class="search_photo"><a href="/profile=' + data[i].pk + '">');
+            var html = [];
+            var template = $('#search_person_row').html();
 
-                if (data[i].fields.small_thumbnail == '' || data[i].fields.small_thumbnail == null){
-                    row.push('<img src="/static/img/portrait_80.png" ');
+            for (var i in data){
+                var data_row = data[i];
+                var image_url;
+
+                if (data_row.fields.small_thumbnail == '' || data_row.fields.small_thumbnail == null){
+                    image_url = "/static/img/portrait_80.png";
                 }
                 else{
-                    row.push('<img src="/media/' + data[i].fields.small_thumbnail + '" ');
+                    image_url = "/media/" + data[i].fields.small_thumbnail;
                 }
-                row.push('alt="' + data[i].fields.name +'"')
-                row.push('/>');
-                row.push('</a></td>');
-                row.push('<td style="padding-top:40px"><a href="/profile=' + data[i].pk + '">' + data[i].fields.name);
-                row.push('</a></td>');
-                row.push('</td></tr>');
 
-                //Append it to the table
-                $('#results').append(row.join(''));
+                var person = {
+                    id :  data_row.pk,
+                    name : data_row.fields.name,
+                    image_url : image_url
+                };
+
+                var output = Mustache.render(template, person);
+                html.push(output);
             }
 
+            $('#results').append(html.join(''));
         });
     }
 

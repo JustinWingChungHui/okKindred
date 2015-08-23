@@ -58,36 +58,33 @@ function gallery_load_more()
         success: function(data) {
             if(data && data.length > 0) {
 
-                var details_translation = $("#translate").data("details");
+                var template = $('#galley_image_template').html();
 
                 var html =[];
-
+                var show_map = false;
                 for (var i in data) {
-                    html.push('<a class="image_in_gallery" href="/media/');
-                    html.push(data[i].fields.large_thumbnail);
-                    html.push('" data-lightbox="gallery"');
-                    html.push(' data-title="');
-                    html.push('&lt;a href=\'/image=');
-                    html.push(data[i].pk);
-                    html.push('/details/\' class=\'btn btn-info\' &gt; ');
-                    html.push(details_translation);
-                    html.push(' &lt;/a&gt ');
-                    html.push(data[i].fields.title);
-                    html.push('">');
+                    var data_row = data[i];
 
-                    html.push('<img class="masonry_thumbnail" src="/media/' + data[i].fields.thumbnail + '" ');
-                    html.push('alt="' + data[i].fields.title +'/"')
-                    html.push('/>');
+                    var image_data = {
+                      id :   data_row.pk,
+                      title : data_row.fields.title,
+                      thumbnail : data_row.fields.thumbnail,
+                      large_thumbnail : data_row.fields.large_thumbnail
+                    };
 
-                    html.push('</a>');
+                    var output = Mustache.render(template, image_data);
+                    html.push(output);
 
-                    if (data[i].fields.latitude != 0) {
-                        $('#map_button').show();
+                    if (data_row.fields.latitude != 0) {
+                        show_map = true;;
                     }
 
                 }
 
-                 $('div#loadmoreajaxloader').hide();
+                if (show_map == true) {
+                    $('#map_button').show();
+                }
+                $('div#loadmoreajaxloader').hide();
 
                 var $data = $(html.join(''));
                 var $container = $('#image_container');

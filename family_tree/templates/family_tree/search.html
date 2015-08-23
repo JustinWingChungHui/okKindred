@@ -30,5 +30,24 @@
 {% endblock %}
 
 {% block extrascript %}
-    <script src="{% static "js/family_tree/person_search.js" %}"></script>
+
+<!-- Templates -->
+{% verbatim %}
+<script id="search_person_row" type="text/html">
+    <tr>
+        <td class="search_photo">
+            <a href="/profile={{id}}">
+                <img src="{{image_url}}" alt="{{name}}"/>
+            </a>
+        </td>
+        <td style="padding-top:40px">
+            <a href="/profile={{id}}">
+                {{name}}
+            </a>
+        </td>
+    </tr>
+</script>
+{% endverbatim %}
+
+<script src="{% static "js/family_tree/person_search.js" %}"></script>
 {% endblock %}

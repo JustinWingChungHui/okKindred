@@ -106,5 +106,25 @@
 {% endblock %}
 
 {% block extrascript %}
-     <script src="{% static "js/family_tree/add_relation.js" %}"></script>
+
+<!--Templates-->
+{% verbatim %}
+<script id="add_relation_template" type="text/html">
+    <tr>
+        <td class="search_photo">
+            <img src="{{image_url}}"/>
+        </td>
+        <td style="padding-top:40px">
+            {{name}}
+        </td>
+        <td style="padding-top:30px;">
+            <a href="#" style ="overflow: visible" id="{{id}}" class="add_relation_existing_person btn btn-success">
+                <i class="glyphicon glyphicon-plus"></i>
+            </a>
+        </td>
+    </tr>
+</script>
+{% endverbatim %}
+
+<script src="{% static "js/family_tree/add_relation.js" %}"></script>
 {% endblock %}

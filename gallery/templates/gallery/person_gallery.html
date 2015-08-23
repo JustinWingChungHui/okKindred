@@ -39,5 +39,17 @@
 {% endblock %}
 
 {% block extrascript %}
+
+<!-- Templates -->
+{% verbatim %}
+<script id="galley_image_template" type="text/html">
+    <a class="image_in_gallery" href="/media/{{large_thumbnail}}" data-lightbox="gallery"
+        data-title="&lt;a href='/image={{id}}/details/' class='btn btn-info' &gt; {% endverbatim %}{% trans "Details" %}{% verbatim %} &lt;/a&gt {{title}}">
+        <img class="masonry_thumbnail" src="/media/{{thumbnail}}" alt="{{title}}"/>
+    </a>
+</script>
+{% endverbatim %}
+
 <script src="{% static "js/gallery.min.js" %}"></script>
+
 {% endblock %}
