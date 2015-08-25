@@ -122,11 +122,26 @@ function create_tag(e) {
         data: serializedData,
     });
 
-    request.done(function (data) {
+    request.done(function (row) {
         var image_position = $('#image_map').position();
         var width = $('#image_map').width();
         var height = $('#image_map').height();
-        $('#tag_container').append(create_tag_ui(data, image_position, width, height));
+        var template = $('#tag_template').html();
+
+        var tag ={
+                id : row.id,
+                person : row.person,
+                name : row.name,
+                left : row.x1 * width + image_position.left,
+                top : row.y1 * height + image_position.top,
+                width : (row.x2 - row.x1) * width,
+                height : (row.y2 - row.y1) * height,
+                description_top : (row.y2 - row.y1) * height + 3
+            };
+
+            var output = Mustache.render(template, tag);
+
+        $('#tag_container').append(output);
     });
 }
 
@@ -161,31 +176,31 @@ function do_tagging_search() {
         $('#results').html('');
         $('#searching_in_progress').hide();
 
-        for (var i in data){
-            //Build an array using the data
-            var row = ['<tr>'];
-            row.push('<td class="search_photo"><a href="/profile=' + data[i].pk + '">');
+        var template = $('#search_person_row').html();
+        html =[];
 
-            if (data[i].fields.small_thumbnail == '' || data[i].fields.small_thumbnail == null){
-                row.push('<img src="/static/img/portrait_80.png" ');
+        for (var i in data){
+
+            var row = data[i];
+            var image_url;
+
+            if (row.fields.small_thumbnail == '' || row.fields.small_thumbnail == null){
+                image_url = "/static/img/portrait_80.png";
             }
             else{
-                row.push('<img src="/media/' + data[i].fields.small_thumbnail + '" ');
+                image_url = "/media/" + data[i].fields.small_thumbnail;
             }
-            row.push('alt="');
-            row.push(data[i].fields.name);
-            row.push('"/>');
-            row.push('</a></td>');
-            row.push('<td style="padding-top:40px"><a href="#" class="person_tag_add" data-dismiss="modal" data-person_id ="');
-            row.push(data[i].pk);
-            row.push('">');
-            row.push(data[i].fields.name);
-            row.push('</a></td>');
-            row.push('</td></tr>');
 
-            //Append it to the table
-            $('#results').append(row.join(''));
+            var person = {
+                id : row.pk,
+                name : row.fields.name,
+                image_url : image_url
+            };
+
+            var output = Mustache.render(template, person);
+            html.push(output);
         }
+        $('#results').append(html.join(''));
 
         $(".person_tag_add").click(function(e) {
            create_tag(e);
@@ -207,39 +222,27 @@ function get_tags() {
             var height = $('#image_map').height();
 
             var html =[];
+            var template = $('#tag_template').html();
+
             for (var i in data) {
-                html.push(create_tag_ui(data[i], image_position, width, height));
+                var row = data[i];
+
+                var tag ={
+                    id : row.id,
+                    person : row.person,
+                    name : row.name,
+                    left : row.x1 * width + image_position.left,
+                    top : row.y1 * height + image_position.top,
+                    width : (row.x2 - row.x1) * width,
+                    height : (row.y2 - row.y1) * height,
+                    description_top : (row.y2 - row.y1) * height + 3
+                };
+
+                var output = Mustache.render(template, tag);
+                html.push(output);
             }
-            $('#tag_container').append($(html.join('')));
+            $('#tag_container').append(html.join(''));
         }
     });
 }
 
-function create_tag_ui(data, image_position, width, height)
-{
-    var html = [];
-    html.push('<a href="#tag_detail_modal" data-toggle="modal" id="tag');
-    html.push(data.id);
-    html.push('" data-person_id="');
-    html.push(data.person);
-    html.push('" data-person_name="');
-    html.push(data.name);
-    html.push('" data-tag_id="');
-    html.push(data.id);
-    html.push('" class="tag_box" style="left:');
-    html.push(data.x1 * width + image_position.left);
-    html.push('px;top:');
-    html.push(data.y1 * height + image_position.top);
-    html.push('px;width:');
-    html.push((data.x2 - data.x1) * width);
-    html.push('px;height:');
-    html.push((data.y2 - data.y1) * height);
-    html.push('px">');
-    html.push('<div class="tag_description" style="top:');
-    html.push((data.y2 - data.y1) * height + 3);
-    html.push('px">');
-    html.push(data.name)
-    html.push('</div>');
-    html.push('</a>');
-    return html.join('');
-}

@@ -20,11 +20,11 @@ def get_person_location_points(family_id, division_size):
             location_points[key] = []
 
         location_points[key].append({
-                                        'id': person.id,
-                                        'name': person.name,
-                                        'small_thumbnail': str(person.small_thumbnail),
-                                        'latitude': person.latitude,
-                                        'longitude': person.longitude
+                                    'id': person.id,
+                                    'name': person.name,
+                                    'small_thumbnail': str(person.small_thumbnail),
+                                    'latitude': person.latitude,
+                                    'longitude': person.longitude
                                     })
 
     return location_points

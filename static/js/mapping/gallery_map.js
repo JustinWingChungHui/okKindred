@@ -71,6 +71,7 @@ function get_gallery_map_data(map, loading) {
             }
             image_markers.length = 0;
 
+            var template = $('#map_image_template').html();
 
             for (var key in data) {
                 var loc = data[key];
@@ -102,22 +103,9 @@ function get_gallery_map_data(map, loading) {
 
                 for (var i = 0; i < loc.length; i++) {
                     var image = loc[i];
-                    html.push('<a class="image_in_gallery" href="/media/');
-                    html.push(image.large_thumbnail);
-                    html.push('" data-lightbox="gallery"');
-                    html.push(' data-title="');
-                    html.push('&lt;a href=\'/image=');
-                    html.push(image.id);
-                    html.push('/details/\' class=\'btn btn-info\' &gt; ');
-                    html.push(details_translation);
-                    html.push(' &lt;/a&gt ');
-                    html.push(image.title);
-                    html.push('">');
 
-                    html.push('<img class="map_thumbnail" src="/media/' + image.thumbnail + '" ');
-                    html.push('alt="' + image.title +'/"')
-                    html.push('/>');
-                    html.push('</a>');
+                    var output = Mustache.render(template, image);
+                    html.push(output);
                 }
 
                 html.push('</div>');

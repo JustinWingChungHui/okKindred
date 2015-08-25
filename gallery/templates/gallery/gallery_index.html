@@ -22,10 +22,29 @@
 
 </div>
 
-<div id="translation" data-lastupdated="{% trans "Last Updated:" %}"></div>
 {% endblock %}
 
 {% block extrascript %}
+
+<!-- Templates -->
+{% verbatim %}
+<script id="gallery_row_template" type="text/html">
+    <tr class="gallery_index_row">
+        <td
+            <a href="/gallery={{id}}">
+                <img class="gallery_index_thumbnail" src="{{gallerythumb_url}}" alt="{{title}}"/>
+            </a>
+        </td>
+        <td>
+            <a href="/gallery={{id}}">
+                <h4>{{title}}</h4>
+                <p>{{description}}</p>
+                <p>{% endverbatim %}{% trans "Last Updated:" %}{% verbatim %} {{last_updated_date}}</p>
+            </a>
+        </td>
+    </tr>
+</script>
+{% endverbatim %}
 
 <script src="{% static "js/gallery/gallery_index.js" %}"></script>
 

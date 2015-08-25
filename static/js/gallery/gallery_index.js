@@ -39,37 +39,32 @@ function load_more_galleries()
 
             if(data && data.length > 0) {
 
-                var last_updated = $("#translation").data("lastupdated");
                 var html =[];
+                var template = $('#gallery_row_template').html();
 
                 for (var i in data) {
-                    html.push('<tr class="gallery_index_row">');
-                    html.push('<td>');
-                    html.push('<a href="/gallery=');
-                    html.push(data[i].pk.toString());
 
+                    var row = data[i];
+
+                    var gallerythumb_url;
                     if (data[i].fields.thumbnail) {
-                        html.push('"><img class="gallery_index_thumbnail" src="/media/' + data[i].fields.thumbnail + '" ');
+                        gallerythumb_url = "/media/" + data[i].fields.thumbnail;
                     }
                     else {
-                        html.push('"><img class="gallery_index_thumbnail" src="/static/img/gallery_thumb.jpg" ');
+                        gallerythumb_url = "/static/img/gallery_thumb.jpg";
                     }
 
-                    html.push('alt="' + data[i].fields.title +'/"')
-                    html.push('/></a></td>');
+                    var gallery_row = {
+                        id : row.pk,
+                        gallerythumb_url : gallerythumb_url,
+                        title : row.fields.title,
+                        description : row.fields.description,
+                        last_updated_date : row.fields.last_updated_date
+                    };
 
-                    html.push('<td>');
-                    html.push('<a href="/gallery=');
-                    html.push(data[i].pk.toString());
-                    html.push('"><h4>');
-                    html.push(data[i].fields.title);
-                    html.push('</h4><p>');
-                    html.push(data[i].fields.description);
-                    html.push('</p><p>');
-                    html.push(last_updated);
-                    html.push(data[i].fields.last_updated_date);
-                    html.push('</p></a></td><td>');
-                    html.push('</td></tr>');
+                    var output = Mustache.render(template, gallery_row);
+                    html.push(output);
+
                 }
 
                 $("#gallery_container").append(html.join(''));

@@ -36,5 +36,21 @@
 
 {% block extrascript %}
 
-<script src="{% static "js/mapping.min.js" %}"></script>
+<!-- Templates -->
+{% verbatim %}
+<script id="map_person_template" type="text/html">
+    <div class="img-with-text">
+        <a href="/profile={{id}}/"/>
+            <img src="{{image_url}}" alt="{{name}}"/>
+            {{name}}
+        </a>
+    </div>
+</script>
+{% endverbatim %}
+
+<!--<script src="{% static "js/mapping.min.js" %}"></script>-->
+<script src="{% static "js/mapping/leaflet.js" %}"></script>
+<script src="{% static "js/mapping/person_map.js" %}"></script>
+<script src="{% static "js/mapping/image_map.js" %}"></script>
+<script src="{% static "js/mapping/gallery_map.js" %}"></script>
 {% endblock %}
