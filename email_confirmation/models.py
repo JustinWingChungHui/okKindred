@@ -75,6 +75,7 @@ class EmailConfirmation(models.Model):
         Creates the email from a template
         '''
         language = self.person.language
+
         translation.activate(language)
 
         content_html = get_template('email_confirmation/invite.html').render(

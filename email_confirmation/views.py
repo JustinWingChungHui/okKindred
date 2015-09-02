@@ -2,9 +2,9 @@ from axes.decorators import is_already_locked, get_ip, check_request
 from axes.models import AccessLog
 from email_confirmation.models import EmailConfirmation
 from custom_user.models import User
-from django.http import Http404
+from django.http import Http404, HttpResponse, HttpResponseRedirect
 from django.template import RequestContext, loader
-from django.http import HttpResponse, HttpResponseRedirect
+from django.utils import translation
 from django.contrib import auth
 from family_tree.decorators import same_family_required
 from django.contrib.auth.decorators import login_required
@@ -77,6 +77,9 @@ def confirm_invite(request, confirmation_key):
 
         #Ensure user is logged out
         auth.logout(request)
+
+        language = invite.person.language
+        translation.activate(language)
 
         template = loader.get_template('email_confirmation/confirm_invite.html')
         context = RequestContext(request,{
