@@ -8,6 +8,7 @@ from family_tree.models.relation import Relation, RAISED, PARTNERED, RAISED_BY
 from common import geocoder
 from PIL import Image
 
+@override_settings(SSLIFY_DISABLE=True, MEDIA_ROOT=settings.MEDIA_ROOT_TEST)
 class PersonTestCase(TestCase): # pragma: no cover
     '''
     This defines all the tests for all model logic for a Person
