@@ -2,9 +2,10 @@ from django.test import TestCase
 from custom_user.models import User
 from gallery.models import Gallery
 from family_tree.models import Family
+from django.conf import settings
 from django.test.utils import override_settings
 
-@override_settings(SSLIFY_DISABLE=True)
+@override_settings(SSLIFY_DISABLE=True, MEDIA_ROOT=settings.MEDIA_ROOT_TEST)
 class TestGalleryViews(TestCase): # pragma: no cover
     '''
     Test class for the gallery views

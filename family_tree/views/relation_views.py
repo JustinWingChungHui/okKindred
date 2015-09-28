@@ -1,17 +1,18 @@
 # encoding: utf-8
+from django.conf import settings
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
+from django.db.models import Q
+from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.template import RequestContext, loader
+
 from family_tree.models import Person, Relation
-from django.http import Http404
+from family_tree.models.person import ORPHANED_HIERARCHY_SCORE
 from family_tree.models.relation import PARTNERED, RAISED, RAISED_BY
 from family_tree.models.person import MALE, FEMALE, OTHER
 from family_tree.decorators import same_family_required
-from django.conf import settings
-from django.http import HttpResponseRedirect
-from django.db.models import Q
-from custom_user.decorators import set_language
 from family_tree.services import relation_suggestion_service
+
+from custom_user.decorators import set_language
 
 @login_required
 @set_language
@@ -81,7 +82,36 @@ def add_relation_post(request, person_id = 0, person = None):
     new_relation = Relation(from_person_id=person.id, to_person_id=relation_id, relation_type=relation_type)
     new_relation.save()
 
+    reevaluate_hierarchy_scores_of_orphans(request.user.family_id)
+
     return HttpResponseRedirect('/tree/{0}/'.format(person_id))
+
+
+def reevaluate_hierarchy_scores_of_orphans(family_id):
+    '''
+    Loads all relations that have a hierarchy score of -1 and tries to resolve them
+    '''
+    for person in list(Person.objects.filter(family_id=family_id, hierarchy_score=ORPHANED_HIERARCHY_SCORE)):
+
+        for relation in list(Relation.objects.filter(from_person_id = person.id)):
+            if relation.to_person.hierarchy_score != ORPHANED_HIERARCHY_SCORE:
+                if relation.relation_type == PARTNERED:
+                    person.hierarchy_score = relation.to_person.hierarchy_score
+                elif relation.relation_type == RAISED:
+                    person.hierarchy_score = relation.to_person.hierarchy_score - 1
+
+                person.save()
+                return
+
+        for relation in list(Relation.objects.filter(to_person_id = person.id)):
+            if relation.from_person.hierarchy_score != ORPHANED_HIERARCHY_SCORE:
+                if relation.relation_type == PARTNERED:
+                    person.hierarchy_score = relation.from_person.hierarchy_score
+                elif relation.relation_type == RAISED:
+                    person.hierarchy_score = relation.from_person.hierarchy_score + 1
+
+                person.save()
+                return
 
 
 @login_required
@@ -114,6 +144,29 @@ def break_relation_post(request, person_id = 0, person = None):
 
     relation_id = int(request.POST.get("relation_id"))
 
-    Relation.objects.filter(id=relation_id).delete()
+    relation = Relation.objects.get(id=relation_id)
+
+    from_person_id = relation.from_person_id
+    to_person_id = relation.to_person_id
+
+    relation.delete()
+
+    reassign_hierarchy_score(from_person_id)
+    reassign_hierarchy_score(to_person_id)
 
     return HttpResponseRedirect('/break_relation={0}/'.format(person_id))
+
+
+def reassign_hierarchy_score(person_id):
+    '''
+    Checks if the person has any relations and reassigns hierarchy score if not
+    '''
+
+    relation_count =  Relation.objects.filter(Q(from_person_id=person_id) | Q(to_person_id=person_id)).count()
+    if relation_count == 0:
+        person = Person.objects.get(id=person_id)
+
+        # Do not reassign if last person
+        if Person.objects.all().count() > 1:
+            person.hierarchy_score = ORPHANED_HIERARCHY_SCORE
+            person.save()

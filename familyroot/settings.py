@@ -24,7 +24,7 @@ from familyroot import secrets
 SECRET_KEY = secrets.SECRET_KEY
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 TEMPLATE_DEBUG = DEBUG
 
@@ -32,6 +32,7 @@ SSLIFY_DISABLE = DEBUG
 
 ALLOWED_HOSTS = [
                 '.okkindred.com',  # Allow domain and subdomains
+                'justinhui.pythonanywhere.com',
                 ]
 
 DOMAIN = 'https://www.okkindred.com'
@@ -152,6 +153,7 @@ STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = secrets.MEDIA_ROOT
+MEDIA_ROOT_TEST = secrets.MEDIA_ROOT_TEST
 #MEDIAFILES_DIRS = (os.path.join(BASE_DIR, 'media'),)
 
 TEMPLATE_DIRS = (

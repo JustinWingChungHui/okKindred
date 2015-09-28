@@ -78,6 +78,8 @@ class EmailConfirmation(models.Model):
 
         translation.activate(language)
 
+        print(translation)
+
         content_html = get_template('email_confirmation/invite.html').render(
                         Context({
                                     'language' : language,

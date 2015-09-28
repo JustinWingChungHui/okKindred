@@ -2,13 +2,14 @@ from django.test import TestCase
 from gallery.models import Image, Gallery
 from family_tree.models import Family
 from django.conf import settings
+from django.test.utils import override_settings
 from django.utils.timezone import utc
 import os
 import shutil
 import PIL
 from datetime import datetime
 
-
+@override_settings(SSLIFY_DISABLE=True, MEDIA_ROOT=settings.MEDIA_ROOT_TEST)
 class ImageTestCase(TestCase): # pragma: no cover
     '''
     Tests for the image class

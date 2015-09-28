@@ -9,7 +9,7 @@ import shutil
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
-@override_settings(SSLIFY_DISABLE=True)
+@override_settings(SSLIFY_DISABLE=True, MEDIA_ROOT=settings.MEDIA_ROOT_TEST)
 class TestImageUploadViews(TestCase): # pragma: no cover
 
     def setUp(self):
