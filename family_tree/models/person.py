@@ -21,6 +21,9 @@ GENDER_CHOICES = (
     (OTHER, _('Other')),
 )
 
+# Set when all relations are broken
+ORPHANED_HIERARCHY_SCORE = -1;
+
 class NullableEmailField(models.EmailField):
     '''
     This allows an unique email field that stores Null but return ""

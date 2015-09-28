@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 
 from django.test import TestCase
+from django.test.utils import override_settings
+from django.conf import settings
 from family_tree.models.person import Person
 from family_tree.models.family import Family
 from custom_user.models import User
