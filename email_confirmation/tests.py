@@ -47,21 +47,6 @@ class EmailConfirmationTestCase(TestCase): # pragma: no cover
         self.assertEqual(True, '<a href="https://www.okkindred.com/accounts/confirmation=earth/">https://www.okkindred.com/accounts/confirmation=earth/</a>' in email_body)
         self.assertEqual(True, 'Hello Tim Staffell' in email_body)
 
-    def test_create_email_body_html_chinese(self):
-        '''
-        Tests that a valid email body in Chinese is created
-        '''
-
-        chinese_person = Person.objects.create(name='周潤發', gender='M', family_id=self.family.id, language='zh-tw')
-
-        ec = EmailConfirmation(email_address='chowyunfat@hardboiled.com', person = chinese_person
-                                , user_who_invited_person_id=self.user.id, confirmation_key='earth')
-
-        email_body = ec._create_email_body_html()
-
-        self.assertEqual(True, '<a href="https://www.okkindred.com/accounts/confirmation=earth/">https://www.okkindred.com/accounts/confirmation=earth/</a>' in email_body)
-        self.assertEqual(True, '人' in email_body)
-
     def test_send_email(self):
         '''
         Tests that an email is created and sent

@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 
 from django.test import TestCase
+from django.test.utils import override_settings
+from django.conf import settings
 from family_tree.models.person import Person
 from family_tree.models.family import Family
 from custom_user.models import User
@@ -8,6 +10,7 @@ from family_tree.models.relation import Relation, RAISED, PARTNERED, RAISED_BY
 from common import geocoder
 from PIL import Image
 
+@override_settings(SSLIFY_DISABLE=True, MEDIA_ROOT=settings.MEDIA_ROOT_TEST)
 class PersonTestCase(TestCase): # pragma: no cover
     '''
     This defines all the tests for all model logic for a Person

@@ -1,7 +1,8 @@
 from django.test import TestCase
 from custom_user.models import User
 from family_tree.models import Person, Relation, Family
-from family_tree.models.relation import PARTNERED
+from family_tree.models.relation import PARTNERED, RAISED
+from family_tree.models.person import ORPHANED_HIERARCHY_SCORE
 from django.test.utils import override_settings
 
 @override_settings(SSLIFY_DISABLE=True)
@@ -20,16 +21,19 @@ class TestRelationViews(TestCase): # pragma: no cover
         self.person = Person(name='Prince Barin', gender='M', user_id = self.user.id, email='prince_barin@flash.com', family_id=self.family.id, hierarchy_score=100)
         self.person.save()
 
-        #http://flashgordon.wikia.com/wiki/Prince_Barin
-        self.son = Person(name='Prince Alan', gender='M', family_id=self.family.id)
+        #http://flashgordon.wikia.com/wiki/Prince_Alan
+        self.son = Person(name='Prince Alan', gender='M', family_id=self.family.id, hierarchy_score=-1)
         self.son.save()
 
         #http://flashgordon.wikia.com/wiki/King_Vultan
-        self.vultan = Person(name='King Vultan', gender='M', family_id=self.family.id)
+        self.vultan = Person(name='King Vultan', gender='M', family_id=self.family.id, hierarchy_score = 200)
         self.vultan.save()
 
         self.lura = Person(name='Lura', gender='F', family_id=self.family.id)
         self.lura.save()
+
+        self.vultan_junior = Person(name='Vultan Junior', gender='M', family_id=self.family.id)
+        self.vultan_junior.save()
 
 
     def test_add_relation_view_loads(self):
@@ -111,7 +115,7 @@ class TestRelationViews(TestCase): # pragma: no cover
 
     def test_add_relation_to_existing_people(self):
         '''
-        Tests that a relation can be added between two existing people
+        Tests that a relation can be added between two existing people sets hierarchy on any missing hierarchy scores
         '''
         self.client.login(email='prince_barin@flash.com', password='arboria')
         response = self.client.post('/add_relation_post={0}/'.format(self.person.id),{'existing_person': '1', 'relation_type': '2', 'relation_id': str(self.son.id)})
@@ -119,6 +123,10 @@ class TestRelationViews(TestCase): # pragma: no cover
 
         relation =Relation.objects.get(from_person_id = self.person.id, to_person_id = self.son.id)
         self.assertEqual(2, relation.relation_type)
+
+        # reload son
+        self.son = Person.objects.get(id=self.son.id)
+        self.assertEqual(101, self.son.hierarchy_score)
 
 
     def test_break_relation_view_loads(self):
@@ -136,12 +144,25 @@ class TestRelationViews(TestCase): # pragma: no cover
 
     def test_break_relation_post_deletes_relation(self):
         '''
-        Tests that the relation is deleted from the post view
+        Tests that the relation is deleted from the post view and check that hierarchy scores set to -1 for
+        people with no relations
         '''
         relation = Relation(from_person_id=self.vultan.id, to_person_id=self.lura.id,relation_type=PARTNERED)
         relation.save()
+
+        father_son_relation = Relation(from_person_id=self.vultan.id, to_person_id=self.vultan_junior.id,relation_type=RAISED)
+        father_son_relation.save()
 
         self.client.login(email='prince_barin@flash.com', password='arboria')
         response = self.client.post('/break_relation_post={0}/'.format(self.vultan.id),{'relation_id': relation.id})
         self.assertEqual(302, response.status_code)
         self.assertEqual(0, Relation.objects.filter(from_person_id=self.vultan.id, to_person_id=self.lura.id).count())
+
+        # Reload lura
+        self.lura = Person.objects.get(id=self.lura.id)
+        self.assertEqual(ORPHANED_HIERARCHY_SCORE, self.lura.hierarchy_score)
+
+        # Reload vultan
+        self.vultan = Person.objects.get(id=self.vultan.id)
+        self.assertEqual(200, self.vultan.hierarchy_score)
+
