@@ -1,12 +1,10 @@
 from django.db import models
 from gallery.models import Gallery
 from common.utils import create_hash
-from common.get_lat_lon_exif_pil import get_exif_data, get_lat_lon, get_lat_lon_backup
+from common.get_lat_lon_exif_pil import get_lat_lon_backup
 from django.conf import settings
 import PIL
 import os
-from datetime import datetime
-from django.utils.timezone import utc
 
 
 # look at http://stackoverflow.com/questions/23977483/fit-images-with-different-aspect-ratios-into-multiple-rows-evenly
@@ -137,16 +135,6 @@ class Image(models.Model):
         return image_file
 
 
-    def _get_exif(self, image = None):
-        '''
-        http://www.blog.pythonlibrary.org/2010/03/28/getting-photo-metadata-exif-using-python/
-        '''
-        if not image:
-            image = PIL.Image.open(self._get_absolute_image_path())
-
-        return get_exif_data(image)
-
-
     def _populate_exif_data(self, image=None):
         '''
         Uses the exif data from an image to populate fields on the image model
@@ -159,20 +147,12 @@ class Image(models.Model):
         if not image:
             image = PIL.Image.open(self._get_absolute_image_path())
 
-        data = self._get_exif(image)
-        lat, lon = get_lat_lon(data)
-
-        # Issue with PIL GPS tag reading so if 0, try another library
-        if lat == 0 and lon == 0:
-            lat, lon = get_lat_lon_backup(self._get_absolute_image_path())
+        # Issue with PIL GPS tag reading so using another library
+        lat, lon, date_time = get_lat_lon_backup(self._get_absolute_image_path())
 
         self.latitude = lat
         self.longitude = lon
-
-        try:
-            self.date_taken = datetime.strptime(data['DateTimeOriginal'],"%Y:%m:%d %H:%M:%S").replace(tzinfo=utc)
-        except:
-            pass
+        self.date_taken = date_time
 
 
     def delete_image_files(self):

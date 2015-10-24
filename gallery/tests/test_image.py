@@ -75,10 +75,6 @@ class ImageTestCase(TestCase): # pragma: no cover
         shutil.copy2(exif_test_image, exif_test_image_destination)
 
         image = Image(gallery=self.gallery, family=self.family, original_image=exif_test_image_destination)
-        values = image._get_exif()
-
-        self.assertEqual(True, 'DateTimeOriginal' in values)
-        self.assertEqual(True, 'GPSInfo' in values)
 
         image._populate_exif_data()
 
@@ -98,10 +94,6 @@ class ImageTestCase(TestCase): # pragma: no cover
         shutil.copy2(exif_test_image, exif_test_image_destination)
 
         image = Image(gallery=self.gallery, family=self.family, original_image=exif_test_image_destination)
-        values = image._get_exif()
-
-        self.assertEqual(True, 'DateTimeOriginal' in values)
-        self.assertEqual(True, 'GPSInfo' in values)
 
         image._populate_exif_data()
 
