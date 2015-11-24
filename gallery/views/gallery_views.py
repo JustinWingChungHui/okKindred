@@ -29,7 +29,7 @@ def gallery_index_data(request, page):
     Gets the paginated image data as JSON
     https://docs.djangoproject.com/en/1.7/topics/pagination/
     '''
-    gallery_list = Gallery.objects.filter(family_id=request.user.family_id).order_by('-creation_date')
+    gallery_list = Gallery.objects.filter(family_id=request.user.family_id).order_by('-last_updated_date')
     paginator = Paginator(gallery_list, 12) #show 12 per request, divisable by lots of numbers
 
     try:
