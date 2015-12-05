@@ -99,9 +99,17 @@ $(document).ready(function() {
         $("#tag_add_modal_y2").val(top_distance / height + height_diff);
     });
 
+    var timer;
+    var delay = 600; // 0.6 seconds delay after last input
+
     //input event only works on IE > 8
     $("#search_text").on('input', function() {
-        do_tagging_search();
+        window.clearTimeout(timer);
+        timer = window.setTimeout(function(){
+              //delayed input change action/event
+              do_tagging_search();
+        }, delay);
+
     });
 });
 
