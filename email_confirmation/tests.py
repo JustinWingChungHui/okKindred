@@ -7,7 +7,7 @@ from datetime import timedelta
 from django.test.utils import override_settings
 
 
-@override_settings(SSLIFY_DISABLE=True)
+@override_settings(SECURE_SSL_REDIRECT=False)
 class EmailConfirmationTestCase(TestCase): # pragma: no cover
     '''
     Tests for this app

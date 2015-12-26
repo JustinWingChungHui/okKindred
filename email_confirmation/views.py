@@ -1,13 +1,15 @@
+from django.contrib import auth
+from django.contrib.auth.decorators import login_required
+from django.http import Http404, HttpResponse, HttpResponseRedirect
+from django.shortcuts import render
+from django.utils import translation
+
 from axes.decorators import is_already_locked, get_ip, check_request
 from axes.models import AccessLog
 from email_confirmation.models import EmailConfirmation
 from custom_user.models import User
-from django.http import Http404, HttpResponse, HttpResponseRedirect
-from django.template import RequestContext, loader
-from django.utils import translation
-from django.contrib import auth
 from family_tree.decorators import same_family_required
-from django.contrib.auth.decorators import login_required
+
 
 
 @login_required
@@ -81,15 +83,11 @@ def confirm_invite(request, confirmation_key):
         language = invite.person.language
         translation.activate(language)
 
-        template = loader.get_template('email_confirmation/confirm_invite.html')
-        context = RequestContext(request,{
+        return render(request, 'email_confirmation/confirm_invite.html' ,{
                                     'invite' : invite,
                                     'person' : invite.person,
                                     'user_who_invited_person' : invite.user_who_invited_person,
                                 })
-
-        response = template.render(context)
-        return HttpResponse(response)
 
     else:
         return confirm_invite_post(request, invite)
@@ -134,9 +132,6 @@ def invalid_expired(request):
     '''
     Shows invalid or expired confirmation
     '''
-    template = loader.get_template('email_confirmation/invalid_expired.html')
-    context = RequestContext(request)
-    response = template.render(context)
-    return HttpResponse(response)
+    return render(request, 'email_confirmation/invalid_expired.html')
 
 

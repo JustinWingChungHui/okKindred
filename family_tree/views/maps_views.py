@@ -2,7 +2,7 @@
 from django.contrib.auth.decorators import login_required
 from family_tree.decorators import same_family_required
 from django.http import HttpResponse
-from django.template import RequestContext, loader
+from django.shortcuts import render
 from custom_user.decorators import set_language
 from family_tree.services import map_service
 import json
@@ -14,16 +14,11 @@ def map(request, person_id = 0, person = None):
     '''
     View to show open map
     '''
-
-    template = loader.get_template('family_tree/map.html')
-    context = RequestContext(request,{
+    return render(request, 'family_tree/map.html', {
                                     'latitude' : person.latitude,
                                     'longitude' : person.longitude,
                                     'zoom' : 12 if person_id != 0 else 7,
                                 })
-
-    response = template.render(context)
-    return HttpResponse(response)
 
 
 @login_required

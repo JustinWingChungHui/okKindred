@@ -1,12 +1,17 @@
 # encoding: utf-8
 import os
 from django.contrib.auth.decorators import login_required
+<<<<<<< HEAD
 from django.http import HttpResponse
 from django.template import loader
+=======
+from django.views.decorators.csrf import ensure_csrf_cookie
+from django.http import HttpResponse, HttpResponseRedirect
+>>>>>>> 6cfb84ebda06dbc23b28a8ef9193f0bd0b682db3
 from django.utils.translation import ugettext as _
 from django.http import Http404
 from django.conf import settings
-from django.http import HttpResponseRedirect
+from django.shortcuts import render
 from family_tree.decorators import same_family_required
 from custom_user.decorators import set_language
 from common.utils import create_hash
@@ -19,6 +24,7 @@ MAX_FILE_SIZE = 15000000  # bytes
 @login_required
 @set_language
 @same_family_required
+@ensure_csrf_cookie
 def edit_profile_photo(request, person_id = 0, person = None):
     '''
     That shows the upload form
@@ -28,16 +34,21 @@ def edit_profile_photo(request, person_id = 0, person = None):
     if request.user.id != person.user_id and person.locked == True:
         raise Http404
 
+<<<<<<< HEAD
     template = loader.get_template('family_tree/image_upload.html')
 
     response = template.render({'person' : person}, request)
     return HttpResponse(response)
+=======
+    return render(request, 'family_tree/image_upload.html', {'person' : person,})
+>>>>>>> 6cfb84ebda06dbc23b28a8ef9193f0bd0b682db3
 
 
 
 @login_required
 @set_language
 @same_family_required
+@ensure_csrf_cookie
 def image_upload(request, person_id = 0, person = None):
     '''
     View that receives the uploaded image
@@ -45,11 +56,13 @@ def image_upload(request, person_id = 0, person = None):
 
     #Ensure that profile is not locked
     if request.user.id != person.user_id and person.locked == True:
+        return HttpResponse("1")
         raise Http404
 
     try:
         uploaded = request.FILES['picture']
-    except:
+    except Exception as e:
+        return HttpResponse(str(e))
         raise Http404
 
 
@@ -95,6 +108,7 @@ def image_upload(request, person_id = 0, person = None):
 @login_required
 @set_language
 @same_family_required
+@ensure_csrf_cookie
 def image_resize(request, person_id = 0, person = None):
     '''
     Shows the image resize page
@@ -108,19 +122,13 @@ def image_resize(request, person_id = 0, person = None):
     if request.user.id != person.user_id and person.locked == True:
         raise Http404
 
-
-    template = loader.get_template('family_tree/image_resize.html')
-    context = RequestContext(request,{
-                                    'person' : person,
-                                })
-
-    response = template.render(context)
-    return HttpResponse(response)
+    return render(request, 'family_tree/image_resize.html', {'person' : person,})
 
 
 @login_required
 @set_language
 @same_family_required
+@ensure_csrf_cookie
 def image_crop(request, person_id = 0, person = None):
     '''
     Crops the image and assigns the thumbnails to the profile

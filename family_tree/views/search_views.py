@@ -1,13 +1,15 @@
 # encoding: utf-8
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
-from django.template import RequestContext, loader
-from family_tree.models import Person
-from django.db.models import Q
-import operator
-from functools import reduce
 from django.core import serializers
+from django.db.models import Q
+from django.http import HttpResponse
+from django.shortcuts import render
+from functools import reduce
+
+from family_tree.models import Person
 from custom_user.decorators import set_language
+
+import operator
 
 @login_required
 @set_language
@@ -15,13 +17,7 @@ def search(request):
     '''
     Shows the search page
     '''
-
-    template = loader.get_template('family_tree/search.html')
-
-    context = RequestContext(request)
-
-    response = template.render(context)
-    return HttpResponse(response)
+    return render(request, 'family_tree/search.html')
 
 
 

@@ -1,7 +1,8 @@
-from family_tree.models import Person
-from django.shortcuts import get_object_or_404
 from functools import wraps
 from django.http import Http404
+from django.shortcuts import get_object_or_404
+
+from family_tree.models import Person
 
 def same_family_required(func):
     '''

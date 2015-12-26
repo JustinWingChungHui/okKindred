@@ -1,12 +1,12 @@
 # encoding: utf-8
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
-from django.template import RequestContext, loader
-from family_tree.models import Biography
 from django.conf import settings
+from django.http import HttpResponse, HttpResponseRedirect
+from django.shortcuts import render
 from django.utils.translation import ugettext_lazy as _
+
 from family_tree.decorators import same_family_required
-from django.http import HttpResponseRedirect
+from family_tree.models import Biography
 from custom_user.decorators import set_language
 from gallery.models import Tag
 
@@ -37,9 +37,7 @@ def profile(request, person_id = 0, person = None, requested_language = '', edit
 
             can_delete= False
 
-
-        template = loader.get_template('family_tree/edit_profile.html')
-        context = RequestContext(request,{
+        return render(request, 'family_tree/edit_profile.html', {
                                     'person' : person,
                                     'languages' : settings.LANGUAGES,
                                     'requested_language': requested_language,
@@ -73,9 +71,7 @@ def profile(request, person_id = 0, person = None, requested_language = '', edit
                             language=(requested_language if requested_language else 'en'),
                             content=_('A biography has not yet been written for this language'))
 
-        template = loader.get_template('family_tree/profile.html')
-
-        context = RequestContext(request,{
+        return render(request, 'family_tree/profile.html', {
                                     'person' : person,
                                     'languages' : settings.LANGUAGES,
                                     'biography' : biography,
@@ -85,10 +81,7 @@ def profile(request, person_id = 0, person = None, requested_language = '', edit
                                     'invite_allowed' : invite_allowed,
                                     'show_photos': (True if Tag.objects.filter(person_id=person.id).count() > 0 else False),
                                     'has_email': (True if person.email else False),
-                                })
-
-    response = template.render(context)
-    return HttpResponse(response)
+                                    })
 
 
 @login_required
@@ -175,15 +168,11 @@ def edit_biography(request, person_id = 0, person = None, requested_language = '
         from family_tree.views.tree_views import no_match_found
         return no_match_found(request)
 
-    template = loader.get_template('family_tree/edit_biography.html')
-
-    context = RequestContext(request,{
+    return render(request, 'family_tree/edit_biography.html', {
                                 'person_id' : person_id,
                                 'language' : requested_language,
                                 'biography' : biography,
                             })
-    response = template.render(context)
-    return HttpResponse(response)
 
 
 

@@ -2,7 +2,6 @@ from django.conf import settings
 from django.db import models
 from django.utils import translation
 from django.template.loader import get_template
-from django.template import Context
 from django.core.mail import send_mail
 from django.utils import timezone
 from datetime import timedelta
@@ -79,14 +78,13 @@ class EmailConfirmation(models.Model):
         translation.activate(language)
 
         content_html = get_template('email_confirmation/invite.html').render(
-                        Context({
-                                    'language' : language,
-                                    'confirmation_key': self.confirmation_key,
-                                    'person_name' : self.person.name,
-                                    'user_who_invited_person' : self.user_who_invited_person.name,
-                                    'domain' : settings.DOMAIN
-                                })
-                        )
+                        {
+                            'language' : language,
+                            'confirmation_key': self.confirmation_key,
+                            'person_name' : self.person.name,
+                            'user_who_invited_person' : self.user_who_invited_person.name,
+                            'domain' : settings.DOMAIN
+                        })
 
 
         return content_html
