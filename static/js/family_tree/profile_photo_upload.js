@@ -21,6 +21,10 @@ $(document).ready(function(){
 
 });
 
+function csrfSafeMethod(method) {
+    // these HTTP methods do not require CSRF protection
+    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+}
 
 
 function set_profile_picture_upload(person_id, url, csrftoken) {
@@ -30,8 +34,10 @@ function set_profile_picture_upload(person_id, url, csrftoken) {
         crossDomain: false,
         maxNumberOfFiles: 1,
         beforeSend: function(xhr, settings) {
+            if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
                 xhr.setRequestHeader("X-CSRFToken", csrftoken);
-            },
+            }
+        },
         dataType: 'json',
         acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
         maxFileSize: 15000000, // 15 MB

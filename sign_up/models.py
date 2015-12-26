@@ -4,7 +4,6 @@ from django.conf import settings
 from django.core.mail import send_mail
 from django.db import models
 from django.utils import translation, timezone
-from django.template import Context
 from django.template.loader import get_template
 
 from common.utils import create_hash
@@ -113,13 +112,12 @@ class SignUp(models.Model):
         translation.activate(language)
 
         content_html = get_template('sign_up/confirmation_email.html').render(
-                        Context({
-                                    'language' : language,
-                                    'confirmation_key': self.confirmation_key,
-                                    'person_name' : self.name,
-                                    'domain' : settings.DOMAIN
-                                })
-                        )
+                        {
+                            'language' : language,
+                            'confirmation_key': self.confirmation_key,
+                            'person_name' : self.name,
+                            'domain' : settings.DOMAIN
+                        })
 
 
         return content_html

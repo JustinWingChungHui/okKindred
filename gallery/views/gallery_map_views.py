@@ -1,8 +1,7 @@
 from gallery.models import Gallery, Image
 from family_tree.services import map_service
-from django.template import RequestContext, loader
 from django.http import HttpResponse, Http404
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, render
 import json
 
 
@@ -17,18 +16,12 @@ def gallery_map(request, gallery_id):
     if request.user.family_id != gallery.family_id:
         raise Http404
 
-    template = loader.get_template('gallery/gallery_map.html')
-
-    context = RequestContext(request,
-                                {
+    return render(request, 'gallery/gallery_map.html', {
                                     'gallery' : gallery,
                                     'latitude' : 0,
                                     'longitude' : 0,
                                     'zoom' : 5,
                                 })
-
-    response = template.render(context)
-    return HttpResponse(response)
 
 
 def gallery_map_data(request, gallery_id, division_size):

@@ -28,7 +28,17 @@ DEBUG = False
 
 TEMPLATE_DEBUG = DEBUG
 
-SSLIFY_DISABLE = DEBUG
+# SSL Config
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+SECURE_SSL_REDIRECT = True
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+SECURE_HSTS_SECONDS = 3600 # Increase this for production
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_CONTENT_TYPE_NOSNIFF = True
+SECURE_BROWSER_XSS_FILTER = True
+CSRF_COOKIE_HTTPONLY = False # Do some work to turn this on
+X_FRAME_OPTIONS = 'DENY'
 
 ALLOWED_HOSTS = [
                 '.okkindred.com',  # Allow domain and subdomains
@@ -53,10 +63,11 @@ INSTALLED_APPS = (
     'gallery',
     'django.contrib.admin',
     'sign_up',
+    #'debug_toolbar',
 )
 
 MIDDLEWARE_CLASSES = (
-    'sslify.middleware.SSLifyMiddleware',
+    'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -100,15 +111,13 @@ YANDEX_TRANSLATE_KEY = secrets.YANDEX_TRANSLATE_KEY
 GOOGLE_API_KEY = secrets.GOOGLE_API_KEY
 BING_MAPS_API_KEY = secrets.BING_MAPS_API_KEY
 
-#SQLite Database for dev
-#DATABASES = {
-#    'default': {
-#        'ENGINE': 'django.db.backends.sqlite3',
-#        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#    }
-#}
 
 DATABASES = secrets.DATABASES
+
+#SQLite Database for testing
+import sys
+if 'test' in sys.argv or 'test_coverage' in sys.argv: #Covers regular testing and django-coverage
+    DATABASES['default']['ENGINE'] = 'django.db.backends.sqlite3'
 
 
 # Internationalization
@@ -156,10 +165,27 @@ MEDIA_ROOT = secrets.MEDIA_ROOT
 MEDIA_ROOT_TEST = secrets.MEDIA_ROOT_TEST
 #MEDIAFILES_DIRS = (os.path.join(BASE_DIR, 'media'),)
 
-TEMPLATE_DIRS = (
-	# Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
-	# Always use forward slashes, even on Windows.
-	# Don't forget to use absolute paths, not relative paths.
-	os.path.join(BASE_DIR, 'templates'),
-)
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [
+            # insert your TEMPLATE_DIRS here
+            os.path.join(BASE_DIR, 'templates'),
+        ],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                # Insert your TEMPLATE_CONTEXT_PROCESSORS here or use this
+                # list if you haven't customized them:
+                'django.contrib.auth.context_processors.auth',
+                'django.template.context_processors.debug',
+                'django.template.context_processors.i18n',
+                'django.template.context_processors.media',
+                'django.template.context_processors.static',
+                'django.template.context_processors.tz',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
+    },
+]
 

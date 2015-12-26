@@ -2,7 +2,8 @@
 from django.contrib.auth.decorators import login_required
 from django.core.serializers.json import DjangoJSONEncoder
 from django.http import HttpResponse, Http404
-from django.template import RequestContext, loader
+from django.shortcuts import render
+from django.template import loader
 from family_tree.models import Person, Relation
 from family_tree.services import tree_service
 from family_tree.decorators import same_family_required
@@ -17,11 +18,7 @@ def tree_app(request, person_id = 0, person = None):
     '''
     Loads the tree single page app
     '''
-    template = loader.get_template('family_tree/tree_app.html')
-    context = RequestContext(request)
-    response = template.render(context)
-
-    return HttpResponse(response)
+    return render(request, 'family_tree/tree_app.html')
 
 @login_required
 @set_language
@@ -58,7 +55,7 @@ def tree(request, person_id = 0, person = None):
 
     template = loader.get_template('family_tree/tree.html')
 
-    context = RequestContext(request,{
+    response = template.render({
                                 'css_normal' : _get_css(person, related_data, pixel_width=970),
                                 'css_320' : _get_css(person, related_data, pixel_width=320),
                                 'css_480' : _get_css(person, related_data, pixel_width=480),
@@ -69,9 +66,8 @@ def tree(request, person_id = 0, person = None):
                                 'people': related_data.people_upper + related_data.people_lower + related_data.people_same_level,
                                 'relations': related_data.relations,
                                 'person' : person,
-                            })
+                            }, request)
 
-    response = template.render(context)
     return HttpResponse(response)
 
 
@@ -173,12 +169,10 @@ def how_am_i_related_view(request, person_id = 0, person = None):
 
     template = loader.get_template('family_tree/how_am_i_related.html')
 
-    context = RequestContext(request,{
+    response = template.render({
                                 'people': people,
                                 'relations' :relations,
-                            })
-
-    response = template.render(context)
+                            }, request)
     return HttpResponse(response)
 
 
@@ -202,17 +196,11 @@ def whole_tree(request):
         for person in people_list:
             people.append(person)
 
-
-    template = loader.get_template('family_tree/whole_tree.html')
-
-    context = RequestContext(request,{
+    return render(request, 'family_tree/whole_tree.html', {
                                 'people': people,
                                 'relations' :relations,
                                 'css' : _get_css_all(largest_layer, people_list_by_hierarchy)
                             })
-
-    response = template.render(context)
-    return HttpResponse(response)
 
 
 @login_required
@@ -252,19 +240,12 @@ def _render_blood_relations(request, people_list_by_hierarchy, relations):
         for person in people_list:
             people.append(person)
 
-
-    template = loader.get_template('family_tree/whole_tree.html')
-
-    context = RequestContext(request,{
+    return render(request, 'family_tree/whole_tree.html', {
                                 'people': people,
                                 'relations' :relations,
                                 'css' : _get_css_all(largest_layer, people_list_by_hierarchy),
                                 'css_mobile' : _get_css_all_mobile(largest_layer, people_list_by_hierarchy)
                             })
-
-    response = template.render(context)
-    return HttpResponse(response)
-
 
 
 def _get_css_all(largest_layer, people_list_by_hierarchy):

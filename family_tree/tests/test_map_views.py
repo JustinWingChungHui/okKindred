@@ -3,7 +3,7 @@ from custom_user.models import User
 from family_tree.models import Person, Family
 from django.test.utils import override_settings
 
-@override_settings(SSLIFY_DISABLE=True)
+@override_settings(SECURE_SSL_REDIRECT=False)
 class TestMapViews(TestCase): # pragma: no cover
 
     def setUp(self):

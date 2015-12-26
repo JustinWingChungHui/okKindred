@@ -5,7 +5,7 @@ from family_tree.models.relation import PARTNERED, RAISED
 from family_tree.models.person import ORPHANED_HIERARCHY_SCORE
 from django.test.utils import override_settings
 
-@override_settings(SSLIFY_DISABLE=True)
+@override_settings(SECURE_SSL_REDIRECT=False)
 class TestRelationViews(TestCase): # pragma: no cover
 
     def setUp(self):

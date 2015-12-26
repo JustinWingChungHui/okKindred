@@ -1,10 +1,10 @@
-from django.template import RequestContext, loader
-from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.conf import settings
 from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
-from django.utils import translation
 from django.contrib import auth
+from django.http import HttpResponse, Http404, HttpResponseRedirect
+from django.shortcuts import render
+from django.utils import translation
 
 from axes.decorators import is_already_locked, get_ip, check_request
 from axes.models import AccessLog
@@ -25,13 +25,9 @@ def sign_up(request):
     if request.method == 'POST':
         return sign_up_post(request)
 
-    template = loader.get_template('sign_up/sign_up.html')
-    context = RequestContext(request, {
+    return render(request, 'sign_up/sign_up.html', {
                                 'languages' : settings.LANGUAGES,
                             })
-    response = template.render(context)
-
-    return HttpResponse(response)
 
 
 def sign_up_post(request):
@@ -47,15 +43,11 @@ def sign_up_post(request):
         validate_email(email)
     except ValidationError:
         # return invalid email template
-        template = loader.get_template('sign_up/invalid_email.html')
-        context = RequestContext(request)
-        return HttpResponse(template.render(context))
+        return render(request, 'sign_up/invalid_email.html')
 
     #Check email is not being used
     if is_email_in_use(email):
-        template = loader.get_template('sign_up/email_in_use.html')
-        context = RequestContext(request)
-        return HttpResponse(template.render(context))
+        return render(request, 'sign_up/email_in_use.html')
 
     new_signup = SignUp.objects.create(
                         name = name,
@@ -65,13 +57,9 @@ def sign_up_post(request):
 
     translation.activate(language)
 
-    template = loader.get_template('sign_up/check_email.html')
-    context = RequestContext(request, {
+    return render(request, 'sign_up/check_email.html', {
                                 'new_signup' : new_signup,
                             })
-    response = template.render(context)
-
-    return HttpResponse(response)
 
 
 def is_email_in_use(email):
@@ -115,13 +103,10 @@ def sign_up_confirmation(request, confirmation_key):
         return sign_up_confirmation_post(request, sign_up)
 
     translation.activate(sign_up.language)
-    template = loader.get_template('sign_up/choose_password.html')
-    context = RequestContext(request, {
+
+    return render(request, 'sign_up/choose_password.html', {
                                 'confirmation_key' : confirmation_key,
                             })
-    response = template.render(context)
-
-    return HttpResponse(response)
 
 
 def sign_up_confirmation_post(request, sign_up):

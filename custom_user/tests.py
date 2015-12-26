@@ -1,9 +1,9 @@
 from django.test import TestCase
+from django.test.utils import override_settings
 from custom_user.models import User
 from family_tree.models import Person, Family
-from django.test.utils import override_settings
 
-@override_settings(SSLIFY_DISABLE=True)
+@override_settings(SECURE_SSL_REDIRECT=False)
 class TestCustomUserViews(TestCase): # pragma: no cover
 
     def setUp(self):
@@ -20,7 +20,7 @@ class TestCustomUserViews(TestCase): # pragma: no cover
         Test user cannot login with invalid password
         '''
         response = self.client.post('/accounts/auth/',  {'username': 'bruce_lee@email.com', 'password': 'game of death'}, follow=True)
-        self.assertEqual(True, ('http://testserver/accounts/invalid', 302) in response.redirect_chain)
+        self.assertEqual(True, ('/accounts/invalid', 302) in response.redirect_chain)
 
 
     def test_can_login_with_uppercase_email(self):
