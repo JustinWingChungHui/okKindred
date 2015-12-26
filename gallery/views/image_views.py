@@ -1,19 +1,20 @@
-from gallery.models import Gallery, Image
-from gallery.models.image import upload_to
 from django.contrib.auth.decorators import login_required
-from custom_user.decorators import set_language
-from django.template import RequestContext, loader
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core import serializers
 from django.conf import settings
 from django.db import connection
-from django.shortcuts import get_object_or_404
-from common.utils import create_hash
+from django.shortcuts import get_object_or_404, render
 from django.utils.translation import ugettext as tran
-from os.path import basename
+
 from family_tree.decorators import same_family_required
 from common.geocoder import geocode_address
+from common.utils import create_hash
+from custom_user.decorators import set_language
+from gallery.models import Gallery, Image
+from gallery.models.image import upload_to
+
+from os.path import basename
 import os
 import json
 import PIL
@@ -36,15 +37,9 @@ def gallery(request, gallery_id):
     if request.user.family_id != gallery.family_id:
         raise Http404
 
-    template = loader.get_template('gallery/gallery.html')
-
-    context = RequestContext(request,
-                                {
+    return render(request, 'gallery/gallery.html', {
                                     'gallery' : gallery,
                                 })
-
-    response = template.render(context)
-    return HttpResponse(response)
 
 
 
@@ -89,14 +84,9 @@ def upload_images(request, gallery_id):
         raise Http404
 
     #Gets the upload images view
-    template = loader.get_template('gallery/upload_images.html')
-    context = RequestContext(request,
-                                {
+    return render(request, 'gallery/upload_images.html', {
                                     'gallery' : gallery,
                                 })
-
-    response = template.render(context)
-    return HttpResponse(response)
 
 
 
@@ -185,14 +175,9 @@ def image_detail(request, image_id):
         raise Http404
 
     #Gets the image detail view
-    template = loader.get_template('gallery/image_tagging.html')
-    context = RequestContext(request,
-                                {
+    return render(request, 'gallery/image_tagging.html', {
                                     'image' : im,
                                 })
-
-    response = template.render(context)
-    return HttpResponse(response)
 
 
 @login_required
@@ -273,8 +258,6 @@ def person_gallery(request, person_id, person = None, image_id = None):
     '''
     Gets gallery for a particular person
     '''
-    template = loader.get_template('gallery/person_gallery.html')
-
     if image_id:
         im = get_object_or_404(Image, pk = image_id)
 
@@ -284,14 +267,10 @@ def person_gallery(request, person_id, person = None, image_id = None):
     else:
         im = None
 
-    context = RequestContext(request,
-                                {
+    return render(request, 'gallery/person_gallery.html', {
                                     'person' : person,
                                     'image' : im,
                                 })
-
-    response = template.render(context)
-    return HttpResponse(response)
 
 
 @login_required

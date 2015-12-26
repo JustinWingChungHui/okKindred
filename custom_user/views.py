@@ -1,12 +1,11 @@
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render_to_response
+from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.contrib import auth
 from django.core.context_processors import csrf
 from axes.decorators import is_already_locked, get_ip, check_request
 from axes.models import AccessLog
 from django.http import HttpResponse
-from django.template import RequestContext, loader
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 from custom_user.decorators import set_language
@@ -24,7 +23,7 @@ def login(request):
     c = { 'next': request.GET.get('next', '') }
     c.update(csrf(request))
 
-    return render_to_response('custom_user/login.html', c)
+    return render( request, 'custom_user/login.html', c)
 
 
 def auth_view(request):
@@ -64,18 +63,18 @@ def auth_view(request):
 
 
 def logged_in(request):
-    return render_to_response('custom_user/logged_in.html',
+    return render(request, 'custom_user/logged_in.html',
                                 {'username': request.user.username})
 
 def invalid_login(request):
-    return render_to_response('custom_user/invalid_login.html')
+    return render(request, 'custom_user/invalid_login.html')
 
 def logout(request):
     auth.logout(request)
     return HttpResponseRedirect('/')
 
 def account_locked(request):
-    return render_to_response('custom_user/account_locked.html')
+    return render(request, 'custom_user/account_locked.html')
 
 @login_required
 @set_language
@@ -84,15 +83,10 @@ def settings_view(request):
     Shows the settings view
     '''
 
-    template = loader.get_template('custom_user/settings.html')
-
-    context = RequestContext(request,{
+    return render(request, 'custom_user/settings.html', {
                                 'user' : request.user,
                                 'languages' : settings.LANGUAGES,
                             })
-
-    response = template.render(context)
-    return HttpResponse(response)
 
 @login_required
 def change_password_post(request):

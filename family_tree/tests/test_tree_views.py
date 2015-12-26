@@ -6,7 +6,7 @@ from family_tree.models.relation import PARTNERED, RAISED
 from family_tree.views.tree_views import _get_css
 from django.test.utils import override_settings
 
-@override_settings(SSLIFY_DISABLE=True)
+@override_settings(SECURE_SSL_REDIRECT=False)
 class TestTreeViews(TestCase): # pragma: no cover
 
     def setUp(self):
@@ -51,7 +51,7 @@ class TestTreeViews(TestCase): # pragma: no cover
         '''
         self.client.login(email='roger_taylor@queenonline.com', password='nation of haircuts')
         response = self.client.get('/home/')
-        self.assertRedirects(response, '/', status_code=301, target_status_code=302)
+        self.assertRedirects(response, '/', status_code=301)
 
     def test_person_tree_view_loads(self):
         '''

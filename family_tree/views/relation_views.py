@@ -2,13 +2,13 @@
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
-from django.http import HttpResponse, HttpResponseRedirect, Http404
-from django.template import RequestContext, loader
+from django.http import HttpResponseRedirect, Http404
+from django.shortcuts import render
 
 from family_tree.models import Person, Relation
 from family_tree.models.person import ORPHANED_HIERARCHY_SCORE
-from family_tree.models.relation import PARTNERED, RAISED, RAISED_BY
 from family_tree.models.person import MALE, FEMALE, OTHER
+from family_tree.models.relation import PARTNERED, RAISED, RAISED_BY
 from family_tree.decorators import same_family_required
 from family_tree.services import relation_suggestion_service
 
@@ -21,20 +21,14 @@ def add_relation_view(request, person_id = 0, person = None):
     '''
     Shows the view for adding a relation
     '''
-
-    template = loader.get_template('family_tree/add_relation.html')
-
     suggested_relation, suggested_person = relation_suggestion_service.get_first_relation_suggestion(person)
 
-    context = RequestContext(request,{
+    return render(request, 'family_tree/add_relation.html', {
                                 'person' : person,
                                 'languages' : settings.LANGUAGES,
                                 'suggested_relation' : suggested_relation,
                                 'suggested_person' : suggested_person,
                             })
-
-    response = template.render(context)
-    return HttpResponse(response)
 
 
 @login_required
@@ -123,16 +117,10 @@ def break_relation_view(request, person_id = 0, person = None):
     '''
     relations = Relation.objects.filter(Q(from_person_id = person_id) | Q(to_person_id = person_id))
 
-    template = loader.get_template('family_tree/break_relation.html')
-
-    context = RequestContext(request,{
+    return render(request, 'family_tree/break_relation.html', {
                                 'person': person,
                                 'relations' : relations,
                             })
-
-    response = template.render(context)
-    return HttpResponse(response)
-
 
 @login_required
 @set_language

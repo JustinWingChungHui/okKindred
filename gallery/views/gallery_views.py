@@ -1,11 +1,10 @@
 from gallery.models import Gallery
 from django.contrib.auth.decorators import login_required
 from custom_user.decorators import set_language
-from django.template import RequestContext, loader
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core import serializers
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, render
 
 
 @login_required
@@ -14,12 +13,7 @@ def gallery_index(request):
     '''
     A list of galleries for a family
     '''
-    template = loader.get_template('gallery/gallery_index.html')
-
-    context = RequestContext(request)
-
-    response = template.render(context)
-    return HttpResponse(response)
+    return render(request, 'gallery/gallery_index.html')
 
 
 @login_required
@@ -62,17 +56,11 @@ def edit_gallery(request, gallery_id = 0):
             if gallery.family_id != request.user.family_id:
                 raise Http404
 
-        template = loader.get_template('gallery/edit_gallery.html')
-
-        context = RequestContext(request,
-                            {
+        return render(request, 'gallery/edit_gallery.html', {
                                 'gallery_id' : gallery_id,
                                 'gallery_title' : gallery.title,
                                 'gallery_description' : gallery.description,
                             })
-
-        response = template.render(context)
-        return HttpResponse(response)
 
     else:
         family_id = request.user.family_id

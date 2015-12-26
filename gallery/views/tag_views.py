@@ -6,7 +6,6 @@ from django.shortcuts import get_object_or_404
 from django.utils import translation
 from django.core.mail import send_mail
 from django.template.loader import get_template
-from django.template import Context
 from django.conf import settings
 import json
 
@@ -133,12 +132,12 @@ def create_email_body_html(person, image):
     translation.activate(language)
 
     content_html = get_template('gallery/you_have_been_tagged.html').render(
-                    Context({
-                                'language' : language,
-                                'user' : person.user,
-                                'image' : image,
-                                'domain' : settings.DOMAIN,
-                                'person' : person,
-                            })
-                    )
+                    {
+                        'language' : language,
+                        'user' : person.user,
+                        'image' : image,
+                        'domain' : settings.DOMAIN,
+                        'person' : person,
+                    })
+
     return content_html

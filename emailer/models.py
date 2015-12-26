@@ -1,14 +1,13 @@
 from django.conf import settings
-from django.db import models
 from django.core.mail import send_mail
+from django.db import connection, models
 from django.db.models import Max
-from django.db import connection
-from common.utils import query_to_dicts
 from django.template.loader import get_template
-from django.template import Context
-from django.utils import translation
+from django.utils import timezone, translation
+
+from common.utils import query_to_dicts
+
 from datetime import timedelta
-from django.utils import timezone
 import math
 
 
@@ -122,13 +121,13 @@ class EmailManager(models.Manager):
             content = translation.ugettext('One or more of your family has had details in ok!Kindred updated.')
 
             content_html = get_template('emailer/people_updates.html').render(
-                        Context({
-                                    'language' : language,
-                                    'new_people' : new_people,
-                                    'updated_people' : updated_people,
-                                    'domain' : settings.DOMAIN
-                                })
-                        )
+                        {
+                            'language' : language,
+                            'new_people' : new_people,
+                            'updated_people' : updated_people,
+                            'domain' : settings.DOMAIN
+                        })
+
 
             #Using str(content_html) as content_html is of type django.utils.safestring.SafeText which stuffs up the mysql connector
             self._create_single_language_emails(language, family_id,subject, content, str(content_html))

@@ -4,7 +4,7 @@ from sign_up.models import SignUp
 from family_tree.models import Family, Person
 from custom_user.models import User
 
-@override_settings(SSLIFY_DISABLE=True)
+@override_settings(SECURE_SSL_REDIRECT=False)
 class SignUpTestCase(TestCase): # pragma: no cover
 
 

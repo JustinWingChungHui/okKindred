@@ -10,7 +10,7 @@ import shutil
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
-@override_settings(SSLIFY_DISABLE=True, MEDIA_ROOT=settings.MEDIA_ROOT_TEST)
+@override_settings(SECURE_SSL_REDIRECT=False, MEDIA_ROOT=settings.MEDIA_ROOT_TEST)
 class TestImageViews(TestCase): # pragma: no cover
     '''
     Test class for the gallery views
