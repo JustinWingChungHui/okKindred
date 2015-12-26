@@ -2,7 +2,7 @@
 import os
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
-from django.template import RequestContext, loader
+from django.template import loader
 from django.utils.translation import ugettext as _
 from django.http import Http404
 from django.conf import settings
@@ -28,13 +28,9 @@ def edit_profile_photo(request, person_id = 0, person = None):
     if request.user.id != person.user_id and person.locked == True:
         raise Http404
 
-
     template = loader.get_template('family_tree/image_upload.html')
-    context = RequestContext(request,{
-                                    'person' : person,
-                                })
 
-    response = template.render(context)
+    response = template.render({'person' : person}, request)
     return HttpResponse(response)
 
 
