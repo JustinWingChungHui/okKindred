@@ -1,13 +1,8 @@
 # encoding: utf-8
 import os
 from django.contrib.auth.decorators import login_required
-<<<<<<< HEAD
-from django.http import HttpResponse
-from django.template import loader
-=======
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.http import HttpResponse, HttpResponseRedirect
->>>>>>> 6cfb84ebda06dbc23b28a8ef9193f0bd0b682db3
 from django.utils.translation import ugettext as _
 from django.http import Http404
 from django.conf import settings
@@ -34,14 +29,7 @@ def edit_profile_photo(request, person_id = 0, person = None):
     if request.user.id != person.user_id and person.locked == True:
         raise Http404
 
-<<<<<<< HEAD
-    template = loader.get_template('family_tree/image_upload.html')
-
-    response = template.render({'person' : person}, request)
-    return HttpResponse(response)
-=======
     return render(request, 'family_tree/image_upload.html', {'person' : person,})
->>>>>>> 6cfb84ebda06dbc23b28a8ef9193f0bd0b682db3
 
 
 
