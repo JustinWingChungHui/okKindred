@@ -31,8 +31,8 @@
 {% endblock %}
 
 {% block extrascript %}
+    <script src="{% static 'js/common/submit_disable.js' %}"></script>
     <script src={% static "js/jquery/jquery.Jcrop.min.js" %}></script>
-
     <script language="Javascript">
         jQuery(function($) {
             $('#crop_target').Jcrop({
