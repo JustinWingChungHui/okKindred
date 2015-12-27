@@ -130,6 +130,8 @@
 {% block extrascript %}
     <!--http://1000hz.github.io/bootstrap-validator/ to validate password-->
     <script src="{% static "js/editable.min.js" %}"></script>
+    <script src="{% static "js/common/submit_disable.js" %}"></script>
+
     <script>
         //turn to inline mode
         $.fn.editable.defaults.mode = 'inline';
