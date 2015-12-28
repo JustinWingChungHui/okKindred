@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load i18n %}
+{% block content %}
+
+<div class="container">
+
+    <h3>
+        {% blocktrans %}Cookies are not enabled on your browser. Please enable cookies in your browser preferences to continue.{% endblocktrans %}
+    </h3>
+    <p>
+        <a href="/home/">
+            {% blocktrans %}Click here to return{% endblocktrans %}
+        </a>
+    </p>
+
+</div> <!-- /container -->
+
+{% endblock %}

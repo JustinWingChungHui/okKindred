@@ -25,6 +25,14 @@ def about(request):
 
     return render(request, 'about.html')
 
+def handler403(request):
+    '''
+    Custom 403 handler
+    '''
+    response = render(request, '403.html', {})
+    response.status_code = 403
+    return response
+
 def handler404(request):
     '''
     Custom 404 handler

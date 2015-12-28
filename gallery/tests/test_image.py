@@ -9,7 +9,7 @@ import shutil
 import PIL
 from datetime import datetime
 
-@override_settings(SSLIFY_DISABLE=True, MEDIA_ROOT=settings.MEDIA_ROOT_TEST)
+@override_settings(SECURE_SSL_REDIRECT=False, MEDIA_ROOT=settings.MEDIA_ROOT_TEST)
 class ImageTestCase(TestCase): # pragma: no cover
     '''
     Tests for the image class
@@ -103,3 +103,19 @@ class ImageTestCase(TestCase): # pragma: no cover
 
         #Clear up mess afterwards
         os.remove(exif_test_image_destination)
+
+    def test_save_and_rotate_image(self):
+        '''
+        Tests that we can save an image and rotate it without error
+        '''
+
+        #Copy test image to media area
+        shutil.copy2(self.test_image, self.test_image_destination)
+
+        image = Image(gallery=self.gallery, family=self.family, original_image=''.join(['galleries/', str(self.family.id), '/', str(self.gallery.id), '/test_image.jpg']))
+        image.save();
+
+        image.rotate(90)
+
+        #Clear up
+        image.delete_image_files()
