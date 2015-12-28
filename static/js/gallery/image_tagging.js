@@ -1,3 +1,6 @@
+var ImageTagging = {}; // globa object container
+ImageTagging.Tags = [];
+
 $(document).ready(function() {
 
     if ($('#image_map').length == 0) {
@@ -78,6 +81,17 @@ $(document).ready(function() {
             success: function (data) {
                 var id = "#tag" + data.id.toString();
                 $(id).remove();
+
+                // Remove from cached array
+                var i = 0;
+                for (var i in ImageTagging.Tags) {
+                    var row = ImageTagging.Tags[i];
+                    if (row.id == data.id) {
+                        break;
+                    }
+                    i++;
+                }
+                ImageTagging.Tags.splice(i, 1);
             },
             error: function (e) {
                 var i = e;
@@ -113,6 +127,10 @@ $(document).ready(function() {
     });
 });
 
+$(window).resize(function () {
+    redraw_tags();
+});
+
 function create_tag(e) {
     // Set the person_id value on the hidden form
     var person_id = e.target.dataset.person_id;
@@ -145,11 +163,12 @@ function create_tag(e) {
                 width : (row.x2 - row.x1) * width,
                 height : (row.y2 - row.y1) * height,
                 description_top : (row.y2 - row.y1) * height + 3
-            };
+        };
 
-            var output = Mustache.render(template, tag);
-
+        var output = Mustache.render(template, tag);
         $('#tag_container').append(output);
+
+        ImageTagging.Tags.push(row);
     });
 }
 
@@ -224,33 +243,38 @@ function get_tags() {
         url: "/image=" + image_id + "/tags/get/",
         dataType: "json",
         success: function(data) {
-
-            var image_position = $('#image_map').position();
-            var width = $('#image_map').width();
-            var height = $('#image_map').height();
-
-            var html =[];
-            var template = $('#tag_template').html();
-
-            for (var i in data) {
-                var row = data[i];
-
-                var tag ={
-                    id : row.id,
-                    person : row.person,
-                    name : row.name,
-                    left : row.x1 * width + image_position.left,
-                    top : row.y1 * height + image_position.top,
-                    width : (row.x2 - row.x1) * width,
-                    height : (row.y2 - row.y1) * height,
-                    description_top : (row.y2 - row.y1) * height + 3
-                };
-
-                var output = Mustache.render(template, tag);
-                html.push(output);
-            }
-            $('#tag_container').append(html.join(''));
+            ImageTagging.Tags = data;
+            redraw_tags();
         }
     });
+}
+
+function redraw_tags() {
+    $(".tag_box").remove();
+    var image_position = $('#image_map').position();
+    var width = $('#image_map').width();
+    var height = $('#image_map').height();
+
+    var html =[];
+    var template = $('#tag_template').html();
+
+    for (var i in ImageTagging.Tags) {
+        var row = ImageTagging.Tags[i];
+
+        var tag ={
+            id : row.id,
+            person : row.person,
+            name : row.name,
+            left : row.x1 * width + image_position.left,
+            top : row.y1 * height + image_position.top,
+            width : (row.x2 - row.x1) * width,
+            height : (row.y2 - row.y1) * height,
+            description_top : (row.y2 - row.y1) * height + 3
+        };
+
+        var output = Mustache.render(template, tag);
+        html.push(output);
+    }
+    $('#tag_container').append(html.join(''));
 }
 
