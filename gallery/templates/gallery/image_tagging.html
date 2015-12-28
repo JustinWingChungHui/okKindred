@@ -16,6 +16,20 @@
     <div>
         <a class="btn btn-success" href="/gallery={{ image.gallery_id }}/" role="button">&laquo;{%trans "Gallery" %}</a>
         <a class="btn btn-info" target="_blank" href="/media/{{ image.original_image }}" role="button">{%trans "Download Original" %}</a>
+        <form  action="/image={{ image.id }}/rotate/" method="post" class="form-inline">
+            {% csrf_token %}
+            <input type="hidden" name="anticlockwise_angle" value="90"/>
+            <button class="btn btn-warning" type="submit" class="form-inline">
+                <span class="glyphicon glyphicon-repeat icon-flipped"></span>
+            </button>
+        </form>
+        <form  action="/image={{ image.id }}/rotate/" method="post" class="form-inline">
+            {% csrf_token %}
+            <input type="hidden" name="anticlockwise_angle" value="-90"/>
+            <button class="btn btn-warning" type="submit" class="form-inline">
+                <span class="glyphicon glyphicon-repeat"></span>
+            </button>
+        </form>
         <form  action="/image={{ image.id }}/make_gallery_thumbnail/" method="post" class="form-inline">
             {% csrf_token %}
             <button class="btn btn-warning" type="submit" class="form-inline">{% trans "Make Gallery Thumbnail" %}</button>

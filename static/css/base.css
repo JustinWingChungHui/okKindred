@@ -413,6 +413,13 @@ textarea {
     margin:5px 5px 5px 5px;
 }
 
+.icon-flipped {
+    transform: scaleX(-1);
+    -moz-transform: scaleX(-1);
+    -webkit-transform: scaleX(-1);
+    -ms-transform: scaleX(-1);
+}
+
 @media only screen and (max-device-width: 500px) {
     .map_thumbnail {
         max-width: 45px;

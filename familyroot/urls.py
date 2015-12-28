@@ -12,7 +12,8 @@ import sign_up.views
 
 admin.autodiscover()
 
-#Translated urls
+handler403 = 'familyroot.views.handler403'
+
 urlpatterns = [
 
     url(r'^admin/', include(admin.site.urls)),
@@ -111,6 +112,7 @@ urlpatterns = [
     url(r'^image=(?P<image_id>\d+)/update/$', gallery.views.image_detail_update),
     url(r'^image=(?P<image_id>\d+)/delete/$', gallery.views.image_delete),
     url(r'^image=(?P<image_id>\d+)/make_gallery_thumbnail/$', gallery.views.set_image_as_gallery_thumbnail),
+    url(r'^image=(?P<image_id>\d+)/rotate/$', gallery.views.rotate_image),
 
     #Tagging API
     url(r'^image=(?P<image_id>\d+)/tags/get/$', gallery.views.get_tags),

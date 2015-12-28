@@ -557,3 +557,73 @@ class TestImageViews(TestCase): # pragma: no cover
 
         self.assertEqual(404, response.status_code)
 
+
+    def test_rotate_image(self):
+        '''
+        Tests that user can rotate image succesffully
+        '''
+        p = Person.objects.create(name='badger', family_id=self.family.id)
+
+        #Copy test image to media area
+        shutil.copy2(self.test_image, self.test_image_destination)
+
+        im = Image(
+                    gallery=self.gallery,
+                    family=self.family,
+                    original_image=self.test_image_destination,
+                    thumbnail=self.test_image_destination,
+                    large_thumbnail=self.test_image_destination
+                )
+        im.save()
+
+        tag = Tag(
+                image_id=im.id,
+                x1=0.5,
+                y1=0.8,
+                x2=0.5,
+                y2=0.5,
+                person_id=p.id)
+        tag.save()
+
+        self.client.login(email='badger@queenonline.com', password='save the badgers')
+        response = self.client.post('/image={0}/rotate/'.format(im.id), {'anticlockwise_angle': '90'})
+
+        self.assertNotEqual(404, response.status_code)
+
+        tag = Tag.objects.get(id=tag.id)
+        self.assertEqual(0.8, tag.x2)
+
+    def test_rotate_image_not_allowed_for_user_in_different_family(self):
+        '''
+        Tests that user can not rotate image for another family
+        '''
+        p = Person.objects.create(name='badger', family_id=self.family.id)
+
+        #Copy test image to media area
+        shutil.copy2(self.test_image, self.test_image_destination)
+
+        im = Image(
+                    gallery=self.gallery,
+                    family=self.family,
+                    original_image=self.test_image_destination,
+                    thumbnail=self.test_image_destination,
+                    large_thumbnail=self.test_image_destination
+                )
+        im.save()
+
+        tag = Tag(
+                image_id=im.id,
+                x1=0.5,
+                y1=0.8,
+                x2=0.5,
+                y2=0.5,
+                person_id=p.id)
+        tag.save()
+
+        self.client.login(email='weebl@queenonline.com', password='mushroom')
+        response = self.client.post('/image={0}/rotate/'.format(im.id), {'anticlockwise_angle': '90'})
+
+        self.assertEqual(404, response.status_code)
+
+        tag = Tag.objects.get(id=tag.id)
+        self.assertEqual(0.5, tag.x2)

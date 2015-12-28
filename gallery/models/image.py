@@ -166,3 +166,23 @@ class Image(models.Model):
             os.remove(self._get_absolute_image_path(self.large_thumbnail))
         except:
             pass
+
+
+    def rotate(self, anticlockwise_angle = 90):
+        '''
+        Rotates the image and all thumbnails
+        '''
+
+        self._rotate_image(self._get_absolute_image_path(self.thumbnail), anticlockwise_angle)
+        self._rotate_image(self._get_absolute_image_path(self.large_thumbnail), anticlockwise_angle)
+        self._rotate_image(self._get_absolute_image_path(self.original_image), anticlockwise_angle)
+
+
+    def _rotate_image(self, path, anticlockwise_angle = 90):
+        '''
+        Rotates an image
+        '''
+        image = PIL.Image.open(path)
+        image.rotate(anticlockwise_angle, resample=PIL.Image.BICUBIC, expand=True).save(path)
+
+

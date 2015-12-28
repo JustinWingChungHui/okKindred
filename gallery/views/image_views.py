@@ -11,7 +11,7 @@ from family_tree.decorators import same_family_required
 from common.geocoder import geocode_address
 from common.utils import create_hash
 from custom_user.decorators import set_language
-from gallery.models import Gallery, Image
+from gallery.models import Gallery, Image, Tag
 from gallery.models.image import upload_to
 
 from os.path import basename
@@ -249,6 +249,36 @@ def set_image_as_gallery_thumbnail(request, image_id):
     gallery.save()
 
     return HttpResponseRedirect('/gallery/')
+
+@login_required
+@set_language
+def rotate_image(request, image_id):
+    '''
+    Rotates the image and the tags
+    '''
+    if request.method != 'POST':
+        return HttpResponse(status=405, content="Only POST requests allowed")
+
+    im = get_object_or_404(Image, pk = image_id)
+
+    #Check same family
+    if request.user.family_id != im.family_id:
+        raise Http404
+
+    anticlockwise_angle = int(request.POST.get("anticlockwise_angle"))
+
+    if anticlockwise_angle != 0:
+
+        # Rotate the image
+        im.rotate(anticlockwise_angle)
+        im.save()
+
+        # Rotate the tag
+        for tag in list(Tag.objects.filter(image_id = image_id)):
+            tag.rotate(anticlockwise_angle)
+            tag.save()
+
+    return HttpResponseRedirect('/image={0}/details/'.format(image_id))
 
 
 @login_required
