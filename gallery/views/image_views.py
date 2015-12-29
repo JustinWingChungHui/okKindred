@@ -271,7 +271,6 @@ def rotate_image(request, image_id):
 
         # Rotate the image
         im.rotate(anticlockwise_angle)
-        im.save()
 
         # Rotate the tag
         for tag in list(Tag.objects.filter(image_id = image_id)):

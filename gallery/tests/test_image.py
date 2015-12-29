@@ -118,4 +118,4 @@ class ImageTestCase(TestCase): # pragma: no cover
         image.rotate(90)
 
         #Clear up
-        image.delete_image_files()
+        # image.delete_image_files()

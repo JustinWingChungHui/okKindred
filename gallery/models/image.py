@@ -173,9 +173,24 @@ class Image(models.Model):
         Rotates the image and all thumbnails
         '''
 
-        self._rotate_image(self._get_absolute_image_path(self.thumbnail), anticlockwise_angle)
-        self._rotate_image(self._get_absolute_image_path(self.large_thumbnail), anticlockwise_angle)
-        self._rotate_image(self._get_absolute_image_path(self.original_image), anticlockwise_angle)
+        thumbnail = self._rotate_image(self._get_absolute_image_path(self.thumbnail), anticlockwise_angle)
+        thumbnail_path_and_filename = upload_to(self, str(create_hash(str(self.original_image)) + '.jpg'))
+        thumbnail.save(settings.MEDIA_ROOT + str(thumbnail_path_and_filename), "JPEG", quality=90)
+
+        large_thumbnail = self._rotate_image(self._get_absolute_image_path(self.large_thumbnail), anticlockwise_angle)
+        large_thumbnail_path_and_filename = upload_to(self, str(create_hash(str(self.original_image)) + '.jpg'))
+        large_thumbnail.save(settings.MEDIA_ROOT + str(large_thumbnail_path_and_filename), "JPEG", quality=90)
+
+        original_image = self._rotate_image(self._get_absolute_image_path(self.original_image), anticlockwise_angle)
+        original_image_path_and_filename = upload_to(self, str(create_hash(str(self.original_image)) + '.jpg'))
+        original_image.save(settings.MEDIA_ROOT + str(original_image_path_and_filename), "JPEG", quality=90)
+
+        self.delete_image_files()
+        self.thumbnail = thumbnail_path_and_filename
+        self.large_thumbnail = large_thumbnail_path_and_filename
+        self.original_image = original_image_path_and_filename
+
+        self.save()
 
 
     def _rotate_image(self, path, anticlockwise_angle = 90):
@@ -183,6 +198,6 @@ class Image(models.Model):
         Rotates an image
         '''
         image = PIL.Image.open(path)
-        image.rotate(anticlockwise_angle, resample=PIL.Image.BICUBIC, expand=True).save(path)
+        return image.rotate(anticlockwise_angle, resample=PIL.Image.BICUBIC, expand=True)
 
 
