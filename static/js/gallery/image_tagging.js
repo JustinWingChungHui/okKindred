@@ -111,6 +111,8 @@ $(document).ready(function() {
         $("#tag_add_modal_x2").val(left_distance / width + 0.03);
         $("#tag_add_modal_y1").val(top_distance / height - height_diff);
         $("#tag_add_modal_y2").val(top_distance / height + height_diff);
+        $('#results').html('');
+        $("#search_text").val("");
     });
 
     var timer;
@@ -124,6 +126,10 @@ $(document).ready(function() {
               do_tagging_search();
         }, delay);
 
+    });
+
+    $("#tag_add_modal").on('shown.bs.modal', function() {
+        $("#search_text").focus();
     });
 });
 
