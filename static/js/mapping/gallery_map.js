@@ -12,6 +12,7 @@ $(document).ready(function() {
 
 
 function set_gallery_map() {
+    $('.loading').show();
 
     var latitude = parseFloat($('#gallery_map').data('latitude'));
     var longitude = parseFloat($('#gallery_map').data('longitude'));
@@ -116,6 +117,8 @@ function get_gallery_map_data(map, loading) {
             if (loading) {
                 map.panTo(image_markers[0]._latlng, true);
             }
+
+            $('.loading').hide();
         }
     );
 }

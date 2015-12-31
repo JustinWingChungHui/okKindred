@@ -7,6 +7,7 @@ $(document).ready(function() {
         return;
     }
 
+    $('.loading').show();
     var center_latitude = parseFloat($("#person_map").data("latitude"));
     var center_longitude = parseFloat($("#person_map").data("longitude"));
     var zoom = parseFloat($("#person_map").data("zoom"));
@@ -117,6 +118,8 @@ function get_map_data(map) {
 
                 marker.bindPopup(html.join(''));
             }
+
+            $('.loading').hide();
         }
     );
 }
