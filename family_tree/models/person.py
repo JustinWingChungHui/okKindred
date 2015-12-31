@@ -263,7 +263,7 @@ class Person(models.Model):
             im = Image.open(path_and_filename).convert('RGB') #Convert to RGB
             im.thumbnail((500,500), Image.ANTIALIAS) #Reasonble size to allow cropping down to 200x200
 
-            im.save(path_and_filename, "JPEG", quality=90)
+            im.save(path_and_filename, "JPEG", quality=95)
 
 
             self.photo = 'profile_photos/' + filename
@@ -298,13 +298,29 @@ class Person(models.Model):
         large_thumb_name = ''.join([create_hash(self.name), 'large_thumb', '.jpg'])
 
         small_thumb = im.copy()
-        small_thumb.crop((x, y, x + w, y + h)).resize((80,80), Image.ANTIALIAS).save(''.join([settings.MEDIA_ROOT, 'profile_photos/', small_thumb_name]), "JPEG", quality=75)
+        small_thumb.crop((x, y, x + w, y + h)
+            ).resize((80,80), Image.ANTIALIAS
+            ).save(''.join([settings.MEDIA_ROOT, 'profile_photos/', small_thumb_name]), "JPEG", quality=75)
         self.small_thumbnail = 'profile_photos/' + small_thumb_name
 
         large_thumb = im.copy()
-        large_thumb.crop((x, y, x + w, y + h)).resize((200,200), Image.ANTIALIAS).save(''.join([settings.MEDIA_ROOT, 'profile_photos/', large_thumb_name]), "JPEG", quality=75)
+        large_thumb.crop((x, y, x + w, y + h)
+            ).resize((200,200), Image.ANTIALIAS
+            ).save(''.join([settings.MEDIA_ROOT, 'profile_photos/', large_thumb_name]), "JPEG", quality=75)
         self.large_thumbnail = 'profile_photos/' + large_thumb_name
 
+    def rotate_photo(self, anticlockwise_angle):
+        '''
+        Rotates the photo
+        '''
+        path_and_filename = ''.join([settings.MEDIA_ROOT, str(self.photo)])
+        im = Image.open(path_and_filename)
+
+        new_image = im.rotate(anticlockwise_angle, resample=Image.BICUBIC, expand=True)
+        self.photo = ''.join(['profile_photos/', create_hash(self.name), '.jpg'])
+        new_image.save(''.join([settings.MEDIA_ROOT, str(self.photo)]))
+
+        os.remove(path_and_filename)
 
     def format_urls(self):
         '''

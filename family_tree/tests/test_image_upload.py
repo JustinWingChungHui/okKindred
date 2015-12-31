@@ -161,3 +161,45 @@ class TestImageUploadViews(TestCase): # pragma: no cover
         os.remove(settings.MEDIA_ROOT + 'profile_photos/large_test_image.jpg')
 
         self.assertEqual(404, response.status_code)
+
+    def test_image_rotate_can_be_posted_to(self):
+        '''
+        Tests that the image_crop view can posted to
+        '''
+
+        #Copy test image to media area
+        shutil.copy2(os.path.join(settings.BASE_DIR, 'family_tree/tests/large_test_image.jpg'), settings.MEDIA_ROOT + 'profile_photos/large_test_image.jpg')
+
+        self.person.photo = 'profile_photos/large_test_image.jpg'
+        self.person.save()
+        self.client.login(email='fairy_fellar@email.com', password='masterstroke')
+
+        response = self.client.post('/image_rotate={0}/'.format(self.person.id),{'anticlockwise_angle': 90})
+
+        #Clear up mess afterwards
+        self.person = Person.objects.get(id=self.person.id)
+        os.remove(settings.MEDIA_ROOT + str(self.person.photo))
+
+        self.assertEqual(302, response.status_code)
+
+
+    def test_image_rotate_cannot_be_posted_to_for_another_family(self):
+        '''
+        Tests that the image_crop view can posted to
+        '''
+
+        #Copy test image to media area
+        shutil.copy2(os.path.join(settings.BASE_DIR, 'family_tree/tests/large_test_image.jpg'), settings.MEDIA_ROOT + 'profile_photos/large_test_image.jpg')
+
+        self.person.photo = 'profile_photos/large_test_image.jpg'
+        self.person.save()
+
+        self.client.login(email='dale_arden@email.com', password='flash i love you')
+
+        response = self.client.post('/image_rotate={0}/'.format(self.person.id),{'anticlockwise_angle': 90})
+
+        #Clear up mess afterwards
+        self.person = Person.objects.get(id=self.person.id)
+        os.remove(settings.MEDIA_ROOT + str(self.person.photo))
+
+        self.assertEqual(404, response.status_code)

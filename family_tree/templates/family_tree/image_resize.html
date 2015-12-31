@@ -9,23 +9,39 @@
 {% block content %}
 <div class="container">
     <h1>{% trans "Image Resize" %}</h1>
-    <p>
-		<form style="margin: 0; padding: 0;" action="/image_crop={{ person.id }}/" onsubmit="return checkCoords();" method="post">
+    <div>
+        <a class="btn btn-danger" href="/profile={{ person.id }}/" role="button">&laquo;{%trans "Back" %}</a>
+        <form action="/image_rotate={{ person.id }}/" method="post" class="form-inline">
+            {% csrf_token %}
+            <input type="hidden" name="anticlockwise_angle" value="90"/>
+            <button class="btn btn-warning" type="submit" class="form-inline">
+                <span class="glyphicon glyphicon-repeat icon-flipped"></span>
+            </button>
+        </form>
+        <form  action="/image_rotate={{ person.id }}/" method="post" class="form-inline">
+            {% csrf_token %}
+            <input type="hidden" name="anticlockwise_angle" value="-90"/>
+            <button class="btn btn-warning" type="submit" class="form-inline">
+                <span class="glyphicon glyphicon-repeat"></span>
+            </button>
+        </form>
+		<form class="form-inline" action="/image_crop={{ person.id }}/" onsubmit="return checkCoords();" method="post">
 		    {% csrf_token %}
-		    <a class="btn btn-danger" href="/profile={{ person.id }}/" role="button">&laquo;{%trans "Back" %}</a>
 			<input type="hidden" id="x" name="x" />
 			<input type="hidden" id="y" name="y" />
 			<input type="hidden" id="w" name="w" />
 			<input type="hidden" id="h" name="h" />
 			<input type="hidden" id="display_height" name="display_height" />
+
 			<input type="submit" value="{%trans "Save" %}&raquo;" class="btn btn-success" />
 		</form>
 
-    </p>
+    </div>
     <p>
         {% trans "Please trim the image to suit a profile picture:" %}
     </p>
     <img src="/media/{{ person.photo }}" id="crop_target"/>
+
 
 </div>
 {% endblock %}
@@ -45,21 +61,27 @@
             });
         });
 
-        function updateCoords(c)
-            {
-                $('#x').val(c.x);
-                $('#y').val(c.y);
-                $('#w').val(c.w);
-                $('#h').val(c.h);
-                $('#display_height').val($('#crop_target').height());
-            };
+        jQuery.fn.rotate = function(degrees) {
+            $(this).css({'-webkit-transform' : 'rotate('+ degrees +'deg)',
+                         '-moz-transform' : 'rotate('+ degrees +'deg)',
+                         '-ms-transform' : 'rotate('+ degrees +'deg)',
+                         'transform' : 'rotate('+ degrees +'deg)'});
+            return $(this);
+        };
 
-          function checkCoords()
-            {
-                if (parseInt($('#w').val())) return true;
-                    alert('{% trans "Please select a trimmed region" %}');
-                return false;
-            };
+        function updateCoords(c) {
+            $('#x').val(c.x);
+            $('#y').val(c.y);
+            $('#w').val(c.w);
+            $('#h').val(c.h);
+            $('#display_height').val($('#crop_target').height());
+        };
+
+        function checkCoords() {
+            if (parseInt($('#w').val())) return true;
+                alert('{% trans "Please select a trimmed region" %}');
+            return false;
+        };
     </script>
 
 {% endblock %}
