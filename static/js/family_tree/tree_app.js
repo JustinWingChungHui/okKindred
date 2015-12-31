@@ -26,11 +26,15 @@ $(window).resize(function () {
 
 //Ajax request to get tree data
 function load_tree_data() {
+
+    $('.loading').show();
+
     $.ajax({
         url: "/tree/data/",
         success: function(data) {
             populate_lookups(data);
             redraw_tree();
+            $('.loading').hide();
         }
 
     });
