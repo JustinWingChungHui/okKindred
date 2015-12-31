@@ -145,3 +145,29 @@ def image_crop(request, person_id = 0, person = None):
     person.save()
 
     return HttpResponseRedirect('/edit_profile={0}/'.format(person_id))
+
+
+@login_required
+@set_language
+@same_family_required
+@ensure_csrf_cookie
+def image_rotate(request, person_id = 0, person = None):
+    '''
+    Crops the image and assigns the thumbnails to the profile
+    '''
+
+    #Ensure that profile is not locked
+    if request.user.id != person.user_id and person.locked == True:
+        raise Http404
+
+    try:
+        anticlockwise_angle = int(request.POST.get("anticlockwise_angle"))
+    except:
+        raise Http404
+
+
+    person.rotate_photo(anticlockwise_angle)
+    person.save()
+
+    return HttpResponseRedirect('/image_resize={0}/'.format(person_id))
+

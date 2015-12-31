@@ -91,6 +91,7 @@ urlpatterns = [
     url(r'^edit_profile_photo=(?P<person_id>\d+)/$', family_tree.views.edit_profile_photo),
     url(r'^image_resize=(?P<person_id>\d+)/$', family_tree.views.image_resize),
     url(r'^image_crop=(?P<person_id>\d+)/$', family_tree.views.image_crop),
+    url(r'^image_rotate=(?P<person_id>\d+)/$', family_tree.views.image_rotate),
     url(r'^image_upload=(?P<person_id>\d+)/$', family_tree.views.image_upload),
     url(r'^delete=(?P<person_id>\d+)/$', family_tree.views.delete_profile),
 

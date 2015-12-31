@@ -268,6 +268,28 @@ class PersonTestCase(TestCase): # pragma: no cover
         #Clear up mess afterwards
         os.remove(settings.MEDIA_ROOT + 'profile_photos/large_test_image.jpg')
 
+    def test_rotate_photo(self):
+        '''
+        Tests that the function correctly rotates a photo
+        '''
+        from django.conf import settings
 
+        #Copy test image to media area
+        import shutil
+        import os
+        shutil.copy2(os.path.join(settings.BASE_DIR, 'family_tree/tests/large_test_image.jpg'), settings.MEDIA_ROOT + 'profile_photos/large_test_image.jpg')
+
+        person = Person(name='譚詠麟', gender='M', family_id=self.family.id)
+        person.photo = 'profile_photos/large_test_image.jpg'
+
+        person.rotate_photo(90)
+
+        #Check rotated photo is valid
+        rotated_photo = Image.open(settings.MEDIA_ROOT + str(person.photo))
+        rotated_photo.verify()
+
+
+        #Clear up mess afterwards
+        os.remove(settings.MEDIA_ROOT + str(person.photo))
 
 
