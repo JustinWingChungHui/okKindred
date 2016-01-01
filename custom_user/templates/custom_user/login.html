@@ -8,7 +8,7 @@
     <form class="form-signin" role="form" action="/accounts/auth/" method="post">{% csrf_token %}
         <h2 class="form-signin-heading">{% trans "Please sign in" %}</h2>
         <label for="username" class="sr-only">{% trans "Email Address" %}</label>
-        <input type="username" id="username" name="username" class="form-control" placeholder="{% trans 'Email address'  %}" required autofocus>
+        <input type="email" id="username" name="username" class="form-control" placeholder="{% trans 'Email address'  %}" required autofocus>
         <label for="password" class="sr-only">{% trans "Password" %}</label>
         <input type="password" id="password" name="password" class="form-control" placeholder="{% trans 'Password' %}" required>
 
