@@ -40,6 +40,8 @@ SECURE_BROWSER_XSS_FILTER = True
 CSRF_COOKIE_HTTPONLY = False # Do some work to turn this on
 X_FRAME_OPTIONS = 'DENY'
 
+CSRF_FAILURE_VIEW = 'familyroot.views.csrf_failure'
+
 ALLOWED_HOSTS = [
                 '.okkindred.com',  # Allow domain and subdomains
                 'justinhui.pythonanywhere.com',
