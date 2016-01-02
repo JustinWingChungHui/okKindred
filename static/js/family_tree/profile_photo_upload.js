@@ -14,8 +14,7 @@ $(document).ready(function(){
     var url = '/image_upload=' + person_id + '/';
     $('#progress .progress-bar').css('width','0%');
 
-    var csrftoken = $.cookie('csrftoken');
-
+    var csrftoken = $("[name='csrfmiddlewaretoken']").val();
 
     set_profile_picture_upload(person_id, url, csrftoken);
 

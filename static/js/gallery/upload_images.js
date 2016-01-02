@@ -14,7 +14,7 @@ $(document).ready(function(){
     var url = '/gallery=' + gallery_id + '/upload_images_post/';
     $('#progress .progress-bar').css('width','0%');
 
-    var csrftoken = $.cookie('csrftoken');
+    var csrftoken = $("[name='csrfmiddlewaretoken']").val();
 
     gallery_photo_upload(gallery_id, url, csrftoken);
 });
