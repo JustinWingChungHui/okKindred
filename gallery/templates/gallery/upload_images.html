@@ -20,6 +20,7 @@
         <span>{% trans "Select files..." %}</span>
         <!-- The file input field used as target for the file upload widget -->
         <input id="gallery_photo_upload" type="file" name="files[]"> <!--multiple doesn't work for some reason-->
+        {% csrf_token %}
     </span>
     <br/>
     <br/>

@@ -20,6 +20,7 @@
         <span>{% trans "Select file..." %}</span>
         <!-- The file input field used as target for the file upload widget -->
         <input id="profile_picture_upload" type="file" name="picture">
+        {% csrf_token %}
     </span>
     <br/>
     <br/>
@@ -42,10 +43,10 @@
 {% block extrascript %}
     <script src="{% static "js/file_upload.min.js" %}"></script>
     <!--
-    <script src="https://www.okkindred.com/static/js/jquery/jquery-ui.min.js"></script>
-    <script src="https://www.okkindred.com/static/js/jquery/jquery.iframe-transport.min.js"></script>
-    <script src="https://www.okkindred.com/static/js/jquery/jquery.fileupload.min.js"></script>
-    <script src="https://www.okkindred.com/static/js/jquery/jquery.cookie.js"></script>
-    <script src="https://www.okkindred.com/static/js/family_tree/profile_photo_upload.js"></script>
+    <script src="{% static "js/jquery/jquery-ui.min.js" %}"></script>
+    <script src="{% static "js/jquery/jquery.iframe-transport.min.js" %}"></script>
+    <script src="{% static "js/jquery/jquery.fileupload.min.js" %}"></script>
+    <script src="{% static "js/jquery/jquery.cookie.js" %}"></script>
+    <script src="{% static "js/family_tree/profile_photo_upload.js" %}"></script>
     -->
 {% endblock %}

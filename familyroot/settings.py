@@ -37,7 +37,7 @@ SECURE_HSTS_SECONDS = 3600 # Increase this for production
 SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 SECURE_CONTENT_TYPE_NOSNIFF = True
 SECURE_BROWSER_XSS_FILTER = True
-CSRF_COOKIE_HTTPONLY = False # Do some work to turn this on
+CSRF_COOKIE_HTTPONLY = True
 X_FRAME_OPTIONS = 'DENY'
 
 CSRF_FAILURE_VIEW = 'familyroot.views.csrf_failure'
