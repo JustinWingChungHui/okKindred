@@ -22,6 +22,16 @@
     </p>
 
     <div id="image_container" data-gallery_url="/gallery={{ gallery.id }}/image_data=">
+
+    {% if image %}
+
+        <a id="default_image" class="image_in_gallery" href="/media/{{ image.large_thumbnail }}"  style="display:None;" data-lightbox="gallery"
+            data-title="&lt;a href='/image={{ image.id }}/details/' class='btn btn-info' &gt; {% trans "Details" %}  &lt;/a&gt {{ image.title }}">
+            default
+        </a>
+
+    {% endif %}
+
     </div>
 
     <div id="loadmoreajaxloader" style="display:none;">

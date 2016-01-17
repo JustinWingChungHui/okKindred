@@ -115,8 +115,8 @@ def send_tag_notification_email(person, image):
 
     content = translation.ugettext( """Hi {0}
                                         You have been identified in a photo.
-                                        To see it, please go to {1}/person={2}/photos/image={3}/
-                                    """.format(person.user.name, settings.DOMAIN, person.id, image.id))
+                                        To see it, please go to {1}/gallery={2}/image={3}/
+                                    """.format(person.user.name, settings.DOMAIN, image.gallery_id, image.id))
 
     content_html = create_email_body_html(person, image)
 
