@@ -104,6 +104,7 @@ urlpatterns = [
 
     #Gallery Image views
     url(r'^gallery=(?P<gallery_id>\d+)/$', gallery.views.gallery),
+    url(r'^gallery=(?P<gallery_id>\d+)/image=(?P<image_id>\d+)/$', gallery.views.gallery),
     url(r'^gallery=(?P<gallery_id>\d+)/image_data=(?P<page>\d+)/$', gallery.views.gallery_images),
     url(r'^gallery=(?P<gallery_id>\d+)/upload_images/$', gallery.views.upload_images),
     url(r'^gallery=(?P<gallery_id>\d+)/upload_images_post/$', gallery.views.upload_images_post),

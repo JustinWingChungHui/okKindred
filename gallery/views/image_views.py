@@ -23,7 +23,7 @@ MAX_FILE_SIZE = 15000000  # bytes
 
 @login_required
 @set_language
-def gallery(request, gallery_id):
+def gallery(request, gallery_id, image_id = None):
     '''
     Page to show images in a gallery
     '''
@@ -37,8 +37,18 @@ def gallery(request, gallery_id):
     if request.user.family_id != gallery.family_id:
         raise Http404
 
+    if image_id:
+        im = get_object_or_404(Image, pk = image_id)
+
+        #Check same family
+        if request.user.family_id != im.family_id:
+            raise Http404
+    else:
+        im = None
+
     return render(request, 'gallery/gallery.html', {
                                     'gallery' : gallery,
+                                    'image' : im,
                                 })
 
 

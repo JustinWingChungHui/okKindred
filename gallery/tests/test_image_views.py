@@ -76,6 +76,33 @@ class TestImageViews(TestCase): # pragma: no cover
         self.assertEqual(response.status_code, 404)
 
 
+    def test_gallery_with_auto_open_image_loads(self):
+        '''
+        Tests that the gallery view loads when a photo to open by
+        is specified
+        '''
+
+        #Copy test image to media area
+        shutil.copy2(self.test_image, self.test_image_destination)
+
+        im = Image(
+                    gallery=self.gallery,
+                    family=self.family,
+                    original_image=self.test_image_destination,
+                    thumbnail=self.test_image_destination,
+                    large_thumbnail=self.test_image_destination
+                )
+        im.save()
+
+        self.client.login(email='badger@queenonline.com', password='save the badgers')
+        response = self.client.get('/gallery={0}/image={1}/'.format(self.gallery.id, im.id))
+
+        im.delete_image_files()
+
+        self.assertEqual(200, response.status_code)
+        self.assertTemplateUsed(response, 'gallery/gallery.html')
+
+
     def test_first_page_of_images_loaded(self):
         '''
         Tests that the images load for a gallery
