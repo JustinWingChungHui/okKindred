@@ -71,7 +71,7 @@ $(document).ready(function() {
 
     $("#tag_detail_delete_button").click(function(e) {
 
-        var csrftoken = $.cookie('csrftoken');
+        var csrftoken = $("[name='csrfmiddlewaretoken']").val();
         $.ajax({
             url: "/tag=" + e.currentTarget.dataset.tag_id + "/delete/",
             type: "POST",
