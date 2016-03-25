@@ -473,6 +473,7 @@ textarea {
 }
 
 /** Custom CSS for image cropping **/
+/**
 @media only screen and (max-device-width: 500px) {
 
     .masonry_thumbnail {
@@ -498,7 +499,7 @@ textarea {
         max-height: 200px;
     }
 }
-
+**/
 /** Styling for image details **/
 #image_location_map{
     width: 300px;

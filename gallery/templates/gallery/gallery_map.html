@@ -22,12 +22,16 @@
         }
     </style>
 
-    <link rel="stylesheet" type="text/css" href="{% static "css/lightbox.css" %}" />
+    <!--<link rel="stylesheet" type="text/css" href="{% static "css/lightbox.css" %}" />-->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.1/photoswipe.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.1/default-skin/default-skin.min.css" />
 
 {% endblock %}
 
 
 {% block content %}
+
+    {% include "gallery/photoswipe.html" %}
 
     {% localize off %}
 
@@ -44,19 +48,25 @@
 <!-- Templates -->
 {% verbatim %}
 <script id="map_image_template" type="text/html">
-    <a class="image_in_gallery" href="/media/{{large_thumbnail}}" data-lightbox="gallery"
-        data-title="&lt;a href='/image={{id}}/details/' class='btn btn-info' &gt; '{% endverbatim %}{% trans "Details" %}{% verbatim %} &lt;/a&gt {{title}}">
+    <a class="image_in_gallery" href="#" data-lightbox="gallery"
+        data-photoswipe_index="{{photoswipe_index}}">
         <img class="map_thumbnail" src="/media/{{thumbnail}}" alt="{{title}}"/>
     </a>
 </script>
+
+<script id="galley_image_caption_template" type="text/html">
+    <a href="/image={{identifier}}/details/" class="btn btn-info"> {% endverbatim %}{% trans "Details" %}{% verbatim %} </a> {{title}}
+</script>
+
 {% endverbatim %}
 
-<!--Issue with lightbox on map when compiled -->
-<script src="{% static "js/gallery/imagesloaded.pkgd.min.js" %}"></script>
-<script src="{% static "js/gallery/masonry.pkgd.min.js" %}"></script>
-<script src="{% static "js/gallery/lightbox.min.js" %}"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/masonry/4.0.0/masonry.pkgd.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.1/photoswipe.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.1/photoswipe-ui-default.min.js"></script>
 <script src="{% static "js/gallery/gallery.js" %}"></script>
 
-<script src="{% static "js/mapping.min.js" %}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.js"></script>
+<script src="{% static "js/mapping/gallery_map.js" %}"></script>
 
 {% endblock %}

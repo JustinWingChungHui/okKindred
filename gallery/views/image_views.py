@@ -77,7 +77,8 @@ def gallery_images(request, gallery_id, page):
         # If page is out of range return blank
         return HttpResponse('[]', content_type="application/json")
 
-    data = serializers.serialize('json', images, fields=('id','title', 'thumbnail', 'large_thumbnail', 'original_image', 'latitude')) #Aded latitude ot unhide map button
+    data = serializers.serialize(
+        'json', images, fields=('id','title', 'thumbnail', 'large_thumbnail', 'original_image', 'latitude', 'thumbnail_width', 'thumbnail_height', 'large_thumbnail_width', 'large_thumbnail_height')) #Added latitude to unhide map button
 
     return HttpResponse(data, content_type="application/json")
 
@@ -140,12 +141,12 @@ def process_image(filename, file, gallery):
     filename =  create_hash(name) +'.jpg'
 
     im = Image(gallery_id=gallery.id, family_id=gallery.family_id, title=name)
-    im.original_image = upload_to(im, filename)
+    upload_name = upload_to(im, filename)
 
     result = {
         'name': basename(name),
         'size': file.size,
-        'url': '/media/' + str(im.original_image),
+        'url': '/media/' + str(upload_name),
         'filename': filename
     }
 
@@ -154,11 +155,13 @@ def process_image(filename, file, gallery):
         return result
 
     #Write the file to the destination
-    destination = open(os.path.join(settings.MEDIA_ROOT, str(im.original_image)), 'wb+')
+    destination = open(os.path.join(settings.MEDIA_ROOT, str(upload_name)), 'wb+')
 
     for chunk in file.chunks():
         destination.write(chunk)
     destination.close()
+
+    im.original_image = upload_name
 
     #Check this is a valid image
     try:
@@ -347,7 +350,9 @@ def person_gallery_data(request, person_id, person = None, page = 1):
         # If page is out of range return blank
         return HttpResponse('[]', content_type="application/json")
 
-    data = serializers.serialize('json', images, fields=('id','title', 'thumbnail', 'large_thumbnail', 'original_image'))
+    data = serializers.serialize(
+        'json', images, fields=('id','title', 'thumbnail', 'large_thumbnail', 'original_image', 'latitude', 'thumbnail_width', 'thumbnail_height', 'large_thumbnail_width', 'large_thumbnail_height')) #Added latitude to unhide map button
+
 
     return HttpResponse(data, content_type="application/json")
 

@@ -54,7 +54,10 @@ def gallery_map_data(request, gallery_id, division_size):
                                         'thumbnail': str(image.thumbnail),
                                         'large_thumbnail': str(image.large_thumbnail),
                                         'latitude': image.latitude,
-                                        'longitude': image.longitude
+                                        'longitude': image.longitude,
+                                        'title' : image.title,
+                                        'large_thumbnail_width' : image.large_thumbnail_width,
+                                        'large_thumbnail_height' : image.large_thumbnail_height
                                     })
 
     return HttpResponse(json.dumps(location_points), content_type="application/json")

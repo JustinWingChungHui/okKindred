@@ -36,9 +36,17 @@ class Image(models.Model):
     gallery = models.ForeignKey(Gallery, blank=False, null=False, db_index = True)
     family = models.ForeignKey('family_tree.Family', null=False, db_index=True) #Use of model string name to prevent circular import
 
-    original_image = models.ImageField(upload_to=upload_to, blank=True, null=False)
-    thumbnail = models.ImageField(upload_to=upload_to, blank=True, null=False)
-    large_thumbnail = models.ImageField(upload_to=upload_to, blank=True, null=False)
+    original_image = models.ImageField(upload_to=upload_to, blank=True, null=False, width_field='original_image_width', height_field='original_image_height')
+    original_image_height = models.IntegerField(null=True)
+    original_image_width = models.IntegerField(null=True)
+
+    thumbnail = models.ImageField(upload_to=upload_to, blank=True, null=False, width_field='thumbnail_width', height_field='thumbnail_height')
+    thumbnail_height = models.IntegerField(null=True)
+    thumbnail_width = models.IntegerField(null=True)
+
+    large_thumbnail = models.ImageField(upload_to=upload_to, blank=True, null=False, width_field='large_thumbnail_width', height_field='large_thumbnail_height')
+    large_thumbnail_height = models.IntegerField(null=True)
+    large_thumbnail_width = models.IntegerField(null=True)
 
     title = models.CharField(max_length=50)
     description = models.TextField(blank=True)

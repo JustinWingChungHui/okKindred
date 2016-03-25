@@ -3,7 +3,8 @@
 {% load i18n %}
 
 {% block extrastyle %}
-    <link rel="stylesheet" type="text/css" href="{% static "css/lightbox.css" %}" />
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.1/photoswipe.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.1/default-skin/default-skin.min.css" />
 {% endblock %}
 
 {% block content %}
@@ -14,6 +15,7 @@
     </p>
     <h2>{%trans "Pictures of" %} {{ person.name }}</h2>
 
+    {% include "gallery/photoswipe.html" %}
     <div id="image_container" data-gallery_url="/person={{ person.id }}/photos/image_data=">
 
     {% if image %}
@@ -42,14 +44,23 @@
 
 <!-- Templates -->
 {% verbatim %}
+
 <script id="galley_image_template" type="text/html">
-    <a class="image_in_gallery" href="/media/{{large_thumbnail}}" data-lightbox="gallery"
-        data-title="&lt;a href='/image={{id}}/details/' class='btn btn-info' &gt; {% endverbatim %}{% trans "Details" %}{% verbatim %} &lt;/a&gt {{title}}">
-        <img class="masonry_thumbnail" src="/media/{{thumbnail}}" alt="{{title}}"/>
+    <a class="image_in_gallery" href="#" data-lightbox="gallery"
+        data-photoswipe_index="{{photoswipe_index}}">
+        <img class="masonry_thumbnail" src="/media/{{thumbnail}}" alt="{{title}}" height="{{height}}" width="{{width}}"/>
     </a>
 </script>
+
+<script id="galley_image_caption_template" type="text/html">
+    <a href="/image={{identifier}}/details/" class="btn btn-info"> {% endverbatim %}{% trans "Details" %}{% verbatim %} </a> {{title}}
+</script>
+
 {% endverbatim %}
 
-<script src="{% static "js/gallery.min.js" %}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/masonry/4.0.0/masonry.pkgd.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.1/photoswipe.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.1/photoswipe-ui-default.min.js"></script>
+<script src="{% static "js/gallery/gallery.js" %}"></script>
 
 {% endblock %}
