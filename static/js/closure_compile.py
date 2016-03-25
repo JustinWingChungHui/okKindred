@@ -76,30 +76,6 @@ with open("mapping.min.js", "w") as text_file:
     text_file.write(data)
 
 
-# Gallery
-params = urllib.urlencode([
-    ('code_url', 'https://www.okkindred.com/static/js/gallery/imagesloaded.pkgd.min.js'),
-    ('code_url', 'https://www.okkindred.com/static/js/gallery/masonry.pkgd.min.js'),
-    ('code_url', 'https://www.okkindred.com/static/js/gallery/lightbox.min.js'),
-    ('code_url', 'https://www.okkindred.com/static/js/gallery/gallery.js'),
-    ('compilation_level', 'WHITESPACE_ONLY'),
-    ('output_format', 'text'),
-    ('output_info', 'compiled_code'),
-  ])
-
-# Always use the following value for the Content-type header.
-headers = { "Content-type": "application/x-www-form-urlencoded" }
-conn = httplib.HTTPConnection('closure-compiler.appspot.com')
-conn.request('POST', '/compile', params, headers)
-response = conn.getresponse()
-data = response.read()
-conn.close()
-
-
-with open("gallery.min.js", "w") as text_file:
-    text_file.write(data)
-
-
 # Editable tables
 params = urllib.urlencode([
     ('code_url', 'https://www.okkindred.com/static/js/editable/moment.min.js'),

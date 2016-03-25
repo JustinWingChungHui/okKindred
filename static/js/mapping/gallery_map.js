@@ -1,5 +1,6 @@
-
-var image_markers = new Array();
+var OKKINDRED_GALLERY_MAP = {
+    image_markers : []
+};
 
 $(document).ready(function() {
 
@@ -8,6 +9,11 @@ $(document).ready(function() {
     }
 
     set_gallery_map();
+
+    $(document).on("click",".image_in_gallery",function(e){
+        var photoswipe_index = $(this).data('photoswipe_index');
+        show_photoswipe_window(photoswipe_index);
+    });
 });
 
 
@@ -66,11 +72,14 @@ function get_gallery_map_data(map, loading) {
         function(data) {
 
             var details_translation = $('#translate').data('details')
+            var photoswipe_index = 0;
 
-            for(i = 0; i < image_markers.length; i++) {
-                map.removeLayer(image_markers[i]);
+            for(i = 0; i < OKKINDRED_GALLERY_MAP.image_markers.length; i++) {
+                map.removeLayer(OKKINDRED_GALLERY_MAP.image_markers[i]);
             }
-            image_markers.length = 0;
+
+            OKKINDRED_GALLERY_MAP.image_markers.length = 0;
+            OKKINDRED_GALLERY.photoswipe_items.length = 0;
 
             var template = $('#map_image_template').html();
 
@@ -86,7 +95,7 @@ function get_gallery_map_data(map, loading) {
                 });
 
                 var marker = L.marker([loc[0].latitude,loc[0].longitude], {icon: myIcon}).addTo(map);
-                image_markers.push(marker);
+                OKKINDRED_GALLERY_MAP.image_markers.push(marker);
 
                 var html = [];
 
@@ -104,9 +113,21 @@ function get_gallery_map_data(map, loading) {
 
                 for (var i = 0; i < loc.length; i++) {
                     var image = loc[i];
+                    image.photoswipe_index = photoswipe_index;
 
                     var output = Mustache.render(template, image);
                     html.push(output);
+
+                    var photoswipe_item = {
+                        src :  '/media/' + image.large_thumbnail,
+                        w : image.large_thumbnail_width,
+                        h : image.large_thumbnail_height,
+                        identifier :   image.id,
+                        title : image.title
+                    };
+
+                    OKKINDRED_GALLERY.photoswipe_items.push(photoswipe_item);
+                    photoswipe_index++;
                 }
 
                 html.push('</div>');
@@ -115,7 +136,7 @@ function get_gallery_map_data(map, loading) {
             }
 
             if (loading) {
-                map.panTo(image_markers[0]._latlng, true);
+                map.panTo(OKKINDRED_GALLERY_MAP.image_markers[0]._latlng, true);
             }
 
             $('.loading').hide();
