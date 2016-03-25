@@ -136,7 +136,7 @@ function gallery_load_more()
                 $container.append($data);
                 $container.masonry( 'appended', $data.filter(".image_in_gallery"), true );
 
-                gallery_loading = false;
+                OKKINDRED_GALLERY.gallery_loading = false;
 
                 //Keep loading images until we see a scroll bar
                 if ($container.height() < $(window).height()) {
