@@ -33,6 +33,10 @@ var OKKINDRED_GALLERY = {
             },
         };
 
+        // Clears previous images
+        $('.pswp__item').empty();
+        window.location.hash = '';
+
         // Initializes and opens PhotoSwipe
         var pswpElement = $('.pswp')[0];
 
