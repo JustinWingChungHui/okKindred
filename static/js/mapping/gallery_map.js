@@ -12,7 +12,7 @@ $(document).ready(function() {
 
     $(document).on("click",".image_in_gallery",function(e){
         var photoswipe_index = $(this).data('photoswipe_index');
-        show_photoswipe_window(photoswipe_index);
+        OKKINDRED_GALLERY.show_photoswipe_window(photoswipe_index);
     });
 });
 
