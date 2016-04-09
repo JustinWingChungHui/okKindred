@@ -12,7 +12,7 @@ require(["jsPlumb"], function (jsPlumb) {
 
          window.jsp = instance;
 
-    	var windows = jsPlumb.getSelector(".family_tree_container .boxed_chained");
+    	var windows = jsPlumb.getSelector(".family_tree_container .connect");
 
 
         instance.batch(function () {

@@ -7,7 +7,7 @@
     <div class="family_tree_container" id="family_tree_container" style="position: relative;"> <!--I don't understand why this needs to inline! -->
 
         {% for relative in people %}
-            <div id="person{{relative.id}}" class="boxed_chained">
+            <div id="person{{relative.id}}" class="boxed_chained connect">
                 <a href="/tree/{{relative.id}}/">
                     {% if relative.small_thumbnail %}
                         <img class="tree_thumb" src="/media/{{relative.small_thumbnail}}" alt="{{ relative.name }}"/>
@@ -46,7 +46,7 @@
 
 <script>
     requirejs(["{% static 'js/common.js' %}"], function (common) {
-        requirejs(["{% static 'js/family_tree/how_i_am_related.js' %}"]);
+        requirejs(["{% static 'js/family_tree/connect.js' %}"]);
     });
 </script>
 {% endblock %}

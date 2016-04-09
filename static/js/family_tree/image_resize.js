@@ -32,4 +32,4 @@ require(["jquery", "jcrop"], function ($) {
             alert('{% trans "Please select a trimmed region" %}');
         return false;
     };
-};
+});

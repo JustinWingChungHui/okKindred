@@ -42,11 +42,11 @@ requirejs.config({
 
         leaflet : "//cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet",
 
-        jquery_ui : "//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min",
-
         jquery_fileupload : "//cdnjs.cloudflare.com/ajax/libs/blueimp-file-upload/9.12.1/js/jquery.fileupload.min",
 
         jquery_cookie : "//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min",
+
+        'jquery.ui.widget' : "/static/js/libs/jquery.widget.min",
 
         jcrop : "//cdnjs.cloudflare.com/ajax/libs/jquery-jcrop/0.9.12/js/jquery.Jcrop.min",
 
@@ -75,15 +75,14 @@ requirejs.config({
         },
 
         /* Set jquery ui dependencies*/
-        jquery_ui : {
+        'jquery.ui.widget' : {
             deps : ['jquery']
         },
-        jquery_fileupload : {
-            deps : ['jquery_ui']
-        },
+
         jquery_cookie : {
             deps : ['jquery']
         },
+
 
         jsPlumb : {
             exports : "jsPlumb"
