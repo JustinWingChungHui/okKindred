@@ -42,6 +42,16 @@ class TestProfileViews(TestCase): # pragma: no cover
         self.confirmed_person.save()
 
 
+    def test_genders_returns_response(self):
+        '''
+        Tests that list of available genders returns
+        '''
+        response = self.client.get('/genders/')
+
+        self.assertEqual(200, response.status_code)
+        self.assertEqual(True, 'Male' in str(response.content))
+
+
     def test_home_profile_loads(self):
         '''
         Tests that the users home screen loads and uses the correct template

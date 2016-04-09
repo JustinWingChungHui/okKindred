@@ -8,7 +8,7 @@ $(document).ready(function() {
         return;
     }
 
-    set_gallery_map();
+    OKKINDRED_GALLERY_MAP.set_gallery_map ();
 
     $(document).on("click",".image_in_gallery",function(e){
         var photoswipe_index = $(this).data('photoswipe_index');
@@ -17,7 +17,7 @@ $(document).ready(function() {
 });
 
 
-function set_gallery_map() {
+OKKINDRED_GALLERY_MAP.set_gallery_map = function() {
     $('.loading').show();
 
     var latitude = parseFloat($('#gallery_map').data('latitude'));
@@ -42,15 +42,15 @@ function set_gallery_map() {
 
     map.addControl( L.control.zoom({position: 'bottomleft'}));
 
-    get_gallery_map_data(map, true);
+    OKKINDRED_GALLERY_MAP.get_gallery_map_data(map, true);
 
     map.on('zoomend', function(e) {
-        get_gallery_map_data(e.target, false);
+        OKKINDRED_GALLERY_MAP.get_gallery_map_data(e.target, false);
     });
 }
 
 
-function get_gallery_map_data(map, loading) {
+OKKINDRED_GALLERY_MAP.get_gallery_map_data = function(map, loading) {
     var bounds = map.getBounds()
     var min = bounds.getSouthWest().wrap();
     var max = bounds.getNorthEast().wrap();

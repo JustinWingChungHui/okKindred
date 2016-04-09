@@ -24,7 +24,7 @@ from familyroot import secrets
 SECRET_KEY = secrets.SECRET_KEY
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 TEMPLATE_DEBUG = DEBUG
 
@@ -42,12 +42,9 @@ X_FRAME_OPTIONS = 'DENY'
 
 CSRF_FAILURE_VIEW = 'familyroot.views.csrf_failure'
 
-ALLOWED_HOSTS = [
-                '.okkindred.com',  # Allow domain and subdomains
-                'justinhui.pythonanywhere.com',
-                ]
+ALLOWED_HOSTS = secrets.ALLOWED_HOSTS
 
-DOMAIN = 'https://www.okkindred.com'
+DOMAIN = secrets.DOMAIN
 
 # Application definition
 INSTALLED_APPS = (
@@ -101,7 +98,7 @@ EMAIL_HOST = secrets.EMAIL_HOST
 EMAIL_PORT = secrets.EMAIL_PORT
 EMAIL_HOST_USER = secrets.EMAIL_HOST_USER
 EMAIL_HOST_PASSWORD = secrets.EMAIL_HOST_PASSWORD
-DEFAULT_FROM_EMAIL = 'info@okkindred.com'
+DEFAULT_FROM_EMAIL = secrets.DEFAULT_FROM_EMAIL
 
 
 #Rosetta

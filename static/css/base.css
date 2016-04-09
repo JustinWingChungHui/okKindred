@@ -17,25 +17,6 @@
     color: #DDDDDD;
 }
 
-.btn{
-    margin-top: 5px;
-}
-
-/*
-.btn-primary{
-    color: #fff;
-    background-color: #008000;
-    border-color: #006000;
-}
-
-.btn-primary:hover,.btn-primary:focus,.btn-primary.focus,.btn-primary:active,.btn-primary.active,.open>.dropdown-toggle.btn-primary {
-    color:#fff;
-    background-color:#00CC00;
-    border-color:#00CC00
-
-}
-*/
-
 /* Move down content because we have a fixed navbar that is 50px tall */
 body {
   padding-top: 50px;

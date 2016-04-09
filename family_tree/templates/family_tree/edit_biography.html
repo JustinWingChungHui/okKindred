@@ -12,22 +12,17 @@
                 <button class="btn btn-success" type="submit">{% trans "Save" %}&raquo;</button>
             </p>
             {% csrf_token %}
-            <textarea id="biography" type="biography" name="biography" >{{ biography.content }}</textarea>
+            <textarea id="biography" type="biography" name="biography" data-language="{{ language }}">{{ biography.content }}</textarea>
         </form>
     </div>
 </div>
 {% endblock %}
 
 {% block extrascript %}
-
-    <!--TinyMCE -->
-    <script src="//tinymce.cachefly.net/4.1/tinymce.min.js"></script>
-    <script>
-        tinymce.init({
-            selector: 'textarea',
-            language_url : '/static/js/tinymce_languages/{{ language }}.js',
-
-        });
-    </script>
-    <script src="{% static 'js/common/submit_disable.js' %}"></script>
+<script>
+    requirejs(["{% static 'js/common.js' %}"], function (common) {
+        requirejs(["{% static 'js/family_tree/edit_biography.js' %}"]);
+        requirejs(["{% static 'js/common/submit_disable.js' %}"]);
+    });
+</script>
 {% endblock %}

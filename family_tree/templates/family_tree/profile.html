@@ -222,5 +222,9 @@
 {% endblock %}
 
 {% block extrascript %}
-    <script src="{% static "js/family_tree/invite_person.js" %}"></script>
+<script>
+    requirejs(["{% static 'js/common.js' %}"], function (common) {
+        requirejs(["{% static 'js/family_tree/profile.js' %}"]);
+    });
+</script>
 {% endblock %}

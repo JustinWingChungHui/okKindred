@@ -18,6 +18,7 @@ urlpatterns = [
 
     url(r'^admin/', include(admin.site.urls)),
     url(r'^about/$', familyroot.views.about, name='about'),
+    url(r'^languages/$', familyroot.views.languages, name='languages'),
     url(r'^$', familyroot.views.index),
 
     #Custom user urls
@@ -66,8 +67,14 @@ urlpatterns = [
     url(r'^break_relation_post=(?P<person_id>\d+)/$', family_tree.views.break_relation_post),
 
     #Profile Views
+    url(r'^genders/$', family_tree.views.genders, name='genders'),
     url(r'^profile=(?P<person_id>\d+)/$', family_tree.views.profile),
     url(r'^profile=(?P<person_id>\d+)/ln=(?P<requested_language>[a-zA-Z]{1,8}(-[a-zA-Z0-9]{1,8})*)/$', family_tree.views.profile),
+
+    #Edit Profile
+    url(r'^edit_profile=(?P<person_id>\d+)/$', family_tree.views.edit_profile),
+    url(r'^edit_profile=(?P<person_id>\d+)/ln=(?P<requested_language>[a-zA-Z]{1,8}(-[a-zA-Z0-9]{1,8})*)/$', family_tree.views.edit_profile),
+    url(r'^update_person=(?P<person_id>\d+)/$', family_tree.views.update_person),
 
     #Maps Views
     url(r'^map/$', family_tree.views.map),
@@ -77,11 +84,6 @@ urlpatterns = [
     #Search Views
     url(r'^search/$', family_tree.views.search),
     url(r'^get_search_results_json/$', family_tree.views.get_search_results_json),
-
-    #Edit Profile
-    url(r'^edit_profile=(?P<person_id>\d+)/$', family_tree.views.edit_profile),
-    url(r'^edit_profile=(?P<person_id>\d+)/ln=(?P<requested_language>[a-zA-Z]{1,8}(-[a-zA-Z0-9]{1,8})*)/$', family_tree.views.edit_profile),
-    url(r'^update_person=(?P<person_id>\d+)/$', family_tree.views.update_person),
 
     #Editing biography
     url(r'^edit_biography=(?P<person_id>\d+)/ln=(?P<requested_language>[a-zA-Z]{1,8}(-[a-zA-Z0-9]{1,8})*)/$', family_tree.views.edit_biography),

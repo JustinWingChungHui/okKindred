@@ -47,6 +47,9 @@
     </div>
 </script>
 {% endverbatim %}
-
-<script src="{% static "js/mapping.min.js" %}"></script>I
+<script>
+    requirejs(["{% static 'js/common.js' %}"], function (common) {
+        requirejs(["{% static 'js/mapping/person_map.js' %}"]);
+    });
+</script>
 {% endblock %}

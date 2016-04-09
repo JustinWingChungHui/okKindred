@@ -1,6 +1,9 @@
-from django.http import HttpResponseRedirect
+from django.conf import settings
+from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render
 from family_tree.models import Person
+
+import json
 
 def index(request):
     '''
@@ -14,6 +17,21 @@ def index(request):
         return HttpResponseRedirect('/tree/{0}/'.format(person_id))
     else:
         return about(request)
+
+
+def languages(request):
+    '''
+    Provides a JSON response of all supported language codes and localised language display text
+    '''
+    response = []
+
+    if request.user != None and request.user.is_authenticated():
+        request.session['django_language'] = request.user.language
+
+    for code, display in settings.LANGUAGES:
+        response.append({ 'value' : code, 'text' : display.__str__() })
+
+    return HttpResponse(json.dumps(response), content_type="application/json")
 
 
 def about(request):
