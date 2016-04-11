@@ -1,59 +1,103 @@
 
 //The build will inline common dependencies into this file.
-
-//For any third party dependencies, like jQuery, place them in the lib folder.
-
-//Configure loading modules from the lib directory,
-//except for 'app' ones, which are in a sibling
-//directory.
-
-//http://stackoverflow.com/questions/13464846/loading-bootstrap-from-cdn-with-require-js
-//http://stackoverflow.com/questions/10815454/how-does-requirejs-work-with-multiple-pages-and-partial-views
-
-
 // Use multiple CDNs because of Chinese Firewall
 requirejs.config({
-    //"baseUrl": 'static/js',
+    "baseUrl": '/static/js/libs',
     "paths": {
         jquery : [
-                "//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min",
-                "//ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min",
+                "//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min",
+                "//ajax.googleapis.com/ajax/libs/jquery/2.2.3/jquery.min",
+                "bower_components/jquery/dist/jquery.min"
                 ],
 
         bootstrap : [
                 "//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min",
-                "//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min"
+                "//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min",
+                "bower_components/bootstrap/dist/js/bootstrap.min"
                 ],
 
         mustache : [
                 "//cdnjs.cloudflare.com/ajax/libs/mustache.js/2.2.1/mustache.min",
-                "//cdn.jsdelivr.net/mustache.js/2.2.1/mustache.min"
+                "//cdn.jsdelivr.net/mustache.js/2.2.1/mustache.min",
+                "bower_components/mustache.js/mustache.min"
                 ],
 
-        underscore : "//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min",
+        underscore : [
+                    "//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min",
+                    "//fastcdn.org/Underscore.js/1.8.3/underscore-min",
+                    "bower_components/underscore/underscore.min"
+                    ],
 
-        jsPlumb : "//cdnjs.cloudflare.com/ajax/libs/jsPlumb/2.0.7/jsPlumb.min",
+        jsPlumb : [
+                    "//cdnjs.cloudflare.com/ajax/libs/jsPlumb/2.0.7/jsPlumb.min",
+                    "bower_components/jsPlumb/dist/js/jsPlumb-2.0.7-min"
+                    ],
 
-        moment : "//cdnjs.cloudflare.com/ajax/libs/moment.js/2.12.0/moment.min",
+        moment : [
+                "//cdnjs.cloudflare.com/ajax/libs/moment.js/2.12.0/moment.min",
+                "bower_components/moment/min/moment.min"
+                ],
 
-        validator: "//cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.10.1/validator.min",
+        validator: [
+                "//cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.10.1/validator.min",
+                "bower_components/bootstrap-validator/dist/validator.min"
+                ],
 
-        bootstrap_editable : "//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.1/bootstrap3-editable/js/bootstrap-editable.min",
+        bootstrap_editable : [
+                            "//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.1/bootstrap3-editable/js/bootstrap-editable.min",
+                            "bower_components/x-editable/dist/bootstrap3-editable/js/bootstrap-editable.min"
+                            ],
 
-        leaflet : "//cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet",
+        leaflet : [
+                    "//cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet",
+                    "//cdn.jsdelivr.net/leaflet/0.7.7/leaflet",
+                    "bower_components/leaflet/dist/leaflet"
+                    ],
 
-        jquery_fileupload : "//cdnjs.cloudflare.com/ajax/libs/blueimp-file-upload/9.12.1/js/jquery.fileupload.min",
+        jquery_fileupload : [
+                            "//cdnjs.cloudflare.com/ajax/libs/blueimp-file-upload/9.12.1/js/jquery.fileupload.min",
+                            "bower_components/blueimp-file-upload/js/jquery.fileupload"
+                            ],
 
-        jquery_cookie : "//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min",
+        jquery_cookie : [
+                        "//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min",
+                         "bower_components/jquery.cookie/jquery.cookie"
+                        ],
 
-        'jquery.ui.widget' : "/static/js/libs/jquery.widget.min",
+        'jquery.ui.widget' : [
+                            "/static/js/libs/jquery.widget.min"
+                            ],
 
-        jcrop : "//cdnjs.cloudflare.com/ajax/libs/jquery-jcrop/0.9.12/js/jquery.Jcrop.min",
+        jcrop : [
+                "//cdnjs.cloudflare.com/ajax/libs/jquery-jcrop/0.9.12/js/jquery.Jcrop.min",
+                "bower_components/Jcrop/js/Jcrop.min"
+                ],
 
         tinymce: [
                 "//cdnjs.cloudflare.com/ajax/libs/tinymce/4.3.8/tinymce.min",
-                "//cdn.tinymce.com/4/tinymce.min"
-                ]
+                "//cdn.tinymce.com/4/tinymce.min",
+                "bower_components/tinymce/tinymce.min"
+                ],
+
+        mobile : "/static/js/common/mobile",
+
+        masonry : [
+                    "//cdnjs.cloudflare.com/ajax/libs/masonry/4.0.0/masonry.pkgd.min",
+                    "//cdn.jsdelivr.net/masonry/4.0.0/masonry.pkgd.min",
+                    "bower_components/masonry/dist/masonry.pkgd.min"
+                    ],
+
+        photoswipe : [
+                    "//cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.1/photoswipe.min",
+                    "//cdn.jsdelivr.net/photoswipe/4.1.1/photoswipe.min",
+                    "bower_components/photoswipe/dist/photoswipe.min"
+                    ],
+
+        photoswipe_ui : [
+                        "//cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.1/photoswipe-ui-default.min",
+                        "//cdn.jsdelivr.net/photoswipe/4.1.1/photoswipe-ui-default.min",
+                        "bower_components/photoswipe/dist/photoswipe-ui-default.min"
+                        ],
 
     },
     "shim": {
@@ -66,8 +110,12 @@ requirejs.config({
             deps : ['jquery'],
         },
 
+        moment: {
+            noGlobal: false
+        },
+
         bootstrap_editable : {
-            deps : ['jquery', 'bootstrap']
+            deps : ['bootstrap', "moment"]
         },
 
         validator : {
@@ -100,6 +148,11 @@ requirejs.config({
 
 // Makes sure bootstrap is loaded for all pages so normal drop downs and modals work
 require(["jquery", "bootstrap"], function ($) {
+
+    // Fallover to local copy of bootstrap css if CDN fails, repeat base styles to override bootstrap
+    if ($('#bootstrapCssTest').is(':visible') === true) {
+        $('<link href="/static/js/libs/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css" /> <link rel="stylesheet" type="text/css" href="/static/css/base.css"/>').appendTo('head');
+    }
 });
 
 

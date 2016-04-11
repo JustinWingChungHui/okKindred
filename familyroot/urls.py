@@ -9,6 +9,7 @@ import email_confirmation.views
 import family_tree.views
 import gallery.views
 import sign_up.views
+import maps.views
 
 admin.autodiscover()
 
@@ -77,9 +78,9 @@ urlpatterns = [
     url(r'^update_person=(?P<person_id>\d+)/$', family_tree.views.update_person),
 
     #Maps Views
-    url(r'^map/$', family_tree.views.map),
-    url(r'^map=(?P<person_id>\d+)/$', family_tree.views.map),
-    url(r'^map_points/(?P<division_size>\d+\.\d+)/$', family_tree.views.map_points),
+    url(r'^map/$', maps.views.map),
+    url(r'^map=(?P<person_id>\d+)/$', maps.views.map),
+    url(r'^map_points/(?P<division_size>\d+\.\d+)/$', maps.views.map_points),
 
     #Search Views
     url(r'^search/$', family_tree.views.search),
