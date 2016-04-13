@@ -1,11 +1,12 @@
+from django.conf import settings
 from django.test import TestCase
+from django.test.utils import override_settings
+from django.utils import timezone
+from datetime import timedelta
+
 from email_confirmation.models import EmailConfirmation
 from custom_user.models import User
 from family_tree.models import Person, Family
-from django.utils import timezone
-from datetime import timedelta
-from django.test.utils import override_settings
-
 
 @override_settings(SECURE_SSL_REDIRECT=False)
 class EmailConfirmationTestCase(TestCase): # pragma: no cover
@@ -44,7 +45,7 @@ class EmailConfirmationTestCase(TestCase): # pragma: no cover
         email_body = ec._create_email_body_html()
 
         self.assertEqual(True, 'invited by Zandra Rhodes' in email_body)
-        self.assertEqual(True, '<a href="https://www.okkindred.com/accounts/confirmation=earth/">https://www.okkindred.com/accounts/confirmation=earth/</a>' in email_body)
+        self.assertEqual(True, '<a href="' + settings.DOMAIN + '/accounts/confirmation=earth/">' + settings.DOMAIN + '/accounts/confirmation=earth/</a>' in email_body)
         self.assertEqual(True, 'Hello Tim Staffell' in email_body)
 
     def test_send_email(self):
