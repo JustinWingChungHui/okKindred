@@ -48,6 +48,9 @@
     </tr>
 </script>
 {% endverbatim %}
-
-<script src="{% static "js/family_tree/person_search.js" %}"></script>
+<script>
+    requirejs(["{% static 'js/common.js' %}"], function (common) {
+        requirejs(["{% static 'js/family_tree/person_search.js' %}"]);
+    });
+</script>
 {% endblock %}

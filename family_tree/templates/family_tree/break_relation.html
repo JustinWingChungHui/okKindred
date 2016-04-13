@@ -35,7 +35,11 @@
 {% endblock %}
 
 {% block extrascript %}
-<script src="{% static 'js/common/submit_disable.js' %}"></script>
+<script>
+    requirejs(["{% static 'js/common.js' %}"], function (common) {
+        requirejs(["{% static 'js/common/submit_disable.js' %}"]);
+    });
+</script>
 {% endblock %}
 
 

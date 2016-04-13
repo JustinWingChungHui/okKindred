@@ -7,8 +7,27 @@ from django.utils.translation import ugettext_lazy as _
 
 from family_tree.decorators import same_family_required
 from family_tree.models import Biography
+from family_tree.models.person import GENDER_CHOICES
 from custom_user.decorators import set_language
 from gallery.models import Tag
+
+import json
+
+
+def genders(request):
+    '''
+    Provides JSON response of all genders and localised gender display text
+    '''
+    response = []
+
+    if request.user != None and request.user.is_authenticated():
+        request.session['django_language'] = request.user.language
+
+    for code, display in GENDER_CHOICES:
+        response.append({ 'value' : code, 'text' : display.__str__() })
+
+    return HttpResponse(json.dumps(response), content_type="application/json")
+
 
 
 @login_required

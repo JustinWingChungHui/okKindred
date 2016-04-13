@@ -60,13 +60,10 @@
 
 {% endverbatim %}
 
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/masonry/4.0.0/masonry.pkgd.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.1/photoswipe.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.1/photoswipe-ui-default.min.js"></script>
-<script src="{% static "js/gallery/gallery.js" %}"></script>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.js"></script>
-<script src="{% static "js/mapping/gallery_map.js" %}"></script>
+<script>
+    requirejs(["{% static 'js/common.js' %}"], function (common) {
+        requirejs(["{% static 'js/gallery/gallery_map.js' %}"]);
+    });
+</script>
 
 {% endblock %}

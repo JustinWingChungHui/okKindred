@@ -99,6 +99,7 @@ def delete_gallery(request, gallery_id):
         raise Http404
 
     gallery.delete_all_images()
+
     gallery.delete()
 
     return HttpResponseRedirect('/gallery/')

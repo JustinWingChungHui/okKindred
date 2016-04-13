@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load i18n %}
+{% load l10n %}
+
+
+{% block extrastyle %}
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <link rel="stylesheet" href="{% static "css/leaflet.css" %}" />
+
+    <!--Allows fullscreen map-->
+    <style>
+        html, body, .fullscreen_map {
+            height:100%;
+            width:100%;
+            padding:0px;
+            margin:0px;
+            overflow: hidden;
+        }
+        .fullscreen_map{
+            padding-top: 50px;
+        }
+    </style>
+{% endblock %}
+
+
+{% block content %}
+
+    {% localize off %}
+
+    <div id="person_map" class="fullscreen_map" data-latitude="{{ latitude }}" data-longitude="{{ longitude }}" data-zoom="{{ zoom }}"></div>
+
+    {% endlocalize %}
+
+{% endblock %}
+
+{% block extrascript %}
+
+<!-- Templates -->
+{% verbatim %}
+<script id="map_person_template" type="text/html">
+    <div class="img-with-text">
+        <a href="/profile={{id}}/"/>
+            <img src="{{image_url}}" alt="{{name}}"/>
+            {{name}}
+        </a>
+    </div>
+</script>
+{% endverbatim %}
+<script>
+    requirejs(["{% static 'js/common.js' %}"], function (common) {
+        requirejs(["{% static 'js/maps/map.js' %}"]);
+    });
+</script>
+{% endblock %}

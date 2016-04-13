@@ -16,7 +16,7 @@
          {% endblocktrans %}
     </p>
 
-    <form role="form" action="/accounts/confirmation={{ invite.confirmation_key }}/" method="post" data-toggle="validator">
+    <form id="password_form" role="form" action="/accounts/confirmation={{ invite.confirmation_key }}/" method="post" data-toggle="validator">
         <div class="form-group">
             {% csrf_token %}
             <h4>{% trans "Please create a new password:" %}</h4>
@@ -40,7 +40,10 @@
 
 {% block extrascript %}
 
-<script src="{% static 'js/editable.min.js' %}"></script>
-<script src="{% static "js/common/submit_disable.js" %}"></script>
+<script>
+requirejs(["{% static 'js/common.js' %}"], function (common) {
+    requirejs(["{% static 'js/email_confirmation/confirm_invite.js' %}"]);
+});
+</script>
 
 {% endblock %}

@@ -46,6 +46,9 @@
 </script>
 {% endverbatim %}
 
-<script src="{% static "js/gallery/gallery_index.js" %}"></script>
-
+<script>
+    requirejs(["{% static 'js/common.js' %}"], function (common) {
+        requirejs(["{% static 'js/gallery/gallery_index.js' %}"]);
+    });
+</script>
 {% endblock %}

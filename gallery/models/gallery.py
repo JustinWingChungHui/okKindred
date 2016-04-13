@@ -35,9 +35,12 @@ class Gallery(models.Model):
 
         images = Image.objects.filter(gallery_id = self.id)
 
-        #Delete actual files
-        for im in images:
-            im.delete_image_files()
+        try:
+            #Delete actual files
+            for im in images:
+                im.delete_image_files()
 
-        #Delete database records
-        images.delete()
+            #Delete database records
+            images.delete()
+        except:
+            pass

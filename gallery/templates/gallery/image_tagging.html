@@ -56,7 +56,8 @@
         <tr>
             <th>{% trans "Description" %}</th>
             <td>
-                <a href="#" id="description" data-type="textarea" data-title="{% trans "Description" %}" data-pk="{{ image.id }}" data-url="/image={{ image.id }}/update/" data-params="{csrfmiddlewaretoken:'{{csrf_token}}'}">
+                <a href="#" id="description" data-type="textarea" data-title="{% trans "Description" %}" data-pk="{{ image.id }}"
+                    data-url="/image={{ image.id }}/update/" data-params="{csrfmiddlewaretoken:'{{csrf_token}}'}">
                     {{ image.description }}
                 </a>
             </td>
@@ -64,7 +65,9 @@
         <tr>
             <th>{% trans "Date Taken" %}</th>
             <td>
-                <a href="#" id="date_taken" data-title="{% trans "Date Taken" %}" data-pk="{{ image.id }}" data-url="/image={{ image.id }}/update/" data-type="combodate" data-template="D MMM YYYY  HH:mm" data-viewformat="MMM D, YYYY, HH:mm" data-format="YYYY-MM-DD HH:mm" data-params="{csrfmiddlewaretoken:'{{csrf_token}}'}">
+                <!--<a href="#" id="date_taken" data-title="{% trans "Date Taken" %}" data-pk="{{ image.id }}" data-url="/image={{ image.id }}/update/" data-type="combodate" data-template="D MMM YYYY  HH:mm" data-viewformat="MMM D, YYYY, HH:mm" data-format="YYYY-MM-DD HH:mm" data-params="{csrfmiddlewaretoken:'{{csrf_token}}'}">-->
+                <a href="#" id="date_taken" data-title="{% trans "Date Taken" %}" data-pk="{{ image.id }}" data-url="/image={{ image.id }}/update/"
+                    data-template="D MMM YYYY  HH:mm" data-viewformat="MMM D, YYYY, HH:mm" data-format="YYYY-MM-DD HH:mm" data-params="{csrfmiddlewaretoken:'{{csrf_token}}'}">
                     {{ image.date_taken }}
                 </a>
             </td>
@@ -72,7 +75,8 @@
         <tr>
             <th>{% trans "Location Latitude" %}</th>
             <td>
-                <a href="#" id="latitude" data-type="text" data-title="{% trans "Latitude" %}" data-pk="{{ image.id }}" data-url="/image={{ image.id }}/update/" data-params="{csrfmiddlewaretoken:'{{csrf_token}}'}">
+                <a href="#" id="latitude" data-type="text" data-title="{% trans "Latitude" %}" data-pk="{{ image.id }}"
+                        data-url="/image={{ image.id }}/update/" data-params="{csrfmiddlewaretoken:'{{csrf_token}}'}">
                     {{ image.latitude }}
                 </a>
             </td>
@@ -80,7 +84,8 @@
         <tr>
             <th>{% trans "Location Longitude" %}</th>
             <td>
-                <a href="#" id="longitude" data-type="text" data-title="{% trans "Longitude" %}" data-pk="{{ image.id }}" data-url="/image={{ image.id }}/update/" data-params="{csrfmiddlewaretoken:'{{csrf_token}}'}">
+                <a href="#" id="longitude" data-type="text" data-title="{% trans "Longitude" %}" data-pk="{{ image.id }}"
+                        data-url="/image={{ image.id }}/update/" data-params="{csrfmiddlewaretoken:'{{csrf_token}}'}">
                     {{ image.longitude }}
                 </a>
             </td>
@@ -227,11 +232,11 @@
 
 {% endverbatim %}
 
-<script src="{% static 'js/editable.min.js' %}"></script>
-<script src="{% static 'js/jquery/jquery.cookie.js' %}"></script>
-<script src="{% static 'js/mapping/leaflet.js' %}"></script>
-<script src="{% static 'js/mapping/image_map.js' %}"></script>
-<script src="{% static 'js/gallery/image_tagging.js' %}"></script>
-<script src="{% static 'js/common/submit_disable.js' %}"></script>
+<script>
+    requirejs(["{% static 'js/common.js' %}"], function (common) {
+        requirejs(["{% static 'js/gallery/image_tagging.js' %}"]);
+        requirejs(["{% static 'js/gallery/image_map.js' %}"]);
+    });
+</script>
 
 {% endblock %}

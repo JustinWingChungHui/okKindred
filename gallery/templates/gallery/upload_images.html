@@ -40,6 +40,10 @@
 
 {% block extrascript %}
 
-<script src="{% static "js/file_upload.min.js" %}"></script>
+<script>
+    requirejs(["{% static 'js/common.js' %}"], function (common) {
+        requirejs(["{% static 'js/gallery/upload_images.js' %}"]);
+    });
+</script>
 
 {% endblock %}
