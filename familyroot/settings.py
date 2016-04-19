@@ -43,6 +43,7 @@ X_FRAME_OPTIONS = 'DENY'
 CSRF_FAILURE_VIEW = 'familyroot.views.csrf_failure'
 
 ALLOWED_HOSTS = secrets.ALLOWED_HOSTS
+INTERNAL_IPS = secrets.INTERNAL_IPS
 
 DOMAIN = secrets.DOMAIN
 
@@ -58,17 +59,17 @@ INSTALLED_APPS = (
     'axes',
     'emailer',
     'email_confirmation',
-    'rosetta',
     'gallery',
     'django.contrib.admin',
     'sign_up',
     'maps',
-    #'debug_toolbar',
+    'debug_toolbar',
 )
 
 MIDDLEWARE_CLASSES = (
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -157,8 +158,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
 STATIC_URL = '/static/'
-#STATIC_ROOT = os.path.join(BASE_DIR, "static")
-STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
+#STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = secrets.MEDIA_ROOT
@@ -189,3 +190,9 @@ TEMPLATES = [
     },
 ]
 
+def show_toolbar(request):
+    return DEBUG
+
+DEBUG_TOOLBAR_CONFIG = {
+    "SHOW_TOOLBAR_CALLBACK" : show_toolbar,
+}
