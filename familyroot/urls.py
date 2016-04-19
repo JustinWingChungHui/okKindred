@@ -1,4 +1,4 @@
-from django.conf.urls import include, url
+from django.conf.urls import include, url, patterns
 from django.contrib.auth import views as auth_views
 from django.contrib import admin
 from django.conf import settings
@@ -135,7 +135,9 @@ urlpatterns = [
     url(r'^image=(?P<image_id>\d+)/address/$', gallery.views.geocode_image_location_post),
 ]
 
-if 'rosetta' in settings.INSTALLED_APPS:
-    urlpatterns.append(url(r'^translate/', include('rosetta.urls')))
+if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns.append(url(r'^__debug__/', include(debug_toolbar.urls)))
+
 
 
