@@ -15,17 +15,17 @@
         {% csrf_token %}
 
          <div class="form-group">
-            <label for="input_name">{% trans "Name" %}</label>
+            <label for="input_name">{% trans "Name" %}*</label>
             <input type="text" class="form-control" id="input_name" name="name" required>
         </div>
 
         <div class="form-group">
-            <label for="input_email">{% trans "Email" %}</label>
+            <label for="input_email">{% trans "Email" %}*</label>
             <input type="text" class="form-control" id="input_email" name="email" required>
         </div>
 
         <div class="form-group">
-            <label for="input_gender">{% trans "Gender" %}</label>
+            <label for="input_gender">{% trans "Gender" %}*</label>
             <select class="form-control" name="gender" id="gender">
                 <option value="F">{% trans "Female" %}</option>
                 <option value="M">{% trans "Male" %}</option>
@@ -34,7 +34,7 @@
         </div>
 
         <div class="form-group">
-            <label for="input_first_language">{% trans "First Language" %}</label>
+            <label for="input_first_language">{% trans "First Language" %}*</label>
             <select class="form-control" name="language" id="language">
 
                 {% for language_code, language_display in languages %}
@@ -44,6 +44,18 @@
             </select>
         </div>
 
+        <div class="form-group">
+            <label for="address">{% trans "Location" %}</label>
+            <input type="text" class="form-control" id="address" name="address">
+        </div>
+
+        <div class="form-group">
+            <label for="birth_year">{% trans "Birth Year" %}</label>
+            <input type="text" class="form-control" id="birth_year" name="birth_year">
+        </div>
+
+        <div><em>* {% trans "Required" %}</em></div>
+
         <button id="sign_up_submit" class="btn btn-lg btn-success btn-block" type="submit">{% trans "Join" %}</button>
     </form>
 
@@ -51,5 +63,9 @@
 {% endblock %}
 
 {% block extrascript %}
-<script src="{% static 'js/common/submit_disable.js' %}"></script>
+<script>
+requirejs(["{% static 'js/common.js' %}"], function (common) {
+    requirejs(["{% static 'js/common/submit_disable.js' %}"]);
+});
+</script>
 {% endblock %}
