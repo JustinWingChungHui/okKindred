@@ -31,6 +31,9 @@ class SignUp(models.Model):
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES, null = False, blank = False)
     language = models.CharField(max_length=5, choices=settings.LANGUAGES, null = False, blank = False, default='en')
     email_address = models.EmailField(null=False, unique=True)
+    birth_year = models.IntegerField(blank=True, null=False, default = 0)
+    address = models.CharField(max_length=255, blank=True, null=False)
+
     confirmation_key = models.CharField(max_length=64, db_index = True, unique=True, blank = False)
     creation_date = models.DateTimeField(auto_now_add=True)
 
@@ -56,13 +59,17 @@ class SignUp(models.Model):
                         family_id=family.id,
                         language=self.language)
 
-        Person.objects.create(
-                        name = self.name,
+        person = Person(name = self.name,
                         gender = self.gender,
                         family = family,
                         language = self.language,
                         user = user,
-                        email=self.email_address)
+                        email=self.email_address,
+                        birth_year=self.birth_year)
+
+        person.address = self.address
+        person.save()
+
 
         # Delete sign up
         self.delete()

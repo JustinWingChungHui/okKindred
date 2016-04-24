@@ -2,7 +2,7 @@ from django.conf import settings
 from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
 from django.contrib import auth
-from django.http import HttpResponse, Http404, HttpResponseRedirect
+from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import render
 from django.utils import translation
 
@@ -39,6 +39,15 @@ def sign_up_post(request):
     gender = request.POST.get("gender")
     language = request.POST.get("language")
 
+    # assign non required stuff
+    birth_year = request.POST.get("birth_day")
+    if not birth_year:
+        birth_year = 0
+
+    address = request.POST.get("address")
+    if not address:
+        address = ""
+
     try:
         validate_email(email)
     except ValidationError:
@@ -53,7 +62,9 @@ def sign_up_post(request):
                         name = name,
                         email_address = email,
                         gender = gender,
-                        language = language)
+                        language = language,
+                        address = address,
+                        birth_year = birth_year)
 
     translation.activate(language)
 

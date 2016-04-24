@@ -70,6 +70,48 @@ class SignUpTestCase(TestCase): # pragma: no cover
         self.assertEqual(0, SignUp.objects.filter(name='Edwin Hubble').count())
 
 
+    def test_complete_registration_with_optional_data(self):
+        '''
+        Tests that the registration completes and creates all the required objects
+        '''
+
+        sign_up = SignUp.objects.create(
+                name='Max Planck',
+                gender = 'M',
+                language = 'en',
+                email_address = 'max_planck@spaceandtime.com',
+                birth_year = 1965,
+                address = 'Coventry')
+
+        self.assertEqual(True, len(sign_up.confirmation_key) > 0)
+
+        sign_up.complete_registration('password')
+
+        #Check family created
+        family = Family.objects.get(description = 'max_planck@spaceandtime.com')
+
+        #Check User created
+        user = User.objects.get(email = 'max_planck@spaceandtime.com')
+        self.assertEqual('max_planck@spaceandtime.com', user.email)
+        self.assertEqual('Max Planck', user.name)
+        self.assertEqual(family.id, user.family_id)
+        self.assertEqual('en', user.language)
+
+        #Check person created
+        person = Person.objects.get(email = 'max_planck@spaceandtime.com')
+        self.assertEqual(family.id, person.family_id)
+        self.assertEqual(user.id, person.user_id)
+        self.assertEqual('en', person.language)
+        self.assertEqual('Max Planck', person.name)
+        self.assertEqual('M', person.gender)
+        self.assertEqual(1965, person.birth_year)
+        self.assertEqual('Coventry', person.address)
+
+        #Check sign up is deleted
+        self.assertEqual(0, SignUp.objects.filter(name='Edwin Hubble').count())
+
+
+
     def test_send_email(self):
         '''
         Tests that an email is created correctly
@@ -149,6 +191,25 @@ class SignUpTestCase(TestCase): # pragma: no cover
                                         'email': 'a_new_email@email.com',
                                         'gender': 'O',
                                         'language': 'en'
+                                    })
+
+        self.assertEqual(200, response.status_code)
+        self.assertTemplateUsed(response, 'sign_up/check_email.html')
+
+        self.assertEqual(1, SignUp.objects.filter(email_address = 'a_new_email@email.com').count())
+
+    def test_sign_up_post_create_new_sign_up_with_optional_information(self):
+        '''
+        Tests the sign up with invalid email returns invalid email page
+        '''
+        response = self.client.post('/accounts/sign_up/',
+                                    {
+                                        'name': 'name',
+                                        'email': 'a_new_email@email.com',
+                                        'gender': 'O',
+                                        'language': 'en',
+                                        'address': 'Coventry',
+                                        'birth_year': '1968'
                                     })
 
         self.assertEqual(200, response.status_code)
