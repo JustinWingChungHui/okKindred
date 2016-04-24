@@ -37,3 +37,10 @@ def create_hash(seed_string):
     '''
     bits = [seed_string] + [str(random.SystemRandom().getrandbits(512))]
     return hashlib.sha256("".join(bits).encode("utf-8")).hexdigest()
+
+
+def intTryParse(value):
+    try:
+        return int(value), True
+    except:
+        return value, False

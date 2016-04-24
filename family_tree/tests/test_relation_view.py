@@ -96,6 +96,33 @@ class TestRelationViews(TestCase): # pragma: no cover
         self.assertEqual(1, relation.relation_type)
 
 
+    def test_add_relation_creates_person_and_relation_with_optional_data(self):
+        '''
+        Test that the add relation api correctly creates the right records
+        '''
+        self.client.login(email='prince_barin@flash.com', password='arboria')
+        response = self.client.post('/add_relation_post={0}/'.format(self.person.id),{
+                                                                            'existing_person': '0',
+                                                                            'relation_type': '1',
+                                                                            'name': 'Princess Aura',
+                                                                            'language': 'en',
+                                                                            'gender': 'F',
+                                                                            'address': 'Coventry',
+                                                                            'birth_year': '1984'})
+        self.assertEqual(302, response.status_code)
+
+        aura = Person.objects.get(name = 'Princess Aura')
+        self.assertEqual('en', aura.language)
+        self.assertEqual('F', aura.gender)
+        self.assertEqual('Coventry', aura.address)
+        self.assertEqual(1984, aura.birth_year)
+        self.assertEqual(self.family.id, aura.family_id)
+        self.assertEqual(100, aura.hierarchy_score)
+
+        relation =Relation.objects.get(from_person_id = aura.id, to_person_id = self.person.id)
+        self.assertEqual(1, relation.relation_type)
+
+
     def test_add_parent_creates_person_and_relation_and_sets_correct_hierarchy(self):
         '''
         Test that the add relation api correctly creates the right records

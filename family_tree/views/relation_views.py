@@ -12,6 +12,8 @@ from family_tree.models.relation import PARTNERED, RAISED, RAISED_BY
 from family_tree.decorators import same_family_required
 from family_tree.services import relation_suggestion_service
 
+from common.utils import intTryParse
+
 from custom_user.decorators import set_language
 
 @login_required
@@ -50,7 +52,7 @@ def add_relation_post(request, person_id = 0, person = None):
         if len(new_name) == 0:
             raise Http404
 
-        language =  request.POST.get("language")
+        language = request.POST.get("language")
         #http://stackoverflow.com/a/2917399/1245362
         if language not in [x[0] for x in settings.LANGUAGES]:
             raise Http404
@@ -59,7 +61,17 @@ def add_relation_post(request, person_id = 0, person = None):
         if gender not in (MALE, FEMALE, OTHER):
             raise Http404
 
-        new_person = Person(name=new_name, gender=gender,language=language,family_id=person.family_id)
+        birth_year, birth_year_valid = intTryParse(request.POST.get("birth_year"))
+        if not birth_year_valid:
+            birth_year = 0
+
+        new_person = Person(name=new_name, gender=gender,language=language,family_id=person.family_id, birth_year=birth_year)
+
+        address = request.POST.get("address")
+        if address:
+            new_person.address = address
+
+
         if relation_type == PARTNERED:
             new_person.hierarchy_score = person.hierarchy_score
         elif relation_type == RAISED:
