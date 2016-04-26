@@ -1,4 +1,10 @@
-require(["jquery", "jquery_cookie", "jquery_fileupload"], function ($) {
+require(["jquery", "mustache", "jquery_cookie", "jquery_fileupload"], function ($, Mustache) {
+
+    var UPLOAD_STATE = {
+        total: 0,
+        filename: "",
+        image_ids: []
+    };
 
     $(document).ready(function(){
         'use strict'; //http://ejohn.org/blog/ecmascript-5-strict-mode-json-and-more/
@@ -27,25 +33,43 @@ require(["jquery", "jquery_cookie", "jquery_fileupload"], function ($) {
         $('#gallery_photo_upload').fileupload({
             url: url,
             crossDomain: false,
+            sequentialUploads: true,
             beforeSend: function(xhr, settings) {
                     xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                    UPLOAD_STATE.total = settings.originalFiles.length;
+                    UPLOAD_STATE.filename = settings.files[0].name;
                 },
             dataType: 'json',
             acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
             maxFileSize: 15000000, // 15 MB
-            maxNumberOfFiles: 5,
-            limitConcurrentUploads: 3,
+            limitConcurrentUploads: 1,
 
             fail: function(e, data){
+                UPLOAD_STATE.uploaded++;
+                var template = $('#failed_upload').html();
+                var output = Mustache.render(template, UPLOAD_STATE);
+                $("#progress_text").append(output);
+
                 $('#processing_wait').hide();
                 $('#error_text').show();
             },
 
             //navigate to tag image once uploaded
             done: function (e, data) {
-                var image_id = data.result[0].image_id;
 
-                window.location.href = '/image=' + image_id.toString() + '/details/';
+                UPLOAD_STATE.uploaded++;
+
+                var template = $('#successful_upload').html();
+                var output = Mustache.render(template, UPLOAD_STATE);
+                 $("#progress_text").append(output);
+
+                 var image_id = data.result[0].image_id;
+                 UPLOAD_STATE.image_ids.push(image_id);
+
+                if (UPLOAD_STATE.image_ids.length >= UPLOAD_STATE.total) {
+                    window.location.href = '/image=' + UPLOAD_STATE.image_ids[0].toString() + '/details/';
+                }
+
              },
 
             //Show uploading status
