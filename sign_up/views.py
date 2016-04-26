@@ -13,6 +13,8 @@ from custom_user.models import User
 from family_tree.models import Person
 from sign_up.models import SignUp
 
+from common.utils import intTryParse
+
 
 def sign_up(request):
     '''
@@ -40,8 +42,8 @@ def sign_up_post(request):
     language = request.POST.get("language")
 
     # assign non required stuff
-    birth_year = request.POST.get("birth_day")
-    if not birth_year:
+    birth_year, birth_year_valid = intTryParse(request.POST.get("birth_year"))
+    if not birth_year_valid:
         birth_year = 0
 
     address = request.POST.get("address")
