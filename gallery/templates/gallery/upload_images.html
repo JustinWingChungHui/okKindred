@@ -3,7 +3,7 @@
 {% load i18n %}
 
 {% block extrastyle %}
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/blueimp-file-upload/9.5.7/css/jquery.fileupload.min.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/blueimp-file-upload/9.12.1/css/jquery.fileupload.min.css"/>
 {% endblock %}
 
 {% block content %}
@@ -19,7 +19,7 @@
         <i class="glyphicon glyphicon-plus"></i>
         <span>{% trans "Select files..." %}</span>
         <!-- The file input field used as target for the file upload widget -->
-        <input id="gallery_photo_upload" type="file" name="files[]"> <!--multiple doesn't work for some reason-->
+        <input id="gallery_photo_upload" type="file" name="files[]" multiple>
         {% csrf_token %}
     </span>
     <br/>
@@ -33,12 +33,29 @@
     <div id="processing_wait" style="display:none;">
         <img src="{% static "img/ajax-loader.gif" %}"/> {% trans "Processing..." %}
     </div>
+    <div id="progress_text"></div>
     <div id="error_text" style="display:none;">{% trans "Error uploading image" %}</div>
     <div class="files" id="files"></div>
 </div>
 {% endblock %}
 
 {% block extrascript %}
+
+{% verbatim %}
+<script id="successful_upload" type="text/html">
+    <div>
+        <i class="glyphicon glyphicon-ok btn-success gallery_round_badge"></i>
+        <span>{{filename}}</span>
+    </div>
+</script>
+
+<script id="failed_upload" type="text/html">
+    <div>
+        <i class="glyphicon glyphicon-remove btn-danger gallery_round_badge"></i>
+        <span>{{filename}}</span>
+    </div>
+</script>
+{% endverbatim %}
 
 <script>
     requirejs(["{% static 'js/common.js' %}"], function (common) {
