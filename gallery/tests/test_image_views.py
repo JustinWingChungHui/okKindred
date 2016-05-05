@@ -22,6 +22,7 @@ class TestImageViews(TestCase): # pragma: no cover
         '''
         Creates credientials as all views require login
         '''
+
         self.family = Family()
         self.family.save()
 
@@ -250,6 +251,7 @@ class TestImageViews(TestCase): # pragma: no cover
                     thumbnail=self.test_image_destination,
                     large_thumbnail=self.test_image_destination
                 )
+
         im.save()
 
         self.client.login(email='badger@queenonline.com', password='save the badgers')

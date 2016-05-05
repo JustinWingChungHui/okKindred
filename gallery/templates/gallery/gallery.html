@@ -10,13 +10,24 @@
 {% block content %}
 
 <div class="container" style="padding-top: 20px;">
-    <p>
-        <a class="btn btn-success" href="/gallery/" role="button">&laquo;{%trans "Index" %}</a>
-        <a id="map_button" class="btn btn-warning" href="/gallery={{ gallery.id }}/map/" role="button" style="display: None;">{%trans "Map" %}</a>
-        <a class="btn btn-info" href="/gallery={{ gallery.id }}/edit/" role="button">{%trans "Edit" %}</a>
-        <a class="btn btn-warning" href="/gallery={{ gallery.id }}/upload_images/" role="button">+{%trans "Add Image" %}</a>
-        <a class="btn btn-danger" role="button" href="#modal_delete" data-toggle="modal">{%trans "Delete" %}</a>
-    </p>
+    <div>
+        <a class="btn btn-success" href="/gallery/" role="button">
+            <span class="glyphicon glyphicon-backward"></span> <span class="glyphicon glyphicon-list-alt"></span>
+        </a>
+        <a id="map_button" class="btn btn-primary" href="/gallery={{ gallery.id }}/map/" role="button" style="display: None;">
+            <span class="glyphicon glyphicon-globe"></span>
+        </a>
+        <a class="btn btn-primary" href="/gallery={{ gallery.id }}/edit/" role="button">
+            <span class="glyphicon glyphicon-pencil"></span>
+        </a>
+        <a class="btn btn-primary" href="/gallery={{ gallery.id }}/upload_images/" role="button">
+            <span class="glyphicon glyphicon-plus"></span> <span class="glyphicon glyphicon-picture"></span>
+        </a>
+        <a class="btn btn-danger pull-right" role="button" href="#modal_delete" data-toggle="modal">
+            <span class="glyphicon glyphicon-trash"></span>
+        </a>
+    </div>
+
     <h2>{{ gallery.title }}</h2>
     <p>
         {{ gallery.description }}
