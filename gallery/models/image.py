@@ -1,8 +1,12 @@
+from django.conf import settings
 from django.db import models
-from gallery.models import Gallery
+from django.utils import timezone
+
 from common.utils import create_hash
 from common.get_lat_lon_exif_pil import get_lat_lon_backup
-from django.conf import settings
+
+from gallery.models import Gallery
+
 import PIL
 import os
 
@@ -32,7 +36,6 @@ class Image(models.Model):
         #Allows models.py to be split up across multiple files
         app_label = 'gallery'
 
-
     gallery = models.ForeignKey(Gallery, blank=False, null=False, db_index = True)
     family = models.ForeignKey('family_tree.Family', null=False, db_index=True) #Use of model string name to prevent circular import
 
@@ -52,13 +55,14 @@ class Image(models.Model):
     description = models.TextField(blank=True)
 
     #EXIF data
-    date_taken = models.DateTimeField(null=True, blank=True, db_index = True)
+    date_taken = models.DateTimeField(null=False, db_index=True)
     latitude = models.FloatField(blank=True, null=False, default = 0) #(0,0) is in the middle of the ocean so can set this to 0 to avoid nulls
     longitude = models.FloatField(blank=True, null=False, default = 0)
 
     #Tracking
     creation_date = models.DateTimeField(auto_now_add=True)
     last_updated_date = models.DateTimeField(auto_now=True)
+
 
     def __str__(self): # __unicode__ on Python 2
         return self.title
@@ -68,6 +72,7 @@ class Image(models.Model):
         '''
         Overrides the save method
         '''
+
         self.family_id = self.gallery.family_id
 
         if self.id is None or self.id <= 0:
@@ -75,8 +80,12 @@ class Image(models.Model):
         else:
             new_record = False
 
+        if not self.date_taken:
+            self.date_taken = timezone.now()
+
         #Need to call save first before making thumbnails so image path is set properly
         super(Image, self).save(*args, **kwargs) # Call the "real" save() method.
+
 
         # Don't need to do the rest if editing existing image
         if new_record == False:
@@ -89,6 +98,10 @@ class Image(models.Model):
 
         #Set last updated data on Gallery
         self.gallery.save()
+
+        # Ensure that this has not been set to null
+        if not self.date_taken:
+            self.date_taken = timezone.now()
 
         super(Image, self).save(*args, **kwargs) # Call the "real" save() method.
 

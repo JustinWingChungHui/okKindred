@@ -315,6 +315,13 @@ and (max-device-width : 767px) {
 	position: relative;
 }
 
+.icon-flipped {
+    transform: scaleX(-1);
+    -moz-transform: scaleX(-1);
+    -webkit-transform: scaleX(-1);
+    -ms-transform: scaleX(-1);
+}
+
 .dragHover { border:2px solid orange; }
 
 path { cursor:pointer; }
@@ -489,6 +496,18 @@ textarea {
 }
 **/
 /** Styling for image details **/
+
+#tag_container {
+    vertical-align: top;
+    display: inline-block;
+    text-align: center;
+}
+
+.image_navigation_button_container {
+    display: block;
+    margin-top: 5px;
+}
+
 #image_location_map{
     width: 300px;
     height: 300px;

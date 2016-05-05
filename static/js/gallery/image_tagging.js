@@ -9,44 +9,14 @@ require(["jquery", "mustache", "bootstrap_editable", "jquery_cookie"], function 
 
     $(document).ready(function() {
 
-        if ($('#image_map').length == 0) {
-            return;
-        }
-
-        var trans_edit = $('#enable').data('trans_edit');
-        var trans_done = $('#enable').data('trans_done');
-
-         //enable / disable
-       $('#enable').click(function(e) {
-
-            $('#editable_content .editable').editable('toggleDisabled');
-            if ($('#enable').html() == trans_edit) {
-               $('#enable').text(trans_done);
-               $('#address_search_form').show();
-            }
-            else {
-               $('#enable').text(trans_edit);
-               $('#address_search_form').hide();
-            }
-            e.preventDefault();
-    	    $('html, body').stop().animate({
-    	        'scrollTop': $('#enable').offset().top
-    	    }, 900, 'swing', function () {
-    	        window.location.hash = $('#enable');
-    	    });
-        });
-
-
         $('#title').editable({
             validate: function(value) {
                 if(!value) return $('#title').data('trans_required');
             },
-            disabled: true
         });
 
 
         $('#description').editable({
-            disabled: true
         });
 
         $('#date_taken').editable({
@@ -54,15 +24,12 @@ require(["jquery", "mustache", "bootstrap_editable", "jquery_cookie"], function 
             combodate: {
                 firstItem: 'name'
             },
-            disabled: true
         });
 
         $('#latitude').editable({
-            disabled: true
         });
 
         $('#longitude').editable({
-            disabled: true
         });
 
         get_tags();
