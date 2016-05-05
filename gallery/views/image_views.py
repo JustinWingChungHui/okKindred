@@ -5,6 +5,7 @@ from django.core import serializers
 from django.conf import settings
 from django.db import connection
 from django.shortcuts import get_object_or_404, render
+from django.utils.timezone import localtime
 from django.utils.translation import ugettext as tran
 
 from family_tree.decorators import same_family_required
@@ -65,7 +66,7 @@ def gallery_images(request, gallery_id, page):
     if request.user.family_id != gallery.family_id:
         raise Http404
 
-    image_list = Image.objects.filter(family_id=request.user.family_id, gallery_id=gallery_id).order_by('date_taken')
+    image_list = Image.objects.filter(family_id=request.user.family_id, gallery_id=gallery_id).order_by('date_taken', 'id')
     paginator = Paginator(image_list, 12) #show 12 per request, divisable by lots of numbers
 
     try:
@@ -187,9 +188,29 @@ def image_detail(request, image_id):
     if request.user.family_id != im.family_id:
         raise Http404
 
+    previous_image = list(Image.objects.raw(
+            "SELECT * FROM gallery_image WHERE gallery_id = {0} AND (date_taken < '{1}' OR (date_taken = '{1}' AND id < {2})) ORDER BY date_taken DESC, id DESC LIMIT 1".format(im.gallery_id, localtime(im.date_taken), im.id)))
+
+    if len(previous_image) == 0:
+        previous_image_id = 0
+    else:
+        previous_image_id = previous_image[0].id
+
+
+
+    next_image = list(Image.objects.raw(
+            "SELECT * FROM gallery_image WHERE gallery_id = {0} AND (date_taken > '{1}' OR (date_taken = '{1}' AND id > {2})) ORDER BY date_taken ASC, id ASC LIMIT 1".format(im.gallery_id, localtime(im.date_taken), im.id)))
+
+    if len(next_image) == 0:
+        next_image_id = 0
+    else:
+        next_image_id = next_image[0].id
+
     #Gets the image detail view
     return render(request, 'gallery/image_tagging.html', {
                                     'image' : im,
+                                    'previous_image_id': previous_image_id,
+                                    'next_image_id': next_image_id
                                 })
 
 
