@@ -17,7 +17,9 @@
         <a class="btn btn-success" href="/gallery={{ image.gallery_id }}/" role="button">
             <span class="glyphicon glyphicon-backward"></span> <span class="glyphicon glyphicon-th-large">
         </a>
-        <a class="btn btn-primary" target="_blank" href="/media/{{ image.original_image }}" role="button"><span class="glyphicon glyphicon-download"></span></a>
+        <a class="btn btn-primary" download target="_blank" href="/media/{{ image.original_image }}" role="button">
+            <span class="glyphicon glyphicon-download-alt"></span>
+        </a>
         <form  action="/image={{ image.id }}/rotate/" method="post" class="form-inline">
             {% csrf_token %}
             <input type="hidden" name="anticlockwise_angle" value="90"/>
@@ -108,11 +110,13 @@
     {% endlocalize %}
 
     <!--Address search-->
-    <form id="address_search_form" class="form-inline">
+    <form id="address_search_form" class="form-inline" role="form">
         {% csrf_token %}
-        <div class="form-group">
-            <input type="address" id="address" name="address" class="form-control" placeholder="{% trans "Search Address" %}">
-            <button id="address_search_button" type="button" class="btn btn-success">{% trans "OK" %}</button>
+        <div class="input-group">
+            <input type="address" id="address" name="address" class="form-control input-sm" placeholder="{% trans "Search Address" %}">
+            <div class="input-group-btn">
+                <button id="address_search_button" type="button" class="btn btn-success btn-sm">{% trans "OK" %}</button>
+            </div>
         </div>
     </form>
 

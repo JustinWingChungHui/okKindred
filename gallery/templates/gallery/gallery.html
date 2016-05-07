@@ -73,10 +73,10 @@
                     <!--Display forms inline-->
                     <form  action="/gallery={{ gallery.id }}/delete/" method="post" class="form-inline">
                         {% csrf_token %}
-                        <button class="btn btn-danger" type="submit" class="form-inline" style="margin-bottom:5px;">{% trans "Delete" %}</button>
+                        <a type="submit" class="form-inline" style="margin-bottom:5px;">{% trans "Delete Gallery and all Pictures" %}</a>
                     </form>
 
-                    <button type="button" class="btn btn-success" data-dismiss="modal" style="margin-bottom:5px;">{% trans "Cancel" %}</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" style="margin-bottom:5px;">{% trans "Cancel" %}</button>
 
                 </div>
             </div>
@@ -103,7 +103,7 @@
 </script>
 
 <script id="galley_image_caption_template" type="text/html">
-    <a href="/image={{identifier}}/details/" class="btn btn-info"> {% endverbatim %}{% trans "Details" %}{% verbatim %} </a> {{title}}
+    <a href="/image={{identifier}}/details/" class="btn btn-info"><span class="glyphicon glyphicon-search"></span></a> {{title}}
 </script>
 
 {% endverbatim %}
