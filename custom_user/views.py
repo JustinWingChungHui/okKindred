@@ -2,7 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.contrib import auth
-from django.core.context_processors import csrf
+from django.template.context_processors import csrf
 from axes.decorators import is_already_locked, get_ip, check_request
 from axes.models import AccessLog
 from django.http import HttpResponse

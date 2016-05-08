@@ -104,7 +104,8 @@ class Person(models.Model):
         super(Person, self).__init__(*args, **kwargs)
         self._original_email = self.email
         self._original_address = self.address
-        self.original_language = self.language
+        self._original_language = self.language
+        self._original_name = self.name
 
 
     def have_user_details_changed(self):
@@ -116,11 +117,14 @@ class Person(models.Model):
             return False
 
         #Change in email
-        if (self._original_email != self.email):
+        if self._original_email != self.email:
             return True
 
         #Change in language
-        if (self.original_language != self.language):
+        if self._original_language != self.language:
+            return True
+
+        if self._original_name != self.name:
             return True
 
         #New record
