@@ -161,26 +161,13 @@
     <!-- Biographies-->
     <div class="col-md-12">
         <h3>{% trans "Biography" %}</h3>
-        <div class="dropdown">
-            <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
-                {{ biography.get_language_display }}
-                <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-                {% for language_code, language_display in languages %}
-                    <li role="presentation"><a role="menuitem" tabindex="-1" href="/profile={{ person.id }}/ln={{ language_code }}/">{{ language_display }}</a></li>
-                {% endfor %}
-            </ul>
-            {% if locked %}
-
-            {% else %}
-                <a class="btn btn-primary" href="/edit_biography={{ person.id }}/ln={{ biography.language }}/" role="button">{% trans "Edit Biography" %}</a>
-            {% endif %}
-        </div>
+        {% if locked %}{% else %}
+            <a class="btn btn-primary" href="/edit_biography={{ person.id }}/" role="button">{% trans "Edit Biography" %}</a>
+        {% endif %}
 
         <p>
-            {% if biography %}
-                {{ biography.content | safe }}
+            {% if person.biography %}
+                {{ person.biography | safe }}
             {% else %}
                 {% trans "A biography has not yet been written for this language." %}
             {% endif %}

@@ -3,10 +3,8 @@ from django.contrib.auth.decorators import login_required
 from django.conf import settings
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
-from django.utils.translation import ugettext_lazy as _
 
 from family_tree.decorators import same_family_required
-from family_tree.models import Biography
 from family_tree.models.person import GENDER_CHOICES
 from custom_user.decorators import set_language
 from gallery.models import Tag
@@ -32,7 +30,7 @@ def genders(request):
 
 @login_required
 @same_family_required
-def profile(request, person_id = 0, person = None, requested_language = '', edit_mode = False):
+def profile(request, person_id = 0, person = None, edit_mode = False):
     '''
     Shows the profile of a person
     '''
@@ -59,7 +57,6 @@ def profile(request, person_id = 0, person = None, requested_language = '', edit
         return render(request, 'family_tree/edit_profile.html', {
                                     'person' : person,
                                     'languages' : settings.LANGUAGES,
-                                    'requested_language': requested_language,
                                     'show_locked': (True if request.user.id == person.user_id else False),
                                     'show_email_and_language' : show_email_and_language,
                                     'can_delete' : can_delete,
@@ -79,22 +76,9 @@ def profile(request, person_id = 0, person = None, requested_language = '', edit
             except:
                 invite_allowed = True
 
-
-
-
-        #Get the biography
-        biography = Biography.objects.get_biography(person.id, requested_language, ('en' if request.LANGUAGE_CODE.startswith('en') else request.LANGUAGE_CODE))
-        if biography is None:
-            biography = Biography(
-                            person_id=person.id,
-                            language=(requested_language if requested_language else 'en'),
-                            content=_('A biography has not yet been written for this language'))
-
         return render(request, 'family_tree/profile.html', {
                                     'person' : person,
                                     'languages' : settings.LANGUAGES,
-                                    'biography' : biography,
-                                    'requested_language': requested_language,
                                     'locked': (True if request.user.id != person.user_id and person.locked else False),
                                     'show_relation_to_me': (True if request.user.id != person.user_id else False),
                                     'invite_allowed' : invite_allowed,
@@ -177,27 +161,20 @@ def delete_profile(request, person_id = 0, person = None):
 
 @login_required
 @same_family_required
-def edit_biography(request, person_id = 0, person = None, requested_language = 'en'):
+def edit_biography(request, person_id = 0, person = None):
     '''
     View to edit the biography in a particular language
     '''
-    try:
-        biography = Biography.objects.get_biography(person_id, requested_language)
-    except:
-        from family_tree.views.tree_views import no_match_found
-        return no_match_found(request)
 
     return render(request, 'family_tree/edit_biography.html', {
-                                'person_id' : person_id,
-                                'language' : requested_language,
-                                'biography' : biography,
+                                'person' : person
                             })
 
 
 
 @login_required
 @same_family_required
-def update_biography(request, person_id = 0, person = None, requested_language = 'en'):
+def update_biography(request, person_id = 0, person = None):
     '''
     API to update biography
     '''
@@ -205,18 +182,11 @@ def update_biography(request, person_id = 0, person = None, requested_language =
     if person.locked and person.user_id != request.user.id:
         return HttpResponse(status=405, content="Access denied to locked profile")
 
-    try:
-        biography = Biography.objects.get(person_id=person_id, language=requested_language)
-    except:
-        biography = Biography(person_id = person_id, language = requested_language)
+    person.biography = request.POST.get("biography","")
 
-    biography.content = request.POST.get("biography","")
-    biography.save()
-
-    #Set last updated date on person
     person.save()
 
-    return profile(request, person_id, requested_language)
+    return profile(request, person_id)
 
 
 
