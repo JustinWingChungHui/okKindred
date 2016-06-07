@@ -1,14 +1,17 @@
-from django.db import models
-from custom_user.models import User
-from django.utils.translation import ugettext_lazy as _
-from django.utils.translation import ugettext as tran
-from django.core.validators import validate_email
-from family_tree.models.family import Family
-from django.conf import settings
 from PIL import Image
-import os
+from django.db import models
+from django.utils.translation import ugettext_lazy as _, ugettext as tran
+from django.conf import settings
+from django.core.validators import validate_email
+
 from common.utils import create_hash
 from common.geocoder import geocode_address
+
+from custom_user.models import User
+from family_tree.models.family import Family
+
+import os
+import bleach
 
 #Localised Gender choices https://docs.djangoproject.com/en/1.7/ref/models/fields/#choices
 FEMALE ='F'
@@ -79,6 +82,8 @@ class Person(models.Model):
     spoken_languages = models.CharField(max_length=100, blank=True, null=False)
     address = models.CharField(max_length=255, blank=True, null=False)
 
+    biography = models.TextField(null=False, blank=True)
+
     #Location use https://pypi.python.org/pypi/googlemaps?
     latitude = models.FloatField(blank=True, null=False, default = 0) #(0,0) is in the middle of the ocean so can set this to 0 to avoid nulls
     longitude = models.FloatField(blank=True, null=False, default = 0)
@@ -91,6 +96,15 @@ class Person(models.Model):
     creation_date = models.DateTimeField(auto_now_add=True)
     last_updated_date = models.DateTimeField(auto_now=True)
 
+    allowed_print_tags = [
+            # tags whitelist
+            "h1", "h2", "h3", "h4", "h5", "h6",
+            "b", "i", "strong", "em", "tt","u","small",
+            "p", "br",
+            "span", "div", "blockquote", "code", "hr",
+            "ul", "ol", "li", "dd", "dt",
+            "table","thead","tbody","tfoot","tr","th","td",
+            ]
 
     def __str__(self): # __unicode__ on Python 2
         return self.name
@@ -182,6 +196,9 @@ class Person(models.Model):
             self.longitude = 0
 
         self.format_urls()
+
+        # Clean biography to mitigate against xss
+        self.biography = bleach.clean(text=self.biography, tags=self.allowed_print_tags)
 
         super(Person, self).save(*args, **kwargs) # Call the "real" save() method.
 

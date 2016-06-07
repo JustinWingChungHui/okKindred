@@ -70,11 +70,9 @@ urlpatterns = [
     #Profile Views
     url(r'^genders/$', family_tree.views.genders, name='genders'),
     url(r'^profile=(?P<person_id>\d+)/$', family_tree.views.profile),
-    url(r'^profile=(?P<person_id>\d+)/ln=(?P<requested_language>[a-zA-Z]{1,8}(-[a-zA-Z0-9]{1,8})*)/$', family_tree.views.profile),
 
     #Edit Profile
     url(r'^edit_profile=(?P<person_id>\d+)/$', family_tree.views.edit_profile),
-    url(r'^edit_profile=(?P<person_id>\d+)/ln=(?P<requested_language>[a-zA-Z]{1,8}(-[a-zA-Z0-9]{1,8})*)/$', family_tree.views.edit_profile),
     url(r'^update_person=(?P<person_id>\d+)/$', family_tree.views.update_person),
 
     #Maps Views
@@ -87,8 +85,8 @@ urlpatterns = [
     url(r'^get_search_results_json/$', family_tree.views.get_search_results_json),
 
     #Editing biography
-    url(r'^edit_biography=(?P<person_id>\d+)/ln=(?P<requested_language>[a-zA-Z]{1,8}(-[a-zA-Z0-9]{1,8})*)/$', family_tree.views.edit_biography),
-    url(r'^update_biography=(?P<person_id>\d+)/ln=(?P<requested_language>[a-zA-Z]{1,8}(-[a-zA-Z0-9]{1,8})*)/$', family_tree.views.update_biography),
+    url(r'^edit_biography=(?P<person_id>\d+)/$', family_tree.views.edit_biography),
+    url(r'^update_biography=(?P<person_id>\d+)/$', family_tree.views.update_biography),
 
     #Profile Image views
     url(r'^edit_profile_photo=(?P<person_id>\d+)/$', family_tree.views.edit_profile_photo),

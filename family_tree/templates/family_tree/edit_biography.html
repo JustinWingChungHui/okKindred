@@ -6,13 +6,14 @@
 <div class="container" style="padding-top: 20px;">
 
     <div class="col-md-12">
-        <form style="margin: 0; padding: 0;" role="form" action="/update_biography={{ person_id }}/ln={{ language }}/" method="post">
+        <form style="margin: 0; padding: 0;" role="form" action="/update_biography={{ person.id }}/" method="post">
             <p>
-                <a class="btn btn-danger" href="/profile={{ person_id }}/" role="button">&laquo;{%trans "Cancel" %}</a>
+                <a class="btn btn-danger" href="/profile={{ person.id }}/" role="button">&laquo;{%trans "Cancel" %}</a>
                 <button class="btn btn-success" type="submit">{% trans "Save" %}&raquo;</button>
             </p>
             {% csrf_token %}
-            <textarea id="biography" type="biography" name="biography" data-language="{{ language }}">{{ biography.content }}</textarea>
+            {% get_current_language as LANGUAGE_CODE %}
+            <textarea id="biography" type="biography" name="biography" data-language="{{ LANGUAGE_CODE }}">{{ person.biography }}</textarea>
         </form>
     </div>
 </div>

@@ -1,6 +1,6 @@
 from django.test import TestCase
 from custom_user.models import User
-from family_tree.models import Person, Biography, Family
+from family_tree.models import Person, Family
 from django.test.utils import override_settings
 
 @override_settings(SECURE_SSL_REDIRECT=False)
@@ -19,9 +19,6 @@ class TestProfileViews(TestCase): # pragma: no cover
 
         self.person = Person.objects.create(name='John Deacon', gender='M', user_id=self.user.id, email='john_deacon@email.com', family_id=self.family.id)
         self.person.save()
-
-        self.biography = Biography(person_id=self.person.id, language='en', content='')
-        self.biography.save()
 
         self.user2 = User.objects.create_user(email='freddie_mercury@email.com', password='my love is dangerous', name='Freddie Mercury', family_id=self.family.id)
         self.user2.save()
@@ -201,7 +198,7 @@ class TestProfileViews(TestCase): # pragma: no cover
         Tests that an invalid response is sent when trying to change a person that does not exist
         '''
         self.client.login(email='john_deacon@email.com', password='invisible man')
-        response = self.client.post('/update_biography=999/ln=en/', {'biography': 'new content'})
+        response = self.client.post('/update_biography=999/', {'biography': 'new content'})
         self.assertEqual(404, response.status_code)
 
     def test_update_biography_denied_with_locked_profile(self):
@@ -209,7 +206,7 @@ class TestProfileViews(TestCase): # pragma: no cover
         Tests that an invalid response is sent when trying to change the biography of a locked profile
         '''
         self.client.login(email='john_deacon@email.com', password='invisible man')
-        response = self.client.post('/update_biography={0}/ln=en/'.format(self.person2.id), {'biography': 'new content'})
+        response = self.client.post('/update_biography={0}/'.format(self.person2.id), {'biography': 'new content'})
         self.assertEqual(405, response.status_code)
         self.assertEqual(b"Access denied to locked profile", response.content)
 
@@ -219,17 +216,17 @@ class TestProfileViews(TestCase): # pragma: no cover
         Tests that biography content can be updated through api when a biography already exists
         '''
         self.client.login(email='john_deacon@email.com', password='invisible man')
-        response = self.client.post('/update_biography={0}/ln=en/'.format(self.person.id), {'biography': 'new content'})
+        response = self.client.post('/update_biography={0}/'.format(self.person.id), {'biography': 'new content'})
         self.assertEqual(200, response.status_code)
-        self.biography = Biography.objects.get(person_id=self.person.id, language='en')
-        self.assertEqual('new content', self.biography.content)
+        self.person = Person.objects.get(id=self.person.id)
+        self.assertEqual('new content', self.person.biography)
 
     def test_another_family_cannot_update_biography(self):
         '''
-        Tests that a field can be updated through api
+        Tests that a field cannot be updated by another family through api
         '''
         self.client.login(email='prince_vultan@email.com', password="gordon's alive")
-        response = self.client.post('/update_biography={0}/ln=en/'.format(self.person.id), {'biography': 'new content'})
+        response = self.client.post('/update_biography={0}/'.format(self.person.id), {'biography': 'new content'})
         self.assertEqual(404, response.status_code)
 
 
@@ -238,10 +235,10 @@ class TestProfileViews(TestCase): # pragma: no cover
         Tests that biography content can be updated through api when a biography already exists
         '''
         self.client.login(email='freddie_mercury@email.com', password='my love is dangerous')
-        response = self.client.post('/update_biography={0}/ln=en/'.format(self.person2.id), {'biography': 'new content'})
+        response = self.client.post('/update_biography={0}/'.format(self.person2.id), {'biography': 'new content'})
         self.assertEqual(200, response.status_code)
-        biography = Biography.objects.get(person_id=self.person2.id, language='en')
-        self.assertEqual('new content', biography.content)
+        self.person2 = Person.objects.get(id=self.person2.id)
+        self.assertEqual('new content', self.person2.biography)
 
     def test_cannot_delete_profile_of_a_confirmed_user(self):
         '''
