@@ -1,8 +1,8 @@
 -f /usr/share/pip-wheels
 bleach==1.4.3
 coverage==4.1
-Django==1.9.6
-django-axes==1.6.1
+Django==1.9.7
+django-axes==1.7.0
 django-debug-toolbar==1.4
 ExifRead==2.1.2
 futures==3.0.5
