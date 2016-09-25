@@ -343,13 +343,16 @@ def person_gallery_data(request, person_id, person = None, page = 1):
     '''
     Gets image data for a particular person
     '''
-    image_list = Image.objects.raw("""  SELECT i.*
-                                        FROM gallery_image i
-                                        INNER JOIN gallery_tag t
-                                            ON i.id = t.image_id
-                                            AND t.person_id = {0}
-                                        ORDER BY i.creation_date DESC
-                                """.format(person.id))
+    #image_list = Image.objects.raw("""  SELECT i.*
+    #                                    FROM gallery_image i
+    #                                    INNER JOIN gallery_tag t
+    #                                        ON i.id = t.image_id
+    #                                        AND t.person_id = {0}
+    #                                    ORDER BY i.creation_date DESC
+    #                            """.format(person.id))
+
+    image_list = Image.objects.filter(tag__person_id = person_id).order_by('creation_date')
+
     paginator = Paginator(image_list, 12) #show 12 per request, divisable by lots of numbers
 
     #Get count to paginate raw query

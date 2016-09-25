@@ -177,7 +177,7 @@ class TestProfileViews(TestCase): # pragma: no cover
         self.person = Person.objects.get(id=self.person.id)
         self.assertEqual(True, self.person.locked)
 
-        response = self.client.post('/update_person={0}/'.format(self.person.id), {'pk': self.person.id, 'name': 'locked', 'value': ''})
+        response = self.client.post('/update_person={0}/'.format(self.person.id), {'pk': self.person.id, 'name': 'locked', 'value': '0'})
         self.assertEqual(200, response.status_code)
         self.person = Person.objects.get(id=self.person.id)
         self.assertEqual(False, self.person.locked)
