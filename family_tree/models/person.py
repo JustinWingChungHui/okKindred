@@ -34,7 +34,10 @@ class NullableEmailField(models.EmailField):
     '''
 
     description = "EmailField that stores NULL but returns ''"
-    __metaclass__ = models.SubfieldBase
+
+    def __init__(self, *args, **kwargs):
+        super(NullableEmailField, self).__init__(*args, **kwargs)
+
     def to_python(self, value):
         if isinstance(value, models.EmailField):
             return value
