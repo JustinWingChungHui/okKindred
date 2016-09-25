@@ -1,2 +1,2 @@
-source ~/.virtualenvs/django1.9/bin/activate
+source ~/.virtualenvs/python3.5/bin/activate
 python ~/okkindred/manage.py create_daily_emails
