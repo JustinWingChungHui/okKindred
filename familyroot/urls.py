@@ -1,4 +1,4 @@
-from django.conf.urls import include, url, patterns
+from django.conf.urls import include, url
 from django.contrib.auth import views as auth_views
 from django.contrib import admin
 from django.conf import settings

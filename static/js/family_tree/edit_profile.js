@@ -47,7 +47,7 @@ require(["jquery", "bootstrap_editable", "bootstrap"], function ($) {
         //Pass through an empty string for false
         $('#locked').editable({
             source: [
-                        {value: '', text: no},
+                        {value: 0, text: no},
                         {value: 1, text: yes },
                     ],
         });
