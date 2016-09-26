@@ -205,6 +205,11 @@
 
 
         </table>
+
+    <!-- translated content block for javascript variables-->
+    <div id="translation" data-required="{% trans 'Required field!' %}" data-yes="{% trans 'Yes' %}" data-no="{% trans 'No' %}">
+    </div>
+
     </div>
 
     <!-- Modal delete -->
@@ -230,14 +235,6 @@
 {% endblock %}
 
 {% block extrascript %}
-
-<script type="text/html">
-    <div id="translation"
-        data-required="{% trans 'Required field!' %}"
-        data-yes="{% trans 'Yes' %}"
-        data-no="{% trans 'No' %}">
-    </div>
-</script>
 
 <script>
     requirejs(["{% static 'js/common.js' %}"], function (common) {
