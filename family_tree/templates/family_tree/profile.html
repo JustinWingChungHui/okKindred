@@ -33,7 +33,7 @@
 
     <div class="col-md-4" style ="max-width:300px;">
         {% if person.large_thumbnail %}
-            <img src="/media/{{person.large_thumbnail}}" alt="{{ person.name }}"/>
+            <img src="{{person.large_thumbnail.url}}" alt="{{ person.name }}"/>
         {% else %}
             <img src="{% static "img/portrait_200.png" %}" alt="{% trans "No photo uploaded for " %} {{ person.name }}"/>
         {% endif %}

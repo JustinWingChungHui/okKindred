@@ -3,8 +3,9 @@ from django.contrib.auth.decorators import login_required
 from custom_user.decorators import set_language
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.core import serializers
 from django.shortcuts import get_object_or_404, render
+
+from common.serialization_tools import JSONWithURLSerializer
 
 
 @login_required
@@ -35,7 +36,9 @@ def gallery_index_data(request, page):
         # If page is out of range return blank
         return HttpResponse('[]', content_type="application/json")
 
-    data = serializers.serialize('json', galleries, fields=('id','title', 'thumbnail', 'description', 'last_updated_date'))
+    serializer = JSONWithURLSerializer()
+
+    data = serializer.serialize(galleries, fields=('id','title', 'thumbnail', 'description', 'last_updated_date'))
 
     return HttpResponse(data, content_type="application/json")
 

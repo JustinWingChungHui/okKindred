@@ -139,10 +139,8 @@ class TestImageUploadViews(TestCase): # pragma: no cover
 
         response = self.client.post('/image_crop={0}/'.format(self.person.id),{'x': 100, 'y': 200, 'w': 300, 'h': 300, 'display_height' : 550})
 
-        #Clear up mess afterwards
-        os.remove(settings.MEDIA_ROOT + 'profile_photos/large_test_image.jpg')
-
         self.assertEqual(302, response.status_code)
+
 
     def test_image_crop_cannot_be_posted_to_for_another_family(self):
         '''

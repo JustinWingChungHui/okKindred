@@ -4,6 +4,7 @@ from family_tree.models import Family
 from django.conf import settings
 from django.test.utils import override_settings
 from django.utils.timezone import utc
+from common.s3_synch import upload_file_to_s3
 import os
 import shutil
 import PIL
@@ -26,6 +27,7 @@ class ImageTestCase(TestCase): # pragma: no cover
 
         self.test_image = os.path.join(settings.BASE_DIR, 'gallery/tests/test_image.jpg')
         self.test_image_destination = ''.join([settings.MEDIA_ROOT, 'galleries/', str(self.family.id), '/', str(self.gallery.id), '/test_image.jpg'])
+        self.test_image_s3_key = ''.join(['galleries/', str(self.family.id), '/', str(self.gallery.id), '/test_image.jpg'])
 
         directory = ''.join([settings.MEDIA_ROOT, 'galleries/', str(self.family.id), '/', str(self.gallery.id)])
         if not os.path.exists(directory):
@@ -63,7 +65,7 @@ class ImageTestCase(TestCase): # pragma: no cover
         PIL.Image.open(settings.MEDIA_ROOT +str(self.gallery.thumbnail))
 
         #Clear up mess afterwards
-        image.delete_image_files()
+        image.delete_local_image_files()
 
 
     def test_get_exif_data(self):
@@ -114,8 +116,10 @@ class ImageTestCase(TestCase): # pragma: no cover
 
         image = Image(gallery=self.gallery, family=self.family, original_image=''.join(['galleries/', str(self.family.id), '/', str(self.gallery.id), '/test_image.jpg']))
         image.save();
+        image.upload_files_to_s3()
 
         image.rotate(90)
 
         #Clear up
-        # image.delete_image_files()
+        image.delete_local_image_files()
+        image.delete_remote_image_files()

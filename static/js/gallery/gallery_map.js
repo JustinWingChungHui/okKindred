@@ -108,10 +108,10 @@ require(["jquery", "mustache", "leaflet","photoswipe", "photoswipe_ui"],
                         html.push(output);
 
                         var photoswipe_item = {
-                            src :  '/media/' + image.large_thumbnail,
+                            src : image.large_thumbnail,
                             w : image.large_thumbnail_width,
                             h : image.large_thumbnail_height,
-                            identifier :   image.id,
+                            identifier : image.id,
                             title : image.title
                         };
 

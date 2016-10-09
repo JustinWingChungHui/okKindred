@@ -32,6 +32,7 @@ class TestImageViews(TestCase): # pragma: no cover
 
         self.test_image = os.path.join(settings.BASE_DIR, 'gallery/tests/test_image.jpg')
         self.test_image_destination = ''.join([settings.MEDIA_ROOT, 'galleries/', str(self.family.id), '/', str(self.gallery.id), '/test_image.jpg'])
+        self.test_image_key = ''.join(['galleries/', str(self.family.id), '/', str(self.gallery.id), '/test_image.jpg'])
 
         directory = ''.join([settings.MEDIA_ROOT, 'galleries/', str(self.family.id), '/', str(self.gallery.id)])
         if not os.path.exists(directory):
@@ -98,7 +99,8 @@ class TestImageViews(TestCase): # pragma: no cover
         self.client.login(email='badger@queenonline.com', password='save the badgers')
         response = self.client.get('/gallery={0}/image={1}/'.format(self.gallery.id, im.id))
 
-        im.delete_image_files()
+        im.delete_local_image_files()
+        im.delete_remote_image_files()
 
         self.assertEqual(200, response.status_code)
         self.assertTemplateUsed(response, 'gallery/gallery.html')
@@ -212,8 +214,9 @@ class TestImageViews(TestCase): # pragma: no cover
         self.assertEqual("test_image", result["name"])
         self.assertEqual(False, 'error' in result)
 
-        filename = settings.MEDIA_ROOT + 'galleries/' + str(self.family.id) + '/' + str(self.gallery.id) + '/' + result['filename']
-        os.remove(filename)
+        filekey = 'galleries/' + str(self.family.id) + '/' + str(self.gallery.id) + '/' + result['filename']
+        from common.s3_synch import remove_file_from_s3
+        remove_file_from_s3(filekey)
 
     def test_upload_single_photo_via_post(self):
         '''
@@ -463,7 +466,8 @@ class TestImageViews(TestCase): # pragma: no cover
         self.client.login(email='badger@queenonline.com', password='save the badgers')
         response = self.client.get('/person={0}/photos/image={1}/'.format(p.id, im.id))
 
-        im.delete_image_files()
+        im.delete_local_image_files()
+        im.delete_remote_image_files()
 
         self.assertEqual(200, response.status_code)
         self.assertTemplateUsed(response, 'gallery/person_gallery.html')
@@ -492,7 +496,8 @@ class TestImageViews(TestCase): # pragma: no cover
 
         self.assertEqual(404, response.status_code)
 
-        image.delete_image_files()
+        image.delete_local_image_files()
+        image.delete_remote_image_files()
 
     def test_person_gallery_data_loads(self):
         '''
@@ -515,7 +520,8 @@ class TestImageViews(TestCase): # pragma: no cover
 
         #Clear up
         for i in self.images:
-            i.delete_image_files()
+            i.delete_local_image_files()
+            i.delete_remote_image_files()
 
         #Check cannot be loaded by another family
         self.client.login(email='weebl@queenonline.com', password='mushroom')
@@ -543,7 +549,8 @@ class TestImageViews(TestCase): # pragma: no cover
         self.client.login(email='badger@queenonline.com', password='save the badgers')
         response = self.client.post('/image={0}/address/'.format(im.id), {'address': 'Freddie Mercury Montreux'})
 
-        im.delete_image_files()
+        im.delete_local_image_files()
+        im.delete_remote_image_files()
 
         self.assertEqual(200, response.status_code)
         self.assertEqual(True, b'46.43' in response.content)
@@ -573,7 +580,8 @@ class TestImageViews(TestCase): # pragma: no cover
         self.client.login(email='weebl@queenonline.com', password='mushroom')
         response = self.client.post('/image={0}/address/'.format(im.id), {'address': 'Freddie Mercury Montreux'})
 
-        im.delete_image_files()
+        im.delete_local_image_files()
+        im.delete_remote_image_files()
 
         self.assertEqual(404, response.status_code)
 
@@ -599,11 +607,12 @@ class TestImageViews(TestCase): # pragma: no cover
         im = Image(
                     gallery=self.gallery,
                     family=self.family,
-                    original_image=self.test_image_destination,
-                    thumbnail=self.test_image_destination,
-                    large_thumbnail=self.test_image_destination
+                    original_image=self.test_image_key,
+                    thumbnail=self.test_image_key,
+                    large_thumbnail=self.test_image_key
                 )
         im.save()
+        im.upload_files_to_s3()
 
         tag = Tag(
                 image_id=im.id,
@@ -634,11 +643,12 @@ class TestImageViews(TestCase): # pragma: no cover
         im = Image(
                     gallery=self.gallery,
                     family=self.family,
-                    original_image=self.test_image_destination,
-                    thumbnail=self.test_image_destination,
-                    large_thumbnail=self.test_image_destination
+                    original_image=self.test_image_key,
+                    thumbnail=self.test_image_key,
+                    large_thumbnail=self.test_image_key
                 )
         im.save()
+        im.upload_files_to_s3()
 
         tag = Tag(
                 image_id=im.id,

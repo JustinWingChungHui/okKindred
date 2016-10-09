@@ -1,15 +1,16 @@
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.core import serializers
 from django.conf import settings
 from django.db import connection
 from django.shortcuts import get_object_or_404, render
 from django.utils.timezone import localtime
 from django.utils.translation import ugettext as tran
+from django.views.decorators.http import require_POST, require_GET
 
 from family_tree.decorators import same_family_required
 from common.geocoder import geocode_address
+from common.serialization_tools import JSONWithURLSerializer
 from common.utils import create_hash
 from custom_user.decorators import set_language
 from gallery.models import Gallery, Image, Tag
@@ -24,6 +25,7 @@ MAX_FILE_SIZE = 15000000  # bytes
 
 @login_required
 @set_language
+@require_GET
 def gallery(request, gallery_id, image_id = None):
     '''
     Page to show images in a gallery
@@ -56,6 +58,7 @@ def gallery(request, gallery_id, image_id = None):
 
 @login_required
 @set_language
+@require_GET
 def gallery_images(request, gallery_id, page):
     '''
     Gets a view showing all the images within a gallery
@@ -78,13 +81,15 @@ def gallery_images(request, gallery_id, page):
         # If page is out of range return blank
         return HttpResponse('[]', content_type="application/json")
 
-    data = serializers.serialize(
-        'json', images, fields=('id','title', 'thumbnail', 'large_thumbnail', 'original_image', 'latitude', 'thumbnail_width', 'thumbnail_height', 'large_thumbnail_width', 'large_thumbnail_height')) #Added latitude to unhide map button
+    serializer = JSONWithURLSerializer()
+    data = serializer.serialize(
+        images, fields=('id','title', 'thumbnail', 'large_thumbnail', 'original_image', 'latitude', 'thumbnail_width', 'thumbnail_height', 'large_thumbnail_width', 'large_thumbnail_height')) #Added latitude to unhide map button
 
     return HttpResponse(data, content_type="application/json")
 
 @login_required
 @set_language
+@require_GET
 def upload_images(request, gallery_id):
     '''
     Gets the upload image view
@@ -104,6 +109,7 @@ def upload_images(request, gallery_id):
 
 @login_required
 @set_language
+@require_POST
 def upload_images_post(request, gallery_id):
     '''
     Gets the upload image view
@@ -114,11 +120,7 @@ def upload_images_post(request, gallery_id):
     if request.user.family_id != gallery.family_id:
         raise Http404
 
-    if request.method != 'POST':
-        raise Http404
-
     #Handles uploading of files
-
     results = []
     for filename, file in request.FILES.items():
         try:
@@ -147,7 +149,7 @@ def process_image(filename, file, gallery):
     result = {
         'name': basename(name),
         'size': file.size,
-        'url': '/media/' + str(upload_name),
+        'url': settings.MEDIA_URL + str(upload_name),
         'filename': filename
     }
 
@@ -168,9 +170,14 @@ def process_image(filename, file, gallery):
     try:
         PIL.Image.open(os.path.join(settings.MEDIA_ROOT, str(im.original_image))).verify()
         im.save()
+        im.upload_files_to_s3()
+        im.delete_local_image_files()
+
         result['image_id'] = im.id
+
+
     except:
-        os.remove(''.join([settings.MEDIA_ROOT,str(im.original_image)]))
+        im.delete_local_image_files()
         result['error'] = tran('Invalid image!')
 
     return result
@@ -178,6 +185,7 @@ def process_image(filename, file, gallery):
 
 @login_required
 @set_language
+@require_GET
 def image_detail(request, image_id):
     '''
     Shows the image detail view
@@ -216,13 +224,11 @@ def image_detail(request, image_id):
 
 @login_required
 @set_language
+@require_POST
 def image_detail_update(request, image_id):
     '''
     Handles the update of image details
     '''
-    if request.method != 'POST':
-        return HttpResponse(status=405, content="Only POST requests allowed")
-
     im = get_object_or_404(Image, pk = image_id)
 
     #Check same family
@@ -244,13 +250,11 @@ def image_detail_update(request, image_id):
 
 @login_required
 @set_language
+@require_POST
 def image_delete(request, image_id):
     '''
     Handles the update of image details
     '''
-    if request.method != 'POST':
-        return HttpResponse(status=405, content="Only POST requests allowed")
-
     im = get_object_or_404(Image, pk = image_id)
 
     #Check same family
@@ -258,20 +262,19 @@ def image_delete(request, image_id):
         raise Http404
 
     gallery_id = im.gallery_id
-    im.delete_image_files()
+    im.delete_local_image_files()
+    im.delete_remote_image_files()
     im.delete()
 
     return HttpResponseRedirect('/gallery={0}/'.format(gallery_id))
 
 @login_required
 @set_language
+@require_POST
 def set_image_as_gallery_thumbnail(request, image_id):
     '''
     Sets the image as the gallery thumbnail
     '''
-    if request.method != 'POST':
-        return HttpResponse(status=405, content="Only POST requests allowed")
-
     im = get_object_or_404(Image, pk = image_id)
 
     #Check same family
@@ -286,13 +289,11 @@ def set_image_as_gallery_thumbnail(request, image_id):
 
 @login_required
 @set_language
+@require_POST
 def rotate_image(request, image_id):
     '''
     Rotates the image and the tags
     '''
-    if request.method != 'POST':
-        return HttpResponse(status=405, content="Only POST requests allowed")
-
     im = get_object_or_404(Image, pk = image_id)
 
     #Check same family
@@ -317,6 +318,7 @@ def rotate_image(request, image_id):
 @login_required
 @set_language
 @same_family_required
+@require_GET
 def person_gallery(request, person_id, person = None, image_id = None):
     '''
     Gets gallery for a particular person
@@ -339,18 +341,11 @@ def person_gallery(request, person_id, person = None, image_id = None):
 @login_required
 @set_language
 @same_family_required
+@require_GET
 def person_gallery_data(request, person_id, person = None, page = 1):
     '''
     Gets image data for a particular person
     '''
-    #image_list = Image.objects.raw("""  SELECT i.*
-    #                                    FROM gallery_image i
-    #                                    INNER JOIN gallery_tag t
-    #                                        ON i.id = t.image_id
-    #                                        AND t.person_id = {0}
-    #                                    ORDER BY i.creation_date DESC
-    #                            """.format(person.id))
-
     image_list = Image.objects.filter(tag__person_id = person_id).order_by('creation_date')
 
     paginator = Paginator(image_list, 12) #show 12 per request, divisable by lots of numbers
@@ -374,20 +369,20 @@ def person_gallery_data(request, person_id, person = None, page = 1):
         # If page is out of range return blank
         return HttpResponse('[]', content_type="application/json")
 
-    data = serializers.serialize(
-        'json', images, fields=('id','title', 'thumbnail', 'large_thumbnail', 'original_image', 'latitude', 'thumbnail_width', 'thumbnail_height', 'large_thumbnail_width', 'large_thumbnail_height')) #Added latitude to unhide map button
+    serializer = JSONWithURLSerializer()
+    data = serializer.serialize(
+        images, fields=('id','title', 'thumbnail', 'large_thumbnail', 'original_image', 'latitude', 'thumbnail_width', 'thumbnail_height', 'large_thumbnail_width', 'large_thumbnail_height')) #Added latitude to unhide map button
 
 
     return HttpResponse(data, content_type="application/json")
 
 
+@login_required
+@require_POST
 def geocode_image_location_post(request, image_id):
     '''
     Uses geolocation services to determine lat and lng
     '''
-    if request.method != 'POST':
-        return HttpResponse(status=405, content="Only POST requests allowed")
-
     im = get_object_or_404(Image, pk = image_id)
 
     #Check same family

@@ -27,7 +27,7 @@
             <div id="person{{relative.id}}" class="w connect">
                 <a href="/tree/{{relative.id}}/">
                     {% if relative.small_thumbnail %}
-                        <img class="tree_thumb" alt="{{ relative.name }}" src="/media/{{relative.small_thumbnail}}"/>
+                        <img class="tree_thumb" alt="{{ relative.name }}" src="{{relative.small_thumbnail.url}}"/>
                     {% else %}
                         <img class="tree_thumb" alt="{% trans "No photo uploaded for " %} {{ relative.name }}" src="{% static "img/portrait_80.png" %}"/>
                     {% endif %}

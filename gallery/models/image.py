@@ -4,6 +4,7 @@ from django.utils import timezone
 
 from common.utils import create_hash
 from common.get_lat_lon_exif_pil import get_lat_lon_backup
+from common.s3_synch import upload_file_to_s3, remove_file_from_s3, get_file_from_s3
 
 from gallery.models import Gallery
 
@@ -176,9 +177,9 @@ class Image(models.Model):
         self.date_taken = date_time
 
 
-    def delete_image_files(self):
+    def delete_local_image_files(self):
         '''
-        Deletes the original image and thumbails associated with this
+        Deletes the original image and thumbnails associated with this
         object
         '''
         try:
@@ -189,36 +190,63 @@ class Image(models.Model):
             pass
 
 
+    def delete_remote_image_files(self):
+        '''
+        Deletes the image and thumbnails associated with this
+        object on s3
+        '''
+        try:
+            remove_file_from_s3(self.original_image)
+            remove_file_from_s3(self.thumbnail)
+            remove_file_from_s3(self.large_thumbnail)
+        except:
+            pass
+
+
+    def upload_files_to_s3(self):
+        '''
+        Uploads image and thumbnail files to s3
+        '''
+        upload_file_to_s3(self.original_image)
+        upload_file_to_s3(self.thumbnail)
+        upload_file_to_s3(self.large_thumbnail)
+
+
     def rotate(self, anticlockwise_angle = 90):
         '''
         Rotates the image and all thumbnails
         '''
 
-        thumbnail = self._rotate_image(self._get_absolute_image_path(self.thumbnail), anticlockwise_angle)
+        thumbnail = self._rotate_image(self.thumbnail, anticlockwise_angle)
         thumbnail_path_and_filename = upload_to(self, str(create_hash(str(self.original_image)) + '.jpg'))
         thumbnail.save(settings.MEDIA_ROOT + str(thumbnail_path_and_filename), "JPEG", quality=95)
 
-        large_thumbnail = self._rotate_image(self._get_absolute_image_path(self.large_thumbnail), anticlockwise_angle)
+        large_thumbnail = self._rotate_image(self.large_thumbnail, anticlockwise_angle)
         large_thumbnail_path_and_filename = upload_to(self, str(create_hash(str(self.original_image)) + '.jpg'))
         large_thumbnail.save(settings.MEDIA_ROOT + str(large_thumbnail_path_and_filename), "JPEG", quality=95)
 
-        original_image = self._rotate_image(self._get_absolute_image_path(self.original_image), anticlockwise_angle)
+        original_image = self._rotate_image(self.original_image, anticlockwise_angle)
         original_image_path_and_filename = upload_to(self, str(create_hash(str(self.original_image)) + '.jpg'))
         original_image.save(settings.MEDIA_ROOT + str(original_image_path_and_filename), "JPEG", quality=95)
 
-        self.delete_image_files()
+        self.delete_local_image_files()
+        self.delete_remote_image_files()
+
         self.thumbnail = thumbnail_path_and_filename
         self.large_thumbnail = large_thumbnail_path_and_filename
         self.original_image = original_image_path_and_filename
 
         self.save()
-
+        self.upload_files_to_s3()
+        self.delete_local_image_files()
 
     def _rotate_image(self, path, anticlockwise_angle = 90):
         '''
         Rotates an image
         '''
-        image = PIL.Image.open(path)
+        get_file_from_s3(path)
+
+        image = PIL.Image.open(settings.MEDIA_ROOT + str(path))
         return image.rotate(anticlockwise_angle, resample=PIL.Image.BICUBIC, expand=True)
 
 

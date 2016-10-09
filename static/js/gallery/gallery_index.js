@@ -50,7 +50,7 @@ require(["jquery", "mustache"], function ($, Mustache) {
 
                         var gallerythumb_url;
                         if (data[i].fields.thumbnail) {
-                            gallerythumb_url = "/media/" + data[i].fields.thumbnail;
+                            gallerythumb_url = data[i].fields.thumbnail;
                         }
                         else {
                             gallerythumb_url = "/static/img/gallery_thumb.jpg";

@@ -102,7 +102,7 @@ require(["jquery", "mustache"], function ($, Mustache) {
                 image_url = "/static/img/portrait_80.png";
             }
             else{
-                image_url = "/media/" + data[i].fields.small_thumbnail;
+                image_url = data[i].fields.small_thumbnail;
             }
 
             var search_result = {

@@ -144,6 +144,9 @@ def image_crop(request, person_id = 0, person = None):
     person.crop_and_resize_photo(x, y, w, h, display_height)
     person.save()
 
+    # Photos processed so delete local copies
+    person.remove_local_images()
+
     return HttpResponseRedirect('/edit_profile={0}/'.format(person_id))
 
 

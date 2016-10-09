@@ -1,11 +1,11 @@
 # encoding: utf-8
 from django.contrib.auth.decorators import login_required
-from django.core import serializers
 from django.db.models import Q
 from django.http import HttpResponse
 from django.shortcuts import render
 from functools import reduce
 
+from common.serialization_tools import JSONWithURLSerializer
 from family_tree.models import Person
 from custom_user.decorators import set_language
 
@@ -38,6 +38,7 @@ def get_search_results_json(request):
 
     people = Person.objects.filter(family_id = request.user.family_id).filter(query)
 
-    data = serializers.serialize('json', people, fields=('id','name', 'small_thumbnail'))
+    serializer = JSONWithURLSerializer()
+    data = serializer.serialize(people, fields=('id','name', 'small_thumbnail'))
 
     return HttpResponse(data, content_type="application/json")

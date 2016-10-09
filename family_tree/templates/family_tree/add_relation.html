@@ -15,7 +15,7 @@
         <div id="from_person" class="boxed">
             <div style="text-align: center;">
                 {% if person.small_thumbnail %}
-                    <img src="/media/{{person.small_thumbnail}}" alt="{{ person.name }}"/>
+                    <img src="{{person.small_thumbnail.url}}" alt="{{ person.name }}"/>
                 {% else %}
                     <img src="{% static 'img/portrait_80.png' %}" alt="{{ person.name }}"/>
                 {% endif %}

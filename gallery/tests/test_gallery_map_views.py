@@ -104,3 +104,4 @@ class TestGalleryMapViews(TestCase): # pragma: no cover
 
 
 
+

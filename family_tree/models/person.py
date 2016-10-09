@@ -6,6 +6,7 @@ from django.core.validators import validate_email
 
 from common.utils import create_hash
 from common.geocoder import geocode_address
+from common.s3_synch import upload_file_to_s3, remove_file_from_s3
 
 from custom_user.models import User
 from family_tree.models.family import Family
@@ -289,8 +290,8 @@ class Person(models.Model):
 
             im.save(path_and_filename, "JPEG", quality=95)
 
-
             self.photo = 'profile_photos/' + filename
+            upload_file_to_s3(self.photo)
 
         except:
             os.remove(path_and_filename)
@@ -331,7 +332,12 @@ class Person(models.Model):
         large_thumb.crop((x, y, x + w, y + h)
             ).resize((200,200), Image.ANTIALIAS
             ).save(''.join([settings.MEDIA_ROOT, 'profile_photos/', large_thumb_name]), "JPEG", quality=75)
+
         self.large_thumbnail = 'profile_photos/' + large_thumb_name
+
+        upload_file_to_s3(self.small_thumbnail)
+        upload_file_to_s3(self.large_thumbnail)
+
 
     def rotate_photo(self, anticlockwise_angle):
         '''
@@ -345,6 +351,8 @@ class Person(models.Model):
         new_image.save(''.join([settings.MEDIA_ROOT, str(self.photo)]))
 
         os.remove(path_and_filename)
+        remove_file_from_s3(path_and_filename)
+
 
     def format_urls(self):
         '''
@@ -352,3 +360,21 @@ class Person(models.Model):
         '''
         if self.website and not self.website.startswith('http'):
             self.website = 'http://' + self.website
+
+
+    def remove_local_images(self):
+        '''
+        Removes the local copies of the image files
+        '''
+        photo = ''.join([settings.MEDIA_ROOT, str(self.photo)])
+        if os.path.exists(photo):
+            os.remove(photo)
+
+        small_thumb = ''.join([settings.MEDIA_ROOT, str(self.small_thumbnail)])
+        if os.path.exists(small_thumb):
+            os.remove(small_thumb)
+
+        large_thumb = ''.join([settings.MEDIA_ROOT, str(self.large_thumbnail)])
+        if os.path.exists(large_thumb):
+            os.remove(large_thumb)
+

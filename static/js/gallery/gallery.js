@@ -142,7 +142,7 @@ function() {
                         };
 
                         var photoswipe_item = {
-                            src :  '/media/' + image_data.large_thumbnail,
+                            src :  image_data.large_thumbnail,
                             w : data_row.fields.large_thumbnail_width,
                             h : data_row.fields.large_thumbnail_height,
                             identifier :   data_row.pk,

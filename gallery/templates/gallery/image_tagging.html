@@ -17,7 +17,7 @@
         <a class="btn btn-success" href="/gallery={{ image.gallery_id }}/" role="button">
             <span class="glyphicon glyphicon-backward"></span> <span class="glyphicon glyphicon-th-large">
         </a>
-        <a class="btn btn-primary" download target="_blank" href="/media/{{ image.original_image }}" role="button">
+        <a class="btn btn-primary" download target="_blank" href="{{ image.original_image.url }}" role="button">
             <span class="glyphicon glyphicon-download-alt"></span>
         </a>
         <form  action="/image={{ image.id }}/rotate/" method="post" class="form-inline">
@@ -44,7 +44,7 @@
 
     <div id="tag_container">
         <a href="#tag_add_modal" data-toggle="modal">
-            <img src="/media/{{ image.large_thumbnail }}" class="img-responsive" alt="{{ image.title }}" id="image_map" data-id="{{ image.id }}"/>
+            <img src="{{ image.large_thumbnail.url }}" class="img-responsive" alt="{{ image.title }}" id="image_map" data-id="{{ image.id }}"/>
         </a>
 
         <div class="image_navigation_button_container">
