@@ -10,7 +10,7 @@
             <div id="person{{relative.id}}" class="boxed_chained connect">
                 <a href="/tree/{{relative.id}}/">
                     {% if relative.small_thumbnail %}
-                        <img class="tree_thumb" src="/media/{{relative.small_thumbnail}}" alt="{{ relative.name }}"/>
+                        <img class="tree_thumb" src="{{relative.small_thumbnail.url}}" alt="{{ relative.name }}"/>
                     {% else %}
                         <img class="tree_thumb" src="{% static "img/portrait_80.png" %}" alt="{{ relative.name }}"/>
                     {% endif %}

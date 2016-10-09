@@ -63,7 +63,7 @@ require(['jquery', 'leaflet', 'mustache'], function($, L, Mustache){
 
                         var image_url;
                         if (row.small_thumbnail) {
-                            image_url = '/media/' + row.small_thumbnail;
+                            image_url = row.small_thumbnail;
                         } else {
                             image_url = '/static/img/portrait_80.png';
                         }

@@ -4,7 +4,7 @@ from family_tree.decorators import same_family_required
 from django.http import HttpResponse
 from django.shortcuts import render
 from custom_user.decorators import set_language
-from family_tree.services import map_service
+from maps import map_service
 import json
 
 @login_required

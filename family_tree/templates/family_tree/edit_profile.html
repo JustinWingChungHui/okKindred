@@ -21,7 +21,7 @@
     <div class="col-md-4">
         <a href="/edit_profile_photo={{ person.id }}/">
             {% if person.large_thumbnail %}
-                <img src="/media/{{person.large_thumbnail}}" alt="{% trans "Click photo to upload new one" %}"/>
+                <img src="{{person.large_thumbnail.url}}" alt="{% trans "Click photo to upload new one" %}"/>
             {% else %}
                 <img src="{% static "img/portrait_200.png" %}" alt="{% trans "Click photo to upload new one" %}"/>
             {% endif %}

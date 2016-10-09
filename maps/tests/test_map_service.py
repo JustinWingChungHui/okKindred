@@ -1,5 +1,5 @@
 from family_tree.models import Family, Person
-from family_tree.services import map_service
+from maps import map_service
 from django.test import TestCase
 
 

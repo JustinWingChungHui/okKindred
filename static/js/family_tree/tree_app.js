@@ -34,7 +34,7 @@ define(['jquery', 'jsPlumb', 'mustache'], function($, jsPlumb, Mustache){
                 var person = {
                     id : data.people[i][0],
                     name : data.people[i][1],
-                    image : this.get_image_url(data.people[i][2]),
+                    image : this.get_image_url(data.media_url, data.people[i][2]),
                     hierarchy_score: data.people[i][3],
                     relations: []
                 };
@@ -330,10 +330,10 @@ define(['jquery', 'jsPlumb', 'mustache'], function($, jsPlumb, Mustache){
         },
 
         // Returns the url of the profile picture
-        get_image_url : function(image) {
+        get_image_url : function(media_url, image) {
 
             if (image) {
-                return "/media/" + image;
+                return media_url + image;
             }
             else {
                 return "/static/img/portrait_80.png";

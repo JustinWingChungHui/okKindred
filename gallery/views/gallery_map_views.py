@@ -1,5 +1,5 @@
 from gallery.models import Gallery, Image
-from family_tree.services import map_service
+from maps import map_service
 from django.http import HttpResponse, Http404
 from django.shortcuts import get_object_or_404, render
 import json
@@ -51,8 +51,8 @@ def gallery_map_data(request, gallery_id, division_size):
         location_points[key].append({
                                         'id': image.id,
                                         'name': image.title,
-                                        'thumbnail': str(image.thumbnail),
-                                        'large_thumbnail': str(image.large_thumbnail),
+                                        'thumbnail': image.thumbnail.url,
+                                        'large_thumbnail': image.large_thumbnail.url,
                                         'latitude': image.latitude,
                                         'longitude': image.longitude,
                                         'title' : image.title,

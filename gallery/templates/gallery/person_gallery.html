@@ -20,7 +20,7 @@
 
     {% if image %}
 
-        <a id="default_image" class="image_in_gallery" href="/media/{{ image.large_thumbnail }}"  style="display:None;" data-lightbox="gallery"
+        <a id="default_image" class="image_in_gallery" href="{{ image.large_thumbnail }}"  style="display:None;" data-lightbox="gallery"
             data-title="&lt;a href='/image={{ image.id }}/details/' class='btn btn-info' &gt; {% trans "Details" %}  &lt;/a&gt {{ image.title }}">
             default
         </a>
@@ -48,7 +48,7 @@
 <script id="galley_image_template" type="text/html">
     <a class="image_in_gallery" href="#" data-lightbox="gallery"
         data-photoswipe_index="{{photoswipe_index}}">
-        <img class="masonry_thumbnail" src="/media/{{thumbnail}}" alt="{{title}}" height="{{height}}" width="{{width}}"/>
+        <img class="masonry_thumbnail" src="{{thumbnail}}" alt="{{title}}" height="{{height}}" width="{{width}}"/>
     </a>
 </script>
 

@@ -1,4 +1,5 @@
 # encoding: utf-8
+from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.core.serializers.json import DjangoJSONEncoder
 from django.http import HttpResponse, Http404
@@ -34,6 +35,7 @@ def tree_data(request, person_id = 0, person = None):
     relations = Relation.objects.filter(from_person__family_id = request.user.family_id).values_list('id', 'from_person_id', 'to_person_id', 'relation_type')
 
     result = {
+            'media_url': settings.MEDIA_URL,
             'people': list(people),
             'relations': list(relations),
         }

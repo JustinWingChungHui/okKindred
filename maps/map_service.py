@@ -11,7 +11,7 @@ def get_person_location_points(family_id, division_size):
 
     people = Person.objects.filter(family_id = family_id).exclude(latitude = 0, longitude = 0)
 
-    for person in people:
+    for person in list(people):
         loc = get_snapped_location(person, division_size)
 
         key = str(loc) #Needs to be a string to serialize
@@ -19,10 +19,15 @@ def get_person_location_points(family_id, division_size):
         if key not in location_points:
             location_points[key] = []
 
+        if str(person.small_thumbnail) == '':
+            small_thumbnail = ''
+        else:
+            small_thumbnail = person.small_thumbnail.url
+
         location_points[key].append({
                                     'id': person.id,
                                     'name': person.name,
-                                    'small_thumbnail': str(person.small_thumbnail),
+                                    'small_thumbnail': small_thumbnail,
                                     'latitude': person.latitude,
                                     'longitude': person.longitude
                                     })
