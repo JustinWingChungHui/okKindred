@@ -350,16 +350,6 @@ def person_gallery_data(request, person_id, person = None, page = 1):
 
     paginator = Paginator(image_list, 12) #show 12 per request, divisable by lots of numbers
 
-    #Get count to paginate raw query
-    cursor = connection.cursor()
-    cursor.execute("""  SELECT COUNT(*)
-                        FROM gallery_image i
-                        INNER JOIN gallery_tag t
-                            ON i.id = t.image_id
-                            AND t.person_id = {0}
-                    """.format(person.id))
-    paginator._count = cursor.fetchone()[0]
-
     try:
         images = paginator.page(page)
     except PageNotAnInteger:
@@ -370,8 +360,7 @@ def person_gallery_data(request, person_id, person = None, page = 1):
         return HttpResponse('[]', content_type="application/json")
 
     serializer = JSONWithURLSerializer()
-    data = serializer.serialize(
-        images, fields=('id','title', 'thumbnail', 'large_thumbnail', 'original_image', 'latitude', 'thumbnail_width', 'thumbnail_height', 'large_thumbnail_width', 'large_thumbnail_height')) #Added latitude to unhide map button
+    data = serializer.serialize(images, fields=('id','title', 'thumbnail', 'large_thumbnail', 'original_image', 'latitude', 'thumbnail_width', 'thumbnail_height', 'large_thumbnail_width', 'large_thumbnail_height')) #Added latitude to unhide map button
 
 
     return HttpResponse(data, content_type="application/json")
