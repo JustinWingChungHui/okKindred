@@ -3,12 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
+#: custom_user/templates/custom_user/settings.html:41
+#: custom_user/templates/custom_user/settings.html:51
+#: family_tree/templates/family_tree/edit_profile.html:194
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-01-01 15:28+0000\n"
+"POT-Creation-Date: 2016-10-10 21:43+0000\n"
 "PO-Revision-Date: 2015-06-15 04:58+0000\n"
 "Last-Translator: b'Anonymous User <wonghshilson@gmail.com>'\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,7 +21,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Translated-Using: django-rosetta 0.7.6\n"
 
-#: custom_user/admin.py:19 custom_user/templates/custom_user/login.html.py:12
+#: custom_user/admin.py:19 custom_user/templates/custom_user/login.html:12
 #: custom_user/templates/custom_user/login.html:13
 msgid "Password"
 msgstr "密碼"
@@ -109,33 +112,33 @@ msgstr ""
 msgid "Log in"
 msgstr "註銷"
 
-#: custom_user/templates/custom_user/password_reset_confirm.html:9
+#: custom_user/templates/custom_user/password_reset_confirm.html:10
 msgid ""
 "Please enter your new password twice so we can verify you typed it in "
 "correctly."
 msgstr ""
 
-#: custom_user/templates/custom_user/password_reset_confirm.html:14
 #: custom_user/templates/custom_user/password_reset_confirm.html:15
+#: custom_user/templates/custom_user/password_reset_confirm.html:16
 #, fuzzy
 #| msgid "New Password"
 msgid "New password:"
 msgstr "新密碼"
 
-#: custom_user/templates/custom_user/password_reset_confirm.html:18
 #: custom_user/templates/custom_user/password_reset_confirm.html:19
+#: custom_user/templates/custom_user/password_reset_confirm.html:20
 #, fuzzy
 #| msgid "Confirm Password"
 msgid "Confirm password:"
 msgstr "確認密碼"
 
-#: custom_user/templates/custom_user/password_reset_confirm.html:22
+#: custom_user/templates/custom_user/password_reset_confirm.html:23
 #, fuzzy
 #| msgid "Change Password"
 msgid "Change my password"
 msgstr "更改密碼"
 
-#: custom_user/templates/custom_user/password_reset_confirm.html:27
+#: custom_user/templates/custom_user/password_reset_confirm.html:28
 msgid ""
 "The password reset link was invalid, possibly because it has already been "
 "used.  Please request a new password reset."
@@ -153,12 +156,12 @@ msgid ""
 "you registered with, and check your spam folder."
 msgstr ""
 
-#: custom_user/templates/custom_user/settings.html:13 templates/base.html:73
+#: custom_user/templates/custom_user/settings.html:13 templates/base.html:81
 msgid "Settings"
 msgstr "設置"
 
 #: custom_user/templates/custom_user/settings.html:18
-#: custom_user/templates/custom_user/settings.html:84
+#: custom_user/templates/custom_user/settings.html:86
 #: family_tree/templates/family_tree/edit_profile.html:13
 msgid "Done"
 msgstr "DONE"
@@ -170,8 +173,8 @@ msgstr "選項"
 #: custom_user/templates/custom_user/settings.html:27
 #: custom_user/templates/custom_user/settings.html:29
 #: family_tree/templates/family_tree/add_relation.html:66
-#: family_tree/templates/family_tree/edit_profile.html:73
-#: family_tree/templates/family_tree/edit_profile.html:75
+#: family_tree/templates/family_tree/edit_profile.html:78
+#: family_tree/templates/family_tree/edit_profile.html:80
 #: sign_up/templates/sign_up/sign_up.html:37
 msgid "First Language"
 msgstr "母語"
@@ -185,100 +188,102 @@ msgid "Do you want to receive family update emails?"
 msgstr "你想收到家人的更新電子郵件？"
 
 #: custom_user/templates/custom_user/settings.html:41
-#: custom_user/templates/custom_user/settings.html:50
-#: custom_user/templates/custom_user/settings.html:158
-#: custom_user/templates/custom_user/settings.html:165
-#: family_tree/templates/family_tree/edit_profile.html:176
-#: family_tree/templates/family_tree/edit_profile.html:203
-#: family_tree/templates/family_tree/edit_profile.html:271
+#: custom_user/templates/custom_user/settings.html:51
+#: family_tree/templates/family_tree/edit_profile.html:194
+msgid "1"
+msgstr ""
+
+#: custom_user/templates/custom_user/settings.html:42
+#: custom_user/templates/custom_user/settings.html:52
+#: custom_user/templates/custom_user/settings.html:129
+#: family_tree/templates/family_tree/edit_profile.html:195
+#: family_tree/templates/family_tree/edit_profile.html:210
+#: family_tree/templates/family_tree/edit_profile.html:227
 msgid "Yes"
 msgstr "正確"
 
-#: custom_user/templates/custom_user/settings.html:41
-#: custom_user/templates/custom_user/settings.html:50
-#: custom_user/templates/custom_user/settings.html:157
-#: custom_user/templates/custom_user/settings.html:164
-#: family_tree/templates/family_tree/edit_profile.html:176
-#: family_tree/templates/family_tree/edit_profile.html:270
+#: custom_user/templates/custom_user/settings.html:42
+#: custom_user/templates/custom_user/settings.html:52
+#: custom_user/templates/custom_user/settings.html:129
+#: family_tree/templates/family_tree/edit_profile.html:195
+#: family_tree/templates/family_tree/edit_profile.html:210
 msgid "No"
 msgstr "錯誤"
 
-#: custom_user/templates/custom_user/settings.html:46
+#: custom_user/templates/custom_user/settings.html:47
 msgid "Receive update emails when you are identified in a photo"
 msgstr "當你在照片中被辨識後,接收更新電子郵件"
 
-#: custom_user/templates/custom_user/settings.html:48
+#: custom_user/templates/custom_user/settings.html:49
 msgid ""
 "Do you want to receive update emails when you are identified in a photo?"
 msgstr "當你在照片中被辨識,你是否想接收更新電子郵件？"
 
-#: custom_user/templates/custom_user/settings.html:65
+#: custom_user/templates/custom_user/settings.html:67
 msgid "Change Password"
 msgstr "更改密碼"
 
-#: custom_user/templates/custom_user/settings.html:67
+#: custom_user/templates/custom_user/settings.html:69
 #: email_confirmation/templates/email_confirmation/confirm_invite.html:24
 #: sign_up/templates/sign_up/choose_password.html:15
 msgid "New Password"
 msgstr "新密碼"
 
-#: custom_user/templates/custom_user/settings.html:68
+#: custom_user/templates/custom_user/settings.html:70
 #: email_confirmation/templates/email_confirmation/confirm_invite.html:25
 #: sign_up/templates/sign_up/choose_password.html:16
 msgid "Minimum of 8 characters"
 msgstr "最少用8個字符"
 
-#: custom_user/templates/custom_user/settings.html:72
+#: custom_user/templates/custom_user/settings.html:74
 #: email_confirmation/templates/email_confirmation/confirm_invite.html:29
 #: sign_up/templates/sign_up/choose_password.html:20
 msgid "Whoops, they must match!"
 msgstr "哎喲，密碼必須相符！！"
 
-#: custom_user/templates/custom_user/settings.html:72
+#: custom_user/templates/custom_user/settings.html:74
 #: email_confirmation/templates/email_confirmation/confirm_invite.html:29
 #: sign_up/templates/sign_up/choose_password.html:20
 msgid "Confirm Password"
 msgstr "確認密碼"
 
-#: custom_user/templates/custom_user/settings.html:77
+#: custom_user/templates/custom_user/settings.html:79
 msgid "Update Password"
 msgstr "更新密碼"
 
-#: custom_user/templates/custom_user/settings.html:89
+#: custom_user/templates/custom_user/settings.html:91
 msgid "Goodbye and Farewell"
 msgstr "再見"
 
-#: custom_user/templates/custom_user/settings.html:90
+#: custom_user/templates/custom_user/settings.html:92
 msgid "Leave ok!Kindred forever..."
 msgstr "徹底離開 ok!Kindred 奧奇宗族園..."
 
-#: custom_user/templates/custom_user/settings.html:100
-#: family_tree/templates/family_tree/edit_profile.html:197
+#: custom_user/templates/custom_user/settings.html:102
+#: family_tree/templates/family_tree/edit_profile.html:221
 msgid "Delete Profile"
 msgstr "刪除個人資料"
 
-#: custom_user/templates/custom_user/settings.html:103
+#: custom_user/templates/custom_user/settings.html:105
 msgid ""
 "Are you sure you want to leave ok!Kindred?  We would be very sad to see you "
 "leave!"
 msgstr "你確定你要離開ok!Kindred奧奇宗族園?我們很抱歉你退出！"
 
-#: custom_user/templates/custom_user/settings.html:107
+#: custom_user/templates/custom_user/settings.html:109
 msgid "NO!!! I don't want to quit"
 msgstr "否！我並不想退出"
 
-#: custom_user/templates/custom_user/settings.html:113
+#: custom_user/templates/custom_user/settings.html:115
 msgid "Yes but leave my profile"
 msgstr "正確，但請保留我的個人資料"
 
-#: custom_user/templates/custom_user/settings.html:119
+#: custom_user/templates/custom_user/settings.html:121
 msgid "Yes and delete my profile"
 msgstr "正確，請同時刪除我的個人資料"
 
-#: custom_user/templates/custom_user/settings.html:149
-#: family_tree/templates/family_tree/edit_profile.html:226
-#: family_tree/templates/family_tree/edit_profile.html:238
-#: family_tree/templates/family_tree/edit_profile.html:249
+#: custom_user/templates/custom_user/settings.html:129
+#: family_tree/templates/family_tree/edit_profile.html:210
 msgid "Required field!"
 msgstr "本欄必須填寫！"
 
@@ -437,23 +442,20 @@ msgid ""
 "out more:"
 msgstr "以下成員的個人資料已更新。請點擊以了解更多："
 
-#: family_tree/models/person.py:19
+#: family_tree/models/person.py:23
 #: family_tree/templates/family_tree/add_relation.html:59
-#: family_tree/templates/family_tree/edit_profile.html:233
 #: sign_up/templates/sign_up/sign_up.html:30
 msgid "Female"
 msgstr "女"
 
-#: family_tree/models/person.py:20
+#: family_tree/models/person.py:24
 #: family_tree/templates/family_tree/add_relation.html:60
-#: family_tree/templates/family_tree/edit_profile.html:234
 #: sign_up/templates/sign_up/sign_up.html:31
 msgid "Male"
 msgstr "男"
 
-#: family_tree/models/person.py:21
+#: family_tree/models/person.py:25
 #: family_tree/templates/family_tree/add_relation.html:61
-#: family_tree/templates/family_tree/edit_profile.html:235
 #: sign_up/templates/sign_up/sign_up.html:32
 msgid "Other"
 msgstr "其他"
@@ -478,12 +480,12 @@ msgstr "撫養者是"
 
 #: family_tree/templates/family_tree/add_relation.html:9
 #: family_tree/templates/family_tree/edit_biography.html:11
-#: family_tree/templates/family_tree/profile.html:215
+#: family_tree/templates/family_tree/profile.html:202
 #: gallery/templates/gallery/edit_gallery.html:17
 #: gallery/templates/gallery/edit_gallery.html:19
-#: gallery/templates/gallery/gallery.html:60
-#: gallery/templates/gallery/image_tagging.html:122
-#: gallery/templates/gallery/image_tagging.html:178
+#: gallery/templates/gallery/gallery.html:79
+#: gallery/templates/gallery/image_tagging.html:142
+#: gallery/templates/gallery/image_tagging.html:198
 msgid "Cancel"
 msgstr "取消"
 
@@ -496,7 +498,7 @@ msgid "New Person"
 msgstr "新成員"
 
 #: family_tree/templates/family_tree/add_relation.html:52
-#: family_tree/templates/family_tree/add_relation.html:84
+#: family_tree/templates/family_tree/add_relation.html:96
 #: family_tree/templates/family_tree/edit_profile.html:35
 #: family_tree/templates/family_tree/edit_profile.html:37
 #: family_tree/templates/family_tree/profile.html:63
@@ -508,25 +510,48 @@ msgstr ""
 " "
 
 #: family_tree/templates/family_tree/add_relation.html:57
-#: family_tree/templates/family_tree/edit_profile.html:44
-#: family_tree/templates/family_tree/edit_profile.html:46
+#: family_tree/templates/family_tree/edit_profile.html:45
+#: family_tree/templates/family_tree/edit_profile.html:47
 #: family_tree/templates/family_tree/profile.html:68
 #: sign_up/templates/sign_up/sign_up.html:28
 msgid "Gender"
 msgstr "性別"
 
-#: family_tree/templates/family_tree/add_relation.html:81
-#: gallery/templates/gallery/image_tagging.html:163
+#: family_tree/templates/family_tree/add_relation.html:77
+#: family_tree/templates/family_tree/edit_profile.html:129
+#: family_tree/templates/family_tree/profile.html:116
+#: sign_up/templates/sign_up/sign_up.html:48
+msgid "Location"
+msgstr "地點"
+
+#: family_tree/templates/family_tree/add_relation.html:82
+#: family_tree/templates/family_tree/edit_profile.html:56
+#: family_tree/templates/family_tree/edit_profile.html:58
+#: family_tree/templates/family_tree/profile.html:74
+#: sign_up/templates/sign_up/sign_up.html:53
+msgid "Birth Year"
+msgstr "出生年份"
+
+#: family_tree/templates/family_tree/add_relation.html:86
+#: family_tree/templates/family_tree/edit_profile.html:38
+#: family_tree/templates/family_tree/edit_profile.html:202
+#: gallery/templates/gallery/image_tagging.html:71
+#: sign_up/templates/sign_up/sign_up.html:57
+msgid "Required"
+msgstr "必要"
+
+#: family_tree/templates/family_tree/add_relation.html:93
+#: gallery/templates/gallery/image_tagging.html:183
 msgid "Search Name"
 msgstr "搜索名稱"
 
-#: family_tree/templates/family_tree/add_relation.html:88
+#: family_tree/templates/family_tree/add_relation.html:100
 #: family_tree/templates/family_tree/search.html:19
-#: gallery/templates/gallery/image_tagging.html:167
+#: gallery/templates/gallery/image_tagging.html:187
 msgid "Searching..."
 msgstr "搜索中..."
 
-#: family_tree/templates/family_tree/add_relation.html:102
+#: family_tree/templates/family_tree/add_relation.html:114
 #: family_tree/templates/family_tree/edit_biography.html:12
 #: family_tree/templates/family_tree/image_resize.html:36
 #: gallery/templates/gallery/edit_gallery.html:21
@@ -537,7 +562,7 @@ msgstr "儲存"
 #: family_tree/templates/family_tree/image_resize.html:13
 #: sign_up/templates/sign_up/email_in_use.html:9
 #: sign_up/templates/sign_up/invalid_email.html:9 templates/about.html:68
-#: templates/about.html.py:95 templates/about.html:146
+#: templates/about.html:95 templates/about.html:146
 msgid "Back"
 msgstr "返回上項"
 
@@ -550,7 +575,6 @@ msgid "Break"
 msgstr "破裂"
 
 #: family_tree/templates/family_tree/edit_profile.html:14
-#: family_tree/templates/family_tree/tree.html:83
 #: family_tree/templates/family_tree/tree_app.html:36
 msgid "Add Relation"
 msgstr "增建關係"
@@ -560,10 +584,7 @@ msgid "Break Relation"
 msgstr "破裂關係"
 
 #: family_tree/templates/family_tree/edit_profile.html:17
-#: gallery/templates/gallery/gallery.html:17
-#: gallery/templates/gallery/gallery.html:57
-#: gallery/templates/gallery/image_tagging.html:37
-#: gallery/templates/gallery/image_tagging.html:119
+#: gallery/templates/gallery/image_tagging.html:139
 msgid "Delete"
 msgstr "刪除"
 
@@ -573,106 +594,89 @@ msgstr "刪除"
 msgid "Click photo to upload new one"
 msgstr "點擊圖片以上傳更新版本"
 
-#: family_tree/templates/family_tree/edit_profile.html:37
-#: family_tree/templates/family_tree/edit_profile.html:183
-#: gallery/templates/gallery/image_tagging.html:51
-msgid "Required"
-msgstr "必要"
-
-#: family_tree/templates/family_tree/edit_profile.html:53
-#: family_tree/templates/family_tree/edit_profile.html:55
-#: family_tree/templates/family_tree/profile.html:74
-msgid "Birth Year"
-msgstr "出生年份"
-
-#: family_tree/templates/family_tree/edit_profile.html:62
+#: family_tree/templates/family_tree/edit_profile.html:66
 msgid "Death Year (enter 0 if still alive)"
 msgstr "死亡年份（如果還活著請輸入0）"
 
-#: family_tree/templates/family_tree/edit_profile.html:64
+#: family_tree/templates/family_tree/edit_profile.html:68
 msgid "Death Year.  Enter 0 if still alive."
 msgstr "死亡年份。如果還活著請輸入0。。"
 
-#: family_tree/templates/family_tree/edit_profile.html:82
-#: family_tree/templates/family_tree/edit_profile.html:84
+#: family_tree/templates/family_tree/edit_profile.html:89
+#: family_tree/templates/family_tree/edit_profile.html:91
 #: family_tree/templates/family_tree/profile.html:95
-#: family_tree/templates/family_tree/profile.html:204
+#: family_tree/templates/family_tree/profile.html:191
 #: sign_up/templates/sign_up/sign_up.html:23
 msgid "Email"
 msgstr "電子郵件"
 
-#: family_tree/templates/family_tree/edit_profile.html:91
-#: family_tree/templates/family_tree/edit_profile.html:93
+#: family_tree/templates/family_tree/edit_profile.html:99
+#: family_tree/templates/family_tree/edit_profile.html:101
 #: family_tree/templates/family_tree/profile.html:88
 msgid "Spoken Languages"
 msgstr "講什麼語言"
 
-#: family_tree/templates/family_tree/edit_profile.html:100
-#: family_tree/templates/family_tree/edit_profile.html:102
+#: family_tree/templates/family_tree/edit_profile.html:109
+#: family_tree/templates/family_tree/edit_profile.html:111
 #: family_tree/templates/family_tree/profile.html:102
 msgid "Occupation"
 msgstr "行業"
 
-#: family_tree/templates/family_tree/edit_profile.html:109
+#: family_tree/templates/family_tree/edit_profile.html:119
 #: family_tree/templates/family_tree/profile.html:109
 msgid "Tel Number"
 msgstr "電話號碼"
 
-#: family_tree/templates/family_tree/edit_profile.html:111
+#: family_tree/templates/family_tree/edit_profile.html:121
 msgid ""
 "Telephone/Mobile Number.  Include the country code if your family is across "
 "several countries"
 msgstr "電話/手機號碼。請加填國家代碼，如果你的家人是生活在不同國家"
 
-#: family_tree/templates/family_tree/edit_profile.html:118
-#: family_tree/templates/family_tree/profile.html:116
-msgid "Location"
-msgstr "地點"
-
-#: family_tree/templates/family_tree/edit_profile.html:120
+#: family_tree/templates/family_tree/edit_profile.html:131
 msgid "Location.  Can be approximate e.g. Coventry, UK or 筲箕灣 香港"
 msgstr "位置。可以近似如英國考文郡或香港筲箕灣"
 
-#: family_tree/templates/family_tree/edit_profile.html:127
-#: family_tree/templates/family_tree/edit_profile.html:129
+#: family_tree/templates/family_tree/edit_profile.html:139
+#: family_tree/templates/family_tree/edit_profile.html:141
 #: family_tree/templates/family_tree/profile.html:123
 msgid "Website"
 msgstr "網站"
 
-#: family_tree/templates/family_tree/edit_profile.html:136
-#: family_tree/templates/family_tree/edit_profile.html:138
+#: family_tree/templates/family_tree/edit_profile.html:149
+#: family_tree/templates/family_tree/edit_profile.html:151
 #: family_tree/templates/family_tree/profile.html:130
 msgid "Skype Name"
 msgstr "Skype用戶名"
 
-#: family_tree/templates/family_tree/edit_profile.html:145
-#: family_tree/templates/family_tree/edit_profile.html:147
+#: family_tree/templates/family_tree/edit_profile.html:159
+#: family_tree/templates/family_tree/edit_profile.html:161
 msgid "Facebook"
 msgstr "Facebook面書"
 
-#: family_tree/templates/family_tree/edit_profile.html:154
-#: family_tree/templates/family_tree/edit_profile.html:156
+#: family_tree/templates/family_tree/edit_profile.html:169
+#: family_tree/templates/family_tree/edit_profile.html:171
 msgid "Twitter"
 msgstr "Twitter推特"
 
-#: family_tree/templates/family_tree/edit_profile.html:163
-#: family_tree/templates/family_tree/edit_profile.html:165
+#: family_tree/templates/family_tree/edit_profile.html:179
+#: family_tree/templates/family_tree/edit_profile.html:181
 msgid "LinkedIn"
 msgstr "LinkedIn連辨靈"
 
-#: family_tree/templates/family_tree/edit_profile.html:173
+#: family_tree/templates/family_tree/edit_profile.html:190
 msgid "Locked"
 msgstr "鎖定"
 
-#: family_tree/templates/family_tree/edit_profile.html:175
+#: family_tree/templates/family_tree/edit_profile.html:192
 msgid "Lock your profile, so only you can edit it?"
 msgstr "鎖定您的個人資料，只有您才可以編輯？"
 
-#: family_tree/templates/family_tree/edit_profile.html:200
+#: family_tree/templates/family_tree/edit_profile.html:224
 msgid "Are you sure you want to delete profile?"
 msgstr "您確定要刪除個人資料？"
 
-#: family_tree/templates/family_tree/edit_profile.html:204
+#: family_tree/templates/family_tree/edit_profile.html:228
 msgid "NO!!!"
 msgstr "否定!!!"
 
@@ -683,10 +687,6 @@ msgstr "圖像調整"
 #: family_tree/templates/family_tree/image_resize.html:41
 msgid "Please trim the image to suit a profile picture:"
 msgstr "請裁剪圖像，以符合個人資料圖片框架："
-
-#: family_tree/templates/family_tree/image_resize.html:82
-msgid "Please select a trimmed region"
-msgstr "請選擇一個裁剪區域"
 
 #: family_tree/templates/family_tree/image_upload.html:11
 msgid "New Profile Photo"
@@ -700,13 +700,13 @@ msgstr "上載新的個人資料照片"
 msgid "Select file..."
 msgstr "選擇檔案..."
 
-#: family_tree/templates/family_tree/image_upload.html:35
-#: gallery/templates/gallery/upload_images.html:33
+#: family_tree/templates/family_tree/image_upload.html:36
+#: gallery/templates/gallery/upload_images.html:34
 msgid "Processing..."
 msgstr "處理中..."
 
-#: family_tree/templates/family_tree/image_upload.html:37
-#: gallery/templates/gallery/upload_images.html:35
+#: family_tree/templates/family_tree/image_upload.html:38
+#: gallery/templates/gallery/upload_images.html:37
 msgid "Error uploading image"
 msgstr "上傳圖像出現錯誤"
 
@@ -714,13 +714,12 @@ msgstr "上傳圖像出現錯誤"
 msgid "No Match Found!"
 msgstr "未找到匹配！"
 
-#: family_tree/templates/family_tree/profile.html:9 templates/base.html:63
+#: family_tree/templates/family_tree/profile.html:9 templates/base.html:71
 msgid "Tree"
 msgstr "世族世系樹圖"
 
 #: family_tree/templates/family_tree/profile.html:13
 #: family_tree/templates/family_tree/profile.html:15
-#: gallery/templates/gallery/gallery.html:15
 msgid "Edit"
 msgstr "編輯"
 
@@ -741,15 +740,14 @@ msgid "This profile has been locked by this user."
 msgstr "此檔案資料已經被本用戶鎖定。"
 
 #: family_tree/templates/family_tree/profile.html:38
-#: family_tree/templates/family_tree/tree.html:61
 #: family_tree/templates/family_tree/whole_tree.html:32
 msgid "No photo uploaded for "
 msgstr "沒有照片上傳"
 
 #: family_tree/templates/family_tree/profile.html:45
 #: family_tree/templates/family_tree/profile.html:49
-#: family_tree/templates/family_tree/profile.html:196
-#: family_tree/templates/family_tree/profile.html:214
+#: family_tree/templates/family_tree/profile.html:183
+#: family_tree/templates/family_tree/profile.html:201
 msgid "Invite to join"
 msgstr "誠邀加盟"
 
@@ -777,11 +775,11 @@ msgstr "LinkedIn連辨靈個人資料"
 msgid "Biography"
 msgstr "簡歷"
 
-#: family_tree/templates/family_tree/profile.html:177
+#: family_tree/templates/family_tree/profile.html:165
 msgid "Edit Biography"
 msgstr "編輯簡歷"
 
-#: family_tree/templates/family_tree/profile.html:185
+#: family_tree/templates/family_tree/profile.html:172
 msgid "A biography has not yet been written for this language."
 msgstr "還沒有用本語言編寫簡歷"
 
@@ -789,110 +787,92 @@ msgstr "還沒有用本語言編寫簡歷"
 msgid "Search Name:"
 msgstr "搜索名稱："
 
-#: family_tree/templates/family_tree/tree.html:82
-#: family_tree/templates/family_tree/tree_app.html:35
-#: gallery/templates/gallery/person_gallery.html:13
-msgid "Profile"
-msgstr "資料藍本"
-
-#: family_tree/templates/family_tree/tree.html:142
 #: family_tree/templates/family_tree/tree_app.html:23
-#: family_tree/templates/family_tree/whole_tree.html:93
+msgid "raised"
+msgstr "撫養"
+
+#: family_tree/templates/family_tree/tree_app.html:23
 msgid "partnered"
 msgstr "伴侶"
 
-#: family_tree/templates/family_tree/tree.html:144
-#: family_tree/templates/family_tree/tree_app.html:23
-#: family_tree/templates/family_tree/whole_tree.html:95
-msgid "raised"
-msgstr "撫養"
+#: family_tree/templates/family_tree/tree_app.html:35
+#: gallery/templates/gallery/person_gallery.html:14
+msgid "Profile"
+msgstr "資料藍本"
 
 #: family_tree/views/image_upload_views.py:70
 msgid "File is too big"
 msgstr "檔案過大"
 
-#: family_tree/views/profile_views.py:72
-msgid "A biography has not yet been written for this language"
-msgstr "還沒有用本語言编寫簡歷"
-
-#: familyroot/settings.py:136
+#: familyroot/settings.py:133
 msgid "English"
 msgstr "英語"
 
-#: familyroot/settings.py:137
+#: familyroot/settings.py:134
 msgid "Traditional Chinese"
 msgstr "傳統中文"
 
-#: familyroot/settings.py:138
+#: familyroot/settings.py:135
 msgid "Simplified Chinese"
 msgstr "簡體中文"
 
-#: familyroot/settings.py:139
+#: familyroot/settings.py:136
 msgid "Polish"
 msgstr "波蘭語"
 
-#: familyroot/settings.py:140
+#: familyroot/settings.py:137
 msgid "Finnish"
 msgstr "芬蘭語"
 
-#: familyroot/settings.py:141
+#: familyroot/settings.py:138
 msgid "French"
 msgstr "法語"
 
 #: gallery/templates/gallery/edit_gallery.html:27
-#: gallery/templates/gallery/image_tagging.html:50
+#: gallery/templates/gallery/image_tagging.html:70
 msgid "Title"
 msgstr "稱號"
 
 #: gallery/templates/gallery/edit_gallery.html:32
-#: gallery/templates/gallery/image_tagging.html:57
-#: gallery/templates/gallery/image_tagging.html:59
+#: gallery/templates/gallery/image_tagging.html:77
+#: gallery/templates/gallery/image_tagging.html:79
 msgid "Description"
 msgstr "描述"
 
-#: gallery/templates/gallery/gallery.html:13
-msgid "Index"
-msgstr "指數"
-
-#: gallery/templates/gallery/gallery.html:14 templates/base.html.py:64
-msgid "Map"
-msgstr "地圖"
-
-#: gallery/templates/gallery/gallery.html:16
-msgid "Add Image"
-msgstr "添加新影象"
-
-#: gallery/templates/gallery/gallery.html:29
+#: gallery/templates/gallery/gallery.html:48
 #: gallery/templates/gallery/gallery_index.html:18
-#: gallery/templates/gallery/person_gallery.html:32
+#: gallery/templates/gallery/person_gallery.html:34
 msgid "Loading..."
 msgstr "加載中..."
 
-#: gallery/templates/gallery/gallery.html:34
+#: gallery/templates/gallery/gallery.html:53
 msgid "No more images to show"
 msgstr "沒有更多圖像展示"
 
-#: gallery/templates/gallery/gallery.html:38
+#: gallery/templates/gallery/gallery.html:57
 msgid "Error loading images"
 msgstr "加載圖像時出現錯誤"
 
-#: gallery/templates/gallery/gallery.html:47
+#: gallery/templates/gallery/gallery.html:66
 msgid "Delete Gallery"
 msgstr "刪除整個圖像庫資料"
 
-#: gallery/templates/gallery/gallery.html:50
+#: gallery/templates/gallery/gallery.html:69
 msgid ""
 "Are you sure you want to leave delete this gallery?  It will delete all the "
 "images in it!"
 msgstr "你確定要離開並刪除本圖像庫？它會刪除所有圖像呢！"
 
-#: gallery/templates/gallery/gallery.html:69
-#: gallery/templates/gallery/gallery.html:79
-#: gallery/templates/gallery/gallery_map.html:38
-#: gallery/templates/gallery/gallery_map.html:48
-#: gallery/templates/gallery/person_gallery.html:22
-#: gallery/templates/gallery/person_gallery.html:37
-#: gallery/templates/gallery/person_gallery.html:47
+#: gallery/templates/gallery/gallery.html:76
+#, fuzzy
+#| msgid "Delete Gallery"
+msgid "Delete Gallery and all Pictures"
+msgstr "刪除整個圖像庫資料"
+
+#: gallery/templates/gallery/gallery.html:88
+#: gallery/templates/gallery/gallery_map.html:42
+#: gallery/templates/gallery/person_gallery.html:24
+#: gallery/templates/gallery/person_gallery.html:39
 msgid "Details"
 msgstr "圖庫詳情"
 
@@ -912,92 +892,61 @@ msgstr "沒有更多圖像庫展示"
 msgid "Last Updated:"
 msgstr "最後更新："
 
-#: gallery/templates/gallery/image_tagging.html:17 templates/base.html:65
-msgid "Gallery"
-msgstr "圖像庫"
-
-#: gallery/templates/gallery/image_tagging.html:18
-msgid "Download Original"
-msgstr "下載原件"
-
-#: gallery/templates/gallery/image_tagging.html:35
-msgid "Make Gallery Thumbnail"
-msgstr "製作圖像庫圖釘"
-
-#: gallery/templates/gallery/image_tagging.html:40
+#: gallery/templates/gallery/image_tagging.html:42
 msgid "Click/Touch image to tag people"
 msgstr "點擊/觸摸圖像以標記成員"
 
-#: gallery/templates/gallery/image_tagging.html:48
-msgid "(Edit Details)"
-msgstr "（編輯詳細信息）"
-
-#: gallery/templates/gallery/image_tagging.html:48
-msgid "(Done Editing)"
-msgstr "(完成編輯)"
-
-#: gallery/templates/gallery/image_tagging.html:51
+#: gallery/templates/gallery/image_tagging.html:71
 msgid "Required Field"
 msgstr "此欄必須填寫！"
 
-#: gallery/templates/gallery/image_tagging.html:65
-#: gallery/templates/gallery/image_tagging.html:67
+#: gallery/templates/gallery/image_tagging.html:86
+#: gallery/templates/gallery/image_tagging.html:88
+#: gallery/templates/gallery/image_tagging.html:89
 msgid "Date Taken"
 msgstr "製作日期"
 
-#: gallery/templates/gallery/image_tagging.html:73
-msgid "Location Latitude"
-msgstr "緯度位置"
+#: gallery/templates/gallery/image_tagging.html:100
+msgid "Make Gallery Thumbnail"
+msgstr "製作圖像庫圖釘"
 
-#: gallery/templates/gallery/image_tagging.html:75
-msgid "Latitude"
-msgstr "緯度"
-
-#: gallery/templates/gallery/image_tagging.html:81
-msgid "Location Longitude"
-msgstr "經度位置"
-
-#: gallery/templates/gallery/image_tagging.html:83
-msgid "Longitude"
-msgstr "經度"
-
-#: gallery/templates/gallery/image_tagging.html:93
+#: gallery/templates/gallery/image_tagging.html:116
 msgid "Search Address"
 msgstr "搜尋電子郵件地址"
 
-#: gallery/templates/gallery/image_tagging.html:94
+#: gallery/templates/gallery/image_tagging.html:118
 msgid "OK"
 msgstr "正確"
 
-#: gallery/templates/gallery/image_tagging.html:109
+#: gallery/templates/gallery/image_tagging.html:129
 msgid "Delete Image"
 msgstr "刪除圖像"
 
-#: gallery/templates/gallery/image_tagging.html:112
+#: gallery/templates/gallery/image_tagging.html:132
 msgid "Are you sure you want to leave delete this image?"
 msgstr "你確定要離開並刪除本圖像？"
 
-#: gallery/templates/gallery/image_tagging.html:135
+#: gallery/templates/gallery/image_tagging.html:155
 msgid "Tag Details"
 msgstr "標籤資料"
 
-#: gallery/templates/gallery/image_tagging.html:141
+#: gallery/templates/gallery/image_tagging.html:161
 msgid "Go To Profile"
 msgstr "轉到個人資料"
 
-#: gallery/templates/gallery/image_tagging.html:142
+#: gallery/templates/gallery/image_tagging.html:162
 msgid "Delete Tag"
 msgstr "刪除標籤"
 
-#: gallery/templates/gallery/image_tagging.html:155
+#: gallery/templates/gallery/image_tagging.html:175
 msgid "Add a New Tag"
 msgstr "添加新標籤"
 
-#: gallery/templates/gallery/image_tagging.html:161
+#: gallery/templates/gallery/image_tagging.html:181
 msgid "Who is this?"
 msgstr "這是誰？"
 
-#: gallery/templates/gallery/person_gallery.html:15
+#: gallery/templates/gallery/person_gallery.html:16
 msgid "Pictures of"
 msgstr "本圖片屬於"
 
@@ -1028,26 +977,33 @@ msgid "You have been identified in a new photo in ok!Kindred"
 msgstr "你已經在 ok!Kindred奧奇宗族園一幅新的照片內被辨識"
 
 #: gallery/views/tag_views.py:116
-#, python-brace-format
+#, fuzzy, python-brace-format
+#| msgid ""
+#| "Hi {0}\n"
+#| "                                        You have been identified in a "
+#| "photo.\n"
+#| "                                        To see it, please go to {1}/"
+#| "person={2}/photos/image={3}/\n"
+#| "                                    "
 msgid ""
 "Hi {0}\n"
 "                                        You have been identified in a "
 "photo.\n"
 "                                        To see it, please go to {1}/"
-"person={2}/photos/image={3}/\n"
+"gallery={2}/image={3}/\n"
 "                                    "
 msgstr ""
 "喜{0}\n"
 " 你在一個畫面被認可。\n"
 " 看看吧，請到{1}/person={2}/photos/image={3}"
 
-#: sign_up/models.py:95
+#: sign_up/models.py:102
 #, fuzzy
 #| msgid "ok!Kindred family update"
 msgid "ok!Kindred sign up confirmation"
 msgstr "ok!Kindred奧奇宗族園家庭資料更新"
 
-#: sign_up/models.py:97
+#: sign_up/models.py:104
 #, fuzzy, python-brace-format
 #| msgid ""
 #| "Hi {0}\n"
@@ -1116,7 +1072,7 @@ msgid ""
 "following information:"
 msgstr ""
 
-#: sign_up/templates/sign_up/sign_up.html:47
+#: sign_up/templates/sign_up/sign_up.html:59
 msgid "Join"
 msgstr ""
 
@@ -1125,8 +1081,7 @@ msgid ""
 "We are sorry.  Unfortunately the page you are looking for has not been found."
 msgstr "我們很抱歉。你尋找的頁面還沒有找到"
 
-#: templates/404.html:13 templates/505.html.py:13
-#: templates/csrf_failure.html:13
+#: templates/404.html:13 templates/505.html:13 templates/csrf_failure.html:13
 msgid "Click here to return"
 msgstr "點擊此處返回上項"
 
@@ -1153,7 +1108,7 @@ msgstr "我們的故事"
 msgid "Would you like to know the story of how and why we created this site?"
 msgstr "你想知道我們怎樣和為什麼建立這個網站嗎？"
 
-#: templates/about.html:32 templates/about.html.py:38 templates/about.html:44
+#: templates/about.html:32 templates/about.html:38 templates/about.html:44
 msgid "View details"
 msgstr "查看詳情"
 
@@ -1167,7 +1122,7 @@ msgid ""
 "password"
 msgstr "如果您有任何問題，或需要協助以使用本網站或忘記了密碼"
 
-#: templates/about.html:42 templates/about.html.py:100
+#: templates/about.html:42 templates/about.html:100
 msgid "Security & Privacy"
 msgstr "保密安全和私隱"
 
@@ -1363,19 +1318,27 @@ msgstr ""
 " 我們也會共享通用匯總的統計信息而不涉及或連結任何個人身份資料。例如，我們可能"
 "會透露在中國的用戶數量。"
 
-#: templates/base.html:49
+#: templates/base.html:57
 msgid "Toggle navigation"
 msgstr "切換導航"
 
-#: templates/base.html:66
+#: templates/base.html:72
+msgid "Map"
+msgstr "地圖"
+
+#: templates/base.html:73
+msgid "Gallery"
+msgstr "圖像庫"
+
+#: templates/base.html:74
 msgid "Search"
 msgstr "搜索"
 
-#: templates/base.html:67
+#: templates/base.html:75
 msgid "About"
 msgstr "大約"
 
-#: templates/base.html:74
+#: templates/base.html:82
 msgid "Log Out"
 msgstr "註銷"
 
@@ -1384,3 +1347,36 @@ msgid ""
 "Cookies are not enabled on your browser. Please enable cookies in your "
 "browser preferences to continue."
 msgstr "Cookies是不是在你的瀏覽器中啟用。請啟用瀏覽器優先區繼續。"
+
+#~ msgid "Please select a trimmed region"
+#~ msgstr "請選擇一個裁剪區域"
+
+#~ msgid "A biography has not yet been written for this language"
+#~ msgstr "還沒有用本語言编寫簡歷"
+
+#~ msgid "Index"
+#~ msgstr "指數"
+
+#~ msgid "Add Image"
+#~ msgstr "添加新影象"
+
+#~ msgid "Download Original"
+#~ msgstr "下載原件"
+
+#~ msgid "(Edit Details)"
+#~ msgstr "（編輯詳細信息）"
+
+#~ msgid "(Done Editing)"
+#~ msgstr "(完成編輯)"
+
+#~ msgid "Location Latitude"
+#~ msgstr "緯度位置"
+
+#~ msgid "Latitude"
+#~ msgstr "緯度"
+
+#~ msgid "Location Longitude"
+#~ msgstr "經度位置"
+
+#~ msgid "Longitude"
+#~ msgstr "經度"
