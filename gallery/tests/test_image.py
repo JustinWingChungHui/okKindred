@@ -4,7 +4,6 @@ from family_tree.models import Family
 from django.conf import settings
 from django.test.utils import override_settings
 from django.utils.timezone import utc
-from common.s3_synch import upload_file_to_s3
 import os
 import shutil
 import PIL

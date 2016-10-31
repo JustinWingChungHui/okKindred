@@ -2,7 +2,6 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.conf import settings
-from django.db import connection
 from django.shortcuts import get_object_or_404, render
 from django.utils.timezone import localtime
 from django.utils.translation import ugettext as tran
