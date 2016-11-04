@@ -32,8 +32,12 @@ require(["jquery", "mustache", "bootstrap_editable", "jquery_cookie"], function 
         $('#longitude').editable({
         });
 
-        get_tags();
-
+        var img = document.querySelector('#image_map');
+        if (img.complete) {
+            get_tags();
+        } else {
+            img.addEventListener('load', get_tags);
+        }
 
         $('#tag_detail_modal').on('show.bs.modal', function(e) {
             var person_id = e.relatedTarget.dataset.person_id;
@@ -215,7 +219,6 @@ require(["jquery", "mustache", "bootstrap_editable", "jquery_cookie"], function 
     }
 
     function get_tags() {
-
         var image_id = $('#image_map').data('id');
 
         $.ajax({

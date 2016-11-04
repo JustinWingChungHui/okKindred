@@ -44,7 +44,8 @@
 
     <div id="tag_container">
         <a href="#tag_add_modal" data-toggle="modal">
-            <img src="{{ image.large_thumbnail.url }}" class="img-responsive" alt="{{ image.title }}" id="image_map" data-id="{{ image.id }}"/>
+            <img src="{{ image.large_thumbnail.url }}" class="img-responsive" alt="{{ image.title }}" id="image_map" data-id="{{ image.id }}"
+                data-width="{{ image.large_thumbnail_width }}" data-height="{{ image.large_thumbnail_height }}"/>
         </a>
 
         <div class="image_navigation_button_container">
