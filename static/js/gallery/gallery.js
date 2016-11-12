@@ -154,7 +154,9 @@ function() {
 
                     OKKINDRED_GALLERY.gallery_loading = false;
 
-                    if (OKKINDRED_GALLERY.default_image_id !== 0 && OKKINDRED_GALLERY.photoswipe == null) {
+                    if (OKKINDRED_GALLERY.default_image_id !== 0
+                        && OKKINDRED_GALLERY.photoswipe == null
+                        && !OKKINDRED_GALLERY.missing_default_image()) {
                         OKKINDRED_GALLERY.show_photoswipe_window(OKKINDRED_GALLERY.default_image_index);
                     }
 
