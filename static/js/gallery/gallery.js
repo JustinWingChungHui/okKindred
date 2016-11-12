@@ -153,6 +153,11 @@ function() {
                     $container.masonry( 'appended', $data.filter(".image_in_gallery"), true );
 
                     OKKINDRED_GALLERY.gallery_loading = false;
+
+                    if (OKKINDRED_GALLERY.default_image_id !== 0 && OKKINDRED_GALLERY.photoswipe == null) {
+                        OKKINDRED_GALLERY.show_photoswipe_window(OKKINDRED_GALLERY.default_image_index);
+                    }
+
                 } else {
                     $('#NoMoreImages').show();
                     $('div#loadmoreajaxloader').hide();
