@@ -2,7 +2,6 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.conf import settings
-from django.db import connection
 from django.shortcuts import get_object_or_404, render
 from django.utils.timezone import localtime
 from django.utils.translation import ugettext as tran
@@ -72,14 +71,19 @@ def gallery_images(request, gallery_id, page):
     image_list = Image.objects.filter(family_id=request.user.family_id, gallery_id=gallery_id).order_by('date_taken', 'id')
     paginator = Paginator(image_list, 12) #show 12 per request, divisable by lots of numbers
 
-    try:
-        images = paginator.page(page)
-    except PageNotAnInteger:
-        # If page is not an integer, deliver first page.
-        images = paginator.page(1)
-    except EmptyPage:
-        # If page is out of range return blank
-        return HttpResponse('[]', content_type="application/json")
+    if int(page) <= 0:
+        # Return all images if page -1 specified
+        images = image_list
+    else:
+        try:
+            images = paginator.page(page)
+        except PageNotAnInteger:
+            # If page is not an integer, deliver first page.
+            images = paginator.page(1)
+        except EmptyPage:
+            # If page is out of range return blank
+            return HttpResponse('[]', content_type="application/json")
+
 
     serializer = JSONWithURLSerializer()
     data = serializer.serialize(

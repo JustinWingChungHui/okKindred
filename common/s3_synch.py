@@ -33,8 +33,6 @@ def get_file_from_s3(filename_and_path):
 
     # Create directory if it does not exist
     directory, filename = os.path.split(settings.MEDIA_ROOT + file)
-    print('directory = ' + directory)
-    print('filename = ' + filename)
 
     if not os.path.exists(directory):
         os.makedirs(directory)

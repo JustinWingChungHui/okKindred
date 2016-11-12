@@ -10,7 +10,6 @@ function() {
     $.bridget('masonry', Masonry);
 
     var OKKINDRED_GALLERY = {
-        gallery_page : 0,
         gallery_loading : false,
         photoswipe_items : [],
         default_image_id : 0,
@@ -86,20 +85,6 @@ function() {
     });
 
 
-    //Request more galleries when we scroll to the bottom
-    $(window).scroll(function()
-    {
-        if ($('#image_container').length == 0) {
-            return;
-        }
-
-        if($(window).scrollTop() > $(document).height() - $(window).height() - 100)
-        {
-            gallery_load_more();
-        }
-    });
-
-
     //Ajax request to get more galleries
     function gallery_load_more()
     {
@@ -107,13 +92,11 @@ function() {
 
         OKKINDRED_GALLERY.gallery_loading = true;
 
-        OKKINDRED_GALLERY.gallery_page = OKKINDRED_GALLERY.gallery_page + 1;
-
         var gallery_url = $('#image_container').data('gallery_url');
 
         $('div#loadmoreajaxloader').show();
         $.ajax({
-            url: gallery_url + OKKINDRED_GALLERY.gallery_page.toString(),
+            url: gallery_url  + '0',
             success: function(data) {
                 if(data && data.length > 0) {
 
@@ -170,20 +153,7 @@ function() {
                     $container.masonry( 'appended', $data.filter(".image_in_gallery"), true );
 
                     OKKINDRED_GALLERY.gallery_loading = false;
-
-                    //Keep loading images until we see a scroll bar
-                    if ($('#image_container').height() < $(window).height()
-                        || (OKKINDRED_GALLERY.missing_default_image() === true)) {
-                        gallery_load_more()
-
-                        if (OKKINDRED_GALLERY.missing_default_image() === false
-                            && OKKINDRED_GALLERY.default_image_id !== 0
-                            && OKKINDRED_GALLERY.photoswipe == null) {
-                             OKKINDRED_GALLERY.show_photoswipe_window(OKKINDRED_GALLERY.default_image_index);
-                        }
-                    }
-                }
-                else {
+                } else {
                     $('#NoMoreImages').show();
                     $('div#loadmoreajaxloader').hide();
                 }
