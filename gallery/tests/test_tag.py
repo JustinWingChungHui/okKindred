@@ -45,11 +45,7 @@ class TagTestCase(TestCase): # pragma: no cover
         tag = Tag.objects.create(image_id=self.image.id, x1=0.1, y1=0.2, x2=0.3, y2=0.4, person_id=self.person.id)
         tag.rotate(90)
 
-        #print(tag.x1)
         self.assertTrue(abs(0.2 - tag.x1) < 0.0001)
-        #print(tag.y1)
         self.assertTrue(abs(0.7 - tag.y1) < 0.0001)
-        #print(tag.x2)
         self.assertTrue(abs(0.4 - tag.x2) < 0.0001)
-        #print(tag.y2)
         self.assertTrue(abs(0.9 - tag.y2) < 0.0001)

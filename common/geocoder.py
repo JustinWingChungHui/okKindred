@@ -28,7 +28,7 @@ def geocode_address(address):
 
 def _geocode_address_using_backup(address):
     '''
-    Gets the logitude and latitude of address for plotting on a map from backup service (Bing)
+    Gets the longitude and latitude of address for plotting on a map from backup service (Bing)
     '''
     try:
         bing_locator = Bing(api_key = settings.BING_MAPS_API_KEY)

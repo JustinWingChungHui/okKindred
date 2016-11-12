@@ -549,14 +549,6 @@ msgstr "Sukupuoli"
 msgid "Location"
 msgstr "Sijainti"
 
-#: family_tree/templates/family_tree/add_relation.html:82
-#: family_tree/templates/family_tree/edit_profile.html:56
-#: family_tree/templates/family_tree/edit_profile.html:58
-#: family_tree/templates/family_tree/profile.html:74
-#: sign_up/templates/sign_up/sign_up.html:53
-msgid "Birth Year"
-msgstr "Syntymä-Vuosi"
-
 #: family_tree/templates/family_tree/add_relation.html:86
 #: family_tree/templates/family_tree/edit_profile.html:38
 #: family_tree/templates/family_tree/edit_profile.html:202
@@ -619,21 +611,11 @@ msgstr "Poista"
 msgid "Click photo to upload new one"
 msgstr "Klikkaa kuvaa ladataksesi uuden valokuvan"
 
-#: family_tree/templates/family_tree/edit_profile.html:37
-#: family_tree/templates/family_tree/edit_profile.html:183
-#: gallery/templates/gallery/image_tagging.html:51
-msgid "Required"
-msgstr "Pakollinen"
-
 #: family_tree/templates/family_tree/edit_profile.html:53
 #: family_tree/templates/family_tree/edit_profile.html:55
 #: family_tree/templates/family_tree/profile.html:74
 msgid "Birth Year"
 msgstr "Syntymävuosi"
-
-#: family_tree/templates/family_tree/edit_profile.html:62
-msgid "Death Year (enter 0 if still alive)"
-msgstr "Kuolinvuosi (syötä 0, jos vielä elossa)"
 
 #: family_tree/templates/family_tree/edit_profile.html:68
 msgid "Death Year.  Enter 0 if still alive."
@@ -674,7 +656,7 @@ msgstr ""
 
 #: family_tree/templates/family_tree/edit_profile.html:131
 msgid "Location.  Can be approximate e.g. Coventry, UK or 筲箕灣 香港"
-msgstr "Sijainti. Voi olla likimääräinen esim. Helsinki, Suomi tai 筲箕灣 香港""
+msgstr "Sijainti. Voi olla likimääräinen esim. Helsinki, Suomi tai 筲箕灣 香港"
 
 #: family_tree/templates/family_tree/edit_profile.html:139
 #: family_tree/templates/family_tree/edit_profile.html:141
@@ -831,10 +813,6 @@ msgid "Search Name:"
 msgstr "Hae nimellä:"
 
 #: family_tree/templates/family_tree/tree_app.html:23
-msgid "raised"
-msgstr "esille"
-
-#: family_tree/templates/family_tree/tree_app.html:23
 msgid "partnered"
 msgstr "kumppanit"
 
@@ -967,10 +945,6 @@ msgstr "Galleria"
 #: gallery/templates/gallery/image_tagging.html:18
 msgid "Download Original"
 msgstr "Lataa alkuperäinen"
-
-#: gallery/templates/gallery/image_tagging.html:35
-msgid "Make Gallery Thumbnail"
-msgstr "Tee galleria kuvake"
 
 #: gallery/templates/gallery/image_tagging.html:40
 msgid "Click/Touch image to tag people"
@@ -1287,11 +1261,11 @@ msgstr ""
 "ja nähdä kuinka pitkälle sukupuumme ulottuu,\n"
 "            Kun henkilö on lisätty sukupuuhun, he saavat sähköpostin, jotta "
 "he voivat tulla liittyä käyttäjäksi ja lisää ihmisiä sukupuuhun.\n"
-"            Kävin hiljattain useissa perhejuhlissa, ja minun on ollut vaikea
+"            Kävin hiljattain useissa perhejuhlissa, ja minun on ollut vaikea "
 "selittää, miten me kaikki olemme sukua toisillemme. Perheeni on nyt erittäin "
 "monipuolinen, olemme useista etnisistä taustoista ja asumme useilla eri "
 "mantereilla.\n"
-"            Halusimme tavan dokumentoida sukumme ja pitää yhteyttä kaikkiin
+"            Halusimme tavan dokumentoida sukumme ja pitää yhteyttä kaikkiin "
 "kun perheemme ja sukumme kasvaa.\n"
 "            "
 
@@ -1315,7 +1289,7 @@ msgstr ""
 "\n"
 "            Jos olet meille sukua, haluamme kuulla sinusta ja ovat tervetullut "
 "tutustumaan ja vierailemaan milloin vaan.\n"
-"            Jos sinulla on käyttäjätunnus tällä sivulle ja olet osa perhettäni,
+"            Jos sinulla on käyttäjätunnus tällä sivulle ja olet osa perhettäni, "
 "voit löytää puhelinnumeroni ja osoitteeni profiilistan!\n"
 "            "
 
@@ -1328,7 +1302,7 @@ msgid ""
 "            "
 msgstr ""
 "\n"
-"            Vaihtoehtoisesti, jos etsit apua sivuston käyttämisessä, tai jos
+"            Vaihtoehtoisesti, jos etsit apua sivuston käyttämisessä, tai jos "
 "jopa haluat apua samanlaisen oman sivustosi luomisessa, ota yhteyttä!\n"
 "            "
 
@@ -1357,7 +1331,7 @@ msgid ""
 "             "
 msgstr ""
 "\n"
-"             Tällä sivustolla on tietoja meidän perheestämme. Emme koskaan
+"             Tällä sivustolla on tietoja meidän perheestämme. Emme koskaan "
 "yritä tehdä mitään mikä mielestämme vaarantaisi näitä tietoja!\n"
 "Otamme tietenkin turvallisuuden ja tietosuojan hyvin vakavasti. Tämä "
 "toivottavasti esittää lyhyesti joitakin toimenpiteitä, mitä olemme tehneet.\n"
@@ -1459,10 +1433,10 @@ msgstr ""
 " Käytämme kolmannen osapuolen <a href=\"https://fi.wikipedia.org/wiki/"
 "Geokoodaus\">geokoodaus</a> palvelua. Tämä palvelu muuntaa sijainnin osaksi "
 "pituus ja leveys koordinaattijärjestelmää jotta voimme piirtää sen kartalle.\n"
-"            Se ei kuitenkaan käytä emmekä luovuta muita tunnistetietoja ""
+"            Se ei kuitenkaan käytä emmekä luovuta muita tunnistetietoja "
 "(esim. nimiä) tälle palvelulle sijainnin mukana\n"
 "            Saatamme myös jakaa yleistä yhteen koottua demografista tietoa, "
-"johon ei liity mitään henkilökohtaista tietoa. Esimerkiksi, voimme paljastaa
+"johon ei liity mitään henkilökohtaista tietoa. Esimerkiksi, voimme paljastaa "
 "kuinka monta käyttäjää meillä on Kiinassa.\n"
 "            "
 
@@ -1470,13 +1444,6 @@ msgstr ""
 msgid "Toggle navigation"
 msgstr "Vaihda navigointia"
 
-#: templates/base.html:72
-msgid "Map"
-msgstr "Kartta"
-
-#: templates/base.html:73
-msgid "Gallery"
-msgstr "Galleria"
 
 #: templates/base.html:74
 msgid "Search"
