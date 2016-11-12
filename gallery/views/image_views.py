@@ -77,9 +77,6 @@ def gallery_images(request, gallery_id, page):
     else:
         try:
             images = paginator.page(page)
-        except PageNotAnInteger:
-            # If page is not an integer, deliver first page.
-            images = paginator.page(1)
         except EmptyPage:
             # If page is out of range return blank
             return HttpResponse('[]', content_type="application/json")
@@ -354,14 +351,16 @@ def person_gallery_data(request, person_id, person = None, page = 1):
 
     paginator = Paginator(image_list, 12) #show 12 per request, divisable by lots of numbers
 
-    try:
-        images = paginator.page(page)
-    except PageNotAnInteger:
-        # If page is not an integer, deliver first page.
-        images = paginator.page(1)
-    except EmptyPage:
-        # If page is out of range return blank
-        return HttpResponse('[]', content_type="application/json")
+    if int(page) <= 0:
+        # Return all images if page -1 specified
+        images = image_list
+
+    else:
+        try:
+            images = paginator.page(page)
+        except EmptyPage:
+            # If page is out of range return blank
+            return HttpResponse('[]', content_type="application/json")
 
     serializer = JSONWithURLSerializer()
     data = serializer.serialize(images, fields=('id','title', 'thumbnail', 'large_thumbnail', 'original_image', 'latitude', 'thumbnail_width', 'thumbnail_height', 'large_thumbnail_width', 'large_thumbnail_height')) #Added latitude to unhide map button
