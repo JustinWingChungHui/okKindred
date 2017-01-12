@@ -510,7 +510,7 @@ class TestImageViews(TestCase): # pragma: no cover
             Tag.objects.create(image=i, person=p, x1=0.1, x2=0.2, y1=0.2, y2=0.3)
 
         self.client.login(email='badger@queenonline.com', password='save the badgers')
-        response = self.client.get('/person={0}/photos/image_data=1/'.format(p.id))
+        response = self.client.get('/person={0}/photos/image_data=0/'.format(p.id))
 
         self.assertEqual(200, response.status_code)
         self.assertEqual(True, b'test_image.jpg' in response.content)
@@ -547,7 +547,7 @@ class TestImageViews(TestCase): # pragma: no cover
         im.save()
 
         self.client.login(email='badger@queenonline.com', password='save the badgers')
-        response = self.client.post('/image={0}/address/'.format(im.id), {'address': 'Freddie Mercury Montreux'})
+        response = self.client.post('/image={0}/address/'.format(im.id), {'address': 'Freddie Mercury Statue Montreux Switzerland'})
 
         im.delete_local_image_files()
         im.delete_remote_image_files()

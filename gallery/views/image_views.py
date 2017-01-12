@@ -1,6 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, Http404, HttpResponseRedirect
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.core.paginator import Paginator, EmptyPage
 from django.conf import settings
 from django.shortcuts import get_object_or_404, render
 from django.utils.timezone import localtime
@@ -358,13 +358,12 @@ def person_gallery_data(request, person_id, person = None, page = 1):
     else:
         try:
             images = paginator.page(page)
-        except EmptyPage:
+        except:
             # If page is out of range return blank
             return HttpResponse('[]', content_type="application/json")
 
     serializer = JSONWithURLSerializer()
     data = serializer.serialize(images, fields=('id','title', 'thumbnail', 'large_thumbnail', 'original_image', 'latitude', 'thumbnail_width', 'thumbnail_height', 'large_thumbnail_width', 'large_thumbnail_height')) #Added latitude to unhide map button
-
 
     return HttpResponse(data, content_type="application/json")
 
