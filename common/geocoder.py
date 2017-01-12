@@ -17,13 +17,13 @@ def geocode_address(address):
         location = google_locator.geocode(address)
 
 
-        if location.latitude == 0 and location.longitude ==0:
-            return _geocode_address_using_backup()
+        if location is None or (location.latitude == 0 and location.longitude == 0):
+            return _geocode_address_using_backup(address)
 
         return location
 
     except:
-        return _geocode_address_using_backup()
+        return _geocode_address_using_backup(address)
 
 
 def _geocode_address_using_backup(address):
