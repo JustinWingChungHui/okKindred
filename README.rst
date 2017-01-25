@@ -87,13 +87,11 @@ Here are instructions to get it running on `PythonAnywhere <https://www.PythonAn
 
 9. Create a copy of the file ``~/okKindred/familyroot/secrets_example.py`` as ``~/okKindred/familyroot/secrets.py`` and edit the file with the AWS, Google API, Bing API details and database settings
 
-10. In the PythonAnyWhere console run the following commands 
+10. In the PythonAnyWhere console run the following command to creaate the database:
 
  ``python manage.py migrate``
 
- ``python manage.py collectstatic``
-
-11. Follow instructions on PythonAnyWhere to set up your Web app and WSGI file https://help.pythonanywhere.com/pages/DeployExistingDjangoProject
+12. Follow instructions on PythonAnyWhere to set up your Web app and WSGI file https://help.pythonanywhere.com/pages/DeployExistingDjangoProject
 
 
 Code Sections Overview
