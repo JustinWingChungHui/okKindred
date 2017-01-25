@@ -97,7 +97,7 @@ Here are instructions to get it running on `PythonAnywhere <https://www.PythonAn
 
 
 Code Sections Overview
--------------------
+----------------------
 
 familyroot
 custom_user
