@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 """
-Django settings for familyroot project.
+Django settings for okkindred project.
 
 For more information on this file, see
 https://docs.djangoproject.com/en/1.7/topics/settings/
@@ -20,7 +20,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-from familyroot import secrets
+from okkindred import secrets
 SECRET_KEY = secrets.SECRET_KEY
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -40,7 +40,7 @@ SECURE_BROWSER_XSS_FILTER = True
 CSRF_COOKIE_HTTPONLY = True
 X_FRAME_OPTIONS = 'DENY'
 
-CSRF_FAILURE_VIEW = 'familyroot.views.csrf_failure'
+CSRF_FAILURE_VIEW = 'okkindred.views.csrf_failure'
 
 ALLOWED_HOSTS = secrets.ALLOWED_HOSTS
 INTERNAL_IPS = secrets.INTERNAL_IPS
@@ -81,9 +81,9 @@ MIDDLEWARE_CLASSES = (
 # Custom user model
 AUTH_USER_MODEL = 'custom_user.User'
 
-ROOT_URLCONF = 'familyroot.urls'
+ROOT_URLCONF = 'okkindred.urls'
 
-WSGI_APPLICATION = 'familyroot.wsgi.application'
+WSGI_APPLICATION = 'okkindred.wsgi.application'
 
 
 #Django Axes config https://github.com/django-pci/django-axes

@@ -830,27 +830,27 @@ msgstr "Profil"
 msgid "File is too big"
 msgstr "Le fichier est trop gros"
 
-#: familyroot/settings.py:133
+#: okkindred/settings.py:133
 msgid "English"
 msgstr "Anglais"
 
-#: familyroot/settings.py:134
+#: okkindred/settings.py:134
 msgid "Traditional Chinese"
 msgstr "Chinois Traditionnel"
 
-#: familyroot/settings.py:135
+#: okkindred/settings.py:135
 msgid "Simplified Chinese"
 msgstr "Chinois Simplifié"
 
-#: familyroot/settings.py:136
+#: okkindred/settings.py:136
 msgid "Polish"
 msgstr "Polonais"
 
-#: familyroot/settings.py:137
+#: okkindred/settings.py:137
 msgid "Finnish"
 msgstr "Finois"
 
-#: familyroot/settings.py:138
+#: okkindred/settings.py:138
 msgid "French"
 msgstr "Français"
 

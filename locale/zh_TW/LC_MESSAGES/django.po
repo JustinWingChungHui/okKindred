@@ -804,27 +804,27 @@ msgstr "資料藍本"
 msgid "File is too big"
 msgstr "檔案過大"
 
-#: familyroot/settings.py:133
+#: okkindred/settings.py:133
 msgid "English"
 msgstr "英語"
 
-#: familyroot/settings.py:134
+#: okkindred/settings.py:134
 msgid "Traditional Chinese"
 msgstr "傳統中文"
 
-#: familyroot/settings.py:135
+#: okkindred/settings.py:135
 msgid "Simplified Chinese"
 msgstr "簡體中文"
 
-#: familyroot/settings.py:136
+#: okkindred/settings.py:136
 msgid "Polish"
 msgstr "波蘭語"
 
-#: familyroot/settings.py:137
+#: okkindred/settings.py:137
 msgid "Finnish"
 msgstr "芬蘭語"
 
-#: familyroot/settings.py:138
+#: okkindred/settings.py:138
 msgid "French"
 msgstr "法語"
 

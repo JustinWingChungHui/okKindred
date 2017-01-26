@@ -836,27 +836,27 @@ msgstr "Tiedosto on liian suuri"
 msgid "A biography has not yet been written for this language"
 msgstr "Elämänkertaa ei ole vielä kirjoitettu tällä kielellä"
 
-#: familyroot/settings.py:136
+#: okkindred/settings.py:136
 msgid "English"
 msgstr "Englanti"
 
-#: familyroot/settings.py:134
+#: okkindred/settings.py:134
 msgid "Traditional Chinese"
 msgstr "Perinteinen Kiina"
 
-#: familyroot/settings.py:135
+#: okkindred/settings.py:135
 msgid "Simplified Chinese"
 msgstr "Yksinkertaistettu Kiina"
 
-#: familyroot/settings.py:136
+#: okkindred/settings.py:136
 msgid "Polish"
 msgstr "Puola"
 
-#: familyroot/settings.py:137
+#: okkindred/settings.py:137
 msgid "Finnish"
 msgstr "Suomi"
 
-#: familyroot/settings.py:138
+#: okkindred/settings.py:138
 msgid "French"
 msgstr "Ranska"
 

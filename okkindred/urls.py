@@ -3,7 +3,7 @@ from django.contrib.auth import views as auth_views
 from django.contrib import admin
 from django.conf import settings
 from django.views.generic.base import RedirectView
-import familyroot.views
+import okkindred.views
 import custom_user.views
 import email_confirmation.views
 import family_tree.views
@@ -13,14 +13,14 @@ import maps.views
 
 admin.autodiscover()
 
-handler403 = 'familyroot.views.handler403'
+handler403 = 'okkindred.views.handler403'
 
 urlpatterns = [
 
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^about/$', familyroot.views.about, name='about'),
-    url(r'^languages/$', familyroot.views.languages, name='languages'),
-    url(r'^$', familyroot.views.index),
+    url(r'^about/$', okkindred.views.about, name='about'),
+    url(r'^languages/$', okkindred.views.languages, name='languages'),
+    url(r'^$', okkindred.views.index),
 
     #Custom user urls
     url(r'^accounts/login/$', custom_user.views.login),
