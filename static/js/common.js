@@ -48,7 +48,6 @@ requirejs.config({
                             "bower_components/x-editable/dist/bootstrap3-editable/js/bootstrap-editable.min"
                             ],
 
-        // Breaking changes do later...
         leaflet : [
                     "//cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.3/leaflet",
                     "//cdn.jsdelivr.net/leaflet/1.0.3/leaflet",
