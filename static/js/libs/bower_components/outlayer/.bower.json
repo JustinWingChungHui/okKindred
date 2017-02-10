@@ -3,9 +3,9 @@
   "description": "the brains and guts of a layout library",
   "main": "outlayer.js",
   "dependencies": {
-    "ev-emitter": "~1.0.0",
-    "get-size": "~2.0.2",
-    "fizzy-ui-utils": "~2.0.0"
+    "ev-emitter": "^1.0.0",
+    "get-size": "^2.0.2",
+    "fizzy-ui-utils": "^2.0.0"
   },
   "devDependencies": {
     "jquery-bridget": "2.x",
@@ -40,14 +40,14 @@
     "isotope"
   ],
   "license": "MIT",
-  "version": "2.0.1",
-  "_release": "2.0.1",
+  "version": "2.1.0",
+  "_release": "2.1.0",
   "_resolution": {
     "type": "version",
-    "tag": "v2.0.1",
-    "commit": "d18225dc48f760c6f009095c596ce68bb6c267d7"
+    "tag": "v2.1.0",
+    "commit": "529c61b537638d7bf92323dbfc104b38b928ffe1"
   },
   "_source": "https://github.com/metafizzy/outlayer.git",
-  "_target": "~2.0.0",
+  "_target": "^2.1.0",
   "_originalSource": "outlayer"
 }

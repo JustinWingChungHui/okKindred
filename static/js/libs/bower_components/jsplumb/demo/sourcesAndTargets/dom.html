@@ -1,0 +1,133 @@
+<!doctype html>
+<html>
+    <head>
+
+        <title>jsPlumb - elements as source and targets</title>
+        <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no"/>
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+        <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+        <link href="//fonts.googleapis.com/css?family=Lato:400,700" rel="stylesheet">
+
+        <link rel="stylesheet" href="../../css/jsPlumbToolkit-defaults.css">
+        <link rel="stylesheet" href="../../css/main.css">
+        <link rel="stylesheet" href="../../css/jsPlumbToolkit-demo.css">
+        <link rel="stylesheet" href="demo.css">
+    </head>
+    <body data-demo-id="sourcesAndTargets" data-library="dom">
+    <div class="navbar navbar-top navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+
+                <a class="navbar-brand" href="/"><img src="../../img/logo-medium-jsplumb.png"></a>
+
+            </div>
+
+            <div class="navbar-collapse collapse nav-wrapper">
+                <ul class="nav navbar-nav">
+                    <li><a href="/">DEMOS</a></li>
+                    <li><a href="/doc/home.html">DOCS</a></li>
+                    <li><a href="/download">DOWNLOAD</a></li>
+                    <li><a href="http://beta.jsplumbtoolkit.com/contact.html">CONTACT</a></li>
+                    <li><a href="https://blog.jsplumbtoolkit.com">BLOG</a></li>
+                </ul>
+
+                <div class="apidoc-jsplumb-logo"><div class="container"><img src="/img/logo-docs-jsplumb.png"></div></div>
+
+                <div class="social-nav hidden-xs">
+                    <!--a href="#" class="link"><span class="icon-facebook"></span></a-->
+                    <a href="http://twitter.com/jsplumblib" class="link"><span class="icon-twitter"></span></a>
+                    <a href="http://github.com/sporritt/jsplumb/" class="link"><span class="icon-github"></span></a>
+                    <a href="http://www.linkedin.com/company/jsplumb" class="link"><span class="icon-linkedin"></span></a>
+
+                </div>
+            </div><!--/.nav-collapse -->
+        </div>
+    </div>
+
+        <div class="jtk-demo-main">
+			<!-- demo -->
+            <div class="jtk-demo-canvas canvas-wide source-target-demo jtk-surface jtk-surface-nopan" id="canvas">
+                <div class="window" id="sourceWindow1">
+                    <strong>Window 1</strong>
+                    <a href="#" id="enableDisableSource">disable</a>
+                </div>
+                <div class="window smallWindow" id="targetWindow2"><strong>Window 2</strong><a href="#" class="enableDisableTarget">disable</a><br/><br/></div>
+                <div class="window smallWindow" id="targetWindow3"><strong>Window 3</strong><a href="#" class="enableDisableTarget">disable</a><br/><br/></div>
+                <div class="window smallWindow" id="targetWindow4"><strong>Window 4</strong><a href="#" class="enableDisableTarget">disable</a><br/><br/></div>
+                <div class="window smallWindow" id="targetWindow5"><strong>Window 5</strong><a href="#" class="enableDisableTarget">disable</a><br/><br/></div>
+                <div class="window smallWindow" id="targetWindow6"><strong>Window 6</strong><a href="#" class="enableDisableTarget">disable</a><br/><br/></div>
+            </div>
+			<!-- /demo -->
+            <!-- explanation -->
+            <div class="description">
+                <h4>SOURCES &amp; TARGETS</h4>
+                <p>Drag Connections from the blue element to any of the green ones. You can also drag existing
+                    Connections from one green element to another - Connections are, by default, detachable (this behaviour can be overridden).</p>
+                <p>The <strong>makeSource</strong> and <strong>makeTarget</strong>functions provide an alternative means of setting up your UI to support draggable connections - here we treat entire
+                    elements as sources and targets, and only when Connections are established do we assign Endpoints for them.</p>
+                <p>The blue element is configured as a Connection source (and is not draggable), with a list of possible Anchor locations.</p>
+                <p>
+                    The `disable` link is excluded from being a drag source through the use of the `filter` parameter on the makeSource call.
+                </p>
+                <p>The green elements are configured as Connection targets, with a `Top` anchor, and are draggable</p>
+            </div>
+            <!-- /explanation -->
+        </div>
+
+
+        <!-- JS -->
+        <!-- support lib for bezier stuff -->
+        <script src="../../lib/jsBezier-0.8.js"></script>
+        <!-- event adapter -->
+		<script src="../../lib/mottle-0.7.4.js"></script>
+		<!-- geometry functions -->
+        <script src="../../lib/biltong-0.3.js"></script>
+		<!-- drag -->
+        <script src="../../lib/katavorio-0.18.0.js"></script>
+        <!-- jsplumb util -->
+        <script src="../../src/util.js"></script>
+        <script src="../../src/browser-util.js"></script>
+        <!-- main jsplumb engine -->
+        <script src="../../src/jsPlumb.js"></script>
+        <!-- base DOM adapter -->
+        <script src="../../src/dom-adapter.js"></script>
+        <script src="../../src/overlay-component.js"></script>
+        <!-- endpoint -->
+        <script src="../../src/endpoint.js"></script>
+        <!-- connection -->
+        <script src="../../src/connection.js"></script>
+        <!-- anchors -->
+        <script src="../../src/anchors.js"></script>
+        <!-- connectors, endpoint and overlays  -->
+        <script src="../../src/defaults.js"></script>
+        <!-- bezier connectors -->
+        <script src="../../src/connectors-bezier.js"></script>
+        <!-- state machine connectors -->
+        <script src="../../src/connectors-statemachine.js"></script>
+        <!-- flowchart connectors -->
+        <script src="../../src/connectors-flowchart.js"></script>
+        <!-- straight connectors -->
+        <script src="../../src/connectors-straight.js"></script>
+        <!-- SVG renderer -->
+        <script src="../../src/renderers-svg.js"></script>
+
+        <!-- common adapter -->
+        <script src="../../src/base-library-adapter.js"></script>
+        <!-- no library jsPlumb adapter -->
+        <script src="../../src/dom.jsPlumb.js"></script>
+        <!-- /JS -->
+
+		<!--  demo code -->
+		<script src="demo.js"></script>
+
+        <script src="../demo-list.js"></script>
+
+    </body>
+</html>

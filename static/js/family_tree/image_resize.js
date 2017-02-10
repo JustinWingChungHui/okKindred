@@ -1,11 +1,14 @@
 require(["jquery", "jcrop"], function ($) {
 
     $(function($) {
+
         $('#crop_target').Jcrop({
             bgColor:     'black',
             bgOpacity:   .4,
             setSelect:   [ 200, 200, 50, 50 ],
             aspectRatio: 1,
+            boxWidth: parseInt($('#crop_target').width()),
+            boxHeight: parseInt($('#crop_target').height()),
             onSelect: updateCoords,
             onChange: updateCoords,
         });
@@ -24,7 +27,6 @@ require(["jquery", "jcrop"], function ($) {
         $('#y').val(c.y);
         $('#w').val(c.w);
         $('#h').val(c.h);
-        $('#display_height').val($('#crop_target').height());
     };
 
     function checkCoords() {

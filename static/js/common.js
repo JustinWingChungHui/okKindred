@@ -5,20 +5,20 @@ requirejs.config({
     "baseUrl": '/static/js/libs',
     "paths": {
         jquery : [
-                "//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min",
-                "//ajax.googleapis.com/ajax/libs/jquery/2.2.3/jquery.min",
+                "//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min",
+                "//ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min",
                 "bower_components/jquery/dist/jquery.min"
                 ],
 
         bootstrap : [
-                "//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min",
-                "//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min",
+                "//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min",
+                "//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min",
                 "bower_components/bootstrap/dist/js/bootstrap.min"
                 ],
 
         mustache : [
-                "//cdnjs.cloudflare.com/ajax/libs/mustache.js/2.2.1/mustache.min",
-                "//cdn.jsdelivr.net/mustache.js/2.2.1/mustache.min",
+                "//cdnjs.cloudflare.com/ajax/libs/mustache.js/2.3.0/mustache.min",
+                "//cdn.jsdelivr.net/mustache.js/2.3.0/mustache.min",
                 "bower_components/mustache.js/mustache.min"
                 ],
 
@@ -29,17 +29,17 @@ requirejs.config({
                     ],
 
         jsPlumb : [
-                    "//cdnjs.cloudflare.com/ajax/libs/jsPlumb/2.0.7/jsPlumb.min",
-                    "bower_components/jsPlumb/dist/js/jsPlumb-2.0.7-min"
+                    "//cdnjs.cloudflare.com/ajax/libs/jsPlumb/2.2.10/jsplumb.min",
+                    "bower_components/jsplumb/dist/js/jsplumb.min"
                     ],
 
         moment : [
-                "//cdnjs.cloudflare.com/ajax/libs/moment.js/2.12.0/moment.min",
+                "//cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min",
                 "bower_components/moment/min/moment.min"
                 ],
 
         validator: [
-                "//cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.10.1/validator.min",
+                "//cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.9/validator.min",
                 "bower_components/bootstrap-validator/dist/validator.min"
                 ],
 
@@ -48,6 +48,7 @@ requirejs.config({
                             "bower_components/x-editable/dist/bootstrap3-editable/js/bootstrap-editable.min"
                             ],
 
+        // Breaking changes do later...
         leaflet : [
                     "//cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet",
                     "//cdn.jsdelivr.net/leaflet/0.7.7/leaflet",
@@ -55,7 +56,7 @@ requirejs.config({
                     ],
 
         jquery_fileupload : [
-                            "//cdnjs.cloudflare.com/ajax/libs/blueimp-file-upload/9.12.1/js/jquery.fileupload.min",
+                            "//cdnjs.cloudflare.com/ajax/libs/blueimp-file-upload/9.15.0/js/jquery.fileupload.min",
                             "bower_components/blueimp-file-upload/js/jquery.fileupload"
                             ],
 
@@ -64,26 +65,25 @@ requirejs.config({
                          "bower_components/jquery.cookie/jquery.cookie"
                         ],
 
-        'jquery.ui.widget' : [
+        'jquery-ui/ui/widget' : [
                             "/static/js/libs/jquery.widget.min"
                             ],
 
         jcrop : [
-                "//cdnjs.cloudflare.com/ajax/libs/jquery-jcrop/0.9.12/js/jquery.Jcrop.min",
+                "//cdnjs.cloudflare.com/ajax/libs/jquery-jcrop/2.0.4/js/Jcrop.min",
                 "bower_components/Jcrop/js/Jcrop.min"
                 ],
 
         tinymce: [
-                "//cdnjs.cloudflare.com/ajax/libs/tinymce/4.3.8/tinymce.min",
-                "//cdn.tinymce.com/4/tinymce.min",
+                "//cdnjs.cloudflare.com/ajax/libs/tinymce/4.5.3/tinymce.min",
                 "bower_components/tinymce/tinymce.min"
                 ],
 
         mobile : "/static/js/common/mobile",
 
         masonry : [
-                    "//cdnjs.cloudflare.com/ajax/libs/masonry/4.0.0/masonry.pkgd.min",
-                    "//cdn.jsdelivr.net/masonry/4.0.0/masonry.pkgd.min",
+                    "//cdnjs.cloudflare.com/ajax/libs/masonry/4.1.1/masonry.pkgd.min",
+                    "//cdn.jsdelivr.net/masonry/4.1.1/masonry.pkgd.min",
                     "bower_components/masonry/dist/masonry.pkgd.min"
                     ],
 
@@ -123,7 +123,7 @@ requirejs.config({
         },
 
         /* Set jquery ui dependencies*/
-        'jquery.ui.widget' : {
+        'jquery-ui/ui/widget' : {
             deps : ['jquery']
         },
 

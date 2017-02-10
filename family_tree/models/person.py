@@ -299,7 +299,7 @@ class Person(models.Model):
 
 
 
-    def crop_and_resize_photo(self, x, y, w, h, display_height):
+    def crop_and_resize_photo(self, x, y, w, h):
         '''
         Crops the photo and produces a large and small thumbnail
         '''
@@ -308,16 +308,11 @@ class Person(models.Model):
         im = Image.open(path_and_filename)
 
         width, height=im.size
-        ratio = height / display_height
 
-        #Prevent picture becoming too big during crop
-        if ratio > 6:
-            raise Exception(tran("Invalid image!"))
-
-        x = int(x * ratio)
-        y = int(y * ratio)
-        w = int(w * ratio)
-        h = int(h * ratio)
+        x = int(x)
+        y = int(y)
+        w = int(w)
+        h = int(h)
 
         small_thumb_name = ''.join([create_hash(self.name), 'small_thumb', '.jpg'])
         large_thumb_name = ''.join([create_hash(self.name), 'large_thumb', '.jpg'])
