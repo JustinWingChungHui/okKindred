@@ -1,4 +1,4 @@
- {% extends "base.html" %}
+{% extends "base.html" %}
 {% load staticfiles %}
 {% load i18n %}
 {% load l10n %}
@@ -6,7 +6,7 @@
 
 {% block extrastyle %}
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.css" />
+    <link rel="stylesheet" href="{% static 'js/libs/bower_components/leaflet/dist/leaflet.css' %}" />
 
     <!--Allows fullscreen map-->
     <style>

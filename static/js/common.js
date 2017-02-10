@@ -50,8 +50,8 @@ requirejs.config({
 
         // Breaking changes do later...
         leaflet : [
-                    "//cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet",
-                    "//cdn.jsdelivr.net/leaflet/0.7.7/leaflet",
+                    "//cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.3/leaflet",
+                    "//cdn.jsdelivr.net/leaflet/1.0.3/leaflet",
                     "bower_components/leaflet/dist/leaflet"
                     ],
 
