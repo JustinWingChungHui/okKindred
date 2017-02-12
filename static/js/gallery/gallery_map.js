@@ -57,79 +57,83 @@ require(["jquery", "mustache", "leaflet","photoswipe", "photoswipe_ui"],
                 context: this,
                 type: "GET",
                 url : url.join(''),
+
+            }).done(function(data, textStatus, jqXHR){
+                OKKINDRED_GALLERY_MAP.show_map_items(data, map, loading)
             });
 
-            request.done(function(data) {
-                var details_translation = $('#translate').data('details')
-                var photoswipe_index = 0;
+        },
 
-                for(i = 0; i < this.image_markers.length; i++) {
-                    map.removeLayer(this.image_markers[i]);
+        show_map_items(data, map, loading) {
+            var details_translation = $('#translate').data('details')
+            var photoswipe_index = 0;
+
+            for(i = 0; i < this.image_markers.length; i++) {
+                map.removeLayer(this.image_markers[i]);
+            }
+
+            this.image_markers.length = 0;
+            this.photoswipe_items.length = 0;
+
+            var template = $('#map_image_template').html();
+
+            for (var key in data) {
+                var loc = data[key];
+
+                var myIcon = L.divIcon({
+                    className:  'circle',
+                    iconSize:   [40, 40], // size of the icon
+                    iconAnchor: [20, 20], // point of the icon which will correspond to marker's location
+                    popupAnchor:[0, -5], // point from which the popup should open relative to the iconAnchor
+                    html:       loc.length
+                });
+
+                var marker = L.marker([loc[0].latitude,loc[0].longitude], {icon: myIcon}).addTo(map);
+                this.image_markers.push(marker);
+
+                var html = [];
+
+                if (loc.length == 1) {
+                    var popupWidth = 90;
+                } else if (loc.length < 5){
+                    var popupWidth = 180;
+                } else {
+                    var popupWidth = 270;
                 }
 
-                this.image_markers.length = 0;
-                this.photoswipe_items.length = 0;
+                html.push('<div style="overflow: hidden; width:');
+                html.push(popupWidth);
+                html.push('px;">');
 
-                var template = $('#map_image_template').html();
+                for (var i = 0; i < loc.length; i++) {
+                    var image = loc[i];
+                    image.photoswipe_index = photoswipe_index;
 
-                for (var key in data) {
-                    var loc = data[key];
+                    var output = Mustache.render(template, image);
+                    html.push(output);
 
-                    var myIcon = L.divIcon({
-                        className:  'circle',
-                        iconSize:   [40, 40], // size of the icon
-                        iconAnchor: [20, 20], // point of the icon which will correspond to marker's location
-                        popupAnchor:[0, -5], // point from which the popup should open relative to the iconAnchor
-                        html:       loc.length
-                    });
+                    var photoswipe_item = {
+                        src : image.large_thumbnail,
+                        w : image.large_thumbnail_width,
+                        h : image.large_thumbnail_height,
+                        identifier : image.id,
+                        title : image.title
+                    };
 
-                    var marker = L.marker([loc[0].latitude,loc[0].longitude], {icon: myIcon}).addTo(map);
-                    this.image_markers.push(marker);
-
-                    var html = [];
-
-                    if (loc.length == 1) {
-                        var popupWidth = 90;
-                    } else if (loc.length < 5){
-                        var popupWidth = 180;
-                    } else {
-                        var popupWidth = 270;
-                    }
-
-                    html.push('<div style="overflow: hidden; width:');
-                    html.push(popupWidth);
-                    html.push('px;">');
-
-                    for (var i = 0; i < loc.length; i++) {
-                        var image = loc[i];
-                        image.photoswipe_index = photoswipe_index;
-
-                        var output = Mustache.render(template, image);
-                        html.push(output);
-
-                        var photoswipe_item = {
-                            src : image.large_thumbnail,
-                            w : image.large_thumbnail_width,
-                            h : image.large_thumbnail_height,
-                            identifier : image.id,
-                            title : image.title
-                        };
-
-                        this.photoswipe_items.push(photoswipe_item);
-                        photoswipe_index++;
-                    }
-
-                    html.push('</div>');
-
-                    marker.bindPopup(html.join(''));
+                    this.photoswipe_items.push(photoswipe_item);
+                    photoswipe_index++;
                 }
 
-                if (loading) {
-                    map.panTo(this.image_markers[0]._latlng, true);
-                }
+                html.push('</div>');
 
-                $('.loading').hide();
-            });
+                marker.bindPopup(html.join(''));
+            }
+
+            if (loading) {
+                map.panTo(this.image_markers[0]._latlng, true);
+            }
+
+            $('.loading').hide();
         },
 
         show_photoswipe_window : function (index) {

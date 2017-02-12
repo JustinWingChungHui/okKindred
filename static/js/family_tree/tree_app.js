@@ -16,12 +16,11 @@ define(['jquery', 'jsPlumb', 'mustache'], function($, jsPlumb, Mustache){
             $.ajax({
                 context: this,
                 url: "/tree/data/",
-                success: function(data) {
+
+            }).done(function(data) {
                     this.populate_lookups(data);
                     this.redraw_tree();
                     $('.loading').hide();
-                }
-
             });
         },
 

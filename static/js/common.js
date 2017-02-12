@@ -5,8 +5,8 @@ requirejs.config({
     "baseUrl": '/static/js/libs',
     "paths": {
         jquery : [
-                "//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min",
-                "//ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min",
+                "//cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min",
+                "//ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min",
                 "bower_components/jquery/dist/jquery.min"
                 ],
 

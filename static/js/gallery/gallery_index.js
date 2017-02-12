@@ -37,54 +37,57 @@ require(["jquery", "mustache"], function ($, Mustache) {
         $('div#loadmoreajaxloader').show();
         $.ajax({
             url: "/gallery/gallery_data=" + gallery_index_page.toString(),
-            success: function(data) {
+            dataType: "json",
+            type: "get"
+        }).done(show_galleries);
+    }
 
-                if(data && data.length > 0) {
+    //
+    function show_galleries(data) {
+        if(data && data.length > 0) {
 
-                    var html =[];
-                    var template = $('#gallery_row_template').html();
+            var html =[];
+            var template = $('#gallery_row_template').html();
 
-                    for (var i in data) {
+            for (var i in data) {
 
-                        var row = data[i];
+                var row = data[i];
 
-                        var gallerythumb_url;
-                        if (data[i].fields.thumbnail) {
-                            gallerythumb_url = data[i].fields.thumbnail;
-                        }
-                        else {
-                            gallerythumb_url = "/static/img/gallery_thumb.jpg";
-                        }
-
-                        var gallery_row = {
-                            id : row.pk,
-                            gallerythumb_url : gallerythumb_url,
-                            title : row.fields.title,
-                            description : row.fields.description,
-                            last_updated_date : row.fields.last_updated_date
-                        };
-
-                        var output = Mustache.render(template, gallery_row);
-                        html.push(output);
-
-                    }
-
-                    $("#gallery_container").append(html.join(''));
-                    $('div#loadmoreajaxloader').hide();
-
-                    gallery_index_loading = false;
-
-                    //Keep loading images until we see a scroll bar
-                    if ($('#container').height() < $(window).height()) {
-                        load_more_galleries()
-                    }
+                var gallerythumb_url;
+                if (data[i].fields.thumbnail) {
+                    gallerythumb_url = data[i].fields.thumbnail;
                 }
-
                 else {
-                    $('#no_more_galleries').show();
-                    $('div#loadmoreajaxloader').hide();
+                    gallerythumb_url = "/static/img/gallery_thumb.jpg";
                 }
+
+                var gallery_row = {
+                    id : row.pk,
+                    gallerythumb_url : gallerythumb_url,
+                    title : row.fields.title,
+                    description : row.fields.description,
+                    last_updated_date : row.fields.last_updated_date
+                };
+
+                var output = Mustache.render(template, gallery_row);
+                html.push(output);
+
             }
-        });
+
+            $("#gallery_container").append(html.join(''));
+            $('div#loadmoreajaxloader').hide();
+
+            gallery_index_loading = false;
+
+            //Keep loading images until we see a scroll bar
+            if ($('#container').height() < $(window).height()) {
+                load_more_galleries()
+            }
+        }
+
+        else {
+            $('#no_more_galleries').show();
+            $('div#loadmoreajaxloader').hide();
+        }
     }
 });
