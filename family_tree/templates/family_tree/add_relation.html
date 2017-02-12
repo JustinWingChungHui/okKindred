@@ -43,8 +43,8 @@
         <div id="to_person" class="boxed">
 
             <div class="form-group">
-                <input type="radio" name="group1" value="existing" {% if suggested_person %} checked {% endif %}>{% trans "Existing Person" %}
-                <input type="radio" name="group1" value="new" {% if suggested_person == None %} checked {% endif %}>{% trans "New Person" %}
+                <input type="radio" name="group1" value="existing"  autocomplete="off" {% if suggested_person %} checked {% endif %}>{% trans "Existing Person" %}
+                <input type="radio" name="group1" value="new" autocomplete="off" {% if suggested_person == None %} checked {% endif %}>{% trans "New Person" %}
             </div>
 
             <div id="new_person_data" {% if suggested_person %}style="display: None;"{% endif %}>
@@ -92,7 +92,7 @@
                 <div class="form-group">
                     <label for="input_existing_name">{% trans "Search Name" %}</label>
                     <input type="hidden" id="relation_id" name="relation_id" class="form-control">
-                    <input type="search_text" id="input_existing_name" name="search_text" class="form-control"
+                    <input type="search_text" id="input_existing_name" name="search_text" class="form-control" autocomplete="off"
                             placeholder="{% trans 'Name' %}" {% if suggested_person %} value="{{ suggested_person.name }}" {% endif %}>
                 </div>
 

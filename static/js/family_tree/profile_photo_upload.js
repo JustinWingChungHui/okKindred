@@ -30,6 +30,8 @@ require(["jquery", "jquery_cookie", "jquery_fileupload"], function ($) {
 
     function set_profile_picture_upload(person_id, url, csrftoken) {
 
+        // Upload the photos
+
         $('#profile_picture_upload').fileupload({
             url: url,
             crossDomain: false,
@@ -43,19 +45,17 @@ require(["jquery", "jquery_cookie", "jquery_fileupload"], function ($) {
             acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
             maxFileSize: 15000000, // 15 MB
 
-            fail: function(e, data){
+        }).on('fileuploadfail', function(e, data){
                 $('#processing_wait').hide();
                 $('#error_text').show();
-            },
 
-            //navigate to resize image once uploaded
-            done: function (e, data) {
+        }).on('fileuploaddone', function (e, data) {
+                //navigate to resize image once uploaded
                 //Pull the id from the url
                 window.location.href = '/image_resize=' + person_id + '/';
-             },
 
-            //Show uploading status
-            progressall: function (e, data) {
+        }).on('fileuploadprogressall', function (e, data) {
+                //Show uploading status
                 var progress = parseInt(data.loaded / data.total * 100, 10);
                 $('#progress .progress-bar').css(
                     'width',
@@ -66,7 +66,6 @@ require(["jquery", "jquery_cookie", "jquery_fileupload"], function ($) {
                      $('#processing_wait').show();
                 }
 
-            }
         }).prop('disabled', !$.support.fileInput)
             .parent().addClass($.support.fileInput ? undefined : 'disabled');
     }

@@ -42,9 +42,9 @@ require(["jquery", "mustache", "jquery_cookie", "jquery_fileupload"], function (
             dataType: 'json',
             acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
             maxFileSize: 15000000, // 15 MB
-            limitConcurrentUploads: 1,
+            limitConcurrentUploads: 1
 
-            fail: function(e, data){
+        }).on('fileuploadfail', function(e, data){
                 UPLOAD_STATE.uploaded++;
                 var template = $('#failed_upload').html();
                 var output = Mustache.render(template, UPLOAD_STATE);
@@ -52,11 +52,9 @@ require(["jquery", "mustache", "jquery_cookie", "jquery_fileupload"], function (
 
                 $('#processing_wait').hide();
                 $('#error_text').show();
-            },
 
-            //navigate to tag image once uploaded
-            done: function (e, data) {
-
+        }).on('fileuploaddone', function (e, data) {
+                //navigate to tag image once uploaded
                 UPLOAD_STATE.uploaded++;
 
                 var template = $('#successful_upload').html();
@@ -70,10 +68,8 @@ require(["jquery", "mustache", "jquery_cookie", "jquery_fileupload"], function (
                     window.location.href = '/image=' + UPLOAD_STATE.image_ids[0].toString() + '/details/';
                 }
 
-             },
-
-            //Show uploading status
-            progressall: function (e, data) {
+        }).on('fileuploadprogressall', function (e, data) {
+                //Show uploading status
                 var progress = parseInt(data.loaded / data.total * 100, 10);
                 $('#progress .progress-bar').css(
                     'width',
@@ -84,7 +80,6 @@ require(["jquery", "mustache", "jquery_cookie", "jquery_fileupload"], function (
                      $('#processing_wait').show();
                 }
 
-            }
         }).prop('disabled', !$.support.fileInput)
             .parent().addClass($.support.fileInput ? undefined : 'disabled');
     }

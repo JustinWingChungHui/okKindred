@@ -54,25 +54,24 @@ require(["jquery", "mustache", "bootstrap_editable", "jquery_cookie"], function 
                 type: "POST",
                 beforeSend: function(xhr, settings) {
                     xhr.setRequestHeader("X-CSRFToken", csrftoken);
-                },
-                success: function (data) {
-                    var id = "#tag" + data.id.toString();
-                    $(id).remove();
 
-                    // Remove from cached array
-                    var i = 0;
-                    for (var i in ImageTagging.Tags) {
-                        var row = ImageTagging.Tags[i];
-                        if (row.id == data.id) {
-                            break;
-                        }
-                        i++;
-                    }
-                    ImageTagging.Tags.splice(i, 1);
-                },
-                error: function (e) {
-                    var i = e;
                 }
+            }).done(function (data) {
+                var id = "#tag" + data.id.toString();
+                $(id).remove();
+
+                // Remove from cached array
+                var i = 0;
+                for (var i in ImageTagging.Tags) {
+                    var row = ImageTagging.Tags[i];
+                    if (row.id == data.id) {
+                        break;
+                    }
+                    i++;
+                }
+                ImageTagging.Tags.splice(i, 1);
+            }).fail(function (e) {
+                var i = e;
             });
         });
 
@@ -129,9 +128,8 @@ require(["jquery", "mustache", "bootstrap_editable", "jquery_cookie"], function 
             dataType: "json",
             type: "post",
             data: serializedData,
-        });
 
-        request.done(function (row) {
+        }).done(function (row) {
             var image_position = $('#image_map').position();
             var width = $('#image_map').width();
             var height = $('#image_map').height();
@@ -170,17 +168,13 @@ require(["jquery", "mustache", "bootstrap_editable", "jquery_cookie"], function 
         // Serialize the data in the form
         var serializedData = $form.serialize();
 
-
         // Fire off the request
         request = $.ajax({
             url: "/get_search_results_json/",
             dataType: "json",
             type: "post",
             data: serializedData
-        });
-
-        // Callback handler that will be called on success
-        request.done(function (data){
+        }).done(function (data){
 
             //Clear results
             $('#results').html('');

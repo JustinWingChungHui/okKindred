@@ -127,21 +127,19 @@ def image_crop(request, person_id = 0, person = None):
         raise Http404
 
     try:
-        x = int(request.POST.get("x"))
-        y = int(request.POST.get("y"))
-        w = int(request.POST.get("w"))
-        h = int(request.POST.get("h"))
-        display_height = int(request.POST.get("display_height"))
+        x = int(float(request.POST.get("x")))
+        y = int(float(request.POST.get("y")))
+        w = int(float(request.POST.get("w")))
+        h = int(float(request.POST.get("h")))
+
     except:
         raise Http404
 
     if w != h:
         raise Http404
 
-    if display_height == 0:
-        raise Http404
 
-    person.crop_and_resize_photo(x, y, w, h, display_height)
+    person.crop_and_resize_photo(x, y, w, h)
     person.save()
 
     # Photos processed so delete local copies

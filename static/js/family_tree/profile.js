@@ -16,18 +16,17 @@ require(["jquery"], function ($) {
             var person_id = $('#invite_with_email_form').data('person_id');
 
             // Fire off the request to update email
-            request = $.ajax({
+            var jqxhr  = $.ajax(
+            {
                 url: "/update_person=" + person_id + "/",
                 type: "post",
                 data: serializedData,
-                success: function(data) {
+            }).done(function(data, textStatus, jqXHR) {
                     // Submit form if update successful
                     $('#invite_form').submit();
-                },
-                error: function (xhr, ajaxOptions, thrownError) {
+            }).fail(function (jqXHR, textStatus, errorThrown) {
                     $('#invite_in_progress').hide();
-                    $('#email_error').html(xhr.responseText);
-                }
+                    $('#email_error').html(jqXHR.responseText);
             });
         });
     });

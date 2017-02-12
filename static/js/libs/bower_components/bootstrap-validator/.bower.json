@@ -29,15 +29,15 @@
   "dependencies": {
     "jquery": ">= 1.8.3"
   },
-  "version": "0.10.2",
-  "_release": "0.10.2",
+  "version": "0.11.9",
+  "_release": "0.11.9",
   "_resolution": {
     "type": "version",
-    "tag": "v0.10.2",
-    "commit": "6465a8fc992f57558d753ab42430fb3505c95c5a"
+    "tag": "v0.11.9",
+    "commit": "52c0d3be711d844e6230afa3e5bce5a7a3cc00e9"
   },
   "_source": "https://github.com/1000hz/bootstrap-validator.git",
-  "_target": "^0.10.2",
+  "_target": "^0.11.9",
   "_originalSource": "bootstrap-validator",
   "_direct": true
 }

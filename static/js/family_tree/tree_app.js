@@ -16,12 +16,11 @@ define(['jquery', 'jsPlumb', 'mustache'], function($, jsPlumb, Mustache){
             $.ajax({
                 context: this,
                 url: "/tree/data/",
-                success: function(data) {
+
+            }).done(function(data) {
                     this.populate_lookups(data);
                     this.redraw_tree();
                     $('.loading').hide();
-                }
-
             });
         },
 
@@ -349,7 +348,8 @@ define(['jquery', 'jsPlumb', 'mustache'], function($, jsPlumb, Mustache){
         	// setup some defaults for jsPlumb.
         	var instance = jsPlumb.getInstance({
         		Endpoint : ["Dot", {radius:2}],
-        		HoverPaintStyle : {strokeStyle:"#1e8151", lineWidth:2 },
+        		Connector:"StateMachine",
+        		HoverPaintStyle : {strokeStyle:"#1e8151", strokeWidth:2 },
         		Container:"family_tree_container"
         	});
 
@@ -361,9 +361,9 @@ define(['jquery', 'jsPlumb', 'mustache'], function($, jsPlumb, Mustache){
 
                 instance.makeSource(windows, {
                     filter: ".ep",
-                    anchor: "AutoDefault",
                     connector: [ "StateMachine", { curviness: 20 } ],
-                    connectorStyle: { strokeStyle: "#5c96bc", lineWidth: 2, outlineColor: "transparent", outlineWidth: 4 },
+                    connectorStyle: { stroke: "#5c96bc", strokeWidth: 2, outlineColor: "transparent", outlineWidth: 4 },
+                    anchors: "AutoDefault",
                     maxConnections: 15,
                     onMaxConnections: function (info, e) {
                         alert("Maximum connections (" + info.maxConnections + ") reached");
@@ -373,7 +373,7 @@ define(['jquery', 'jsPlumb', 'mustache'], function($, jsPlumb, Mustache){
                 // initialise all '.w' elements as connection targets.
                 instance.makeTarget(windows, {
                     dropOptions: { hoverClass: "dragHover" },
-                    anchor: "AutoDefault",
+                    anchors: "AutoDefault",
                     allowLoopback: true
                 });
 

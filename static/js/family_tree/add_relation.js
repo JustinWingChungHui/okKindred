@@ -71,15 +71,12 @@ require(["jquery", "mustache"], function ($, Mustache) {
 
 
             // Fire off the request to /form.php
-        request = $.ajax({
+        var jqxhr = $.ajax({
             url: "/get_search_results_json/",
             dataType: "json",
             type: "post",
             data: serializedData
-        });
-
-        // Callback handler that will be called on success
-        request.done(search_result_returned);
+        }).done(search_result_returned);
     }
 
 

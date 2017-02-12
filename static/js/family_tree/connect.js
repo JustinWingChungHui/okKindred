@@ -21,7 +21,7 @@ require(["jsPlumb"], function (jsPlumb) {
                 filter: ".ep",
                 anchor: "AutoDefault",
                 connector: [ "StateMachine", { curviness: 20 } ],
-                connectorStyle: { strokeStyle: "#5c96bc", lineWidth: 2, outlineColor: "transparent", outlineWidth: 4 },
+                connectorStyle: { stroke: "#5c96bc", strokeWidth: 2, outlineColor: "transparent", outlineWidth: 4 },
                 maxConnections: 5,
                 onMaxConnections: function (info, e) {
                     alert("Maximum connections (" + info.maxConnections + ") reached");
