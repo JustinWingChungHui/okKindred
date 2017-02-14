@@ -39,7 +39,9 @@ Here are instructions to get this project running on `PythonAnywhere <https://ww
 
  Bing is optional, it is used as the backup geocoding service if a location can't be found using Google.
 
-2. Sign up to `Amazon Web Services S3 <https://aws.amazon.com/s3/>`_ and create a new bucket.  Make the bucket publically readable but not listable.
+2. Sign up to `Mapbox <https://www.mapbox.com/>`_ , create an API token and make a note of it.
+
+3. Sign up to `Amazon Web Services S3 <https://aws.amazon.com/s3/>`_ and create a new bucket.  Make the bucket publically readable but not listable.
 
  You may need to specify the bucket policy manually ::
 
@@ -58,13 +60,13 @@ Here are instructions to get this project running on `PythonAnywhere <https://ww
 
 
 
-3. Create an AWS user with access to S3 and create an external Access Key ID and Secret Key  for the user.  Note this down for later.
+4. Create an AWS user with access to S3 and create an external Access Key ID and Secret Key  for the user.  Note this down for later.
 
-4. Sign up with `PythonAnywhere <https://www.PythonAnywhere.com/>`_
+5. Sign up with `PythonAnywhere <https://www.PythonAnywhere.com/>`_
 
-5. Create two new databases on PythonAnywhere, one for live and one to run the tests against.  Make a note of their login details.  MySQL and Postgres should both work however, MySQL is free!
+6. Create two new databases on PythonAnywhere, one for live and one to run the tests against.  Make a note of their login details.  MySQL and Postgres should both work however, MySQL is free!
 
-6. In PythonAnywhere, create the AWS credential file ``~/.aws/credentials``::
+7. In PythonAnywhere, create the AWS credential file ``~/.aws/credentials``::
 
     [default]
     aws_access_key_id = YOUR_ACCESS_KEY
@@ -73,11 +75,11 @@ Here are instructions to get this project running on `PythonAnywhere <https://ww
     [default]
     region=us-east-1
 
-7. In PythonAnywhere, open the console and clone this repository
+8. In PythonAnywhere, open the console and clone this repository
 
  ``git clone https://github.com/JustinWingChungHui/okKindred.git``
 
-8. Change to the directory of the repository, create a virtualenv and install all the Python requirements:
+9. Change to the directory of the repository, create a virtualenv and install all the Python requirements:
 
  ``cd okKindred``
 
@@ -85,9 +87,9 @@ Here are instructions to get this project running on `PythonAnywhere <https://ww
 
  ``pip install -r requirements.txt``
 
-9. Create a copy of the file ``~/okKindred/okkindred/secrets_example.py`` as ``~/okKindred/okkindred/secrets.py`` and edit the file with the AWS, Google API, Bing API details and database settings
+10. Create a copy of the file ``~/okKindred/okkindred/secrets_example.py`` as ``~/okKindred/okkindred/secrets.py`` and edit the file with the AWS, Google API, Bing API, Mapbox token details and database settings
 
-10. In the PythonAnyWhere console run the following command to create the database:
+11. In the PythonAnyWhere console run the following command to create the database:
 
  ``python manage.py migrate``
 
