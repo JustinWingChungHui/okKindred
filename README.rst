@@ -22,7 +22,7 @@ Architecture
 ------------
 The project is built using `Python Django <https://www.djangoproject.com/>`_ running on Python3.5
 
-https://www.okkindred.com is hosted with `PythonAnywhere <https://www.PythonAnywhere.com/>`_
+https://www.okkindred.com is hosted with `PythonAnywhere <https://www.pythonanywhere.com/?affiliate_id=00022aed>`_ (this link has my referal ID)
 
 It also uses `Amazon Web Services S3 <https://aws.amazon.com/s3/>`_  to store potentially a huge number of images for very little cost.
 
@@ -33,7 +33,7 @@ so that it can plot where your family is on a map.
 
 How To Deploy Your Own Instance
 -------------------------------
-Here are instructions to get this project running on `PythonAnywhere <https://www.PythonAnywhere.com/>`_
+Here are instructions to get this project running on `PythonAnywhere <https://www.pythonanywhere.com/?affiliate_id=00022aed>`_ (this link has my referal ID)
 
 1. Sign up to `Google Maps Geocoding API <https://developers.google.com/maps/documentation/geocoding/start>`_  service and `Bing Maps API <https://www.microsoft.com/maps/>`_ service and make a note of their API keys.
 
@@ -62,7 +62,7 @@ Here are instructions to get this project running on `PythonAnywhere <https://ww
 
 4. Create an AWS user with access to S3 and create an external Access Key ID and Secret Key  for the user.  Note this down for later.
 
-5. Sign up with `PythonAnywhere <https://www.PythonAnywhere.com/>`_
+5. Sign up with `PythonAnywhere <https://www.pythonanywhere.com/?affiliate_id=00022aed>`_ (this link has my referal ID)
 
 6. Create two new databases on PythonAnywhere, one for live and one to run the tests against.  Make a note of their login details.  MySQL and Postgres should both work however, MySQL is free!
 
@@ -93,7 +93,9 @@ Here are instructions to get this project running on `PythonAnywhere <https://ww
 
  ``python manage.py migrate``
 
-12. Follow instructions on PythonAnyWhere to set up your Web app and WSGI file https://help.pythonanywhere.com/pages/DeployExistingDjangoProject using the virtualenv we have just set up
+12. Follow instructions on PythonAnyWhere to set up your Web app and WSGI file https://help.pythonanywhere.com/pages/DeployExistingDjangoProject using the virtualenv we have just set up.
+
+13. In PythonAnywhere configure the static files. Set the URL ``/static/`` to point to directory ``~/okKindred/static/`` and URL ``/media/`` to point to directory ``~/media/okkindred/``
 
 
 Code Sections Overview
@@ -175,7 +177,7 @@ Note in ``static\js\common.js`` we also use multiple CDNs because certain CDNs a
 Bootstrap/JQuery/Bower
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The UI is primarily driven by Bootstrap and JQuery and Bower is used as a package manager (yes I know!) ``static\js\libs``
+The UI is primarily driven by Bootstrap and JQuery and Bower is used as a package manager (yes I know!).  The packages are installed into ``static\js\libs\bower_components``.
 
 
 Mapping

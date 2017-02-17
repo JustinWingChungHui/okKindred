@@ -1,0 +1,14 @@
+.carousel-caption {
+    text-shadow: none;
+}
+
+.carousel-inner {
+    background-color: #552d65;
+}
+
+
+.carousel .item img{
+    margin: 0 auto; /* Align slide image horizontally center */
+    opacity: 0.4;
+}
+
