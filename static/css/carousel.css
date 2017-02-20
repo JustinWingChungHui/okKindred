@@ -2,6 +2,14 @@
     text-shadow: none;
 }
 
+.carousel-caption h1 {
+    font-size: 48px;
+}
+
+.carousel-caption p {
+    font-size: 18px;
+}
+
 .carousel-inner {
     background-color: #552d65;
 }
@@ -10,5 +18,35 @@
 .carousel .item img{
     margin: 0 auto; /* Align slide image horizontally center */
     opacity: 0.4;
+}
+
+
+
+@media(max-width:767px){
+    .carousel-caption h1 {
+        font-size: 32px;
+    }
+
+    .carousel-caption p {
+        font-size: 14px;
+    }
+}
+@media(max-width:500px){
+    .carousel-caption h1 {
+        font-size: 24px;
+    }
+
+    .carousel-caption p {
+        font-size: 12px;
+    }
+}
+@media(max-width:500px){
+    .carousel-caption h1 {
+        font-size: 18px;
+    }
+
+    .carousel-caption p {
+        font-size: 10px;
+    }
 }
 

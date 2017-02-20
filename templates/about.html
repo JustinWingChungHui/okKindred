@@ -11,64 +11,36 @@
 
 {% block content %}
 
- <!-- Main jumbotron for a primary marketing message or call to action -->
-
-
-{% if user.is_authenticated %}
-<div id="top"  style="padding-top: 30px;"></div>
-{% else %}
-
-<!--
-<div class="jumbotron" id="top">
-  <div class="container">
-    <h1>{% trans "Welcome to ok!Kindred" %}</h1>
-    <p>
-        {% blocktrans %}
-        ok!Kindred is an open source collaborative family tree and photo sharing website.
-        {% endblocktrans %}
-
-        <ul>
-            <li>{% trans "Create and share a multilingual family tree with your family" %}</li>
-            <li>{% trans "Invite your family members to view it and add to it" %}</li>
-            <li>{% trans "Share photos all completely privately within your family" %}</li>
-        </ul>
-    </p>
-    <p>
-
-    </p>
-  </div>
-</div>
--->
+{% if not user.is_authenticated %}
 
  <!-- Carousel
     ================================================== -->
-    <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="10000">
+<div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="10000">
 
-      <!-- Carousel indicators -->
-      <ol class="carousel-indicators">
+    <!-- Carousel indicators -->
+    <ol class="carousel-indicators">
         <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
         <li data-target="#myCarousel" data-slide-to="1"></li>
         <li data-target="#myCarousel" data-slide-to="2"></li>
         <li data-target="#myCarousel" data-slide-to="3"></li>
-      </ol>
+    </ol>
 
-      <!-- Wrapper for carousel items -->
-      <div class="carousel-inner">
+    <!-- Wrapper for carousel items -->
+    <div class="carousel-inner">
         <div class="item active">
-          <img src="{% static 'img/about/family_tree.png' %}" alt="First slide">
-              <div class="carousel-caption">
-              <h1>{% trans "Welcome to ok!Kindred" %}</h1>
-              <p>The open source collaborative family tree and photo sharing website.</p>
-              <p><a class="btn btn-success btn-lg" href="/accounts/sign_up/" role="button">{%trans "Sign Up" %}</a></p>
+            <img src="{% static 'img/about/family_tree.png' %}" alt="First slide">
+            <div class="carousel-caption">
+                <h1>{% trans "Welcome to ok!Kindred" %}</h1>
+                <p>The free and open source collaborative family tree and photo sharing website.</p>
+                <p><a class="btn btn-success" href="/accounts/sign_up/" role="button">{%trans "Sign Up" %}</a></p>
             </div>
         </div>
         <div class="item">
-          <img src="{% static 'img/about/family_invite.png' %}" alt="Second slide">
+            <img src="{% static 'img/about/family_invite.png' %}" alt="Second slide">
                 <div class="carousel-caption">
-                <h1>Create And Share</h1>
-                <p>Create and share a multilingual family tree with your family.</p>
-                <p> Invite your family members to view it and add to it</p>
-                <p><a class="btn btn-success btn-lg" href="/accounts/sign_up/" role="button">{%trans "Sign Up" %}</a></p>
+                    <h1>Create And Share</h1>
+                    <p>Create and share a multilingual family tree with your family and invite your family members to view it and add to it</p>
+                    <p><a class="btn btn-success" href="/accounts/sign_up/" role="button">{%trans "Sign Up" %}</a></p>
                 </div>
         </div>
         <div class="item">
@@ -76,28 +48,29 @@
                 <div class="carousel-caption">
                 <h1>Map your family</h1>
                 <p>Plot the locations of each of your relatives on a map</p>
-                <p><a class="btn btn-success btn-lg" href="/accounts/sign_up/" role="button">{%trans "Sign Up" %}</a></p>
+                <p><a class="btn btn-success" href="/accounts/sign_up/" role="button">{%trans "Sign Up" %}</a></p>
             </div>
         </div>
         <div class="item">
-          <img class="fourth-slide" src="{% static 'img/about/family_photo-share.png' %}" alt="Fourth slide">
-
+            <img class="fourth-slide" src="{% static 'img/about/family_photo-share.png' %}" alt="Fourth slide">
             <div class="carousel-caption">
-              <h1>Share Photos</h1>
-              <p>Share photos privately between your family and tag your family members</p>
-              <p><a class="btn btn-success btn-lg" href="/accounts/sign_up/" role="button">{%trans "Sign Up" %}</a></p>
+                <h1>Share Photos</h1>
+                <p>Share photos privately between your family and tag your family members</p>
+                <p><a class="btn btn-success" href="/accounts/sign_up/" role="button">{%trans "Sign Up" %}</a></p>
             </div>
 
         </div>
-      </div>
-        <!-- Carousel controls -->
-        <a class="carousel-control left" href="#myCarousel" data-slide="prev">
-            <span class="glyphicon glyphicon-chevron-left"></span>
-        </a>
-        <a class="carousel-control right" href="#myCarousel" data-slide="next">
-            <span class="glyphicon glyphicon-chevron-right"></span>
-        </a>
-    </div><!-- /.carousel -->
+    </div>
+
+    <!-- Carousel controls -->
+    <a class="carousel-control left" href="#myCarousel" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+    </a>
+    <a class="carousel-control right" href="#myCarousel" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right"></span>
+    </a>
+
+</div><!-- /.carousel -->
 
 {% endif %}
 
@@ -144,7 +117,6 @@
             {% endblocktrans %}
         </p>
 
-        <p><a class="btn btn-default" href="#myCarousel" role="button">&laquo;{%trans "Back" %}</a></p>
     </div>
 
     <hr>
@@ -170,8 +142,6 @@
             We're quite nice people and do like to talk to people interested in the sames things we are: Geek stuff, software, music and crazy pan global Chinese families...
             {% endblocktrans %}
         </p>
-
-        <p><a class="btn btn-default" href="#myCarousel" role="button">&laquo;{%trans "Back" %}</a></p>
     </div>
 
     <hr>
@@ -337,8 +307,6 @@
             They can include civil partnerships, common law partners, divorcees, adoptees and any other definitions that may or may not exist in different cultures and may exist in the future.
             {% endblocktrans %}
         </p>
-
-        <p><a class="btn btn-default" href="#myCarousel" role="button">&laquo;{%trans "Back" %}</a></p>
 
     </div>
 
