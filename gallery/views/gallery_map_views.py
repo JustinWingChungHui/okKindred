@@ -1,9 +1,10 @@
-from gallery.models import Gallery, Image
-from maps import map_service
+from django.conf import settings
 from django.http import HttpResponse, Http404
 from django.shortcuts import get_object_or_404, render
-import json
 
+from gallery.models import Gallery, Image
+from maps import map_service
+import json
 
 def gallery_map(request, gallery_id):
     '''
@@ -21,6 +22,7 @@ def gallery_map(request, gallery_id):
                                     'latitude' : 0,
                                     'longitude' : 0,
                                     'zoom' : 5,
+                                    'token' : settings.MAP_BOX_TOKEN,
                                 })
 
 

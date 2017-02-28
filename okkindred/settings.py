@@ -64,6 +64,7 @@ INSTALLED_APPS = (
     'sign_up',
     'maps',
     'debug_toolbar',
+    'autotranslate',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -89,7 +90,6 @@ WSGI_APPLICATION = 'okkindred.wsgi.application'
 #Django Axes config https://github.com/django-pci/django-axes
 AXES_LOGIN_FAILURE_LIMIT = 5
 AXES_COOLOFF_TIME = 24
-AXES_USERNAME_FORM_FIELD = "email"
 AXES_PROTECTED_LOGINS = ('/accounts/login/', '/accounts/auth/')
 
 #Email Configuration
@@ -102,14 +102,10 @@ EMAIL_HOST_PASSWORD = secrets.EMAIL_HOST_PASSWORD
 DEFAULT_FROM_EMAIL = secrets.DEFAULT_FROM_EMAIL
 
 
-#Rosetta
-ROSETTA_ENABLE_TRANSLATION_SUGGESTIONS = True
-ROSETTA_GOOGLE_TRANSLATE = True
-
 #API Keys for external services
-YANDEX_TRANSLATE_KEY = secrets.YANDEX_TRANSLATE_KEY
 GOOGLE_API_KEY = secrets.GOOGLE_API_KEY
 BING_MAPS_API_KEY = secrets.BING_MAPS_API_KEY
+MAP_BOX_TOKEN = secrets.MAP_BOX_TOKEN
 
 DATABASES = secrets.DATABASES
 

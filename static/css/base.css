@@ -23,6 +23,7 @@ body {
   padding-bottom: 20px;
 }
 
+
 /* Loading overlay */
 /* Absolute Center Spinner */
 .loading {
@@ -467,34 +468,7 @@ textarea {
     margin-right: 30px;
 }
 
-/** Custom CSS for image cropping **/
-/**
-@media only screen and (max-device-width: 500px) {
 
-    .masonry_thumbnail {
-        max-width: 100px;
-        max-height: 100px;
-    }
-
-    .gallery_index_thumbnail {
-        max-width: 100px;
-        max-height: 100px;
-    }
-}
-
-@media only screen and (min-device-width: 500px) {
-
-    .masonry_thumbnail {
-        max-width: 200px;
-        max-height: 200px;
-    }
-
-    .gallery_index_thumbnail {
-        max-width: 200px;
-        max-height: 200px;
-    }
-}
-**/
 /** Styling for image details **/
 
 #tag_container {

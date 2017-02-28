@@ -31,6 +31,7 @@ require(["jquery", "leaflet"], function ($, L) {
 
         var latitude = parseFloat($('#image_location_map').data('latitude'));
         var longitude = parseFloat($('#image_location_map').data('longitude'));
+        var token = $("#image_location_map").data("token");
 
         var map = L.map('image_location_map', {
             center: [latitude, longitude],
@@ -42,13 +43,9 @@ require(["jquery", "leaflet"], function ($, L) {
             maxBounds: [[-90, -200],[90, 200]]
         });
 
-
-
-        L.tileLayer('https://{s}.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={token}', {
-        	subdomains: ['a','b','c','d'],
-        	id: 'okkindred.ldfc645h',
-        	token: 'pk.eyJ1Ijoib2traW5kcmVkIiwiYSI6Ild2MnY5dDQifQ.EHr6blIYPYeg4bWmSStT-g'
-        }).addTo(map);
+        L.tileLayer('https://api.mapbox.com/v4/mapbox.streets/{z}/{x}/{y}.jpg70?access_token={token}', {
+    		token: token
+    	}).addTo(map);
 
         map.addControl( L.control.zoom({position: 'bottomleft'}));
 

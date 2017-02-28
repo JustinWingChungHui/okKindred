@@ -25,6 +25,9 @@ GOOGLE_API_KEY = 'GOOGLEMAPS_API_KEY'
 # Bing Maps API is used as backup if the Google API fails to locate something
 BING_MAPS_API_KEY = 'BINGMAP_API_KEY'
 
+# Mapbox is used for any mapping
+MAP_BOX_TOKEN = 'MAP_BOX_TOKEN'
+
 
 # Email server set up to send out notification emails
 EMAIL_HOST = 'SERVER_ADDRESS'

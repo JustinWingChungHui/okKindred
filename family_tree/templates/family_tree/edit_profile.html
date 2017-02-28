@@ -191,7 +191,7 @@
                     <td>
                         <a href="#" id="locked" data-title="{% trans "Lock your profile, so only you can edit it?" %}" data-type="select" data-pk="{{ person.id }}"
                             data-url="/update_person={{ person.id }}/" data-params="{csrfmiddlewaretoken:'{{csrf_token}}'}"
-                            data-value="{% if person.locked %}{% trans '1' %}{% else %}{% trans '' %}{% endif %}">
+                            data-value="{% if person.locked %}{% trans '1' %}{% else %} {% endif %}">
                             {% if person.locked %} {% trans "Yes" %} {% else %} {% trans "No" %} {% endif %}
                         </a>
                     </td>

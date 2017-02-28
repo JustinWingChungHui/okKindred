@@ -1,25 +1,77 @@
 {% extends "base.html" %}
 {% load staticfiles %}
 {% load i18n %}
+
+{% block extrastyle %}
+
+<!-- Custom styles for carousel -->
+<link href="{% static 'css/carousel.css' %}" rel="stylesheet">
+
+{% endblock %}
+
 {% block content %}
 
- <!-- Main jumbotron for a primary marketing message or call to action -->
+{% if not user.is_authenticated %}
 
+ <!-- Carousel
+    ================================================== -->
+<div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="10000">
 
-{% if user.is_authenticated %}
-<div id="top"  style="padding-top: 30px;"></div>
-{% else %}
-<div class="jumbotron" id="top">
-  <div class="container">
-    <h1>{% trans "Welcome to ok!Kindred" %}</h1>
-    <p>
-        {% blocktrans %}
-        Greetings from Justin & Adrian.  This is a website to keep track of our family tree.  It is now spread across the world and is growing.
-        {% endblocktrans %}
-    </p>
-    <p><a class="btn btn-primary btn-lg" href="/accounts/login/" role="button">{%trans "Sign In" %} &raquo;</a></p>
-  </div>
-</div>
+    <!-- Carousel indicators -->
+    <ol class="carousel-indicators">
+        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+        <li data-target="#myCarousel" data-slide-to="1"></li>
+        <li data-target="#myCarousel" data-slide-to="2"></li>
+        <li data-target="#myCarousel" data-slide-to="3"></li>
+    </ol>
+
+    <!-- Wrapper for carousel items -->
+    <div class="carousel-inner">
+        <div class="item active">
+            <img src="{% static 'img/about/family_tree.png' %}" alt="First slide">
+            <div class="carousel-caption">
+                <h1>{% trans "Welcome to ok!Kindred" %}</h1>
+                <p>{% trans "The free and open source collaborative family tree and photo sharing website." %}</p>
+                <p><a class="btn btn-success" href="/accounts/sign_up/" role="button">{%trans "Sign Up" %}</a></p>
+            </div>
+        </div>
+        <div class="item">
+            <img src="{% static 'img/about/family_invite.png' %}" alt="Second slide">
+                <div class="carousel-caption">
+                    <h1>{% trans "Create And Share" %}</h1>
+                    <p>{% trans "Create and share a multilingual family tree with your family and invite your family members to view it and add to it" %}</p>
+                    <p><a class="btn btn-success" href="/accounts/sign_up/" role="button">{%trans "Sign Up" %}</a></p>
+                </div>
+        </div>
+        <div class="item">
+          <img class="third-slide" src="{% static 'img/about/family_map.png' %}" alt="Third slide">
+                <div class="carousel-caption">
+                <h1>{% trans "Map your family" %}</h1>
+                <p>{% trans "Plot the locations of each of your relatives on a map" %}</p>
+                <p><a class="btn btn-success" href="/accounts/sign_up/" role="button">{%trans "Sign Up" %}</a></p>
+            </div>
+        </div>
+        <div class="item">
+            <img class="fourth-slide" src="{% static 'img/about/family_photo-share.png' %}" alt="Fourth slide">
+            <div class="carousel-caption">
+                <h1>{% trans "Share Photos" %}</h1>
+                <p>{% trans "Share photos privately between your family and tag your family members" %}</p>
+                <p><a class="btn btn-success" href="/accounts/sign_up/" role="button">{%trans "Sign Up" %}</a></p>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Carousel controls -->
+    <a class="carousel-control left" href="#myCarousel" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+    </a>
+    <a class="carousel-control right" href="#myCarousel" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right"></span>
+    </a>
+
+</div><!-- /.carousel -->
+
 {% endif %}
 
 
@@ -34,14 +86,14 @@
 
         <div class="col-md-4">
             <h2>{% trans "Contact Us" %}</h2>
-            <p>{% trans "If you have any questions, need help using the site or have forgotten your password" %}</p>
+            <p>{% trans "If you have any questions, want to report a bug, ask for a feature or contribute to the source code." %}</p>
             <p><a class="btn btn-default" href="#contact" role="button">{%trans "View details" %} &raquo;</a></p>
         </div>
 
         <div class="col-md-4">
-            <h2>{% trans "Security & Privacy" %}</h2>
-            <p>{% trans "The privacy and security of my family's data is of high importance" %}</p>
-            <p><a class="btn btn-default" href="#security" role="button">{%trans "View details" %} &raquo;</a></p>
+            <h2>{% trans "FAQ" %}</h2>
+            <p>{% trans "Frequently Asked Questions" %}</p>
+            <p><a class="btn btn-default" href="#faq" role="button">{%trans "View details" %} &raquo;</a></p>
         </div>
     </div>
 
@@ -58,21 +110,20 @@
         </p>
         <p>
             {% blocktrans %}
-            This is a website to record our family tree and and act a bit like a social network.  Our family members can maintain a profile on here and discover how far the tree reaches
+            This is a website to record our family tree and act a bit like a social network. You can maintain a profile on here and discover how far the tree reaches!
             As a person is added to the family tree, they receive an email so they may become a user and add more people to it.
-            I attended several family gatherings recently and have struggled to explain how we are all related to others.  My family is now very diverse with several ethnicities and resides across several continents.
-            We wanted someway of documenting everyone and keep in touch as the family grows.
+            The site was inspired by our family gatherings and the difficulties of explaining how we are all related.  Our family is now very diverse with many ethnicities and has spread around the globe.
+            As the family grows and evolves, we wanted a way to document everyone and keep in touch.
             {% endblocktrans %}
         </p>
 
-        <p><a class="btn btn-default" href="#top" role="button">&laquo;{%trans "Back" %}</a></p>
     </div>
 
     <hr>
     <div id="contact" style="padding-top: 30px;">
         <h2>{% trans "Contact" %}</h2>
 
-        <p>{% blocktrans %}Contact us via email info@okkindred.com{% endblocktrans %}</p>
+        <p>{% blocktrans %}Contact us via email <a href="mailto:info@okkindred.com">info@okkindred.com</a>{% endblocktrans %}</p>
         <p>
             {% blocktrans %}
             If you are in our family we want to hear from you and are welcome to visit and stay round any time.
@@ -91,59 +142,173 @@
             We're quite nice people and do like to talk to people interested in the sames things we are: Geek stuff, software, music and crazy pan global Chinese families...
             {% endblocktrans %}
         </p>
-
-        <p><a class="btn btn-default" href="#top" role="button">&laquo;{%trans "Back" %}</a></p>
     </div>
 
     <hr>
-    <div id="security" style="padding-top: 30px;">
-        <h2>{% trans "Security & Privacy" %}</h2>
-        <p>
+    <div id="faq" style="padding-top: 30px;">
+        <h2>{% trans "FAQ" %}</h2>
 
+        <h3>{% trans "Can anyone see my family's information?" %}</h3>
         <p>
             {% blocktrans %}
-             The details of our family are on this site.  We would never try to do anything we think would jeapordise this data!
-             Obviously we take security and privacy very seriously.  This will hopefully summarise some of the measures we have taken.
-             {% endblocktrans %}
+            No, only people within your family tree that you have invited can see the information you input.  The information is also not searchable by outside users or search engines.
+            {% endblocktrans %}
         </p>
-        <h3>{% trans "Security" %}</h3>
+
+        <h3>{% trans "Is my information secure?" %}</h3>
         <p>
             {% blocktrans %}
-            This entire site is loaded over <a href="https://www.globalsign.com/en/ssl-information-center/what-is-ssl/">Secure Socket Layer</a> (SSL).
-            As a result, the connection between you and this website is encrypted.
-            This protects against other people listening and stealing the information that is transmitted between you and the website.
-            We use 128 bit encryption which is an <a href ="http://www.inet2000.com/public/encryption.htm">industry standard</a>.
-            You should notice a padlock at the top of your web browser to show you that the connection to this website is secure.
+            We take security and privacy very seriously. We keep the details of our family on this site, and we would never do anything to jeopardise this data!
+            Only your own family members that you invite to share your tree are able to see the information that you enter on the site.
+            Furthermore, we do not sell, trade, or rent your personal identification information to others.
+            {% endblocktrans %}
+        </p>
+        <p>
+            {% blocktrans %}
+            The site is hosted with <a href="https://www.pythonanywhere.com/?affiliate_id=00022aed">PythonAnywhere</a> who themselves take privacy very seriously.
+            We also use <a href="https://aws.amazon.com/s3/">Amazon S3</a> to store any images that you upload.
+            We do use third party <a href="https://en.wikipedia.org/wiki/Geocoding">geocoding</a> services (Google & Microsoft).  This is to convert a location into a longitude and latitude so we can plot it on a map.
+            However no other identifying pieces of information (e.g. name) are supplied with this location to these third parties.
+            So for example we will send solely the term 'Hong Kong' to Google who will then give us a latitude and longitude so we can plot it on a map.
             {% endblocktrans %}
         </p>
 
         <p>
             {% blocktrans %}
-            We adopt appropriate data collection, storage and processing practices and security measures to protect against unauthorized access, alteration, disclosure
-            or destruction of your personal information and transaction information and data stored on our site.  Our servers are located in the USA, and therefore are subject to USA law.
+            If you are concerned, the site is entirely open source, so you can take a copy of the source code (see below), have a look how your information is stored or even host your own version of this website.
+            We will be more than happy to help you set it up.
             {% endblocktrans %}
         </p>
 
-        <h3>{% trans "Privacy" %}</h3>
+        <h3>{% trans "Can I see the source code?" %}</h3>
         <p>
             {% blocktrans %}
-            Our site uses <a href="https://en.wikipedia.org/wiki/HTTP_cookie">cookies</a> to enhance your experience. Your web browser places cookies on your hard drive for record-keeping purposes and sometimes to track information about you.
-            In particular we use cookies to identify you so that you may our login to the site.
+            The source code is located at <a href="https://github.com/JustinWingChungHui/okKindred">Github.com</a>.  What you see on okKindred.com is taken from the 'production' branch.
             {% endblocktrans %}
         </p>
 
         <p>
             {% blocktrans %}
-            We do not sell, trade, or rent your personal identification information to others.
-            We do use third party <a href="https://en.wikipedia.org/wiki/Geocoding">geocoding</a> services.  This is to convert a location into a longitude and latitude so we can plot it on a map.
-            However no other identifying pieces of information (e.g. name) are supplied with this location.
-            We also may share generic aggregated demographic information not linked to any personal identification information.  For example we may disclose how many users we have in China.
+            We've issued it with an <a href="https://en.wikipedia.org/wiki/MIT_License">MIT licence</a> which means you are free to use, copy and modify the code for your own purpose.
+            The <a href="https://github.com/JustinWingChungHui/okKindred/blob/master/README.rst">README</a> contains a basic overview on how it works and step by step instructions to deploy your own instance.
             {% endblocktrans %}
         </p>
 
+        <p>
+            {% blocktrans %}
+            We welcome anyone who has any ideas or who wishes to contribute to this project and make it better!  We especially need help with translation into other languages.
+            Please <a href="info@okkindred.com?subject=Translations" >get in touch</a> if you would like to contribute, or (even better) make a pull request on Github :)
+            {% endblocktrans %}
+        </p>
 
+        <h3>{% trans "What's in it for you if it's free?" %}</h3>
+        <p>
+            {% blocktrans %}
+            We are software developers, and this is a project created in our spare time to expand our skillset and to add to our portfolio to show off to others.
+            This was the best way to organise information on our own family, and we hope that new users will offer suggestions to improve the site or even contribute code.
+            {% endblocktrans %}
+        </p>
 
-        <p><a class="btn btn-default" href="#top" role="button">&laquo;{%trans "Back" %}</a></p>
+        <h3>{% trans "Can I manage multiple family trees?" %}</h3>
+        <p>
+            {% blocktrans %}
+            No you can't!  At least not yet.  We are aware that this is something people may want, and may put this feature in the future.
+            {% endblocktrans %}
+        </p>
+
+        <h3>{% trans "Is there an iOS/Android app?" %}</h3>
+        <p>
+            {% blocktrans %}
+            No there is not yet.  However, you will find that the website formats very nicely on a mobile device.
+            If you are using Chrome on a mobile, you can add a shortcut of the website to your desktop which makes it look like an app for those in your family who are less tech savvy!
+            {% endblocktrans %}
+        </p>
+
+        <h3>{% trans "How can I show more family members in the tree?" %}</h3>
+        <p>
+            {% blocktrans %}
+            The standard view just shows the one level of relation.  However, if you go to the eldest relative's profile, you can 'Show Descendents'.  This will show all descendents with blood relations but not their partners.
+            {% endblocktrans %}
+        </p>
+
+        <p>
+            {% blocktrans %}
+            Displaying a family tree on a mobile device without it turning into a mess is a challenge that is yet to be resolved.
+            {% endblocktrans %}
+        </p>
+
+        <h3>{% trans "What browsers does this work on?" %}</h3>
+        <p>
+            {% blocktrans %}
+            The site is tested on the latest version of the top browsers on desktop and mobile.
+            There may be issues on unsupported browsers, such as older Android browsers, Internet Explorer 9 and below.
+            {% endblocktrans %}
+        </p>
+
+        <h3>{% trans "Is this website available in Mainland China?" %}</h3>
+        <p>
+            {% blocktrans %}
+            As far as we know it is, but availability of certain websites in China changes day to day.
+            We have made some technical decisions to make it more likely to be available.  For instance we use <a href="https://www.mapbox.com">Mapbox</a> for mapping instead of Google maps because the latter is blocked in China over a secure connection.
+            {% endblocktrans %}
+        </p>
+
+        <h3>{% trans "Is there a limit on images I can upload?" %}</h3>
+        <p>
+            {% blocktrans %}
+            No at the moment there isn't.  The images are stored on <a href="https://aws.amazon.com/s3/">Amazon S3</a> which is very very cheap so we don't mind footing the cost.
+            However if a lot of users start to upload thousands and thousands of images, we will have to create a limit.
+            {% endblocktrans %}
+        </p>
+
+        <h3>{% trans "Can I advertise on your site?" %}</h3>
+        <p>
+            {% blocktrans %}
+            We have no plans to raise money via ads on the site mainly as we don't want to subject our Grandmas to any more advertising than they currently get.
+            {% endblocktrans %}
+        </p>
+
+        <h3>{% trans "I found a bug!" %}</h3>
+        <p>
+            {% blocktrans %}
+            Please let us know!  You can <a href="mailto:info@okkindred.com?Subject=I%20found%20a%20bug!">email us</a> or you can add it to the <a href="https://github.com/JustinWingChungHui/okKindred/issues">issues list</a> on Github.
+            If it's a security bug need to know ASAP so we can fix it!
+            {% endblocktrans %}
+        </p>
+
+        <h3>{% trans "Can you add a feature so it can do xxxxx please?" %}</h3>
+        <p>
+            {% blocktrans %}
+            Feel free to request new features via <a href="mailto:info@okkindred.com?Subject=Feature%20Request">info@okkindred.com</a>.  We will definitely consider them especially if it will benefit a lot of people (i.e. our family).
+            This site is done in our spare time, so feature requests will be done when they're done.
+            {% endblocktrans %}
+        </p>
+
+        <h3>{% trans "Other genealogy websites look up local records to help create the tree, can you do the same?" %}</h3>
+        <p>
+            {% blocktrans %}
+            We have no plans to implement this yet.  The reason being is that most of our family originates from China.
+            Because of the civil wars that occured in China in the 20th century and instability during the last decades of the Qing dynasty,
+            few usable records exist that would be beneficial to us.
+            {% endblocktrans %}
+        </p>
+
+        <p>
+            {% blocktrans %}
+            Given that many genealogy websites do this already, we would try to focus more on the social networking side of this project.
+            However that is not to say that if in time a great need became apparent, we would not look at implementing such a feature.
+            {% endblocktrans %}
+        </p>
+
+        <h3>{% trans "For describing relationships you have 'Partnered' but not 'Married', you have 'Raised' but not 'Given Birth to'?" %}</h3>
+        <p>
+            {% blocktrans %}
+            We've tried to keep the site as simple as possible and as inclusive as possible.  The definitions of 'Raised', 'Raised by' and 'Partnered' give enough information to build a tree.
+            They are inclusive of cross-cultural relationships which don't have a concept of marriage.
+            They can include civil partnerships, common law partners, divorcees, adoptees and any other definitions that may or may not exist in different cultures.
+
+            {% endblocktrans %}
+        </p>
 
     </div>
 

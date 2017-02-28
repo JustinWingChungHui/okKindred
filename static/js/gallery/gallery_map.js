@@ -10,6 +10,7 @@ require(["jquery", "mustache", "leaflet","photoswipe", "photoswipe_ui"],
             var latitude = parseFloat($('#gallery_map').data('latitude'));
             var longitude = parseFloat($('#gallery_map').data('longitude'));
             var zoom = parseFloat($('#gallery_map').data('zoom'));
+            var token = $("#gallery_map").data("token");
 
             var map = L.map('gallery_map', {
                 center: [latitude, longitude],
@@ -21,10 +22,9 @@ require(["jquery", "mustache", "leaflet","photoswipe", "photoswipe_ui"],
                 maxBounds: [[-90, -200],[90, 200]]
             });
 
-            L.tileLayer('https://{s}.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={token}', {
-        		subdomains: ['a','b','c','d'],
-        		id: 'okkindred.ldfc645h',
-        		token: 'pk.eyJ1Ijoib2traW5kcmVkIiwiYSI6Ild2MnY5dDQifQ.EHr6blIYPYeg4bWmSStT-g'
+
+            L.tileLayer('https://api.mapbox.com/v4/mapbox.streets/{z}/{x}/{y}.jpg70?access_token={token}', {
+        		token: token
         	}).addTo(map);
 
             map.addControl( L.control.zoom({position: 'bottomleft'}));

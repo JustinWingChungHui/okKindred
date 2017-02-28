@@ -219,7 +219,8 @@ def image_detail(request, image_id):
     return render(request, 'gallery/image_tagging.html', {
                                     'image' : im,
                                     'previous_image_id': previous_image_id,
-                                    'next_image_id': next_image_id
+                                    'next_image_id': next_image_id,
+                                     'token' : settings.MAP_BOX_TOKEN,
                                 })
 
 

@@ -3,15 +3,12 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#: custom_user/templates/custom_user/settings.html:41
-#: custom_user/templates/custom_user/settings.html:51
-#: family_tree/templates/family_tree/edit_profile.html:194
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-10-10 21:43+0000\n"
+"POT-Creation-Date: 2017-02-28 17:27+0000\n"
 "PO-Revision-Date: 2015-06-15 04:58+0000\n"
 "Last-Translator: b'Anonymous User <wonghshilson@gmail.com>'\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -32,12 +29,12 @@ msgstr "确认密码"
 
 #: custom_user/admin.py:31
 msgid "Passwords don't match"
-msgstr "密码不符"
+msgstr "密码不匹配"
 
 #: custom_user/templates/custom_user/account_locked.html:6
 msgid ""
 "Your account has now been locked for 24 hours after 5 failed login attempts"
-msgstr "经5次登录尝试失败后，您的帐户已被锁定24小时"
+msgstr "您的帐户已被锁定24小时后5失败的登录尝试"
 
 #: custom_user/templates/custom_user/account_locked.html:7
 msgid "If you need assistance, please email: "
@@ -53,11 +50,11 @@ msgstr "再试一次"
 
 #: custom_user/templates/custom_user/logged_in.html:6
 msgid "Logged In"
-msgstr "已登录"
+msgstr "登录"
 
 #: custom_user/templates/custom_user/logged_out.html:6
 msgid "Logged Out"
-msgstr "已登岀"
+msgstr "登出"
 
 #: custom_user/templates/custom_user/login.html:9
 msgid "Please sign in"
@@ -69,94 +66,83 @@ msgstr "电子邮件地址"
 
 #: custom_user/templates/custom_user/login.html:11
 #: custom_user/templates/custom_user/password_reset.html:16
-#, fuzzy
-#| msgid "Email Address"
 msgid "Email address"
 msgstr "电子邮件地址"
 
-#: custom_user/templates/custom_user/login.html:19 templates/about.html:20
+#: custom_user/templates/custom_user/login.html:19
 msgid "Sign In"
-msgstr "登入"
+msgstr "签到"
 
 #: custom_user/templates/custom_user/login.html:20
-#, fuzzy
-#| msgid "Confirm Password"
 msgid "I forgot my password"
-msgstr "确认密码"
+msgstr "我忘记了我的密码"
 
 #: custom_user/templates/custom_user/password_reset.html:8
 msgid ""
 "Forgotten your password? Enter your email address below, and we'll email "
 "instructions for setting a new one."
 msgstr ""
+"忘记了你的密码？请在下面输入您的电子邮件地址，我们会设置一个新的电子邮件的指"
+"令。"
 
 #: custom_user/templates/custom_user/password_reset.html:15
-#, fuzzy
-#| msgid "Email Address"
 msgid "Email Address:"
-msgstr "电子邮件地址"
+msgstr "电子邮件地址："
 
 #: custom_user/templates/custom_user/password_reset.html:17
-#, fuzzy
-#| msgid "New Password"
 msgid "Reset my password"
-msgstr "新密码"
+msgstr "重置我的密码"
 
 #: custom_user/templates/custom_user/password_reset_complete.html:7
 msgid "Your password has been set.  You may go ahead and log in now."
-msgstr ""
+msgstr "您的密码已设置。你可以继续前进，现在登录。"
 
 #: custom_user/templates/custom_user/password_reset_complete.html:8
-#, fuzzy
-#| msgid "Log Out"
 msgid "Log in"
-msgstr "注销"
+msgstr "登录"
 
 #: custom_user/templates/custom_user/password_reset_confirm.html:10
 msgid ""
 "Please enter your new password twice so we can verify you typed it in "
 "correctly."
-msgstr ""
+msgstr "请输入两次新密码，以便我们确认您的输入正确无误。"
 
 #: custom_user/templates/custom_user/password_reset_confirm.html:15
 #: custom_user/templates/custom_user/password_reset_confirm.html:16
-#, fuzzy
-#| msgid "New Password"
 msgid "New password:"
-msgstr "新密码"
+msgstr "新密码："
 
 #: custom_user/templates/custom_user/password_reset_confirm.html:19
 #: custom_user/templates/custom_user/password_reset_confirm.html:20
-#, fuzzy
-#| msgid "Confirm Password"
 msgid "Confirm password:"
-msgstr "确认密码"
+msgstr "确认密码："
 
 #: custom_user/templates/custom_user/password_reset_confirm.html:23
-#, fuzzy
-#| msgid "Change Password"
 msgid "Change my password"
-msgstr "更改密码"
+msgstr "更改我的密码"
 
 #: custom_user/templates/custom_user/password_reset_confirm.html:28
 msgid ""
 "The password reset link was invalid, possibly because it has already been "
 "used.  Please request a new password reset."
-msgstr ""
+msgstr "密码重置链接是无效的，可能是因为它已经被使用。请申请一个新的密码重置。"
 
 #: custom_user/templates/custom_user/password_reset_done.html:7
 msgid ""
 "We've emailed you instructions for setting your password, if an account "
 "exists with the email you entered. You should receive them shortly."
 msgstr ""
+"我们已经通过电子邮件发送您说明来设置自己的密码，如果你输入的电子邮件存在的帐"
+"户。您应该很快就会收到他们。"
 
 #: custom_user/templates/custom_user/password_reset_done.html:8
 msgid ""
 "If you don't receive an email, please make sure you've entered the address "
 "you registered with, and check your spam folder."
 msgstr ""
+"如果您没有收到电子邮件，请确保您输入您注册的地址，并检查您的垃圾邮件文件夹。"
 
-#: custom_user/templates/custom_user/settings.html:13 templates/base.html:81
+#: custom_user/templates/custom_user/settings.html:13 templates/base.html:79
 msgid "Settings"
 msgstr "设置"
 
@@ -164,7 +150,7 @@ msgstr "设置"
 #: custom_user/templates/custom_user/settings.html:86
 #: family_tree/templates/family_tree/edit_profile.html:13
 msgid "Done"
-msgstr "DONE"
+msgstr "做"
 
 #: custom_user/templates/custom_user/settings.html:23
 msgid "Options"
@@ -177,21 +163,21 @@ msgstr "选项"
 #: family_tree/templates/family_tree/edit_profile.html:80
 #: sign_up/templates/sign_up/sign_up.html:37
 msgid "First Language"
-msgstr "母语"
+msgstr "第一语言"
 
 #: custom_user/templates/custom_user/settings.html:37
 msgid "Receive family update emails"
-msgstr "接收家人的更新电子邮件"
+msgstr "得到家人更新电子邮件"
 
 #: custom_user/templates/custom_user/settings.html:39
 msgid "Do you want to receive family update emails?"
-msgstr "你想收到家人的更新电子邮件？"
+msgstr "你想收到家人更新电子邮件？"
 
 #: custom_user/templates/custom_user/settings.html:41
 #: custom_user/templates/custom_user/settings.html:51
 #: family_tree/templates/family_tree/edit_profile.html:194
 msgid "1"
-msgstr ""
+msgstr "1"
 
 #: custom_user/templates/custom_user/settings.html:42
 #: custom_user/templates/custom_user/settings.html:52
@@ -200,7 +186,7 @@ msgstr ""
 #: family_tree/templates/family_tree/edit_profile.html:210
 #: family_tree/templates/family_tree/edit_profile.html:227
 msgid "Yes"
-msgstr "正确"
+msgstr "是"
 
 #: custom_user/templates/custom_user/settings.html:42
 #: custom_user/templates/custom_user/settings.html:52
@@ -208,16 +194,16 @@ msgstr "正确"
 #: family_tree/templates/family_tree/edit_profile.html:195
 #: family_tree/templates/family_tree/edit_profile.html:210
 msgid "No"
-msgstr "错误"
+msgstr "没有"
 
 #: custom_user/templates/custom_user/settings.html:47
 msgid "Receive update emails when you are identified in a photo"
-msgstr "当你在照片中被辨识后,接收更新电子邮件"
+msgstr "接收更新电子邮件，当你在照片鉴定"
 
 #: custom_user/templates/custom_user/settings.html:49
 msgid ""
 "Do you want to receive update emails when you are identified in a photo?"
-msgstr "当你在照片中被辨识,你是否想接收更新电子邮件？"
+msgstr "你想收到更新电子邮件，当你在照片被识别？"
 
 #: custom_user/templates/custom_user/settings.html:67
 msgid "Change Password"
@@ -233,13 +219,13 @@ msgstr "新密码"
 #: email_confirmation/templates/email_confirmation/confirm_invite.html:25
 #: sign_up/templates/sign_up/choose_password.html:16
 msgid "Minimum of 8 characters"
-msgstr "最少用8个字符"
+msgstr "8个字符最低"
 
 #: custom_user/templates/custom_user/settings.html:74
 #: email_confirmation/templates/email_confirmation/confirm_invite.html:29
 #: sign_up/templates/sign_up/choose_password.html:20
 msgid "Whoops, they must match!"
-msgstr "哎哟，密码必须相符！！"
+msgstr "哎呦，它们必须匹配！"
 
 #: custom_user/templates/custom_user/settings.html:74
 #: email_confirmation/templates/email_confirmation/confirm_invite.html:29
@@ -253,11 +239,11 @@ msgstr "更新密码"
 
 #: custom_user/templates/custom_user/settings.html:91
 msgid "Goodbye and Farewell"
-msgstr "再见"
+msgstr "再见，告别"
 
 #: custom_user/templates/custom_user/settings.html:92
 msgid "Leave ok!Kindred forever..."
-msgstr "彻底离开ok!Kindred 奥奇宗族园..."
+msgstr "离开OK！永远...血族"
 
 #: custom_user/templates/custom_user/settings.html:102
 #: family_tree/templates/family_tree/edit_profile.html:221
@@ -265,52 +251,39 @@ msgid "Delete Profile"
 msgstr "删除个人资料"
 
 #: custom_user/templates/custom_user/settings.html:105
-#, fuzzy
-#| msgid ""
-#| "Are you sure you want to leave ok!Kindred? We would be very sad to see "
-#| "you leave!"
 msgid ""
 "Are you sure you want to leave ok!Kindred?  We would be very sad to see you "
 "leave!"
-msgstr "你确定你要离开ok!Kindred奥奇宗族园?我们很抱歉你退出！"
+msgstr "你确定要离开ok了！血族？我们将非常痛心地看到你离开！"
 
 #: custom_user/templates/custom_user/settings.html:109
 msgid "NO!!! I don't want to quit"
-msgstr "否！我并不想退出"
+msgstr "没有！！！我不想放弃"
 
 #: custom_user/templates/custom_user/settings.html:115
 msgid "Yes but leave my profile"
-msgstr "正确，但请保留我的个人资料"
+msgstr "是的，但是离开我的个人资料"
 
 #: custom_user/templates/custom_user/settings.html:121
 msgid "Yes and delete my profile"
-msgstr "正确，请同时删除我的个人资料"
+msgstr "是，删除我的个人资料"
 
 #: custom_user/templates/custom_user/settings.html:129
 #: family_tree/templates/family_tree/edit_profile.html:210
 msgid "Required field!"
-msgstr "本栏必须填写！"
+msgstr "必填项目！"
 
-#: custom_user/views.py:123
+#: custom_user/views.py:126
 msgid "Access denied"
-msgstr "被拒绝登入"
+msgstr "拒绝访问"
 
 #: email_confirmation/models.py:48
 #, python-brace-format
 msgid "An invitation to ok!Kindred from {0}"
-msgstr "你被{0}邀请加入ok!Kindred 奥奇宗族园"
+msgstr "邀请就OK了！从血族{0}"
 
 #: email_confirmation/models.py:50
-#, fuzzy, python-brace-format
-#| msgid ""
-#| "Hi {0}\n"
-#| " You have been invited by {1} to join ok!Kindred.\n"
-#| " ok!Kindred is a collaborative family tree and private social network for "
-#| "you and you family.\n"
-#| " A network has already been set up by one of your family members to help "
-#| "you keep in touch.\n"
-#| " To join, please go to {2}/accounts/confirmation={3}/\n"
-#| " "
+#, python-brace-format
 msgid ""
 "Hi {0}\n"
 "                                            You have been invited by {1} to "
@@ -323,30 +296,26 @@ msgid ""
 "accounts/confirmation={3}/\n"
 "                                        "
 msgstr ""
-"您好{0}\n"
-" 您已被{1}邀请加入ok!Kindred奥奇宗族园。\n"
-" OK!Kindred奥奇宗族园是一个相互协作的家族世系图兼私人社交网络，为您和您的家人"
-"而设。\n"
-" 网络已经由你家庭其中一位成员建立，目的是跟您保持联系。\n"
-" 要加入，请到{2}/accounts/confirmation={3}/\n"
-" "
+"你好{0}\n"
+"                                            已邀请您参加由{1}加入OK！血族。\n"
+"                                            OK！血族是为您和您的家人一个协作"
+"家谱和私人社交网络。\n"
+"                                            网络已经成立了由你的家庭成员之"
+"一，以帮助您保持联系。\n"
+"                                            要加入，请访问{2}/accounts/"
+"confirmation={3}/\n"
+"                                        "
 
 #: email_confirmation/templates/email_confirmation/confirm_invite.html:10
-#: templates/about.html:14
+#: templates/about.html:33
 msgid "Welcome to ok!Kindred"
-msgstr "欢迎光临 ok!Kindred奥奇宗族园"
+msgstr "欢迎就OK了！血族"
 
 #: email_confirmation/templates/email_confirmation/confirm_invite.html:12
 msgid " Thank you for accepting the invitation from "
-msgstr "感谢您接受邀请"
+msgstr "感谢您接受来自邀请"
 
 #: email_confirmation/templates/email_confirmation/confirm_invite.html:14
-#, fuzzy
-#| msgid ""
-#| "\n"
-#| " to join ok!kindred, share your family tree and keep in contact with your "
-#| "family members!\n"
-#| " "
 msgid ""
 "\n"
 "         to join ok!kindred, share your family tree and keep in contact with "
@@ -354,30 +323,25 @@ msgid ""
 "         "
 msgstr ""
 "\n"
-"参加Ok!Kindred奥奇宗族园，分享你的家族世系图，并保持你与家庭成员的联系！"
+"参加OK！亲情，分享你的家谱，并保持与你的家人联系！\n"
+"         "
 
 #: email_confirmation/templates/email_confirmation/confirm_invite.html:22
 #: sign_up/templates/sign_up/choose_password.html:13
 msgid "Please create a new password:"
-msgstr "请创建新密码："
+msgstr "请创建一个新的密码："
 
 #: email_confirmation/templates/email_confirmation/confirm_invite.html:34
 #: sign_up/templates/sign_up/choose_password.html:24
 #: sign_up/templates/sign_up/sign_up.html:8
 msgid "Join ok!Kindred"
-msgstr "加入 ok!Kindred奥奇宗族园丨"
+msgstr "加入OK！血族"
 
 #: email_confirmation/templates/email_confirmation/invalid_expired.html:10
 msgid "Invalid Email Confirmation"
 msgstr "无效的电子邮件确认"
 
 #: email_confirmation/templates/email_confirmation/invalid_expired.html:12
-#, fuzzy
-#| msgid ""
-#| "\n"
-#| " Unfortunately either your invite to join has expired, or is invalid.\n"
-#| " Please ask a m​​ember of your family to re-invite you.\n"
-#| " "
 msgid ""
 "\n"
 "         Unfortunately either your invite to join has expired, or is "
@@ -386,25 +350,18 @@ msgid ""
 "         "
 msgstr ""
 "\n"
-"抱歉您的加入邀请已经过期，而且也是无效的\n"
-"请要求您的家庭成员重新邀请您"
+"不幸的是或者您的邀请加入已经过期，或者是无效的。\n"
+"         请询问您的家庭成员重新邀请您。\n"
+"         "
 
 #: email_confirmation/templates/email_confirmation/invite.html:6
 #: gallery/templates/gallery/you_have_been_tagged.html:6
 #: sign_up/templates/sign_up/confirmation_email.html:6
 msgid "Hello"
-msgstr "您好"
+msgstr "你好"
 
 #: email_confirmation/templates/email_confirmation/invite.html:10
-#, fuzzy, python-format
-#| msgid ""
-#| "\n"
-#| " You have been invited by %(user_who_invited_person)s to join ok!Kindred: "
-#| "a collaborative family tree and private social network for you and your "
-#| "family.\n"
-#| " A network has already been set up by one of your family members to help "
-#| "you keep in touch.\n"
-#| " "
+#, python-format
 msgid ""
 "\n"
 "        You have been invited by %(user_who_invited_person)s to join ok!"
@@ -415,39 +372,23 @@ msgid ""
 "        "
 msgstr ""
 "\n"
-" 你已经被%(user_who_invited_person)s邀请加盟OK Kindred奥奇宗族园：一个相互协"
-"作的家族世系谱兼私人社交网络，服务您和您的家人。\n"
-" 网络已经由你的一位家庭成员建立，协助您保持联系。"
+"已邀请您参加由 %(user_who_invited_person)s 加入血族OK！为您和您的家人一个协作"
+"家谱和私人社交网络。\n"
+"        网络已经成立了由你的家庭成员之一，以帮助您保持联系。\n"
+"        "
 
 #: email_confirmation/templates/email_confirmation/invite.html:16
-#, fuzzy
-#| msgid ""
-#| "\n"
-#| " Don't worry, it's absolutely free, and we take your security and privacy "
-#| "seriously.\n"
-#| " If you would like to join, please click on the following link and choose "
-#| "a secure password that you will remember.\n"
-#| " "
 msgid ""
 "\n"
-"        Don't worry, it's absolutely free, and we take your security and "
-"privacy seriously.\n"
 "        If you would like to join, please click on the following link and "
 "choose a secure password that you will remember.\n"
 "        "
 msgstr ""
 "\n"
-"请不用担心，本网站是完全免费的，我们也十分重视保密和保障您的资料及私穏。\n"
-" 如果您想加入，请点击以下链连结，选择一个保密又令您容易牢记的密码。"
+"要确认您的帐户，请点击下面的链接，并选择你会记得一个安全的密码。"
 
-#: email_confirmation/templates/email_confirmation/invite.html:25
-#, fuzzy, python-format
-#| msgid ""
-#| "\n"
-#| " Please, click the link and check it out. You can always leave if you "
-#| "wish. If you want to find out more, just go to <a href = \"%(domain)s\">"
-#| "%(domain)s</a> to find out more!\n"
-#| " "
+#: email_confirmation/templates/email_confirmation/invite.html:24
+#, python-format
 msgid ""
 "\n"
 "        Please, click the link and check it out.  You can always leave if "
@@ -456,51 +397,40 @@ msgid ""
 "        "
 msgstr ""
 "\n"
-"请点击连结，并浏览内容。你亦可以选择随时离开。如果您想了解更多详情，只要前往"
-"<a href=\"%(domain)s\">%(domain)s</a>！"
+"请点击链接，并检查出来。如果你愿意，你可以随时离开。如果您想了解更多信息，只"
+"是去<a href = \"%(domain)s\">%(domain)s</a>，以了解更多！\n"
+"        "
 
-#: email_confirmation/templates/email_confirmation/invite.html:31
+#: email_confirmation/templates/email_confirmation/invite.html:30
 #: sign_up/templates/sign_up/confirmation_email.html:19
-#, fuzzy
-#| msgid ""
-#| "\n"
-#| " Thanks and lots of love from Justin & Adrian @ ok!Kindred\n"
-#| " "
 msgid ""
 "\n"
 "        Thanks and lots of love from Justin & Adrian @ ok!Kindred\n"
 "        "
 msgstr ""
 "\n"
-"感谢ok!Kindred奥奇宗族园的頴聪和俊豪,也多谢他们的关爱"
+"感谢和大量从贾斯汀和阿德里安@ OK爱！血族\n"
+"        "
 
 #: emailer/models.py:119
 msgid "ok!Kindred family update"
-msgstr "ok!Kindred奥奇宗族园家庭资料更新"
+msgstr "OK！血族家庭更新"
 
 #: emailer/models.py:121
 msgid "One or more of your family has had details in ok!Kindred updated."
-msgstr "你部分家庭成员已在ok!Kindred奥奇宗族园内存有资料,而且资料经已更新"
+msgstr "一个或多个家庭已在确定细节！亲属更新。"
 
 #: emailer/templates/emailer/people_updates.html:7
-#, fuzzy
-#| msgid ""
-#| "The following people have been added to your family in ok!Kindred. Click "
-#| "on them to find out more:"
 msgid ""
 "The following people have been added to your family in ok!Kindred.  Click on "
 "them to find out more:"
-msgstr "以下的成员已被添加到OK!Kindred奥奇宗族园内。请点击以了解更多："
+msgstr "下面的人已被添加到您的家人在OK！血族。他们点击了解更多："
 
 #: emailer/templates/emailer/people_updates.html:24
-#, fuzzy
-#| msgid ""
-#| "The following people's profiles have been updated. Click on them to find "
-#| "out more:"
 msgid ""
 "The following people's profiles have been updated.   Click on them to find "
 "out more:"
-msgstr "以下成员的个人资料已更新。请点击以了解更多："
+msgstr "下面的人的个人资料已经更新。他们点击了解更多："
 
 #: family_tree/models/person.py:23
 #: family_tree/templates/family_tree/add_relation.html:59
@@ -524,19 +454,19 @@ msgstr "其他"
 #: family_tree/templates/family_tree/add_relation.html:32
 #: family_tree/templates/family_tree/add_relation.html:36
 msgid "Partnered"
-msgstr "伴侣"
+msgstr "合作"
 
 #: family_tree/models/relation.py:12
 #: family_tree/templates/family_tree/add_relation.html:33
 #: family_tree/templates/family_tree/add_relation.html:37
 msgid "Raised"
-msgstr "抚养"
+msgstr "上调"
 
 #: family_tree/models/relation.py:13
 #: family_tree/templates/family_tree/add_relation.html:34
 #: family_tree/templates/family_tree/add_relation.html:38
 msgid "Raised By"
-msgstr "抚养者是"
+msgstr "上调"
 
 #: family_tree/templates/family_tree/add_relation.html:9
 #: family_tree/templates/family_tree/edit_biography.html:11
@@ -544,18 +474,18 @@ msgstr "抚养者是"
 #: gallery/templates/gallery/edit_gallery.html:17
 #: gallery/templates/gallery/edit_gallery.html:19
 #: gallery/templates/gallery/gallery.html:79
-#: gallery/templates/gallery/image_tagging.html:142
-#: gallery/templates/gallery/image_tagging.html:198
+#: gallery/templates/gallery/image_tagging.html:143
+#: gallery/templates/gallery/image_tagging.html:199
 msgid "Cancel"
 msgstr "取消"
 
 #: family_tree/templates/family_tree/add_relation.html:46
 msgid "Existing Person"
-msgstr "现有成员"
+msgstr "现有的人"
 
 #: family_tree/templates/family_tree/add_relation.html:47
 msgid "New Person"
-msgstr "新成员"
+msgstr "新人员"
 
 #: family_tree/templates/family_tree/add_relation.html:52
 #: family_tree/templates/family_tree/add_relation.html:96
@@ -565,9 +495,7 @@ msgstr "新成员"
 #: family_tree/templates/family_tree/search.html:14
 #: sign_up/templates/sign_up/sign_up.html:18
 msgid "Name"
-msgstr ""
-"名称\n"
-" "
+msgstr "名称"
 
 #: family_tree/templates/family_tree/add_relation.html:57
 #: family_tree/templates/family_tree/edit_profile.html:45
@@ -582,7 +510,7 @@ msgstr "性别"
 #: family_tree/templates/family_tree/profile.html:116
 #: sign_up/templates/sign_up/sign_up.html:48
 msgid "Location"
-msgstr "地点"
+msgstr "位置"
 
 #: family_tree/templates/family_tree/add_relation.html:82
 #: family_tree/templates/family_tree/edit_profile.html:56
@@ -590,61 +518,60 @@ msgstr "地点"
 #: family_tree/templates/family_tree/profile.html:74
 #: sign_up/templates/sign_up/sign_up.html:53
 msgid "Birth Year"
-msgstr "出生年份"
+msgstr "出生年"
 
 #: family_tree/templates/family_tree/add_relation.html:86
 #: family_tree/templates/family_tree/edit_profile.html:38
 #: family_tree/templates/family_tree/edit_profile.html:202
-#: gallery/templates/gallery/image_tagging.html:71
+#: gallery/templates/gallery/image_tagging.html:72
 #: sign_up/templates/sign_up/sign_up.html:57
 msgid "Required"
-msgstr "必要"
+msgstr "需要"
 
 #: family_tree/templates/family_tree/add_relation.html:93
-#: gallery/templates/gallery/image_tagging.html:183
+#: gallery/templates/gallery/image_tagging.html:184
 msgid "Search Name"
 msgstr "搜索名称"
 
 #: family_tree/templates/family_tree/add_relation.html:100
 #: family_tree/templates/family_tree/search.html:19
-#: gallery/templates/gallery/image_tagging.html:187
+#: gallery/templates/gallery/image_tagging.html:188
 msgid "Searching..."
-msgstr "搜索中..."
+msgstr "搜索..."
 
 #: family_tree/templates/family_tree/add_relation.html:114
 #: family_tree/templates/family_tree/edit_biography.html:12
 #: family_tree/templates/family_tree/image_resize.html:36
 #: gallery/templates/gallery/edit_gallery.html:21
 msgid "Save"
-msgstr "储存"
+msgstr "保存"
 
 #: family_tree/templates/family_tree/break_relation.html:10
 #: family_tree/templates/family_tree/image_resize.html:13
 #: sign_up/templates/sign_up/email_in_use.html:9
-#: sign_up/templates/sign_up/invalid_email.html:9 templates/about.html:68
-#: templates/about.html:95 templates/about.html:146
+#: sign_up/templates/sign_up/invalid_email.html:9
 msgid "Back"
-msgstr "返回上项"
+msgstr "背部"
 
 #: family_tree/templates/family_tree/break_relation.html:13
 msgid "Break Relations"
-msgstr "关系缺裂"
+msgstr "歇关系"
 
 #: family_tree/templates/family_tree/break_relation.html:27
 msgid "Break"
-msgstr "破裂"
+msgstr "打破"
 
 #: family_tree/templates/family_tree/edit_profile.html:14
-#: family_tree/templates/family_tree/tree_app.html:36
+#: family_tree/templates/family_tree/tree_app.html:28
 msgid "Add Relation"
-msgstr "增建关系"
+msgstr "添加关系"
 
 #: family_tree/templates/family_tree/edit_profile.html:15
 msgid "Break Relation"
-msgstr "破裂关系"
+msgstr "歇关系"
 
 #: family_tree/templates/family_tree/edit_profile.html:17
-#: gallery/templates/gallery/image_tagging.html:139
+#: gallery/templates/gallery/image_tagging.html:140
 msgid "Delete"
 msgstr "删除"
 
@@ -652,17 +579,15 @@ msgstr "删除"
 #: family_tree/templates/family_tree/edit_profile.html:26
 #: family_tree/templates/family_tree/edit_profile.html:29
 msgid "Click photo to upload new one"
-msgstr "点击图片以上传更新版本"
+msgstr "点击图片上传新"
 
 #: family_tree/templates/family_tree/edit_profile.html:66
 msgid "Death Year (enter 0 if still alive)"
-msgstr "死亡年份（如果还活着请输入0）"
+msgstr "卒年（如果还活着输入0）"
 
 #: family_tree/templates/family_tree/edit_profile.html:68
-#, fuzzy
-#| msgid "Death Year. Enter 0 if still alive."
 msgid "Death Year.  Enter 0 if still alive."
-msgstr "死亡年份。如果还活着请输入0。。"
+msgstr "卒年。如果还在世的输入0。"
 
 #: family_tree/templates/family_tree/edit_profile.html:89
 #: family_tree/templates/family_tree/edit_profile.html:91
@@ -682,7 +607,7 @@ msgstr "讲什么语言"
 #: family_tree/templates/family_tree/edit_profile.html:111
 #: family_tree/templates/family_tree/profile.html:102
 msgid "Occupation"
-msgstr "行业"
+msgstr "占用"
 
 #: family_tree/templates/family_tree/edit_profile.html:119
 #: family_tree/templates/family_tree/profile.html:109
@@ -690,20 +615,14 @@ msgid "Tel Number"
 msgstr "电话号码"
 
 #: family_tree/templates/family_tree/edit_profile.html:121
-#, fuzzy
-#| msgid ""
-#| "Telephone/Mobile Number. Include the country code if your family is "
-#| "across several countries"
 msgid ""
 "Telephone/Mobile Number.  Include the country code if your family is across "
 "several countries"
-msgstr "电话/手机号码。请加填国家代码，如果你的家人是生活在不同国家"
+msgstr "电话/手机号码。包括国家代码，如果你的家庭是跨越多个国家的"
 
 #: family_tree/templates/family_tree/edit_profile.html:131
-#, fuzzy
-#| msgid "Location. Can be approximate eg Coventry, UK or 筲箕湾香港"
 msgid "Location.  Can be approximate e.g. Coventry, UK or 筲箕灣 香港"
-msgstr "位置。可以近似如英国考文郡或香港筲箕湾"
+msgstr "位置。可以近似例如英国考文垂或筲箕湾香港"
 
 #: family_tree/templates/family_tree/edit_profile.html:139
 #: family_tree/templates/family_tree/edit_profile.html:141
@@ -714,25 +633,23 @@ msgstr "网站"
 #: family_tree/templates/family_tree/edit_profile.html:149
 #: family_tree/templates/family_tree/edit_profile.html:151
 #: family_tree/templates/family_tree/profile.html:130
-#, fuzzy
-#| msgid "Skyp​​e Name"
 msgid "Skype Name"
-msgstr "Skyp​​e用户名"
+msgstr "Skype用户名"
 
 #: family_tree/templates/family_tree/edit_profile.html:159
 #: family_tree/templates/family_tree/edit_profile.html:161
 msgid "Facebook"
-msgstr "Facebook面书"
+msgstr "Facebook的"
 
 #: family_tree/templates/family_tree/edit_profile.html:169
 #: family_tree/templates/family_tree/edit_profile.html:171
 msgid "Twitter"
-msgstr "Twitter推特"
+msgstr "推特"
 
 #: family_tree/templates/family_tree/edit_profile.html:179
 #: family_tree/templates/family_tree/edit_profile.html:181
 msgid "LinkedIn"
-msgstr "LinkedIn连辨灵"
+msgstr "LinkedIn"
 
 #: family_tree/templates/family_tree/edit_profile.html:190
 msgid "Locked"
@@ -740,53 +657,53 @@ msgstr "锁定"
 
 #: family_tree/templates/family_tree/edit_profile.html:192
 msgid "Lock your profile, so only you can edit it?"
-msgstr "锁定您的个人资料，只有您才可以编辑？"
+msgstr "锁定您的个人资料，所以只有您可以编辑呢？"
 
 #: family_tree/templates/family_tree/edit_profile.html:224
 msgid "Are you sure you want to delete profile?"
-msgstr "您确定要删除个人资料？"
+msgstr "你确定要删除的个人资料？"
 
 #: family_tree/templates/family_tree/edit_profile.html:228
 msgid "NO!!!"
-msgstr "否定!!!"
+msgstr "没有！！！"
 
 #: family_tree/templates/family_tree/image_resize.html:11
 msgid "Image Resize"
-msgstr "图像调整"
+msgstr "调整图片大小"
 
 #: family_tree/templates/family_tree/image_resize.html:41
 msgid "Please trim the image to suit a profile picture:"
-msgstr "请裁剪图像，以符合个人资料图片框架："
+msgstr "请裁剪图像，以适应个人资料图片："
 
 #: family_tree/templates/family_tree/image_upload.html:11
 msgid "New Profile Photo"
-msgstr "新的个人资料照片"
+msgstr "新个人资料照片"
 
 #: family_tree/templates/family_tree/image_upload.html:14
 msgid "Upload the new profile photo for"
-msgstr "上载新的个人资料照片"
+msgstr "上传新的个人资料照片"
 
 #: family_tree/templates/family_tree/image_upload.html:20
 msgid "Select file..."
-msgstr "选择档案..."
+msgstr "选择文件..."
 
 #: family_tree/templates/family_tree/image_upload.html:36
 #: gallery/templates/gallery/upload_images.html:34
 msgid "Processing..."
-msgstr "处理中..."
+msgstr "处理..."
 
 #: family_tree/templates/family_tree/image_upload.html:38
 #: gallery/templates/gallery/upload_images.html:37
 msgid "Error uploading image"
-msgstr "上传图像出现错误"
+msgstr "错误上传图片"
 
 #: family_tree/templates/family_tree/no_match_found.html:9
 msgid "No Match Found!"
-msgstr "未找到匹配！"
+msgstr "没有找到匹配！"
 
 #: family_tree/templates/family_tree/profile.html:9 templates/base.html:71
 msgid "Tree"
-msgstr "世族世系树图"
+msgstr "树"
 
 #: family_tree/templates/family_tree/profile.html:13
 #: family_tree/templates/family_tree/profile.html:15
@@ -807,43 +724,43 @@ msgstr "后人"
 
 #: family_tree/templates/family_tree/profile.html:29
 msgid "This profile has been locked by this user."
-msgstr "此档案资料已经被本用户锁定。"
+msgstr "此档案已经被这个用户锁定。"
 
 #: family_tree/templates/family_tree/profile.html:38
 #: family_tree/templates/family_tree/whole_tree.html:32
 msgid "No photo uploaded for "
-msgstr "没有照片上传"
+msgstr "没有照片上载"
 
 #: family_tree/templates/family_tree/profile.html:45
 #: family_tree/templates/family_tree/profile.html:49
 #: family_tree/templates/family_tree/profile.html:183
 #: family_tree/templates/family_tree/profile.html:201
 msgid "Invite to join"
-msgstr "诚邀加盟"
+msgstr "邀请加入"
 
 #: family_tree/templates/family_tree/profile.html:54
 msgid "Photos"
-msgstr "照片"
+msgstr "相片"
 
 #: family_tree/templates/family_tree/profile.html:81
 msgid "Death Year"
-msgstr "死亡年份"
+msgstr "卒年"
 
 #: family_tree/templates/family_tree/profile.html:137
 msgid "Facebook Name"
-msgstr "Facebook 面书名字"
+msgstr "Facebook的名称"
 
 #: family_tree/templates/family_tree/profile.html:144
 msgid "Twitter Handle"
-msgstr "Twitter 推特名字"
+msgstr "Twitter的手柄"
 
 #: family_tree/templates/family_tree/profile.html:153
 msgid "Linked In Profile"
-msgstr "LinkedIn连辨灵个人资料"
+msgstr "链接在配置文件"
 
 #: family_tree/templates/family_tree/profile.html:163
 msgid "Biography"
-msgstr "简历"
+msgstr "传"
 
 #: family_tree/templates/family_tree/profile.html:165
 msgid "Edit Biography"
@@ -851,61 +768,37 @@ msgstr "编辑简历"
 
 #: family_tree/templates/family_tree/profile.html:172
 msgid "A biography has not yet been written for this language."
-msgstr "还没有用本语言编写简历"
+msgstr "传记还没有为这个语言编写。"
 
 #: family_tree/templates/family_tree/search.html:12
 msgid "Search Name:"
-msgstr "搜索名称："
+msgstr "搜索产品名称："
 
-#: family_tree/templates/family_tree/tree_app.html:23
+#: family_tree/templates/family_tree/tree_app.html:15
 msgid "raised"
-msgstr "抚养"
+msgstr "上调"
 
-#: family_tree/templates/family_tree/tree_app.html:23
+#: family_tree/templates/family_tree/tree_app.html:15
 msgid "partnered"
-msgstr "伴侣"
+msgstr "合作"
 
-#: family_tree/templates/family_tree/tree_app.html:35
+#: family_tree/templates/family_tree/tree_app.html:27
 #: gallery/templates/gallery/person_gallery.html:14
 msgid "Profile"
-msgstr "资料蓝本"
+msgstr "轮廓"
 
 #: family_tree/views/image_upload_views.py:70
 msgid "File is too big"
-msgstr "档案过大"
-
-#: okkindred/settings.py:133
-msgid "English"
-msgstr "英语"
-
-#: okkindred/settings.py:134
-msgid "Traditional Chinese"
-msgstr "传统中文"
-
-#: okkindred/settings.py:135
-msgid "Simplified Chinese"
-msgstr "简体中文"
-
-#: okkindred/settings.py:136
-msgid "Polish"
-msgstr "波兰语"
-
-#: okkindred/settings.py:137
-msgid "Finnish"
-msgstr "芬兰语"
-
-#: okkindred/settings.py:138
-msgid "French"
-msgstr "法语"
+msgstr "文件太大"
 
 #: gallery/templates/gallery/edit_gallery.html:27
-#: gallery/templates/gallery/image_tagging.html:70
+#: gallery/templates/gallery/image_tagging.html:71
 msgid "Title"
-msgstr "称号"
+msgstr "标题"
 
 #: gallery/templates/gallery/edit_gallery.html:32
-#: gallery/templates/gallery/image_tagging.html:77
-#: gallery/templates/gallery/image_tagging.html:79
+#: gallery/templates/gallery/image_tagging.html:78
+#: gallery/templates/gallery/image_tagging.html:80
 msgid "Description"
 msgstr "描述"
 
@@ -913,136 +806,124 @@ msgstr "描述"
 #: gallery/templates/gallery/gallery_index.html:18
 #: gallery/templates/gallery/person_gallery.html:34
 msgid "Loading..."
-msgstr "加载中..."
+msgstr "载入中..."
 
 #: gallery/templates/gallery/gallery.html:53
 msgid "No more images to show"
-msgstr "没有更多图像展示"
+msgstr "没有更多的图片展示"
 
 #: gallery/templates/gallery/gallery.html:57
 msgid "Error loading images"
-msgstr "加载图像时出现错误"
+msgstr "错误加载图片"
 
 #: gallery/templates/gallery/gallery.html:66
 msgid "Delete Gallery"
-msgstr "删除整个图像库资料"
+msgstr "删除图库"
 
 #: gallery/templates/gallery/gallery.html:69
-#, fuzzy
-#| msgid ""
-#| "Are you sure you want to leave delete this gallery? It will delete all "
-#| "the images in it!"
 msgid ""
 "Are you sure you want to leave delete this gallery?  It will delete all the "
 "images in it!"
-msgstr "你确定要离开并删除本图像库？它会删除所有图像呢！"
+msgstr "你确定要离开删除此图库？它会删除所有图像呢！"
 
 #: gallery/templates/gallery/gallery.html:76
-#, fuzzy
-#| msgid "Delete Gallery"
 msgid "Delete Gallery and all Pictures"
-msgstr "删除整个图像库资料"
+msgstr "删除库和所有图片"
 
 #: gallery/templates/gallery/gallery.html:88
 #: gallery/templates/gallery/gallery_map.html:42
 #: gallery/templates/gallery/person_gallery.html:24
 #: gallery/templates/gallery/person_gallery.html:39
 msgid "Details"
-msgstr "图库详情"
+msgstr "细节"
 
 #: gallery/templates/gallery/gallery_index.html:9
 msgid "Add New Gallery"
-msgstr "添加新图像库"
+msgstr "添加新图库"
 
 #: gallery/templates/gallery/gallery_index.html:12
 msgid "Galleries"
-msgstr "图像库"
+msgstr "画廊"
 
 #: gallery/templates/gallery/gallery_index.html:21
 msgid "No more galleries to show"
-msgstr "没有更多图像库展示"
+msgstr "没有更多的画廊展示"
 
 #: gallery/templates/gallery/gallery_index.html:42
 msgid "Last Updated:"
-msgstr "最后更新："
+msgstr "最近更新时间："
 
 #: gallery/templates/gallery/image_tagging.html:42
 msgid "Click/Touch image to tag people"
-msgstr "点击/触摸图像以标记成员"
+msgstr "点击/触摸图像标记的人"
 
-#: gallery/templates/gallery/image_tagging.html:71
+#: gallery/templates/gallery/image_tagging.html:72
 msgid "Required Field"
-msgstr "此栏必须填写！"
+msgstr "必填项目"
 
-#: gallery/templates/gallery/image_tagging.html:86
-#: gallery/templates/gallery/image_tagging.html:88
+#: gallery/templates/gallery/image_tagging.html:87
 #: gallery/templates/gallery/image_tagging.html:89
+#: gallery/templates/gallery/image_tagging.html:90
 msgid "Date Taken"
-msgstr "制作日期"
+msgstr "拍摄日期"
 
-#: gallery/templates/gallery/image_tagging.html:100
+#: gallery/templates/gallery/image_tagging.html:101
 msgid "Make Gallery Thumbnail"
-msgstr "制作图像库图钉"
+msgstr "让画廊缩略图"
 
-#: gallery/templates/gallery/image_tagging.html:116
+#: gallery/templates/gallery/image_tagging.html:117
 msgid "Search Address"
-msgstr "搜寻电子邮件地址"
+msgstr "搜索地址"
 
-#: gallery/templates/gallery/image_tagging.html:118
+#: gallery/templates/gallery/image_tagging.html:119
 msgid "OK"
-msgstr "正确"
+msgstr "好"
 
-#: gallery/templates/gallery/image_tagging.html:129
+#: gallery/templates/gallery/image_tagging.html:130
 msgid "Delete Image"
 msgstr "删除图像"
 
-#: gallery/templates/gallery/image_tagging.html:132
+#: gallery/templates/gallery/image_tagging.html:133
 msgid "Are you sure you want to leave delete this image?"
-msgstr "你确定要离开并删除本图像？"
+msgstr "你确定要离开删除此图片？"
 
-#: gallery/templates/gallery/image_tagging.html:155
+#: gallery/templates/gallery/image_tagging.html:156
 msgid "Tag Details"
-msgstr "标签资料"
+msgstr "标签详情"
 
-#: gallery/templates/gallery/image_tagging.html:161
+#: gallery/templates/gallery/image_tagging.html:162
 msgid "Go To Profile"
 msgstr "转到个人资料"
 
-#: gallery/templates/gallery/image_tagging.html:162
+#: gallery/templates/gallery/image_tagging.html:163
 msgid "Delete Tag"
 msgstr "删除标签"
 
-#: gallery/templates/gallery/image_tagging.html:175
+#: gallery/templates/gallery/image_tagging.html:176
 msgid "Add a New Tag"
 msgstr "添加新标签"
 
-#: gallery/templates/gallery/image_tagging.html:181
+#: gallery/templates/gallery/image_tagging.html:182
 msgid "Who is this?"
 msgstr "这是谁？"
 
 #: gallery/templates/gallery/person_gallery.html:16
 msgid "Pictures of"
-msgstr "本图片属于"
+msgstr "图片"
 
 #: gallery/templates/gallery/upload_images.html:11
 msgid "Upload New Photo"
-msgstr "上传新照片"
+msgstr "上传新摄影"
 
 #: gallery/templates/gallery/upload_images.html:14
 msgid "Upload a new photo to the gallery"
-msgstr "上传新照片到图像库"
+msgstr "上传新的照片画廊"
 
 #: gallery/templates/gallery/upload_images.html:20
 msgid "Select files..."
-msgstr "选择档案..."
+msgstr "选择文件..."
 
 #: gallery/templates/gallery/you_have_been_tagged.html:10
-#, fuzzy
-#| msgid ""
-#| "\n"
-#| " You have been identified in a photo on ok!Kindred. Click on the "
-#| "following link to see it:\n"
-#| " "
 msgid ""
 "\n"
 "        You have been identified in a photo on ok!Kindred.  Click on the "
@@ -1050,19 +931,15 @@ msgid ""
 "        "
 msgstr ""
 "\n"
-"你已经在ok!Kindred奥奇宗族园的一幅照片内被辨识，点击以下连结查看："
+"你已经在就OK的照片被认定！血族。点击以下链接看看吧：\n"
+"        "
 
 #: gallery/views/tag_views.py:114
 msgid "You have been identified in a new photo in ok!Kindred"
-msgstr "你已经在ok!Kindred奥奇宗族园一幅新的照片内被辨识"
+msgstr "你已经在确定一个新的照片被认定！血族"
 
 #: gallery/views/tag_views.py:116
-#, fuzzy, python-brace-format
-#| msgid ""
-#| "Hi {0}\n"
-#| " You have been identified in a photo.\n"
-#| " To see it, please go to {1}/person={2}/photos/image={3}/\n"
-#| " "
+#, python-brace-format
 msgid ""
 "Hi {0}\n"
 "                                        You have been identified in a "
@@ -1071,15 +948,39 @@ msgid ""
 "gallery={2}/image={3}/\n"
 "                                    "
 msgstr ""
-"喜{0}\n"
-" 你在一个画面被认可。\n"
-" 看看吧，请到{1}/person={2}/photos/image={3}"
+"你好{0}\n"
+"                                        你已经在照片已经确定。\n"
+"                                        看到它，请访问{1}/gallery={2}/"
+"image={3}/\n"
+"                                    "
+
+#: okkindred/settings.py:129
+msgid "English"
+msgstr "英语"
+
+#: okkindred/settings.py:130
+msgid "Traditional Chinese"
+msgstr "繁体中文"
+
+#: okkindred/settings.py:131
+msgid "Simplified Chinese"
+msgstr "简体中文"
+
+#: okkindred/settings.py:132
+msgid "Polish"
+msgstr "抛光"
+
+#: okkindred/settings.py:133
+msgid "Finnish"
+msgstr "芬兰"
+
+#: okkindred/settings.py:134
+msgid "French"
+msgstr "法国"
 
 #: sign_up/models.py:102
-#, fuzzy
-#| msgid "ok!Kindred family update"
 msgid "ok!Kindred sign up confirmation"
-msgstr "ok!Kindred奥奇宗族园家庭资料更新"
+msgstr "ok!Kindred 属报名确认"
 
 #: sign_up/models.py:104
 #, python-brace-format
@@ -1089,6 +990,10 @@ msgid ""
 "go to {1}/accounts/sign_up_confirmation={2}/\n"
 "                                        "
 msgstr ""
+"你好{0}\n"
+"                                            要确认您的申请，请访问{1}/"
+"accounts/sign_up_confirmation={2}/\n"
+"                                        "
 
 #: sign_up/templates/sign_up/check_email.html:9
 #, python-format
@@ -1098,22 +1003,16 @@ msgid ""
 "%(new_signup.email_address)s to confirm your account.\n"
 "    "
 msgstr ""
+"\n"
+"谢谢！ %(new_signup.name)s■请检查你的电子邮件%(new_signup.email_address)s■确"
+"认您的帐户。\n"
+"    "
 
 #: sign_up/templates/sign_up/choose_password.html:8
-#, fuzzy
-#| msgid "Password confirmation"
 msgid "Account confirmation"
-msgstr "确认密码"
+msgstr "帐户确认"
 
 #: sign_up/templates/sign_up/confirmation_email.html:10
-#, fuzzy
-#| msgid ""
-#| "\n"
-#| " Don't worry, it's absolutely free, and we take your security and privacy "
-#| "seriously.\n"
-#| " If you would like to join, please click on the following link and choose "
-#| "a secure password that you will remember.\n"
-#| " "
 msgid ""
 "\n"
 "        To confirm your account, please click on the following link and "
@@ -1121,168 +1020,159 @@ msgid ""
 "        "
 msgstr ""
 "\n"
-"请不用担心，本网站是完全免费的，我们也十分重视保密和保障您的资料及私穏。\n"
-" 如果您想加入，请点击以下链连结，选择一个保密又令您容易牢记的密码。"
+"要确认您的帐户，请点击下面的链接，并选择你会记得一个安全的密码。"
 
 #: sign_up/templates/sign_up/email_in_use.html:8
 msgid "The email is already in use!"
-msgstr ""
+msgstr "电子邮件已在使用！"
 
 #: sign_up/templates/sign_up/invalid_email.html:8
-#, fuzzy
-#| msgid "Invalid Login"
 msgid "Invalid email"
-msgstr "登录无效"
+msgstr "不合规电邮"
 
 #: sign_up/templates/sign_up/sign_up.html:11
 msgid ""
 "To set up a new family network and join ok!Kindred, please provide the "
 "following information:"
-msgstr ""
+msgstr "！要建立一个新的家庭网络，并加入血族确定，请提供以下信息："
 
 #: sign_up/templates/sign_up/sign_up.html:59
 msgid "Join"
-msgstr ""
+msgstr "加入"
 
 #: templates/404.html:9
-#, fuzzy
-#| msgid ""
-#| "We are sorry. Unfortunately the page you are looking for has not been "
-#| "found."
 msgid ""
 "We are sorry.  Unfortunately the page you are looking for has not been found."
-msgstr "我们很抱歉。你寻找的页面还没有找到"
+msgstr "我们很抱歉。不幸的是你正在寻找的页面还没有被发现。"
 
 #: templates/404.html:13 templates/505.html:13 templates/csrf_failure.html:13
 msgid "Click here to return"
-msgstr "点击此处返回上项"
+msgstr "点击此处返回"
 
 #: templates/505.html:9
-#, fuzzy
-#| msgid "We are sorry. But an error has occurred"
 msgid "We are sorry.  But an error has occurred"
-msgstr "我们很抱歉发生了错误"
+msgstr "我们很抱歉。但是发生了错误"
 
-#: templates/about.html:16
-#, fuzzy
-#| msgid ""
-#| "\n"
-#| " Greetings from Justin & Adrian. This is a website to keep track of our "
-#| "family tree. It is now spread across the world and is growing.\n"
-#| " "
+#: templates/about.html:34
 msgid ""
-"\n"
-"        Greetings from Justin & Adrian.  This is a website to keep track of "
-"our family tree.  It is now spread across the world and is growing.\n"
-"        "
-msgstr ""
-"\n"
-"颖聪和俊豪向您问好。这是一个网站，查察我们的家族世系图轨迹。ok!Kindred奥奇宗"
-"族园现在已遍布世界各地，并且用户也越来越多。"
+"The free and open source collaborative family tree and photo sharing website."
+msgstr "自由和开放源码协作族谱和照片共享网站。"
 
-#: templates/about.html:30
+#: templates/about.html:35 templates/about.html:43 templates/about.html:51
+#: templates/about.html:59
+msgid "Sign Up"
+msgstr "注册"
+
+#: templates/about.html:41
+msgid "Create And Share"
+msgstr "创建和共享"
+
+#: templates/about.html:42
+msgid ""
+"Create and share a multilingual family tree with your family and invite your "
+"family members to view it and add to it"
+msgstr ""
+"创建并与您的家人共享一个多语种的家谱，并邀请你的家庭成员进行查看，并添加到它"
+
+#: templates/about.html:49
+msgid "Map your family"
+msgstr "地图你的家人"
+
+#: templates/about.html:50
+msgid "Plot the locations of each of your relatives on a map"
+msgstr "绘制地图上的每个亲戚的位置"
+
+#: templates/about.html:57
+msgid "Share Photos"
+msgstr "分享照片"
+
+#: templates/about.html:58
+msgid "Share photos privately between your family and tag your family members"
+msgstr "分享照片私下你的家人之间，并标记您的家庭成员"
+
+#: templates/about.html:82
 msgid "Our Story"
 msgstr "我们的故事"
 
-#: templates/about.html:31
+#: templates/about.html:83
 msgid "Would you like to know the story of how and why we created this site?"
-msgstr "你想知道我们怎样和为什么建立这个网站吗？"
+msgstr "你想知道我们如何和为什么建立这个网站的故事吗？"
 
-#: templates/about.html:32 templates/about.html:38 templates/about.html:44
+#: templates/about.html:84 templates/about.html:90 templates/about.html:96
 msgid "View details"
 msgstr "查看详情"
 
-#: templates/about.html:36
+#: templates/about.html:88
 msgid "Contact Us"
 msgstr "联系我们"
 
-#: templates/about.html:37
+#: templates/about.html:89
 msgid ""
-"If you have any questions, need help using the site or have forgotten your "
-"password"
-msgstr "如果您有任何问题，或需要协助以使用本网站或忘记了密码"
+"If you have any questions, want to report a bug, ask for a feature or "
+"contribute to the source code."
+msgstr "如果您有任何疑问，希望报告中的错误，要求一个功能或有助于源代码。"
 
-#: templates/about.html:42 templates/about.html:100
-msgid "Security & Privacy"
-msgstr "保密安全和私隐"
+#: templates/about.html:94 templates/about.html:149
+msgid "FAQ"
+msgstr "常问问题"
 
-#: templates/about.html:43
-msgid "The privacy and security of my family's data is of high importance"
-msgstr "我家族的资料保密和私隐安全是非常重要的"
+#: templates/about.html:95
+msgid "Frequently Asked Questions"
+msgstr "经常问的问题"
 
-#: templates/about.html:50
+#: templates/about.html:102
 msgid "How it started"
-msgstr "ok!Okindred奥奇宗族园是如何开始"
+msgstr "它是如何开始"
 
-#: templates/about.html:55
-#, fuzzy
-#| msgid ""
-#| "\n"
-#| " Hello. I'm Justin on the left. And I'm Adrian on the right.\n"
-#| " "
+#: templates/about.html:107
 msgid ""
 "\n"
 "            Hello.  I'm Justin on the left.  And I'm Adrian on the right.\n"
 "            "
 msgstr ""
 "\n"
-"您好。我是颖聪在左侧。而我是俊豪在右边。"
+"你好。我在左边贾斯汀。而我在右边阿德里安。\n"
+"            "
 
-#: templates/about.html:60
-#, fuzzy
-#| msgid ""
-#| "\n"
-#| " This is a website to record our family tree and and act a bit like a "
-#| "social network. Our family members can maintain a profile on here and "
-#| "discover how far the tree reaches\n"
-#| " As a person is added to the family tree, they receive an email so they "
-#| "may become a user and add more people to it.\n"
-#| " I attended several family gatherings recently and have struggled to "
-#| "explain how we are all related to others. My family is now very diverse "
-#| "with several ethnicities and resides across several continents.\n"
-#| " We wanted someway of documenting everyone and keep in touch as the "
-#| "family grows.\n"
-#| " "
+#: templates/about.html:112
 msgid ""
 "\n"
-"            This is a website to record our family tree and and act a bit "
-"like a social network.  Our family members can maintain a profile on here "
-"and discover how far the tree reaches\n"
+"            This is a website to record our family tree and act a bit like a "
+"social network. You can maintain a profile on here and discover how far the "
+"tree reaches!\n"
 "            As a person is added to the family tree, they receive an email "
 "so they may become a user and add more people to it.\n"
-"            I attended several family gatherings recently and have struggled "
-"to explain how we are all related to others.  My family is now very diverse "
-"with several ethnicities and resides across several continents.\n"
-"            We wanted someway of documenting everyone and keep in touch as "
-"the family grows.\n"
+"            The site was inspired by our family gatherings and the "
+"difficulties of explaining how we are all related.  Our family is now very "
+"diverse with many ethnicities and has spread around the globe.\n"
+"            As the family grows and evolves, we wanted a way to document "
+"everyone and keep in touch.\n"
 "            "
 msgstr ""
 "\n"
-" 这是一个网站，用作记录我们的家族世系图，同时也有㸃似一个社交网络。我们的家庭"
-"成员可以放置一个家族资料在这里，也可发现家族世系图有多大多远\n"
-" 当一位成员被添加到家族世系图，他们㑹收到电子邮件，这样他们可能成为用户，并添"
-"加更多家族成员。\n"
-" 我参加过几次家庭聚会,每次均需要挣扎去解释我们与其他亲属的关系。我的家人现在"
-"非常多元化，并且存有几个种族,而且他们的住处横跨几大洲。\n"
-" "
+"这是一个网站来记录我们的家谱和行为有点像社交网络。您可以在这里保持一个配置文"
+"件，发现树达到多远！\n"
+"            当一个人被添加到家谱，他们收到一封电子邮件，所以他们可能会成为用"
+"户与更多的人加入它。\n"
+"            该网站是由我们的家庭聚会，并解释我们是如何所有相关的困难启发。我"
+"们家现在是非常多样的许多种族和已遍布全球。\n"
+"            随着家庭的成长和发展，我们就想了一个办法来记录每个人都保持联"
+"系。\n"
+"            "
 
-#: templates/about.html:73
+#: templates/about.html:124
 msgid "Contact"
 msgstr "联系"
 
-#: templates/about.html:75
-msgid "Contact us via email info@okkindred.com"
-msgstr "透过电子邮件info@okkindred.com联系我们"
+#: templates/about.html:126
+msgid ""
+"Contact us via email <a href=\"mailto:info@okkindred.com\">info@okkindred."
+"com</a>"
+msgstr ""
+"通过电子邮件<a href=\"mailto:info@okkindred.com\">info@okkindred.com</a>与我"
+"们联系"
 
-#: templates/about.html:77
-#, fuzzy
-#| msgid ""
-#| "\n"
-#| " If you are in our family we want to hear from you and are welcome to "
-#| "visit and stay round any time.\n"
-#| " If you have a login to this site and are part of my family, you can get "
-#| "my telephone number and address from my profile!\n"
-#| " "
+#: templates/about.html:128
 msgid ""
 "\n"
 "            If you are in our family we want to hear from you and are "
@@ -1292,19 +1182,12 @@ msgid ""
 "            "
 msgstr ""
 "\n"
-" 如果您是我们的家庭成员之一，我们希望收到你的来信，也欢迎光临本网站，并且在任"
-"何时间溜达兼浏览。\n"
-" 如果你是这个网站的用户，也是我家庭成员之一，你可以从我的个人资料库得到我的电"
-"话号码和地址！"
+"如果您对我们的家庭，我们希望收到你的来信，并欢迎各界人士光临，并保持周围的任"
+"何时间。\n"
+"            如果你有一个登录这个网站，是我家庭的一部分，你可以得到我的电话号"
+"码和地址从我的个人资料！"
 
-#: templates/about.html:84
-#, fuzzy
-#| msgid ""
-#| "\n"
-#| " Alternatively, if you are looking for some help using the site, or even "
-#| "if you want us to help you set up your own similar site please drop us a "
-#| "line!\n"
-#| " "
+#: templates/about.html:135
 msgid ""
 "\n"
 "            Alternatively, if you are looking for some help using the site, "
@@ -1313,17 +1196,10 @@ msgid ""
 "            "
 msgstr ""
 "\n"
-" 此外，如果你正在寻找协助以使用本网站，或者你想要求我们帮您建立类似的网站，请"
-"给我们一个简讯！"
+"另外，如果您正在使用该网站寻找一些帮助，或者即使你想让我们帮你建立自己的类似"
+"网站请给我们行！"
 
-#: templates/about.html:90
-#, fuzzy
-#| msgid ""
-#| "\n"
-#| " We're quite nice people and do like to talk to people interested in the "
-#| "sames things we are: Geek stuff, software, music and crazy pan global "
-#| "Chinese families...\n"
-#| " "
+#: templates/about.html:141
 msgid ""
 "\n"
 "            We're quite nice people and do like to talk to people interested "
@@ -1332,167 +1208,405 @@ msgid ""
 "            "
 msgstr ""
 "\n"
-"我们人品相当不错，也喜欢跟志同道合的朋友交流，尤感兴趣的事情包括：电子和电"
-"脑，软件编写，音乐和夸张的多元化全球华人家庭..."
+"我们是相当不错的人，做喜欢跟感兴趣的萨姆斯的事情，我们也是人：野人的东西，软"
+"件，音乐和疯狂的泛全球的中国家庭..."
 
-#: templates/about.html:104
-#, fuzzy
-#| msgid ""
-#| "\n"
-#| " The details of our family are on this site. We would never try to do "
-#| "anything we think would jeapordise this data!\n"
-#| " Obviously we take security and privacy very seriously. This will "
-#| "hopefully summarise some of the measures we have taken.\n"
-#| " "
+#: templates/about.html:151
+msgid "Can anyone see my family's information?"
+msgstr "任何人都可以看到我家的信息？"
+
+#: templates/about.html:153
 msgid ""
 "\n"
-"             The details of our family are on this site.  We would never try "
-"to do anything we think would jeapordise this data!\n"
-"             Obviously we take security and privacy very seriously.  This "
-"will hopefully summarise some of the measures we have taken.\n"
-"             "
-msgstr ""
-"\n"
-"我们家族的详细资料存在本网站内。我们绝不会尝试任何事情去破坏这个数据！\n"
-"显而易见，我们非常重视资料保密安全和私隐保障。我们已经采取应有的措施去维护这"
-"个重点。"
-
-#: templates/about.html:109
-msgid "Security"
-msgstr "安全"
-
-#: templates/about.html:111
-#, fuzzy
-#| msgid ""
-#| "\n"
-#| " This entire site is loaded over <a href=\"https://www.globalsign.com/en/"
-#| "ssl-information-center/what-is-ssl/\">Secure Socket Layer</a> (SSL).\n"
-#| " As a result, the connection between you and this website is encrypted.\n"
-#| " This protects against other people listening and stealing the "
-#| "information that is transmitted between you and the website.\n"
-#| " We use 128 bit encryption which is an <a href =\"http://www.inet2000.com/"
-#| "public/encryption.htm\">industry standard</a>.\n"
-#| " You should notice a padlock at the top of your web browser to show you "
-#| "that the connection to this website is secure.\n"
-#| " "
-msgid ""
-"\n"
-"            This entire site is loaded over <a href=\"https://www.globalsign."
-"com/en/ssl-information-center/what-is-ssl/\">Secure Socket Layer</a> (SSL).\n"
-"            As a result, the connection between you and this website is "
-"encrypted.\n"
-"            This protects against other people listening and stealing the "
-"information that is transmitted between you and the website.\n"
-"            We use 128 bit encryption which is an <a href =\"http://www."
-"inet2000.com/public/encryption.htm\">industry standard</a>.\n"
-"            You should notice a padlock at the top of your web browser to "
-"show you that the connection to this website is secure.\n"
+"            No, only people within your family tree that you have invited "
+"can see the information you input.  The information is also not searchable "
+"by outside users or search engines.\n"
 "            "
 msgstr ""
 "\n"
-"整个网站是加载于<a href=\"https://www.globalsign.com/en/ssl-information-"
-"center/what-is-ssl/\">安全保密连接层</a>（SSL）。 \n"
-" 所以，您和本网站之间的连接是已经进行了加密程序。\n"
-" 这样也可以防止其他人窃听、或偷取你和网站之间传输的信息。\n"
-" 我们使用128数位加密，这也是网站运作的一个<a href=\"http://www.inet2000.com/"
-"public/encryption.htm\">行业标准</a>。 \n"
-" 你应该注意到挂锁图像展现在你网页浏览器的顶部，显示你与这个网站的连接是经已加"
-"密而且安全。"
+"没有，只有你邀请你的家庭树内的人可以看到您输入的信息。这些信息也不会被外部用"
+"户或搜索引擎进行搜索。"
 
-#: templates/about.html:121
-#, fuzzy
-#| msgid ""
-#| "\n"
-#| " We adopt appropriate data collection, storage and processing practices "
-#| "and security measures to protect against unauthorized access, alteration, "
-#| "disclosure\n"
-#| " or destruction of your personal information and transaction information "
-#| "and data stored on our site. Our servers are located in the USA, and "
-#| "therefore are subject to USA law.\n"
-#| " "
+#: templates/about.html:158
+msgid "Is my information secure?"
+msgstr "我的信息安全吗？"
+
+#: templates/about.html:160
 msgid ""
 "\n"
-"            We adopt appropriate data collection, storage and processing "
-"practices and security measures to protect against unauthorized access, "
-"alteration, disclosure\n"
-"            or destruction of your personal information and transaction "
-"information and data stored on our site.  Our servers are located in the "
-"USA, and therefore are subject to USA law.\n"
+"            We take security and privacy very seriously. We keep the details "
+"of our family on this site, and we would never do anything to jeopardise "
+"this data!\n"
+"            Only your own family members that you invite to share your tree "
+"are able to see the information that you enter on the site.\n"
+"            Furthermore, we do not sell, trade, or rent your personal "
+"identification information to others.\n"
 "            "
 msgstr ""
 "\n"
-"我们采取适当的数据收集、存储和处理方法，加上保密安全措施以防止非法登录、改建"
-"或披露未经授权的资料\n"
-" 也防止非法销毁个人信息、交易信息或存储在我们网站的数据。我们的伺服器位于美"
-"国，并因此受到美国法律保障"
+"我们非常重视安全和隐私非常重视。我们一直在这个网站我们家的细节，我们永远不会"
+"做任何损害这些数据！\n"
+"            你邀请来共享你的树只有你自己的家庭成员都能够看到你在网站上输入的"
+"信息。\n"
+"            此外，我们不会出售，交易或出租您的个人身份信息给他人。"
 
-#: templates/about.html:127
-msgid "Privacy"
-msgstr "私隐"
-
-#: templates/about.html:129
-#, fuzzy
-#| msgid ""
-#| "\n"
-#| " Our site uses <a href=\"https://en.wikipedia.org/wiki/HTTP_cookie"
-#| "\">cookies</a> to enhance your experience. Your web browser places "
-#| "cookies on your hard drive for record-keeping purposes and sometimes to "
-#| "track information about you.\n"
-#| " In particular we use cookies to identify you so that you may our login "
-#| "to the site.\n"
-#| " "
+#: templates/about.html:167
 msgid ""
 "\n"
-"            Our site uses <a href=\"https://en.wikipedia.org/wiki/HTTP_cookie"
-"\">cookies</a> to enhance your experience. Your web browser places cookies "
-"on your hard drive for record-keeping purposes and sometimes to track "
-"information about you.\n"
-"            In particular we use cookies to identify you so that you may our "
-"login to the site.\n"
-"            "
-msgstr ""
-"\n"
-"我们的网站使用<a href=\"https://en.wikipedia.org/wiki/HTTP_cookie\">用户端文"
-"字档</a>以提高你的经验。您浏览器的用户端文字档放置在硬盘上以保存记录，并间中"
-"追踪您的信息。\n"
-"特别是，我们依頼用户端文字档来识别你，让你登录我们的网站。"
-
-#: templates/about.html:136
-#, fuzzy
-#| msgid ""
-#| "\n"
-#| " We do not sell, trade, or rent your personal identification information "
-#| "to others.\n"
-#| " We do use third party <a href=\"https://en.wikipedia.org/wiki/Geocoding"
-#| "\">geocoding</a> services. This is to convert a location into a longitude "
-#| "and latitude so we can plot it on a map.\n"
-#| " However no other identifying pieces of information (eg name) are "
-#| "supplied with this location.\n"
-#| " We also may share generic aggregated demographic information not linked "
-#| "to any personal identification information. For example we may disclose "
-#| "how many users we have in China.\n"
-#| " "
-msgid ""
-"\n"
-"            We do not sell, trade, or rent your personal identification "
-"information to others.\n"
+"            The site is hosted with <a href=\"https://www.pythonanywhere."
+"com/?affiliate_id=00022aed\">PythonAnywhere</a> who themselves take privacy "
+"very seriously.\n"
+"            We also use <a href=\"https://aws.amazon.com/s3/\">Amazon S3</a> "
+"to store any images that you upload.\n"
 "            We do use third party <a href=\"https://en.wikipedia.org/wiki/"
-"Geocoding\">geocoding</a> services.  This is to convert a location into a "
-"longitude and latitude so we can plot it on a map.\n"
+"Geocoding\">geocoding</a> services (Google & Microsoft).  This is to convert "
+"a location into a longitude and latitude so we can plot it on a map.\n"
 "            However no other identifying pieces of information (e.g. name) "
-"are supplied with this location.\n"
-"            We also may share generic aggregated demographic information not "
-"linked to any personal identification information.  For example we may "
-"disclose how many users we have in China.\n"
+"are supplied with this location to these third parties.\n"
+"            So for example we will send solely the term 'Hong Kong' to "
+"Google who will then give us a latitude and longitude so we can plot it on a "
+"map.\n"
 "            "
 msgstr ""
 "\n"
-"我们不会出售，交易或出租您的个人身份信息给他人。\n"
-"我们使用第三方<a href=\"https://en.wikipedia.org/wiki/Geoc​​oding\">地理编码</"
-"a>服务。这是将一个位置转换成经度和纬度，令我们可以在地图上绘点。\n"
-" 但其他不可识别的信息资料（如姓名），则没有配设这个地图位置绘㸃功能。\n"
-" 我们也会共享通用汇总的统计信息而不涉及或连结任何个人身份资料。例如，我们可能"
-"会透露在中国的用户数量。"
+"该网站托管与<a href=\"https://www.pythonanywhere.com/?affiliate_id=00022aed"
+"\"> PythonAnywhere </A>自己拿谁的隐私非常重视。\n"
+"            我们还使用<a href=\"https://aws.amazon.com/s3/\"> Amazon S3的</A>"
+"存储您上传的所有图片。\n"
+"            我们使用第三方<a href=\"https://en.wikipedia.org/wiki/Geocoding"
+"\">地理编码服务</A>（谷歌和微软）。这是对一个位置转换成经度和纬度，所以我们可"
+"以绘制它在地图上。\n"
+"            然而信息（例如名称）没有其他识别件与此位置对这些第三方提供。\n"
+"            因此，例如，我们将完全派词'香港'到谷歌谁就会给我们一个经度和纬"
+"度，所以我们可以绘制它在地图上。"
+
+#: templates/about.html:177
+msgid ""
+"\n"
+"            If you are concerned, the site is entirely open source, so you "
+"can take a copy of the source code (see below), have a look how your "
+"information is stored or even host your own version of this website.\n"
+"            We will be more than happy to help you set it up.\n"
+"            "
+msgstr ""
+"\n"
+"如果您担心，该网站是完全开源的，所以你可以把源代码副本（见下文），看看你的信"
+"息如何存储，甚至举办自己的这个网站的版本。\n"
+"            我们将很乐意帮助你设置它多了起来。"
+
+#: templates/about.html:183
+msgid "Can I see the source code?"
+msgstr "我可以看到源代码？"
+
+#: templates/about.html:185
+msgid ""
+"\n"
+"            The source code is located at <a href=\"https://github.com/"
+"JustinWingChungHui/okKindred\">Github.com</a>.  What you see on okKindred."
+"com is taken from the 'production' branch.\n"
+"            "
+msgstr ""
+"\n"
+"源代码位于<a href=\"https://github.com/JustinWingChungHui/okKindred\"> "
+"Github.com </A>。你看到什么okKindred.com从“生产”分支跳转。"
+
+#: templates/about.html:191
+msgid ""
+"\n"
+"            We've issued it with an <a href=\"https://en.wikipedia.org/wiki/"
+"MIT_License\">MIT licence</a> which means you are free to use, copy and "
+"modify the code for your own purpose.\n"
+"            The <a href=\"https://github.com/JustinWingChungHui/okKindred/"
+"blob/master/README.rst\">README</a> contains a basic overview on how it "
+"works and step by step instructions to deploy your own instance.\n"
+"            "
+msgstr ""
+"\n"
+"我们与这意味着您可以自由使用，复制和修改代码以实现自己的目的的<a href="
+"\"https://en.wikipedia.org/wiki/MIT_License\"> MIT许可证颁发</A>它。\n"
+"            该<a href=\"https://github.com/JustinWingChungHui/okKindred/blob/"
+"master/README.rst\">自述</A>包含它如何工作的，并分步说明基本概述部署您自己的"
+"实例。"
+
+#: templates/about.html:198
+msgid ""
+"\n"
+"            We welcome anyone who has any ideas or who wishes to contribute "
+"to this project and make it better!  We especially need help with "
+"translation into other languages.\n"
+"            Please <a href=\"info@okkindred.com?subject=Translations\" >get "
+"in touch</a> if you would like to contribute, or (even better) make a pull "
+"request on Github :)\n"
+"            "
+msgstr ""
+"\n"
+"我们欢迎任何人谁有任何意见或谁愿意参与这一项目，并使其更好！我们特别需要翻译"
+"成其他语言的帮助。\n"
+"            请<a href=\"info@okkindred.com?subject=Translations\">取得联系</"
+"A>如果您想贡献，或（甚至更好），使在Github上拉请求:)"
+
+#: templates/about.html:204
+msgid "What's in it for you if it's free?"
+msgstr "是什么在它适合你，如果它是免费的吗？"
+
+#: templates/about.html:206
+msgid ""
+"\n"
+"            We are software developers, and this is a project created in our "
+"spare time to expand our skillset and to add to our portfolio to show off to "
+"others.\n"
+"            This was the best way to organise information on our own family, "
+"and we hope that new users will offer suggestions to improve the site or "
+"even contribute code.\n"
+"            "
+msgstr ""
+"\n"
+"我们是软件开发者，这是在课余时间，扩大我们的技能，并加入到我们的产品来向别人"
+"炫耀创建的项目。\n"
+"            这是组织对自己的家庭信息化的最佳途径，我们希望新用户将提供建议，"
+"以提高网站甚至贡献代码。"
+
+#: templates/about.html:212
+msgid "Can I manage multiple family trees?"
+msgstr "我可以管理多个家谱？"
+
+#: templates/about.html:214
+msgid ""
+"\n"
+"            No you can't!  At least not yet.  We are aware that this is "
+"something people may want, and may put this feature in the future.\n"
+"            "
+msgstr ""
+"\n"
+"不，你不能！至少目前还没有。我们都知道，这是人们可能想，也可以把这个功能在未"
+"来。"
+
+#: templates/about.html:219
+msgid "Is there an iOS/Android app?"
+msgstr "有没有在iOS / Android应用程序？"
+
+#: templates/about.html:221
+msgid ""
+"\n"
+"            No there is not yet.  However, you will find that the website "
+"formats very nicely on a mobile device.\n"
+"            If you are using Chrome on a mobile, you can add a shortcut of "
+"the website to your desktop which makes it look like an app for those in "
+"your family who are less tech savvy!\n"
+"            "
+msgstr ""
+"\n"
+"没有目前还没有。但是，你会发现，该网站的格式非常漂亮的移动设备上。\n"
+"            如果您在移动使用Chrome，您可以添加网站到桌面上，这使得它看起来像"
+"那些在你家谁是不太精通技术的应用程序的快捷方式！"
+
+#: templates/about.html:227
+msgid "How can I show more family members in the tree?"
+msgstr "我怎样才能显示在树更多的家庭成员？"
+
+#: templates/about.html:229
+msgid ""
+"\n"
+"            The standard view just shows the one level of relation.  "
+"However, if you go to the eldest relative's profile, you can 'Show "
+"Descendents'.  This will show all descendents with blood relations but not "
+"their partners.\n"
+"            "
+msgstr ""
+"\n"
+"标准视图只是显示关系的一个级别。但是，如果你去大亲戚的个人资料，你可以'显示后"
+"裔“。这将显示与血缘关系，但不是他们的合作伙伴所有后代。"
+
+#: templates/about.html:235
+msgid ""
+"\n"
+"            Displaying a family tree on a mobile device without it turning "
+"into a mess is a challenge that is yet to be resolved.\n"
+"            "
+msgstr ""
+"\n"
+"显示没有它变成一个烂摊子一个移动设备上的家谱是有待解决的一个挑战。"
+
+#: templates/about.html:240
+msgid "What browsers does this work on?"
+msgstr "哪些浏览器这项工作呢？"
+
+#: templates/about.html:242
+msgid ""
+"\n"
+"            The site is tested on the latest version of the top browsers on "
+"desktop and mobile.\n"
+"            There may be issues on unsupported browsers, such as older "
+"Android browsers, Internet Explorer 9 and below.\n"
+"            "
+msgstr ""
+"\n"
+"该网站是在桌面和移动上的浏览器的最新版本进行测试。\n"
+"            有可能是不支持的浏览器，如较旧的Android浏览器，Internet Explorer "
+"9的以下问题。"
+
+#: templates/about.html:248
+msgid "Is this website available in Mainland China?"
+msgstr "这是网站在中国大陆可用？"
+
+#: templates/about.html:250
+msgid ""
+"\n"
+"            As far as we know it is, but availability of certain websites in "
+"China changes day to day.\n"
+"            We have made some technical decisions to make it more likely to "
+"be available.  For instance we use <a href=\"https://www.mapbox.com"
+"\">Mapbox</a> for mapping instead of Google maps because the latter is "
+"blocked in China over a secure connection.\n"
+"            "
+msgstr ""
+"\n"
+"据我们所知道的是，但在中国某些网站的可用性改变每一天。\n"
+"            我们已经取得了一些技术决策，使其更容易使用。比如我们使用<a href="
+"\"https://www.mapbox.com\"> Mapbox </A>映射，而不是谷歌地图，因为后者在中国被"
+"屏蔽通过安全连接。"
+
+#: templates/about.html:256
+msgid "Is there a limit on images I can upload?"
+msgstr "是否有图像的限制，我可以上传？"
+
+#: templates/about.html:258
+msgid ""
+"\n"
+"            No at the moment there isn't.  The images are stored on <a href="
+"\"https://aws.amazon.com/s3/\">Amazon S3</a> which is very very cheap so we "
+"don't mind footing the cost.\n"
+"            However if a lot of users start to upload thousands and "
+"thousands of images, we will have to create a limit.\n"
+"            "
+msgstr ""
+"\n"
+"没有此刻没有。这些图像存储在<a href=\"https://aws.amazon.com/s3/\"> Amazon S3"
+"的</A>所以我们不介意立足点的成本，这是非常非常便宜。\n"
+"            但是，如果有很多用户开始上传图片的成千上万，我们将创建一个限制。"
+
+#: templates/about.html:264
+msgid "Can I advertise on your site?"
+msgstr "我可以宣传你的网站？"
+
+#: templates/about.html:266
+msgid ""
+"\n"
+"            We have no plans to raise money via ads on the site mainly as we "
+"don't want to subject our Grandmas to any more advertising than they "
+"currently get.\n"
+"            "
+msgstr ""
+"\n"
+"我们没有计划通过广告主要是因为我们不希望受到我们的祖母给任何更多的广告比他们"
+"目前得到的网站上，以筹集资金。"
+
+#: templates/about.html:271
+msgid "I found a bug!"
+msgstr "我发现了一个bug！"
+
+#: templates/about.html:273
+#, python-format
+msgid ""
+"\n"
+"            Please let us know!  You can <a href=\"mailto:info@okkindred.com?"
+"Subject=I%%20found%%20a%%20bug!\">email us</a> or you can add it to the <a "
+"href=\"https://github.com/JustinWingChungHui/okKindred/issues\">issues list</"
+"a> on Github.\n"
+"            If it's a security bug need to know ASAP so we can fix it!\n"
+"            "
+msgstr ""
+"\n"
+"请告诉我们！您可以<a href=\"mailto:info@okkindred.com?Subject=I%%20found%%20a"
+"%%20bug!\">给我们发电子邮件</a>或您可以将其添加到的<a href =“https://github."
+"com/JustinWingChungHui/okKindred/issues\">issues </a>列表Github上。\n"
+"            如果它是一个安全漏洞需要尽快知道，以便我们能够解决它！"
+
+#: templates/about.html:279
+msgid "Can you add a feature so it can do xxxxx please?"
+msgstr "你可以添加一个功能，因此它可以做XXXXX吗？"
+
+#: templates/about.html:281
+#, python-format
+msgid ""
+"\n"
+"            Feel free to request new features via <a href=\"mailto:"
+"info@okkindred.com?Subject=Feature%%20Request\">info@okkindred.com</a>.  We "
+"will definitely consider them especially if it will benefit a lot of people "
+"(i.e. our family).\n"
+"            This site is done in our spare time, so feature requests will be "
+"done when they're done.\n"
+"            "
+msgstr ""
+"\n"
+"随时通过<a href=\"mailto:info@okkindred.com?Subject=Feature%%20Request"
+"\">info@okkindred.com</a>索要新功能。我们肯定会考虑他们，特别是如果这将有利于"
+"很多人（即我们的家庭）。\n"
+"            这个网站是在课余时间完成的，所以他们做的时候功能要求会做。\n"
+"            "
+
+#: templates/about.html:287
+msgid ""
+"Other genealogy websites look up local records to help create the tree, can "
+"you do the same?"
+msgstr "其他家谱网站查找当地的记录，以帮助创建树，你可以这样做？"
+
+#: templates/about.html:289
+msgid ""
+"\n"
+"            We have no plans to implement this yet.  The reason being is "
+"that most of our family originates from China.\n"
+"            Because of the civil wars that occured in China in the 20th "
+"century and instability during the last decades of the Qing dynasty,\n"
+"            few usable records exist that would be beneficial to us.\n"
+"            "
+msgstr ""
+"\n"
+"我们没有计划尚未实现这一点。是的原因是，大多数我们的家庭从中国起源。\n"
+"            因为清朝的最后十年期间，在中国发生在20世纪和不稳定的内战，\n"
+"            一些可用的记录存在，这将是对我们有利的。"
+
+#: templates/about.html:297
+msgid ""
+"\n"
+"            Given that many genealogy websites do this already, we would try "
+"to focus more on the social networking side of this project.\n"
+"            However that is not to say that if in time a great need became "
+"apparent, we would not look at implementing such a feature.\n"
+"            "
+msgstr ""
+"\n"
+"鉴于许多家谱网站已经这样做了，我们会尝试更多的精力在这个项目上的社交网络"
+"侧。\n"
+"            然而，这并不是说，如果在时间上非常需要变得明显，我们不会看看如何"
+"实现这样的功能。"
+
+#: templates/about.html:303
+msgid ""
+"For describing relationships you have 'Partnered' but not 'Married', you "
+"have 'Raised' but not 'Given Birth to'?"
+msgstr "为了描述关系，你有'合作'，但不是'结婚'，你'长大'，但不是'生了“？"
+
+#: templates/about.html:305
+msgid ""
+"\n"
+"            We've tried to keep the site as simple as possible and as "
+"inclusive as possible.  The definitions of 'Raised', 'Raised by' and "
+"'Partnered' give enough information to build a tree.\n"
+"            They are inclusive of cross-cultural relationships which don't "
+"have a concept of marriage.\n"
+"            They can include civil partnerships, common law partners, "
+"divorcees, adoptees and any other definitions that may or may not exist in "
+"different cultures.\n"
+"\n"
+"            "
+msgstr ""
+"\n"
+"我们试图保持网站尽可能简单和尽可能具有包容性。的“凸起”，“提出者”和定义，'合"
+"作'提供足够的信息来构建树。\n"
+"            它们包括不具有婚姻观念的跨文化关系。\n"
+"            它们可以包括民间的合作伙伴关系，英美法系的合作伙伴，离婚，收养和"
+"任何其他的定义可能会或可能不会在不同的文化存在。"
 
 #: templates/base.html:57
 msgid "Toggle navigation"
@@ -1504,7 +1618,7 @@ msgstr "地图"
 
 #: templates/base.html:73
 msgid "Gallery"
-msgstr "图像库"
+msgstr "画廊"
 
 #: templates/base.html:74
 msgid "Search"
@@ -1512,47 +1626,19 @@ msgstr "搜索"
 
 #: templates/base.html:75
 msgid "About"
-msgstr "大约"
+msgstr "关于"
 
-#: templates/base.html:82
+#: templates/base.html:80
 msgid "Log Out"
-msgstr "注销"
+msgstr "登出"
+
+#: templates/base.html:90
+msgid "Log In"
+msgstr "登录"
 
 #: templates/csrf_failure.html:9
 msgid ""
 "Cookies are not enabled on your browser. Please enable cookies in your "
 "browser preferences to continue."
-msgstr "Cookies是不是在你的浏览器中启用。请启用浏览器优先区继续。"
+msgstr "Cookies是不是在你的浏览器。请启用浏览器优先区继续。"
 
-#~ msgid "Please select a trimmed region"
-#~ msgstr "请选择一个裁剪区域"
-
-#~ msgid "A biography has not yet been written for this language"
-#~ msgstr "还没有用本语言编写简历"
-
-#~ msgid "Index"
-#~ msgstr "指数"
-
-#~ msgid "Add Image"
-#~ msgstr "添加新影象"
-
-#~ msgid "Download Original"
-#~ msgstr "下载原件"
-
-#~ msgid "(Edit Details)"
-#~ msgstr "（编辑详细信息）"
-
-#~ msgid "(Done Editing)"
-#~ msgstr "(完成编辑)"
-
-#~ msgid "Location Latitude"
-#~ msgstr "纬度位置"
-
-#~ msgid "Latitude"
-#~ msgstr "纬度"
-
-#~ msgid "Location Longitude"
-#~ msgstr "经度位置"
-
-#~ msgid "Longitude"
-#~ msgstr "经度"

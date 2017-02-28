@@ -1,8 +1,10 @@
 # encoding: utf-8
+from django.conf import settings
 from django.contrib.auth.decorators import login_required
-from family_tree.decorators import same_family_required
 from django.http import HttpResponse
 from django.shortcuts import render
+
+from family_tree.decorators import same_family_required
 from custom_user.decorators import set_language
 from maps import map_service
 import json
@@ -18,6 +20,7 @@ def map(request, person_id = 0, person = None):
                                     'latitude' : person.latitude,
                                     'longitude' : person.longitude,
                                     'zoom' : 12 if person_id != 0 else 7,
+                                    'token' : settings.MAP_BOX_TOKEN,
                                 })
 
 

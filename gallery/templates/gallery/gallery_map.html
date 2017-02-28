@@ -22,7 +22,6 @@
         }
     </style>
 
-    <!--<link rel="stylesheet" type="text/css" href="{% static "css/lightbox.css" %}" />-->
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.1/photoswipe.min.css" />
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.1/default-skin/default-skin.min.css" />
 
@@ -35,7 +34,8 @@
 
     {% localize off %}
 
-    <div id="gallery_map" class="fullscreen_map" data-gallery_id="{{ gallery.id }}" data-latitude="{{ latitude }}" data-longitude="{{ longitude }}" data-zoom="{{ zoom }}"></div>
+    <div id="gallery_map" class="fullscreen_map" data-gallery_id="{{ gallery.id }}" data-latitude="{{ latitude }}" data-longitude="{{ longitude }}" data-zoom="{{ zoom }}" data-token="{{ token }}">
+    </div>
 
     {% endlocalize %}
 

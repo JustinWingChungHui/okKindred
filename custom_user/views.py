@@ -8,7 +8,7 @@ from axes.models import AccessLog
 from django.http import HttpResponse
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
-from custom_user.decorators import set_language
+from custom_user.decorators import set_language, set_pythonanywhere_external_ip
 from family_tree.models import Person
 
 '''
@@ -25,7 +25,7 @@ def login(request):
 
     return render( request, 'custom_user/login.html', c)
 
-
+@set_pythonanywhere_external_ip
 def auth_view(request):
     '''
     Handles the authentication from the login screen
@@ -39,6 +39,7 @@ def auth_view(request):
 
     login_unsuccessful = user is None
 
+    '''
     AccessLog.objects.create(
                              user_agent=request.META.get('HTTP_USER_AGENT', '<unknown>')[:255],
                              ip_address=get_ip(request),
@@ -47,8 +48,10 @@ def auth_view(request):
                              path_info=request.META.get('PATH_INFO', '<unknown>'),
                              trusted=not login_unsuccessful,
                              )
+    '''
 
     check_request(request, login_unsuccessful)
+
 
     if login_unsuccessful:
         return HttpResponseRedirect('/accounts/invalid')
