@@ -64,6 +64,7 @@ INSTALLED_APPS = (
     'sign_up',
     'maps',
     'debug_toolbar',
+    'autotranslate',
 )
 
 MIDDLEWARE_CLASSES = (

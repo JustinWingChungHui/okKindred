@@ -31,31 +31,31 @@
             <img src="{% static 'img/about/family_tree.png' %}" alt="First slide">
             <div class="carousel-caption">
                 <h1>{% trans "Welcome to ok!Kindred" %}</h1>
-                <p>The free and open source collaborative family tree and photo sharing website.</p>
+                <p>{% trans "The free and open source collaborative family tree and photo sharing website." %}</p>
                 <p><a class="btn btn-success" href="/accounts/sign_up/" role="button">{%trans "Sign Up" %}</a></p>
             </div>
         </div>
         <div class="item">
             <img src="{% static 'img/about/family_invite.png' %}" alt="Second slide">
                 <div class="carousel-caption">
-                    <h1>Create And Share</h1>
-                    <p>Create and share a multilingual family tree with your family and invite your family members to view it and add to it</p>
+                    <h1>{% trans "Create And Share" %}</h1>
+                    <p>{% trans "Create and share a multilingual family tree with your family and invite your family members to view it and add to it" %}</p>
                     <p><a class="btn btn-success" href="/accounts/sign_up/" role="button">{%trans "Sign Up" %}</a></p>
                 </div>
         </div>
         <div class="item">
           <img class="third-slide" src="{% static 'img/about/family_map.png' %}" alt="Third slide">
                 <div class="carousel-caption">
-                <h1>Map your family</h1>
-                <p>Plot the locations of each of your relatives on a map</p>
+                <h1>{% trans "Map your family" %}</h1>
+                <p>{% trans "Plot the locations of each of your relatives on a map" %}</p>
                 <p><a class="btn btn-success" href="/accounts/sign_up/" role="button">{%trans "Sign Up" %}</a></p>
             </div>
         </div>
         <div class="item">
             <img class="fourth-slide" src="{% static 'img/about/family_photo-share.png' %}" alt="Fourth slide">
             <div class="carousel-caption">
-                <h1>Share Photos</h1>
-                <p>Share photos privately between your family and tag your family members</p>
+                <h1>{% trans "Share Photos" %}</h1>
+                <p>{% trans "Share photos privately between your family and tag your family members" %}</p>
                 <p><a class="btn btn-success" href="/accounts/sign_up/" role="button">{%trans "Sign Up" %}</a></p>
             </div>
 
@@ -279,7 +279,7 @@
         <h3>{% trans "Can you add a feature so it can do xxxxx please?" %}</h3>
         <p>
             {% blocktrans %}
-            Feel free to request new features via <a href="mailto:info@okkindred.com?Subject=Feature%20Request"></a>info@okkindred.com</a>.  We will definitely consider them especially if it will benefit a lot of people (i.e. our family).
+            Feel free to request new features via <a href="mailto:info@okkindred.com?Subject=Feature%20Request">info@okkindred.com</a>.  We will definitely consider them especially if it will benefit a lot of people (i.e. our family).
             This site is done in our spare time, so feature requests will be done when they're done.
             {% endblocktrans %}
         </p>
