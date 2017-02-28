@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-28 17:27+0000\n"
+"POT-Creation-Date: 2017-02-28 22:29+0000\n"
 "PO-Revision-Date: 2015-05-11 08:55+0000\n"
 "Last-Translator: b'Anonymous User <wingchung@justinhui.co.uk>'\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,8 +19,8 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Translated-Using: django-rosetta 0.7.5\n"
 
-#: custom_user/admin.py:19 custom_user/templates/custom_user/login.html:12
-#: custom_user/templates/custom_user/login.html:13
+#: custom_user/admin.py:19 custom_user/templates/custom_user/login.html:15
+#: custom_user/templates/custom_user/login.html:16
 msgid "Password"
 msgstr "Salasana"
 
@@ -62,20 +62,20 @@ msgstr "Kirjautunut ulos"
 msgid "Please sign in"
 msgstr "ole hyvä ja kirjaudu sisään"
 
-#: custom_user/templates/custom_user/login.html:10
+#: custom_user/templates/custom_user/login.html:11
 msgid "Email Address"
 msgstr "Sähköpostiosoite"
 
-#: custom_user/templates/custom_user/login.html:11
-#: custom_user/templates/custom_user/password_reset.html:16
+#: custom_user/templates/custom_user/login.html:12
+#: custom_user/templates/custom_user/password_reset.html:17
 msgid "Email address"
 msgstr "Sähköpostiosoite"
 
-#: custom_user/templates/custom_user/login.html:19
+#: custom_user/templates/custom_user/login.html:22
 msgid "Sign In"
 msgstr "Kirjaudu sisään"
 
-#: custom_user/templates/custom_user/login.html:20
+#: custom_user/templates/custom_user/login.html:23
 msgid "I forgot my password"
 msgstr "unohdin salasanani"
 
@@ -87,11 +87,11 @@ msgstr ""
 "Unohditko salasanasi? Kirjoita sähköpostiosoitteesi alla, ja me "
 "sähköpostitse ohjeet asettamiseksi uuteen."
 
-#: custom_user/templates/custom_user/password_reset.html:15
+#: custom_user/templates/custom_user/password_reset.html:16
 msgid "Email Address:"
 msgstr "Sähköpostiosoite:"
 
-#: custom_user/templates/custom_user/password_reset.html:17
+#: custom_user/templates/custom_user/password_reset.html:19
 msgid "Reset my password"
 msgstr "Nollaa salasana"
 
@@ -111,21 +111,21 @@ msgstr ""
 "Anna uusi salasana kahdesti, jotta voimme tarkistaa olet kirjoittanut sen "
 "oikein."
 
-#: custom_user/templates/custom_user/password_reset_confirm.html:15
 #: custom_user/templates/custom_user/password_reset_confirm.html:16
+#: custom_user/templates/custom_user/password_reset_confirm.html:17
 msgid "New password:"
 msgstr "Uusi salasana:"
 
-#: custom_user/templates/custom_user/password_reset_confirm.html:19
-#: custom_user/templates/custom_user/password_reset_confirm.html:20
+#: custom_user/templates/custom_user/password_reset_confirm.html:21
+#: custom_user/templates/custom_user/password_reset_confirm.html:22
 msgid "Confirm password:"
 msgstr "Vahvista salasana:"
 
-#: custom_user/templates/custom_user/password_reset_confirm.html:23
+#: custom_user/templates/custom_user/password_reset_confirm.html:25
 msgid "Change my password"
 msgstr "Vaihda salasana"
 
-#: custom_user/templates/custom_user/password_reset_confirm.html:28
+#: custom_user/templates/custom_user/password_reset_confirm.html:30
 msgid ""
 "The password reset link was invalid, possibly because it has already been "
 "used.  Please request a new password reset."
@@ -397,8 +397,7 @@ msgid ""
 msgstr ""
 "\n"
 "Jos haluat liittyä, klikkaa seuraavaa linkkiä ja valitse turvallisen "
-"salasanan että muistat."
-"        "
+"salasanan että muistat.        "
 
 #: email_confirmation/templates/email_confirmation/invite.html:24
 #, python-format
@@ -1371,18 +1370,19 @@ msgid ""
 "            We welcome anyone who has any ideas or who wishes to contribute "
 "to this project and make it better!  We especially need help with "
 "translation into other languages.\n"
-"            Please <a href=\"info@okkindred.com?subject=Translations\" >get "
-"in touch</a> if you would like to contribute, or (even better) make a pull "
-"request on Github :)\n"
+"            Please <a href=\"mailto:info@okkindred.com?subject=Development\" "
+">get in touch</a> if you would like to contribute, or (even better) make a "
+"pull request on Github :)\n"
 "            "
 msgstr ""
 "\n"
 "Olemme tyytyväisiä kuka tahansa ideoita tai joka haluaa osallistua tähän "
 "projektiin ja tehdä se paremmin! Olemme erityisen tarvitsevat apua "
 "kääntämistä muille kielille.\n"
-"            Ole hyvä <a href=\"info@okkindred.com?subject=Translations\"> "
+"            Ole hyvä <a href=\"mailto:info@okkindred.com?subject=Development\"> "
 "yhteyttä </a> jos haluat edistää, tai (vielä parempi) esittää pull pyynnön "
-"Github :)"
+"Github :)\n"
+"            "
 
 #: templates/about.html:204
 msgid "What's in it for you if it's free?"
@@ -1706,4 +1706,3 @@ msgid ""
 "browser preferences to continue."
 msgstr ""
 "Evästeet eivät ole käytössä selaimessasi. Salli evästeet asetuksissa jatkaa."
-

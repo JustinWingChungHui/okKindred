@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-28 17:27+0000\n"
+"POT-Creation-Date: 2017-02-28 22:29+0000\n"
 "PO-Revision-Date: 2015-06-15 04:58+0000\n"
 "Last-Translator: b'Anonymous User <wonghshilson@gmail.com>'\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,8 +18,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Translated-Using: django-rosetta 0.7.6\n"
 
-#: custom_user/admin.py:19 custom_user/templates/custom_user/login.html:12
-#: custom_user/templates/custom_user/login.html:13
+#: custom_user/admin.py:19 custom_user/templates/custom_user/login.html:15
+#: custom_user/templates/custom_user/login.html:16
 msgid "Password"
 msgstr "密码"
 
@@ -60,20 +60,20 @@ msgstr "登出"
 msgid "Please sign in"
 msgstr "请登录"
 
-#: custom_user/templates/custom_user/login.html:10
+#: custom_user/templates/custom_user/login.html:11
 msgid "Email Address"
 msgstr "电子邮件地址"
 
-#: custom_user/templates/custom_user/login.html:11
-#: custom_user/templates/custom_user/password_reset.html:16
+#: custom_user/templates/custom_user/login.html:12
+#: custom_user/templates/custom_user/password_reset.html:17
 msgid "Email address"
 msgstr "电子邮件地址"
 
-#: custom_user/templates/custom_user/login.html:19
+#: custom_user/templates/custom_user/login.html:22
 msgid "Sign In"
 msgstr "签到"
 
-#: custom_user/templates/custom_user/login.html:20
+#: custom_user/templates/custom_user/login.html:23
 msgid "I forgot my password"
 msgstr "我忘记了我的密码"
 
@@ -85,11 +85,11 @@ msgstr ""
 "忘记了你的密码？请在下面输入您的电子邮件地址，我们会设置一个新的电子邮件的指"
 "令。"
 
-#: custom_user/templates/custom_user/password_reset.html:15
+#: custom_user/templates/custom_user/password_reset.html:16
 msgid "Email Address:"
 msgstr "电子邮件地址："
 
-#: custom_user/templates/custom_user/password_reset.html:17
+#: custom_user/templates/custom_user/password_reset.html:19
 msgid "Reset my password"
 msgstr "重置我的密码"
 
@@ -107,21 +107,21 @@ msgid ""
 "correctly."
 msgstr "请输入两次新密码，以便我们确认您的输入正确无误。"
 
-#: custom_user/templates/custom_user/password_reset_confirm.html:15
 #: custom_user/templates/custom_user/password_reset_confirm.html:16
+#: custom_user/templates/custom_user/password_reset_confirm.html:17
 msgid "New password:"
 msgstr "新密码："
 
-#: custom_user/templates/custom_user/password_reset_confirm.html:19
-#: custom_user/templates/custom_user/password_reset_confirm.html:20
+#: custom_user/templates/custom_user/password_reset_confirm.html:21
+#: custom_user/templates/custom_user/password_reset_confirm.html:22
 msgid "Confirm password:"
 msgstr "确认密码："
 
-#: custom_user/templates/custom_user/password_reset_confirm.html:23
+#: custom_user/templates/custom_user/password_reset_confirm.html:25
 msgid "Change my password"
 msgstr "更改我的密码"
 
-#: custom_user/templates/custom_user/password_reset_confirm.html:28
+#: custom_user/templates/custom_user/password_reset_confirm.html:30
 msgid ""
 "The password reset link was invalid, possibly because it has already been "
 "used.  Please request a new password reset."
@@ -1334,16 +1334,17 @@ msgid ""
 "            We welcome anyone who has any ideas or who wishes to contribute "
 "to this project and make it better!  We especially need help with "
 "translation into other languages.\n"
-"            Please <a href=\"info@okkindred.com?subject=Translations\" >get "
-"in touch</a> if you would like to contribute, or (even better) make a pull "
-"request on Github :)\n"
+"            Please <a href=\"mailto:info@okkindred.com?subject=Development\" "
+">get in touch</a> if you would like to contribute, or (even better) make a "
+"pull request on Github :)\n"
 "            "
 msgstr ""
 "\n"
 "我们欢迎任何人谁有任何意见或谁愿意参与这一项目，并使其更好！我们特别需要翻译"
 "成其他语言的帮助。\n"
-"            请<a href=\"info@okkindred.com?subject=Translations\">取得联系</"
-"A>如果您想贡献，或（甚至更好），使在Github上拉请求:)"
+"            请<a href=\"mailto:info@okkindred.com?subject=Development\">取得联系</"
+"A>如果您想贡献，或（甚至更好），使在Github上拉请求:)\n"
+"            "
 
 #: templates/about.html:204
 msgid "What's in it for you if it's free?"
@@ -1641,4 +1642,3 @@ msgid ""
 "Cookies are not enabled on your browser. Please enable cookies in your "
 "browser preferences to continue."
 msgstr "Cookies是不是在你的浏览器。请启用浏览器优先区继续。"
-

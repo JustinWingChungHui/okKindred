@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-28 17:27+0000\n"
+"POT-Creation-Date: 2017-02-28 22:29+0000\n"
 "PO-Revision-Date: 2015-05-11 08:53+0000\n"
 "Last-Translator: b'Anonymous User <wingchung@justinhui.co.uk>'\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,8 +19,8 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Translated-Using: django-rosetta 0.7.5\n"
 
-#: custom_user/admin.py:19 custom_user/templates/custom_user/login.html:12
-#: custom_user/templates/custom_user/login.html:13
+#: custom_user/admin.py:19 custom_user/templates/custom_user/login.html:15
+#: custom_user/templates/custom_user/login.html:16
 msgid "Password"
 msgstr "Mot de passe"
 
@@ -63,20 +63,20 @@ msgstr "Déconnecté"
 msgid "Please sign in"
 msgstr "S'il vous plaît vous connecter"
 
-#: custom_user/templates/custom_user/login.html:10
+#: custom_user/templates/custom_user/login.html:11
 msgid "Email Address"
 msgstr "Adresse e-mail"
 
-#: custom_user/templates/custom_user/login.html:11
-#: custom_user/templates/custom_user/password_reset.html:16
+#: custom_user/templates/custom_user/login.html:12
+#: custom_user/templates/custom_user/password_reset.html:17
 msgid "Email address"
 msgstr "Adresse e-mail"
 
-#: custom_user/templates/custom_user/login.html:19
+#: custom_user/templates/custom_user/login.html:22
 msgid "Sign In"
 msgstr "Se connecter"
 
-#: custom_user/templates/custom_user/login.html:20
+#: custom_user/templates/custom_user/login.html:23
 msgid "I forgot my password"
 msgstr "j'ai oublié mon mot de passe"
 
@@ -88,11 +88,11 @@ msgstr ""
 "Mot de passe oublié? Entrez votre adresse email ci-dessous et nous vous "
 "enverrons des instructions pour la mise en un nouveau."
 
-#: custom_user/templates/custom_user/password_reset.html:15
+#: custom_user/templates/custom_user/password_reset.html:16
 msgid "Email Address:"
 msgstr "Adresse e-mail:"
 
-#: custom_user/templates/custom_user/password_reset.html:17
+#: custom_user/templates/custom_user/password_reset.html:19
 msgid "Reset my password"
 msgstr "Réinitialiser mon mot de passe"
 
@@ -114,21 +114,21 @@ msgstr ""
 "S'il vous plaît entrer votre nouveau mot de passe deux fois afin que nous "
 "puissions vérifier que vous tapé correctement."
 
-#: custom_user/templates/custom_user/password_reset_confirm.html:15
 #: custom_user/templates/custom_user/password_reset_confirm.html:16
+#: custom_user/templates/custom_user/password_reset_confirm.html:17
 msgid "New password:"
 msgstr "Nouveau mot de passe:"
 
-#: custom_user/templates/custom_user/password_reset_confirm.html:19
-#: custom_user/templates/custom_user/password_reset_confirm.html:20
+#: custom_user/templates/custom_user/password_reset_confirm.html:21
+#: custom_user/templates/custom_user/password_reset_confirm.html:22
 msgid "Confirm password:"
 msgstr "Confirmez le mot de passe:"
 
-#: custom_user/templates/custom_user/password_reset_confirm.html:23
+#: custom_user/templates/custom_user/password_reset_confirm.html:25
 msgid "Change my password"
 msgstr "Changer mon mot de passe"
 
-#: custom_user/templates/custom_user/password_reset_confirm.html:28
+#: custom_user/templates/custom_user/password_reset_confirm.html:30
 msgid ""
 "The password reset link was invalid, possibly because it has already been "
 "used.  Please request a new password reset."
@@ -1402,18 +1402,19 @@ msgid ""
 "            We welcome anyone who has any ideas or who wishes to contribute "
 "to this project and make it better!  We especially need help with "
 "translation into other languages.\n"
-"            Please <a href=\"info@okkindred.com?subject=Translations\" >get "
-"in touch</a> if you would like to contribute, or (even better) make a pull "
-"request on Github :)\n"
+"            Please <a href=\"mailto:info@okkindred.com?subject=Development\" "
+">get in touch</a> if you would like to contribute, or (even better) make a "
+"pull request on Github :)\n"
 "            "
 msgstr ""
 "\n"
 "Nous nous félicitons de tous ceux qui ont des idées ou qui souhaite "
 "contribuer à ce projet et le rendre meilleur! Nous avons particulièrement "
 "besoin de l'aide avec la traduction dans d'autres langues.\n"
-"            S'il vous plaît <a href=\"info@okkindred.com?subject=Translations"
-"\"> entrer en contact </a> si vous souhaitez contribuer, ou (encore mieux) "
-"faire une demande de traction sur Github :)"
+"            S'il vous plaît <a href=\"mailto:info@okkindred.com?subject=Development\""
+">entrer en contact</a> si vous souhaitez contribuer, ou (encore mieux) "
+"faire un pull request sur Github :)\n"
+"            "
 
 #: templates/about.html:204
 msgid "What's in it for you if it's free?"
@@ -1747,5 +1748,3 @@ msgid ""
 msgstr ""
 "Les cookies ne sont pas activés sur votre navigateur. S'il vous plaît "
 "activer cette option dans les préférences de votre navigateur pour continuer."
-
-

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-28 17:27+0000\n"
+"POT-Creation-Date: 2017-02-28 22:29+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,8 +17,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: custom_user/admin.py:19 custom_user/templates/custom_user/login.html:12
-#: custom_user/templates/custom_user/login.html:13
+#: custom_user/admin.py:19 custom_user/templates/custom_user/login.html:15
+#: custom_user/templates/custom_user/login.html:16
 msgid "Password"
 msgstr "Password"
 
@@ -60,20 +60,20 @@ msgstr "Logged Out"
 msgid "Please sign in"
 msgstr "Please sign in"
 
-#: custom_user/templates/custom_user/login.html:10
+#: custom_user/templates/custom_user/login.html:11
 msgid "Email Address"
 msgstr "Email Address"
 
-#: custom_user/templates/custom_user/login.html:11
-#: custom_user/templates/custom_user/password_reset.html:16
+#: custom_user/templates/custom_user/login.html:12
+#: custom_user/templates/custom_user/password_reset.html:17
 msgid "Email address"
 msgstr "Email address"
 
-#: custom_user/templates/custom_user/login.html:19
+#: custom_user/templates/custom_user/login.html:22
 msgid "Sign In"
 msgstr "Sign In"
 
-#: custom_user/templates/custom_user/login.html:20
+#: custom_user/templates/custom_user/login.html:23
 msgid "I forgot my password"
 msgstr "I forgot my password"
 
@@ -85,11 +85,11 @@ msgstr ""
 "Forgotten your password? Enter your email address below, and we'll email "
 "instructions for setting a new one."
 
-#: custom_user/templates/custom_user/password_reset.html:15
+#: custom_user/templates/custom_user/password_reset.html:16
 msgid "Email Address:"
 msgstr "Email Address:"
 
-#: custom_user/templates/custom_user/password_reset.html:17
+#: custom_user/templates/custom_user/password_reset.html:19
 msgid "Reset my password"
 msgstr "Reset my password"
 
@@ -109,21 +109,21 @@ msgstr ""
 "Please enter your new password twice so we can verify you typed it in "
 "correctly."
 
-#: custom_user/templates/custom_user/password_reset_confirm.html:15
 #: custom_user/templates/custom_user/password_reset_confirm.html:16
+#: custom_user/templates/custom_user/password_reset_confirm.html:17
 msgid "New password:"
 msgstr "New password:"
 
-#: custom_user/templates/custom_user/password_reset_confirm.html:19
-#: custom_user/templates/custom_user/password_reset_confirm.html:20
+#: custom_user/templates/custom_user/password_reset_confirm.html:21
+#: custom_user/templates/custom_user/password_reset_confirm.html:22
 msgid "Confirm password:"
 msgstr "Confirm password:"
 
-#: custom_user/templates/custom_user/password_reset_confirm.html:23
+#: custom_user/templates/custom_user/password_reset_confirm.html:25
 msgid "Change my password"
 msgstr "Change my password"
 
-#: custom_user/templates/custom_user/password_reset_confirm.html:28
+#: custom_user/templates/custom_user/password_reset_confirm.html:30
 msgid ""
 "The password reset link was invalid, possibly because it has already been "
 "used.  Please request a new password reset."
@@ -1366,18 +1366,19 @@ msgid ""
 "            We welcome anyone who has any ideas or who wishes to contribute "
 "to this project and make it better!  We especially need help with "
 "translation into other languages.\n"
-"            Please <a href=\"info@okkindred.com?subject=Translations\" >get "
-"in touch</a> if you would like to contribute, or (even better) make a pull "
-"request on Github :)\n"
+"            Please <a href=\"mailto:info@okkindred.com?subject=Development\" "
+">get in touch</a> if you would like to contribute, or (even better) make a "
+"pull request on Github :)\n"
 "            "
 msgstr ""
 "\n"
 "We welcome anyone who has any ideas or who wishes to contribute to this "
 "project and make it better!  We especially need help with translation into "
 "other languages.\n"
-"            Please <a href=\"info@okkindred.com?subject=Translations\" >get "
+"            Please <a href=\"mailto:info@okkindred.com?subject=Development\" >get "
 "in touch</a> if you would like to contribute, or (even better) make a pull "
-"request on Github :)"
+"request on Github :)\n"
+"            "
 
 #: templates/about.html:204
 msgid "What's in it for you if it's free?"
@@ -1698,4 +1699,3 @@ msgid ""
 msgstr ""
 "Cookies are not enabled on your browser. Please enable cookies in your "
 "browser preferences to continue."
-
