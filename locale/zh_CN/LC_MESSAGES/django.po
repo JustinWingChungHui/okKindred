@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-27 23:01+0000\n"
+"POT-Creation-Date: 2017-02-28 17:27+0000\n"
 "PO-Revision-Date: 2015-06-15 04:58+0000\n"
 "Last-Translator: b'Anonymous User <wonghshilson@gmail.com>'\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -66,8 +66,6 @@ msgstr "电子邮件地址"
 
 #: custom_user/templates/custom_user/login.html:11
 #: custom_user/templates/custom_user/password_reset.html:16
-#, fuzzy
-#| msgid "Email Address"
 msgid "Email address"
 msgstr "电子邮件地址"
 
@@ -76,8 +74,6 @@ msgid "Sign In"
 msgstr "签到"
 
 #: custom_user/templates/custom_user/login.html:20
-#, fuzzy
-#| msgid "Confirm Password"
 msgid "I forgot my password"
 msgstr "我忘记了我的密码"
 
@@ -85,17 +81,15 @@ msgstr "我忘记了我的密码"
 msgid ""
 "Forgotten your password? Enter your email address below, and we'll email "
 "instructions for setting a new one."
-msgstr "忘记了你的密码？请在下面输入您的电子邮件地址，我们会设置一个新的电子邮件的指令。"
+msgstr ""
+"忘记了你的密码？请在下面输入您的电子邮件地址，我们会设置一个新的电子邮件的指"
+"令。"
 
 #: custom_user/templates/custom_user/password_reset.html:15
-#, fuzzy
-#| msgid "Email Address"
 msgid "Email Address:"
 msgstr "电子邮件地址："
 
 #: custom_user/templates/custom_user/password_reset.html:17
-#, fuzzy
-#| msgid "New Password"
 msgid "Reset my password"
 msgstr "重置我的密码"
 
@@ -104,8 +98,6 @@ msgid "Your password has been set.  You may go ahead and log in now."
 msgstr "您的密码已设置。你可以继续前进，现在登录。"
 
 #: custom_user/templates/custom_user/password_reset_complete.html:8
-#, fuzzy
-#| msgid "Log Out"
 msgid "Log in"
 msgstr "登录"
 
@@ -117,21 +109,15 @@ msgstr "请输入两次新密码，以便我们确认您的输入正确无误。
 
 #: custom_user/templates/custom_user/password_reset_confirm.html:15
 #: custom_user/templates/custom_user/password_reset_confirm.html:16
-#, fuzzy
-#| msgid "New Password"
 msgid "New password:"
 msgstr "新密码："
 
 #: custom_user/templates/custom_user/password_reset_confirm.html:19
 #: custom_user/templates/custom_user/password_reset_confirm.html:20
-#, fuzzy
-#| msgid "Confirm Password"
 msgid "Confirm password:"
 msgstr "确认密码："
 
 #: custom_user/templates/custom_user/password_reset_confirm.html:23
-#, fuzzy
-#| msgid "Change Password"
 msgid "Change my password"
 msgstr "更改我的密码"
 
@@ -145,13 +131,16 @@ msgstr "密码重置链接是无效的，可能是因为它已经被使用。请
 msgid ""
 "We've emailed you instructions for setting your password, if an account "
 "exists with the email you entered. You should receive them shortly."
-msgstr "我们已经通过电子邮件发送您说明来设置自己的密码，如果你输入的电子邮件存在的帐户。您应该很快就会收到他们。"
+msgstr ""
+"我们已经通过电子邮件发送您说明来设置自己的密码，如果你输入的电子邮件存在的帐"
+"户。您应该很快就会收到他们。"
 
 #: custom_user/templates/custom_user/password_reset_done.html:8
 msgid ""
 "If you don't receive an email, please make sure you've entered the address "
 "you registered with, and check your spam folder."
-msgstr "如果您没有收到电子邮件，请确保您输入您注册的地址，并检查您的垃圾邮件文件夹。"
+msgstr ""
+"如果您没有收到电子邮件，请确保您输入您注册的地址，并检查您的垃圾邮件文件夹。"
 
 #: custom_user/templates/custom_user/settings.html:13 templates/base.html:79
 msgid "Settings"
@@ -262,10 +251,6 @@ msgid "Delete Profile"
 msgstr "删除个人资料"
 
 #: custom_user/templates/custom_user/settings.html:105
-#, fuzzy
-#| msgid ""
-#| "Are you sure you want to leave ok!Kindred? We would be very sad to see you "
-#| "leave!"
 msgid ""
 "Are you sure you want to leave ok!Kindred?  We would be very sad to see you "
 "leave!"
@@ -298,27 +283,28 @@ msgid "An invitation to ok!Kindred from {0}"
 msgstr "邀请就OK了！从血族{0}"
 
 #: email_confirmation/models.py:50
-#, fuzzy, python-brace-format
-#| msgid ""
-#| "Hi {0}\n"
-#| " You have been invited by {1} to join ok!Kindred.\n"
-#| " ok!Kindred is a collaborative family tree and private social network for you and you family.\n"
-#| " A network has already been set up by one of your family members to help you keep in touch.\n"
-#| " To join, please go to {2}/accounts/confirmation={3}/\n"
-#| " "
+#, python-brace-format
 msgid ""
 "Hi {0}\n"
-"                                            You have been invited by {1} to join ok!Kindred.\n"
-"                                            ok!Kindred is a collaborative family tree and private social network for you and you family.\n"
-"                                            A network has already been set up by one of your family members to help you keep in touch.\n"
-"                                            To join, please go to {2}/accounts/confirmation={3}/\n"
+"                                            You have been invited by {1} to "
+"join ok!Kindred.\n"
+"                                            ok!Kindred is a collaborative "
+"family tree and private social network for you and you family.\n"
+"                                            A network has already been set "
+"up by one of your family members to help you keep in touch.\n"
+"                                            To join, please go to {2}/"
+"accounts/confirmation={3}/\n"
 "                                        "
 msgstr ""
 "你好{0}\n"
 "                                            已邀请您参加由{1}加入OK！血族。\n"
-"                                            OK！血族是为您和您的家人一个协作家谱和私人社交网络。\n"
-"                                            网络已经成立了由你的家庭成员之一，以帮助您保持联系。\n"
-"                                            要加入，请访问{2}/accounts/confirmation={3}/\n"
+"                                            OK！血族是为您和您的家人一个协作"
+"家谱和私人社交网络。\n"
+"                                            网络已经成立了由你的家庭成员之"
+"一，以帮助您保持联系。\n"
+"                                            要加入，请访问{2}/accounts/"
+"confirmation={3}/\n"
+"                                        "
 
 #: email_confirmation/templates/email_confirmation/confirm_invite.html:10
 #: templates/about.html:33
@@ -330,18 +316,15 @@ msgid " Thank you for accepting the invitation from "
 msgstr "感谢您接受来自邀请"
 
 #: email_confirmation/templates/email_confirmation/confirm_invite.html:14
-#, fuzzy
-#| msgid ""
-#| "\n"
-#| " to join ok!kindred, share your family tree and keep in contact with your family members!\n"
-#| " "
 msgid ""
 "\n"
-"         to join ok!kindred, share your family tree and keep in contact with your family members!\n"
+"         to join ok!kindred, share your family tree and keep in contact with "
+"your family members!\n"
 "         "
 msgstr ""
 "\n"
-"参加OK！亲情，分享你的家谱，并保持与你的家人联系！"
+"参加OK！亲情，分享你的家谱，并保持与你的家人联系！\n"
+"         "
 
 #: email_confirmation/templates/email_confirmation/confirm_invite.html:22
 #: sign_up/templates/sign_up/choose_password.html:13
@@ -359,21 +342,17 @@ msgid "Invalid Email Confirmation"
 msgstr "无效的电子邮件确认"
 
 #: email_confirmation/templates/email_confirmation/invalid_expired.html:12
-#, fuzzy
-#| msgid ""
-#| "\n"
-#| " Unfortunately either your invite to join has expired, or is invalid.\n"
-#| " Please ask a m​​ember of your family to re-invite you.\n"
-#| " "
 msgid ""
 "\n"
-"         Unfortunately either your invite to join has expired, or is invalid.\n"
+"         Unfortunately either your invite to join has expired, or is "
+"invalid.\n"
 "         Please ask a member of your family to re-invite you.\n"
 "         "
 msgstr ""
 "\n"
 "不幸的是或者您的邀请加入已经过期，或者是无效的。\n"
-"         请询问您的家庭成员重新邀请您。"
+"         请询问您的家庭成员重新邀请您。\n"
+"         "
 
 #: email_confirmation/templates/email_confirmation/invite.html:6
 #: gallery/templates/gallery/you_have_been_tagged.html:6
@@ -382,67 +361,56 @@ msgid "Hello"
 msgstr "你好"
 
 #: email_confirmation/templates/email_confirmation/invite.html:10
-#, fuzzy, python-format
-#| msgid ""
-#| "\n"
-#| " You have been invited by %(user_who_invited_person)s to join ok!Kindred: a collaborative family tree and private social network for you and your family.\n"
-#| " A network has already been set up by one of your family members to help you keep in touch.\n"
-#| " "
+#, python-format
 msgid ""
 "\n"
-"        You have been invited by %(user_who_invited_person)s to join ok!Kindred: a collaborative family tree and private social network for you and your family.\n"
-"        A network has already been set up by one of your family members to help you keep in touch.\n"
+"        You have been invited by %(user_who_invited_person)s to join ok!"
+"Kindred: a collaborative family tree and private social network for you and "
+"your family.\n"
+"        A network has already been set up by one of your family members to "
+"help you keep in touch.\n"
 "        "
 msgstr ""
 "\n"
-"已邀请您参加由 %(user_who_invited_person)s 加入血族OK！为您和您的家人一个协作家谱和私人社交网络。\n"
-"        网络已经成立了由你的家庭成员之一，以帮助您保持联系。"
+"已邀请您参加由 %(user_who_invited_person)s 加入血族OK！为您和您的家人一个协作"
+"家谱和私人社交网络。\n"
+"        网络已经成立了由你的家庭成员之一，以帮助您保持联系。\n"
+"        "
 
 #: email_confirmation/templates/email_confirmation/invite.html:16
-#, fuzzy
-#| msgid ""
-#| "\n"
-#| " Don't worry, it's absolutely free, and we take your security and privacy seriously.\n"
-#| " If you would like to join, please click on the following link and choose a secure password that you will remember.\n"
-#| " "
 msgid ""
 "\n"
-"        Don't worry, it's absolutely free, and we take your security and privacy seriously.\n"
-"        If you would like to join, please click on the following link and choose a secure password that you will remember.\n"
+"        If you would like to join, please click on the following link and "
+"choose a secure password that you will remember.\n"
 "        "
 msgstr ""
 "\n"
-"别担心，它是完全免费的，而且我们把您的安全和隐私。\n"
-"        如果你想加入，请点击下面的链接，并选择你会记得一个安全的密码。"
+"要确认您的帐户，请点击下面的链接，并选择你会记得一个安全的密码。"
 
-#: email_confirmation/templates/email_confirmation/invite.html:25
-#, fuzzy, python-format
-#| msgid ""
-#| "\n"
-#| " Please, click the link and check it out. You can always leave if you wish. If you want to find out more, just go to <a href = \"%(domain)s\">%(domain)s</a> to find out more!\n"
-#| " "
+#: email_confirmation/templates/email_confirmation/invite.html:24
+#, python-format
 msgid ""
 "\n"
-"        Please, click the link and check it out.  You can always leave if you wish.  If you want to find out more, just go to <a href = \"%(domain)s\">%(domain)s</a> to find out more!\n"
+"        Please, click the link and check it out.  You can always leave if "
+"you wish.  If you want to find out more, just go to <a href = \"%(domain)s\">"
+"%(domain)s</a> to find out more!\n"
 "        "
 msgstr ""
 "\n"
-"请点击链接，并检查出来。如果你愿意，你可以随时离开。如果您想了解更多信息，只是去<a href = \"%(domain)s\">%(domain)s</a>，以了解更多！"
+"请点击链接，并检查出来。如果你愿意，你可以随时离开。如果您想了解更多信息，只"
+"是去<a href = \"%(domain)s\">%(domain)s</a>，以了解更多！\n"
+"        "
 
-#: email_confirmation/templates/email_confirmation/invite.html:31
+#: email_confirmation/templates/email_confirmation/invite.html:30
 #: sign_up/templates/sign_up/confirmation_email.html:19
-#, fuzzy
-#| msgid ""
-#| "\n"
-#| " Thanks and lots of love from Justin & Adrian @ ok!Kindred\n"
-#| " "
 msgid ""
 "\n"
 "        Thanks and lots of love from Justin & Adrian @ ok!Kindred\n"
 "        "
 msgstr ""
 "\n"
-"感谢和大量从贾斯汀和阿德里安@ OK爱！血族"
+"感谢和大量从贾斯汀和阿德里安@ OK爱！血族\n"
+"        "
 
 #: emailer/models.py:119
 msgid "ok!Kindred family update"
@@ -453,20 +421,12 @@ msgid "One or more of your family has had details in ok!Kindred updated."
 msgstr "一个或多个家庭已在确定细节！亲属更新。"
 
 #: emailer/templates/emailer/people_updates.html:7
-#, fuzzy
-#| msgid ""
-#| "The following people have been added to your family in ok!Kindred. Click on "
-#| "them to find out more:"
 msgid ""
-"The following people have been added to your family in ok!Kindred.  Click on"
-" them to find out more:"
+"The following people have been added to your family in ok!Kindred.  Click on "
+"them to find out more:"
 msgstr "下面的人已被添加到您的家人在OK！血族。他们点击了解更多："
 
 #: emailer/templates/emailer/people_updates.html:24
-#, fuzzy
-#| msgid ""
-#| "The following people's profiles have been updated. Click on them to find out"
-#| " more:"
 msgid ""
 "The following people's profiles have been updated.   Click on them to find "
 "out more:"
@@ -626,8 +586,6 @@ msgid "Death Year (enter 0 if still alive)"
 msgstr "卒年（如果还活着输入0）"
 
 #: family_tree/templates/family_tree/edit_profile.html:68
-#, fuzzy
-#| msgid "Death Year. Enter 0 if still alive."
 msgid "Death Year.  Enter 0 if still alive."
 msgstr "卒年。如果还在世的输入0。"
 
@@ -657,18 +615,12 @@ msgid "Tel Number"
 msgstr "电话号码"
 
 #: family_tree/templates/family_tree/edit_profile.html:121
-#, fuzzy
-#| msgid ""
-#| "Telephone/Mobile Number. Include the country code if your family is across "
-#| "several countries"
 msgid ""
 "Telephone/Mobile Number.  Include the country code if your family is across "
 "several countries"
 msgstr "电话/手机号码。包括国家代码，如果你的家庭是跨越多个国家的"
 
 #: family_tree/templates/family_tree/edit_profile.html:131
-#, fuzzy
-#| msgid "Location. Can be approximate eg Coventry, UK or 筲箕湾香港"
 msgid "Location.  Can be approximate e.g. Coventry, UK or 筲箕灣 香港"
 msgstr "位置。可以近似例如英国考文垂或筲箕湾香港"
 
@@ -681,8 +633,6 @@ msgstr "网站"
 #: family_tree/templates/family_tree/edit_profile.html:149
 #: family_tree/templates/family_tree/edit_profile.html:151
 #: family_tree/templates/family_tree/profile.html:130
-#, fuzzy
-#| msgid "Skyp​​e Name"
 msgid "Skype Name"
 msgstr "Skype用户名"
 
@@ -871,18 +821,12 @@ msgid "Delete Gallery"
 msgstr "删除图库"
 
 #: gallery/templates/gallery/gallery.html:69
-#, fuzzy
-#| msgid ""
-#| "Are you sure you want to leave delete this gallery? It will delete all the "
-#| "images in it!"
 msgid ""
 "Are you sure you want to leave delete this gallery?  It will delete all the "
 "images in it!"
 msgstr "你确定要离开删除此图库？它会删除所有图像呢！"
 
 #: gallery/templates/gallery/gallery.html:76
-#, fuzzy
-#| msgid "Delete Gallery"
 msgid "Delete Gallery and all Pictures"
 msgstr "删除库和所有图片"
 
@@ -980,18 +924,15 @@ msgid "Select files..."
 msgstr "选择文件..."
 
 #: gallery/templates/gallery/you_have_been_tagged.html:10
-#, fuzzy
-#| msgid ""
-#| "\n"
-#| " You have been identified in a photo on ok!Kindred. Click on the following link to see it:\n"
-#| " "
 msgid ""
 "\n"
-"        You have been identified in a photo on ok!Kindred.  Click on the following link to see it:\n"
+"        You have been identified in a photo on ok!Kindred.  Click on the "
+"following link to see it:\n"
 "        "
 msgstr ""
 "\n"
-"你已经在就OK的照片被认定！血族。点击以下链接看看吧："
+"你已经在就OK的照片被认定！血族。点击以下链接看看吧：\n"
+"        "
 
 #: gallery/views/tag_views.py:114
 msgid "You have been identified in a new photo in ok!Kindred"
@@ -1001,13 +942,16 @@ msgstr "你已经在确定一个新的照片被认定！血族"
 #, python-brace-format
 msgid ""
 "Hi {0}\n"
-"                                        You have been identified in a photo.\n"
-"                                        To see it, please go to {1}/gallery={2}/image={3}/\n"
+"                                        You have been identified in a "
+"photo.\n"
+"                                        To see it, please go to {1}/"
+"gallery={2}/image={3}/\n"
 "                                    "
 msgstr ""
 "你好{0}\n"
 "                                        你已经在照片已经确定。\n"
-"                                        看到它，请访问{1}/gallery={2}/image={3}/\n"
+"                                        看到它，请访问{1}/gallery={2}/"
+"image={3}/\n"
 "                                    "
 
 #: okkindred/settings.py:129
@@ -1035,42 +979,44 @@ msgid "French"
 msgstr "法国"
 
 #: sign_up/models.py:102
-#, fuzzy
-#| msgid "ok!Kindred family update"
 msgid "ok!Kindred sign up confirmation"
-msgstr "OK！亲属报名确认"
+msgstr "ok!Kindred 属报名确认"
 
 #: sign_up/models.py:104
 #, python-brace-format
 msgid ""
 "Hi {0}\n"
-"                                            To confirm your sign up, please go to {1}/accounts/sign_up_confirmation={2}/\n"
+"                                            To confirm your sign up, please "
+"go to {1}/accounts/sign_up_confirmation={2}/\n"
 "                                        "
 msgstr ""
 "你好{0}\n"
-"                                            要确认您的申请，请访问{1}/accounts/sign_up_confirmation={2}/\n"
+"                                            要确认您的申请，请访问{1}/"
+"accounts/sign_up_confirmation={2}/\n"
 "                                        "
 
 #: sign_up/templates/sign_up/check_email.html:9
 #, python-format
 msgid ""
 "\n"
-"    Thank you! %(new_signup.name)s  Please check your email %(new_signup.email_address)s to confirm your account.\n"
+"    Thank you! %(new_signup.name)s  Please check your email "
+"%(new_signup.email_address)s to confirm your account.\n"
 "    "
 msgstr ""
 "\n"
-"谢谢！ %(new_signup.name)s■请检查你的电子邮件%(new_signup.email_address)s■确认您的帐户。"
+"谢谢！ %(new_signup.name)s■请检查你的电子邮件%(new_signup.email_address)s■确"
+"认您的帐户。\n"
+"    "
 
 #: sign_up/templates/sign_up/choose_password.html:8
-#, fuzzy
-#| msgid "Password confirmation"
 msgid "Account confirmation"
 msgstr "帐户确认"
 
 #: sign_up/templates/sign_up/confirmation_email.html:10
 msgid ""
 "\n"
-"        To confirm your account, please click on the following link and choose a secure password that you will remember.\n"
+"        To confirm your account, please click on the following link and "
+"choose a secure password that you will remember.\n"
 "        "
 msgstr ""
 "\n"
@@ -1081,8 +1027,6 @@ msgid "The email is already in use!"
 msgstr "电子邮件已在使用！"
 
 #: sign_up/templates/sign_up/invalid_email.html:8
-#, fuzzy
-#| msgid "Invalid Login"
 msgid "Invalid email"
 msgstr "不合规电邮"
 
@@ -1097,12 +1041,8 @@ msgid "Join"
 msgstr "加入"
 
 #: templates/404.html:9
-#, fuzzy
-#| msgid ""
-#| "We are sorry. Unfortunately the page you are looking for has not been found."
 msgid ""
-"We are sorry.  Unfortunately the page you are looking for has not been "
-"found."
+"We are sorry.  Unfortunately the page you are looking for has not been found."
 msgstr "我们很抱歉。不幸的是你正在寻找的页面还没有被发现。"
 
 #: templates/404.html:13 templates/505.html:13 templates/csrf_failure.html:13
@@ -1110,21 +1050,16 @@ msgid "Click here to return"
 msgstr "点击此处返回"
 
 #: templates/505.html:9
-#, fuzzy
-#| msgid "We are sorry. But an error has occurred"
 msgid "We are sorry.  But an error has occurred"
 msgstr "我们很抱歉。但是发生了错误"
 
 #: templates/about.html:34
 msgid ""
-"The free and open source collaborative family tree and photo sharing "
-"website."
+"The free and open source collaborative family tree and photo sharing website."
 msgstr "自由和开放源码协作族谱和照片共享网站。"
 
 #: templates/about.html:35 templates/about.html:43 templates/about.html:51
 #: templates/about.html:59
-#, fuzzy
-#| msgid "Sign In"
 msgid "Sign Up"
 msgstr "注册"
 
@@ -1134,9 +1069,10 @@ msgstr "创建和共享"
 
 #: templates/about.html:42
 msgid ""
-"Create and share a multilingual family tree with your family and invite your"
-" family members to view it and add to it"
-msgstr "创建并与您的家人共享一个多语种的家谱，并邀请你的家庭成员进行查看，并添加到它"
+"Create and share a multilingual family tree with your family and invite your "
+"family members to view it and add to it"
+msgstr ""
+"创建并与您的家人共享一个多语种的家谱，并邀请你的家庭成员进行查看，并添加到它"
 
 #: templates/about.html:49
 msgid "Map your family"
@@ -1147,8 +1083,6 @@ msgid "Plot the locations of each of your relatives on a map"
 msgstr "绘制地图上的每个亲戚的位置"
 
 #: templates/about.html:57
-#, fuzzy
-#| msgid "Photos"
 msgid "Share Photos"
 msgstr "分享照片"
 
@@ -1173,10 +1107,6 @@ msgid "Contact Us"
 msgstr "联系我们"
 
 #: templates/about.html:89
-#, fuzzy
-#| msgid ""
-#| "If you have any questions, need help using the site or have forgotten your "
-#| "password"
 msgid ""
 "If you have any questions, want to report a bug, ask for a feature or "
 "contribute to the source code."
@@ -1195,74 +1125,91 @@ msgid "How it started"
 msgstr "它是如何开始"
 
 #: templates/about.html:107
-#, fuzzy
-#| msgid ""
-#| "\n"
-#| " Hello. I'm Justin on the left. And I'm Adrian on the right.\n"
-#| " "
 msgid ""
 "\n"
 "            Hello.  I'm Justin on the left.  And I'm Adrian on the right.\n"
 "            "
 msgstr ""
 "\n"
-"你好。我在左边贾斯汀。而我在右边阿德里安。"
+"你好。我在左边贾斯汀。而我在右边阿德里安。\n"
+"            "
 
 #: templates/about.html:112
 msgid ""
 "\n"
-"            This is a website to record our family tree and act a bit like a social network. You can maintain a profile on here and discover how far the tree reaches!\n"
-"            As a person is added to the family tree, they receive an email so they may become a user and add more people to it.\n"
-"            The site was inspired by our family gatherings and the difficulties of explaining how we are all related.  Our family is now very diverse with many ethnicities and has spread around the globe.\n"
-"            As the family grows and evolves, we wanted a way to document everyone and keep in touch.\n"
+"            This is a website to record our family tree and act a bit like a "
+"social network. You can maintain a profile on here and discover how far the "
+"tree reaches!\n"
+"            As a person is added to the family tree, they receive an email "
+"so they may become a user and add more people to it.\n"
+"            The site was inspired by our family gatherings and the "
+"difficulties of explaining how we are all related.  Our family is now very "
+"diverse with many ethnicities and has spread around the globe.\n"
+"            As the family grows and evolves, we wanted a way to document "
+"everyone and keep in touch.\n"
 "            "
 msgstr ""
 "\n"
-"这是一个网站来记录我们的家谱和行为有点像社交网络。您可以在这里保持一个配置文件，发现树达到多远！\n"
-"            当一个人被添加到家谱，他们收到一封电子邮件，所以他们可能会成为用户与更多的人加入它。\n"
-"            该网站是由我们的家庭聚会，并解释我们是如何所有相关的困难启发。我们家现在是非常多样的许多种族和已遍布全球。\n"
-"            随着家庭的成长和发展，我们就想了一个办法来记录每个人都保持联系。"
+"这是一个网站来记录我们的家谱和行为有点像社交网络。您可以在这里保持一个配置文"
+"件，发现树达到多远！\n"
+"            当一个人被添加到家谱，他们收到一封电子邮件，所以他们可能会成为用"
+"户与更多的人加入它。\n"
+"            该网站是由我们的家庭聚会，并解释我们是如何所有相关的困难启发。我"
+"们家现在是非常多样的许多种族和已遍布全球。\n"
+"            随着家庭的成长和发展，我们就想了一个办法来记录每个人都保持联"
+"系。\n"
+"            "
 
 #: templates/about.html:124
 msgid "Contact"
 msgstr "联系"
 
 #: templates/about.html:126
-#, fuzzy
-#| msgid "Contact us via email info@okkindred.com"
 msgid ""
-"Contact us via email <a "
-"href=\"mailto:info@okkindred.com\">info@okkindred.com</a>"
-msgstr "通过电子邮件<a href=\"mailto:info@okkindred.com\"> info@okkindred.com </a>与我们联系"
+"Contact us via email <a href=\"mailto:info@okkindred.com\">info@okkindred."
+"com</a>"
+msgstr ""
+"通过电子邮件<a href=\"mailto:info@okkindred.com\">info@okkindred.com</a>与我"
+"们联系"
 
 #: templates/about.html:128
 msgid ""
 "\n"
-"            If you are in our family we want to hear from you and are welcome to visit and stay round any time.\n"
-"            If you have a login to this site and are part of my family, you can get my telephone number and address from my profile!\n"
+"            If you are in our family we want to hear from you and are "
+"welcome to visit and stay round any time.\n"
+"            If you have a login to this site and are part of my family, you "
+"can get my telephone number and address from my profile!\n"
 "            "
 msgstr ""
 "\n"
-"如果您对我们的家庭，我们希望收到你的来信，并欢迎各界人士光临，并保持周围的任何时间。\n"
-"            如果你有一个登录这个网站，是我家庭的一部分，你可以得到我的电话号码和地址从我的个人资料！"
+"如果您对我们的家庭，我们希望收到你的来信，并欢迎各界人士光临，并保持周围的任"
+"何时间。\n"
+"            如果你有一个登录这个网站，是我家庭的一部分，你可以得到我的电话号"
+"码和地址从我的个人资料！"
 
 #: templates/about.html:135
 msgid ""
 "\n"
-"            Alternatively, if you are looking for some help using the site, or even if you want us to help you set up your own similar site please drop us a line!\n"
+"            Alternatively, if you are looking for some help using the site, "
+"or even if you want us to help you set up your own similar site please drop "
+"us a line!\n"
 "            "
 msgstr ""
 "\n"
-"另外，如果您正在使用该网站寻找一些帮助，或者即使你想让我们帮你建立自己的类似网站请给我们行！"
+"另外，如果您正在使用该网站寻找一些帮助，或者即使你想让我们帮你建立自己的类似"
+"网站请给我们行！"
 
 #: templates/about.html:141
 msgid ""
 "\n"
-"            We're quite nice people and do like to talk to people interested in the sames things we are: Geek stuff, software, music and crazy pan global Chinese families...\n"
+"            We're quite nice people and do like to talk to people interested "
+"in the sames things we are: Geek stuff, software, music and crazy pan global "
+"Chinese families...\n"
 "            "
 msgstr ""
 "\n"
-"我们是相当不错的人，做喜欢跟感兴趣的萨姆斯的事情，我们也是人：野人的东西，软件，音乐和疯狂的泛全球的中国家庭..."
+"我们是相当不错的人，做喜欢跟感兴趣的萨姆斯的事情，我们也是人：野人的东西，软"
+"件，音乐和疯狂的泛全球的中国家庭..."
 
 #: templates/about.html:151
 msgid "Can anyone see my family's information?"
@@ -1271,11 +1218,14 @@ msgstr "任何人都可以看到我家的信息？"
 #: templates/about.html:153
 msgid ""
 "\n"
-"            No, only people within your family tree that you have invited can see the information you input.  The information is also not searchable by outside users or search engines.\n"
+"            No, only people within your family tree that you have invited "
+"can see the information you input.  The information is also not searchable "
+"by outside users or search engines.\n"
 "            "
 msgstr ""
 "\n"
-"没有，只有你邀请你的家庭树内的人可以看到您输入的信息。这些信息也不会被外部用户或搜索引擎进行搜索。"
+"没有，只有你邀请你的家庭树内的人可以看到您输入的信息。这些信息也不会被外部用"
+"户或搜索引擎进行搜索。"
 
 #: templates/about.html:158
 msgid "Is my information secure?"
@@ -1284,42 +1234,64 @@ msgstr "我的信息安全吗？"
 #: templates/about.html:160
 msgid ""
 "\n"
-"            We take security and privacy very seriously. We keep the details of our family on this site, and we would never do anything to jeopardise this data!\n"
-"            Only your own family members that you invite to share your tree are able to see the information that you enter on the site.\n"
-"            Furthermore, we do not sell, trade, or rent your personal identification information to others.\n"
+"            We take security and privacy very seriously. We keep the details "
+"of our family on this site, and we would never do anything to jeopardise "
+"this data!\n"
+"            Only your own family members that you invite to share your tree "
+"are able to see the information that you enter on the site.\n"
+"            Furthermore, we do not sell, trade, or rent your personal "
+"identification information to others.\n"
 "            "
 msgstr ""
 "\n"
-"我们非常重视安全和隐私非常重视。我们一直在这个网站我们家的细节，我们永远不会做任何损害这些数据！\n"
-"            你邀请来共享你的树只有你自己的家庭成员都能够看到你在网站上输入的信息。\n"
+"我们非常重视安全和隐私非常重视。我们一直在这个网站我们家的细节，我们永远不会"
+"做任何损害这些数据！\n"
+"            你邀请来共享你的树只有你自己的家庭成员都能够看到你在网站上输入的"
+"信息。\n"
 "            此外，我们不会出售，交易或出租您的个人身份信息给他人。"
 
 #: templates/about.html:167
 msgid ""
 "\n"
-"            The site is hosted with <a href=\"https://www.pythonanywhere.com/?affiliate_id=00022aed\">PythonAnywhere</a> who themselves take privacy very seriously.\n"
-"            We also use <a href=\"https://aws.amazon.com/s3/\">Amazon S3</a> to store any images that you upload.\n"
-"            We do use third party <a href=\"https://en.wikipedia.org/wiki/Geocoding\">geocoding</a> services (Google & Microsoft).  This is to convert a location into a longitude and latitude so we can plot it on a map.\n"
-"            However no other identifying pieces of information (e.g. name) are supplied with this location to these third parties.\n"
-"            So for example we will send solely the term 'Hong Kong' to Google who will then give us a latitude and longitude so we can plot it on a map.\n"
+"            The site is hosted with <a href=\"https://www.pythonanywhere."
+"com/?affiliate_id=00022aed\">PythonAnywhere</a> who themselves take privacy "
+"very seriously.\n"
+"            We also use <a href=\"https://aws.amazon.com/s3/\">Amazon S3</a> "
+"to store any images that you upload.\n"
+"            We do use third party <a href=\"https://en.wikipedia.org/wiki/"
+"Geocoding\">geocoding</a> services (Google & Microsoft).  This is to convert "
+"a location into a longitude and latitude so we can plot it on a map.\n"
+"            However no other identifying pieces of information (e.g. name) "
+"are supplied with this location to these third parties.\n"
+"            So for example we will send solely the term 'Hong Kong' to "
+"Google who will then give us a latitude and longitude so we can plot it on a "
+"map.\n"
 "            "
 msgstr ""
 "\n"
-"该网站托管与<a href=\"https://www.pythonanywhere.com/?affiliate_id=00022aed\"> PythonAnywhere </A>自己拿谁的隐私非常重视。\n"
-"            我们还使用<a href=\"https://aws.amazon.com/s3/\"> Amazon S3的</A>存储您上传的所有图片。\n"
-"            我们使用第三方<a href=\"https://en.wikipedia.org/wiki/Geocoding\">地理编码服务</A>（谷歌和微软）。这是对一个位置转换成经度和纬度，所以我们可以绘制它在地图上。\n"
+"该网站托管与<a href=\"https://www.pythonanywhere.com/?affiliate_id=00022aed"
+"\"> PythonAnywhere </A>自己拿谁的隐私非常重视。\n"
+"            我们还使用<a href=\"https://aws.amazon.com/s3/\"> Amazon S3的</A>"
+"存储您上传的所有图片。\n"
+"            我们使用第三方<a href=\"https://en.wikipedia.org/wiki/Geocoding"
+"\">地理编码服务</A>（谷歌和微软）。这是对一个位置转换成经度和纬度，所以我们可"
+"以绘制它在地图上。\n"
 "            然而信息（例如名称）没有其他识别件与此位置对这些第三方提供。\n"
-"            因此，例如，我们将完全派词'香港'到谷歌谁就会给我们一个经度和纬度，所以我们可以绘制它在地图上。"
+"            因此，例如，我们将完全派词'香港'到谷歌谁就会给我们一个经度和纬"
+"度，所以我们可以绘制它在地图上。"
 
 #: templates/about.html:177
 msgid ""
 "\n"
-"            If you are concerned, the site is entirely open source, so you can take a copy of the source code (see below), have a look how your information is stored or even host your own version of this website.\n"
+"            If you are concerned, the site is entirely open source, so you "
+"can take a copy of the source code (see below), have a look how your "
+"information is stored or even host your own version of this website.\n"
 "            We will be more than happy to help you set it up.\n"
 "            "
 msgstr ""
 "\n"
-"如果您担心，该网站是完全开源的，所以你可以把源代码副本（见下文），看看你的信息如何存储，甚至举办自己的这个网站的版本。\n"
+"如果您担心，该网站是完全开源的，所以你可以把源代码副本（见下文），看看你的信"
+"息如何存储，甚至举办自己的这个网站的版本。\n"
 "            我们将很乐意帮助你设置它多了起来。"
 
 #: templates/about.html:183
@@ -1329,33 +1301,49 @@ msgstr "我可以看到源代码？"
 #: templates/about.html:185
 msgid ""
 "\n"
-"            The source code is located at <a href=\"https://github.com/JustinWingChungHui/okKindred\">Github.com</a>.  What you see on okKindred.com is taken from the 'production' branch.\n"
+"            The source code is located at <a href=\"https://github.com/"
+"JustinWingChungHui/okKindred\">Github.com</a>.  What you see on okKindred."
+"com is taken from the 'production' branch.\n"
 "            "
 msgstr ""
 "\n"
-"源代码位于<a href=\"https://github.com/JustinWingChungHui/okKindred\"> Github.com </A>。你看到什么okKindred.com从“生产”分支跳转。"
+"源代码位于<a href=\"https://github.com/JustinWingChungHui/okKindred\"> "
+"Github.com </A>。你看到什么okKindred.com从“生产”分支跳转。"
 
 #: templates/about.html:191
 msgid ""
 "\n"
-"            We've issued it with an <a href=\"https://en.wikipedia.org/wiki/MIT_License\">MIT licence</a> which means you are free to use, copy and modify the code for your own purpose.\n"
-"            The <a href=\"https://github.com/JustinWingChungHui/okKindred/blob/master/README.rst\">README</a> contains a basic overview on how it works and step by step instructions to deploy your own instance.\n"
+"            We've issued it with an <a href=\"https://en.wikipedia.org/wiki/"
+"MIT_License\">MIT licence</a> which means you are free to use, copy and "
+"modify the code for your own purpose.\n"
+"            The <a href=\"https://github.com/JustinWingChungHui/okKindred/"
+"blob/master/README.rst\">README</a> contains a basic overview on how it "
+"works and step by step instructions to deploy your own instance.\n"
 "            "
 msgstr ""
 "\n"
-"我们与这意味着您可以自由使用，复制和修改代码以实现自己的目的的<a href=\"https://en.wikipedia.org/wiki/MIT_License\"> MIT许可证颁发</A>它。\n"
-"            该<a href=\"https://github.com/JustinWingChungHui/okKindred/blob/master/README.rst\">自述</A>包含它如何工作的，并分步说明基本概述部署您自己的实例。"
+"我们与这意味着您可以自由使用，复制和修改代码以实现自己的目的的<a href="
+"\"https://en.wikipedia.org/wiki/MIT_License\"> MIT许可证颁发</A>它。\n"
+"            该<a href=\"https://github.com/JustinWingChungHui/okKindred/blob/"
+"master/README.rst\">自述</A>包含它如何工作的，并分步说明基本概述部署您自己的"
+"实例。"
 
 #: templates/about.html:198
 msgid ""
 "\n"
-"            We welcome anyone who has any ideas or who wishes to contribute to this project and make it better!  We especially need help with translation into other languages.\n"
-"            Please <a href=\"info@okkindred.com?subject=Translations\" >get in touch</a> if you would like to contribute, or (even better) make a pull request on Github :)\n"
+"            We welcome anyone who has any ideas or who wishes to contribute "
+"to this project and make it better!  We especially need help with "
+"translation into other languages.\n"
+"            Please <a href=\"info@okkindred.com?subject=Translations\" >get "
+"in touch</a> if you would like to contribute, or (even better) make a pull "
+"request on Github :)\n"
 "            "
 msgstr ""
 "\n"
-"我们欢迎任何人谁有任何意见或谁愿意参与这一项目，并使其更好！我们特别需要翻译成其他语言的帮助。\n"
-"            请<a href=\"info@okkindred.com?subject=Translations\">取得联系</A>如果您想贡献，或（甚至更好），使在Github上拉请求:)"
+"我们欢迎任何人谁有任何意见或谁愿意参与这一项目，并使其更好！我们特别需要翻译"
+"成其他语言的帮助。\n"
+"            请<a href=\"info@okkindred.com?subject=Translations\">取得联系</"
+"A>如果您想贡献，或（甚至更好），使在Github上拉请求:)"
 
 #: templates/about.html:204
 msgid "What's in it for you if it's free?"
@@ -1364,13 +1352,19 @@ msgstr "是什么在它适合你，如果它是免费的吗？"
 #: templates/about.html:206
 msgid ""
 "\n"
-"            We are software developers, and this is a project created in our spare time to expand our skillset and to add to our portfolio to show off to others.\n"
-"            This was the best way to organise information on our own family, and we hope that new users will offer suggestions to improve the site or even contribute code.\n"
+"            We are software developers, and this is a project created in our "
+"spare time to expand our skillset and to add to our portfolio to show off to "
+"others.\n"
+"            This was the best way to organise information on our own family, "
+"and we hope that new users will offer suggestions to improve the site or "
+"even contribute code.\n"
 "            "
 msgstr ""
 "\n"
-"我们是软件开发者，这是在课余时间，扩大我们的技能，并加入到我们的产品来向别人炫耀创建的项目。\n"
-"            这是组织对自己的家庭信息化的最佳途径，我们希望新用户将提供建议，以提高网站甚至贡献代码。"
+"我们是软件开发者，这是在课余时间，扩大我们的技能，并加入到我们的产品来向别人"
+"炫耀创建的项目。\n"
+"            这是组织对自己的家庭信息化的最佳途径，我们希望新用户将提供建议，"
+"以提高网站甚至贡献代码。"
 
 #: templates/about.html:212
 msgid "Can I manage multiple family trees?"
@@ -1379,11 +1373,13 @@ msgstr "我可以管理多个家谱？"
 #: templates/about.html:214
 msgid ""
 "\n"
-"            No you can't!  At least not yet.  We are aware that this is something people may want, and may put this feature in the future.\n"
+"            No you can't!  At least not yet.  We are aware that this is "
+"something people may want, and may put this feature in the future.\n"
 "            "
 msgstr ""
 "\n"
-"不，你不能！至少目前还没有。我们都知道，这是人们可能想，也可以把这个功能在未来。"
+"不，你不能！至少目前还没有。我们都知道，这是人们可能想，也可以把这个功能在未"
+"来。"
 
 #: templates/about.html:219
 msgid "Is there an iOS/Android app?"
@@ -1392,13 +1388,17 @@ msgstr "有没有在iOS / Android应用程序？"
 #: templates/about.html:221
 msgid ""
 "\n"
-"            No there is not yet.  However, you will find that the website formats very nicely on a mobile device.\n"
-"            If you are using Chrome on a mobile, you can add a shortcut of the website to your desktop which makes it look like an app for those in your family who are less tech savvy!\n"
+"            No there is not yet.  However, you will find that the website "
+"formats very nicely on a mobile device.\n"
+"            If you are using Chrome on a mobile, you can add a shortcut of "
+"the website to your desktop which makes it look like an app for those in "
+"your family who are less tech savvy!\n"
 "            "
 msgstr ""
 "\n"
 "没有目前还没有。但是，你会发现，该网站的格式非常漂亮的移动设备上。\n"
-"            如果您在移动使用Chrome，您可以添加网站到桌面上，这使得它看起来像那些在你家谁是不太精通技术的应用程序的快捷方式！"
+"            如果您在移动使用Chrome，您可以添加网站到桌面上，这使得它看起来像"
+"那些在你家谁是不太精通技术的应用程序的快捷方式！"
 
 #: templates/about.html:227
 msgid "How can I show more family members in the tree?"
@@ -1407,16 +1407,21 @@ msgstr "我怎样才能显示在树更多的家庭成员？"
 #: templates/about.html:229
 msgid ""
 "\n"
-"            The standard view just shows the one level of relation.  However, if you go to the eldest relative's profile, you can 'Show Descendents'.  This will show all descendents with blood relations but not their partners.\n"
+"            The standard view just shows the one level of relation.  "
+"However, if you go to the eldest relative's profile, you can 'Show "
+"Descendents'.  This will show all descendents with blood relations but not "
+"their partners.\n"
 "            "
 msgstr ""
 "\n"
-"标准视图只是显示关系的一个级别。但是，如果你去大亲戚的个人资料，你可以'显示后裔“。这将显示与血缘关系，但不是他们的合作伙伴所有后代。"
+"标准视图只是显示关系的一个级别。但是，如果你去大亲戚的个人资料，你可以'显示后"
+"裔“。这将显示与血缘关系，但不是他们的合作伙伴所有后代。"
 
 #: templates/about.html:235
 msgid ""
 "\n"
-"            Displaying a family tree on a mobile device without it turning into a mess is a challenge that is yet to be resolved.\n"
+"            Displaying a family tree on a mobile device without it turning "
+"into a mess is a challenge that is yet to be resolved.\n"
 "            "
 msgstr ""
 "\n"
@@ -1429,13 +1434,16 @@ msgstr "哪些浏览器这项工作呢？"
 #: templates/about.html:242
 msgid ""
 "\n"
-"            The site is tested on the latest version of the top browsers on desktop and mobile.\n"
-"            There may be issues on unsupported browsers, such as older Android browsers, Internet Explorer 9 and below.\n"
+"            The site is tested on the latest version of the top browsers on "
+"desktop and mobile.\n"
+"            There may be issues on unsupported browsers, such as older "
+"Android browsers, Internet Explorer 9 and below.\n"
 "            "
 msgstr ""
 "\n"
 "该网站是在桌面和移动上的浏览器的最新版本进行测试。\n"
-"            有可能是不支持的浏览器，如较旧的Android浏览器，Internet Explorer 9的以下问题。"
+"            有可能是不支持的浏览器，如较旧的Android浏览器，Internet Explorer "
+"9的以下问题。"
 
 #: templates/about.html:248
 msgid "Is this website available in Mainland China?"
@@ -1444,13 +1452,19 @@ msgstr "这是网站在中国大陆可用？"
 #: templates/about.html:250
 msgid ""
 "\n"
-"            As far as we know it is, but availability of certain websites in China changes day to day.\n"
-"            We have made some technical decisions to make it more likely to be available.  For instance we use <a href=\"https://www.mapbox.com\">Mapbox</a> for mapping instead of Google maps because the latter is blocked in China over a secure connection.\n"
+"            As far as we know it is, but availability of certain websites in "
+"China changes day to day.\n"
+"            We have made some technical decisions to make it more likely to "
+"be available.  For instance we use <a href=\"https://www.mapbox.com"
+"\">Mapbox</a> for mapping instead of Google maps because the latter is "
+"blocked in China over a secure connection.\n"
 "            "
 msgstr ""
 "\n"
 "据我们所知道的是，但在中国某些网站的可用性改变每一天。\n"
-"            我们已经取得了一些技术决策，使其更容易使用。比如我们使用<a href=\"https://www.mapbox.com\"> Mapbox </A>映射，而不是谷歌地图，因为后者在中国被屏蔽通过安全连接。"
+"            我们已经取得了一些技术决策，使其更容易使用。比如我们使用<a href="
+"\"https://www.mapbox.com\"> Mapbox </A>映射，而不是谷歌地图，因为后者在中国被"
+"屏蔽通过安全连接。"
 
 #: templates/about.html:256
 msgid "Is there a limit on images I can upload?"
@@ -1459,12 +1473,16 @@ msgstr "是否有图像的限制，我可以上传？"
 #: templates/about.html:258
 msgid ""
 "\n"
-"            No at the moment there isn't.  The images are stored on <a href=\"https://aws.amazon.com/s3/\">Amazon S3</a> which is very very cheap so we don't mind footing the cost.\n"
-"            However if a lot of users start to upload thousands and thousands of images, we will have to create a limit.\n"
+"            No at the moment there isn't.  The images are stored on <a href="
+"\"https://aws.amazon.com/s3/\">Amazon S3</a> which is very very cheap so we "
+"don't mind footing the cost.\n"
+"            However if a lot of users start to upload thousands and "
+"thousands of images, we will have to create a limit.\n"
 "            "
 msgstr ""
 "\n"
-"没有此刻没有。这些图像存储在<a href=\"https://aws.amazon.com/s3/\"> Amazon S3的</A>所以我们不介意立足点的成本，这是非常非常便宜。\n"
+"没有此刻没有。这些图像存储在<a href=\"https://aws.amazon.com/s3/\"> Amazon S3"
+"的</A>所以我们不介意立足点的成本，这是非常非常便宜。\n"
 "            但是，如果有很多用户开始上传图片的成千上万，我们将创建一个限制。"
 
 #: templates/about.html:264
@@ -1474,11 +1492,14 @@ msgstr "我可以宣传你的网站？"
 #: templates/about.html:266
 msgid ""
 "\n"
-"            We have no plans to raise money via ads on the site mainly as we don't want to subject our Grandmas to any more advertising than they currently get.\n"
+"            We have no plans to raise money via ads on the site mainly as we "
+"don't want to subject our Grandmas to any more advertising than they "
+"currently get.\n"
 "            "
 msgstr ""
 "\n"
-"我们没有计划通过广告主要是因为我们不希望受到我们的祖母给任何更多的广告比他们目前得到的网站上，以筹集资金。"
+"我们没有计划通过广告主要是因为我们不希望受到我们的祖母给任何更多的广告比他们"
+"目前得到的网站上，以筹集资金。"
 
 #: templates/about.html:271
 msgid "I found a bug!"
@@ -1488,12 +1509,17 @@ msgstr "我发现了一个bug！"
 #, python-format
 msgid ""
 "\n"
-"            Please let us know!  You can <a href=\"mailto:info@okkindred.com?Subject=I%%20found%%20a%%20bug!\">email us</a> or you can add it to the <a href=\"https://github.com/JustinWingChungHui/okKindred/issues\">issues list</a> on Github.\n"
+"            Please let us know!  You can <a href=\"mailto:info@okkindred.com?"
+"Subject=I%%20found%%20a%%20bug!\">email us</a> or you can add it to the <a "
+"href=\"https://github.com/JustinWingChungHui/okKindred/issues\">issues list</"
+"a> on Github.\n"
 "            If it's a security bug need to know ASAP so we can fix it!\n"
 "            "
 msgstr ""
 "\n"
-"请告诉我们！您可以<a href=\"mailto:info@okkindred.com?Subject=I%%20found%%20a%%20bug!\">给我们发电子邮件</a>或您可以将其添加到的<a href =“https://github.com/JustinWingChungHui/okKindred/issues\">issues </a>列表Github上。\n"
+"请告诉我们！您可以<a href=\"mailto:info@okkindred.com?Subject=I%%20found%%20a"
+"%%20bug!\">给我们发电子邮件</a>或您可以将其添加到的<a href =“https://github."
+"com/JustinWingChungHui/okKindred/issues\">issues </a>列表Github上。\n"
 "            如果它是一个安全漏洞需要尽快知道，以便我们能够解决它！"
 
 #: templates/about.html:279
@@ -1501,21 +1527,23 @@ msgid "Can you add a feature so it can do xxxxx please?"
 msgstr "你可以添加一个功能，因此它可以做XXXXX吗？"
 
 #: templates/about.html:281
-#, fuzzy, python-format
-#| msgid ""
-#| "\n"
-#| "            Feel free to request new features via <a href=\"mailto:info@okkindred.com?Subject=Feature%%20Request\">info@okkindred.com</a>.  We will definitely consider them especially if it will benefit a lot of people (i.e. our family).\n"
-#| "            This site is done in our spare time, so feature requests will be done when they're done.\n"
-#| "            "
+#, python-format
 msgid ""
 "\n"
-"            Feel free to request new features via <a href=\"mailto:info@okkindred.com?Subject=Feature%%20Request\">info@okkindred.com</a>.  We will definitely consider them especially if it will benefit a lot of people (i.e. our family).\n"
-"            This site is done in our spare time, so feature requests will be done when they're done.\n"
+"            Feel free to request new features via <a href=\"mailto:"
+"info@okkindred.com?Subject=Feature%%20Request\">info@okkindred.com</a>.  We "
+"will definitely consider them especially if it will benefit a lot of people "
+"(i.e. our family).\n"
+"            This site is done in our spare time, so feature requests will be "
+"done when they're done.\n"
 "            "
 msgstr ""
 "\n"
-"随时通过<a href=\"mailto:info@okkindred.com?Subject=Feature%%20Request\"> info@okkindred.com </a>索要新功能。我们肯定会考虑他们，特别是如果这将有利于很多人（即我们的家庭）。\n"
-"            这个网站是在课余时间完成的，所以他们做的时候功能要求会做。"
+"随时通过<a href=\"mailto:info@okkindred.com?Subject=Feature%%20Request"
+"\">info@okkindred.com</a>索要新功能。我们肯定会考虑他们，特别是如果这将有利于"
+"很多人（即我们的家庭）。\n"
+"            这个网站是在课余时间完成的，所以他们做的时候功能要求会做。\n"
+"            "
 
 #: templates/about.html:287
 msgid ""
@@ -1526,8 +1554,10 @@ msgstr "其他家谱网站查找当地的记录，以帮助创建树，你可以
 #: templates/about.html:289
 msgid ""
 "\n"
-"            We have no plans to implement this yet.  The reason being is that most of our family originates from China.\n"
-"            Because of the civil wars that occured in China in the 20th century and instability during the last decades of the Qing dynasty,\n"
+"            We have no plans to implement this yet.  The reason being is "
+"that most of our family originates from China.\n"
+"            Because of the civil wars that occured in China in the 20th "
+"century and instability during the last decades of the Qing dynasty,\n"
 "            few usable records exist that would be beneficial to us.\n"
 "            "
 msgstr ""
@@ -1539,13 +1569,17 @@ msgstr ""
 #: templates/about.html:297
 msgid ""
 "\n"
-"            Given that many genealogy websites do this already, we would try to focus more on the social networking side of this project.\n"
-"            However that is not to say that if in time a great need became apparent, we would not look at implementing such a feature.\n"
+"            Given that many genealogy websites do this already, we would try "
+"to focus more on the social networking side of this project.\n"
+"            However that is not to say that if in time a great need became "
+"apparent, we would not look at implementing such a feature.\n"
 "            "
 msgstr ""
 "\n"
-"鉴于许多家谱网站已经这样做了，我们会尝试更多的精力在这个项目上的社交网络侧。\n"
-"            然而，这并不是说，如果在时间上非常需要变得明显，我们不会看看如何实现这样的功能。"
+"鉴于许多家谱网站已经这样做了，我们会尝试更多的精力在这个项目上的社交网络"
+"侧。\n"
+"            然而，这并不是说，如果在时间上非常需要变得明显，我们不会看看如何"
+"实现这样的功能。"
 
 #: templates/about.html:303
 msgid ""
@@ -1556,16 +1590,23 @@ msgstr "为了描述关系，你有'合作'，但不是'结婚'，你'长大'，
 #: templates/about.html:305
 msgid ""
 "\n"
-"            We've tried to keep the site as simple as possible and as inclusive as possible.  The definitions of 'Raised', 'Raised by' and 'Partnered' give enough information to build a tree.\n"
-"            They are inclusive of cross-cultural relationships which don't have a concept of marriage.\n"
-"            They can include civil partnerships, common law partners, divorcees, adoptees and any other definitions that may or may not exist in different cultures.\n"
+"            We've tried to keep the site as simple as possible and as "
+"inclusive as possible.  The definitions of 'Raised', 'Raised by' and "
+"'Partnered' give enough information to build a tree.\n"
+"            They are inclusive of cross-cultural relationships which don't "
+"have a concept of marriage.\n"
+"            They can include civil partnerships, common law partners, "
+"divorcees, adoptees and any other definitions that may or may not exist in "
+"different cultures.\n"
 "\n"
 "            "
 msgstr ""
 "\n"
-"我们试图保持网站尽可能简单和尽可能具有包容性。的“凸起”，“提出者”和定义，'合作'提供足够的信息来构建树。\n"
+"我们试图保持网站尽可能简单和尽可能具有包容性。的“凸起”，“提出者”和定义，'合"
+"作'提供足够的信息来构建树。\n"
 "            它们包括不具有婚姻观念的跨文化关系。\n"
-"            它们可以包括民间的合作伙伴关系，英美法系的合作伙伴，离婚，收养和任何其他的定义可能会或可能不会在不同的文化存在。"
+"            它们可以包括民间的合作伙伴关系，英美法系的合作伙伴，离婚，收养和"
+"任何其他的定义可能会或可能不会在不同的文化存在。"
 
 #: templates/base.html:57
 msgid "Toggle navigation"
@@ -1592,8 +1633,6 @@ msgid "Log Out"
 msgstr "登出"
 
 #: templates/base.html:90
-#, fuzzy
-#| msgid "Log Out"
 msgid "Log In"
 msgstr "登录"
 
@@ -1602,3 +1641,4 @@ msgid ""
 "Cookies are not enabled on your browser. Please enable cookies in your "
 "browser preferences to continue."
 msgstr "Cookies是不是在你的浏览器。请启用浏览器优先区继续。"
+
