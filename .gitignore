@@ -10,7 +10,6 @@ __pycache__/
 env/
 build/
 develop-eggs/
-dist/
 downloads/
 eggs/
 lib/
@@ -41,7 +40,6 @@ nosetests.xml
 coverage.xml
 
 # Translations
-*.mo
 *.pot
 
 # Django stuff:
