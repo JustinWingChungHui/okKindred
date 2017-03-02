@@ -2,9 +2,9 @@ from django.conf import settings
 from django.http import HttpResponse, Http404
 from django.shortcuts import get_object_or_404, render
 
+from common.serialization_tools import JSONWithURLSerializer
 from gallery.models import Gallery, Image
-from maps import map_service
-import json
+
 
 def gallery_map(request, gallery_id):
     '''
@@ -26,7 +26,7 @@ def gallery_map(request, gallery_id):
                                 })
 
 
-def gallery_map_data(request, gallery_id, division_size):
+def gallery_map_data(request, gallery_id):
     '''
     Gets the data for the map view
     '''
@@ -36,32 +36,11 @@ def gallery_map_data(request, gallery_id, division_size):
     if request.user.family_id != gallery.family_id:
         raise Http404
 
-    location_points = {}
-
     images = Image.objects.filter(family_id = request.user.family_id, gallery_id = gallery_id).exclude(latitude = 0, longitude = 0)
 
-    division_size_float = float(division_size)
+    serializer = JSONWithURLSerializer()
+    data = serializer.serialize(images, fields=('id','name','thumbnail','large_thumbnail','latitude','longitude','title','large_thumbnail_width','large_thumbnail_height'))
 
-    for image in images:
-        loc = map_service.get_snapped_location(image, division_size_float)
-
-        key = str(loc) #Needs to be a string to serialize
-
-        if key not in location_points:
-            location_points[key] = []
-
-        location_points[key].append({
-                                        'id': image.id,
-                                        'name': image.title,
-                                        'thumbnail': image.thumbnail.url,
-                                        'large_thumbnail': image.large_thumbnail.url,
-                                        'latitude': image.latitude,
-                                        'longitude': image.longitude,
-                                        'title' : image.title,
-                                        'large_thumbnail_width' : image.large_thumbnail_width,
-                                        'large_thumbnail_height' : image.large_thumbnail_height
-                                    })
-
-    return HttpResponse(json.dumps(location_points), content_type="application/json")
+    return HttpResponse(data, content_type="application/json")
 
 

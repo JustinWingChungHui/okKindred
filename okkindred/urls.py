@@ -78,7 +78,7 @@ urlpatterns = [
     #Maps Views
     url(r'^map/$', maps.views.map),
     url(r'^map=(?P<person_id>\d+)/$', maps.views.map),
-    url(r'^map_points/(?P<division_size>\d+\.\d+)/$', maps.views.map_points),
+    url(r'^map_points/$', maps.views.map_points),
 
     #Search Views
     url(r'^search/$', family_tree.views.search),
@@ -129,7 +129,7 @@ urlpatterns = [
 
     #Gallery Map Views
     url(r'^gallery=(?P<gallery_id>\d+)/map/$', gallery.views.gallery_map),
-    url(r'^gallery=(?P<gallery_id>\d+)/map_data/(?P<division_size>\d+\.\d+)/$', gallery.views.gallery_map_data),
+    url(r'^gallery=(?P<gallery_id>\d+)/map_data/$', gallery.views.gallery_map_data),
     url(r'^image=(?P<image_id>\d+)/address/$', gallery.views.geocode_image_location_post),
 ]
 

@@ -1,99 +1,4 @@
-require(['jquery', 'leaflet', 'mustache'], function($, L, Mustache){
-
-    OKKINDRED_PERSON_MAP = {
-        markers : []
-    };
-
-    OKKINDRED_PERSON_MAP.get_map_data = function(map) {
-        var bounds = map.getBounds()
-        var min = bounds.getSouthWest().wrap();
-        var max = bounds.getNorthEast().wrap();
-
-        var max_num_points = Math.floor(Math.min($(document).height(),$(document).width()) / 100.0); //100 pixels per spot
-        var min_lat_lng = Math.min(max.lng - min.lng, max.lat - min.lat);
-        var division_size = min_lat_lng / max_num_points;
-
-
-        var url = ['/map_points/'];
-        url.push(division_size);
-        url.push('/');
-
-        $.ajax({
-            url : url.join(''),
-            dataType: "json",
-            type: "get"
-        }).done(function(data, textStatus, jqXHR) {
-            OKKINDRED_PERSON_MAP.display_map_points(data, map)
-        });
-    }
-
-    OKKINDRED_PERSON_MAP.display_map_points = function(data, map) {
-
-        //Clear existing
-        for(i = 0; i < OKKINDRED_PERSON_MAP.markers.length; i++) {
-            map.removeLayer(OKKINDRED_PERSON_MAP.markers[i]);
-        }
-        OKKINDRED_PERSON_MAP.markers.length = 0;
-
-        var template = $('#map_person_template').html();
-
-        for (var key in data) {
-            var loc = data[key];
-
-            var myIcon = L.divIcon({
-                className:  'circle',
-                iconSize:   [40, 40], // size of the icon
-                iconAnchor: [20, 20], // point of the icon which will correspond to marker's location
-                popupAnchor:[0, -5], // point from which the popup should open relative to the iconAnchor
-                html:       loc.length
-            });
-
-            // Create a map marker for every data point
-            var marker = L.marker([loc[0].latitude,loc[0].longitude], {icon: myIcon}).addTo(map);
-            OKKINDRED_PERSON_MAP.markers.push(marker);
-
-            var html = [];
-
-            if (loc.length == 1) {
-                var popupWidth = 90;
-            } else if (loc.length < 5){
-                var popupWidth = 180;
-            } else {
-                var popupWidth = 270;
-            }
-
-            html.push('<div style="overflow: hidden; width:');
-            html.push(popupWidth);
-            html.push('px;">');
-
-            for (var i = 0; i < loc.length; i++)
-            {
-                var row = loc[i];
-
-                var image_url;
-                if (row.small_thumbnail) {
-                    image_url = row.small_thumbnail;
-                } else {
-                    image_url = '/static/img/portrait_80.png';
-                }
-
-                var person = {
-                    id : row.id,
-                    name : row.name,
-                    image_url : image_url
-                }
-
-                var output = Mustache.render(template, person);
-                html.push(output);
-            }
-
-            html.push('</div>');
-
-            marker.bindPopup(html.join(''));
-        }
-
-        $('.loading').hide();
-    }
+require(['jquery', 'leaflet', 'mustache', 'leaflet_markercluster'], function($, L, Mustache){
 
     $(document).ready(function() {
 
@@ -107,6 +12,10 @@ require(['jquery', 'leaflet', 'mustache'], function($, L, Mustache){
         var zoom = parseFloat($("#person_map").data("zoom"));
         var token = $("#person_map").data("token");
 
+        var tiles = L.tileLayer('https://api.mapbox.com/v4/mapbox.streets/{z}/{x}/{y}.jpg70?access_token={token}', {
+    		token: token
+    	});
+
         var map = L.map('person_map', {
             center: [center_latitude, center_longitude],
             zoom: zoom,
@@ -114,21 +23,73 @@ require(['jquery', 'leaflet', 'mustache'], function($, L, Mustache){
             minZoom: 2,
             scrollWheelZoom: true,
             detectRetina: true,
-            maxBounds: [[-90, -200],[90, 200]]
+            maxBounds: [[-90, -200],[90, 200]],
+            layers: [tiles]
         });
-
-        L.tileLayer('https://api.mapbox.com/v4/mapbox.streets/{z}/{x}/{y}.jpg70?access_token={token}', {
-    		token: token
-    	}).addTo(map);
 
         map.addControl( L.control.zoom({position: 'bottomleft'}));
 
-        OKKINDRED_PERSON_MAP.get_map_data(map);
-
-        map.on('zoomend', function(e) {
-            OKKINDRED_PERSON_MAP.get_map_data(e.target);
-        });
+        get_map_data(map);
     });
+
+    // Gets the map data using ajax
+    function get_map_data(map) {
+
+        $.ajax({
+            url : '/map_points/',
+            dataType: "json",
+            type: "get"
+        }).done(function(data, textStatus, jqXHR) {
+            display_map_points(data, map)
+        });
+    }
+
+    // Displays the map points from the result of the ajax query
+    function display_map_points(data, map) {
+
+        var template = $('#map_person_template').html();
+        var markers = L.markerClusterGroup();
+
+		for (var i = 0; i < data.length; i++) {
+			var loc = data[i];
+			var html = build_pop_up(loc, template);
+
+			var marker = L.marker(new L.LatLng(loc.fields.latitude, loc.fields.longitude), { title: html });
+			marker.bindPopup(html);
+			markers.addLayer(marker);
+		}
+
+		map.addLayer(markers);
+
+        $('.loading').hide();
+    }
+
+    // Builds the html for a map pop up
+    function build_pop_up(loc, template) {
+        var html = [];
+
+        html.push('<div style="overflow: hidden; width:90px;">');
+
+        var image_url;
+        if (loc.fields.small_thumbnail) {
+            image_url = loc.fields.small_thumbnail;
+        } else {
+            image_url = '/static/img/portrait_80.png';
+        }
+
+        var person = {
+            id : loc.pk,
+            name : loc.fields.name,
+            image_url : image_url
+        }
+
+        var output = Mustache.render(template, person);
+        html.push(output);
+
+        html.push('</div>');
+
+        return html.join('');
+    }
 
 });
 

@@ -29,20 +29,13 @@ class TestMapViews(TestCase): # pragma: no cover
         Tests that map points data can be polled
         '''
         self.client.login(email='adam_lambert@queenonline.com', password='sexy boy')
-        response = self.client.get('/map_points/10.1/')
+        response = self.client.get('/map_points/')
 
         self.assertEqual(response.status_code, 200)
 
         self.assertTrue(b'Paul Rodgers' in response.content)
         self.assertTrue(b'Adam Lambert' in response.content)
 
-    def test_map_points_returns(self):
-        '''
-        Test situation that caused 404 in dev
-        '''
-        self.client.login(email='adam_lambert@queenonline.com', password='sexy boy')
-        response = self.client.get('/map_points/10.2/')
-        self.assertEqual(response.status_code, 200)
 
 
     def test_map_view_loads(self):
