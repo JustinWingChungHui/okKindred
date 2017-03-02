@@ -83,7 +83,7 @@ class TestGalleryMapViews(TestCase): # pragma: no cover
         Tests gallery data does not load for another family
         '''
         self.client.login(email='shaun@aardman.com', password='baaa')
-        response = self.client.get('/gallery={0}/map_data/1.0/'.format(self.gallery.id))
+        response = self.client.get('/gallery={0}/map_data/'.format(self.gallery.id))
 
         self.assertEqual(response.status_code, 404)
 
@@ -96,7 +96,7 @@ class TestGalleryMapViews(TestCase): # pragma: no cover
             i.save()
 
         self.client.login(email='gromit@aardman.com', password='cheese')
-        response = self.client.get('/gallery={0}/map_data/1.0/'.format(self.gallery.id))
+        response = self.client.get('/gallery={0}/map_data/'.format(self.gallery.id))
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(True, b'title' in response.content)

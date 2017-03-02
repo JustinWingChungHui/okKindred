@@ -7,12 +7,14 @@ requirejs.config({
         jquery : [
                 "//cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min",
                 "//ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min",
+                "//cdn.jsdelivr.net/jquery/3.1.1/jquery.min",
                 "bower_components/jquery/dist/jquery.min"
                 ],
 
         bootstrap : [
                 "//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min",
                 "//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min",
+                "//cdn.jsdelivr.net/bootstrap/3.3.7/js/bootstrap.min",
                 "bower_components/bootstrap/dist/js/bootstrap.min"
                 ],
 
@@ -35,6 +37,7 @@ requirejs.config({
 
         moment : [
                 "//cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min",
+                "//cdn.jsdelivr.net/momentjs/2.17.1/moment.min",
                 "bower_components/moment/min/moment.min"
                 ],
 
@@ -45,6 +48,7 @@ requirejs.config({
 
         bootstrap_editable : [
                             "//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.1/bootstrap3-editable/js/bootstrap-editable.min",
+                            "//cdn.jsdelivr.net/bootstrap.editable/1.5.1/js/bootstrap-editable.min",
                             "bower_components/x-editable/dist/bootstrap3-editable/js/bootstrap-editable.min"
                             ],
 
@@ -53,6 +57,12 @@ requirejs.config({
                     "//cdn.jsdelivr.net/leaflet/1.0.3/leaflet",
                     "bower_components/leaflet/dist/leaflet"
                     ],
+
+        leaflet_markercluster : [
+                                "//cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.0.3/leaflet.markercluster",
+                                "//cdn.jsdelivr.net/leaflet.markercluster/1.0.3/leaflet.markercluster",
+                                "bower_components/leaflet.markercluster/dist/leaflet.markercluster"
+                                ],
 
         jquery_fileupload : [
                             "//cdnjs.cloudflare.com/ajax/libs/blueimp-file-upload/9.15.0/js/jquery.fileupload.min",
@@ -141,7 +151,11 @@ requirejs.config({
 
         tinymce : {
             exports : "tinymce"
-        }
+        },
+
+        leaflet_markercluster : {
+            deps : ['leaflet']
+        },
     }
 });
 

@@ -1,0 +1,37 @@
+{
+  "name": "leaflet.markercluster",
+  "version": "1.0.3",
+  "homepage": "https://github.com/Leaflet/Leaflet.markercluster",
+  "authors": [
+    "Dave Leaver <danzel@localhost.geek.nz>"
+  ],
+  "description": "Marker Clustering plugin for Leaflet.",
+  "main": [
+    "dist/leaflet.markercluster-src.js",
+    "dist/MarkerCluster.css",
+    "dist/MarkerCluster.Default.css"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "example",
+    "spec",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "leaflet": ">= 1.0.3"
+  },
+  "_release": "1.0.3",
+  "_resolution": {
+    "type": "version",
+    "tag": "v1.0.3",
+    "commit": "0b024d5cb64e9318a621dba1f0dda709d6a945a2"
+  },
+  "_source": "https://github.com/Leaflet/Leaflet.markercluster.git",
+  "_target": "^1.0.3",
+  "_originalSource": "leaflet.markercluster",
+  "_direct": true
+}

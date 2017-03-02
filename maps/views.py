@@ -4,10 +4,11 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import render
 
+from common.serialization_tools import JSONWithURLSerializer
 from family_tree.decorators import same_family_required
+from family_tree.models import Person
 from custom_user.decorators import set_language
-from maps import map_service
-import json
+
 
 @login_required
 @set_language
@@ -26,10 +27,14 @@ def map(request, person_id = 0, person = None):
 
 @login_required
 @set_language
-def map_points(request, division_size):
+def map_points(request):
     '''
     API to get person location data
     '''
-    data = map_service.get_person_location_points(request.user.family_id, float(division_size))
-    return HttpResponse(json.dumps(data), content_type="application/json")
+
+    objects = Person.objects.filter(family_id = request.user.family_id).exclude(longitude = 0, latitude = 0)
+
+    serializer = JSONWithURLSerializer()
+    data = serializer.serialize(objects, fields=('id','name','small_thumbnail','latitude','longitude'))
+    return HttpResponse(data, content_type="application/json")
 
