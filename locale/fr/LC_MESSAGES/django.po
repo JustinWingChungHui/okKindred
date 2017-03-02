@@ -1686,8 +1686,8 @@ msgid ""
 "For describing relationships you have 'Partnered' but not 'Married', you "
 "have 'Raised' but not 'Given Birth to'?"
 msgstr ""
-"Pour décrire les relations que vous avez «En partenariat» mais pas «Marié», "
-"vous avez «Élevé» mais pas «donné naissance à '?"
+"Pour décrire les relations que vous avez «partenaire» mais pas «Marié», "
+"vous avez «Élevé» mais pas «donné naissance à»?"
 
 #: templates/about.html:305
 msgid ""
