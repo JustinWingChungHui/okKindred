@@ -222,7 +222,7 @@ class SignUpTestCase(TestCase): # pragma: no cover
         '''
         Tests that a 404 is raised for an invalid confirmation key
         '''
-        response = self.client.get('/accounts/sign_up_confirmation=not_a_validkey/')
+        response = self.client.get('/accounts/sign_up_confirmation=not_a_validkey/', HTTP_X_REAL_IP='127.0.0.1')
 
         self.assertEqual(404, response.status_code)
 
@@ -238,7 +238,7 @@ class SignUpTestCase(TestCase): # pragma: no cover
                 email_address = 'anewuser@iamanewuser.com')
 
 
-        response = self.client.get('/accounts/sign_up_confirmation={0}/'.format(sign_up.confirmation_key))
+        response = self.client.get('/accounts/sign_up_confirmation={0}/'.format(sign_up.confirmation_key), HTTP_X_REAL_IP='127.0.0.1')
 
         self.assertEqual(200, response.status_code)
         self.assertTemplateUsed(response, 'sign_up/choose_password.html')
@@ -254,7 +254,7 @@ class SignUpTestCase(TestCase): # pragma: no cover
                 language = 'en',
                 email_address = 'joininguser@iamanewuser.com')
 
-        response = self.client.post('/accounts/sign_up_confirmation={0}/'.format(sign_up.confirmation_key), {'password' : 'letmeinplease'})
+        response = self.client.post('/accounts/sign_up_confirmation={0}/'.format(sign_up.confirmation_key), {'password' : 'letmeinplease'}, HTTP_X_REAL_IP='127.0.0.1')
 
         self.assertEqual(True, User.objects.filter(email='joininguser@iamanewuser.com').count() == 1)
         self.assertNotEqual(404, response.status_code)

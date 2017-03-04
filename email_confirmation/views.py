@@ -10,8 +10,6 @@ from email_confirmation.models import EmailConfirmation
 from custom_user.models import User
 from family_tree.decorators import same_family_required
 
-
-
 @login_required
 @same_family_required
 def invite_person(request, person_id = 0, person = None):

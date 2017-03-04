@@ -92,6 +92,10 @@ AXES_LOGIN_FAILURE_LIMIT = 5
 AXES_COOLOFF_TIME = 24
 AXES_PROTECTED_LOGINS = ('/accounts/login/', '/accounts/auth/')
 
+# PythonAnywhere behind load balancer
+AXES_BEHIND_REVERSE_PROXY = True
+AXES_REVERSE_PROXY_HEADER = 'HTTP_X_REAL_IP'
+
 #Email Configuration
 EMAIL_SUBJECT_PREFIX = ''
 EMAIL_USE_SSL = True
