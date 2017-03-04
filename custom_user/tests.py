@@ -19,7 +19,7 @@ class TestCustomUserViews(TestCase): # pragma: no cover
         '''
         Test user cannot login with invalid password
         '''
-        response = self.client.post('/accounts/auth/',  {'username': 'bruce_lee@email.com', 'password': 'game of death'}, follow=True)
+        response = self.client.post('/accounts/auth/',  {'username': 'bruce_lee@email.com', 'password': 'game of death'}, follow=True, HTTP_X_REAL_IP='127.0.0.1')
         self.assertEqual(True, ('/accounts/invalid', 302) in response.redirect_chain)
 
 
@@ -27,7 +27,7 @@ class TestCustomUserViews(TestCase): # pragma: no cover
         '''
         Test user can login with case insensitive email
         '''
-        response = self.client.post('/accounts/auth/',  {'username': 'Bruce_Lee@email.com', 'password': 'enter the dragon'}, follow=True)
+        response = self.client.post('/accounts/auth/',  {'username': 'Bruce_Lee@email.com', 'password': 'enter the dragon'}, follow=True, HTTP_X_REAL_IP='127.0.0.1')
         self.assertEqual(False, ('http://testserver/accounts/invalid', 302) in response.redirect_chain)
 
 
