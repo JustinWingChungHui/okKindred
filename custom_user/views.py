@@ -19,7 +19,7 @@ def login(request):
     Handles login requests
     '''
 
-    c = { 'next': request.GET.get('next', '') }
+    c = {'next': request.GET.get('next', '')}
     c.update(csrf(request))
 
     return render( request, 'custom_user/login.html', c)
