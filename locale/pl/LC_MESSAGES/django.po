@@ -798,11 +798,11 @@ msgstr "Szukaj Nazwa:"
 
 #: family_tree/templates/family_tree/tree_app.html:15
 msgid "raised"
-msgstr "podniesiony"
+msgstr "wychował/wychowała"
 
 #: family_tree/templates/family_tree/tree_app.html:15
 msgid "partnered"
-msgstr "współpracę"
+msgstr "w związku z"
 
 #: family_tree/templates/family_tree/tree_app.html:27
 #: gallery/templates/gallery/person_gallery.html:14
