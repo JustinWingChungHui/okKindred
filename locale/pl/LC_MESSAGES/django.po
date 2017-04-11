@@ -250,11 +250,11 @@ msgstr "Zaktualizuj hasło"
 
 #: custom_user/templates/custom_user/settings.html:91
 msgid "Goodbye and Farewell"
-msgstr "Do widzenia i do zobaczenia"
+msgstr "Rezygnacja z ok!Kindred na zawsze"
 
 #: custom_user/templates/custom_user/settings.html:92
 msgid "Leave ok!Kindred forever..."
-msgstr "Wypisz się z ok!Kindred na zawsze ..."
+msgstr "Zrezygnuj na zawsze"
 
 #: custom_user/templates/custom_user/settings.html:102
 #: family_tree/templates/family_tree/edit_profile.html:221
@@ -266,33 +266,34 @@ msgid ""
 "Are you sure you want to leave ok!Kindred?  We would be very sad to see you "
 "leave!"
 msgstr ""
-"Czy na pewno chcesz się wypisać z ok!Kindred? Będzie nam smutno! "
+"Czy na pewno chcesz zrezygnować z ok!Kindred na zawsze? Jeśli usuniesz swoj"
+" profil to ograniczy to informacje innym urzytkownikom. A nam będzie smutno! "
 
 #: custom_user/templates/custom_user/settings.html:109
 msgid "NO!!! I don't want to quit"
-msgstr "NIE!!! Nie chcę, skasować swojego profilu na ok!Kindred"
+msgstr "NIE!!! Nie chcę, zrezygnować z ok!Kindred na zawsze"
 
 #: custom_user/templates/custom_user/settings.html:115
 msgid "Yes but leave my profile"
-msgstr "Tak, ale pozostawić mój profil"
+msgstr "Tak, ale chcę żeby mój profil pozostał"
 
 #: custom_user/templates/custom_user/settings.html:121
 msgid "Yes and delete my profile"
-msgstr "Tak i usunąć swój profil"
+msgstr "Tak i chcę usunąć swój profil"
 
 #: custom_user/templates/custom_user/settings.html:129
 #: family_tree/templates/family_tree/edit_profile.html:210
 msgid "Required field!"
-msgstr "Wymagane pole!"
+msgstr "Wymagana informacja!"
 
 #: custom_user/views.py:126
 msgid "Access denied"
-msgstr "Brak dostępu"
+msgstr "Dostęp zablokowany"
 
 #: email_confirmation/models.py:48
 #, python-brace-format
 msgid "An invitation to ok!Kindred from {0}"
-msgstr "Zaproszenie do ok! Kindred z {0}"
+msgstr "Zaproszenie do ok! Kindred od {0}"
 
 #: email_confirmation/models.py:50
 #, python-brace-format
@@ -310,23 +311,25 @@ msgid ""
 msgstr ""
 "Witaj {0}\n"
 "                                            Zostaliście zaproszeni przez {1} "
-"do przyłączenia ok! Kindred.\n"
-"                                            ok! Spokrewniony jest wspólnym "
-"drzewo genealogiczne i prywatne społecznościowy dla Ciebie i rodziny.\n"
-"                                            Sieć została już utworzona przez "
-"jednego z członków rodziny, które pomogą Ci pozostać w kontakcie.\n"
-"                                            Aby przyłączyć się, przejdź do "
+"do ok!Kindred.\n"
+"                                            ok!Kindred jest wspólnym "
+"drzewem genealogicznym i prywatną, społecznościową platformą dla Ciebie i "
+" Twoich bliskich.\n"
+"                                            Ktoś z Twojej rodziny jest "
+"cześcią waszego drzewa genealogicznego, które pomoże Ci poznać "
+"pozostałych członkow waszej rodziny.\n"
+"                                            Aby przyłączyć się, kliknij na: "
 "{2}/accounts/confirmation={3}/\n"
 "                                        "
 
 #: email_confirmation/templates/email_confirmation/confirm_invite.html:10
 #: templates/about.html:33
 msgid "Welcome to ok!Kindred"
-msgstr "Zapraszamy do ok! Kindred"
+msgstr "Witamy w ok!Kindred"
 
 #: email_confirmation/templates/email_confirmation/confirm_invite.html:12
 msgid " Thank you for accepting the invitation from "
-msgstr "Dziękuję za przyjęcie zaproszenia od"
+msgstr "Dziękujemy za przyjęcie zaproszenia od"
 
 #: email_confirmation/templates/email_confirmation/confirm_invite.html:14
 msgid ""
@@ -348,11 +351,11 @@ msgstr "Proszę utworzyć nowe hasło:"
 #: sign_up/templates/sign_up/choose_password.html:24
 #: sign_up/templates/sign_up/sign_up.html:8
 msgid "Join ok!Kindred"
-msgstr "Dołącz ok! Kindred"
+msgstr "Dołącz do ok!Kindred"
 
 #: email_confirmation/templates/email_confirmation/invalid_expired.html:10
 msgid "Invalid Email Confirmation"
-msgstr "Nieprawidłowy email Potwierdzenie"
+msgstr "Nieprawidłowe potwierdzenie adresu e-mail"
 
 #: email_confirmation/templates/email_confirmation/invalid_expired.html:12
 msgid ""
@@ -363,15 +366,15 @@ msgid ""
 "         "
 msgstr ""
 "\n"
-"Niestety albo Twoja zaprosić do przyłączenia wygasła lub jest "
-"nieprawidłowa.\n"
-"         Proszę poprosić członka swojej rodziny, aby ponownie zapraszam."
+"Niestety albo Twoje zaproszenie wygasło lub jest nieprawidłowe.\n"
+"         Proszę popros członka swojej rodziny, zeby wyslali Ci nowe "
+"zaproszenie."
 
 #: email_confirmation/templates/email_confirmation/invite.html:6
 #: gallery/templates/gallery/you_have_been_tagged.html:6
 #: sign_up/templates/sign_up/confirmation_email.html:6
 msgid "Hello"
-msgstr "cześć"
+msgstr "Witamy"
 
 #: email_confirmation/templates/email_confirmation/invite.html:10
 #, python-format
@@ -385,8 +388,8 @@ msgid ""
 "        "
 msgstr ""
 "\n"
-"Zostaliście zaproszeni przez %(user_who_invited_person)s przyłączyć ok "
-"Kindred: to wspólny drzewo genealogiczne i prywatne społecznościowy dla "
+"Zostaliście zaproszeni przez %(user_who_invited_person)s aby przyłączyć sie "
+" do ok!Kindred: to wspólny drzewo genealogiczne i prywatne społecznościowy dla "
 "Ciebie i Twojej rodziny.\n"
 "        Sieć została już utworzona przez jednego z członków rodziny, które "
 "pomogą Ci pozostać w kontakcie."
@@ -425,16 +428,16 @@ msgid ""
 "        "
 msgstr ""
 "\n"
-"Dzięki i wiele miłości z Justin & Adrian @ ok! Kindred"
+"Dzięki i wiele miłości od Justina & Adriana @ ok!Kindred"
 
 #: emailer/models.py:119
 msgid "ok!Kindred family update"
-msgstr "ok! Kindred aktualizacja rodziny"
+msgstr "ok!Kindred rodzinne aktualizacje"
 
 #: emailer/models.py:121
 msgid "One or more of your family has had details in ok!Kindred updated."
 msgstr ""
-"Jeden lub więcej z Twojej rodziny miał szczegóły w ok! Kindred aktualizowana."
+"Ktos z Twojej rodziny uaktualinil miał szczegóły w ok! Kindred aktualizowana."
 
 #: emailer/templates/emailer/people_updates.html:7
 msgid ""
@@ -456,13 +459,13 @@ msgstr ""
 #: family_tree/templates/family_tree/add_relation.html:59
 #: sign_up/templates/sign_up/sign_up.html:30
 msgid "Female"
-msgstr "Płeć żeńska"
+msgstr "Kobieta"
 
 #: family_tree/models/person.py:24
 #: family_tree/templates/family_tree/add_relation.html:60
 #: sign_up/templates/sign_up/sign_up.html:31
 msgid "Male"
-msgstr "Męski"
+msgstr "Męzczyzna"
 
 #: family_tree/models/person.py:25
 #: family_tree/templates/family_tree/add_relation.html:61
@@ -501,7 +504,7 @@ msgstr "Anuluj"
 
 #: family_tree/templates/family_tree/add_relation.html:46
 msgid "Existing Person"
-msgstr "istniejące Person"
+msgstr "istniejąca osoba"
 
 #: family_tree/templates/family_tree/add_relation.html:47
 msgid "New Person"
@@ -515,7 +518,7 @@ msgstr "Nowa osoba"
 #: family_tree/templates/family_tree/search.html:14
 #: sign_up/templates/sign_up/sign_up.html:18
 msgid "Name"
-msgstr "Nazwa"
+msgstr "Imie"
 
 #: family_tree/templates/family_tree/add_relation.html:57
 #: family_tree/templates/family_tree/edit_profile.html:45
@@ -557,34 +560,34 @@ msgstr "Szukaj Nazwa"
 #: family_tree/templates/family_tree/search.html:19
 #: gallery/templates/gallery/image_tagging.html:188
 msgid "Searching..."
-msgstr "Badawczy..."
+msgstr "Szukam..."
 
 #: family_tree/templates/family_tree/add_relation.html:114
 #: family_tree/templates/family_tree/edit_biography.html:12
 #: family_tree/templates/family_tree/image_resize.html:36
 #: gallery/templates/gallery/edit_gallery.html:21
 msgid "Save"
-msgstr "Zapisać"
+msgstr "Zapisz"
 
 #: family_tree/templates/family_tree/break_relation.html:10
 #: family_tree/templates/family_tree/image_resize.html:13
 #: sign_up/templates/sign_up/email_in_use.html:9
 #: sign_up/templates/sign_up/invalid_email.html:9
 msgid "Back"
-msgstr "Plecy"
+msgstr "Z powrotem"
 
 #: family_tree/templates/family_tree/break_relation.html:13
 msgid "Break Relations"
-msgstr "zerwania stosunków"
+msgstr "skasuj relację"
 
 #: family_tree/templates/family_tree/break_relation.html:27
 msgid "Break"
-msgstr "Przerwa"
+msgstr "Przerwij"
 
 #: family_tree/templates/family_tree/edit_profile.html:14
 #: family_tree/templates/family_tree/tree_app.html:28
 msgid "Add Relation"
-msgstr "Dodaj Relacja"
+msgstr "Dodaj relację"
 
 #: family_tree/templates/family_tree/edit_profile.html:15
 msgid "Break Relation"
@@ -593,21 +596,21 @@ msgstr "przerwa Relacja"
 #: family_tree/templates/family_tree/edit_profile.html:17
 #: gallery/templates/gallery/image_tagging.html:140
 msgid "Delete"
-msgstr "Kasować"
+msgstr "Skasuj"
 
 #: family_tree/templates/family_tree/edit_profile.html:24
 #: family_tree/templates/family_tree/edit_profile.html:26
 #: family_tree/templates/family_tree/edit_profile.html:29
 msgid "Click photo to upload new one"
-msgstr "Kliknij na zdjęcie, aby załadować nowy"
+msgstr "Kliknij na zdjęcie, zeby je zmienic"
 
 #: family_tree/templates/family_tree/edit_profile.html:66
 msgid "Death Year (enter 0 if still alive)"
-msgstr "Śmierć Rok (wpisz 0, jeśli jeszcze żyje)"
+msgstr "Rok Śmierci (wpisz 0, jeśli jeszcze żyje)"
 
 #: family_tree/templates/family_tree/edit_profile.html:68
 msgid "Death Year.  Enter 0 if still alive."
-msgstr "Śmierć Rok. jeśli jeszcze żyje wprowadzić 0."
+msgstr "Rok Śmierci. jeśli jeszcze żyje wprowadzić 0."
 
 #: family_tree/templates/family_tree/edit_profile.html:89
 #: family_tree/templates/family_tree/edit_profile.html:91
@@ -621,7 +624,7 @@ msgstr "E-mail"
 #: family_tree/templates/family_tree/edit_profile.html:101
 #: family_tree/templates/family_tree/profile.html:88
 msgid "Spoken Languages"
-msgstr "Języki mówione"
+msgstr "Zna Języki"
 
 #: family_tree/templates/family_tree/edit_profile.html:109
 #: family_tree/templates/family_tree/edit_profile.html:111
@@ -666,7 +669,7 @@ msgstr "Facebook"
 #: family_tree/templates/family_tree/edit_profile.html:169
 #: family_tree/templates/family_tree/edit_profile.html:171
 msgid "Twitter"
-msgstr "Świergot"
+msgstr "Twitter"
 
 #: family_tree/templates/family_tree/edit_profile.html:179
 #: family_tree/templates/family_tree/edit_profile.html:181
@@ -679,7 +682,7 @@ msgstr "Zablokowany"
 
 #: family_tree/templates/family_tree/edit_profile.html:192
 msgid "Lock your profile, so only you can edit it?"
-msgstr "Blokada swój profil, więc tylko można je zmieniać?"
+msgstr "Zablokuj swój profil; tylko Ty możesz go zmieniać?"
 
 #: family_tree/templates/family_tree/edit_profile.html:224
 msgid "Are you sure you want to delete profile?"
@@ -734,15 +737,15 @@ msgstr "Edytować"
 
 #: family_tree/templates/family_tree/profile.html:20
 msgid "Relation To Me"
-msgstr "Relacja To Me"
+msgstr "Relacja Do Mnie"
 
 #: family_tree/templates/family_tree/profile.html:23
 msgid "Ancestors"
-msgstr "przodkowie"
+msgstr "Przodkowie"
 
 #: family_tree/templates/family_tree/profile.html:24
 msgid "Descendants"
-msgstr "Potomków"
+msgstr "Potomkowie"
 
 #: family_tree/templates/family_tree/profile.html:29
 msgid "This profile has been locked by this user."
@@ -751,7 +754,7 @@ msgstr "Ten profil został zablokowany przez tego użytkownika."
 #: family_tree/templates/family_tree/profile.html:38
 #: family_tree/templates/family_tree/whole_tree.html:32
 msgid "No photo uploaded for "
-msgstr "Nie przesłanych do zdjęcia"
+msgstr "Nie ma zdjęcia dla"
 
 #: family_tree/templates/family_tree/profile.html:45
 #: family_tree/templates/family_tree/profile.html:49
@@ -766,7 +769,7 @@ msgstr "Zdjęcia"
 
 #: family_tree/templates/family_tree/profile.html:81
 msgid "Death Year"
-msgstr "śmierć Rok"
+msgstr "Rok śmierć "
 
 #: family_tree/templates/family_tree/profile.html:137
 msgid "Facebook Name"
@@ -786,7 +789,7 @@ msgstr "Biografia"
 
 #: family_tree/templates/family_tree/profile.html:165
 msgid "Edit Biography"
-msgstr "Edit Biografia"
+msgstr "Edituj Biografie"
 
 #: family_tree/templates/family_tree/profile.html:172
 msgid "A biography has not yet been written for this language."
@@ -798,11 +801,11 @@ msgstr "Szukaj Nazwa:"
 
 #: family_tree/templates/family_tree/tree_app.html:15
 msgid "raised"
-msgstr "wychował/wychowała"
+msgstr "wychowani przez"
 
 #: family_tree/templates/family_tree/tree_app.html:15
 msgid "partnered"
-msgstr "w związku z"
+msgstr "w zwiazku z"
 
 #: family_tree/templates/family_tree/tree_app.html:27
 #: gallery/templates/gallery/person_gallery.html:14
@@ -933,7 +936,7 @@ msgstr "Kto to jest?"
 
 #: gallery/templates/gallery/person_gallery.html:16
 msgid "Pictures of"
-msgstr "Obrazy"
+msgstr "Zdjecia"
 
 #: gallery/templates/gallery/upload_images.html:11
 msgid "Upload New Photo"
@@ -993,11 +996,11 @@ msgstr "Chiński uproszczony"
 
 #: okkindred/settings.py:132
 msgid "Polish"
-msgstr "Polskie"
+msgstr "Polski"
 
 #: okkindred/settings.py:133
 msgid "Finnish"
-msgstr "fiński"
+msgstr "Fiński"
 
 #: okkindred/settings.py:134
 msgid "French"
@@ -1066,7 +1069,7 @@ msgstr ""
 
 #: sign_up/templates/sign_up/sign_up.html:59
 msgid "Join"
-msgstr "Przyłączyć się"
+msgstr "Przyłącz się"
 
 #: templates/404.html:9
 msgid ""
