@@ -27,7 +27,7 @@ msgstr "Hasło"
 
 #: custom_user/admin.py:20
 msgid "Password confirmation"
-msgstr "Potwierdzenie hasła"
+msgstr "Potwierdź hasło"
 
 #: custom_user/admin.py:31
 msgid "Passwords don't match"
@@ -37,8 +37,7 @@ msgstr "Hasła nie pasują"
 msgid ""
 "Your account has now been locked for 24 hours after 5 failed login attempts"
 msgstr ""
-"Twoje konto zostało zablokowane przez 24 godzin po 5 nieudanych prób "
-"logowania"
+"Logowanie nie powiodło się; Twoje konto zostało zablokowane na 24 godziny"
 
 #: custom_user/templates/custom_user/account_locked.html:7
 msgid "If you need assistance, please email: "
@@ -54,7 +53,7 @@ msgstr "Spróbuj ponownie"
 
 #: custom_user/templates/custom_user/logged_in.html:6
 msgid "Logged In"
-msgstr "Zalogowany"
+msgstr "Jesteś w okKindred"
 
 #: custom_user/templates/custom_user/logged_out.html:6
 msgid "Logged Out"
@@ -62,7 +61,7 @@ msgstr "Wylogowano"
 
 #: custom_user/templates/custom_user/login.html:9
 msgid "Please sign in"
-msgstr "proszę zaloguj się"
+msgstr "Zaloguj się"
 
 #: custom_user/templates/custom_user/login.html:11
 msgid "Email Address"
@@ -71,23 +70,23 @@ msgstr "Adres e-mail"
 #: custom_user/templates/custom_user/login.html:12
 #: custom_user/templates/custom_user/password_reset.html:17
 msgid "Email address"
-msgstr "adres e-mail"
+msgstr "Adres e-mail"
 
 #: custom_user/templates/custom_user/login.html:22
 msgid "Sign In"
-msgstr "Zaloguj"
+msgstr "Zaloguj się"
 
 #: custom_user/templates/custom_user/login.html:23
 msgid "I forgot my password"
-msgstr "zapomniałem hasła"
+msgstr "Nie pamiętam hasła"
 
 #: custom_user/templates/custom_user/password_reset.html:8
 msgid ""
 "Forgotten your password? Enter your email address below, and we'll email "
 "instructions for setting a new one."
 msgstr ""
-"Zapomniałeś swojego hasła? Wpisz swój adres e-mail poniżej, a my wyślemy "
-"instrukcje dotyczące ustawienia nowego."
+"Nie pamiętasz hasła? Wpisz swój adres e-mail poniżej, a my wyślemy "
+"instrukcje jak ustawić nowe hasło."
 
 #: custom_user/templates/custom_user/password_reset.html:16
 msgid "Email Address:"
