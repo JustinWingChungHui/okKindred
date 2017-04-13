@@ -377,7 +377,6 @@ msgid "Hello"
 msgstr "Witamy"
 
 #: email_confirmation/templates/email_confirmation/invite.html:10
-#, python-format
 msgid ""
 "\n"
 "        You have been invited by %(user_who_invited_person)s to join ok!"
@@ -392,7 +391,8 @@ msgstr ""
 " do ok!Kindred: prywatny portal społecznościowy gdzie możesz współtworzyć "
 "drzewo genealogiczne waszjej rodziny.\n"
 "         Drzewo genealogiczne, które zostało już zaczęte przez jednego z "
-"członków Twojej rodziny, pomoże wam pozostać w kontakcie."
+"członków Twojej rodziny, pomoże wam pozostać w kontakcie.\n"
+"        "
 
 #: email_confirmation/templates/email_confirmation/invite.html:16
 msgid ""
