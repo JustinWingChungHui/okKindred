@@ -339,13 +339,13 @@ msgid ""
 "         "
 msgstr ""
 "\n"
-"do przyłączenia ok! krewnych, udostępniać swoje drzewo genealogiczne i "
+"żeby przyłączyć się do ok!Kindred, udostępniać swoje drzewo genealogiczne i "
 "pozostać w kontakcie z członkami rodziny!"
 
 #: email_confirmation/templates/email_confirmation/confirm_invite.html:22
 #: sign_up/templates/sign_up/choose_password.html:13
 msgid "Please create a new password:"
-msgstr "Proszę utworzyć nowe hasło:"
+msgstr "Proszę utwórz nowe hasło:"
 
 #: email_confirmation/templates/email_confirmation/confirm_invite.html:34
 #: sign_up/templates/sign_up/choose_password.html:24
@@ -366,8 +366,8 @@ msgid ""
 "         "
 msgstr ""
 "\n"
-"Niestety albo Twoje zaproszenie wygasło lub jest nieprawidłowe.\n"
-"         Proszę popros członka swojej rodziny, zeby wyslali Ci nowe "
+"Niestety, Twoje zaproszenie wygasło albo jest nieprawidłowe.\n"
+"         Proszę poproś członka swojej rodziny, żeby wysłali Ci nowe "
 "zaproszenie."
 
 #: email_confirmation/templates/email_confirmation/invite.html:6
@@ -388,11 +388,11 @@ msgid ""
 "        "
 msgstr ""
 "\n"
-"Zostaliście zaproszeni przez %(user_who_invited_person)s aby przyłączyć sie "
-" do ok!Kindred: to wspólny drzewo genealogiczne i prywatne społecznościowy dla "
-"Ciebie i Twojej rodziny.\n"
-"        Sieć została już utworzona przez jednego z członków rodziny, które "
-"pomogą Ci pozostać w kontakcie."
+"Zostaliście zaproszeni przez %(user_who_invited_person) aby przyłączyć się "
+" do ok!Kindred: prywatny portal społecznościowy gdzie możesz współtworzyć "
+"drzewo genealogiczne waszjej rodziny.\n"
+"         Drzewo genealogiczne, które zostało już zaczęte przez jednego z "
+"członków Twojej rodziny, pomoże wam pozostać w kontakcie."
 
 #: email_confirmation/templates/email_confirmation/invite.html:16
 msgid ""
@@ -402,8 +402,8 @@ msgid ""
 "        "
 msgstr ""
 "\n"
-"Aby potwierdzić swoje konto, kliknij na poniższy link i wybrać bezpieczne "
-"hasło, które będzie łatwe do zapamiętania.\n"
+"Aby potwierdzić swoje konto, kliknij na poniższy link i wybierz bezpieczne "
+"hasło, które łatwo zapamiętasz.\n"
 "        "
 
 #: email_confirmation/templates/email_confirmation/invite.html:24
@@ -416,10 +416,9 @@ msgid ""
 "        "
 msgstr ""
 "\n"
-"Proszę kliknąć na link i sprawdzić. Zawsze można zostawić, jeśli chcesz. "
-"Jeśli chcesz dowiedzieć się więcej, wystarczy udać się do <a href = "
-"\"%(domain)s\">%(domain)s</a>, aby dowiedzieć się więcej!"
-
+"Proszę kliknij na link i sprawdź naszą stronę. Jeśli chcesz dowiedzieć się "
+" więcej, wystarczy udać się do <a href = \"%(domain)s\">%(domain)s</a>\n"
+"        "
 #: email_confirmation/templates/email_confirmation/invite.html:30
 #: sign_up/templates/sign_up/confirmation_email.html:19
 msgid ""
@@ -428,32 +427,32 @@ msgid ""
 "        "
 msgstr ""
 "\n"
-"Dzięki i wiele miłości od Justina & Adriana @ ok!Kindred"
+"Dzięki i pozdrowienia od Justina & Adriana @ ok!Kindred"
 
 #: emailer/models.py:119
 msgid "ok!Kindred family update"
-msgstr "ok!Kindred rodzinne aktualizacje"
+msgstr "Aktualizacja rodzinna na ok!Kindred "
 
 #: emailer/models.py:121
 msgid "One or more of your family has had details in ok!Kindred updated."
 msgstr ""
-"Ktos z Twojej rodziny uaktualinil miał szczegóły w ok! Kindred aktualizowana."
+"Szczegóły w ok!Kindred zostały zaktualizowane przez kogoś z Twojej rodziny."
 
 #: emailer/templates/emailer/people_updates.html:7
 msgid ""
 "The following people have been added to your family in ok!Kindred.  Click on "
 "them to find out more:"
 msgstr ""
-"Następujące osoby zostały dodane do rodziny w porządku! Kindred. Kliknij je, "
-"aby dowiedzieć się więcej:"
+"Następujące osoby zostały dodane do drzewa genealogicznego na ok!Kindred. "
+"Aby dowiedzieć się więcej, kliknij tutaj:"
 
 #: emailer/templates/emailer/people_updates.html:24
 msgid ""
 "The following people's profiles have been updated.   Click on them to find "
 "out more:"
 msgstr ""
-"Profile Następujące osoby zostały uaktualnione. Kliknij je, aby dowiedzieć "
-"się więcej:"
+"Profile następujących osób zostały uaktualnione. Aby dowiedzieć się więcej"
+"kliknij tutaj:"
 
 #: family_tree/models/person.py:23
 #: family_tree/templates/family_tree/add_relation.html:59
@@ -465,13 +464,13 @@ msgstr "Kobieta"
 #: family_tree/templates/family_tree/add_relation.html:60
 #: sign_up/templates/sign_up/sign_up.html:31
 msgid "Male"
-msgstr "Męzczyzna"
+msgstr "Mężczyzna"
 
 #: family_tree/models/person.py:25
 #: family_tree/templates/family_tree/add_relation.html:61
 #: sign_up/templates/sign_up/sign_up.html:32
 msgid "Other"
-msgstr "Inny"
+msgstr "Inna płeć"
 
 #: family_tree/models/relation.py:11
 #: family_tree/templates/family_tree/add_relation.html:32
@@ -504,7 +503,7 @@ msgstr "Anuluj"
 
 #: family_tree/templates/family_tree/add_relation.html:46
 msgid "Existing Person"
-msgstr "istniejąca osoba"
+msgstr "Istniejąca osoba"
 
 #: family_tree/templates/family_tree/add_relation.html:47
 msgid "New Person"
@@ -518,7 +517,7 @@ msgstr "Nowa osoba"
 #: family_tree/templates/family_tree/search.html:14
 #: sign_up/templates/sign_up/sign_up.html:18
 msgid "Name"
-msgstr "Imie"
+msgstr "Imię"
 
 #: family_tree/templates/family_tree/add_relation.html:57
 #: family_tree/templates/family_tree/edit_profile.html:45
@@ -541,7 +540,7 @@ msgstr "Lokalizacja"
 #: family_tree/templates/family_tree/profile.html:74
 #: sign_up/templates/sign_up/sign_up.html:53
 msgid "Birth Year"
-msgstr "rok urodzenia"
+msgstr "Rok urodzenia"
 
 #: family_tree/templates/family_tree/add_relation.html:86
 #: family_tree/templates/family_tree/edit_profile.html:38
@@ -549,12 +548,12 @@ msgstr "rok urodzenia"
 #: gallery/templates/gallery/image_tagging.html:72
 #: sign_up/templates/sign_up/sign_up.html:57
 msgid "Required"
-msgstr "wymagany"
+msgstr "Wymagane"
 
 #: family_tree/templates/family_tree/add_relation.html:93
 #: gallery/templates/gallery/image_tagging.html:184
 msgid "Search Name"
-msgstr "Szukaj Nazwa"
+msgstr "Szukaj"
 
 #: family_tree/templates/family_tree/add_relation.html:100
 #: family_tree/templates/family_tree/search.html:19
@@ -578,7 +577,7 @@ msgstr "Z powrotem"
 
 #: family_tree/templates/family_tree/break_relation.html:13
 msgid "Break Relations"
-msgstr "skasuj relację"
+msgstr "Skasuj Relację"
 
 #: family_tree/templates/family_tree/break_relation.html:27
 msgid "Break"
@@ -587,11 +586,11 @@ msgstr "Przerwij"
 #: family_tree/templates/family_tree/edit_profile.html:14
 #: family_tree/templates/family_tree/tree_app.html:28
 msgid "Add Relation"
-msgstr "Dodaj relację"
+msgstr "Dodaj Relację"
 
 #: family_tree/templates/family_tree/edit_profile.html:15
 msgid "Break Relation"
-msgstr "przerwa Relacja"
+msgstr "Przerwij Relację"
 
 #: family_tree/templates/family_tree/edit_profile.html:17
 #: gallery/templates/gallery/image_tagging.html:140
@@ -602,7 +601,7 @@ msgstr "Skasuj"
 #: family_tree/templates/family_tree/edit_profile.html:26
 #: family_tree/templates/family_tree/edit_profile.html:29
 msgid "Click photo to upload new one"
-msgstr "Kliknij na zdjęcie, zeby je zmienic"
+msgstr "Kliknij na zdjęcie, żeby je zmienić"
 
 #: family_tree/templates/family_tree/edit_profile.html:66
 msgid "Death Year (enter 0 if still alive)"
@@ -610,7 +609,7 @@ msgstr "Rok Śmierci (wpisz 0, jeśli jeszcze żyje)"
 
 #: family_tree/templates/family_tree/edit_profile.html:68
 msgid "Death Year.  Enter 0 if still alive."
-msgstr "Rok Śmierci. jeśli jeszcze żyje wprowadzić 0."
+msgstr "Rok Śmierci. Wpisz 0 jeśli jeszcze żyje."
 
 #: family_tree/templates/family_tree/edit_profile.html:89
 #: family_tree/templates/family_tree/edit_profile.html:91
@@ -624,7 +623,7 @@ msgstr "E-mail"
 #: family_tree/templates/family_tree/edit_profile.html:101
 #: family_tree/templates/family_tree/profile.html:88
 msgid "Spoken Languages"
-msgstr "Zna Języki"
+msgstr "Zna następujące języki"
 
 #: family_tree/templates/family_tree/edit_profile.html:109
 #: family_tree/templates/family_tree/edit_profile.html:111
@@ -635,15 +634,15 @@ msgstr "Zawód"
 #: family_tree/templates/family_tree/edit_profile.html:119
 #: family_tree/templates/family_tree/profile.html:109
 msgid "Tel Number"
-msgstr "numer telefonu"
+msgstr "Numer telefonu"
 
 #: family_tree/templates/family_tree/edit_profile.html:121
 msgid ""
 "Telephone/Mobile Number.  Include the country code if your family is across "
 "several countries"
 msgstr ""
-"Telefon / numer telefonu komórkowego. Zawierać numer kierunkowy kraju, jeśli "
-"rodzina jest w kilku krajach"
+"Telefon / numer telefonu komórkowego. Dodaj numer kierunkowy kraju, żeby "
+"członkowie Twojej rodziny z innych krajów mogli się z wami łatwo skontaktować"
 
 #: family_tree/templates/family_tree/edit_profile.html:131
 msgid "Location.  Can be approximate e.g. Coventry, UK or 筲箕灣 香港"
@@ -653,7 +652,7 @@ msgstr "Lokalizacja. Może być przybliżona np Coventry, UK lub 筲箕灣 香�
 #: family_tree/templates/family_tree/edit_profile.html:141
 #: family_tree/templates/family_tree/profile.html:123
 msgid "Website"
-msgstr "Stronie internetowej"
+msgstr "Stronia internetowa"
 
 #: family_tree/templates/family_tree/edit_profile.html:149
 #: family_tree/templates/family_tree/edit_profile.html:151
@@ -682,7 +681,7 @@ msgstr "Zablokowany"
 
 #: family_tree/templates/family_tree/edit_profile.html:192
 msgid "Lock your profile, so only you can edit it?"
-msgstr "Zablokuj swój profil; tylko Ty możesz go zmieniać?"
+msgstr "Zablokuj swój profil; tylko Ty możesz go zmieniać"
 
 #: family_tree/templates/family_tree/edit_profile.html:224
 msgid "Are you sure you want to delete profile?"
@@ -694,11 +693,11 @@ msgstr "NIE!!!"
 
 #: family_tree/templates/family_tree/image_resize.html:11
 msgid "Image Resize"
-msgstr "Obraz Resize"
+msgstr "Zmień rozmiar brazu "
 
 #: family_tree/templates/family_tree/image_resize.html:41
 msgid "Please trim the image to suit a profile picture:"
-msgstr "Należy przyciąć zdjęcie, aby pasowały do ​​jej zdjęcie z profilu:"
+msgstr "Przytnij zdjęcie, aby stworzyć zdjęcie z profilowe:"
 
 #: family_tree/templates/family_tree/image_upload.html:11
 msgid "New Profile Photo"
@@ -706,7 +705,7 @@ msgstr "Nowe zdjęcie profilowe"
 
 #: family_tree/templates/family_tree/image_upload.html:14
 msgid "Upload the new profile photo for"
-msgstr "Prześlij nowe zdjęcie profilowe"
+msgstr "Dodaj nowe zdjęcie profilowe"
 
 #: family_tree/templates/family_tree/image_upload.html:20
 msgid "Select file..."
@@ -720,11 +719,11 @@ msgstr "Przetwarzanie..."
 #: family_tree/templates/family_tree/image_upload.html:38
 #: gallery/templates/gallery/upload_images.html:37
 msgid "Error uploading image"
-msgstr "Błąd podczas przesyłania obrazu"
+msgstr "Wystąpił błąd podczas przesyłania obrazu"
 
 #: family_tree/templates/family_tree/no_match_found.html:9
 msgid "No Match Found!"
-msgstr "Nie znaleziono żadnego meczu!"
+msgstr "Brak wyników!"
 
 #: family_tree/templates/family_tree/profile.html:9 templates/base.html:71
 msgid "Tree"
@@ -733,7 +732,7 @@ msgstr "Drzewo"
 #: family_tree/templates/family_tree/profile.html:13
 #: family_tree/templates/family_tree/profile.html:15
 msgid "Edit"
-msgstr "Edytować"
+msgstr "Edytuj"
 
 #: family_tree/templates/family_tree/profile.html:20
 msgid "Relation To Me"
