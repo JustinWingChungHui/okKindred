@@ -177,7 +177,7 @@ Note in ``static\js\common.js`` we also use multiple CDNs because certain CDNs a
 Bootstrap/JQuery/Bower
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The UI is primarily driven by Bootstrap and JQuery and Bower is used as a package manager (yes I know!).  The packages are installed into ``static\js\libs\bower_components``.
+The UI is primarily driven by Bootstrap and JQuery. NPM is used as the package manager however Bower is used as the package manager for Jcrop only as it has a newer version.
 
 
 Mapping

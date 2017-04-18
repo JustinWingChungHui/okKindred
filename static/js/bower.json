@@ -1,0 +1,20 @@
+{
+  "name": "okkindred",
+  "description": "Javascript packages used by ok!kindred",
+  "main": "common.js",
+  "authors": [
+    "Justin Hui <info@okkindred.com>"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/JustinWingChungHui/okKindred",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "Jcrop": "^2.0.4"
+  }
+}
