@@ -37,8 +37,14 @@ class Image(models.Model):
         #Allows models.py to be split up across multiple files
         app_label = 'gallery'
 
-    gallery = models.ForeignKey(Gallery, blank=False, null=False, db_index = True)
-    family = models.ForeignKey('family_tree.Family', null=False, db_index=True) #Use of model string name to prevent circular import
+        indexes = [
+            models.Index(fields=['gallery']),
+            models.Index(fields=['family']),
+            models.Index(fields=['date_taken'])
+        ]
+
+    gallery = models.ForeignKey(Gallery, blank=False, null=False, on_delete=models.CASCADE)
+    family = models.ForeignKey('family_tree.Family', null=False, on_delete=models.CASCADE) #Use of model string name to prevent circular import
 
     original_image = models.ImageField(upload_to=upload_to, blank=True, null=False, width_field='original_image_width', height_field='original_image_height')
     original_image_height = models.IntegerField(null=True)
@@ -56,7 +62,7 @@ class Image(models.Model):
     description = models.TextField(blank=True)
 
     #EXIF data
-    date_taken = models.DateTimeField(null=False, db_index=True)
+    date_taken = models.DateTimeField(null=False)
     latitude = models.FloatField(blank=True, null=False, default = 0) #(0,0) is in the middle of the ocean so can set this to 0 to avoid nulls
     longitude = models.FloatField(blank=True, null=False, default = 0)
 
@@ -166,8 +172,8 @@ class Image(models.Model):
         if self.latitude != 0 and self.longitude != 0:
             return
 
-        if not image:
-            image = PIL.Image.open(self._get_absolute_image_path())
+        # if not image:
+        #    image = PIL.Image.open(self._get_absolute_image_path())
 
         # Issue with PIL GPS tag reading so using another library
         lat, lon, date_time = get_lat_lon_backup(self._get_absolute_image_path())

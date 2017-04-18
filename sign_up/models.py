@@ -34,10 +34,15 @@ class SignUp(models.Model):
     birth_year = models.IntegerField(blank=True, null=False, default = 0)
     address = models.CharField(max_length=255, blank=True, null=False)
 
-    confirmation_key = models.CharField(max_length=64, db_index = True, unique=True, blank = False)
+    confirmation_key = models.CharField(max_length=64, unique=True, blank = False)
     creation_date = models.DateTimeField(auto_now_add=True)
 
     objects = SignUpManager()
+
+    class Meta:
+        indexes = [
+            models.Index(fields=['confirmation_key'])
+        ]
 
     def __str__(self): # __unicode__ on Python 2
         return self.email_address

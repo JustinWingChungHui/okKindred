@@ -57,16 +57,23 @@ class Person(models.Model):
         #Allows models.py to be split up across multiple files
         app_label = 'family_tree'
         verbose_name_plural = "People"
+        indexes = [
+            models.Index(fields=['name']),
+            models.Index(fields=['family']),
+            models.Index(fields=['birth_year']),
+            models.Index(fields=['user']),
+            models.Index(fields=['hierarchy_score'])
+        ]
 
     #Only required fields
-    name = models.CharField(max_length=255, db_index = True, null = False, blank = False)
+    name = models.CharField(max_length=255, null = False, blank = False)
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES, null = False, blank = False)
     locked = models.BooleanField(default = False, null=False) #Allows a user to lock their profile
-    family = models.ForeignKey(Family, blank=False, null=False, db_index = True) #Family
+    family = models.ForeignKey(Family, blank=False, null=False, on_delete=models.CASCADE) #Family
     language = models.CharField(max_length=5, choices=settings.LANGUAGES, null = False, blank = False, default='en')
 
     #Optional Fields
-    birth_year = models.IntegerField(blank=True, null=False, default = 0, db_index = True)
+    birth_year = models.IntegerField(blank=True, null=False, default = 0)
     year_of_death = models.IntegerField(blank=True, null=False, default = 0)
 
     photo = models.ImageField(upload_to='profile_photos', blank=True, null=False)
@@ -93,8 +100,8 @@ class Person(models.Model):
     longitude = models.FloatField(blank=True, null=False, default = 0)
 
     #Calculated Fields
-    user = models.ForeignKey(User, blank=True, null=True, db_index = True) #link this to a user if they have an email address
-    hierarchy_score = models.IntegerField(default = 100, db_index = True) #parents have lower score, children have higher
+    user = models.ForeignKey(User, blank=True, null=True, on_delete=models.CASCADE) #link this to a user if they have an email address
+    hierarchy_score = models.IntegerField(default = 100) #parents have lower score, children have higher
 
     #Tracking
     creation_date = models.DateTimeField(auto_now_add=True)

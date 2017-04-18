@@ -9,7 +9,7 @@ def index(request):
     '''
     Index page this redirects to users home page if they are logged in
     '''
-    if request.user != None and request.user.is_authenticated():
+    if request.user != None and request.user.is_authenticated:
         request.session['django_language'] = request.user.language
 
         person_id = Person.objects.get(user_id = request.user.id).id
@@ -25,7 +25,7 @@ def languages(request):
     '''
     response = []
 
-    if request.user != None and request.user.is_authenticated():
+    if request.user != None and request.user.is_authenticated:
         request.session['django_language'] = request.user.language
 
     for code, display in settings.LANGUAGES:
@@ -38,7 +38,7 @@ def about(request):
     '''
     The about page is visible on if you are logged in or not
     '''
-    if request.user != None and request.user.is_authenticated():
+    if request.user != None and request.user.is_authenticated:
         request.session['django_language'] = request.user.language
 
     return render(request, 'about.html')

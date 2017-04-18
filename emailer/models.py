@@ -147,8 +147,6 @@ class EmailManager(models.Manager):
                     "WHERE language = %s AND family_id = %s "
                     "AND is_active = 1 AND receive_update_emails = 1;")
 
-
-
         cursor.execute(query, [subject, content, content_html, language, family_id])
 
 
@@ -195,16 +193,20 @@ class Email(models.Model):
     class Meta:
         #Allows models.py to be split up across multiple files
         app_label = 'emailer'
+        indexes = [
+            models.Index(fields=['recipient']),
+        ]
 
     #Customer Manager
     objects = EmailManager()
 
-    recipient = models.EmailField(null = False, blank = False, db_index = True)
+    recipient = models.EmailField(null = False, blank = False)
     subject = models.CharField(null = False, blank = False, max_length = 78)
     content = models.TextField(null = False, blank = False)
     content_html =models.TextField(null = False, blank = False)
     send_attempts = models.IntegerField(default=0, null = False)
     send_successful = models.BooleanField(default=False, null = False)
+
 
     def __str__(self): # __unicode__ on Python 2
         return self.recipient

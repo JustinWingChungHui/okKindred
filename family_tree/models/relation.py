@@ -87,12 +87,17 @@ class Relation(models.Model):
         #Allows one relation betwen two people
         unique_together = (('from_person', 'to_person'),)
 
+        indexes = [
+            models.Index(fields=['from_person']),
+            models.Index(fields=['to_person'])
+        ]
+
     #Customer Manager
     objects = RelationManager()
 
     #Required fields
-    from_person =  models.ForeignKey(Person,db_index=True, related_name = 'from_person', null = False, blank = False)
-    to_person =  models.ForeignKey(Person,db_index=True, related_name = 'to_person', null = False, blank = False)
+    from_person =  models.ForeignKey(Person, related_name = 'from_person', null = False, blank = False, on_delete=models.CASCADE)
+    to_person =  models.ForeignKey(Person, related_name = 'to_person', null = False, blank = False, on_delete=models.CASCADE)
     relation_type = models.IntegerField(choices=RELATION_TYPES, null = False, blank = False)
 
     #Tracking
