@@ -3,8 +3,8 @@
 {% load i18n %}
 
 {% block extrastyle %}
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.1/photoswipe.min.css" />
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.1/default-skin/default-skin.min.css" />
+    <link rel="stylesheet" href="{% static 'js/node_modules/photoswipe/dist/photoswipe.css' %}" />
+    <link rel="stylesheet" href="{% static 'js/node_modules/photoswipe/dist/default-skin/default-skin.css' %}" />
 {% endblock %}
 
 {% block content %}
