@@ -18,7 +18,7 @@ def genders(request):
     '''
     response = []
 
-    if request.user != None and request.user.is_authenticated():
+    if request.user != None and request.user.is_authenticated:
         request.session['django_language'] = request.user.language
 
     for code, display in GENDER_CHOICES:

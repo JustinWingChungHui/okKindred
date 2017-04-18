@@ -21,7 +21,7 @@ def sign_up(request):
     Shows the sign up form
     '''
     # Do not allow logged in users to create another account
-    if request.user.is_authenticated():
+    if request.user.is_authenticated:
         raise Http404
 
     if request.method == 'POST':

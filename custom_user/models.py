@@ -37,15 +37,15 @@ class User(AbstractBaseUser):
     http://stackoverflow.com/questions/16638414/set-email-as-username-in-django-1-5
     '''
 
-    email = models.EmailField(unique=True, db_index = True)
+    email = models.EmailField(unique=True)
     name = models.CharField(max_length=255, null = False, blank = False)
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     date_joined = models.DateTimeField(auto_now_add=True)
 
-    family = models.ForeignKey('family_tree.Family', null=True, db_index = True) #Use of model string name to prevent circular import
-    language = models.CharField(max_length=5, choices=settings.LANGUAGES, null = False, blank = False, default='en', db_index = True)
+    family = models.ForeignKey('family_tree.Family', null=True, on_delete=models.CASCADE) #Use of model string name to prevent circular import
+    language = models.CharField(max_length=5, choices=settings.LANGUAGES, null = False, blank = False, default='en')
 
     receive_update_emails = models.BooleanField(default=True)
     receive_photo_update_emails = models.BooleanField(default=True)
@@ -58,6 +58,11 @@ class User(AbstractBaseUser):
     class Meta:
         verbose_name = 'user'
         verbose_name_plural = 'users'
+        indexes = [
+            models.Index(fields=['email']),
+            models.Index(fields=['family']),
+            models.Index(fields=['language'])
+        ]
 
 
     def get_full_name(self):

@@ -1,11 +1,12 @@
 from django.conf import settings
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, Http404
 from django.shortcuts import get_object_or_404, render
 
 from common.serialization_tools import JSONWithURLSerializer
 from gallery.models import Gallery, Image
 
-
+@login_required
 def gallery_map(request, gallery_id):
     '''
     Loads a map view of the image gallery
@@ -25,7 +26,7 @@ def gallery_map(request, gallery_id):
                                     'token' : settings.MAP_BOX_TOKEN,
                                 })
 
-
+@login_required
 def gallery_map_data(request, gallery_id):
     '''
     Gets the data for the map view

@@ -46,6 +46,8 @@ def get_lat_lon_backup(path_name):
         # For when the standards change again... groan
         pass
 
+    f.close()
+
     return lat, lon, date_time
 
 

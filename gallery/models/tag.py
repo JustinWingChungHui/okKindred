@@ -13,8 +13,13 @@ class Tag(models.Model):
         app_label = 'gallery'
         unique_together = ("image", "person")
 
-    image = models.ForeignKey(Image, blank=False, null=False, db_index = True)
-    person = models.ForeignKey('family_tree.Person', null=False, db_index = True) #Use of model string name to prevent circular import
+        indexes = [
+            models.Index(fields=['image']),
+            models.Index(fields=['person'])
+        ]
+
+    image = models.ForeignKey(Image, blank=False, null=False, on_delete=models.CASCADE)
+    person = models.ForeignKey('family_tree.Person', null=False, on_delete=models.CASCADE) #Use of model string name to prevent circular import
 
     #Box coordinates in the photo normalised to 1 (ie [(0,0),(1,1)] is entire photo
     x1 = models.FloatField(blank=False, null=False)

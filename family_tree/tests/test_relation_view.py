@@ -167,7 +167,7 @@ class TestRelationViews(TestCase): # pragma: no cover
         response = self.client.get('/break_relation={0}/'.format(self.vultan.id))
         self.assertEqual(200, response.status_code)
         self.assertTemplateUsed(response, 'family_tree/break_relation.html')
-        self.assertEquals(True, b'Lura' in response.content)
+        self.assertEqual(True, b'Lura' in response.content)
 
     def test_break_relation_post_deletes_relation(self):
         '''

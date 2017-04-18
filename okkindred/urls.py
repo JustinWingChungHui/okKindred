@@ -17,7 +17,7 @@ handler403 = 'okkindred.views.handler403'
 
 urlpatterns = [
 
-    url(r'^admin/', include(admin.site.urls)),
+    url(r'^admin/', admin.site.urls),
     url(r'^about/$', okkindred.views.about, name='about'),
     url(r'^languages/$', okkindred.views.languages, name='languages'),
     url(r'^$', okkindred.views.index),

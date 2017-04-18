@@ -30,12 +30,18 @@ class EmailConfirmation(models.Model):
     '''
 
     email_address = models.EmailField(null=False, unique=True)
-    person = models.ForeignKey('family_tree.Person', null=True, db_index = True, unique=True) #Use of model string name to prevent circular import
+    person = models.ForeignKey('family_tree.Person', null=True, unique=True, on_delete=models.CASCADE) #Use of model string name to prevent circular import
     sent = models.DateTimeField(db_index = True)
-    confirmation_key = models.CharField(max_length=64, db_index = True, unique=True)
-    user_who_invited_person = models.ForeignKey('custom_user.User', null=False) #Use of model string name to prevent circular import
+    confirmation_key = models.CharField(max_length=64, unique=True)
+    user_who_invited_person = models.ForeignKey('custom_user.User', null=False, on_delete=models.CASCADE) #Use of model string name to prevent circular import
 
     objects = EmailConfirmationManager()
+
+    class Meta:
+        indexes = [
+            models.Index(fields=['person']),
+            models.Index(fields=['confirmation_key']),
+        ]
 
     def __str__(self):
         return self.person.name + " " + self.email_address
