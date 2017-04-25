@@ -91,20 +91,20 @@ requirejs.config({
         mobile : "/static/js/common/mobile",
 
         masonry : [
-                    "//cdnjs.cloudflare.com/ajax/libs/masonry/4.1.1/masonry.pkgd.min",
-                    "//cdn.jsdelivr.net/masonry/4.1.1/masonry.pkgd.min",
+                    "//cdnjs.cloudflare.com/ajax/libs/masonry/4.2.0/masonry.pkgd.min",
+                    "//cdn.jsdelivr.net/masonry/4.2.0/masonry.pkgd.min",
                     "node_modules/masonry-layout/dist/masonry.pkgd.min"
                     ],
 
         photoswipe : [
-                    "//cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.1/photoswipe.min",
-                    "//cdn.jsdelivr.net/photoswipe/4.1.1/photoswipe.min",
+                    "//cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min",
+                    "//cdn.jsdelivr.net/photoswipe/4.1.2/photoswipe.min",
                     "node_modules/photoswipe/dist/photoswipe.min"
                     ],
 
         photoswipe_ui : [
-                        "//cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.1/photoswipe-ui-default.min",
-                        "//cdn.jsdelivr.net/photoswipe/4.1.1/photoswipe-ui-default.min",
+                        "//cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min",
+                        "//cdn.jsdelivr.net/photoswipe/4.1.2/photoswipe-ui-default.min",
                         "node_modules/photoswipe/dist/photoswipe-ui-default.min"
                         ],
 
