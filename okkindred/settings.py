@@ -64,6 +64,7 @@ INSTALLED_APPS = (
     'sign_up',
     'maps',
     'debug_toolbar',
+    'template_timings_panel',
     'autotranslate',
 )
 
@@ -204,6 +205,7 @@ DEBUG_TOOLBAR_PANELS = [
     'debug_toolbar.panels.logging.LoggingPanel',
     'debug_toolbar.panels.redirects.RedirectsPanel',
     'debug_toolbar.panels.profiling.ProfilingPanel',
+    'template_timings_panel.panels.TemplateTimings.TemplateTimings',
 ]
 
 def show_toolbar(request):
