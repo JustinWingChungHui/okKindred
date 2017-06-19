@@ -59,8 +59,8 @@ requirejs.config({
                     ],
 
         leaflet_markercluster : [
-                                "//cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.0.4/leaflet.markercluster",
-                                "//cdn.jsdelivr.net/leaflet.markercluster/1.0.4/leaflet.markercluster",
+                                "//cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.0.6/leaflet.markercluster",
+                                "//cdn.jsdelivr.net/leaflet.markercluster/1.0.5/leaflet.markercluster",
                                 "node_modules/leaflet.markercluster/dist/leaflet.markercluster"
                                 ],
 
@@ -84,7 +84,7 @@ requirejs.config({
                 ],
 
         tinymce: [
-                "//cdnjs.cloudflare.com/ajax/libs/tinymce/4.5.6/tinymce.min",
+                "//cdnjs.cloudflare.com/ajax/libs/tinymce/4.6.4/tinymce.min",
                 "node_modules/tinymce/tinymce.min"
                 ],
 
