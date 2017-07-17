@@ -87,7 +87,7 @@ require(["jquery", "mustache", "leaflet","photoswipe", "photoswipe_ui", "leaflet
 
             var html = build_pop_up(loc, template);
 
-			var marker = L.marker(new L.LatLng(loc.fields.latitude, loc.fields.longitude), { title: html });
+			var marker = L.marker(new L.LatLng(loc.fields.latitude, loc.fields.longitude), { title: loc.fields.title });
 			marker.bindPopup(html);
 			image_markers.addLayer(marker);
         }
