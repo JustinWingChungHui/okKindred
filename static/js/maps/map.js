@@ -54,7 +54,7 @@ require(['jquery', 'leaflet', 'mustache', 'leaflet_markercluster'], function($, 
 			var loc = data[i];
 			var html = build_pop_up(loc, template);
 
-			var marker = L.marker(new L.LatLng(loc.fields.latitude, loc.fields.longitude), { title: html });
+			var marker = L.marker(new L.LatLng(loc.fields.latitude, loc.fields.longitude), { title: loc.fields.name });
 			marker.bindPopup(html);
 			markers.addLayer(marker);
 		}
