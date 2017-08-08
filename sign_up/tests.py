@@ -4,7 +4,7 @@ from sign_up.models import SignUp
 from family_tree.models import Family, Person
 from custom_user.models import User
 
-@override_settings(SECURE_SSL_REDIRECT=False)
+@override_settings(SECURE_SSL_REDIRECT=False, AXES_LOGIN_FAILURE_LIMIT=10000, AXES_COOLOFF_TIME=0)
 class SignUpTestCase(TestCase): # pragma: no cover
 
 
@@ -231,12 +231,12 @@ class SignUpTestCase(TestCase): # pragma: no cover
         '''
         Tests that a password form is displayed for an valid confirmation key
         '''
+
         sign_up = SignUp.objects.create(
                 name='a new user',
                 gender = 'M',
                 language = 'en',
                 email_address = 'anewuser@iamanewuser.com')
-
 
         response = self.client.get('/accounts/sign_up_confirmation={0}/'.format(sign_up.confirmation_key), HTTP_X_REAL_IP='127.0.0.1')
 
