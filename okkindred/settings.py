@@ -97,6 +97,10 @@ AXES_PROTECTED_LOGINS = ('/accounts/login/', '/accounts/auth/')
 AXES_BEHIND_REVERSE_PROXY = True
 AXES_REVERSE_PROXY_HEADER = 'HTTP_X_REAL_IP'
 
+# ensure lockouts don't happen during tests
+AXES_IP_WHITELIST = ['127.0.0.1']
+AXES_NEVER_LOCKOUT_WHITELIST = True
+
 #Email Configuration
 EMAIL_SUBJECT_PREFIX = ''
 EMAIL_USE_SSL = True
