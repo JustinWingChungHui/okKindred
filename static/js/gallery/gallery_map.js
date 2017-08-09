@@ -118,7 +118,7 @@ require(["jquery", "mustache", "leaflet","photoswipe", "photoswipe_ui", "leaflet
             src : image.large_thumbnail,
             w : image.large_thumbnail_width,
             h : image.large_thumbnail_height,
-            identifier : image.id,
+            identifier : loc.pk,
             title : image.title
         };
 

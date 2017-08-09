@@ -53,8 +53,7 @@ requirejs.config({
                             ],
 
         leaflet : [
-                    "//cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.3/leaflet",
-                    "//cdn.jsdelivr.net/leaflet/1.0.3/leaflet",
+                    "//cdnjs.cloudflare.com/ajax/libs/leaflet/1.2.0/leaflet",
                     "node_modules/leaflet/dist/leaflet"
                     ],
 
@@ -84,7 +83,7 @@ requirejs.config({
                 ],
 
         tinymce: [
-                "//cdnjs.cloudflare.com/ajax/libs/tinymce/4.6.4/tinymce.min",
+                "//cdnjs.cloudflare.com/ajax/libs/tinymce/4.6.5/tinymce.min",
                 "node_modules/tinymce/tinymce.min"
                 ],
 

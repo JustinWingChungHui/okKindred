@@ -19,14 +19,14 @@
     "jquery": "^3.2.1",
     "jquery.cookie": "^1.4.1",
     "jsplumb": "^2.3.5",
-    "leaflet": "^1.0.3",
+    "leaflet": "^1.2.0",
     "leaflet.markercluster": "^1.0.6",
     "masonry-layout": "^4.2.0",
     "moment": "^2.18.1",
     "mustache": "^2.3.0",
     "photoswipe": "^4.1.2",
-    "requirejs": "^2.3.3",
-    "tinymce": "^4.6.4",
+    "requirejs": "^2.3.4",
+    "tinymce": "^4.6.5",
     "underscore": "^1.8.3",
     "x-editable": "^1.5.1"
   }
