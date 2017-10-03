@@ -166,7 +166,7 @@ class PersonTestCase(TestCase): # pragma: no cover
         person = Person.objects.create(name='Kate Bush', gender='F', address='Bexleyheath, England', family_id=self.family.id)
         person.geocode_address()
 
-        self.assertEqual(51.45, round(person.latitude,2))
+        self.assertEqual(51.47, round(person.latitude,2))
         self.assertEqual(0.14, round(person.longitude,2))
 
 
