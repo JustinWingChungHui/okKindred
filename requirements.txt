@@ -2,11 +2,11 @@
 appdirs==1.4.3
 bleach==2.1.1
 boto3==1.4.7
-botocore==1.7.25
+botocore==1.7.37
 certifi==2017.7.27.1
 chardet==3.0.4
 coverage==4.4.1
-Django==1.11.6
+Django==1.11.7
 django-autotranslate==1.0.2
 django-axes==2.3.3
 django-debug-toolbar==1.8
@@ -27,7 +27,7 @@ pipdeptree==0.10.1
 polib==1.0.8
 pyparsing==2.2.0
 python-dateutil==2.6.1
-pytz==2017.2
+pytz==2017.3
 requests==2.18.4
 s3transfer==0.1.11
 six==1.11.0
