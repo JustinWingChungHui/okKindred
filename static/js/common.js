@@ -6,70 +6,73 @@ requirejs.config({
     "paths": {
         jquery : [
                 "//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min",
-                "//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min",
-                "//cdn.jsdelivr.net/jquery/3.2.1/jquery.min",
+                "//cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min",
                 "node_modules/jquery/dist/jquery.min"
                 ],
 
         bootstrap : [
                 "//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min",
-                "//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min",
-                "//cdn.jsdelivr.net/bootstrap/3.3.7/js/bootstrap.min",
+                "//cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min",
                 "node_modules/bootstrap/dist/js/bootstrap.min"
                 ],
 
         mustache : [
                 "//cdnjs.cloudflare.com/ajax/libs/mustache.js/2.3.0/mustache.min",
-                "//cdn.jsdelivr.net/mustache.js/2.3.0/mustache.min",
+                "//cdn.jsdelivr.net/npm/mustache@2.3.0/mustache.min",
                 "node_modules/mustache/mustache.min"
                 ],
 
         underscore : [
                     "//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min",
-                    "//fastcdn.org/Underscore.js/1.8.3/underscore-min",
+                    "//cdn.jsdelivr.net/npm/underscore@1.8.3/underscore.min",
                     "node_modules/underscore/underscore.min"
                     ],
 
         jsPlumb : [
-                    "//cdnjs.cloudflare.com/ajax/libs/jsPlumb/2.2.10/jsplumb.min",
+                    "//cdnjs.cloudflare.com/ajax/libs/jsPlumb/2.5.7/js/jsplumb.min",
+                    "//cdn.jsdelivr.net/npm/jsplumb@2.5.7/dist/js/jsplumb.min",
                     "node_modules/jsplumb/dist/js/jsplumb.min"
                     ],
 
         moment : [
-                "//cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min",
-                "//cdn.jsdelivr.net/momentjs/2.18.1/moment.min",
+                "//cdnjs.cloudflare.com/ajax/libs/moment.js/2.19.1/moment.min",
+                "//cdn.jsdelivr.net/npm/moment@2.19.1/moment.min",
                 "node_modules/moment/min/moment.min"
                 ],
 
         validator: [
                 "//cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.9/validator.min",
+                "//cdn.jsdelivr.net/npm/bootstrap-validator@0.11.9/js/validator.min",
                 "node_modules/bootstrap-validator/dist/validator.min"
                 ],
 
         bootstrap_editable : [
                             "//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.1/bootstrap3-editable/js/bootstrap-editable.min",
-                            "//cdn.jsdelivr.net/bootstrap.editable/1.5.1/js/bootstrap-editable.min",
+                            "//cdn.jsdelivr.net/npm/x-editable@1.5.1/dist/bootstrap3-editable/js/bootstrap-editable.min",
                             "node_modules/x-editable/dist/bootstrap3-editable/js/bootstrap-editable.min"
                             ],
 
         leaflet : [
                     "//cdnjs.cloudflare.com/ajax/libs/leaflet/1.2.0/leaflet",
+                    "//cdn.jsdelivr.net/npm/leaflet@1.2.0/dist/leaflet-src.min",
                     "node_modules/leaflet/dist/leaflet"
                     ],
 
         leaflet_markercluster : [
-                                "//cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.0.6/leaflet.markercluster",
-                                "//cdn.jsdelivr.net/leaflet.markercluster/1.0.5/leaflet.markercluster",
+                                "//cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.1.0/leaflet.markercluster",
+                                "//cdn.jsdelivr.net/npm/leaflet.markercluster@1.1.0/dist/leaflet.markercluster.min",
                                 "node_modules/leaflet.markercluster/dist/leaflet.markercluster"
                                 ],
 
         jquery_fileupload : [
-                            "//cdnjs.cloudflare.com/ajax/libs/blueimp-file-upload/9.18.0/js/jquery.fileupload.min",
+                            "//cdnjs.cloudflare.com/ajax/libs/blueimp-file-upload/9.19.1/js/jquery.fileupload.min",
+                            "//cdn.jsdelivr.net/npm/blueimp-file-upload@9.19.1/js/jquery.fileupload.min",
                             "node_modules/blueimp-file-upload/js/jquery.fileupload"
                             ],
 
         jquery_cookie : [
                         "//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min",
+                        "//cdn.jsdelivr.net/npm/jquery.cookie@1.4.1/jquery.cookie.min",
                          "node_modules/jquery.cookie/jquery.cookie"
                         ],
 
@@ -83,7 +86,8 @@ requirejs.config({
                 ],
 
         tinymce: [
-                "//cdnjs.cloudflare.com/ajax/libs/tinymce/4.6.5/tinymce.min",
+                "//cdnjs.cloudflare.com/ajax/libs/tinymce/4.7.1/tinymce.min",
+                "//cdn.jsdelivr.net/npm/tinymce@4.7.1/tinymce.min",
                 "node_modules/tinymce/tinymce.min"
                 ],
 
@@ -91,19 +95,19 @@ requirejs.config({
 
         masonry : [
                     "//cdnjs.cloudflare.com/ajax/libs/masonry/4.2.0/masonry.pkgd.min",
-                    "//cdn.jsdelivr.net/masonry/4.2.0/masonry.pkgd.min",
+                    "//cdn.jsdelivr.net/npm/masonry-layout@4.2.0/dist/masonry.pkgd.min",
                     "node_modules/masonry-layout/dist/masonry.pkgd.min"
                     ],
 
         photoswipe : [
                     "//cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min",
-                    "//cdn.jsdelivr.net/photoswipe/4.1.2/photoswipe.min",
+                    "//cdn.jsdelivr.net/npm/photoswipe@4.1.2/dist/photoswipe.min",
                     "node_modules/photoswipe/dist/photoswipe.min"
                     ],
 
         photoswipe_ui : [
                         "//cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min",
-                        "//cdn.jsdelivr.net/photoswipe/4.1.2/photoswipe-ui-default.min",
+                        "//cdn.jsdelivr.net/npm/photoswipe@4.1.2/dist/photoswipe-ui-default.min",
                         "node_modules/photoswipe/dist/photoswipe-ui-default.min"
                         ],
 

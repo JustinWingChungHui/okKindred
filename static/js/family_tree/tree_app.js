@@ -89,7 +89,7 @@ define(['jquery', 'jsPlumb', 'mustache'], function($, jsPlumb, Mustache){
 
         render_tree : function (html, relatives) {
             // Clear tree
-            jsPlumb.detachEveryConnection();
+            jsPlumb.deleteEveryConnection();
             $('#family_tree_container').html('');
 
             // Draw new ones
