@@ -6,7 +6,7 @@ from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import render
 from django.utils import translation
 
-from axes.decorators import is_already_locked, get_ip, check_request
+from axes.attempts import is_already_locked
 from axes.models import AccessLog
 
 from custom_user.models import User

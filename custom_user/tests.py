@@ -28,9 +28,11 @@ class TestCustomUserViews(TestCase): # pragma: no cover
         Test user can login with case insensitive email
         '''
         response = self.client.post('/accounts/auth/',  {'username': 'Bruce_Lee@email.com', 'password': 'enter the dragon'}, follow=True, HTTP_X_REAL_IP='127.0.0.1')
+        print(response.redirect_chain)
         self.assertEqual(False, ('http://testserver/accounts/invalid', 302) in response.redirect_chain)
 
 
+    @override_settings(AXES_BEHIND_REVERSE_PROXY=False)
     def test_settings_view_displays(self):
         '''
         Test that the settings view is displayed correctly
@@ -40,6 +42,7 @@ class TestCustomUserViews(TestCase): # pragma: no cover
         self.assertEqual(200, response.status_code)
         self.assertTemplateUsed(response, 'custom_user/settings.html')
 
+    @override_settings(AXES_BEHIND_REVERSE_PROXY=False)
     def test_can_change_password(self):
         '''
         Test can receive post request to change password and check new password works
@@ -49,6 +52,7 @@ class TestCustomUserViews(TestCase): # pragma: no cover
         self.client.post('/accounts/change_password/',{'password': 'shaolin soccer'})
         self.client.login(email='stephen_chow@email.com', password='shaolin soccer')
 
+    @override_settings(AXES_BEHIND_REVERSE_PROXY=False)
     def test_can_update_language(self):
         '''
         Test can receive post request to change language
@@ -60,7 +64,7 @@ class TestCustomUserViews(TestCase): # pragma: no cover
         self.user = User.objects.get(pk=self.user.id)
         self.assertEqual('pl', self.user.language)
 
-
+    @override_settings(AXES_BEHIND_REVERSE_PROXY=False)
     def test_can_delete_account_without_deleting_profile(self):
         '''
         Test that a user can delete their account without deleting their profile
@@ -79,6 +83,7 @@ class TestCustomUserViews(TestCase): # pragma: no cover
         self.assertEqual(0, User.objects.filter(email='lau_fok_wing@email.com').count())
 
 
+    @override_settings(AXES_BEHIND_REVERSE_PROXY=False)
     def test_can_delete_account_and_profile(self):
         '''
         Test that a user can delete their account and their profile
