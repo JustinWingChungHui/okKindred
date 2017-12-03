@@ -29,7 +29,7 @@ require(["jquery", "mustache"], function ($, Mustache) {
             return;
         }
 
-        if($(window).scrollTop() >= $(document).height() - $(window).height() - 10)
+        if($(window).scrollTop() >= $(document).height() - $(window).height() - 100)
         {
             load_more_galleries();
         }
