@@ -3,7 +3,7 @@ from custom_user.models import User
 from family_tree.models import Person, Family
 from django.test.utils import override_settings
 
-@override_settings(SECURE_SSL_REDIRECT=False)
+@override_settings(SECURE_SSL_REDIRECT=False, AXES_BEHIND_REVERSE_PROXY=False)
 class TestProfileViews(TestCase): # pragma: no cover
 
     def setUp(self):

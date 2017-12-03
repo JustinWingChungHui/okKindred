@@ -6,6 +6,8 @@ from django.utils import translation
 
 from axes.attempts import is_already_locked
 from axes.models import AccessLog
+from  axes.signals import log_user_login_failed
+
 from email_confirmation.models import EmailConfirmation
 from custom_user.models import User
 from family_tree.decorators import same_family_required
@@ -58,19 +60,8 @@ def confirm_invite(request, confirmation_key):
         invite = EmailConfirmation.objects.get(confirmation_key=confirmation_key)
 
     except:
+        log_user_login_failed(confirm_invite, {'username': confirmation_key}, request)
 
-        #Log access attempt
-        AccessLog.objects.create(
-                         user_agent=request.META.get('HTTP_USER_AGENT', '<unknown>')[:255],
-                         ip_address=get_ip(request),
-                         username=confirmation_key,
-                         http_accept=request.META.get('HTTP_ACCEPT', '<unknown>'),
-                         path_info=request.META.get('PATH_INFO', '<unknown>'),
-                         trusted=False,
-                         )
-
-
-        check_request(request, True)
         return invalid_expired(request)
 
     if request.method != 'POST':

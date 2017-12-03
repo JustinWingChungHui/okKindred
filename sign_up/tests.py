@@ -4,7 +4,7 @@ from sign_up.models import SignUp
 from family_tree.models import Family, Person
 from custom_user.models import User
 
-@override_settings(SECURE_SSL_REDIRECT=False, AXES_LOGIN_FAILURE_LIMIT=10000, AXES_COOLOFF_TIME=0)
+@override_settings(SECURE_SSL_REDIRECT=False, AXES_LOGIN_FAILURE_LIMIT=10000, AXES_COOLOFF_TIME=0, AXES_BEHIND_REVERSE_PROXY=False)
 class SignUpTestCase(TestCase): # pragma: no cover
 
 

@@ -28,7 +28,6 @@ class TestCustomUserViews(TestCase): # pragma: no cover
         Test user can login with case insensitive email
         '''
         response = self.client.post('/accounts/auth/',  {'username': 'Bruce_Lee@email.com', 'password': 'enter the dragon'}, follow=True, HTTP_X_REAL_IP='127.0.0.1')
-        print(response.redirect_chain)
         self.assertEqual(False, ('http://testserver/accounts/invalid', 302) in response.redirect_chain)
 
 

@@ -8,7 +8,7 @@ from email_confirmation.models import EmailConfirmation
 from custom_user.models import User
 from family_tree.models import Person, Family
 
-@override_settings(SECURE_SSL_REDIRECT=False)
+@override_settings(SECURE_SSL_REDIRECT=False, AXES_BEHIND_REVERSE_PROXY=False)
 class EmailConfirmationTestCase(TestCase): # pragma: no cover
     '''
     Tests for this app
@@ -194,7 +194,7 @@ class EmailConfirmationTestCase(TestCase): # pragma: no cover
         person = Person.objects.create(name='existing_user', gender='M', family_id=self.family.id, language='en', email='existing_user@email.com', user_id=user.id)
 
         self.client.login(email='existing_user@email.com', password='existing_user')
-        response = self.client.post('/accounts/invite_person={0}/'.format(person.id))
+        response = self.client.post('/accounts/invite_person={0}/'.format(person.id), follow=True, HTTP_X_REAL_IP='127.0.0.1')
         self.assertEqual(404, response.status_code)
 
 
