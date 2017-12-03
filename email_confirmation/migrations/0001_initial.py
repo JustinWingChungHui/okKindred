@@ -20,8 +20,8 @@ class Migration(migrations.Migration):
                 ('email_address', models.EmailField(unique=True, max_length=75)),
                 ('sent', models.DateTimeField(db_index=True)),
                 ('confirmation_key', models.CharField(unique=True, db_index=True, max_length=40)),
-                ('person', models.ForeignKey(unique=True, null=True, to='family_tree.Person')),
-                ('user_who_invited_person', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
+                ('person', models.ForeignKey(unique=True, null=True, to='family_tree.Person', on_delete=models.CASCADE)),
+                ('user_who_invited_person', models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE)),
             ],
             options={
             },

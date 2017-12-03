@@ -99,6 +99,15 @@ class TestCustomUserViews(TestCase): # pragma: no cover
         self.assertEqual(0, Person.objects.filter(name='Lau Fok Wing').count())
         self.assertEqual(0, User.objects.filter(email='andy_lau@email.com').count())
 
+
+    def test_login_view_loads(self):
+        '''
+        Tests that the login view loads
+        '''
+        response = self.client.get('/accounts/login/')
+        self.assertEqual(200, response.status_code)
+
+
     def test_next_parameter_sent_to_login(self):
         '''
         Tests that the next parameter appears as a hidden parameter in the login form

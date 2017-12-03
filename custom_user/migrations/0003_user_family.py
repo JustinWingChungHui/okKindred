@@ -15,7 +15,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='user',
             name='family',
-            field=models.ForeignKey(to='family_tree.Family', null=True),
+            field=models.ForeignKey(to='family_tree.Family', null=True, on_delete=models.CASCADE),
             preserve_default=True,
         ),
     ]

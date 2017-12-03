@@ -15,7 +15,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='image',
             name='family',
-            field=models.ForeignKey(default=1, to='family_tree.Family'),
+            field=models.ForeignKey(default=1, to='family_tree.Family', on_delete=models.CASCADE),
             preserve_default=False,
         ),
         migrations.AlterField(

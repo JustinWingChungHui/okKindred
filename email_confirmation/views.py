@@ -5,7 +5,6 @@ from django.shortcuts import render
 from django.utils import translation
 
 from axes.attempts import is_already_locked
-from axes.models import AccessLog
 from  axes.signals import log_user_login_failed
 
 from email_confirmation.models import EmailConfirmation

@@ -21,7 +21,7 @@ class Migration(migrations.Migration):
                 ('thumbnail', models.ImageField(blank=True, upload_to='')),
                 ('creation_date', models.DateTimeField(auto_now_add=True)),
                 ('last_updated_date', models.DateTimeField(auto_now=True)),
-                ('family', models.ForeignKey(to='family_tree.Family')),
+                ('family', models.ForeignKey(to='family_tree.Family', on_delete=models.CASCADE)),
             ],
             options={
                 'verbose_name_plural': 'Galleries',
@@ -42,7 +42,7 @@ class Migration(migrations.Migration):
                 ('longitude', models.FloatField(default=0, blank=True)),
                 ('creation_date', models.DateTimeField(auto_now_add=True)),
                 ('last_updated_date', models.DateTimeField(auto_now=True)),
-                ('gallery', models.ForeignKey(to='gallery.Gallery')),
+                ('gallery', models.ForeignKey(to='gallery.Gallery', on_delete=models.CASCADE)),
             ],
             options={
             },
@@ -58,8 +58,8 @@ class Migration(migrations.Migration):
                 ('y2', models.FloatField()),
                 ('creation_date', models.DateTimeField(auto_now_add=True)),
                 ('last_updated_date', models.DateTimeField(auto_now=True)),
-                ('image', models.ForeignKey(to='gallery.Image')),
-                ('person', models.ForeignKey(to='family_tree.Person')),
+                ('image', models.ForeignKey(to='gallery.Image', on_delete=models.CASCADE)),
+                ('person', models.ForeignKey(to='family_tree.Person', on_delete=models.CASCADE)),
             ],
             options={
             },
