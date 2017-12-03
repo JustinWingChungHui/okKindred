@@ -4,28 +4,36 @@ require(["jquery", "mustache"], function ($, Mustache) {
     var gallery_index_loading = false;
 
     //Request the galleries on page load
-    $( document ).ready(function() {
+    $( document).ready(function() {
 
         if ($("#gallery_container").length == 0) {
             return;
         }
 
         load_more_galleries();
+
+        $(window).scroll(function() {
+            react_to_scroll()
+        });
+
+        $('window').on('touchmove', function(event) {
+            react_to_scroll()
+        });
     });
 
 
     //Request more galleries when we scroll to the bottom
-    $(window).scroll(function()
-    {
-        if ($("#gallery_container").length == 0) {
+    function react_to_scroll() {
+
+        if ($("#gallery_container").length == 0 || $('#no_more_galleries').is(':visible')) {
             return;
         }
 
-        if($(window).scrollTop() == $(document).height() - $(window).height())
+        if($(window).scrollTop() >= $(document).height() - $(window).height() - 10)
         {
             load_more_galleries();
         }
-    });
+    }
 
     //Ajax request to get more galleries
     function load_more_galleries()
