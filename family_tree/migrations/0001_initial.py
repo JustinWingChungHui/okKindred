@@ -59,8 +59,8 @@ class Migration(migrations.Migration):
                 ('hierarchy_score', models.IntegerField(default=100, db_index=True)),
                 ('creation_date', models.DateTimeField(auto_now_add=True)),
                 ('last_updated_date', models.DateTimeField(auto_now=True)),
-                ('family', models.ForeignKey(to='family_tree.Family')),
-                ('user', models.ForeignKey(blank=True, to=settings.AUTH_USER_MODEL, null=True)),
+                ('family', models.ForeignKey(to='family_tree.Family', on_delete=models.CASCADE)),
+                ('user', models.ForeignKey(blank=True, to=settings.AUTH_USER_MODEL, null=True, on_delete=models.CASCADE)),
             ],
             options={
                 'verbose_name_plural': 'People',
@@ -74,8 +74,8 @@ class Migration(migrations.Migration):
                 ('relation_type', models.IntegerField(choices=[(1, 'Partnered'), (2, 'Raised'), (3, 'Raised By')])),
                 ('creation_date', models.DateTimeField(auto_now_add=True)),
                 ('last_updated_date', models.DateTimeField(auto_now=True)),
-                ('from_person', models.ForeignKey(to='family_tree.Person', related_name='from_person')),
-                ('to_person', models.ForeignKey(to='family_tree.Person', related_name='to_person')),
+                ('from_person', models.ForeignKey(to='family_tree.Person', related_name='from_person', on_delete=models.CASCADE)),
+                ('to_person', models.ForeignKey(to='family_tree.Person', related_name='to_person', on_delete=models.CASCADE)),
             ],
             options={
             },
@@ -88,7 +88,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='biography',
             name='person',
-            field=models.ForeignKey(to='family_tree.Person'),
+            field=models.ForeignKey(to='family_tree.Person', on_delete=models.CASCADE),
             preserve_default=True,
         ),
         migrations.AlterUniqueTogether(

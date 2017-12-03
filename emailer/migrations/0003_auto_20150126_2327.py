@@ -18,8 +18,8 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(serialize=False, auto_created=True, primary_key=True, verbose_name='ID')),
                 ('new_member', models.BooleanField(default=False, db_index=True)),
                 ('creation_date', models.DateTimeField(db_index=True, auto_now_add=True)),
-                ('family', models.ForeignKey(to='family_tree.Family')),
-                ('person', models.ForeignKey(to='family_tree.Person')),
+                ('family', models.ForeignKey(to='family_tree.Family', on_delete=models.CASCADE)),
+                ('person', models.ForeignKey(to='family_tree.Person', on_delete=models.CASCADE)),
             ],
             options={
             },
