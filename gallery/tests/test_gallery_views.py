@@ -5,7 +5,7 @@ from family_tree.models import Family
 from django.conf import settings
 from django.test.utils import override_settings
 
-@override_settings(SECURE_SSL_REDIRECT=False, MEDIA_ROOT=settings.MEDIA_ROOT_TEST)
+@override_settings(SECURE_SSL_REDIRECT=False, MEDIA_ROOT=settings.MEDIA_ROOT_TEST, AXES_BEHIND_REVERSE_PROXY=False)
 class TestGalleryViews(TestCase): # pragma: no cover
     '''
     Test class for the gallery views

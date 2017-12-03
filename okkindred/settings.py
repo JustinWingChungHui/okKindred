@@ -96,6 +96,7 @@ AXES_PROTECTED_LOGINS = ('/accounts/login/', '/accounts/auth/')
 # PythonAnywhere behind load balancer
 AXES_BEHIND_REVERSE_PROXY = True
 AXES_REVERSE_PROXY_HEADER = 'HTTP_X_REAL_IP'
+AXES_NUM_PROXIES = 1
 
 # ensure lockouts don't happen during tests
 AXES_IP_WHITELIST = ['127.0.0.1']

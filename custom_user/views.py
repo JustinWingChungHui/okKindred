@@ -1,12 +1,12 @@
+from django.conf import settings
+from django.contrib import auth
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
-from django.http import HttpResponseRedirect
-from django.contrib import auth
+from django.http import HttpResponse, HttpResponseRedirect
 from django.template.context_processors import csrf
-from axes.decorators import is_already_locked, check_request
-from django.http import HttpResponse
-from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
+
+from axes.attempts import is_already_locked
 from custom_user.decorators import set_language
 from family_tree.models import Person
 
@@ -34,12 +34,9 @@ def auth_view(request):
 
     username = request.POST.get('username', '').lower()
     password = request.POST.get('password', '')
-    user = auth.authenticate(username=username, password=password)
+    user = auth.authenticate(username=username, password=password, request=request)
 
     login_unsuccessful = user is None
-
-    check_request(request, login_unsuccessful)
-
 
     if login_unsuccessful:
         return HttpResponseRedirect('/accounts/invalid')
@@ -48,8 +45,6 @@ def auth_view(request):
 
     auth.login(request, user)
     return HttpResponseRedirect(target_url)
-
-
 
 
 

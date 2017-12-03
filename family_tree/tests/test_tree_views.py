@@ -6,7 +6,7 @@ from family_tree.models.relation import PARTNERED, RAISED
 from family_tree.views.tree_views import _get_css
 from django.test.utils import override_settings
 
-@override_settings(SECURE_SSL_REDIRECT=False)
+@override_settings(SECURE_SSL_REDIRECT=False, AXES_BEHIND_REVERSE_PROXY=False)
 class TestTreeViews(TestCase): # pragma: no cover
 
     def setUp(self):
