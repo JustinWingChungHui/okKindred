@@ -1,8 +1,8 @@
 -f /usr/share/pip-wheels
 appdirs==1.4.3
-bleach==2.1.1
+bleach==2.1.2
 boto3==1.4.8
-botocore==1.8.6
+botocore==1.8.12
 certifi==2017.11.5
 chardet==3.0.4
 coverage==4.4.2
@@ -17,7 +17,7 @@ ExifRead==2.1.2
 futures==3.1.1
 geopy==1.11.0
 goslate==1.5.1
-html5lib==1.0b10
+html5lib==1.0.1
 idna==2.6
 jmespath==0.9.3
 mysqlclient==1.3.12
