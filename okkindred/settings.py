@@ -93,10 +93,12 @@ AXES_LOGIN_FAILURE_LIMIT = 5
 AXES_COOLOFF_TIME = 24
 AXES_PROTECTED_LOGINS = ('/accounts/login/', '/accounts/auth/')
 
-# PythonAnywhere behind load balancer
-AXES_BEHIND_REVERSE_PROXY = True
-AXES_REVERSE_PROXY_HEADER = 'HTTP_X_REAL_IP'
-AXES_NUM_PROXIES = 1
+# PythonAnywhere behind load balancer https://github.com/un33k/django-ipware
+# Log correct ip address to lockout multiple incorrect login attempts
+IPWARE_META_PRECEDENCE_ORDER = (
+    'HTTP_X_REAL_IP',
+)
+
 
 # ensure lockouts don't happen during tests
 AXES_IP_WHITELIST = ['127.0.0.1']
