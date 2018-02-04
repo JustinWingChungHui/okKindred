@@ -29,8 +29,8 @@ requirejs.config({
                     ],
 
         jsPlumb : [
-                    "//cdnjs.cloudflare.com/ajax/libs/jsPlumb/2.5.7/js/jsplumb.min",
-                    "//cdn.jsdelivr.net/npm/jsplumb@2.5.7/dist/js/jsplumb.min",
+                    "//cdnjs.cloudflare.com/ajax/libs/jsPlumb/2.6.6/js/jsplumb.min",
+                    "//cdn.jsdelivr.net/npm/jsplumb@2.6.6/dist/js/jsplumb.min",
                     "node_modules/jsplumb/dist/js/jsplumb.min"
                     ],
 
@@ -53,14 +53,14 @@ requirejs.config({
                             ],
 
         leaflet : [
-                    "//cdnjs.cloudflare.com/ajax/libs/leaflet/1.2.0/leaflet",
-                    "//cdn.jsdelivr.net/npm/leaflet@1.2.0/dist/leaflet-src.min",
+                    "//cdnjs.cloudflare.com/ajax/libs/leaflet/1.3.0/leaflet",
+                    "//cdn.jsdelivr.net/npm/leaflet@1.3.0/dist/leaflet-src.min",
                     "node_modules/leaflet/dist/leaflet"
                     ],
 
         leaflet_markercluster : [
-                                "//cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.1.0/leaflet.markercluster",
-                                "//cdn.jsdelivr.net/npm/leaflet.markercluster@1.1.0/dist/leaflet.markercluster.min",
+                                "//cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.3.0/leaflet.markercluster",
+                                "//cdn.jsdelivr.net/npm/leaflet.markercluster@1.3.0/dist/leaflet.markercluster.min",
                                 "node_modules/leaflet.markercluster/dist/leaflet.markercluster"
                                 ],
 
