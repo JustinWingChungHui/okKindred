@@ -5,8 +5,8 @@ requirejs.config({
     "baseUrl": '/static/js',
     "paths": {
         jquery : [
-                "//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min",
-                "//cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min",
+                "//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min",
+                "//cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min",
                 "node_modules/jquery/dist/jquery.min"
                 ],
 
@@ -29,14 +29,14 @@ requirejs.config({
                     ],
 
         jsPlumb : [
-                    "//cdnjs.cloudflare.com/ajax/libs/jsPlumb/2.5.7/js/jsplumb.min",
-                    "//cdn.jsdelivr.net/npm/jsplumb@2.5.7/dist/js/jsplumb.min",
+                    "//cdnjs.cloudflare.com/ajax/libs/jsPlumb/2.6.6/js/jsplumb.min",
+                    "//cdn.jsdelivr.net/npm/jsplumb@2.6.6/dist/js/jsplumb.min",
                     "node_modules/jsplumb/dist/js/jsplumb.min"
                     ],
 
         moment : [
-                "//cdnjs.cloudflare.com/ajax/libs/moment.js/2.19.1/moment.min",
-                "//cdn.jsdelivr.net/npm/moment@2.19.1/moment.min",
+                "//cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min",
+                "//cdn.jsdelivr.net/npm/moment@2.20.1/moment.min",
                 "node_modules/moment/min/moment.min"
                 ],
 
@@ -53,20 +53,20 @@ requirejs.config({
                             ],
 
         leaflet : [
-                    "//cdnjs.cloudflare.com/ajax/libs/leaflet/1.2.0/leaflet",
-                    "//cdn.jsdelivr.net/npm/leaflet@1.2.0/dist/leaflet-src.min",
+                    "//cdnjs.cloudflare.com/ajax/libs/leaflet/1.3.0/leaflet",
+                    "//cdn.jsdelivr.net/npm/leaflet@1.3.0/dist/leaflet-src.min",
                     "node_modules/leaflet/dist/leaflet"
                     ],
 
         leaflet_markercluster : [
-                                "//cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.1.0/leaflet.markercluster",
-                                "//cdn.jsdelivr.net/npm/leaflet.markercluster@1.1.0/dist/leaflet.markercluster.min",
+                                "//cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.3.0/leaflet.markercluster",
+                                "//cdn.jsdelivr.net/npm/leaflet.markercluster@1.3.0/dist/leaflet.markercluster.min",
                                 "node_modules/leaflet.markercluster/dist/leaflet.markercluster"
                                 ],
 
         jquery_fileupload : [
-                            "//cdnjs.cloudflare.com/ajax/libs/blueimp-file-upload/9.19.1/js/jquery.fileupload.min",
-                            "//cdn.jsdelivr.net/npm/blueimp-file-upload@9.19.1/js/jquery.fileupload.min",
+                            "//cdnjs.cloudflare.com/ajax/libs/blueimp-file-upload/9.20.0/js/jquery.fileupload.min",
+                            "//cdn.jsdelivr.net/npm/blueimp-file-upload@9.20.0/js/jquery.fileupload.min",
                             "node_modules/blueimp-file-upload/js/jquery.fileupload"
                             ],
 
@@ -86,16 +86,16 @@ requirejs.config({
                 ],
 
         tinymce: [
-                "//cdnjs.cloudflare.com/ajax/libs/tinymce/4.7.1/tinymce.min",
-                "//cdn.jsdelivr.net/npm/tinymce@4.7.1/tinymce.min",
+                "//cdnjs.cloudflare.com/ajax/libs/tinymce/4.7.6/tinymce.min",
+                "//cdn.jsdelivr.net/npm/tinymce@4.7.6/tinymce.min",
                 "node_modules/tinymce/tinymce.min"
                 ],
 
         mobile : "/static/js/common/mobile",
 
         masonry : [
-                    "//cdnjs.cloudflare.com/ajax/libs/masonry/4.2.0/masonry.pkgd.min",
-                    "//cdn.jsdelivr.net/npm/masonry-layout@4.2.0/dist/masonry.pkgd.min",
+                    "//cdnjs.cloudflare.com/ajax/libs/masonry/4.2.1/masonry.pkgd.min",
+                    "//cdn.jsdelivr.net/npm/masonry-layout@4.2/dist/masonry.pkgd.min",
                     "node_modules/masonry-layout/dist/masonry.pkgd.min"
                     ],
 

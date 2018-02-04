@@ -1,17 +1,25 @@
 /*
- Leaflet.markercluster, Provides Beautiful Animated Marker Clustering functionality for Leaflet, a JS library for interactive maps.
- https://github.com/Leaflet/Leaflet.markercluster
- (c) 2012-2013, Dave Leaver, smartrak
-*/
-(function (window, document, undefined) {/*
+ * Leaflet.markercluster 1.3.0+master.5b36e91,
+ * Provides Beautiful Animated Marker Clustering functionality for Leaflet, a JS library for interactive maps.
+ * https://github.com/Leaflet/Leaflet.markercluster
+ * (c) 2012-2017, Dave Leaver, smartrak
+ */
+(function (global, factory) {
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
+	typeof define === 'function' && define.amd ? define(['exports'], factory) :
+	(factory((global.Leaflet = global.Leaflet || {}, global.Leaflet.markercluster = global.Leaflet.markercluster || {})));
+}(this, (function (exports) { 'use strict';
+
+/*
  * L.MarkerClusterGroup extends L.FeatureGroup by clustering the markers contained within
  */
 
-L.MarkerClusterGroup = L.FeatureGroup.extend({
+var MarkerClusterGroup = L.MarkerClusterGroup = L.FeatureGroup.extend({
 
 	options: {
 		maxClusterRadius: 80, //A cluster will cover at most this many pixels from its center
 		iconCreateFunction: null,
+		clusterPane: L.Marker.prototype.options.pane,
 
 		spiderfyOnMaxZoom: true,
 		showCoverageOnHover: true,
@@ -54,9 +62,6 @@ L.MarkerClusterGroup = L.FeatureGroup.extend({
 		if (!this.options.iconCreateFunction) {
 			this.options.iconCreateFunction = this._defaultIconCreateFunction;
 		}
-		if (!this.options.clusterPane) {
-		    this.options.clusterPane = L.Marker.prototype.options.pane;
-        }
 
 		this._featureGroup = L.featureGroup();
 		this._featureGroup.addEventParent(this);
@@ -505,7 +510,7 @@ L.MarkerClusterGroup = L.FeatureGroup.extend({
 	//Overrides LayerGroup.getLayer, WARNING: Really bad performance
 	getLayer: function (id) {
 		var result = null;
-		
+
 		id = parseInt(id, 10);
 
 		this.eachLayer(function (l) {
@@ -719,7 +724,7 @@ L.MarkerClusterGroup = L.FeatureGroup.extend({
 		}
 		delete e.target.__dragStart;
 	},
-	
+
 
 	//Internal function for removing a marker from everything.
 	//dontUpdateMap: set to true if you will handle updating the map manually (for bulk functions)
@@ -933,7 +938,7 @@ L.MarkerClusterGroup = L.FeatureGroup.extend({
 			minZoom = Math.floor(this._map.getMinZoom()),
 			radius = this.options.maxClusterRadius,
 			radiusFn = radius;
-	
+
 		//If we just set maxClusterRadius to a single number, we need to create
 		//a simple function to return that number. Otherwise, we just have to
 		//use the function we've passed in.
@@ -947,7 +952,7 @@ L.MarkerClusterGroup = L.FeatureGroup.extend({
 		this._maxZoom = maxZoom;
 		this._gridClusters = {};
 		this._gridUnclustered = {};
-	
+
 		//Set up DistanceGrids for each zoom
 		for (var zoom = maxZoom; zoom >= minZoom; zoom--) {
 			this._gridClusters[zoom] = new L.DistanceGrid(radiusFn(zoom));
@@ -1378,8 +1383,9 @@ L.markerClusterGroup = function (options) {
 	return new L.MarkerClusterGroup(options);
 };
 
+var MarkerCluster = L.MarkerCluster = L.Marker.extend({
+	options: L.Icon.prototype.options,
 
-L.MarkerCluster = L.Marker.extend({
 	initialize: function (group, zoom, a, b) {
 
 		L.Marker.prototype.initialize.call(this, a ? (a._cLatLng || a.getLatLng()) : new L.LatLng(0, 0),
@@ -1777,8 +1783,6 @@ L.MarkerCluster = L.Marker.extend({
 	}
 });
 
-
-
 /*
 * Extends L.Marker to include two extra methods: clusterHide and clusterShow.
 * 
@@ -1802,10 +1806,6 @@ L.Marker.include({
 	}
 	
 });
-
-
-
-
 
 L.DistanceGrid = function (cellSize) {
 	this._cellSize = cellSize;
@@ -1900,7 +1900,8 @@ L.DistanceGrid.prototype = {
 						for (k = 0, len = cell.length; k < len; k++) {
 							obj = cell[k];
 							dist = this._sqDist(objectPoint[L.Util.stamp(obj)], point);
-							if (dist < closestDistSq) {
+							if (dist < closestDistSq ||
+								dist <= closestDistSq && closest === null) {
 								closestDistSq = dist;
 								closest = obj;
 							}
@@ -1913,7 +1914,8 @@ L.DistanceGrid.prototype = {
 	},
 
 	_getCoord: function (x) {
-		return Math.floor(x / this._cellSize);
+		var coord = Math.floor(x / this._cellSize);
+		return isFinite(coord) ? coord : x;
 	},
 
 	_sqDist: function (p, p2) {
@@ -1922,7 +1924,6 @@ L.DistanceGrid.prototype = {
 		return dx * dx + dy * dy;
 	}
 };
-
 
 /* Copyright (c) 2012 the authors listed at the following URL, and/or
 the authors of referenced articles or incorporated external code:
@@ -2090,7 +2091,6 @@ L.MarkerCluster.include({
 	}
 });
 
-
 //This code is 100% based on https://github.com/jawj/OverlappingMarkerSpiderfier-Leaflet
 //Huge thanks to jawj for implementing it first to make my job easy :-)
 
@@ -2098,7 +2098,7 @@ L.MarkerCluster.include({
 
 	_2PI: Math.PI * 2,
 	_circleFootSeparation: 25, //related to circumference of circle
-	_circleStartAngle: Math.PI / 6,
+	_circleStartAngle: 0,
 
 	_spiralFootSeparation:  28, //related to size of spiral (experiment!)
 	_spiralLengthStart: 11,
@@ -2150,9 +2150,11 @@ L.MarkerCluster.include({
 			res = [],
 			i, angle;
 
+		legLength = Math.max(legLength, 35); // Minimum distance to get outside the cluster icon.
+
 		res.length = count;
 
-		for (i = count - 1; i >= 0; i--) {
+		for (i = 0; i < count; i++) { // Clockwise, like spiral.
 			angle = this._circleStartAngle + i * angleStep;
 			res[i] = new L.Point(centerPt.x + legLength * Math.cos(angle), centerPt.y + legLength * Math.sin(angle))._round();
 		}
@@ -2172,9 +2174,13 @@ L.MarkerCluster.include({
 		res.length = count;
 
 		// Higher index, closer position to cluster center.
-		for (i = count - 1; i >= 0; i--) {
+		for (i = count; i >= 0; i--) {
+			// Skip the first position, so that we are already farther from center and we avoid
+			// being under the default cluster icon (especially important for Circle Markers).
+			if (i < count) {
+				res[i] = new L.Point(centerPt.x + legLength * Math.cos(angle), centerPt.y + legLength * Math.sin(angle))._round();
+			}
 			angle += separation / legLength + i * 0.0005;
-			res[i] = new L.Point(centerPt.x + legLength * Math.cos(angle), centerPt.y + legLength * Math.sin(angle))._round();
 			legLength += lengthFactor / angle;
 		}
 		return res;
@@ -2561,7 +2567,6 @@ L.MarkerClusterGroup.include({
 	}
 });
 
-
 /**
  * Adds 1 public method to MCG and 1 to L.Marker to facilitate changing
  * markers' icon options and refreshing their icon and their parent clusters
@@ -2673,5 +2678,8 @@ L.Marker.include({
 	}
 });
 
+exports.MarkerClusterGroup = MarkerClusterGroup;
+exports.MarkerCluster = MarkerCluster;
 
-}(window, document));
+})));
+//# sourceMappingURL=leaflet.markercluster-src.js.map

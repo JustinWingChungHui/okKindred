@@ -39,8 +39,8 @@ export var VideoOverlay = ImageOverlay.extend({
 		var wasElementSupplied = this._url.tagName === 'VIDEO';
 		var vid = this._image = wasElementSupplied ? this._url : DomUtil.create('video');
 
-		vid.class = vid.class || '';
-		vid.class += 'leaflet-image-layer ' + (this._zoomAnimated ? 'leaflet-zoom-animated' : '');
+		DomUtil.addClass(vid, 'leaflet-image-layer');
+		if (this._zoomAnimated) { DomUtil.addClass(vid, 'leaflet-zoom-animated'); }
 
 		vid.onselectstart = Util.falseFn;
 		vid.onmousemove = Util.falseFn;
@@ -49,7 +49,16 @@ export var VideoOverlay = ImageOverlay.extend({
 		// Fired when the video has finished loading the first frame
 		vid.onloadeddata = Util.bind(this.fire, this, 'load');
 
-		if (wasElementSupplied) { return; }
+		if (wasElementSupplied) {
+			var sourceElements = vid.getElementsByTagName('source');
+			var sources = [];
+			for (var j = 0; j < sourceElements.length; j++) {
+				sources.push(sourceElements[j].src);
+			}
+
+			this._url = (sourceElements.length > 0) ? sources : [vid.src];
+			return;
+		}
 
 		if (!Util.isArray(this._url)) { this._url = [this._url]; }
 
