@@ -4,6 +4,7 @@ define(function(require){
     var jsPlumb = require('jsPlumb');
     var Mustache = require('mustache');
     var TreeData =  require('./tree_data.js');
+    var DrawInfo = require('./tree_draw_info.js');
 
     // Run on page load
     $(document).ready(function() {
@@ -37,7 +38,8 @@ define(function(require){
 
     // Draws the tree
     function draw_tree() {
-        var draw_info = TreeData.get_draw_info();
+        DrawInfo.build_draw_info(TreeData);
+        var draw_info = DrawInfo;
         html = layout_people_html(draw_info);
         render_tree(html, draw_info);
     }
@@ -220,8 +222,10 @@ define(function(require){
 
         	var windows = jsPlumb.getSelector(".family_tree_container .w");
 
+            // Batch draw all relations for speed
             instance.batch(function () {
 
+                // Initialise the connector styles
                 instance.makeSource(windows, {
                     filter: ".ep",
                     connector: [ "StateMachine", { curviness: 20 } ],
@@ -240,6 +244,7 @@ define(function(require){
                     allowLoopback: true
                 });
 
+                // Add each relation as a connection
                 for (var key in draw_info.relations_by_id) {
                     var relation = draw_info.relations_by_id[key];
 
@@ -300,6 +305,8 @@ define(function(require){
             	    var animation_finished = false;
             	    var build_tree_finished = false;
 
+                    var new_draw_info = DrawInfo;
+
             	    $new_person.animate({left : "+=" + left.toString(), top : "+=" + top.toString()}, 400, function() {
             	        animation_finished = true;
             	        check_done();
@@ -307,15 +314,15 @@ define(function(require){
 
                     // Build new tree
                     TreeData.person_id = person_id;
-        	        var draw_info = TreeData.get_draw_info();
-                    html = layout_people_html(draw_info);
+                    new_draw_info.build_draw_info(TreeData);
+                    html = layout_people_html(new_draw_info);
                     build_tree_finished = true;
             	    check_done();
 
                     // Only once animation has finished and tree built, do we we display new tree
             	    function check_done () {
             	        if (build_tree_finished && animation_finished) {
-            	            render_tree(html, draw_info)
+            	            render_tree(html, new_draw_info)
             	        }
             	    }
                 });
