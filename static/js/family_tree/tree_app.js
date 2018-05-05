@@ -14,26 +14,22 @@ define(function(require){
             TreeData.person_id = parseInt(window.location.pathname.split('/')[2]);
         }
 
-        load_tree_data();
+        $('.loading').show();
+
+        //Ajax request to get tree data
+        $.ajax({
+                url: "/tree/data/",
+
+        }).done(function(data) {
+            TreeData.populate_lookups(data);
+            draw_tree();
+            $('.loading').hide();
+        });
     });
 
     $(window).resize(function () {
         draw_tree();
     });
-
-    //Ajax request to get tree data
-    function load_tree_data() {
-        $('.loading').show();
-
-        $.ajax({
-                url: "/tree/data/",
-
-        }).done(function(data) {
-                TreeData.populate_lookups(data);
-                draw_tree();
-                $('.loading').hide();
-        });
-    }
 
 
     // Draws the tree
