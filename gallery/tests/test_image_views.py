@@ -553,7 +553,7 @@ class TestImageViews(TestCase): # pragma: no cover
         im.delete_remote_image_files()
 
         self.assertEqual(200, response.status_code)
-        self.assertEqual(True, b'46.43' in response.content)
+        self.assertEqual(True, b'46.4' in response.content)
         self.assertEqual(True, b'6.9' in response.content)
 
         im = Image.objects.get(id=im.id)
