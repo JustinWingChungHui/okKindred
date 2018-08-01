@@ -15,8 +15,8 @@ urlpatterns = [
     path('accounts/delete/', custom_user.views.delete_account_post),
     path('settings/', custom_user.views.settings_view),
 
-    path('accounts/password_reset/', auth_views.password_reset, {'template_name': 'custom_user/password_reset.html'}, name='password_reset'),
-    path('accounts/password_reset/done/', auth_views.password_reset_done, {'template_name': 'custom_user/password_reset_done.html'}, name='password_reset_done'),
-    path('accounts/reset/<str:uidb64>/<str:token>/', auth_views.password_reset_confirm, {'template_name': 'custom_user/password_reset_confirm.html'}, name='password_reset_confirm'),
-    path('accounts/reset/done/', auth_views.password_reset_complete, {'template_name': 'custom_user/password_reset_complete.html'}, name='password_reset_complete'),
+    path('accounts/password_reset/', auth_views.PasswordResetView.as_view(template_name = 'custom_user/password_reset.html'), name='password_reset'),
+    path('accounts/password_reset/done/', auth_views.PasswordResetDoneView.as_view(template_name = 'custom_user/password_reset_done.html'), name='password_reset_done'),
+    path('accounts/reset/<str:uidb64>/<str:token>/', auth_views.PasswordResetConfirmView.as_view(template_name = 'custom_user/password_reset_confirm.html'), name='password_reset_confirm'),
+    path('accounts/reset/done/', auth_views.PasswordResetCompleteView.as_view(template_name = 'custom_user/password_reset_complete.html'), name='password_reset_complete'),
 ]
