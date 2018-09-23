@@ -1,8 +1,8 @@
 -f /usr/share/pip-wheels
 appdirs==1.4.3
 bleach==2.1.4
-boto3==1.9.4
-botocore==1.12.4
+boto3==1.9.9
+botocore==1.12.9
 certifi==2018.8.24
 chardet==3.0.4
 coverage==4.5.1
@@ -28,7 +28,7 @@ packaging==17.1
 Pillow==5.2.0
 pipdeptree==0.13.0
 polib==1.1.0
-pyparsing==2.2.0
+pyparsing==2.2.1
 python-dateutil==2.6.1
 pytz==2018.5
 requests==2.19.1
