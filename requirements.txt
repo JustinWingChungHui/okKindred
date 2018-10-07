@@ -1,8 +1,8 @@
 -f /usr/share/pip-wheels
 appdirs==1.4.3
-bleach==2.1.4
-boto3==1.9.15
-botocore==1.12.15
+bleach==3.0.0
+boto3==1.9.18
+botocore==1.12.18
 certifi==2018.8.24
 chardet==3.0.4
 coverage==4.5.1
