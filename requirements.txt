@@ -1,11 +1,11 @@
 -f /usr/share/pip-wheels
 appdirs==1.4.3
 bleach==3.0.2
-boto3==1.9.35
-botocore==1.12.35
+boto3==1.9.42
+botocore==1.12.42
 certifi==2018.10.15
 chardet==3.0.4
-coverage==4.5.1
+coverage==4.5.2
 Django==2.1.3
 django-appconf==1.0.2
 django-autotranslate==1.1.0
@@ -31,7 +31,7 @@ polib==1.1.0
 pyparsing==2.3.0
 python-dateutil==2.6.1
 pytz==2018.7
-requests==2.20.0
+requests==2.20.1
 s3transfer==0.1.13
 six==1.11.0
 sqlparse==0.2.4
