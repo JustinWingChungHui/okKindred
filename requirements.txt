@@ -1,15 +1,15 @@
 -f /usr/share/pip-wheels
 appdirs==1.4.3
 bleach==3.0.2
-boto3==1.9.66
-botocore==1.12.66
+boto3==1.9.71
+botocore==1.12.71
 certifi==2018.11.29
 chardet==3.0.4
 coverage==4.5.2
 Django==2.1.4
 django-appconf==1.0.2
 django-autotranslate==1.1.0
-django-axes==4.4.3
+django-axes==4.5.0
 django-debug-toolbar==1.11
 django-debug-toolbar-template-timings==0.9
 django-ipware==2.1.0
