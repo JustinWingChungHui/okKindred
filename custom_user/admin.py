@@ -10,7 +10,6 @@ from django.utils.translation import ugettext_lazy as _
 
 from custom_user.models import User
 
-
 class UserCreationForm(forms.ModelForm):
     """
     A form for creating new users. Includes all the required
@@ -88,7 +87,5 @@ class MyUserAdmin(UserAdmin):
 
 # Now register the new UserAdmin...
 admin.site.register(User, MyUserAdmin)
-# ... and, since we're not using Django's built-in permissions,
-# unregister the Group model from admin.
-#admin.site.unregister(Group)
+
 
