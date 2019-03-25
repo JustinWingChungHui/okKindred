@@ -66,6 +66,8 @@ INSTALLED_APPS = (
     'debug_toolbar',
     'template_timings_panel',
     'autotranslate',
+    'rest_framework',
+    'person_api',
 )
 
 MIDDLEWARE = (
@@ -209,6 +211,14 @@ TEMPLATES = [
         },
     },
 ]
+
+# Rest framwork
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.SessionAuthentication',
+    )
+}
+
 
 DEBUG_TOOLBAR_PANELS = [
     'debug_toolbar.panels.versions.VersionsPanel',
