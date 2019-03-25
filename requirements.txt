@@ -12,7 +12,9 @@ django-autotranslate==1.1.0
 django-axes==4.5.4
 django-debug-toolbar==1.11
 django-debug-toolbar-template-timings==0.9
+django-filter==2.1.0
 django-ipware==2.1.0
+djangorestframework==3.9.2
 docutils==0.14
 ExifRead==2.1.2
 futures==3.1.1
@@ -22,6 +24,7 @@ goslate==1.5.1
 html5lib==1.0.1
 idna==2.8
 jmespath==0.9.4
+Markdown==3.0.1
 mysqlclient==1.4.2.post1
 olefile==0.46
 packaging==19.0

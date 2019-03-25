@@ -35,6 +35,9 @@ urlpatterns = [
 
     # Gallery views
     path('', include('gallery.urls')),
+
+    # Person API
+    path('', include('person_api.urls')),
 ]
 
 if settings.DEBUG:
