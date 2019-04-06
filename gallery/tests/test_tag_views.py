@@ -61,7 +61,7 @@ class TestImageViews(TestCase): # pragma: no cover
         Tag.objects.create(image=self.image, person=self.person, x1=1, x2=2, y1=3, y2=4)
         Tag.objects.create(image=self.image, person=self.person2, x1=5, x2=6, y1=7, y2=8)
 
-        self.client.login(email='white_queen@queenonline.com', password='AsItBegan')
+        self.client.post('/accounts/auth/',  {'username': 'white_queen@queenonline.com', 'password': 'AsItBegan'})
         response = self.client.get('/image={0}/tags/get/'.format(self.image.id))
 
 
@@ -82,7 +82,7 @@ class TestImageViews(TestCase): # pragma: no cover
         '''
         Tag.objects.create(image=self.image, person=self.person2, x1=5, x2=6, y1=7, y2=8)
 
-        self.client.login(email='queen_of_hearts@queenonline.com', password='Off With Their Heads')
+        self.client.post('/accounts/auth/',  {'username': 'queen_of_hearts@queenonline.com', 'password': 'Off With Their Heads'})
         response = self.client.get('/image={0}/tags/get/'.format(self.image.id))
 
         self.assertEqual(404, response.status_code)
@@ -102,8 +102,7 @@ class TestImageViews(TestCase): # pragma: no cover
         image.save()
         tag = Tag.objects.create(image=image, person=self.person, x1=1, x2=2, y1=3, y2=4)
 
-
-        self.client.login(email='white_queen@queenonline.com', password='AsItBegan')
+        self.client.post('/accounts/auth/',  {'username': 'white_queen@queenonline.com', 'password': 'AsItBegan'})
         response = self.client.post('/tag={0}/delete/'.format(tag.id))
 
 
@@ -126,7 +125,7 @@ class TestImageViews(TestCase): # pragma: no cover
         tag = Tag.objects.create(image=image, person=self.person, x1=1, x2=2, y1=3, y2=4)
 
 
-        self.client.login(email='queen_of_hearts@queenonline.com', password='Off With Their Heads')
+        self.client.post('/accounts/auth/',  {'username': 'queen_of_hearts@queenonline.com', 'password': 'Off With Their Heads'})
         response = self.client.post('/tag={0}/delete/'.format(tag.id))
 
         self.assertEqual(404, response.status_code)
@@ -144,9 +143,9 @@ class TestImageViews(TestCase): # pragma: no cover
                     )
         image.save()
 
-        self.client.login(email='white_queen@queenonline.com', password='AsItBegan')
-        response = self.client.post('/image={0}/tags/create/'.format(self.image.id)
-        ,   {
+        self.client.post('/accounts/auth/',  {'username': 'white_queen@queenonline.com', 'password': 'AsItBegan'})
+        response = self.client.post('/image={0}/tags/create/'.format(self.image.id),
+            {
                 'person': self.person.id,
                 'x1': 0.314159,
                 'y1': 0.1,
@@ -172,7 +171,7 @@ class TestImageViews(TestCase): # pragma: no cover
                     )
         image.save()
 
-        self.client.login(email='queen_of_hearts@queenonline.com', password='Off With Their Heads')
+        self.client.post('/accounts/auth/',  {'username': 'queen_of_hearts@queenonline.com', 'password': 'Off With Their Heads'})
         response = self.client.post('/image={0}/tags/create/'.format(self.image.id),
            {
                 'person': self.person.id,

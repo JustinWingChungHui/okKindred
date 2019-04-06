@@ -61,7 +61,7 @@ class TestGalleryMapViews(TestCase): # pragma: no cover
         Tests the gallery map view loads and uses the correct template
         '''
 
-        self.client.login(email='gromit@aardman.com', password='cheese')
+        self.client.post('/accounts/auth/',  {'username': 'gromit@aardman.com', 'password': 'cheese'})
         response = self.client.get('/gallery={0}/map/'.format(self.gallery.id))
 
         self.assertEqual(response.status_code, 200)
@@ -72,7 +72,7 @@ class TestGalleryMapViews(TestCase): # pragma: no cover
         '''
         Tests gallery does not load for another family
         '''
-        self.client.login(email='shaun@aardman.com', password='baaa')
+        self.client.post('/accounts/auth/',  {'username': 'shaun@aardman.com', 'password': 'baaa'})
         response = self.client.get('/gallery={0}/map/'.format(self.gallery.id))
 
         self.assertEqual(response.status_code, 404)
@@ -82,7 +82,7 @@ class TestGalleryMapViews(TestCase): # pragma: no cover
         '''
         Tests gallery data does not load for another family
         '''
-        self.client.login(email='shaun@aardman.com', password='baaa')
+        self.client.post('/accounts/auth/',  {'username': 'shaun@aardman.com', 'password': 'baaa'})
         response = self.client.get('/gallery={0}/map_data/'.format(self.gallery.id))
 
         self.assertEqual(response.status_code, 404)
@@ -95,7 +95,7 @@ class TestGalleryMapViews(TestCase): # pragma: no cover
         for i in self.images:
             i.save()
 
-        self.client.login(email='gromit@aardman.com', password='cheese')
+        self.client.post('/accounts/auth/',  {'username': 'gromit@aardman.com', 'password': 'cheese'})
         response = self.client.get('/gallery={0}/map_data/'.format(self.gallery.id))
 
         self.assertEqual(response.status_code, 200)

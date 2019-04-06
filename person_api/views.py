@@ -2,7 +2,6 @@
 from django.shortcuts import get_object_or_404
 from rest_framework import viewsets
 from rest_framework.response import Response
-from rest_framework.authentication import SessionAuthentication
 from rest_framework.permissions import IsAuthenticated
 
 from family_tree.models import Person
@@ -11,7 +10,7 @@ from person_api.serializers import PersonSerializer, PersonListSerializer
 
 # ViewSets define the view behavior for Django REST
 class PersonViewSet(viewsets.ViewSet):
-    authentication_classes = (SessionAuthentication,)
+
     permission_classes = (IsAuthenticated,)
 
     def list(self, request):

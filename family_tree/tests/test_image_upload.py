@@ -35,7 +35,7 @@ class TestImageUploadViews(TestCase): # pragma: no cover
         '''
         tests that the view loads if someone navigates to it
         '''
-        self.client.login(email='fairy_fellar@email.com', password='masterstroke')
+        self.client.post('/accounts/auth/',  {'username': 'fairy_fellar@email.com', 'password': 'masterstroke'})
         response = self.client.get('/edit_profile_photo={0}/'.format(self.person.id))
         self.assertEqual(200, response.status_code)
         self.assertTemplateUsed(response, 'family_tree/image_upload.html')
@@ -46,7 +46,7 @@ class TestImageUploadViews(TestCase): # pragma: no cover
         '''
         tests that the view does not load if a person from a different family is trying to access it
         '''
-        self.client.login(email='dale_arden@email.com', password='flash i love you')
+        self.client.post('/accounts/auth/',  {'username': 'dale_arden@email.com', 'password': 'flash i love you'})
         response = self.client.get('/edit_profile_photo={0}/'.format(self.person.id))
         self.assertEqual(404, response.status_code)
 
@@ -55,8 +55,7 @@ class TestImageUploadViews(TestCase): # pragma: no cover
         '''
         test that we can upload a file
         '''
-        self.client.login(email='fairy_fellar@email.com', password='masterstroke')
-
+        self.client.post('/accounts/auth/',  {'username': 'fairy_fellar@email.com', 'password': 'masterstroke'})
 
         with open(os.path.join(BASE_DIR, 'tests/test_image_upload.png'), 'rb') as fp:
             response = self.client.post('/image_upload={0}/'.format(self.person.id),{'picture': fp})
@@ -77,7 +76,7 @@ class TestImageUploadViews(TestCase): # pragma: no cover
         '''
         test that we can can't upload file to another family
         '''
-        self.client.login(email='dale_arden@email.com', password='flash i love you')
+        self.client.post('/accounts/auth/',  {'username': 'dale_arden@email.com', 'password': 'flash i love you'})
 
         with open(os.path.join(BASE_DIR, 'tests/test_image_upload.png'), 'rb') as fp:
             response = self.client.post('/image_upload={0}/'.format(self.person.id),{'picture': fp})
@@ -91,7 +90,7 @@ class TestImageUploadViews(TestCase): # pragma: no cover
         '''
         num_files = len([item for item in os.listdir( settings.MEDIA_ROOT + 'profile_photos/')])
 
-        self.client.login(email='fairy_fellar@email.com', password='masterstroke')
+        self.client.post('/accounts/auth/',  {'username': 'fairy_fellar@email.com', 'password': 'masterstroke'})
         with open(os.path.join(BASE_DIR, 'tests/test_not_a_real_picture.png'), 'rb') as fp:
             response = self.client.post('/image_upload={0}/'.format(self.person.id),{'picture': fp})
 
@@ -108,7 +107,7 @@ class TestImageUploadViews(TestCase): # pragma: no cover
         '''
         test that we can upload a file
         '''
-        self.client.login(email='fairy_fellar@email.com', password='masterstroke')
+        self.client.post('/accounts/auth/',  {'username': 'fairy_fellar@email.com', 'password': 'masterstroke'})
 
         response = self.client.get('/image_resize={0}/'.format(self.person.id))
 
@@ -120,7 +119,7 @@ class TestImageUploadViews(TestCase): # pragma: no cover
         '''
         tests that the view does not load if a person from a different family is trying to access it
         '''
-        self.client.login(email='dale_arden@email.com', password='flash i love you')
+        self.client.post('/accounts/auth/',  {'username': 'dale_arden@email.com', 'password': 'flash i love you'})
         response = self.client.get('/image_resize={0}/'.format(self.person.id))
         self.assertEqual(404, response.status_code)
 
@@ -135,7 +134,7 @@ class TestImageUploadViews(TestCase): # pragma: no cover
 
         self.person.photo = 'profile_photos/large_test_image.jpg'
         self.person.save()
-        self.client.login(email='fairy_fellar@email.com', password='masterstroke')
+        self.client.post('/accounts/auth/',  {'username': 'fairy_fellar@email.com', 'password': 'masterstroke'})
 
         response = self.client.post('/image_crop={0}/'.format(self.person.id),{'x': 100, 'y': 200, 'w': 300, 'h': 300})
 
@@ -152,7 +151,7 @@ class TestImageUploadViews(TestCase): # pragma: no cover
         self.person.photo = 'profile_photos/large_test_image.jpg'
         self.person.save()
 
-        self.client.login(email='dale_arden@email.com', password='flash i love you')
+        self.client.post('/accounts/auth/',  {'username': 'dale_arden@email.com', 'password': 'flash i love you'})
         response = self.client.post('/image_crop={0}/'.format(self.person.id),{'x': 100, 'y': 200, 'w': 300, 'h': 300})
 
         #Clear up mess afterwards
@@ -170,7 +169,7 @@ class TestImageUploadViews(TestCase): # pragma: no cover
 
         self.person.photo = 'profile_photos/large_test_image.jpg'
         self.person.save()
-        self.client.login(email='fairy_fellar@email.com', password='masterstroke')
+        self.client.post('/accounts/auth/',  {'username': 'fairy_fellar@email.com', 'password': 'masterstroke'})
 
         response = self.client.post('/image_rotate={0}/'.format(self.person.id),{'anticlockwise_angle': 90})
 
@@ -192,7 +191,7 @@ class TestImageUploadViews(TestCase): # pragma: no cover
         self.person.photo = 'profile_photos/large_test_image.jpg'
         self.person.save()
 
-        self.client.login(email='dale_arden@email.com', password='flash i love you')
+        self.client.post('/accounts/auth/',  {'username': 'dale_arden@email.com', 'password': 'flash i love you'})
 
         response = self.client.post('/image_rotate={0}/'.format(self.person.id),{'anticlockwise_angle': 90})
 

@@ -49,7 +49,7 @@ def csrf_failure(request, reason=""):
     response.status_code = 403
     return response
 
-def handler404(request):
+def handler404(request, *args, **argv):
     '''
     Custom 404 handler
     '''
@@ -58,7 +58,7 @@ def handler404(request):
     return response
 
 
-def handler505(request):
+def handler505(request, *args, **argv):
     '''
     Custom 505 handler
     '''

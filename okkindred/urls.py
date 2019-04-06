@@ -3,12 +3,15 @@ from django.conf.urls import include
 from django.contrib import admin
 from django.urls import path
 
-import okkindred.views
+from rest_framework.documentation import include_docs_urls
 
+
+import okkindred.views
 
 admin.autodiscover()
 
-handler403 = 'okkindred.views.handler403'
+handler404 = 'okkindred.views.handler404'
+handler505 = 'okkindred.views.handler405'
 
 urlpatterns = [
 
@@ -35,6 +38,11 @@ urlpatterns = [
 
     # Gallery views
     path('', include('gallery.urls')),
+
+    # Django Rest Docs
+    path('api/docs/', include_docs_urls(title='ok!Kindred APIs')),
+
+    path('', include('auth_api.urls')),
 
     # Person API
     path('', include('person_api.urls')),

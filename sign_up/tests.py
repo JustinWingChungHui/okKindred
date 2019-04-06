@@ -131,7 +131,7 @@ class SignUpTestCase(TestCase): # pragma: no cover
         family = Family.objects.create(description="johnny two accounts")
         User.objects.create_user(email='john2accounts@email.com', password='fraudster', name='johnny two accounts', family_id=family.id)
 
-        self.client.login(email='john2accounts@email.com', password='fraudster')
+        self.client.post('/accounts/auth/',  {'username': 'john2accounts@email.com', 'password': 'fraudster'})
         response = self.client.get('/accounts/sign_up/')
 
         self.assertEqual(404, response.status_code)

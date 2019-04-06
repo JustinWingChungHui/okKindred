@@ -62,7 +62,7 @@ class TestImageViews(TestCase): # pragma: no cover
         Tests the gallery view loads and uses the correct template
         '''
 
-        self.client.login(email='badger@queenonline.com', password='save the badgers')
+        self.client.post('/accounts/auth/',  {'username': 'badger@queenonline.com', 'password': 'save the badgers'})
         response = self.client.get('/gallery={0}/'.format(self.gallery.id))
 
         self.assertEqual(response.status_code, 200)
@@ -72,7 +72,7 @@ class TestImageViews(TestCase): # pragma: no cover
         '''
         Tests gallery does not lad for another family
         '''
-        self.client.login(email='weebl@queenonline.com', password='mushroom')
+        self.client.post('/accounts/auth/',  {'username': 'weebl@queenonline.com', 'password': 'mushroom'})
         response = self.client.get('/gallery={0}/'.format(self.gallery.id))
 
         self.assertEqual(response.status_code, 404)
@@ -96,7 +96,7 @@ class TestImageViews(TestCase): # pragma: no cover
                 )
         im.save()
 
-        self.client.login(email='badger@queenonline.com', password='save the badgers')
+        self.client.post('/accounts/auth/',  {'username': 'badger@queenonline.com', 'password': 'save the badgers'})
         response = self.client.get('/gallery={0}/image={1}/'.format(self.gallery.id, im.id))
 
         im.delete_local_image_files()
@@ -113,7 +113,7 @@ class TestImageViews(TestCase): # pragma: no cover
         for i in self.images:
             i.save()
 
-        self.client.login(email='badger@queenonline.com', password='save the badgers')
+        self.client.post('/accounts/auth/',  {'username': 'badger@queenonline.com', 'password': 'save the badgers'})
         response = self.client.get('/gallery={0}/image_data=1/'.format(self.gallery.id))
 
         #Clear up
@@ -134,7 +134,7 @@ class TestImageViews(TestCase): # pragma: no cover
         for i in self.images:
             i.save()
 
-        self.client.login(email='badger@queenonline.com', password='save the badgers')
+        self.client.post('/accounts/auth/',  {'username': 'badger@queenonline.com', 'password': 'save the badgers'})
         response = self.client.get('/gallery={0}/image_data=2/'.format(self.gallery.id))
 
         #Clear up
@@ -155,7 +155,7 @@ class TestImageViews(TestCase): # pragma: no cover
         for i in self.images:
             i.save()
 
-        self.client.login(email='badger@queenonline.com', password='save the badgers')
+        self.client.post('/accounts/auth/',  {'username': 'badger@queenonline.com', 'password': 'save the badgers'})
         response = self.client.get('/gallery={0}/image_data=100/'.format(self.gallery.id))
 
         #Clear up
@@ -175,7 +175,7 @@ class TestImageViews(TestCase): # pragma: no cover
         another_family = Family.objects.create()
         User.objects.create_user(email='chris_lintott@queenonline.com', password='bang', name='Chris Lintott', family_id=another_family.id)
 
-        self.client.login(email='chris_lintott@queenonline.com', password='bang')
+        self.client.post('/accounts/auth/',  {'username': 'chris_lintott@queenonline.com', 'password': 'bang'})
         response = self.client.get('/gallery={0}/image_data=1/'.format(self.gallery.id))
 
         self.assertEqual(response.status_code, 404)
@@ -186,7 +186,7 @@ class TestImageViews(TestCase): # pragma: no cover
         Tests that the upload images view loads
         '''
 
-        self.client.login(email='badger@queenonline.com', password='save the badgers')
+        self.client.post('/accounts/auth/',  {'username': 'badger@queenonline.com', 'password': 'save the badgers'})
         response = self.client.get('/gallery={0}/upload_images/'.format(self.gallery.id))
 
         self.assertEqual(response.status_code, 200)
@@ -197,7 +197,7 @@ class TestImageViews(TestCase): # pragma: no cover
         Tests that the upload images view loads
         '''
 
-        self.client.login(email='weebl@queenonline.com', password='mushroom')
+        self.client.post('/accounts/auth/',  {'username': 'weebl@queenonline.com', 'password': 'mushroom'})
         response = self.client.get('/gallery={0}/upload_images/'.format(self.gallery.id))
 
         self.assertEqual(response.status_code, 404)
@@ -222,7 +222,7 @@ class TestImageViews(TestCase): # pragma: no cover
         '''
         test we can upload single photo via post
         '''
-        self.client.login(email='badger@queenonline.com', password='save the badgers')
+        self.client.post('/accounts/auth/',  {'username': 'badger@queenonline.com', 'password': 'save the badgers'})
         with open(self.test_image, 'rb') as fp:
             response = self.client.post('/gallery={0}/upload_images_post/'.format(self.gallery.id),{'files': fp})
 
@@ -236,7 +236,7 @@ class TestImageViews(TestCase): # pragma: no cover
         '''
         test we can upload single photo via post
         '''
-        self.client.login(email='weebl@queenonline.com', password='mushroom')
+        self.client.post('/accounts/auth/',  {'username': 'weebl@queenonline.com', 'password': 'mushroom'})
         with open(self.test_image, 'rb') as fp:
             response = self.client.post('/gallery={0}/upload_images_post/'.format(self.gallery.id),{'files': fp})
 
@@ -257,7 +257,7 @@ class TestImageViews(TestCase): # pragma: no cover
 
         im.save()
 
-        self.client.login(email='badger@queenonline.com', password='save the badgers')
+        self.client.post('/accounts/auth/',  {'username': 'badger@queenonline.com', 'password': 'save the badgers'})
         response = self.client.get('/image={0}/details/'.format(im.id))
 
         self.assertEqual(200, response.status_code)
@@ -276,7 +276,7 @@ class TestImageViews(TestCase): # pragma: no cover
                 )
         im.save()
 
-        self.client.login(email='weebl@queenonline.com', password='mushroom')
+        self.client.post('/accounts/auth/',  {'username': 'weebl@queenonline.com', 'password': 'mushroom'})
         response = self.client.get('/image={0}/details/'.format(im.id))
 
         self.assertEqual(404, response.status_code)
@@ -294,7 +294,7 @@ class TestImageViews(TestCase): # pragma: no cover
                 )
         im.save()
 
-        self.client.login(email='badger@queenonline.com', password='save the badgers')
+        self.client.post('/accounts/auth/',  {'username': 'badger@queenonline.com', 'password': 'save the badgers'})
         response = self.client.post('/image={0}/update/'.format(im.id), {'pk': im.id, 'name': 'title', 'value': 'the show must go on'})
 
         #Reload image
@@ -318,7 +318,7 @@ class TestImageViews(TestCase): # pragma: no cover
                 )
         im.save()
 
-        self.client.login(email='weebl@queenonline.com', password='mushroom')
+        self.client.post('/accounts/auth/',  {'username': 'weebl@queenonline.com', 'password': 'mushroom'})
         response = self.client.post('/image={0}/update/'.format(im.id), {'pk': im.id, 'name': 'title', 'value': 'the show must go on'})
 
         #Reload image
@@ -341,7 +341,7 @@ class TestImageViews(TestCase): # pragma: no cover
                 )
         im.save()
 
-        self.client.login(email='weebl@queenonline.com', password='mushroom')
+        self.client.post('/accounts/auth/',  {'username': 'weebl@queenonline.com', 'password': 'mushroom'})
         response = self.client.post('/image={0}/update/'.format(im.id), {'pk': im.id, 'name': 'id', 'value': 1})
 
         self.assertEqual(404, response.status_code)
@@ -359,7 +359,7 @@ class TestImageViews(TestCase): # pragma: no cover
                 )
         im.save()
 
-        self.client.login(email='badger@queenonline.com', password='save the badgers')
+        self.client.post('/accounts/auth/',  {'username': 'badger@queenonline.com', 'password': 'save the badgers'})
         response = self.client.post('/image={0}/delete/'.format(im.id))
 
         self.assertEqual(302, response.status_code)
@@ -378,7 +378,7 @@ class TestImageViews(TestCase): # pragma: no cover
                 )
         im.save()
 
-        self.client.login(email='weebl@queenonline.com', password='mushroom')
+        self.client.post('/accounts/auth/',  {'username': 'weebl@queenonline.com', 'password': 'mushroom'})
         response = self.client.post('/image={0}/delete/'.format(im.id))
 
         self.assertEqual(404, response.status_code)
@@ -397,7 +397,7 @@ class TestImageViews(TestCase): # pragma: no cover
                 )
         im.save()
 
-        self.client.login(email='badger@queenonline.com', password='save the badgers')
+        self.client.post('/accounts/auth/',  {'username': 'badger@queenonline.com', 'password': 'save the badgers'})
         response = self.client.post('/image={0}/make_gallery_thumbnail/'.format(im.id))
 
         self.assertEqual(302, response.status_code)
@@ -417,7 +417,7 @@ class TestImageViews(TestCase): # pragma: no cover
                 )
         im.save()
 
-        self.client.login(email='weebl@queenonline.com', password='mushroom')
+        self.client.post('/accounts/auth/',  {'username': 'weebl@queenonline.com', 'password': 'mushroom'})
         response = self.client.post('/image={0}/make_gallery_thumbnail/'.format(im.id))
 
         self.assertEqual(404, response.status_code)
@@ -428,7 +428,7 @@ class TestImageViews(TestCase): # pragma: no cover
         Test that the person gallery view loads
         '''
         p = Person.objects.create(name='badger', family_id=self.family.id)
-        self.client.login(email='badger@queenonline.com', password='save the badgers')
+        self.client.post('/accounts/auth/',  {'username': 'badger@queenonline.com', 'password': 'save the badgers'})
         response = self.client.get('/person={0}/photos/'.format(p.id))
 
         self.assertEqual(200, response.status_code)
@@ -439,7 +439,7 @@ class TestImageViews(TestCase): # pragma: no cover
         Test that the person gallery view does not load for another family
         '''
         p = Person.objects.create(name='mrs badger', family_id=self.family.id)
-        self.client.login(email='weebl@queenonline.com', password='mushroom')
+        self.client.post('/accounts/auth/',  {'username': 'weebl@queenonline.com', 'password': 'mushroom'})
         response = self.client.get('/person={0}/photos/'.format(p.id))
 
         self.assertEqual(404, response.status_code)
@@ -463,7 +463,7 @@ class TestImageViews(TestCase): # pragma: no cover
                 )
         im.save()
 
-        self.client.login(email='badger@queenonline.com', password='save the badgers')
+        self.client.post('/accounts/auth/',  {'username': 'badger@queenonline.com', 'password': 'save the badgers'})
         response = self.client.get('/person={0}/photos/image={1}/'.format(p.id, im.id))
 
         im.delete_local_image_files()
@@ -491,7 +491,7 @@ class TestImageViews(TestCase): # pragma: no cover
         image.save
 
         p = Person.objects.create(name='badger', family_id=self.family.id)
-        self.client.login(email='badger@queenonline.com', password='save the badgers')
+        self.client.post('/accounts/auth/',  {'username': 'badger@queenonline.com', 'password': 'save the badgers'})
         response = self.client.get('/person={0}/photos/image={1}/'.format(p.id, image.id))
 
         self.assertEqual(404, response.status_code)
@@ -509,7 +509,7 @@ class TestImageViews(TestCase): # pragma: no cover
             i.save()
             Tag.objects.create(image=i, person=p, x1=0.1, x2=0.2, y1=0.2, y2=0.3)
 
-        self.client.login(email='badger@queenonline.com', password='save the badgers')
+        self.client.post('/accounts/auth/',  {'username': 'badger@queenonline.com', 'password': 'save the badgers'})
         response = self.client.get('/person={0}/photos/image_data=0/'.format(p.id))
 
         self.assertEqual(200, response.status_code)
@@ -524,7 +524,7 @@ class TestImageViews(TestCase): # pragma: no cover
             i.delete_remote_image_files()
 
         #Check cannot be loaded by another family
-        self.client.login(email='weebl@queenonline.com', password='mushroom')
+        self.client.post('/accounts/auth/',  {'username': 'weebl@queenonline.com', 'password': 'mushroom'})
         new_response = self.client.get('/person={0}/photos/image_data=1/'.format(p.id))
         self.assertEqual(404, new_response.status_code)
 
@@ -546,7 +546,7 @@ class TestImageViews(TestCase): # pragma: no cover
                 )
         im.save()
 
-        self.client.login(email='badger@queenonline.com', password='save the badgers')
+        self.client.post('/accounts/auth/',  {'username': 'badger@queenonline.com', 'password': 'save the badgers'})
         response = self.client.post('/image={0}/address/'.format(im.id), {'address': 'Freddie Mercury Statue Montreux Switzerland'})
 
         im.delete_local_image_files()
@@ -577,7 +577,7 @@ class TestImageViews(TestCase): # pragma: no cover
                 )
         im.save()
 
-        self.client.login(email='weebl@queenonline.com', password='mushroom')
+        self.client.post('/accounts/auth/',  {'username': 'weebl@queenonline.com', 'password': 'mushroom'})
         response = self.client.post('/image={0}/address/'.format(im.id), {'address': 'Freddie Mercury Montreux'})
 
         im.delete_local_image_files()
@@ -589,7 +589,7 @@ class TestImageViews(TestCase): # pragma: no cover
         '''
         Test a404 raised with invalid image id
         '''
-        self.client.login(email='badger@queenonline.com', password='save the badgers')
+        self.client.post('/accounts/auth/',  {'username': 'badger@queenonline.com', 'password': 'save the badgers'})
         response = self.client.post('/image=997/address/', {'address': 'Freddie Mercury Montreux'})
 
         self.assertEqual(404, response.status_code)
@@ -623,7 +623,7 @@ class TestImageViews(TestCase): # pragma: no cover
                 person_id=p.id)
         tag.save()
 
-        self.client.login(email='badger@queenonline.com', password='save the badgers')
+        self.client.post('/accounts/auth/',  {'username': 'badger@queenonline.com', 'password': 'save the badgers'})
         response = self.client.post('/image={0}/rotate/'.format(im.id), {'anticlockwise_angle': '90'})
 
         self.assertNotEqual(404, response.status_code)
@@ -659,7 +659,7 @@ class TestImageViews(TestCase): # pragma: no cover
                 person_id=p.id)
         tag.save()
 
-        self.client.login(email='weebl@queenonline.com', password='mushroom')
+        self.client.post('/accounts/auth/',  {'username': 'weebl@queenonline.com', 'password': 'mushroom'})
         response = self.client.post('/image={0}/rotate/'.format(im.id), {'anticlockwise_angle': '90'})
 
         self.assertEqual(404, response.status_code)

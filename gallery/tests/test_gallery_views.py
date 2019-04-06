@@ -33,7 +33,7 @@ class TestGalleryViews(TestCase): # pragma: no cover
         Tests the gallery index view loads and uses the correct template
         '''
 
-        self.client.login(email='delilah@queenonline.com', password='meow')
+        self.client.post('/accounts/auth/',  {'username': 'delilah@queenonline.com', 'password': 'meow'})
         response = self.client.get('/gallery/')
 
         self.assertEqual(200, response.status_code)
@@ -43,7 +43,7 @@ class TestGalleryViews(TestCase): # pragma: no cover
         '''
         Tests that user only gets the galleries associated with users family
         '''
-        self.client.login(email='mack@queenonline.com', password='theworks')
+        self.client.post('/accounts/auth/',  {'username': 'mack@queenonline.com', 'password': 'theworks'})
         response = self.client.get('/gallery/gallery_data=1/')
 
         self.assertEqual(200, response.status_code)
@@ -53,7 +53,7 @@ class TestGalleryViews(TestCase): # pragma: no cover
         '''
         Tests that the gallery data returns correct json data
         '''
-        self.client.login(email='delilah@queenonline.com', password='meow')
+        self.client.post('/accounts/auth/',  {'username': 'delilah@queenonline.com', 'password': 'meow'})
         response = self.client.get('/gallery/gallery_data=1/')
 
         self.assertEqual(200, response.status_code)
@@ -78,7 +78,7 @@ class TestGalleryViews(TestCase): # pragma: no cover
         '''
         Tests that the gallery data returns a blank data if at end
         '''
-        self.client.login(email='delilah@queenonline.com', password='meow')
+        self.client.post('/accounts/auth/',  {'username': 'delilah@queenonline.com', 'password': 'meow'})
         response = self.client.get('/gallery/gallery_data=3/')
 
         self.assertEqual(200, response.status_code)
@@ -88,7 +88,7 @@ class TestGalleryViews(TestCase): # pragma: no cover
         '''
         Tests the gallery index view loads and uses the correct template
         '''
-        self.client.login(email='delilah@queenonline.com', password='meow')
+        self.client.post('/accounts/auth/',  {'username': 'delilah@queenonline.com', 'password': 'meow'})
         response = self.client.get('/new_gallery/')
 
         self.assertEqual(200, response.status_code)
@@ -101,7 +101,7 @@ class TestGalleryViews(TestCase): # pragma: no cover
         '''
         gallery = Gallery.objects.get(title="title1")
 
-        self.client.login(email='delilah@queenonline.com', password='meow')
+        self.client.post('/accounts/auth/',  {'username': 'delilah@queenonline.com', 'password': 'meow'})
         response = self.client.get('/gallery={0}/edit/'.format(gallery.id))
 
         self.assertEqual(200, response.status_code)
@@ -114,7 +114,7 @@ class TestGalleryViews(TestCase): # pragma: no cover
         '''
         gallery = Gallery.objects.get(title="title1")
 
-        self.client.login(email='mack@queenonline.com', password='theworks')
+        self.client.post('/accounts/auth/',  {'username': 'mack@queenonline.com', 'password': 'theworks'})
         response = self.client.get('/gallery={0}/edit/'.format(gallery.id))
 
         self.assertEqual(404, response.status_code)
@@ -124,7 +124,7 @@ class TestGalleryViews(TestCase): # pragma: no cover
         '''
         test we can create a new gallery
         '''
-        self.client.login(email='delilah@queenonline.com', password='meow')
+        self.client.post('/accounts/auth/',  {'username': 'delilah@queenonline.com', 'password': 'meow'})
 
         response = self.client.post('/new_gallery/', {'id': 0, 'title': 'new test gallery', 'description': 'new gallery description'})
 
@@ -142,7 +142,7 @@ class TestGalleryViews(TestCase): # pragma: no cover
         '''
         gallery = Gallery.objects.get(title="title1")
 
-        self.client.login(email='delilah@queenonline.com', password='meow')
+        self.client.post('/accounts/auth/',  {'username': 'delilah@queenonline.com', 'password': 'meow'})
 
         response = self.client.post('/gallery={0}/edit/'.format(gallery.id), {'title': 'new test gallery edit', 'description': 'new gallery description edit'})
 
@@ -161,7 +161,7 @@ class TestGalleryViews(TestCase): # pragma: no cover
         '''
         gallery = Gallery.objects.get(title="title1")
 
-        self.client.login(email='mack@queenonline.com', password='theworks')
+        self.client.post('/accounts/auth/',  {'username': 'mack@queenonline.com', 'password': 'theworks'})
 
         response = self.client.post('/gallery={0}/edit/'.format(gallery.id), {'id': gallery.id, 'title': 'new test gallery', 'description': 'new gallery description'})
 
@@ -174,7 +174,7 @@ class TestGalleryViews(TestCase): # pragma: no cover
         '''
         gallery_to_delete = Gallery.objects.create(family_id=self.family.id, title="title")
 
-        self.client.login(email='mack@queenonline.com', password='theworks')
+        self.client.post('/accounts/auth/',  {'username': 'mack@queenonline.com', 'password': 'theworks'})
         response = self.client.post('/gallery={0}/delete/'.format(gallery_to_delete.id))
 
         self.assertEqual(404, response.status_code)
@@ -185,7 +185,7 @@ class TestGalleryViews(TestCase): # pragma: no cover
         '''
         gallery_to_delete = Gallery.objects.create(family_id=self.family.id, title="title")
 
-        self.client.login(email='delilah@queenonline.com', password='meow')
+        self.client.post('/accounts/auth/',  {'username': 'delilah@queenonline.com', 'password': 'meow'})
         response = self.client.post('/gallery={0}/delete/'.format(gallery_to_delete.id))
 
         self.assertEqual(302, response.status_code)

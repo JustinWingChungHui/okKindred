@@ -53,7 +53,7 @@ class TestProfileViews(TestCase): # pragma: no cover
         '''
         Tests that the users home screen loads and uses the correct template
         '''
-        self.client.login(email='john_deacon@email.com', password='invisible man')
+        self.client.post('/accounts/auth/',  {'username': 'john_deacon@email.com', 'password': 'invisible man'})
         response = self.client.get('/profile={0}/'.format(self.person.id))
         self.assertEqual(200, response.status_code)
         self.assertTemplateUsed(response, 'family_tree/profile.html')
@@ -63,7 +63,7 @@ class TestProfileViews(TestCase): # pragma: no cover
         '''
         Test that people in different families cannot see profile
         '''
-        self.client.login(email='prince_vultan@email.com', password="gordon's alive")
+        self.client.post('/accounts/auth/',  {'username': 'prince_vultan@email.com', 'password': "gordon's alive"})
         response = self.client.get('/profile={0}/'.format(self.person.id))
         self.assertEqual(404, response.status_code)
 
@@ -72,7 +72,7 @@ class TestProfileViews(TestCase): # pragma: no cover
         '''
         Tests that the edit profile view loads and uses the correct template
         '''
-        self.client.login(email='john_deacon@email.com', password='invisible man')
+        self.client.post('/accounts/auth/',  {'username': 'john_deacon@email.com', 'password': 'invisible man'})
         response = self.client.get('/edit_profile={0}/'.format(self.person.id))
         self.assertEqual(200, response.status_code)
         self.assertTemplateUsed(response, 'family_tree/edit_profile.html')
@@ -82,7 +82,7 @@ class TestProfileViews(TestCase): # pragma: no cover
         '''
         Test that people in different families cannot see profile
         '''
-        self.client.login(email='prince_vultan@email.com', password="gordon's alive")
+        self.client.post('/accounts/auth/',  {'username': 'prince_vultan@email.com', 'password': "gordon's alive"})
         response = self.client.get('/edit_profile={0}/'.format(self.person.id))
         self.assertEqual(404, response.status_code)
 
@@ -91,7 +91,7 @@ class TestProfileViews(TestCase): # pragma: no cover
         '''
         Tests that get requests are not allowed
         '''
-        self.client.login(email='john_deacon@email.com', password='invisible man')
+        self.client.post('/accounts/auth/',  {'username': 'john_deacon@email.com', 'password': 'invisible man'})
         response = self.client.get('/update_person={0}/'.format(self.person2.id))
         self.assertEqual(405, response.status_code)
         self.assertEqual(b"Only POST requests allowed", response.content)
@@ -101,7 +101,7 @@ class TestProfileViews(TestCase): # pragma: no cover
         '''
         Tests that an invalid response is sent when trying to change a person that does not exist
         '''
-        self.client.login(email='john_deacon@email.com', password='invisible man')
+        self.client.post('/accounts/auth/',  {'username': 'john_deacon@email.com', 'password': 'invisible man'})
         response = self.client.post('/update_person=204/', {'pk': 204, 'name': 'name', 'value': 'new name'})
         self.assertEqual(404, response.status_code)
 
@@ -110,7 +110,7 @@ class TestProfileViews(TestCase): # pragma: no cover
         '''
         Tests that an invalid response is sent when trying to change a persons profile that is locked
         '''
-        self.client.login(email='john_deacon@email.com', password='invisible man')
+        self.client.post('/accounts/auth/',  {'username': 'john_deacon@email.com', 'password': 'invisible man'})
         response = self.client.post('/update_person={0}/'.format(self.person2.id), {'pk': self.person2.id, 'name': 'name', 'value': 'new name'})
         self.assertEqual(405, response.status_code)
         self.assertEqual(b"Access denied to locked profile", response.content)
@@ -119,7 +119,7 @@ class TestProfileViews(TestCase): # pragma: no cover
         '''
         Test cannot update non-whitelisted properties through api
         '''
-        self.client.login(email='john_deacon@email.com', password='invisible man')
+        self.client.post('/accounts/auth/',  {'username': 'john_deacon@email.com', 'password': 'invisible man'})
         response = self.client.post('/update_person={0}/'.format(self.person2.id), {'pk': self.person2.id, 'name': 'family_id', 'value': self.family.id})
         self.assertEqual(405, response.status_code)
         self.assertEqual(b"Access denied to locked profile", response.content)
@@ -128,7 +128,7 @@ class TestProfileViews(TestCase): # pragma: no cover
         '''
         Tests that a field can be updated through api
         '''
-        self.client.login(email='john_deacon@email.com', password='invisible man')
+        self.client.post('/accounts/auth/',  {'username': 'john_deacon@email.com', 'password': 'invisible man'})
         response = self.client.post('/update_person={0}/'.format(self.person.id), {'pk': self.person.id, 'name': 'name', 'value': 'Brian Harold May'})
         self.assertEqual(200, response.status_code)
         self.person = Person.objects.get(id=self.person.id)
@@ -139,7 +139,7 @@ class TestProfileViews(TestCase): # pragma: no cover
         Tests that email field can be updated through api and is always saved as
         lower case
         '''
-        self.client.login(email='john_deacon@email.com', password='invisible man')
+        self.client.post('/accounts/auth/',  {'username': 'john_deacon@email.com', 'password': 'invisible man'})
         response = self.client.post('/update_person={0}/'.format(self.person.id), {'pk': self.person.id, 'name': 'email', 'value': 'BrianHaroldMay@QueenOnline.com'})
         self.assertEqual(200, response.status_code)
         self.person = Person.objects.get(id=self.person.id)
@@ -150,7 +150,7 @@ class TestProfileViews(TestCase): # pragma: no cover
         '''
         Tests that a field can be updated through api
         '''
-        self.client.login(email='prince_vultan@email.com', password="gordon's alive")
+        self.client.post('/accounts/auth/',  {'username': 'prince_vultan@email.com', 'password': "gordon's alive"})
         response = self.client.post('/update_person={0}/'.format(self.person.id), {'pk': self.person.id, 'name': 'name', 'value': 'Brian Harold May'})
         self.assertEqual(404, response.status_code)
 
@@ -159,7 +159,7 @@ class TestProfileViews(TestCase): # pragma: no cover
         '''
         Tests that a person field can be updated through api by a user who is not that person
         '''
-        self.client.login(email='freddie_mercury@email.com', password='my love is dangerous')
+        self.client.post('/accounts/auth/',  {'username': 'freddie_mercury@email.com', 'password': 'my love is dangerous'})
         response = self.client.post('/update_person={0}/'.format(self.person.id), {'pk': self.person.id, 'name': 'name', 'value': 'John Richard Deacon'})
         self.assertEqual(200, response.status_code)
         self.person = Person.objects.get(id=self.person.id)
@@ -171,7 +171,7 @@ class TestProfileViews(TestCase): # pragma: no cover
         '''
         Tests that a boolean field can be updated through api
         '''
-        self.client.login(email='john_deacon@email.com', password='invisible man')
+        self.client.post('/accounts/auth/',  {'username': 'john_deacon@email.com', 'password': 'invisible man'})
         response = self.client.post('/update_person={0}/'.format(self.person.id), {'pk': self.person.id, 'name': 'locked', 'value': '1'})
         self.assertEqual(200, response.status_code)
         self.person = Person.objects.get(id=self.person.id)
@@ -187,7 +187,7 @@ class TestProfileViews(TestCase): # pragma: no cover
         Tests that an invalid response is sent when trying to change a persons profile that is attached
         to a confirmed user
         '''
-        self.client.login(email='john_deacon@email.com', password='invisible man')
+        self.client.post('/accounts/auth/',  {'username': 'john_deacon@email.com', 'password': 'invisible man'})
         response = self.client.post('/update_person={0}/'.format(self.confirmed_person.id), {'pk': self.confirmed_person.id, 'name': 'email', 'value': 'general_kala@evil.com'})
         self.assertEqual(405, response.status_code)
         self.assertEqual(b"Access denied to change confirmed user settings", response.content)
@@ -197,7 +197,7 @@ class TestProfileViews(TestCase): # pragma: no cover
         '''
         Tests that an invalid response is sent when trying to change a person that does not exist
         '''
-        self.client.login(email='john_deacon@email.com', password='invisible man')
+        self.client.post('/accounts/auth/',  {'username': 'john_deacon@email.com', 'password': 'invisible man'})
         response = self.client.post('/update_biography=999/', {'biography': 'new content'})
         self.assertEqual(404, response.status_code)
 
@@ -205,7 +205,7 @@ class TestProfileViews(TestCase): # pragma: no cover
         '''
         Tests that an invalid response is sent when trying to change the biography of a locked profile
         '''
-        self.client.login(email='john_deacon@email.com', password='invisible man')
+        self.client.post('/accounts/auth/',  {'username': 'john_deacon@email.com', 'password': 'invisible man'})
         response = self.client.post('/update_biography={0}/'.format(self.person2.id), {'biography': 'new content'})
         self.assertEqual(405, response.status_code)
         self.assertEqual(b"Access denied to locked profile", response.content)
@@ -215,7 +215,7 @@ class TestProfileViews(TestCase): # pragma: no cover
         '''
         Tests that biography content can be updated through api when a biography already exists
         '''
-        self.client.login(email='john_deacon@email.com', password='invisible man')
+        self.client.post('/accounts/auth/',  {'username': 'john_deacon@email.com', 'password': 'invisible man'})
         response = self.client.post('/update_biography={0}/'.format(self.person.id), {'biography': 'new content'})
         self.assertEqual(200, response.status_code)
         self.person = Person.objects.get(id=self.person.id)
@@ -225,7 +225,7 @@ class TestProfileViews(TestCase): # pragma: no cover
         '''
         Tests that a field cannot be updated by another family through api
         '''
-        self.client.login(email='prince_vultan@email.com', password="gordon's alive")
+        self.client.post('/accounts/auth/',  {'username': 'prince_vultan@email.com', 'password': "gordon's alive"})
         response = self.client.post('/update_biography={0}/'.format(self.person.id), {'biography': 'new content'})
         self.assertEqual(404, response.status_code)
 
@@ -234,7 +234,7 @@ class TestProfileViews(TestCase): # pragma: no cover
         '''
         Tests that biography content can be updated through api when a biography already exists
         '''
-        self.client.login(email='freddie_mercury@email.com', password='my love is dangerous')
+        self.client.post('/accounts/auth/',  {'username': 'freddie_mercury@email.com', 'password': 'my love is dangerous'})
         response = self.client.post('/update_biography={0}/'.format(self.person2.id), {'biography': 'new content'})
         self.assertEqual(200, response.status_code)
         self.person2 = Person.objects.get(id=self.person2.id)
@@ -244,7 +244,7 @@ class TestProfileViews(TestCase): # pragma: no cover
         '''
         Make sure that you cannot delete the profile of someone who is a user
         '''
-        self.client.login(email='freddie_mercury@email.com', password='my love is dangerous')
+        self.client.post('/accounts/auth/',  {'username': 'freddie_mercury@email.com', 'password': 'my love is dangerous'})
 
         response = self.client.get('/delete={0}/'.format(self.person.id))
 
@@ -263,7 +263,7 @@ class TestProfileViews(TestCase): # pragma: no cover
         person = Person.objects.create(name='David Tennant', gender='M', family_id=self.family.id)
         person.save()
 
-        self.client.login(email='freddie_mercury@email.com', password='my love is dangerous')
+        self.client.post('/accounts/auth/',  {'username': 'freddie_mercury@email.com', 'password': 'my love is dangerous'})
 
         response = self.client.get('/delete={0}/'.format(person.id))
 

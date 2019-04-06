@@ -40,8 +40,9 @@ class TestRelationViews(TestCase): # pragma: no cover
         '''
         Tests that the add_relation_view loads and uses the correct template
         '''
-        self.client.login(email='prince_barin@flash.com', password='arboria')
+        self.client.post('/accounts/auth/',  {'username': 'prince_barin@flash.com', 'password': 'arboria'})
         response = self.client.get('/add_relation={0}/'.format(self.person.id))
+
         self.assertEqual(200, response.status_code)
         self.assertTemplateUsed(response, 'family_tree/add_relation.html')
 
@@ -50,7 +51,7 @@ class TestRelationViews(TestCase): # pragma: no cover
         '''
         Tests that the add relation api rejects incorrect data
         '''
-        self.client.login(email='prince_barin@flash.com', password='arboria')
+        self.client.post('/accounts/auth/',  {'username': 'prince_barin@flash.com', 'password': 'arboria'})
         response = self.client.post('/add_relation_post={0}/'.format(self.person.id),{'existing_person': '0', 'relation_type': '4',})
         self.assertEqual(404, response.status_code)
 
@@ -58,7 +59,7 @@ class TestRelationViews(TestCase): # pragma: no cover
         '''
         Tests that the add relation api rejects incorrect data
         '''
-        self.client.login(email='prince_barin@flash.com', password='arboria')
+        self.client.post('/accounts/auth/',  {'username': 'prince_barin@flash.com', 'password': 'arboria'})
         response = self.client.post('/add_relation_post={0}/'.format(self.person.id),{'existing_person': '0', 'relation_type': '1', 'name': ''})
         self.assertEqual(404, response.status_code)
 
@@ -66,7 +67,7 @@ class TestRelationViews(TestCase): # pragma: no cover
         '''
         Tests that the add relation api rejects incorrect data
         '''
-        self.client.login(email='prince_barin@flash.com', password='arboria')
+        self.client.post('/accounts/auth/',  {'username': 'prince_barin@flash.com', 'password': 'arboria'})
         response = self.client.post('/add_relation_post={0}/'.format(self.person.id),{'existing_person': '0', 'relation_type': '1', 'name': 'Princess Aura', 'language': 'Klingon'})
         self.assertEqual(404, response.status_code)
 
@@ -74,7 +75,7 @@ class TestRelationViews(TestCase): # pragma: no cover
         '''
         Tests that the add relation api rejects incorrect data
         '''
-        self.client.login(email='prince_barin@flash.com', password='arboria')
+        self.client.post('/accounts/auth/',  {'username': 'prince_barin@flash.com', 'password': 'arboria'})
         response = self.client.post('/add_relation_post={0}/'.format(self.person.id),{'existing_person': '0', 'relation_type': '1', 'name': 'Princess Aura', 'language': 'en', 'gender': 'W'})
         self.assertEqual(404, response.status_code)
 
@@ -82,7 +83,7 @@ class TestRelationViews(TestCase): # pragma: no cover
         '''
         Test that the add relation api correctly creates the right records
         '''
-        self.client.login(email='prince_barin@flash.com', password='arboria')
+        self.client.post('/accounts/auth/',  {'username': 'prince_barin@flash.com', 'password': 'arboria'})
         response = self.client.post('/add_relation_post={0}/'.format(self.person.id),{'existing_person': '0', 'relation_type': '1', 'name': 'Princess Aura', 'language': 'en', 'gender': 'F'})
         self.assertEqual(302, response.status_code)
 
@@ -100,7 +101,7 @@ class TestRelationViews(TestCase): # pragma: no cover
         '''
         Test that the add relation api correctly creates the right records
         '''
-        self.client.login(email='prince_barin@flash.com', password='arboria')
+        self.client.post('/accounts/auth/',  {'username': 'prince_barin@flash.com', 'password': 'arboria'})
         response = self.client.post('/add_relation_post={0}/'.format(self.person.id),{
                                                                             'existing_person': '0',
                                                                             'relation_type': '1',
@@ -127,7 +128,7 @@ class TestRelationViews(TestCase): # pragma: no cover
         '''
         Test that the add relation api correctly creates the right records
         '''
-        self.client.login(email='prince_barin@flash.com', password='arboria')
+        self.client.post('/accounts/auth/',  {'username': 'prince_barin@flash.com', 'password': 'arboria'})
         response = self.client.post('/add_relation_post={0}/'.format(self.person.id),{'existing_person': '0', 'relation_type': '3', 'name': 'King Barin', 'language': 'en', 'gender': 'M'})
         self.assertEqual(302, response.status_code)
 
@@ -144,7 +145,7 @@ class TestRelationViews(TestCase): # pragma: no cover
         '''
         Tests that a relation can be added between two existing people sets hierarchy on any missing hierarchy scores
         '''
-        self.client.login(email='prince_barin@flash.com', password='arboria')
+        self.client.post('/accounts/auth/',  {'username': 'prince_barin@flash.com', 'password': 'arboria'})
         response = self.client.post('/add_relation_post={0}/'.format(self.person.id),{'existing_person': '1', 'relation_type': '2', 'relation_id': str(self.son.id)})
         self.assertEqual(302, response.status_code)
 
@@ -163,7 +164,7 @@ class TestRelationViews(TestCase): # pragma: no cover
         relation = Relation(from_person_id=self.vultan.id, to_person_id=self.lura.id,relation_type=PARTNERED)
         relation.save()
 
-        self.client.login(email='prince_barin@flash.com', password='arboria')
+        self.client.post('/accounts/auth/',  {'username': 'prince_barin@flash.com', 'password': 'arboria'})
         response = self.client.get('/break_relation={0}/'.format(self.vultan.id))
         self.assertEqual(200, response.status_code)
         self.assertTemplateUsed(response, 'family_tree/break_relation.html')
@@ -180,7 +181,7 @@ class TestRelationViews(TestCase): # pragma: no cover
         father_son_relation = Relation(from_person_id=self.vultan.id, to_person_id=self.vultan_junior.id,relation_type=RAISED)
         father_son_relation.save()
 
-        self.client.login(email='prince_barin@flash.com', password='arboria')
+        self.client.post('/accounts/auth/',  {'username': 'prince_barin@flash.com', 'password': 'arboria'})
         response = self.client.post('/break_relation_post={0}/'.format(self.vultan.id),{'relation_id': relation.id})
         self.assertEqual(302, response.status_code)
         self.assertEqual(0, Relation.objects.filter(from_person_id=self.vultan.id, to_person_id=self.lura.id).count())

@@ -3,11 +3,6 @@
 """
 Django settings for okkindred project.
 
-For more information on this file, see
-https://docs.djangoproject.com/en/1.7/topics/settings/
-
-For the full list of settings and their values, see
-https://docs.djangoproject.com/en/1.7/ref/settings/
 """
 from django.utils.translation import ugettext_lazy as _
 
@@ -68,6 +63,7 @@ INSTALLED_APPS = (
     'autotranslate',
     'rest_framework',
     'person_api',
+    'auth_api'
 )
 
 MIDDLEWARE = (
@@ -84,6 +80,11 @@ MIDDLEWARE = (
 
 # Custom user model
 AUTH_USER_MODEL = 'custom_user.User'
+
+AUTHENTICATION_BACKENDS = [
+    'axes.backends.AxesModelBackend',
+    'django.contrib.auth.backends.ModelBackend',
+]
 
 ROOT_URLCONF = 'okkindred.urls'
 
@@ -212,11 +213,34 @@ TEMPLATES = [
     },
 ]
 
-# Rest framwork
+# Rest framework
 REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.SessionAuthentication',
-    )
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+    'DEFAULT_THROTTLE_CLASSES': (
+        'rest_framework.throttling.AnonRateThrottle',
+        'rest_framework.throttling.UserRateThrottle'
+    ),
+    'DEFAULT_THROTTLE_RATES': {
+        'anon': '1000/day',
+        'user': '2000/day'
+    }
+}
+
+# JWT token for rest framework
+from datetime import timedelta
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+
+    'SLIDING_TOKEN_LIFETIME': timedelta(minutes=60),
+    'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
 }
 
 

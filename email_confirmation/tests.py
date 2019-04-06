@@ -193,7 +193,7 @@ class EmailConfirmationTestCase(TestCase): # pragma: no cover
         user = User.objects.create_user(email='existing_user@email.com', password='existing_user', name='Existing User')
         person = Person.objects.create(name='existing_user', gender='M', family_id=self.family.id, language='en', email='existing_user@email.com', user_id=user.id)
 
-        self.client.login(email='existing_user@email.com', password='existing_user')
+        self.client.post('/accounts/auth/',  {'username': 'existing_user@email.com', 'password': 'existing_user'})
         response = self.client.post('/accounts/invite_person={0}/'.format(person.id), follow=True, HTTP_X_REAL_IP='127.0.0.1')
         self.assertEqual(404, response.status_code)
 
@@ -209,7 +209,7 @@ class EmailConfirmationTestCase(TestCase): # pragma: no cover
                                                                 , user_who_invited_person_id=self.user.id
                                                                 , sent=timezone.now())
 
-        self.client.login(email='zandra_rhodes@email.com', password='killer queen')
+        self.client.post('/accounts/auth/',  {'username': 'zandra_rhodes@email.com', 'password': 'killer queen'})
 
         response = self.client.post('/accounts/invite_person={0}/'.format(person.id))
         self.assertEqual(404, response.status_code)
@@ -221,7 +221,7 @@ class EmailConfirmationTestCase(TestCase): # pragma: no cover
         '''
         person = Person.objects.create(name='Jim Beach', gender='M', family_id=self.family.id, language='en', email='jim_beach@email.com')
 
-        self.client.login(email='zandra_rhodes@email.com', password='killer queen')
+        self.client.post('/accounts/auth/',  {'username': 'zandra_rhodes@email.com', 'password': 'killer queen'})
 
         response = self.client.post('/accounts/invite_person={0}/'.format(person.id))
         self.assertRedirects(response, '/profile={0}/'.format(person.id), status_code=302, target_status_code=200, msg_prefix='')

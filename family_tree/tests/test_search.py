@@ -35,7 +35,7 @@ class TestSearchViews(TestCase): # pragma: no cover
         '''
         Tests the search page loads correctly
         '''
-        self.client.login(email='killer_queen@email.com', password='gunpowder')
+        self.client.post('/accounts/auth/',  {'username': 'killer_queen@email.com', 'password': 'gunpowder'})
         response = self.client.get('/search/')
 
         self.assertEqual(200, response.status_code)
@@ -48,7 +48,7 @@ class TestSearchViews(TestCase): # pragma: no cover
         Tests the do search view return a search result
         '''
 
-        self.client.login(email='killer_queen@email.com', password='gunpowder')
+        self.client.post('/accounts/auth/',  {'username': 'killer_queen@email.com', 'password': 'gunpowder'})
         response = self.client.post('/get_search_results_json/'.format(self.person.id),{'search_text': 'queen',})
 
         #Check that the response is valid json
@@ -65,7 +65,7 @@ class TestSearchViews(TestCase): # pragma: no cover
         Tests the do search view return a search result
         '''
 
-        self.client.login(email='killer_queen@email.com', password='gunpowder')
+        self.client.post('/accounts/auth/',  {'username': 'killer_queen@email.com', 'password': 'gunpowder'})
         response = self.client.post('/get_search_results_json/'.format(self.person.id),{'search_text': 'queen black',})
 
         #Check that the response is valid json
