@@ -111,7 +111,7 @@ def confirm_invite_post(request, invite):
     invite.person.save()
     invite.delete()
 
-    user = auth.authenticate(username=user.email, password=password)
+    user = auth.authenticate(username=user.email, password=password, request=request)
     auth.login(request, user)
     return HttpResponseRedirect('/')
 

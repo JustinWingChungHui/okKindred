@@ -28,7 +28,7 @@ class TestCustomUserViews(TestCase): # pragma: no cover
         Test user can login with case insensitive email
         '''
         response = self.client.post('/accounts/auth/',  {'username': 'Bruce_Lee@email.com', 'password': 'enter the dragon'}, follow=True, HTTP_X_REAL_IP='127.0.0.1')
-        self.assertEqual(False, ('http://testserver/accounts/invalid', 302) in response.redirect_chain)
+        self.assertEqual(False, ('/accounts/invalid', 302) in response.redirect_chain)
 
 
     @override_settings(AXES_BEHIND_REVERSE_PROXY=False)
@@ -36,7 +36,7 @@ class TestCustomUserViews(TestCase): # pragma: no cover
         '''
         Test that the settings view is displayed correctly
         '''
-        self.client.login(email='bruce_lee@email.com', password='enter the dragon')
+        self.client.post('/accounts/auth/',  {'username': 'bruce_Lee@email.com', 'password': 'enter the dragon'})
         response = self.client.get('/settings/')
         self.assertEqual(200, response.status_code)
         self.assertTemplateUsed(response, 'custom_user/settings.html')
@@ -46,10 +46,13 @@ class TestCustomUserViews(TestCase): # pragma: no cover
         '''
         Test can receive post request to change password and check new password works
         '''
-        User.objects.create_user(email='stephen_chow@email.com', password='god of cookery', name='Stephen Chow' )
-        self.client.login(email='stephen_chow@email.com', password='god of cookery')
+        user = User.objects.create_user(email='stephen_chow@email.com', password='god of cookery', name='Stephen Chow' )
+        Person.objects.create(name='Stephen Chow', gender='M', email='stephen_chow@email.com', family_id=self.family.id, language='en', user_id=user.id)
+
+        self.client.post('/accounts/auth/',  {'username': 'stephen_chow@email.com', 'password': 'god of cookery'})
         self.client.post('/accounts/change_password/',{'password': 'shaolin soccer'})
-        self.client.login(email='stephen_chow@email.com', password='shaolin soccer')
+        response = self.client.post('/accounts/auth/',  {'username': 'stephen_chow@email.com', 'password': 'shaolin soccer'}, follow=True, HTTP_X_REAL_IP='127.0.0.1')
+        self.assertEqual(False, ('/accounts/invalid', 302) in response.redirect_chain)
 
     @override_settings(AXES_BEHIND_REVERSE_PROXY=False)
     def test_can_update_language(self):
@@ -57,7 +60,7 @@ class TestCustomUserViews(TestCase): # pragma: no cover
         Test can receive post request to change language
         '''
 
-        self.client.login(email='bruce_lee@email.com', password='enter the dragon')
+        self.client.post('/accounts/auth/',  {'username': 'bruce_Lee@email.com', 'password': 'enter the dragon'})
         self.client.post('/accounts/update_settings/',{'name': 'language', 'value': 'pl'})
 
         self.user = User.objects.get(pk=self.user.id)
@@ -71,10 +74,10 @@ class TestCustomUserViews(TestCase): # pragma: no cover
         family = Family()
         family.save()
 
-        user = User.objects.create_user(email='lau_fok_wing@email.com', password='infernal afffairs', name='Lau Fok Wing' )
+        user = User.objects.create_user(email='lau_fok_wing@email.com', password='infernal affairs', name='Lau Fok Wing' )
         Person.objects.create(name='Lau Fok Wing', gender='M', family_id=family.id, user_id = user.id)
 
-        self.client.login(email='lau_fok_wing@email.com', password='infernal afffairs')
+        self.client.post('/accounts/auth/',  {'username': 'lau_fok_wing@email.com', 'password': 'infernal affairs'})
         self.client.post('/accounts/delete/',{'delete_profile': '0',})
 
         self.assertEqual(1, Person.objects.filter(name='Lau Fok Wing').count())
@@ -90,10 +93,10 @@ class TestCustomUserViews(TestCase): # pragma: no cover
         family = Family()
         family.save()
 
-        user = User.objects.create_user(email='andy_lau@email.com', password='infernal afffairs', name='Andy Lau' )
+        user = User.objects.create_user(email='andy_lau@email.com', password='infernal affairs', name='Andy Lau' )
         Person.objects.create(name='Andy Lau', gender='M', family_id=family.id, user_id = user.id)
 
-        self.client.login(email='andy_lau@email.com', password='infernal afffairs')
+        self.client.post('/accounts/auth/',  {'username': 'andy_lau@email.com', 'password': 'infernal affairs'})
         self.client.post('/accounts/delete/',{'delete_profile': '1',})
 
         self.assertEqual(0, Person.objects.filter(name='Lau Fok Wing').count())

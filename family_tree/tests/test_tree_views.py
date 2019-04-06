@@ -49,7 +49,7 @@ class TestTreeViews(TestCase): # pragma: no cover
         '''
         Tests that the users home screen loads and uses the correct template
         '''
-        self.client.login(email='roger_taylor@queenonline.com', password='nation of haircuts')
+        self.client.post('/accounts/auth/',  {'username': 'roger_taylor@queenonline.com', 'password': 'nation of haircuts'})
         response = self.client.get('/home/')
         self.assertNotEqual(response.status_code, 404)
 
@@ -57,7 +57,7 @@ class TestTreeViews(TestCase): # pragma: no cover
         '''
         Tests that a tree view loads for a given person and uses correct template
         '''
-        self.client.login(email='roger_taylor@queenonline.com', password='nation of haircuts')
+        self.client.post('/accounts/auth/',  {'username': 'roger_taylor@queenonline.com', 'password': 'nation of haircuts'})
         response = self.client.get('/person={0}/'.format(self.person.id))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'family_tree/tree_app.html')
@@ -88,7 +88,7 @@ class TestTreeViews(TestCase): # pragma: no cover
         user = User.objects.create_user(email='khashoggi@queenonline.com', password='party', family_id = another_family.id)
         user.save()
 
-        self.client.login(email='khashoggi@queenonline.com', password='party')
+        self.client.post('/accounts/auth/',  {'username': 'khashoggi@queenonline.com', 'password': 'party'})
         response = self.client.get('/person={0}/'.format(self.person.id))
         self.assertEqual(response.status_code, 404)
 
@@ -97,7 +97,7 @@ class TestTreeViews(TestCase): # pragma: no cover
         '''
         Tests that the users home screen loads and uses the correct template
         '''
-        self.client.login(email='roger_taylor@queenonline.com', password='nation of haircuts')
+        self.client.post('/accounts/auth/',  {'username': 'roger_taylor@queenonline.com', 'password': 'nation of haircuts'})
         response = self.client.get('/how_am_i_related={0}/'.format(self.grandma.id))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'family_tree/how_am_i_related.html')
@@ -112,7 +112,7 @@ class TestTreeViews(TestCase): # pragma: no cover
         '''
         Tests that the whole tree view loads
         '''
-        self.client.login(email='roger_taylor@queenonline.com', password='nation of haircuts')
+        self.client.post('/accounts/auth/',  {'username': 'roger_taylor@queenonline.com', 'password': 'nation of haircuts'})
         response = self.client.get('/tree/all/')
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'family_tree/whole_tree.html')
@@ -122,7 +122,7 @@ class TestTreeViews(TestCase): # pragma: no cover
         '''
         Tests that the descendants view loads
         '''
-        self.client.login(email='roger_taylor@queenonline.com', password='nation of haircuts')
+        self.client.post('/accounts/auth/',  {'username': 'roger_taylor@queenonline.com', 'password': 'nation of haircuts'})
         response = self.client.get('/descendants={0}/'.format( self.grandma.id))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'family_tree/whole_tree.html')
@@ -132,7 +132,7 @@ class TestTreeViews(TestCase): # pragma: no cover
         '''
         Tests that the descendants view loads
         '''
-        self.client.login(email='roger_taylor@queenonline.com', password='nation of haircuts')
+        self.client.post('/accounts/auth/',  {'username': 'roger_taylor@queenonline.com', 'password': 'nation of haircuts'})
         response = self.client.get('/ancestors={0}/'.format( self.grandson.id))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'family_tree/whole_tree.html')
@@ -141,7 +141,7 @@ class TestTreeViews(TestCase): # pragma: no cover
         '''
         Tests that the tree data loads
         '''
-        self.client.login(email='roger_taylor@queenonline.com', password='nation of haircuts')
+        self.client.post('/accounts/auth/',  {'username': 'roger_taylor@queenonline.com', 'password': 'nation of haircuts'})
         response = self.client.get('/tree/data/')
         self.assertEqual(response.status_code, 200)
 
@@ -149,7 +149,7 @@ class TestTreeViews(TestCase): # pragma: no cover
         '''
         Tests that the tree app loads loads
         '''
-        self.client.login(email='roger_taylor@queenonline.com', password='nation of haircuts')
+        self.client.post('/accounts/auth/',  {'username': 'roger_taylor@queenonline.com', 'password': 'nation of haircuts'})
         response = self.client.get('/tree/{0}/'.format(self.person.id))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'family_tree/tree_app.html')

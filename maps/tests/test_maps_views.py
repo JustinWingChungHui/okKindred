@@ -28,7 +28,7 @@ class TestMapViews(TestCase): # pragma: no cover
         '''
         Tests that map points data can be polled
         '''
-        self.client.login(email='adam_lambert@queenonline.com', password='sexy boy')
+        self.client.post('/accounts/auth/',  {'username': 'adam_lambert@queenonline.com', 'password': 'sexy boy'})
         response = self.client.get('/map_points/')
 
         self.assertEqual(response.status_code, 200)
@@ -42,7 +42,7 @@ class TestMapViews(TestCase): # pragma: no cover
         '''
         Tests that the users home screen loads and uses the correct template
         '''
-        self.client.login(email='adam_lambert@queenonline.com', password='sexy boy')
+        self.client.post('/accounts/auth/',  {'username': 'adam_lambert@queenonline.com', 'password': 'sexy boy'})
         response = self.client.get('/map/')
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'maps/map.html')
@@ -51,7 +51,7 @@ class TestMapViews(TestCase): # pragma: no cover
         '''
         Tests that the users home screen loads and uses the correct template
         '''
-        self.client.login(email='adam_lambert@queenonline.com', password='sexy boy')
+        self.client.post('/accounts/auth/',  {'username': 'adam_lambert@queenonline.com', 'password': 'sexy boy'})
         response = self.client.get('/map={0}/'.format(self.person2.id))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'maps/map.html')
@@ -65,7 +65,7 @@ class TestMapViews(TestCase): # pragma: no cover
 
         #Create a Polish user
         user = User.objects.create_user(email='szajka@nowahuta.pl', password='nowa huta', name='Szajka', family_id=self.family.id, language='pl')
-        self.client.login(email='szajka@nowahuta.pl', password='nowa huta')
+        self.client.post('/accounts/auth/',  {'username': 'szajka@nowahuta.pl', 'password': 'nowa huta'})
         person = Person.objects.create(name='Szajka', gender='M', user_id = user.id, email='szajka@nowahuta.pl', family_id=self.family.id, language='pl')
         person.longitude = 1.1
         person.latitude = 1.2

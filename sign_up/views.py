@@ -126,7 +126,7 @@ def sign_up_confirmation_post(request, sign_up):
         raise Http404
 
     user = sign_up.complete_registration(password)
-    user = auth.authenticate(username=user.email, password=password)
+    user = auth.authenticate(username=user.email, password=password, request=request)
     auth.login(request, user)
 
     return HttpResponseRedirect('/home/')
