@@ -32,6 +32,14 @@ class PersonApiTestCase(TestCase):
                         user_id=self.user.id)
         self.person.save()
 
+        self.family2 = Family()
+        self.family2.save()
+
+        self.user2 = User.objects.create_user(email='evillovelace@example.com',
+                                        password='hacker',
+                                        name='Evil Lovelace',
+                                        family = self.family2)
+
         super(PersonApiTestCase, self).setUp()
 
 
@@ -39,6 +47,7 @@ class PersonApiTestCase(TestCase):
         client = APIClient()
         response = client.get('/api/person/', format='json')
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
 
     def test_list(self):
         client = APIClient()
@@ -57,6 +66,25 @@ class PersonApiTestCase(TestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertTrue(b'Ada Lovelace' in response.content)
 
+
+    def test_list_other_family(self):
+        client = APIClient()
+
+        # Check this works with JWT token
+        auth_details = {
+            'email': 'evillovelace@example.com',
+            'password': 'hacker'
+        }
+        auth_response = client.post('/api/auth/obtain_token/', auth_details, format='json')
+
+        token = json.loads(auth_response.content)["access"]
+
+        client.credentials(HTTP_AUTHORIZATION='Bearer ' + token)
+        response = client.get('/api/person/', format='json')
+
+        self.assertFalse(b'Ada Lovelace' in response.content)
+
+
     def test_retrieve_requires_authentication(self):
         client = APIClient()
         url = '/api/person/{0}/'.format(self.person.id)
@@ -70,3 +98,11 @@ class PersonApiTestCase(TestCase):
         response = client.get(url, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertTrue(b'Ada Lovelace' in response.content)
+
+    def test_retrieve_other_family(self):
+        client = APIClient()
+        client.force_authenticate(user=self.user2)
+        url = '/api/person/{0}/'.format(self.person.id)
+        response = client.get(url, format='json')
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+

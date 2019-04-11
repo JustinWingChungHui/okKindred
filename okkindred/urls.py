@@ -46,6 +46,9 @@ urlpatterns = [
 
     # Person API
     path('', include('person_api.urls')),
+
+    # Relation API
+    path('', include('relation_api.urls')),
 ]
 
 if settings.DEBUG:
