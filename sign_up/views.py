@@ -85,6 +85,9 @@ def is_email_in_use(email):
     if Person.objects.filter(email = email).count():
         return True
 
+    if SignUp.objects.filter(email_address = email).count():
+        return True
+
     return False
 
 def sign_up_confirmation(request, confirmation_key):
