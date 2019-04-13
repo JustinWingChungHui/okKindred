@@ -74,3 +74,6 @@ DOMAIN = 'https://YOUR_CUSTOM_DOMAIN'
 # The AWS S3 bucket in which the images will be uploaded to
 AWS_STORAGE_BUCKET_NAME = 'IMAGE_STORAGE_BUCKET_NAME'
 
+CORS_ORIGIN_WHITELIST = (
+    'ui_domain.com',
+)
