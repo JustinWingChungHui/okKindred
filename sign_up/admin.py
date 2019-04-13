@@ -1,3 +1,7 @@
 from django.contrib import admin
+from sign_up.models import SignUp
 
-# Register your models here.
+class SignUpAdmin(admin.ModelAdmin):
+    pass
+
+admin.site.register(SignUp,SignUpAdmin)

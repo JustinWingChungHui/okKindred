@@ -67,6 +67,7 @@ class JWTAuthTest(TestCase):
 
         self.assertNotEqual(response.status_code, status.HTTP_200_OK)
 
+
     def test_verify_fails_on_invalid_token(self):
         client = APIClient()
 
@@ -92,7 +93,7 @@ class JWTAuthTest(TestCase):
         }
 
         for x in range(0, 6):
-            response = client.post('/api/auth/obtain_token/', wrong_auth_details, format='json')
+            client.post('/api/auth/obtain_token/', wrong_auth_details, format='json')
 
         correct_auth_details = {
             'email': 'adelegoldberg@example.com',

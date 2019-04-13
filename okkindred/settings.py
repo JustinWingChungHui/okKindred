@@ -61,6 +61,7 @@ INSTALLED_APPS = (
     'debug_toolbar',
     'template_timings_panel',
     'autotranslate',
+    'corsheaders',
     'rest_framework',
     'person_api',
     'auth_api'
@@ -71,6 +72,7 @@ MIDDLEWARE = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.locale.LocaleMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -231,6 +233,9 @@ REST_FRAMEWORK = {
         'user': '2000/day'
     }
 }
+
+
+CORS_ORIGIN_WHITELIST = secrets.CORS_ORIGIN_WHITELIST
 
 # JWT token for rest framework
 from datetime import timedelta

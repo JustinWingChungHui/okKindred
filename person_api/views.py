@@ -29,6 +29,6 @@ class PersonViewSet(viewsets.ViewSet):
         Gets a single person record
         '''
         queryset = Person.objects.filter(family_id = request.user.family_id)
-        user = get_object_or_404(queryset, pk=pk)
-        serializer = PersonSerializer(user)
+        person = get_object_or_404(queryset, pk=pk)
+        serializer = PersonSerializer(person)
         return Response(serializer.data)
