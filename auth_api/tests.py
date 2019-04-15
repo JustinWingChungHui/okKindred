@@ -6,6 +6,7 @@ import json
 import time
 
 from family_tree.models.family import Family
+from family_tree.models.person import Person
 from custom_user.models import User
 
 @override_settings(SECURE_SSL_REDIRECT=False, AXES_BEHIND_REVERSE_PROXY=False)
@@ -22,6 +23,14 @@ class JWTAuthTest(TestCase):
                                         password='compiler',
                                         name='Grace Hopper',
                                         family_id = self.family.id)
+
+        self.person = Person(name='Grace Hopper',
+                        gender='F',
+                        email='gracehopper@example.com',
+                        family_id=self.family.id,
+                        language='en',
+                        user_id=self.user.id)
+        self.person.save()
 
     def test_jwt_auth_and_refresh_token_created_on_correct_auth_details(self):
         client = APIClient()
