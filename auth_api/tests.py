@@ -2,10 +2,12 @@ from django.test import TestCase
 from django.test.utils import override_settings
 from rest_framework import status
 from rest_framework.test import APIClient
+from axes.signals import user_locked_out
 import json
 import time
 
 from family_tree.models.family import Family
+from family_tree.models.person import Person
 from custom_user.models import User
 
 @override_settings(SECURE_SSL_REDIRECT=False, AXES_BEHIND_REVERSE_PROXY=False)
@@ -22,6 +24,14 @@ class JWTAuthTest(TestCase):
                                         password='compiler',
                                         name='Grace Hopper',
                                         family_id = self.family.id)
+
+        self.person = Person(name='Grace Hopper',
+                        gender='F',
+                        email='gracehopper@example.com',
+                        family_id=self.family.id,
+                        language='en',
+                        user_id=self.user.id)
+        self.person.save()
 
     def test_jwt_auth_and_refresh_token_created_on_correct_auth_details(self):
         client = APIClient()
@@ -80,6 +90,13 @@ class JWTAuthTest(TestCase):
 
     def test_account_locks_out_on_multiple_invalid_login_attempts(self):
 
+        self.signal_was_called = False
+
+        def handler(sender, **kwargs):
+            self.signal_was_called = True
+
+        user_locked_out.connect(handler)
+
         self.user = User.objects.create_user(email='adelegoldberg@example.com',
                                 password='smalltalk',
                                 name='Adele Goldberg',
@@ -103,3 +120,6 @@ class JWTAuthTest(TestCase):
         final_response = client.post('/api/auth/obtain_token/', correct_auth_details, format='json')
 
         self.assertNotEqual(final_response.status_code, status.HTTP_200_OK)
+        self.assertTrue(self.signal_was_called)
+
+        user_locked_out.disconnect(handler)

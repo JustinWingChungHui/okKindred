@@ -40,6 +40,14 @@ class PersonApiTestCase(TestCase):
                                         name='Evil Lovelace',
                                         family = self.family2)
 
+        self.person2 = Person(name='Evil Lovelace',
+                        gender='M',
+                        email='evillovelace@example.com',
+                        family_id=self.family2.id,
+                        language='en',
+                        user_id=self.user2.id)
+        self.person2.save()
+
         super(PersonApiTestCase, self).setUp()
 
 
