@@ -8,5 +8,5 @@ class RelationSerializer(serializers.HyperlinkedModelSerializer):
     '''
     class Meta:
         model = Relation
-        fields = ('id', 'from_person', 'to_person', 'relation_type',
+        fields = ('id', 'from_person_id', 'to_person_id', 'relation_type',
         'creation_date', 'last_updated_date')

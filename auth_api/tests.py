@@ -2,6 +2,7 @@ from django.test import TestCase
 from django.test.utils import override_settings
 from rest_framework import status
 from rest_framework.test import APIClient
+from axes.signals import user_locked_out
 import json
 import time
 
@@ -89,6 +90,13 @@ class JWTAuthTest(TestCase):
 
     def test_account_locks_out_on_multiple_invalid_login_attempts(self):
 
+        self.signal_was_called = False
+
+        def handler(sender, **kwargs):
+            self.signal_was_called = True
+
+        user_locked_out.connect(handler)
+
         self.user = User.objects.create_user(email='adelegoldberg@example.com',
                                 password='smalltalk',
                                 name='Adele Goldberg',
@@ -112,3 +120,6 @@ class JWTAuthTest(TestCase):
         final_response = client.post('/api/auth/obtain_token/', correct_auth_details, format='json')
 
         self.assertNotEqual(final_response.status_code, status.HTTP_200_OK)
+        self.assertTrue(self.signal_was_called)
+
+        user_locked_out.disconnect(handler)

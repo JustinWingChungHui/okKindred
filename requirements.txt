@@ -1,8 +1,8 @@
 -f /usr/share/pip-wheels
 appdirs==1.4.3
 bleach==3.1.0
-boto3==1.9.130
-botocore==1.12.130
+boto3==1.9.132
+botocore==1.12.132
 certifi==2019.3.9
 chardet==3.0.4
 coreapi==2.3.3
@@ -18,7 +18,7 @@ django-debug-toolbar-template-timings==0.9
 django-filter==2.1.0
 django-ipware==2.1.0
 djangorestframework==3.9.2
-djangorestframework-simplejwt==4.1.5
+djangorestframework-simplejwt==4.3.0
 docutils==0.14
 ExifRead==2.1.2
 futures==3.1.1
@@ -47,5 +47,5 @@ s3transfer==0.2.0
 six==1.12.0
 sqlparse==0.3.0
 uritemplate==3.0.0
-urllib3==1.24.1
+urllib3==1.24.2
 webencodings==0.5.1
