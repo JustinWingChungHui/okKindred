@@ -1,4 +1,5 @@
 from django.test import TestCase
+from django.test.client import Client as HttpClient
 from custom_user.models import User
 from family_tree.models import Person, Family
 from django.test.utils import override_settings
@@ -11,6 +12,7 @@ class TestSearchViews(TestCase): # pragma: no cover
         '''
         Set up a family, user and profile to test with
         '''
+        self.client = HttpClient(HTTP_X_REAL_IP='127.0.0.1')
 
         self.family = Family()
         self.family.save()

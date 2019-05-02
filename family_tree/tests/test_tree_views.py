@@ -1,4 +1,5 @@
 from django.test import TestCase
+from django.test.client import Client as HttpClient
 from custom_user.models import User
 from family_tree.models import Person, Relation, Family
 from family_tree.services import tree_service
@@ -13,6 +14,8 @@ class TestTreeViews(TestCase): # pragma: no cover
         '''
         Creates credientials as all views require login
         '''
+        self.client = HttpClient(HTTP_X_REAL_IP='127.0.0.1')
+
         self.family = Family()
         self.family.save()
 

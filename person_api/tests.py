@@ -52,13 +52,13 @@ class PersonApiTestCase(TestCase):
 
 
     def test_list_requires_authentication(self):
-        client = APIClient()
+        client = APIClient(HTTP_X_REAL_IP='127.0.0.1')
         response = client.get('/api/person/', format='json')
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
 
     def test_list(self):
-        client = APIClient()
+        client = APIClient(HTTP_X_REAL_IP='127.0.0.1')
 
         # Check this works with JWT token
         auth_details = {
@@ -76,7 +76,7 @@ class PersonApiTestCase(TestCase):
 
 
     def test_list_other_family(self):
-        client = APIClient()
+        client = APIClient(HTTP_X_REAL_IP='127.0.0.1')
 
         # Check this works with JWT token
         auth_details = {
@@ -94,13 +94,13 @@ class PersonApiTestCase(TestCase):
 
 
     def test_retrieve_requires_authentication(self):
-        client = APIClient()
+        client = APIClient(HTTP_X_REAL_IP='127.0.0.1')
         url = '/api/person/{0}/'.format(self.person.id)
         response = client.get(url, format='json')
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
     def test_retrieve(self):
-        client = APIClient()
+        client = APIClient(HTTP_X_REAL_IP='127.0.0.1')
         client.force_authenticate(user=self.user)
         url = '/api/person/{0}/'.format(self.person.id)
         response = client.get(url, format='json')
@@ -108,7 +108,7 @@ class PersonApiTestCase(TestCase):
         self.assertTrue(b'Ada Lovelace' in response.content)
 
     def test_retrieve_other_family(self):
-        client = APIClient()
+        client = APIClient(HTTP_X_REAL_IP='127.0.0.1')
         client.force_authenticate(user=self.user2)
         url = '/api/person/{0}/'.format(self.person.id)
         response = client.get(url, format='json')

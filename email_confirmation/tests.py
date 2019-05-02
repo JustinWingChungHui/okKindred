@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.test import TestCase
+from django.test.client import Client as HttpClient
 from django.test.utils import override_settings
 from django.utils import timezone
 from datetime import timedelta
@@ -21,6 +22,7 @@ class EmailConfirmationTestCase(TestCase): # pragma: no cover
 
         self.user = User.objects.create_user(email='zandra_rhodes@email.com', password='killer queen', name='Zandra Rhodes', family_id=self.family.id)
         self.person = Person.objects.create(name='Tim Staffell', gender='M', family_id=self.family.id, language='en')
+        self.client = HttpClient(HTTP_X_REAL_IP='127.0.0.1')
 
 
     def test_generate_confirmation_key(self):
@@ -102,7 +104,7 @@ class EmailConfirmationTestCase(TestCase): # pragma: no cover
                                                                 , user_who_invited_person_id=self.user.id
                                                                 , sent=timezone.now())
 
-        response = self.client.get('/accounts/confirmation={0}/'.format(invite.confirmation_key), HTTP_X_REAL_IP='127.0.0.1')
+        response = self.client.get('/accounts/confirmation={0}/'.format(invite.confirmation_key))
 
         self.assertEqual(200, response.status_code)
         self.assertTemplateUsed(response, 'email_confirmation/confirm_invite.html')
@@ -125,7 +127,7 @@ class EmailConfirmationTestCase(TestCase): # pragma: no cover
         Tests that the view for confirming an invite shows invalid/expired page
         '''
 
-        response = self.client.get('/accounts/confirmation=not_a_real_confirmation_code/', HTTP_X_REAL_IP='127.0.0.1')
+        response = self.client.get('/accounts/confirmation=not_a_real_confirmation_code/')
 
         self.assertEqual(200, response.status_code)
         self.assertTemplateUsed(response, 'email_confirmation/invalid_expired.html')
@@ -148,7 +150,7 @@ class EmailConfirmationTestCase(TestCase): # pragma: no cover
                                                                 , user_who_invited_person_id=self.user.id
                                                                 , sent=timezone.now())
 
-        response = self.client.post('/accounts/confirmation={0}/'.format(invite.confirmation_key),{'password': 'My Fairy King'}, HTTP_X_REAL_IP='127.0.0.1')
+        response = self.client.post('/accounts/confirmation={0}/'.format(invite.confirmation_key),{'password': 'My Fairy King'})
 
         self.assertEqual(False, response.status_code == 404)
 
@@ -167,11 +169,11 @@ class EmailConfirmationTestCase(TestCase): # pragma: no cover
         self.assertRedirects(response, '/', status_code=302, target_status_code=302, msg_prefix='')
 
         #check confirmation address no longer valid
-        response = self.client.get('/accounts/confirmation={0}/'.format(invite.confirmation_key), HTTP_X_REAL_IP='127.0.0.1')
+        response = self.client.get('/accounts/confirmation={0}/'.format(invite.confirmation_key))
         self.assertEqual(200, response.status_code)
         self.assertTemplateUsed(response, 'email_confirmation/invalid_expired.html')
 
-        response = self.client.post('/accounts/confirmation={0}/'.format(invite.confirmation_key),{'password': 'My Fairy King'}, HTTP_X_REAL_IP='127.0.0.1')
+        response = self.client.post('/accounts/confirmation={0}/'.format(invite.confirmation_key),{'password': 'My Fairy King'})
         self.assertEqual(200, response.status_code)
         self.assertTemplateUsed(response, 'email_confirmation/invalid_expired.html')
 
@@ -180,10 +182,21 @@ class EmailConfirmationTestCase(TestCase): # pragma: no cover
         '''
         Check we can't be too easily hacked
         '''
-        response = self.client.post('/accounts/confirmation=not_a_real_confirmation_code/',{'password': 'My Fairy King'}, HTTP_X_REAL_IP='127.0.0.1')
+        response = self.client.post('/accounts/confirmation=not_a_real_confirmation_code/',{'password': 'My Fairy King'})
 
         self.assertEqual(200, response.status_code)
         self.assertTemplateUsed(response, 'email_confirmation/invalid_expired.html')
+
+    def test_confirm_invite_locks_out_after_too_many_unsuccessful_attempts(self):
+        '''
+        Checks lock out of ip address
+        '''
+
+        for i in range(6):
+            self.client.post('/accounts/confirmation=hacker_attempt_confirmation_code/',{'password': 'My Fairy King'}, HTTP_X_REAL_IP='127.0.0.4')
+
+        response = self.client.post('/accounts/confirmation=not_a_real_confirmation_code/',{'password': 'My Fairy King'}, HTTP_X_REAL_IP='127.0.0.4')
+        self.assertEqual(404, response.status_code)
 
 
     def test_invite_person_creates_fails_for_existing_user(self):
@@ -194,7 +207,7 @@ class EmailConfirmationTestCase(TestCase): # pragma: no cover
         person = Person.objects.create(name='existing_user', gender='M', family_id=self.family.id, language='en', email='existing_user@email.com', user_id=user.id)
 
         self.client.post('/accounts/auth/',  {'username': 'existing_user@email.com', 'password': 'existing_user'})
-        response = self.client.post('/accounts/invite_person={0}/'.format(person.id), follow=True, HTTP_X_REAL_IP='127.0.0.1')
+        response = self.client.post('/accounts/invite_person={0}/'.format(person.id), follow=True)
         self.assertEqual(404, response.status_code)
 
 

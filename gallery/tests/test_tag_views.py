@@ -1,4 +1,5 @@
 from django.test import TestCase
+from django.test.client import Client as HttpClient
 from custom_user.models import User
 from gallery.models import Gallery, Image, Tag
 from family_tree.models import Family, Person
@@ -20,6 +21,8 @@ class TestImageViews(TestCase): # pragma: no cover
         '''
         Creates credientials as all views require login
         '''
+        self.client = HttpClient(HTTP_X_REAL_IP='127.0.0.1')
+
         self.family = Family()
         self.family.save()
 

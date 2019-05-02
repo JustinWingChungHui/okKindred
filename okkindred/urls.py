@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.conf.urls import include
 from django.contrib import admin
+from django.views.generic import TemplateView
 from django.urls import path
 
 from rest_framework.documentation import include_docs_urls
@@ -14,6 +15,9 @@ handler404 = 'okkindred.views.handler404'
 handler505 = 'okkindred.views.handler405'
 
 urlpatterns = [
+
+    #https://www.pythoncircle.com/post/578/adding-robotstxt-file-to-django-application/
+    path('robots.txt',  TemplateView.as_view(template_name="robots.txt", content_type='text/plain')),
 
     path('admin/', admin.site.urls),
 

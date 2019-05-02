@@ -1,4 +1,5 @@
 from django.test import TestCase
+from django.test.client import Client as HttpClient
 from django.test.utils import override_settings
 from rest_framework import status
 from rest_framework.test import APIClient
@@ -83,13 +84,13 @@ class RelationApiTestCase(TestCase):
 
 
     def test_list_requires_authentication(self):
-        client = APIClient()
+        client = APIClient(HTTP_X_REAL_IP='127.0.0.1')
         response = client.get('/api/relation/', format='json')
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
 
     def test_list(self):
-        client = APIClient()
+        client = APIClient(HTTP_X_REAL_IP='127.0.0.1')
 
         client.force_authenticate(user=self.user)
         response = client.get('/api/relation/', format='json')
@@ -103,14 +104,14 @@ class RelationApiTestCase(TestCase):
 
 
     def test_retrieve_requires_authentication(self):
-        client = APIClient()
+        client = APIClient(HTTP_X_REAL_IP='127.0.0.1')
         url = '/api/relation/{0}/'.format(self.relation1.id)
         response = client.get(url, format='json')
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
 
     def test_retrieve(self):
-        client = APIClient()
+        client = APIClient(HTTP_X_REAL_IP='127.0.0.1')
         client.force_authenticate(user=self.user)
         url = '/api/relation/{0}/'.format(self.relation1.id)
         response = client.get(url, format='json')
@@ -120,7 +121,7 @@ class RelationApiTestCase(TestCase):
 
 
     def test_retrieve_other_family(self):
-        client = APIClient()
+        client = APIClient(HTTP_X_REAL_IP='127.0.0.1')
         client.force_authenticate(user=self.user)
         url = '/api/relation/{0}/'.format(self.relation3.id)
         response = client.get(url, format='json')

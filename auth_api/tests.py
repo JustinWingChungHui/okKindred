@@ -34,7 +34,7 @@ class JWTAuthTest(TestCase):
         self.person.save()
 
     def test_jwt_auth_and_refresh_token_created_on_correct_auth_details(self):
-        client = APIClient()
+        client = APIClient(HTTP_X_REAL_IP='127.0.0.1')
         auth_details = {
             'email': 'gracehopper@example.com',
             'password': 'compiler'
@@ -68,7 +68,7 @@ class JWTAuthTest(TestCase):
 
 
     def test_jwt_fails_on_auth_incorrect_password(self):
-        client = APIClient()
+        client = APIClient(HTTP_X_REAL_IP='127.0.0.1')
         payload = {
             'email': 'gracehopper@example.com',
             'password': 'COBOL'
@@ -79,7 +79,7 @@ class JWTAuthTest(TestCase):
 
 
     def test_verify_fails_on_invalid_token(self):
-        client = APIClient()
+        client = APIClient(HTTP_X_REAL_IP='127.0.0.1')
 
         invalid_auth_token ={#
             'token': 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWUsImp0aSI6IjM1ODU0ODc3LWQyZjQtNDIxZS04ZDI5LWY3YTgxNTk3NzdhYyIsImlhdCI6MTU1NDM4NzU4NCwiZXhwIjoxNTU0MzkxMTg0fQ.yIr0TMbalatx7alU1TMGIxxaelqquMJfz3m4H7AA9v4'
@@ -97,12 +97,21 @@ class JWTAuthTest(TestCase):
 
         user_locked_out.connect(handler)
 
-        self.user = User.objects.create_user(email='adelegoldberg@example.com',
+        user = User.objects.create_user(email='adelegoldberg@example.com',
                                 password='smalltalk',
                                 name='Adele Goldberg',
                                 family_id = self.family.id)
 
-        client = APIClient()
+        person = Person(name='Adele Goldberg',
+                        gender='F',
+                        email='adelegoldberg@example.com',
+                        family_id=self.family.id,
+                        language='en',
+                        user_id=user.id)
+        person.save()
+
+        # 127.0.0.1 is whitelisted
+        client = APIClient(HTTP_X_REAL_IP='127.0.0.2')
 
         wrong_auth_details = {
             'email': 'adelegoldberg@example.com',

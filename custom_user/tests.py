@@ -1,9 +1,10 @@
 from django.test import TestCase
+from django.test.client import Client as HttpClient
 from django.test.utils import override_settings
 from custom_user.models import User
 from family_tree.models import Person, Family
 
-@override_settings(SECURE_SSL_REDIRECT=False)
+@override_settings(SECURE_SSL_REDIRECT=False, AXES_BEHIND_REVERSE_PROXY=False)
 class TestCustomUserViews(TestCase): # pragma: no cover
 
     def setUp(self):
@@ -15,11 +16,13 @@ class TestCustomUserViews(TestCase): # pragma: no cover
         self.user = User.objects.create_user(email='bruce_lee@email.com', password='enter the dragon', name='Bruce Lee' )
         self.person = Person.objects.create(name='Bruce Lee', gender='M', email='bruce_lee@email.com', family_id=self.family.id, language='en', user_id=self.user.id)
 
+        self.client = HttpClient(HTTP_X_REAL_IP='127.0.0.1')
+
     def test_invalid_login_with_incorrect_password(self):
         '''
         Test user cannot login with invalid password
         '''
-        response = self.client.post('/accounts/auth/',  {'username': 'bruce_lee@email.com', 'password': 'game of death'}, follow=True, HTTP_X_REAL_IP='127.0.0.1')
+        response = self.client.post('/accounts/auth/',  {'username': 'bruce_lee@email.com', 'password': 'game of death'}, follow=True)
         self.assertEqual(True, ('/accounts/invalid', 302) in response.redirect_chain)
 
 
@@ -27,11 +30,22 @@ class TestCustomUserViews(TestCase): # pragma: no cover
         '''
         Test user can login with case insensitive email
         '''
-        response = self.client.post('/accounts/auth/',  {'username': 'Bruce_Lee@email.com', 'password': 'enter the dragon'}, follow=True, HTTP_X_REAL_IP='127.0.0.1')
-        self.assertEqual(False, ('/accounts/invalid', 302) in response.redirect_chain)
+        response = self.client.post('/accounts/auth/',  {'username': 'Bruce_Lee@email.com', 'password': 'enter the dragon'}, follow=True)
+        self.assertTrue('Your account has now been locked' in response.body)
 
 
-    @override_settings(AXES_BEHIND_REVERSE_PROXY=False)
+    def test_locked_out_with_multiple_incorrect_password_attempts(self):
+        '''
+        Test user cannot login with after muliple attempts with invalid password
+        '''
+
+        for i in range(5):
+            self.client.post('/accounts/auth/',  {'username': 'bruce_lee@email.com', 'password': 'game of death'}, follow=True, HTTP_X_REAL_IP='127.0.0.3')
+
+        response = self.client.post('/accounts/auth/',  {'username': 'bruce_lee@email.com', 'password': 'enter the dragon'}, follow=True, HTTP_X_REAL_IP='127.0.0.3')
+        self.assertTrue(b'Your account has now been locked' in response.content)
+
+
     def test_settings_view_displays(self):
         '''
         Test that the settings view is displayed correctly
@@ -41,7 +55,7 @@ class TestCustomUserViews(TestCase): # pragma: no cover
         self.assertEqual(200, response.status_code)
         self.assertTemplateUsed(response, 'custom_user/settings.html')
 
-    @override_settings(AXES_BEHIND_REVERSE_PROXY=False)
+
     def test_can_change_password(self):
         '''
         Test can receive post request to change password and check new password works
@@ -51,10 +65,10 @@ class TestCustomUserViews(TestCase): # pragma: no cover
 
         self.client.post('/accounts/auth/',  {'username': 'stephen_chow@email.com', 'password': 'god of cookery'})
         self.client.post('/accounts/change_password/',{'password': 'shaolin soccer'})
-        response = self.client.post('/accounts/auth/',  {'username': 'stephen_chow@email.com', 'password': 'shaolin soccer'}, follow=True, HTTP_X_REAL_IP='127.0.0.1')
+        response = self.client.post('/accounts/auth/',  {'username': 'stephen_chow@email.com', 'password': 'shaolin soccer'}, follow=True)
         self.assertEqual(False, ('/accounts/invalid', 302) in response.redirect_chain)
 
-    @override_settings(AXES_BEHIND_REVERSE_PROXY=False)
+
     def test_can_update_language(self):
         '''
         Test can receive post request to change language
@@ -66,7 +80,7 @@ class TestCustomUserViews(TestCase): # pragma: no cover
         self.user = User.objects.get(pk=self.user.id)
         self.assertEqual('pl', self.user.language)
 
-    @override_settings(AXES_BEHIND_REVERSE_PROXY=False)
+
     def test_can_delete_account_without_deleting_profile(self):
         '''
         Test that a user can delete their account without deleting their profile
@@ -85,7 +99,7 @@ class TestCustomUserViews(TestCase): # pragma: no cover
         self.assertEqual(0, User.objects.filter(email='lau_fok_wing@email.com').count())
 
 
-    @override_settings(AXES_BEHIND_REVERSE_PROXY=False)
+
     def test_can_delete_account_and_profile(self):
         '''
         Test that a user can delete their account and their profile

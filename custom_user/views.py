@@ -6,7 +6,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.template.context_processors import csrf
 from django.utils.translation import ugettext_lazy as _
 
-from axes.attempts import is_already_locked
+from axes.handlers.proxy import AxesProxyHandler
 from custom_user.decorators import set_language
 from family_tree.models import Person
 
@@ -29,13 +29,13 @@ def auth_view(request):
     '''
     Handles the authentication from the login screen
     '''
-    if is_already_locked(request):
+    if not AxesProxyHandler.is_allowed(request):
         return account_locked(request)
 
     username = request.POST.get('username', '').lower()
     password = request.POST.get('password', '')
-    user = auth.authenticate(username=username, password=password, request=request)
 
+    user = auth.authenticate(username=username, password=password, request=request)
     login_unsuccessful = user is None
 
     if login_unsuccessful:
