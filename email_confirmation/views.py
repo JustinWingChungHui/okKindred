@@ -4,8 +4,8 @@ from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import render
 from django.utils import translation
 
-from axes.attempts import is_already_locked
-from  axes.signals import log_user_login_failed
+from axes.handlers.proxy import AxesProxyHandler
+from django.contrib.auth.signals import user_login_failed
 
 from email_confirmation.models import EmailConfirmation
 from custom_user.models import User
@@ -52,21 +52,24 @@ def confirm_invite(request, confirmation_key):
     '''
 
     #Check ip has not been locked
-    if is_already_locked(request):
+    if not AxesProxyHandler.is_allowed(request):
         raise Http404
 
     try:
         invite = EmailConfirmation.objects.get(confirmation_key=confirmation_key)
 
     except:
-        log_user_login_failed(confirm_invite, {'username': confirmation_key}, request)
+        user_login_failed.send(sender=confirm_invite, credentials = {'username': confirmation_key}, request = request)
 
         return invalid_expired(request)
 
     if request.method != 'POST':
 
         #Ensure user is logged out
-        auth.logout(request)
+        try:
+            auth.logout(request)
+        except:
+            pass
 
         language = invite.person.language
         translation.activate(language)

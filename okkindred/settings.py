@@ -78,13 +78,14 @@ MIDDLEWARE = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'axes.middleware.AxesMiddleware',
 )
 
 # Custom user model
 AUTH_USER_MODEL = 'custom_user.User'
 
 AUTHENTICATION_BACKENDS = [
-    'axes.backends.AxesModelBackend',
+    'axes.backends.AxesBackend',
     'django.contrib.auth.backends.ModelBackend',
 ]
 

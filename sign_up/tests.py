@@ -1,11 +1,15 @@
 from django.test import TestCase
+from django.test.client import Client as HttpClient
 from django.test.utils import override_settings
 from sign_up.models import SignUp
 from family_tree.models import Family, Person
 from custom_user.models import User
 
-@override_settings(SECURE_SSL_REDIRECT=False, AXES_LOGIN_FAILURE_LIMIT=10000, AXES_COOLOFF_TIME=0, AXES_BEHIND_REVERSE_PROXY=False)
+@override_settings(SECURE_SSL_REDIRECT=False, AXES_BEHIND_REVERSE_PROXY=False)
 class SignUpTestCase(TestCase): # pragma: no cover
+
+    def setUp(self):
+        self.client = HttpClient(HTTP_X_REAL_IP='127.0.0.1')
 
 
     def test_remove_expired_sign_ups(self):
@@ -181,6 +185,7 @@ class SignUpTestCase(TestCase): # pragma: no cover
         self.assertEqual(200, response.status_code)
         self.assertTemplateUsed(response, 'sign_up/email_in_use.html')
 
+
     def test_sign_up_post_create_new_sign_up(self):
         '''
         Tests the sign up with invalid email returns invalid email page
@@ -197,6 +202,7 @@ class SignUpTestCase(TestCase): # pragma: no cover
         self.assertTemplateUsed(response, 'sign_up/check_email.html')
 
         self.assertEqual(1, SignUp.objects.filter(email_address = 'a_new_email@email.com').count())
+
 
     def test_sign_up_post_create_new_sign_up_with_optional_information(self):
         '''
@@ -222,7 +228,7 @@ class SignUpTestCase(TestCase): # pragma: no cover
         '''
         Tests that a 404 is raised for an invalid confirmation key
         '''
-        response = self.client.get('/accounts/sign_up_confirmation=not_a_validkey/', HTTP_X_REAL_IP='127.0.0.1')
+        response = self.client.get('/accounts/sign_up_confirmation=not_a_validkey/')
 
         self.assertEqual(404, response.status_code)
 
@@ -238,14 +244,33 @@ class SignUpTestCase(TestCase): # pragma: no cover
                 language = 'en',
                 email_address = 'anewuser@iamanewuser.com')
 
-        response = self.client.get('/accounts/sign_up_confirmation={0}/'.format(sign_up.confirmation_key), HTTP_X_REAL_IP='127.0.0.1')
+        response = self.client.get('/accounts/sign_up_confirmation={0}/'.format(sign_up.confirmation_key))
 
         self.assertEqual(200, response.status_code)
         self.assertTemplateUsed(response, 'sign_up/choose_password.html')
 
+
+    def test_multiple_failed_signups_block_ip(self):
+        '''
+        Tests that multiple incorrect signups block ip
+        '''
+
+        sign_up = SignUp.objects.create(
+                name='hacker',
+                gender = 'M',
+                language = 'en',
+                email_address = 'hacker@hacker.com')
+
+        for i in range(6):
+            self.client.get('/accounts/sign_up_confirmation=not_a_valid_confirmation_key/', HTTP_X_REAL_IP='127.0.0.8')
+
+        response = self.client.get('/accounts/sign_up_confirmation={0}/'.format(sign_up.confirmation_key), HTTP_X_REAL_IP='127.0.0.8')
+        self.assertEqual(404, response.status_code)
+
+
     def test_sign_up_confirmation_post_creates_user(self):
         '''
-        Tests that a we create a new user when we enter a password
+        Tests that we create a new user when we enter a password
         '''
 
         sign_up = SignUp.objects.create(
@@ -254,7 +279,7 @@ class SignUpTestCase(TestCase): # pragma: no cover
                 language = 'en',
                 email_address = 'joininguser@iamanewuser.com')
 
-        response = self.client.post('/accounts/sign_up_confirmation={0}/'.format(sign_up.confirmation_key), {'password' : 'letmeinplease'}, HTTP_X_REAL_IP='127.0.0.1')
+        response = self.client.post('/accounts/sign_up_confirmation={0}/'.format(sign_up.confirmation_key), {'password' : 'letmeinplease'})
 
         self.assertEqual(True, User.objects.filter(email='joininguser@iamanewuser.com').count() == 1)
         self.assertNotEqual(404, response.status_code)

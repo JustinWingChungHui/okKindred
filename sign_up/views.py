@@ -6,8 +6,8 @@ from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import render
 from django.utils import translation
 
-from axes.attempts import is_already_locked
-from axes.signals import log_user_login_failed
+from axes.handlers.proxy import AxesProxyHandler
+from django.contrib.auth.signals import user_login_failed
 
 from custom_user.models import User
 from family_tree.models import Person
@@ -95,14 +95,14 @@ def sign_up_confirmation(request, confirmation_key):
     Handles the sign up confirmation
     '''
     #Check ip has not been locked
-    if is_already_locked(request):
+    if not AxesProxyHandler.is_allowed(request):
         raise Http404
 
     try:
         sign_up = SignUp.objects.get(confirmation_key=confirmation_key)
     except:
 
-        log_user_login_failed(
+        user_login_failed.send(
                             sender=sign_up_confirmation,
                             credentials={'username': confirmation_key },
                             request=request)
