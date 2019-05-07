@@ -31,7 +31,11 @@ class TestCustomUserViews(TestCase): # pragma: no cover
         Test user can login with case insensitive email
         '''
         response = self.client.post('/accounts/auth/',  {'username': 'Bruce_Lee@email.com', 'password': 'enter the dragon'}, follow=True)
-        self.assertTrue('Your account has now been locked' in response.body)
+
+        self.assertEqual(200, response.status_code)
+
+        # Check logout button is shown
+        self.assertTrue(b'Log Out' in response.content)
 
 
     def test_locked_out_with_multiple_incorrect_password_attempts(self):
