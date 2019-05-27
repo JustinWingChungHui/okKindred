@@ -23,7 +23,7 @@ docutils==0.14
 ExifRead==2.1.2
 futures==3.1.1
 geographiclib==1.49
-geopy==1.19.0
+geopy==1.20.0
 goslate==1.5.1
 html5lib==1.0.1
 idna==2.8
