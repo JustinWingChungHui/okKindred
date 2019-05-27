@@ -11,7 +11,7 @@ coverage==4.5.3
 Django==2.2.1
 django-appconf==1.0.3
 django-autotranslate==1.1.0
-django-axes==5.0.5
+django-axes==5.0.6
 django-cors-headers==3.0.1
 django-debug-toolbar==1.11
 django-debug-toolbar-template-timings==0.9
