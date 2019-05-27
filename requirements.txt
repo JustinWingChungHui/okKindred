@@ -21,7 +21,7 @@ djangorestframework==3.9.4
 djangorestframework-simplejwt==4.3.0
 docutils==0.14
 ExifRead==2.1.2
-futures==3.1.1
+futures==3.2.0
 geographiclib==1.49
 geopy==1.19.0
 goslate==1.5.1
