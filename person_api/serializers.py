@@ -8,7 +8,7 @@ class PersonSerializer(serializers.HyperlinkedModelSerializer):
     '''
     class Meta:
         model = Person
-        fields = ('id', 'name', 'birth_year', 'gender', 'locked', 'language', 'photo',
+        fields = ('id', 'name', 'birth_year', 'year_of_death', 'gender', 'locked', 'language', 'photo',
         'small_thumbnail', 'large_thumbnail', 'email', 'telephone_number', 'skype_name',
         'website', 'facebook', 'twitter', 'linkedin', 'occupation', 'spoken_languages',
         'address', 'biography', 'latitude', 'longitude', 'user_id', 'hierarchy_score',
