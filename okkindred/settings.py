@@ -64,7 +64,9 @@ INSTALLED_APPS = (
     'corsheaders',
     'rest_framework',
     'person_api',
-    'auth_api'
+    'relation_api',
+    'auth_api',
+    'invite_email_api',
 )
 
 MIDDLEWARE = (

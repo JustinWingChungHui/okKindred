@@ -1,5 +1,4 @@
 from django.test import TestCase
-from django.test.client import Client as HttpClient
 from django.test.utils import override_settings
 from rest_framework import status
 from rest_framework.test import APIClient
@@ -8,7 +7,7 @@ import json
 from custom_user.models import User
 from family_tree.models.family import Family
 from family_tree.models.person import Person
-from family_tree.models.relation import Relation, RAISED, PARTNERED, RAISED_BY
+from family_tree.models.relation import Relation, RAISED, PARTNERED
 
 @override_settings(SECURE_SSL_REDIRECT=False, AXES_BEHIND_REVERSE_PROXY=False)
 class RelationApiTestCase(TestCase):

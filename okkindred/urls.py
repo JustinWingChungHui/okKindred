@@ -53,6 +53,9 @@ urlpatterns = [
 
     # Relation API
     path('', include('relation_api.urls')),
+
+    # Invite Email API
+    path('', include('invite_email_api.urls')),
 ]
 
 if settings.DEBUG:
