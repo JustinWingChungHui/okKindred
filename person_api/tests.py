@@ -99,6 +99,7 @@ class PersonApiTestCase(TestCase):
         response = client.get(url, format='json')
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
+
     def test_retrieve(self):
         client = APIClient(HTTP_X_REAL_IP='127.0.0.1')
         client.force_authenticate(user=self.user)
@@ -106,6 +107,7 @@ class PersonApiTestCase(TestCase):
         response = client.get(url, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertTrue(b'Ada Lovelace' in response.content)
+
 
     def test_retrieve_other_family(self):
         client = APIClient(HTTP_X_REAL_IP='127.0.0.1')
