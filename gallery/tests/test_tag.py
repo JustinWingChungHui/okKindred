@@ -49,3 +49,11 @@ class TagTestCase(TestCase): # pragma: no cover
         self.assertTrue(abs(0.7 - tag.y1) < 0.0001)
         self.assertTrue(abs(0.4 - tag.x2) < 0.0001)
         self.assertTrue(abs(0.9 - tag.y2) < 0.0001)
+
+        #Clear up
+        self.image.delete_local_image_files()
+        self.image.delete_remote_image_files()
+
+
+
+

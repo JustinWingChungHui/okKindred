@@ -14,7 +14,7 @@ class InviteEmailViewSet(viewsets.ViewSet):
 
     def retrieve(self, request, pk=None):
         '''
-        Gets invite email information sent
+        Gets any pending invite email information for a person id
         '''
 
         # Make sure request comes user in same family

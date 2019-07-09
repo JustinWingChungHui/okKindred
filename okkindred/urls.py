@@ -56,6 +56,9 @@ urlpatterns = [
 
     # Invite Email API
     path('', include('invite_email_api.urls')),
+
+    # Images Api
+    path('', include('image_api.urls')),
 ]
 
 if settings.DEBUG:
