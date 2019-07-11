@@ -1,4 +1,5 @@
 from django.shortcuts import get_object_or_404
+from django.http import HttpResponse
 from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
@@ -31,3 +32,40 @@ class PersonViewSet(viewsets.ViewSet):
         person = get_object_or_404(queryset, pk=pk)
         serializer = PersonSerializer(person)
         return Response(serializer.data)
+
+
+
+    def update(self, request, pk=None):
+        '''
+        Updates a person record
+        set fieldName and value
+        '''
+        queryset = Person.objects.filter(family_id = request.user.family_id)
+        person = get_object_or_404(queryset, pk=pk)
+
+        #Make sure we can't change locked profiles
+        if person.locked and person.user_id != request.user.id:
+            return HttpResponse(status=403, content="Access denied to locked profile")
+
+        field_name = request.data['fieldName']
+
+        if field_name not in [  'email', 'language','locked',
+                                'birth_year','year_of_death','telephone_number',
+                                'website','address', 'skype_name',
+                                'facebook', 'twitter', 'linkedin',
+                                'occupation', 'spoken_languages',
+                                'name','gender',]:
+            return HttpResponse(status=403, content="Access denied to change confirmed user settings")
+
+        #Check we don't change any email or language for a confirmed user
+        if person.user_id and field_name in ['email', 'language',]:
+            if person.user_id != request.user.id:
+                return HttpResponse(status=403, content="Access denied to change confirmed user settings")
+
+
+        setattr(person, field_name, request.data['value'])
+        person.save()
+        serializer = PersonSerializer(person)
+        return Response(serializer.data)
+
+
