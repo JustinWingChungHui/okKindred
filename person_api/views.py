@@ -54,7 +54,8 @@ class PersonViewSet(viewsets.ViewSet):
                                 'website','address', 'skype_name',
                                 'facebook', 'twitter', 'linkedin',
                                 'occupation', 'spoken_languages',
-                                'name','gender',]:
+                                'name', 'gender', 'biography']:
+
             return HttpResponse(status=403, content="Access denied to change confirmed user settings")
 
         #Check we don't change any email or language for a confirmed user
