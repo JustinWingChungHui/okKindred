@@ -116,3 +116,101 @@ class PersonApiTestCase(TestCase):
         response = client.get(url, format='json')
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
 
+
+    def test_update(self):
+        client = APIClient(HTTP_X_REAL_IP='127.0.0.1')
+        client.force_authenticate(user=self.user)
+
+        data = {
+            'fieldName': 'name',
+            'value': 'Ada Lovelace II'
+        }
+
+        url = '/api/person/{0}/'.format(self.person.id)
+        response = client.put(url, data, format='json')
+
+        self.person = Person.objects.get(id=self.person.id)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertTrue(b'Ada Lovelace II' in response.content)
+        self.assertEqual('Ada Lovelace II', self.person.name)
+
+
+    def test_update_other_family(self):
+        client = APIClient(HTTP_X_REAL_IP='127.0.0.1')
+        client.force_authenticate(user=self.user2)
+
+        data = {
+            'fieldName': 'name',
+            'value': 'Ada Lovelace II'
+        }
+
+        url = '/api/person/{0}/'.format(self.person.id)
+        response = client.put(url, data, format='json')
+
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+
+
+    def test_update_locked(self):
+
+        locked_person = Person(name='Locked Person',
+                        gender='O',
+                        email='locked_person@example.com',
+                        family_id=self.family.id,
+                        language='en',
+                        locked=True)
+        locked_person.save()
+
+        client = APIClient(HTTP_X_REAL_IP='127.0.0.1')
+        client.force_authenticate(user=self.user)
+
+        data = {
+            'fieldName': 'name',
+            'value': 'troll time!'
+        }
+
+        url = '/api/person/{0}/'.format(locked_person.id)
+        response = client.put(url, data, format='json')
+
+
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+
+    def test_update_field_not_whitelisted(self):
+
+        client = APIClient(HTTP_X_REAL_IP='127.0.0.1')
+        client.force_authenticate(user=self.user)
+
+        data = {
+            'fieldName': 'creation_date',
+            'value': '2001-01-01'
+        }
+
+        url = '/api/person/{0}/'.format(self.person.id)
+        response = client.put(url, data, format='json')
+
+        self.person = Person.objects.get(id=self.person.id)
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+
+
+    def test_update_email_for_other_user(self):
+
+        user = User.objects.create_user(email='adahorriblecousin@example.com',
+                                        password='horrible',
+                                        name='Ada Horrible Cousin',
+                                        family = self.family)
+
+        client = APIClient(HTTP_X_REAL_IP='127.0.0.1')
+        client.force_authenticate(user=user)
+
+        data = {
+            'fieldName': 'email',
+            'value': 'NOTadalovelace@example.com'
+        }
+
+        url = '/api/person/{0}/'.format(self.person.id)
+        response = client.put(url, data, format='json')
+
+        self.person = Person.objects.get(id=self.person.id)
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
