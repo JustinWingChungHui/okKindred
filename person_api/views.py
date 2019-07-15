@@ -22,7 +22,7 @@ class PersonViewSet(viewsets.ViewSet):
 
         search_term = self.request.query_params.get('search', None)
         if search_term is not None:
-            queryset = queryset.filter(name__contains=search_term
+            queryset = queryset.filter(name__icontains=search_term
                         ).order_by('hierarchy_score', 'birth_year', 'gender')
 
         serializer = PersonListSerializer(queryset, many=True)
