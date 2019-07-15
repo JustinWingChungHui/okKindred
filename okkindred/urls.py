@@ -59,6 +59,9 @@ urlpatterns = [
 
     # Images Api
     path('', include('image_api.urls')),
+
+    # User Api
+    path('', include('user_api.urls')),
 ]
 
 if settings.DEBUG:

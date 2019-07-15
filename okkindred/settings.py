@@ -63,6 +63,7 @@ INSTALLED_APPS = (
     'autotranslate',
     'corsheaders',
     'rest_framework',
+    #'django_rest_passwordreset',
     'person_api',
     'relation_api',
     'auth_api',
@@ -254,6 +255,8 @@ SIMPLE_JWT = {
     'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1000),
 }
 
+# Password reset token expiry time in hours
+# DJANGO_REST_MULTITOKENAUTH_RESET_TOKEN_EXPIRY_TIME = 24
 
 DEBUG_TOOLBAR_PANELS = [
     'debug_toolbar.panels.versions.VersionsPanel',
