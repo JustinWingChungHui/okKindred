@@ -10,6 +10,7 @@ from image_api.serializers import ImageListSerializer, ImageSerializer
 class ImageListView(viewsets.GenericViewSet):
 
     permission_classes = (IsAuthenticated,)
+    serializer_class = ImageListSerializer
 
     def get_queryset(self):
         return Image.objects.filter(family_id = self.request.user.family_id).order_by('creation_date')[:20]

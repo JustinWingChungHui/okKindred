@@ -4,8 +4,7 @@ from django.contrib import admin
 from django.views.generic import TemplateView
 from django.urls import path
 
-from rest_framework.documentation import include_docs_urls
-
+from rest_framework.schemas import get_schema_view
 
 import okkindred.views
 
@@ -13,6 +12,7 @@ admin.autodiscover()
 
 handler404 = 'okkindred.views.handler404'
 handler505 = 'okkindred.views.handler405'
+
 
 urlpatterns = [
 
@@ -44,7 +44,17 @@ urlpatterns = [
     path('', include('gallery.urls')),
 
     # Django Rest Docs
-    path('api/docs/', include_docs_urls(title='ok!Kindred APIs')),
+    path('api/schema/', get_schema_view(
+        title="ok!Kindred API",
+        url='/api/',
+    ), name='openapi-schema'),
+
+    # Route TemplateView to serve Swagger UI template.
+    #   * Provide `extra_context` with view name of `SchemaView`.
+    path('api/docs/', TemplateView.as_view(
+        template_name='swagger-ui.html',
+        extra_context={'schema_url':'openapi-schema'}
+    ), name='swagger-ui'),
 
     path('', include('auth_api.urls')),
 

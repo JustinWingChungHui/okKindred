@@ -8,5 +8,5 @@ urlpatterns = [
     path('api/auth/obtain_token/', AppTokenObtainPairView.as_view()),
     path('api/auth/refresh_token/', TokenRefreshView.as_view()),
     path('api/auth/verify_token/', TokenVerifyView.as_view()),
-    # path('api/reset-password/', include('django_rest_passwordreset.urls', namespace='password_reset')),
+    path('api/reset-password/', include('django_rest_passwordreset.urls', namespace='password_reset')),
 ]
