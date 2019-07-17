@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-28 22:29+0000\n"
+"POT-Creation-Date: 2019-07-17 13:53+0000\n"
 "PO-Revision-Date: 2015-05-11 08:55+0000\n"
 "Last-Translator: b'Anonymous User'\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,16 +19,34 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Translated-Using: django-rosetta 0.7.5\n"
 
-#: custom_user/admin.py:19 custom_user/templates/custom_user/login.html:15
+#: auth_api/signals.py:54
+msgid "ok!Kindred Password Reset"
+msgstr "ok!Kindred Salasanan Nollaus"
+
+#: auth_api/templates/auth_api/password_reset.html:7
+#: auth_api/templates/auth_api/password_reset_plain.html:4
+msgid ""
+"You're receiving this email because you requested a password reset for your "
+"user account at ok!Kindred"
+msgstr ""
+"Saat tämän sähköpostiviestin, koska olet pyytänyt salasanan palauttamista"
+"käyttäjätili ok!Kindred"
+
+#: auth_api/templates/auth_api/password_reset.html:11
+#: auth_api/templates/auth_api/password_reset_plain.html:6
+msgid "Please go to the following page and choose a new password:"
+msgstr "Siirry seuraavaan sivulle ja valitse uusi salasana:"
+
+#: custom_user/admin.py:18 custom_user/templates/custom_user/login.html:15
 #: custom_user/templates/custom_user/login.html:16
 msgid "Password"
 msgstr "Salasana"
 
-#: custom_user/admin.py:20
+#: custom_user/admin.py:19
 msgid "Password confirmation"
 msgstr "salasanan vahvistus"
 
-#: custom_user/admin.py:31
+#: custom_user/admin.py:30
 msgid "Passwords don't match"
 msgstr "Salasanat eivät täsmää"
 
@@ -284,16 +302,16 @@ msgstr "Kyllä ja poista profiili"
 msgid "Required field!"
 msgstr "Vaadittu kenttä!"
 
-#: custom_user/views.py:126
+#: custom_user/views.py:109
 msgid "Access denied"
 msgstr "Pääsy evätty"
 
-#: email_confirmation/models.py:48
+#: email_confirmation/models.py:54
 #, python-brace-format
 msgid "An invitation to ok!Kindred from {0}"
 msgstr "Kutsun ok! Kindred välillä {0}"
 
-#: email_confirmation/models.py:50
+#: email_confirmation/models.py:56
 #, python-brace-format
 msgid ""
 "Hi {0}\n"
@@ -847,7 +865,7 @@ msgid "Delete Gallery and all Pictures"
 msgstr "Poista Galleria ja kaikki kuvat"
 
 #: gallery/templates/gallery/gallery.html:88
-#: gallery/templates/gallery/gallery_map.html:42
+#: gallery/templates/gallery/gallery_map.html:44
 #: gallery/templates/gallery/person_gallery.html:24
 #: gallery/templates/gallery/person_gallery.html:39
 msgid "Details"
@@ -969,35 +987,35 @@ msgstr ""
 "image={3}/\n"
 "                                    "
 
-#: okkindred/settings.py:129
+#: okkindred/settings.py:163
 msgid "English"
 msgstr "Englanti"
 
-#: okkindred/settings.py:130
+#: okkindred/settings.py:164
 msgid "Traditional Chinese"
 msgstr "Perinteinen kiina"
 
-#: okkindred/settings.py:131
+#: okkindred/settings.py:165
 msgid "Simplified Chinese"
 msgstr "Yksinkertaistettu kiina"
 
-#: okkindred/settings.py:132
+#: okkindred/settings.py:166
 msgid "Polish"
 msgstr "Kiillottaa"
 
-#: okkindred/settings.py:133
+#: okkindred/settings.py:167
 msgid "Finnish"
 msgstr "Suomalainen"
 
-#: okkindred/settings.py:134
+#: okkindred/settings.py:168
 msgid "French"
 msgstr "Ranskan kieli"
 
-#: sign_up/models.py:102
+#: sign_up/models.py:107
 msgid "ok!Kindred sign up confirmation"
 msgstr "ok! kindred rekisteröityä vahvistus"
 
-#: sign_up/models.py:104
+#: sign_up/models.py:109
 #, python-brace-format
 msgid ""
 "Hi {0}\n"
@@ -1379,9 +1397,9 @@ msgstr ""
 "Olemme tyytyväisiä kuka tahansa ideoita tai joka haluaa osallistua tähän "
 "projektiin ja tehdä se paremmin! Olemme erityisen tarvitsevat apua "
 "kääntämistä muille kielille.\n"
-"            Ole hyvä <a href=\"mailto:info@okkindred.com?subject=Development\"> "
-"yhteyttä </a> jos haluat edistää, tai (vielä parempi) esittää pull pyynnön "
-"Github :)\n"
+"            Ole hyvä <a href=\"mailto:info@okkindred.com?subject=Development"
+"\"> yhteyttä </a> jos haluat edistää, tai (vielä parempi) esittää pull "
+"pyynnön Github :)\n"
 "            "
 
 #: templates/about.html:204

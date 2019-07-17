@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-28 22:29+0000\n"
+"POT-Creation-Date: 2019-07-17 13:53+0000\n"
 "PO-Revision-Date: 2015-05-11 08:53+0000\n"
 "Last-Translator: b'Anonymous User'\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,16 +19,34 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Translated-Using: django-rosetta 0.7.5\n"
 
-#: custom_user/admin.py:19 custom_user/templates/custom_user/login.html:15
+#: auth_api/signals.py:54
+msgid "Réinitialiser votre Mot de Passe ok!Kindred"
+msgstr ""
+
+#: auth_api/templates/auth_api/password_reset.html:7
+#: auth_api/templates/auth_api/password_reset_plain.html:4
+msgid ""
+"You're receiving this email because you requested a password reset for your "
+"user account at ok!Kindred"
+msgstr ""
+"Vous recevez cet email car vous avez demandé une réinitialisation du mot de passe pour votre"
+"compte utilisateur à ok!Kindred"
+
+#: auth_api/templates/auth_api/password_reset.html:11
+#: auth_api/templates/auth_api/password_reset_plain.html:6
+msgid "Please go to the following page and choose a new password:"
+msgstr "Veuillez aller à la page suivante et choisir un nouveau mot de passe:"
+
+#: custom_user/admin.py:18 custom_user/templates/custom_user/login.html:15
 #: custom_user/templates/custom_user/login.html:16
 msgid "Password"
 msgstr "Mot de passe"
 
-#: custom_user/admin.py:20
+#: custom_user/admin.py:19
 msgid "Password confirmation"
 msgstr "Confirmation mot de passe"
 
-#: custom_user/admin.py:31
+#: custom_user/admin.py:30
 msgid "Passwords don't match"
 msgstr "Les mots de passe ne correspondent pas"
 
@@ -290,16 +308,16 @@ msgstr "Oui et supprimer mon profil"
 msgid "Required field!"
 msgstr "Champs requis!"
 
-#: custom_user/views.py:126
+#: custom_user/views.py:109
 msgid "Access denied"
 msgstr "Accès refusé"
 
-#: email_confirmation/models.py:48
+#: email_confirmation/models.py:54
 #, python-brace-format
 msgid "An invitation to ok!Kindred from {0}"
 msgstr "Une invitation à ok! Kindred de {0}"
 
-#: email_confirmation/models.py:50
+#: email_confirmation/models.py:56
 #, python-brace-format
 msgid ""
 "Hi {0}\n"
@@ -864,7 +882,7 @@ msgid "Delete Gallery and all Pictures"
 msgstr "Supprimer Galerie et toutes les photos"
 
 #: gallery/templates/gallery/gallery.html:88
-#: gallery/templates/gallery/gallery_map.html:42
+#: gallery/templates/gallery/gallery_map.html:44
 #: gallery/templates/gallery/person_gallery.html:24
 #: gallery/templates/gallery/person_gallery.html:39
 msgid "Details"
@@ -988,35 +1006,35 @@ msgstr ""
 "à {1}/gallery={2}/image={3}/\n"
 "                                    "
 
-#: okkindred/settings.py:129
+#: okkindred/settings.py:163
 msgid "English"
 msgstr "Anglais"
 
-#: okkindred/settings.py:130
+#: okkindred/settings.py:164
 msgid "Traditional Chinese"
 msgstr "Chinois traditionnel"
 
-#: okkindred/settings.py:131
+#: okkindred/settings.py:165
 msgid "Simplified Chinese"
 msgstr "Chinois simplifié"
 
-#: okkindred/settings.py:132
+#: okkindred/settings.py:166
 msgid "Polish"
 msgstr "polonais"
 
-#: okkindred/settings.py:133
+#: okkindred/settings.py:167
 msgid "Finnish"
 msgstr "finlandais"
 
-#: okkindred/settings.py:134
+#: okkindred/settings.py:168
 msgid "French"
 msgstr "français"
 
-#: sign_up/models.py:102
+#: sign_up/models.py:107
 msgid "ok!Kindred sign up confirmation"
 msgstr "ok!Kindred confirmation d'inscription"
 
-#: sign_up/models.py:104
+#: sign_up/models.py:109
 #, python-brace-format
 msgid ""
 "Hi {0}\n"
@@ -1411,9 +1429,9 @@ msgstr ""
 "Nous nous félicitons de tous ceux qui ont des idées ou qui souhaite "
 "contribuer à ce projet et le rendre meilleur! Nous avons particulièrement "
 "besoin de l'aide avec la traduction dans d'autres langues.\n"
-"            S'il vous plaît <a href=\"mailto:info@okkindred.com?subject=Development\""
-">entrer en contact</a> si vous souhaitez contribuer, ou (encore mieux) "
-"faire un pull request sur Github :)\n"
+"            S'il vous plaît <a href=\"mailto:info@okkindred.com?"
+"subject=Development\">entrer en contact</a> si vous souhaitez contribuer, ou "
+"(encore mieux) faire un pull request sur Github :)\n"
 "            "
 
 #: templates/about.html:204
@@ -1686,8 +1704,8 @@ msgid ""
 "For describing relationships you have 'Partnered' but not 'Married', you "
 "have 'Raised' but not 'Given Birth to'?"
 msgstr ""
-"Pour décrire les relations que vous avez «partenaire» mais pas «Marié», "
-"vous avez «Élevé» mais pas «donné naissance à»?"
+"Pour décrire les relations que vous avez «partenaire» mais pas «Marié», vous "
+"avez «Élevé» mais pas «donné naissance à»?"
 
 #: templates/about.html:305
 msgid ""

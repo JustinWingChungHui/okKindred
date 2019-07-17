@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-28 22:29+0000\n"
+"POT-Creation-Date: 2019-07-17 13:53+0000\n"
 "PO-Revision-Date: 2015-06-15 04:58+0000\n"
 "Last-Translator: b'Anonymous User <wonghshilson@gmail.com>'\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,16 +18,34 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Translated-Using: django-rosetta 0.7.6\n"
 
-#: custom_user/admin.py:19 custom_user/templates/custom_user/login.html:15
+#: auth_api/signals.py:54
+msgid "ok!Kindred Password Reset"
+msgstr "ok!Kindred 重设密码"
+
+#: auth_api/templates/auth_api/password_reset.html:7
+#: auth_api/templates/auth_api/password_reset_plain.html:4
+msgid ""
+"You're receiving this email because you requested a password reset for your "
+"user account at ok!Kindred"
+msgstr ""
+"您收到此电子邮件是因为您要求重置密码"
+"用户帐户 ok!Kindred"
+
+#: auth_api/templates/auth_api/password_reset.html:11
+#: auth_api/templates/auth_api/password_reset_plain.html:6
+msgid "Please go to the following page and choose a new password:"
+msgstr "请转到以下页面并选择一个新密码："
+
+#: custom_user/admin.py:18 custom_user/templates/custom_user/login.html:15
 #: custom_user/templates/custom_user/login.html:16
 msgid "Password"
 msgstr "密码"
 
-#: custom_user/admin.py:20
+#: custom_user/admin.py:19
 msgid "Password confirmation"
 msgstr "确认密码"
 
-#: custom_user/admin.py:31
+#: custom_user/admin.py:30
 msgid "Passwords don't match"
 msgstr "密码不匹配"
 
@@ -273,16 +291,16 @@ msgstr "是，删除我的个人资料"
 msgid "Required field!"
 msgstr "必填项目！"
 
-#: custom_user/views.py:126
+#: custom_user/views.py:109
 msgid "Access denied"
 msgstr "拒绝访问"
 
-#: email_confirmation/models.py:48
+#: email_confirmation/models.py:54
 #, python-brace-format
 msgid "An invitation to ok!Kindred from {0}"
 msgstr "邀请就OK了！从血族{0}"
 
-#: email_confirmation/models.py:50
+#: email_confirmation/models.py:56
 #, python-brace-format
 msgid ""
 "Hi {0}\n"
@@ -831,7 +849,7 @@ msgid "Delete Gallery and all Pictures"
 msgstr "删除库和所有图片"
 
 #: gallery/templates/gallery/gallery.html:88
-#: gallery/templates/gallery/gallery_map.html:42
+#: gallery/templates/gallery/gallery_map.html:44
 #: gallery/templates/gallery/person_gallery.html:24
 #: gallery/templates/gallery/person_gallery.html:39
 msgid "Details"
@@ -954,35 +972,35 @@ msgstr ""
 "image={3}/\n"
 "                                    "
 
-#: okkindred/settings.py:129
+#: okkindred/settings.py:163
 msgid "English"
 msgstr "英语"
 
-#: okkindred/settings.py:130
+#: okkindred/settings.py:164
 msgid "Traditional Chinese"
 msgstr "繁体中文"
 
-#: okkindred/settings.py:131
+#: okkindred/settings.py:165
 msgid "Simplified Chinese"
 msgstr "简体中文"
 
-#: okkindred/settings.py:132
+#: okkindred/settings.py:166
 msgid "Polish"
 msgstr "抛光"
 
-#: okkindred/settings.py:133
+#: okkindred/settings.py:167
 msgid "Finnish"
 msgstr "芬兰"
 
-#: okkindred/settings.py:134
+#: okkindred/settings.py:168
 msgid "French"
 msgstr "法国"
 
-#: sign_up/models.py:102
+#: sign_up/models.py:107
 msgid "ok!Kindred sign up confirmation"
 msgstr "ok!Kindred 属报名确认"
 
-#: sign_up/models.py:104
+#: sign_up/models.py:109
 #, python-brace-format
 msgid ""
 "Hi {0}\n"
@@ -1342,8 +1360,8 @@ msgstr ""
 "\n"
 "我们欢迎任何人谁有任何意见或谁愿意参与这一项目，并使其更好！我们特别需要翻译"
 "成其他语言的帮助。\n"
-"            请<a href=\"mailto:info@okkindred.com?subject=Development\">取得联系</"
-"A>如果您想贡献，或（甚至更好），使在Github上拉请求:)\n"
+"            请<a href=\"mailto:info@okkindred.com?subject=Development\">取得"
+"联系</A>如果您想贡献，或（甚至更好），使在Github上拉请求:)\n"
 "            "
 
 #: templates/about.html:204

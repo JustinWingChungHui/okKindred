@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-28 22:29+0000\n"
+"POT-Creation-Date: 2019-07-17 13:53+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,16 +17,34 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: custom_user/admin.py:19 custom_user/templates/custom_user/login.html:15
+#: auth_api/signals.py:54
+msgid "ok!Kindred Password Reset"
+msgstr "ok!Kindred Password Reset"
+
+#: auth_api/templates/auth_api/password_reset.html:7
+#: auth_api/templates/auth_api/password_reset_plain.html:4
+msgid ""
+"You're receiving this email because you requested a password reset for your "
+"user account at ok!Kindred"
+msgstr ""
+"You're receiving this email because you requested a password reset for your "
+"user account at ok!Kindred"
+
+#: auth_api/templates/auth_api/password_reset.html:11
+#: auth_api/templates/auth_api/password_reset_plain.html:6
+msgid "Please go to the following page and choose a new password:"
+msgstr "Please go to the following page and choose a new password:"
+
+#: custom_user/admin.py:18 custom_user/templates/custom_user/login.html:15
 #: custom_user/templates/custom_user/login.html:16
 msgid "Password"
 msgstr "Password"
 
-#: custom_user/admin.py:20
+#: custom_user/admin.py:19
 msgid "Password confirmation"
 msgstr "Password confirmation"
 
-#: custom_user/admin.py:31
+#: custom_user/admin.py:30
 msgid "Passwords don't match"
 msgstr "Passwords don't match"
 
@@ -281,16 +299,16 @@ msgstr "Yes and delete my profile"
 msgid "Required field!"
 msgstr "Required field!"
 
-#: custom_user/views.py:126
+#: custom_user/views.py:109
 msgid "Access denied"
 msgstr "Access denied"
 
-#: email_confirmation/models.py:48
+#: email_confirmation/models.py:54
 #, python-brace-format
 msgid "An invitation to ok!Kindred from {0}"
 msgstr "An invitation to ok!Kindred from {0}"
 
-#: email_confirmation/models.py:50
+#: email_confirmation/models.py:56
 #, python-brace-format
 msgid ""
 "Hi {0}\n"
@@ -847,7 +865,7 @@ msgid "Delete Gallery and all Pictures"
 msgstr "Delete Gallery and all Pictures"
 
 #: gallery/templates/gallery/gallery.html:88
-#: gallery/templates/gallery/gallery_map.html:42
+#: gallery/templates/gallery/gallery_map.html:44
 #: gallery/templates/gallery/person_gallery.html:24
 #: gallery/templates/gallery/person_gallery.html:39
 msgid "Details"
@@ -970,35 +988,35 @@ msgstr ""
 "                                        To see it, please go to {1}/"
 "gallery={2}/image={3}/"
 
-#: okkindred/settings.py:129
+#: okkindred/settings.py:163
 msgid "English"
 msgstr "English"
 
-#: okkindred/settings.py:130
+#: okkindred/settings.py:164
 msgid "Traditional Chinese"
 msgstr "Traditional Chinese"
 
-#: okkindred/settings.py:131
+#: okkindred/settings.py:165
 msgid "Simplified Chinese"
 msgstr "Simplified Chinese"
 
-#: okkindred/settings.py:132
+#: okkindred/settings.py:166
 msgid "Polish"
 msgstr "Polish"
 
-#: okkindred/settings.py:133
+#: okkindred/settings.py:167
 msgid "Finnish"
 msgstr "Finnish"
 
-#: okkindred/settings.py:134
+#: okkindred/settings.py:168
 msgid "French"
 msgstr "French"
 
-#: sign_up/models.py:102
+#: sign_up/models.py:107
 msgid "ok!Kindred sign up confirmation"
 msgstr "ok!Kindred sign up confirmation"
 
-#: sign_up/models.py:104
+#: sign_up/models.py:109
 #, python-brace-format
 msgid ""
 "Hi {0}\n"
@@ -1375,9 +1393,9 @@ msgstr ""
 "We welcome anyone who has any ideas or who wishes to contribute to this "
 "project and make it better!  We especially need help with translation into "
 "other languages.\n"
-"            Please <a href=\"mailto:info@okkindred.com?subject=Development\" >get "
-"in touch</a> if you would like to contribute, or (even better) make a pull "
-"request on Github :)\n"
+"            Please <a href=\"mailto:info@okkindred.com?subject=Development\" "
+">get in touch</a> if you would like to contribute, or (even better) make a "
+"pull request on Github :)\n"
 "            "
 
 #: templates/about.html:204
