@@ -92,6 +92,22 @@ class PersonApiTestCase(TestCase):
 
         self.assertFalse(b'Ada Lovelace' in response.content)
 
+    def test_list_search_match(self):
+        client = APIClient(HTTP_X_REAL_IP='127.0.0.1')
+        client.force_authenticate(user=self.user)
+        url = '/api/person/?search=ada'
+        response = client.get(url, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertTrue(b'Ada Lovelace' in response.content)
+
+    def test_list_search_no_match(self):
+        client = APIClient(HTTP_X_REAL_IP='127.0.0.1')
+        client.force_authenticate(user=self.user)
+        url = '/api/person/?search=asfasfasfa'
+        response = client.get(url, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertFalse(b'Ada Lovelace' in response.content)
+
 
     def test_retrieve_requires_authentication(self):
         client = APIClient(HTTP_X_REAL_IP='127.0.0.1')

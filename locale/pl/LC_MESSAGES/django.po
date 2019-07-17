@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-28 22:29+0000\n"
+"POT-Creation-Date: 2019-07-17 13:53+0000\n"
 "PO-Revision-Date: 2015-06-08 21:45+0000\n"
 "Last-Translator: b'Anonymous User'\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,16 +20,34 @@ msgstr ""
 "|| n%100>=20) ? 1 : 2);\n"
 "X-Translated-Using: django-rosetta 0.7.6\n"
 
-#: custom_user/admin.py:19 custom_user/templates/custom_user/login.html:15
+#: auth_api/signals.py:54
+msgid "ok!Kindred Password Reset"
+msgstr "ok!Kindred Zresetowanie Hasła"
+
+#: auth_api/templates/auth_api/password_reset.html:7
+#: auth_api/templates/auth_api/password_reset_plain.html:4
+msgid ""
+"You're receiving this email because you requested a password reset for your "
+"user account at ok!Kindred"
+msgstr ""
+"Otrzymujesz ten e-mail, ponieważ zażądałeś zresetowania hasła dla swojego „"
+"konto użytkownika w ok!Kindred"
+
+#: auth_api/templates/auth_api/password_reset.html:11
+#: auth_api/templates/auth_api/password_reset_plain.html:6
+msgid "Please go to the following page and choose a new password:"
+msgstr "Przejdź na następną stronę i wybierz nowe hasło:"
+
+#: custom_user/admin.py:18 custom_user/templates/custom_user/login.html:15
 #: custom_user/templates/custom_user/login.html:16
 msgid "Password"
 msgstr "Hasło"
 
-#: custom_user/admin.py:20
+#: custom_user/admin.py:19
 msgid "Password confirmation"
 msgstr "Potwierdź hasło"
 
-#: custom_user/admin.py:31
+#: custom_user/admin.py:30
 msgid "Passwords don't match"
 msgstr "Hasła nie pasują"
 
@@ -148,8 +166,8 @@ msgid ""
 "If you don't receive an email, please make sure you've entered the address "
 "you registered with, and check your spam folder."
 msgstr ""
-"Jeśli e-mail nie dotarł, upewnij się, że adres wpisany podczas "
-"rejestracji jest poprawny, oraz sprawdzić spam."
+"Jeśli e-mail nie dotarł, upewnij się, że adres wpisany podczas rejestracji "
+"jest poprawny, oraz sprawdzić spam."
 
 #: custom_user/templates/custom_user/settings.html:13 templates/base.html:79
 msgid "Settings"
@@ -266,8 +284,8 @@ msgid ""
 "Are you sure you want to leave ok!Kindred?  We would be very sad to see you "
 "leave!"
 msgstr ""
-"Czy na pewno chcesz zrezygnować z ok!Kindred na zawsze? Jeśli usuniesz swoj"
-" profil to ograniczy to informacje innym urzytkownikom. A nam będzie smutno! "
+"Czy na pewno chcesz zrezygnować z ok!Kindred na zawsze? Jeśli usuniesz swoj "
+"profil to ograniczy to informacje innym urzytkownikom. A nam będzie smutno! "
 
 #: custom_user/templates/custom_user/settings.html:109
 msgid "NO!!! I don't want to quit"
@@ -286,16 +304,16 @@ msgstr "Tak i chcę usunąć swój profil"
 msgid "Required field!"
 msgstr "Wymagana informacja!"
 
-#: custom_user/views.py:126
+#: custom_user/views.py:109
 msgid "Access denied"
 msgstr "Dostęp zablokowany"
 
-#: email_confirmation/models.py:48
+#: email_confirmation/models.py:54
 #, python-brace-format
 msgid "An invitation to ok!Kindred from {0}"
 msgstr "Zaproszenie do ok! Kindred od {0}"
 
-#: email_confirmation/models.py:50
+#: email_confirmation/models.py:56
 #, python-brace-format
 msgid ""
 "Hi {0}\n"
@@ -312,12 +330,12 @@ msgstr ""
 "Witaj {0}\n"
 "                                            Zostaliście zaproszeni przez {1} "
 "do ok!Kindred.\n"
-"                                            ok!Kindred jest wspólnym "
-"drzewem genealogicznym i prywatną, społecznościową platformą dla Ciebie i "
-" Twoich bliskich.\n"
+"                                            ok!Kindred jest wspólnym drzewem "
+"genealogicznym i prywatną, społecznościową platformą dla Ciebie i  Twoich "
+"bliskich.\n"
 "                                            Ktoś z Twojej rodziny jest "
-"cześcią waszego drzewa genealogicznego, które pomoże Ci poznać "
-"pozostałych członkow waszej rodziny.\n"
+"cześcią waszego drzewa genealogicznego, które pomoże Ci poznać pozostałych "
+"członkow waszej rodziny.\n"
 "                                            Aby przyłączyć się, kliknij na: "
 "{2}/accounts/confirmation={3}/\n"
 "                                        "
@@ -377,6 +395,15 @@ msgid "Hello"
 msgstr "Witamy"
 
 #: email_confirmation/templates/email_confirmation/invite.html:10
+#, fuzzy, python-format
+#| msgid ""
+#| "\n"
+#| "        You have been invited by %(user_who_invited_person)s to join ok!"
+#| "Kindred: a collaborative family tree and private social network for you "
+#| "and your family.\n"
+#| "        A network has already been set up by one of your family members "
+#| "to help you keep in touch.\n"
+#| "        "
 msgid ""
 "\n"
 "        You have been invited by %(user_who_invited_person)s to join ok!"
@@ -387,8 +414,8 @@ msgid ""
 "        "
 msgstr ""
 "\n"
-"Zostaliście zaproszeni przez %(user_who_invited_person) aby przyłączyć się "
-" do ok!Kindred: prywatny portal społecznościowy gdzie możesz współtworzyć "
+"Zostaliście zaproszeni przez %(user_who_invited_person) aby przyłączyć się  "
+"do ok!Kindred: prywatny portal społecznościowy gdzie możesz współtworzyć "
 "drzewo genealogiczne waszjej rodziny.\n"
 "         Drzewo genealogiczne, które zostało już zaczęte przez jednego z "
 "członków Twojej rodziny, pomoże wam pozostać w kontakcie.\n"
@@ -416,9 +443,10 @@ msgid ""
 "        "
 msgstr ""
 "\n"
-"Proszę kliknij na link i sprawdź naszą stronę. Jeśli chcesz dowiedzieć się "
-" więcej, wystarczy udać się do <a href = \"%(domain)s\">%(domain)s</a>\n"
+"Proszę kliknij na link i sprawdź naszą stronę. Jeśli chcesz dowiedzieć się  "
+"więcej, wystarczy udać się do <a href = \"%(domain)s\">%(domain)s</a>\n"
 "        "
+
 #: email_confirmation/templates/email_confirmation/invite.html:30
 #: sign_up/templates/sign_up/confirmation_email.html:19
 msgid ""
@@ -451,8 +479,8 @@ msgid ""
 "The following people's profiles have been updated.   Click on them to find "
 "out more:"
 msgstr ""
-"Profile następujących osób zostały uaktualnione. Aby dowiedzieć się więcej"
-"kliknij tutaj:"
+"Profile następujących osób zostały uaktualnione. Aby dowiedzieć się "
+"więcejkliknij tutaj:"
 
 #: family_tree/models/person.py:23
 #: family_tree/templates/family_tree/add_relation.html:59
@@ -857,7 +885,7 @@ msgid "Delete Gallery and all Pictures"
 msgstr "Usuń Gallery i wszystkie zdjęcia"
 
 #: gallery/templates/gallery/gallery.html:88
-#: gallery/templates/gallery/gallery_map.html:42
+#: gallery/templates/gallery/gallery_map.html:44
 #: gallery/templates/gallery/person_gallery.html:24
 #: gallery/templates/gallery/person_gallery.html:39
 msgid "Details"
@@ -981,35 +1009,35 @@ msgstr ""
 "{1}/gallery={2}/image={3}/\n"
 "                                    "
 
-#: okkindred/settings.py:129
+#: okkindred/settings.py:163
 msgid "English"
 msgstr "język angielski"
 
-#: okkindred/settings.py:130
+#: okkindred/settings.py:164
 msgid "Traditional Chinese"
 msgstr "Tradycyjne chińskie"
 
-#: okkindred/settings.py:131
+#: okkindred/settings.py:165
 msgid "Simplified Chinese"
 msgstr "Chiński uproszczony"
 
-#: okkindred/settings.py:132
+#: okkindred/settings.py:166
 msgid "Polish"
 msgstr "Polski"
 
-#: okkindred/settings.py:133
+#: okkindred/settings.py:167
 msgid "Finnish"
 msgstr "Fiński"
 
-#: okkindred/settings.py:134
+#: okkindred/settings.py:168
 msgid "French"
 msgstr "Francuski"
 
-#: sign_up/models.py:102
+#: sign_up/models.py:107
 msgid "ok!Kindred sign up confirmation"
 msgstr "ok! Kindred rejestrować się potwierdzenie"
 
-#: sign_up/models.py:104
+#: sign_up/models.py:109
 #, python-brace-format
 msgid ""
 "Hi {0}\n"
@@ -1393,9 +1421,9 @@ msgstr ""
 "Zapraszamy każdego, kto ma jakieś pomysły lub kto chce przyczynić się do "
 "tego projektu i zrobić to lepiej! Szczególnie potrzebna jest pomoc z "
 "tłumaczeniem na inne języki.\n"
-"            <a Href=\"mailto:info@okkindred.com?subject=Development\"> skontaktuje "
-"</a> jeśli chcesz przyczynić się, lub (nawet lepiej) złożyć wniosek ciągnij "
-"Github :)\n"
+"            <a Href=\"mailto:info@okkindred.com?subject=Development\"> "
+"skontaktuje </a> jeśli chcesz przyczynić się, lub (nawet lepiej) złożyć "
+"wniosek ciągnij Github :)\n"
 "            "
 
 #: templates/about.html:204

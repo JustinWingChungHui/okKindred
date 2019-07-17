@@ -15,9 +15,14 @@ class PersonViewSet(viewsets.ViewSet):
 
     def list(self, request):
         '''
-        Lists all people in user's family
+        Lists all people in user's family use ?search= parameter to find people by name
         '''
         queryset = Person.objects.filter(family_id = request.user.family_id
+                        ).order_by('hierarchy_score', 'birth_year', 'gender')
+
+        search_term = self.request.query_params.get('search', None)
+        if search_term is not None:
+            queryset = queryset.filter(name__icontains=search_term
                         ).order_by('hierarchy_score', 'birth_year', 'gender')
 
         serializer = PersonListSerializer(queryset, many=True)
