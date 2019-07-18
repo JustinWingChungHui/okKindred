@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-17 13:53+0000\n"
+"POT-Creation-Date: 2019-07-18 11:53+0000\n"
 "PO-Revision-Date: 2015-05-11 08:55+0000\n"
 "Last-Translator: b'Anonymous User'\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -23,14 +23,39 @@ msgstr ""
 msgid "ok!Kindred Password Reset"
 msgstr "ok!Kindred Salasanan Nollaus"
 
+#: auth_api/signals.py:89
+#, fuzzy
+#| msgid "ok!Kindred Password Reset"
+msgid "ok!Kindred Password Successfully Updated"
+msgstr "ok!Kindred Salasanan Nollaus"
+
+#: auth_api/templates/auth_api/password_changed.html:7
+#: auth_api/templates/auth_api/password_changed_plain.html:5
+msgid "Congratulations! Your password for ok!Kindred has just been updated."
+msgstr "Onnittelut! Salasanasi ok!Kindred on juuri päivitetty"
+
+#: auth_api/templates/auth_api/password_changed.html:11
+#: auth_api/templates/auth_api/password_changed_plain.html:7
+msgid "You can now login using your new password at:"
+msgstr "Nyt voit kirjautua uuden salasanasi avulla osoitteeseen:"
+
+#: auth_api/templates/auth_api/password_changed.html:19
+#: auth_api/templates/auth_api/password_changed_plain.html:11
+msgid ""
+"If you did not initiate this process, immediately contact us by replying to "
+"this email"
+msgstr ""
+"Jos et käynnistä tätä prosessia, ota välittömästi yhteyttä meihin vastaamalla"
+"Tämä sähköposti"
+
 #: auth_api/templates/auth_api/password_reset.html:7
 #: auth_api/templates/auth_api/password_reset_plain.html:4
 msgid ""
 "You're receiving this email because you requested a password reset for your "
 "user account at ok!Kindred"
 msgstr ""
-"Saat tämän sähköpostiviestin, koska olet pyytänyt salasanan palauttamista"
-"käyttäjätili ok!Kindred"
+"Saat tämän sähköpostiviestin, koska olet pyytänyt salasanan "
+"palauttamistakäyttäjätili ok!Kindred"
 
 #: auth_api/templates/auth_api/password_reset.html:11
 #: auth_api/templates/auth_api/password_reset_plain.html:6

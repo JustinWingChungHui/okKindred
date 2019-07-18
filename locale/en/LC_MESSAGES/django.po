@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-17 13:53+0000\n"
+"POT-Creation-Date: 2019-07-18 11:53+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,6 +20,31 @@ msgstr ""
 #: auth_api/signals.py:54
 msgid "ok!Kindred Password Reset"
 msgstr "ok!Kindred Password Reset"
+
+#: auth_api/signals.py:89
+#, fuzzy
+#| msgid "ok!Kindred Password Reset"
+msgid "ok!Kindred Password Successfully Updated"
+msgstr "ok!Kindred Password Reset"
+
+#: auth_api/templates/auth_api/password_changed.html:7
+#: auth_api/templates/auth_api/password_changed_plain.html:5
+msgid "Congratulations! Your password for ok!Kindred has just been updated."
+msgstr "Congratulations! Your password for ok!Kindred has just been updated."
+
+#: auth_api/templates/auth_api/password_changed.html:11
+#: auth_api/templates/auth_api/password_changed_plain.html:7
+msgid "You can now login using your new password at:"
+msgstr "You can now login using your new password at:"
+
+#: auth_api/templates/auth_api/password_changed.html:19
+#: auth_api/templates/auth_api/password_changed_plain.html:11
+msgid ""
+"If you did not initiate this process, immediately contact us by replying to "
+"this email"
+msgstr ""
+"If you did not initiate this process, immediately contact us by replying to "
+"this email"
 
 #: auth_api/templates/auth_api/password_reset.html:7
 #: auth_api/templates/auth_api/password_reset_plain.html:4

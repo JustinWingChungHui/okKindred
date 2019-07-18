@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-17 13:53+0000\n"
+"POT-Creation-Date: 2019-07-18 11:53+0000\n"
 "PO-Revision-Date: 2015-06-15 04:58+0000\n"
 "Last-Translator: b'Anonymous User <wonghshilson@gmail.com>'\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,14 +22,37 @@ msgstr ""
 msgid "ok!Kindred Password Reset"
 msgstr "ok!Kindred 重设密码"
 
+#: auth_api/signals.py:89
+#, fuzzy
+#| msgid "ok!Kindred Password Reset"
+msgid "ok!Kindred Password Successfully Updated"
+msgstr "ok!Kindred 重设密码"
+
+#: auth_api/templates/auth_api/password_changed.html:7
+#: auth_api/templates/auth_api/password_changed_plain.html:5
+msgid "Congratulations! Your password for ok!Kindred has just been updated."
+msgstr "恭喜！ 您的密码 ok!Kindred 刚刚更新。"
+
+#: auth_api/templates/auth_api/password_changed.html:11
+#: auth_api/templates/auth_api/password_changed_plain.html:7
+msgid "You can now login using your new password at:"
+msgstr "您现在可以使用新密码登录："
+
+#: auth_api/templates/auth_api/password_changed.html:19
+#: auth_api/templates/auth_api/password_changed_plain.html:11
+msgid ""
+"If you did not initiate this process, immediately contact us by replying to "
+"this email"
+msgstr "您现在可以使用新密码登录："
+
 #: auth_api/templates/auth_api/password_reset.html:7
 #: auth_api/templates/auth_api/password_reset_plain.html:4
 msgid ""
 "You're receiving this email because you requested a password reset for your "
 "user account at ok!Kindred"
 msgstr ""
-"您收到此电子邮件是因为您要求重置密码"
-"用户帐户 ok!Kindred"
+"如果您没有启动此过程，请立即通过回复与我们联系"
+"这封电子邮件"
 
 #: auth_api/templates/auth_api/password_reset.html:11
 #: auth_api/templates/auth_api/password_reset_plain.html:6
