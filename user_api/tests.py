@@ -32,7 +32,7 @@ class UserApiTestCase(TestCase):
 
     def test_get_requires_authentication(self):
         client = APIClient(HTTP_X_REAL_IP='127.0.0.1')
-        url = '/api/account/'
+        url = '/api/usersettings/'
         response = client.get(url, format='json')
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
@@ -40,7 +40,7 @@ class UserApiTestCase(TestCase):
     def test_retrieve(self):
         client = APIClient(HTTP_X_REAL_IP='127.0.0.1')
         client.force_authenticate(user=self.user)
-        url = '/api/account/'
+        url = '/api/usersettings/'
         response = client.get(url, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertTrue(b'receive_update_emails' in response.content)
@@ -56,7 +56,7 @@ class UserApiTestCase(TestCase):
             'receive_photo_update_emails': True,
         }
 
-        url = '/api/account/'
+        url = '/api/usersettings/'
         response = client.put(url, data, format='json')
 
         self.user = User.objects.get(id=self.user.id)
@@ -76,9 +76,70 @@ class UserApiTestCase(TestCase):
             'is_superuser': True,
         }
 
-        url = '/api/account/'
+        url = '/api/usersettings/'
         response = client.put(url, data, format='json')
 
         self.user = User.objects.get(id=self.user.id)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertFalse(self.user.is_superuser)
+
+
+    def test_change_password_requires_authentication(self):
+        client = APIClient(HTTP_X_REAL_IP='127.0.0.1')
+        url = '/api/password_change/'
+        data= {
+            'old_password': 'user1',
+            'new_password': 'user1a'
+        }
+
+        response = client.post(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+
+    def test_change_password_success(self):
+        client = APIClient(HTTP_X_REAL_IP='127.0.0.1')
+        client.force_authenticate(user=self.user)
+        url = '/api/password_change/'
+        data= {
+            'old_password': 'user',
+            'new_password': 'user12345'
+        }
+        response = client.post(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+        user = User.objects.get(id=self.user.id)
+        result = user.check_password('user12345')
+        self.assertTrue(result)
+
+
+    def test_change_password_missing_parameters(self):
+        client = APIClient(HTTP_X_REAL_IP='127.0.0.1')
+        client.force_authenticate(user=self.user)
+        url = '/api/password_change/'
+        data= {}
+        response = client.post(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+
+    def test_change_password_invalid_old_password(self):
+        client = APIClient(HTTP_X_REAL_IP='127.0.0.1')
+        client.force_authenticate(user=self.user)
+        url = '/api/password_change/'
+        data= {
+            'old_password': 'not valid',
+            'new_password': 'user12345'
+        }
+        response = client.post(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+
+
+    def test_change_password_too_short(self):
+        client = APIClient(HTTP_X_REAL_IP='127.0.0.1')
+        client.force_authenticate(user=self.user)
+        url = '/api/password_change/'
+        data= {
+            'old_password': 'user',
+            'new_password': 'u'
+        }
+        response = client.post(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
