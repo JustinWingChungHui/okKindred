@@ -4,13 +4,22 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
 from custom_user.models import User
-from user_api.serializers import UserSerializer
+from user_api.serializers import UserSerializer, UserDetailSerializer
 
 
-# ViewSets define the view behavior for Django REST
-class UserDetail(generics.RetrieveUpdateAPIView):
+class UserList(generics.ListAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
+    permission_classes = (IsAuthenticated,)
+
+    def get_queryset(self):
+        return User.objects.filter(family_id = self.request.user.family_id
+            ).order_by('name')
+
+
+class UserDetail(generics.RetrieveUpdateAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserDetailSerializer
     permission_classes = (IsAuthenticated,)
 
     def get_object(self):
@@ -44,3 +53,4 @@ def password_change(request):
     request.user.save()
 
     return Response("OK")
+

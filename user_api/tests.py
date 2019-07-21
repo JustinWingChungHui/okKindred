@@ -27,7 +27,33 @@ class UserApiTestCase(TestCase):
                                         name='user2',
                                         family = self.family)
 
+        self.family2 = Family()
+        self.family2.save()
+
+        self.user3 = User.objects.create_user(email='user3@example.com',
+                                        password='user3',
+                                        name='user3',
+                                        family = self.family2)
+
         super(UserApiTestCase, self).setUp()
+
+
+    def test_list_requires_authentication(self):
+        client = APIClient(HTTP_X_REAL_IP='127.0.0.1')
+        url = '/api/users/'
+        response = client.get(url, format='json')
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+
+    def test_list(self):
+        client = APIClient(HTTP_X_REAL_IP='127.0.0.1')
+        client.force_authenticate(user=self.user)
+        url = '/api/users/'
+        response = client.get(url, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertTrue(b'user@example.com' in response.content)
+        self.assertTrue(b'user2@example.com' in response.content)
+        self.assertFalse(b'user3@example.com' in response.content)
 
 
     def test_get_requires_authentication(self):

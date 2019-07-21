@@ -1,8 +1,16 @@
 from custom_user.models import User
 from rest_framework import serializers
 
-# Serializers define the API representation.
 class UserSerializer(serializers.HyperlinkedModelSerializer):
+    '''
+    Defines fields to be serialised for a a list of Users
+    '''
+    class Meta:
+        model = User
+        fields = ('email', 'name')
+
+# Serializers define the API representation.
+class UserDetailSerializer(serializers.HyperlinkedModelSerializer):
     '''
     Defines fields to be serialised for a User
     '''
