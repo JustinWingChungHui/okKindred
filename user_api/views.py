@@ -1,3 +1,5 @@
+from django_rest_passwordreset.signals import post_password_reset
+
 from rest_framework import generics, status
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
@@ -51,6 +53,8 @@ def password_change(request):
 
     request.user.set_password(new_password)
     request.user.save()
+
+    post_password_reset.send(sender="password_change", user=request.user)
 
     return Response("OK")
 
