@@ -4,7 +4,7 @@ from rest_framework import status
 from rest_framework.test import APIClient
 
 from custom_user.models import User
-from family_tree.models.family import Family
+from family_tree.models import Family, Person
 
 @override_settings(SECURE_SSL_REDIRECT=False, AXES_BEHIND_REVERSE_PROXY=False)
 class UserApiTestCase(TestCase):
@@ -58,7 +58,7 @@ class UserApiTestCase(TestCase):
 
     def test_get_requires_authentication(self):
         client = APIClient(HTTP_X_REAL_IP='127.0.0.1')
-        url = '/api/usersettings/'
+        url = '/api/user_settings/'
         response = client.get(url, format='json')
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
@@ -66,7 +66,7 @@ class UserApiTestCase(TestCase):
     def test_retrieve(self):
         client = APIClient(HTTP_X_REAL_IP='127.0.0.1')
         client.force_authenticate(user=self.user)
-        url = '/api/usersettings/'
+        url = '/api/user_settings/'
         response = client.get(url, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertTrue(b'receive_update_emails' in response.content)
@@ -82,7 +82,7 @@ class UserApiTestCase(TestCase):
             'receive_photo_update_emails': True,
         }
 
-        url = '/api/usersettings/'
+        url = '/api/user_settings/'
         response = client.put(url, data, format='json')
 
         self.user = User.objects.get(id=self.user.id)
@@ -102,7 +102,7 @@ class UserApiTestCase(TestCase):
             'is_superuser': True,
         }
 
-        url = '/api/usersettings/'
+        url = '/api/user_settings/'
         response = client.put(url, data, format='json')
 
         self.user = User.objects.get(id=self.user.id)
@@ -169,3 +169,97 @@ class UserApiTestCase(TestCase):
         }
         response = client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+
+    def test_delete_account_requires_authentication(self):
+        client = APIClient(HTTP_X_REAL_IP='127.0.0.1')
+        url = '/api/delete_account/'
+        response = client.post(url, format='json')
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+
+    def test_delete_account_no_password(self):
+        client = APIClient(HTTP_X_REAL_IP='127.0.0.1')
+        client.force_authenticate(user=self.user)
+        url = '/api/delete_account/'
+        data= {
+            'password': '',
+        }
+        response = client.post(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+
+
+    def test_delete_account_last_user(self):
+
+        person3 = Person.objects.create(
+                name='User3',
+                gender='M',
+                email='user3@example.com',
+                family_id=self.family2.id,
+                language='en',
+                user_id=self.user3.id)
+
+
+        client = APIClient(HTTP_X_REAL_IP='127.0.0.1')
+        client.force_authenticate(user=self.user3)
+        url = '/api/delete_account/'
+        data= {
+            'password': 'user3',
+        }
+        response = client.post(url, data, format='json')
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(0, Person.objects.filter(id=person3.id).count())
+        self.assertEqual(0, User.objects.filter(id=self.user3.id).count())
+
+
+    def test_delete_account_multi_user_leave_profile(self):
+
+        person = Person.objects.create(
+                name='User',
+                gender='M',
+                email='user@example.com',
+                family_id=self.family.id,
+                language='en',
+                user_id=self.user.id)
+
+
+        client = APIClient(HTTP_X_REAL_IP='127.0.0.1')
+        client.force_authenticate(user=self.user)
+        url = '/api/delete_account/'
+        data= {
+            'password': 'user',
+            'delete_profile': False
+        }
+
+        response = client.post(url, data, format='json')
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(1, Person.objects.filter(id=person.id).count())
+        self.assertEqual(0, User.objects.filter(id=self.user.id).count())
+
+
+    def test_delete_account_multi_user_delete_profile(self):
+
+        person = Person.objects.create(
+                name='User',
+                gender='M',
+                email='user@example.com',
+                family_id=self.family.id,
+                language='en',
+                user_id=self.user.id)
+
+
+        client = APIClient(HTTP_X_REAL_IP='127.0.0.1')
+        client.force_authenticate(user=self.user)
+        url = '/api/delete_account/'
+        data= {
+            'password': 'user',
+            'delete_profile': True
+        }
+
+        response = client.post(url, data, format='json')
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(0, Person.objects.filter(id=person.id).count())
+        self.assertEqual(0, User.objects.filter(id=self.user.id).count())
