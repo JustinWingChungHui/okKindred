@@ -127,3 +127,30 @@ class RelationApiTestCase(TestCase):
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
 
 
+    def test_delete_requires_authentication(self):
+        client = APIClient(HTTP_X_REAL_IP='127.0.0.1')
+        url = '/api/relation/{0}/'.format(self.relation1.id)
+        response = client.delete(url, format='json')
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+
+    def test_delete_requires_other_family(self):
+        client = APIClient(HTTP_X_REAL_IP='127.0.0.1')
+        client.force_authenticate(user=self.user)
+        url = '/api/relation/{0}/'.format(self.relation3.id)
+        response = client.delete(url, format='json')
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+
+
+    def test_delete(self):
+        client = APIClient(HTTP_X_REAL_IP='127.0.0.1')
+        client.force_authenticate(user=self.user)
+        url = '/api/relation/{0}/'.format(self.relation1.id)
+        response = client.delete(url, format='json')
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+        count = Relation.objects.filter(pk = self.relation1.id).count()
+        self.assertEqual(0, count)
+
+

@@ -4,8 +4,7 @@ from rest_framework import status
 from rest_framework.test import APIClient
 import json
 
-from family_tree.models.family import Family
-from family_tree.models.person import Person
+from family_tree.models import Family, Person, Relation
 from custom_user.models import User
 
 @override_settings(SECURE_SSL_REDIRECT=False, AXES_BEHIND_REVERSE_PROXY=False)
@@ -230,3 +229,154 @@ class PersonApiTestCase(TestCase):
         self.person = Person.objects.get(id=self.person.id)
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
+
+    def test_update_locked_for_other_user(self):
+
+        user = User.objects.create_user(email='adahorriblecousin@example.com',
+                                        password='horrible',
+                                        name='Ada Horrible Cousin',
+                                        family = self.family)
+
+        client = APIClient(HTTP_X_REAL_IP='127.0.0.1')
+        client.force_authenticate(user=user)
+
+        data = {
+            'fieldName': 'locked',
+            'value': True
+        }
+
+        url = '/api/person/{0}/'.format(self.person.id)
+        response = client.put(url, data, format='json')
+
+        self.person = Person.objects.get(id=self.person.id)
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+
+
+    def test_create_person(self):
+        client = APIClient(HTTP_X_REAL_IP='127.0.0.1')
+        client.force_authenticate(user=self.user)
+
+        data = {
+            'from_person_id': self.person.id,
+            'relation_type': 1,
+            'name': 'wife',
+            'gender': 'F',
+            'birth_year': 1920,
+        }
+
+        url = '/api/person/'
+        response = client.post(url, data, format='json')
+
+        new_person = Person.objects.get(name='wife')
+        new_relation = Relation.objects.get(from_person_id=self.person.id, to_person_id=new_person.id)
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertTrue(b'wife' in response.content)
+        self.assertEqual(1, new_relation.relation_type)
+
+
+
+    def test_create_person_requires_authentication(self):
+        client = APIClient(HTTP_X_REAL_IP='127.0.0.1')
+
+        data = {
+            'from_person_id': self.person.id,
+            'relation_type': 1,
+            'name': 'wife',
+            'gender': 'F',
+            'birth_year': 1920,
+        }
+
+        url = '/api/person/'
+        response = client.post(url, data, format='json')
+
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+
+    def test_create_person_other_family(self):
+        client = APIClient(HTTP_X_REAL_IP='127.0.0.1')
+        client.force_authenticate(user=self.user2)
+
+        data = {
+            'from_person_id': self.person.id,
+            'relation_type': 1,
+            'name': 'wife',
+            'gender': 'F',
+            'birth_year': 1920,
+        }
+
+        url = '/api/person/'
+        response = client.post(url, data, format='json')
+
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+
+
+    def test_create_person_invalid_from_person(self):
+        client = APIClient(HTTP_X_REAL_IP='127.0.0.1')
+        client.force_authenticate(user=self.user)
+        data = {
+            'relation_type': 1,
+            'name': 'wife',
+            'gender': 'F',
+            'birth_year': 1920,
+        }
+
+        url = '/api/person/'
+        response = client.post(url, data, format='json')
+
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+
+
+    def test_create_person_invalid_relation_type(self):
+        client = APIClient(HTTP_X_REAL_IP='127.0.0.1')
+        client.force_authenticate(user=self.user)
+        data = {
+            'from_person_id': self.person.id,
+            'relation_type': 11,
+            'name': 'wife',
+            'gender': 'F',
+            'birth_year': 1920,
+        }
+
+        url = '/api/person/'
+        response = client.post(url, data, format='json')
+
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+
+
+    def test_create_person_invalid_name(self):
+        client = APIClient(HTTP_X_REAL_IP='127.0.0.1')
+        client.force_authenticate(user=self.user)
+        data = {
+            'from_person_id': self.person.id,
+            'relation_type': 1,
+            'name': ' ',
+            'gender': 'F',
+            'birth_year': 1920,
+        }
+
+        url = '/api/person/'
+        response = client.post(url, data, format='json')
+
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+
+
+    def test_create_person_invalid_gender(self):
+        client = APIClient(HTTP_X_REAL_IP='127.0.0.1')
+        client.force_authenticate(user=self.user)
+        data = {
+            'from_person_id': self.person.id,
+            'relation_type': 1,
+            'name': 'wife',
+            'gender': 'AA',
+            'birth_year': 1920,
+        }
+
+        url = '/api/person/'
+        response = client.post(url, data, format='json')
+
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
