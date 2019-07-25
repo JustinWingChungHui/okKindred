@@ -2,8 +2,8 @@
 addict==2.2.1
 appdirs==1.4.3
 bleach==3.1.0
-boto3==1.9.188
-botocore==1.12.188
+boto3==1.9.195
+botocore==1.12.195
 certifi==2019.6.16
 chardet==3.0.4
 coreapi==2.3.3
@@ -16,10 +16,10 @@ django-axes==5.0.9
 django-cors-headers==3.0.2
 django-debug-toolbar==2.0
 django-debug-toolbar-template-timings==0.9
-django-filter==2.1.0
+django-filter==2.2.0
 django-ipware==2.1.0
 django-rest-passwordreset==1.0.0
-djangorestframework==3.10.0
+djangorestframework==3.10.1
 djangorestframework-simplejwt==4.3.0
 docutils==0.14
 ExifRead==2.1.2
@@ -41,7 +41,7 @@ Pillow==6.1.0
 pipdeptree==0.13.2
 polib==1.1.0
 PyJWT==1.7.1
-pyparsing==2.4.0
+pyparsing==2.4.1.1
 python-dateutil==2.8.0
 pytz==2019.1
 PyYAML==5.1.1
