@@ -1,5 +1,5 @@
 from django.shortcuts import get_object_or_404
-from django.http import HttpResponse, Http404
+from django.http import HttpResponse
 from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
@@ -9,6 +9,7 @@ from family_tree.models.person import MALE, FEMALE, OTHER
 from family_tree.models.relation import PARTNERED, RAISED, RAISED_BY
 from person_api.serializers import PersonSerializer, PersonListSerializer
 from relation_api.views import create_relation
+from relation_api.serializers import RelationSerializer
 
 from common.utils import intTryParse
 
@@ -140,9 +141,10 @@ class PersonViewSet(viewsets.ViewSet):
             new_person.hierarchy_score = from_person.hierarchy_score - 1
         new_person.save()
 
-        create_relation(request.user, from_person, new_person, relation_type)
+        relation = create_relation(request.user, from_person, new_person, relation_type)
+        relation_serializer = RelationSerializer(relation)
 
-        serializer = PersonSerializer(new_person)
-        return Response(serializer.data)
+        person_serializer = PersonSerializer(new_person)
+        return Response({'person': person_serializer.data, 'relation': relation_serializer.data})
 
 
