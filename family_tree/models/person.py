@@ -275,8 +275,9 @@ class Person(models.Model):
 
         location = geocode_address(self.address)
 
-        self.latitude = location.latitude
-        self.longitude = location.longitude
+        if location:
+            self.latitude = location.latitude
+            self.longitude = location.longitude
 
 
     def set_hires_photo(self, filename):
