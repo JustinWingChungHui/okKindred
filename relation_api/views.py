@@ -63,7 +63,7 @@ class RelationViewSet(viewsets.ViewSet):
         from_person = get_object_or_404(person_queryset, pk=from_person_id)
         to_person = get_object_or_404(person_queryset, pk=to_person_id)
 
-        relation = create_relation(from_person, to_person, relation_type)
+        relation = create_relation(request.user, from_person, to_person, relation_type)
 
         if not relation:
             raise Http404
