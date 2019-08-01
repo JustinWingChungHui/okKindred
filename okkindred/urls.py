@@ -46,7 +46,6 @@ urlpatterns = [
     # Django Rest Docs
     path('api/schema/', get_schema_view(
         title="ok!Kindred API",
-        url='/api/',
     ), name='openapi-schema'),
 
     # Route TemplateView to serve Swagger UI template.

@@ -59,6 +59,11 @@ class RelationApiTestCase(TestCase):
         self.relation2 = Relation.objects.create(from_person=self.person1, to_person=self.person3, relation_type=RAISED)
         self.relation2.save()
 
+        self.otherFamilyUser = User.objects.create_user(email='anotherfamilyuser@example.com',
+                                        password='anotherfamily',
+                                        name='Another Family',
+                                        family = self.family2)
+
         self.otherFamilyPerson = Person(name='another family',
                         gender='O',
                         email='anotherfamily@example.com',
@@ -127,3 +132,69 @@ class RelationApiTestCase(TestCase):
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
 
 
+    def test_delete_requires_authentication(self):
+        client = APIClient(HTTP_X_REAL_IP='127.0.0.1')
+        url = '/api/relation/{0}/'.format(self.relation1.id)
+        response = client.delete(url, format='json')
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+
+    def test_delete_other_family(self):
+        client = APIClient(HTTP_X_REAL_IP='127.0.0.1')
+        client.force_authenticate(user=self.user)
+        url = '/api/relation/{0}/'.format(self.relation3.id)
+        response = client.delete(url, format='json')
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+
+
+    def test_delete(self):
+        client = APIClient(HTTP_X_REAL_IP='127.0.0.1')
+        client.force_authenticate(user=self.user)
+        url = '/api/relation/{0}/'.format(self.relation1.id)
+        response = client.delete(url, format='json')
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+        count = Relation.objects.filter(pk = self.relation1.id).count()
+        self.assertEqual(0, count)
+
+
+    def test_create(self):
+        client = APIClient(HTTP_X_REAL_IP='127.0.0.1')
+        client.force_authenticate(user=self.user)
+        url = '/api/relation/'
+        data = {
+            'from_person_id': self.person2.id,
+            'to_person_id': self.person3.id,
+            'relation_type': RAISED
+        }
+
+        response = client.post(url, data, format='json')
+        relation = json.loads(response.content)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertNotEqual(relation, None)
+
+
+    def test_create_requires_authentication(self):
+        client = APIClient(HTTP_X_REAL_IP='127.0.0.1')
+        url = '/api/relation/'
+        data = {
+            'from_person_id': self.person2.id,
+            'to_person_id': self.person3.id,
+            'relation_type': RAISED
+        }
+        response = client.post(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+
+    def test_create_other_family(self):
+        client = APIClient(HTTP_X_REAL_IP='127.0.0.1')
+        client.force_authenticate(user=self.otherFamilyUser)
+        url = '/api/relation/'
+        data = {
+            'from_person_id': self.person2.id,
+            'to_person_id': self.person3.id,
+            'relation_type': RAISED
+        }
+        response = client.post(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
