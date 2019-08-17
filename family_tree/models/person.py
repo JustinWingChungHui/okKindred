@@ -1,3 +1,4 @@
+from pathlib import Path
 from PIL import Image
 from django.db import models
 from django.utils.translation import ugettext_lazy as _, ugettext as tran
@@ -280,9 +281,84 @@ class Person(models.Model):
             self.longitude = location.longitude
 
 
+
+    def set_profile_image_crop_rotate_resize(self, path_and_filename, x, y, w, h, r, test = False):
+        '''
+        sets the profile photo, supercedes set_hires_photo, crop_and_resize_photo, rotate_photo
+        '''
+
+        try:
+            media_path = Path(settings.MEDIA_ROOT)
+            path = Path(path_and_filename)
+            rel_path = Path(os.path.relpath(path, media_path))
+
+            small_thumb_path = Path(rel_path.parent, rel_path.stem + '_small_thumb').with_suffix('.jpg')
+            large_thumb_path = Path(rel_path.parent, rel_path.stem + '_large_thumb').with_suffix('.jpg')
+
+            im = Image.open(path)
+            im.verify()
+
+            #Open it again!
+            #https://pillow.readthedocs.io/en/3.0.x/reference/Image.html?highlight=verify#PIL.Image.Image.verify
+
+            im = Image.open(path)
+            im = im.convert('RGB')
+
+            if r != 0:
+                im = im.rotate(r, resample=Image.BICUBIC, expand=True)
+
+            im = im.crop((x, y, x + w, y + h))
+
+            # small thumbnail
+            small_thumb = im.copy()
+            small_thumb.thumbnail((80,80), Image.ANTIALIAS)
+            small_thumb.save(media_path.joinpath(small_thumb_path), "JPEG", quality=75)
+
+            # large thumbnail
+            large_thumb = im.copy()
+            large_thumb.thumbnail((200,200), Image.ANTIALIAS)
+            large_thumb.save(media_path.joinpath(large_thumb_path), "JPEG", quality=75)
+
+            old_photo = self.photo
+            old_small_thumbnail = self.small_thumbnail
+            old_large_thumbnail = self.large_thumbnail
+
+
+            # Set model properties
+            self.photo = str(rel_path)
+            self.small_thumbnail = str(small_thumb_path)
+            self.large_thumbnail = str(large_thumb_path)
+
+            upload_file_to_s3(self.photo)
+            upload_file_to_s3(self.small_thumbnail)
+            upload_file_to_s3(self.large_thumbnail)
+
+            # Remove old photos from S3
+            if old_photo:
+                old_photo_path = ''.join([settings.MEDIA_ROOT, str(old_photo)])
+                remove_file_from_s3(old_photo_path)
+                old_small_thumbnail_path = ''.join([settings.MEDIA_ROOT, str(old_small_thumbnail)])
+                remove_file_from_s3(old_small_thumbnail_path)
+                old_large_thumbnail_path = ''.join([settings.MEDIA_ROOT, str(old_large_thumbnail)])
+                remove_file_from_s3(old_large_thumbnail_path)
+
+        except:
+
+            raise Exception("Invalid image!")
+
+        finally:
+
+            # Need to check these images if testing
+            if not test:
+                self.remove_local_images()
+
+
+
+
     def set_hires_photo(self, filename):
         '''
         Checks file is an image and converts it to a small jpeg
+        DEPRECATED
         '''
         #Check this is a valid image
         try:
@@ -310,6 +386,7 @@ class Person(models.Model):
     def crop_and_resize_photo(self, x, y, w, h):
         '''
         Crops the photo and produces a large and small thumbnail
+        DEPRECATED
         '''
 
         path_and_filename = ''.join([settings.MEDIA_ROOT, str(self.photo)])
@@ -345,6 +422,7 @@ class Person(models.Model):
     def rotate_photo(self, anticlockwise_angle):
         '''
         Rotates the photo
+        DEPRECATED
         '''
         path_and_filename = ''.join([settings.MEDIA_ROOT, str(self.photo)])
         im = Image.open(path_and_filename)
@@ -380,4 +458,18 @@ class Person(models.Model):
         large_thumb = ''.join([settings.MEDIA_ROOT, str(self.large_thumbnail)])
         if os.path.exists(large_thumb):
             os.remove(large_thumb)
+
+
+    def remove_remote_images(self):
+        '''
+        Removes the remote copies of the image files
+        '''
+        photo = ''.join([settings.MEDIA_ROOT, str(self.photo)])
+        remove_file_from_s3(photo)
+
+        small_thumb = ''.join([settings.MEDIA_ROOT, str(self.small_thumbnail)])
+        remove_file_from_s3(small_thumb)
+
+        large_thumb = ''.join([settings.MEDIA_ROOT, str(self.large_thumbnail)])
+        remove_file_from_s3(large_thumb)
 

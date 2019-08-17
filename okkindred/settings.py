@@ -69,6 +69,7 @@ INSTALLED_APPS = (
     'auth_api',
     'invite_email_api',
     'image_api',
+    'profile_image_api',
 )
 
 MIDDLEWARE = (
