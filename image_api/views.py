@@ -45,6 +45,6 @@ class ImageListView(viewsets.GenericViewSet):
         Gets a single image record
         '''
         queryset = Image.objects.filter(family_id = request.user.family_id)
-        person = get_object_or_404(queryset, pk=pk)
-        serializer = ImageSerializer(person)
+        image = get_object_or_404(queryset, pk=pk)
+        serializer = ImageSerializer(image)
         return Response(serializer.data)
