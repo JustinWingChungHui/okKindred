@@ -71,6 +71,12 @@ urlpatterns = [
 
     # User Api
     path('', include('user_api.urls')),
+
+    # Sign Up Api
+    path('', include('sign_up_api.urls')),
+
+    # Profile Image Api
+    path('', include('profile_image_api.urls')),
 ]
 
 if settings.DEBUG:

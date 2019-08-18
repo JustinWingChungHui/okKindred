@@ -3,8 +3,8 @@ addict==2.2.1
 appdirs==1.4.3
 attrs==19.1.0
 bleach==3.1.0
-boto3==1.9.199
-botocore==1.12.199
+boto3==1.9.207
+botocore==1.12.207
 certifi==2019.6.16
 chardet==3.0.4
 coreapi==2.3.3
@@ -13,8 +13,8 @@ coverage==4.5.4
 Django==2.2.4
 django-appconf==1.0.3
 django-autotranslate==1.1.0
-django-axes==5.0.11
-django-cors-headers==3.0.2
+django-axes==5.0.12
+django-cors-headers==3.1.0
 django-debug-toolbar==2.0
 django-debug-toolbar-template-timings==0.9
 django-filter==2.2.0
@@ -35,7 +35,7 @@ Jinja2==2.10.1
 jmespath==0.9.4
 Markdown==3.1.1
 MarkupSafe==1.1.1
-mysqlclient==1.4.2.post1
+mysqlclient==1.4.4
 olefile==0.46
 packaging==19.1
 Pillow==6.1.0
