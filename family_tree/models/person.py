@@ -132,6 +132,7 @@ class Person(models.Model):
         self._original_address = self.address
         self._original_language = self.language
         self._original_name = self.name
+        self._original_biography = self.biography
 
 
     def have_user_details_changed(self):
@@ -210,7 +211,8 @@ class Person(models.Model):
         self.format_urls()
 
         # Clean biography to mitigate against xss
-        self.biography = bleach.clean(text=self.biography, tags=self.allowed_print_tags)
+        if self._original_biography != self.biography:
+            self.biography = bleach.clean(text=self.biography, tags=self.allowed_print_tags)
 
         super(Person, self).save(*args, **kwargs) # Call the "real" save() method.
 

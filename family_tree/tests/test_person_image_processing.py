@@ -5,12 +5,11 @@ from django.test.utils import override_settings
 from django.conf import settings
 from family_tree.models.person import Person
 from family_tree.models.family import Family
-from common.s3_synch import get_file_from_s3
 from PIL import Image
 
 
 @override_settings(SSLIFY_DISABLE=True, MEDIA_ROOT=settings.MEDIA_ROOT_TEST)
-class PersonTestCase(TestCase): # pragma: no cover
+class PersonImageProcessingTestCase(TestCase): # pragma: no cover
     '''
     This defines all the tests for all model logic for a Person
     '''
@@ -19,8 +18,6 @@ class PersonTestCase(TestCase): # pragma: no cover
 
         self.family = Family()
         self.family.save()
-
-        super(PersonTestCase, self).setUp()
 
 
 
@@ -37,6 +34,7 @@ class PersonTestCase(TestCase): # pragma: no cover
         import os
         shutil.copy2(os.path.join(settings.BASE_DIR, 'family_tree/tests/large_test_image.jpg'), path)
         person = Person(name='陳港生', gender='M', family_id=self.family.id)
+        person.save()
         person.set_profile_image_crop_rotate_resize(path, 10, 20, 200, 200, 90, test = True)
 
         #Check small image is valid
