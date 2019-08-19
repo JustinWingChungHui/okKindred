@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.test import TestCase
 from django.test.utils import override_settings
 from rest_framework import status
@@ -8,8 +9,12 @@ from family_tree.models.person import Person
 from custom_user.models import User
 from gallery.models import Gallery
 import json
+import os
+import shutil
 
-@override_settings(SECURE_SSL_REDIRECT=False, AXES_BEHIND_REVERSE_PROXY=False)
+@override_settings(SECURE_SSL_REDIRECT=False,
+                    AXES_BEHIND_REVERSE_PROXY=False,
+                    MEDIA_ROOT=settings.MEDIA_ROOT_TEST)
 class GalleryApiTestCase(TestCase):
     '''
     Tests for the Gallery API
@@ -53,6 +58,9 @@ class GalleryApiTestCase(TestCase):
                         language='en',
                         user_id=self.user2.id)
         self.person2.save()
+
+        self.test_image = os.path.join(settings.BASE_DIR, 'gallery/tests/test_image.jpg')
+        self.test_image_destination = ''.join([settings.MEDIA_ROOT, '/test_image.jpg'])
 
 
     def test_list_requires_authentication(self):
@@ -127,6 +135,7 @@ class GalleryApiTestCase(TestCase):
 
 
     def test_partial_update(self):
+        shutil.copy2(self.test_image, self.test_image_destination)
         client = APIClient(HTTP_X_REAL_IP='127.0.0.1')
         client.force_authenticate(user=self.user)
         url = '/api/gallery/{0}/'.format(self.gallery.id)
@@ -135,7 +144,7 @@ class GalleryApiTestCase(TestCase):
             'family_id': self.family2.id, # try to switch families
             'title': 'new title',
             'description': 'new description',
-            'thumbnail': 'newthumb.jpg',
+            'thumbnail': 'test_image.jpg',
         }
 
         response = client.patch(url, data, format='json')
@@ -147,7 +156,7 @@ class GalleryApiTestCase(TestCase):
         self.assertEqual(self.family.id, gallery.family_id)
         self.assertTrue(b'new title' in response.content)
         self.assertTrue(b'new description' in response.content)
-        self.assertTrue(b'newthumb.jpg' in response.content)
+        self.assertTrue(b'test_image.jpg' in response.content)
 
 
 
@@ -159,7 +168,7 @@ class GalleryApiTestCase(TestCase):
         data = {
             'title': 'new title',
             'description': 'new description',
-            'thumbnail': 'newthumb.jpg',
+            'thumbnail': 'test_image.jpg',
         }
 
         response = client.patch(url, data, format='json')
@@ -173,7 +182,7 @@ class GalleryApiTestCase(TestCase):
         data = {
             'title': 'new title',
             'description': 'new description',
-            'thumbnail': 'newthumb.jpg',
+            'thumbnail': 'test_image.jpg',
         }
 
         url = '/api/gallery/{0}/'.format(self.gallery.id)
