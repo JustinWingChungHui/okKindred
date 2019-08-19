@@ -124,3 +124,109 @@ class GalleryApiTestCase(TestCase):
         url = '/api/gallery/{0}/'.format(self.gallery.id)
         response = client.get(url, format='json')
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+
+
+    def test_partial_update(self):
+        client = APIClient(HTTP_X_REAL_IP='127.0.0.1')
+        client.force_authenticate(user=self.user)
+        url = '/api/gallery/{0}/'.format(self.gallery.id)
+
+        data = {
+            'family_id': self.family2.id, # try to switch families
+            'title': 'new title',
+            'description': 'new description',
+            'thumbnail': 'newthumb.jpg',
+        }
+
+        response = client.patch(url, data, format='json')
+
+        gallery = Gallery.objects.get(id=self.gallery.id)
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual('new title', gallery.title)
+        self.assertEqual(self.family.id, gallery.family_id)
+        self.assertTrue(b'new title' in response.content)
+        self.assertTrue(b'new description' in response.content)
+        self.assertTrue(b'newthumb.jpg' in response.content)
+
+
+
+    def test_partial_update_requires_authentication(self):
+        client = APIClient(HTTP_X_REAL_IP='127.0.0.1')
+
+        url = '/api/gallery/{0}/'.format(self.gallery.id)
+
+        data = {
+            'title': 'new title',
+            'description': 'new description',
+            'thumbnail': 'newthumb.jpg',
+        }
+
+        response = client.patch(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+
+    def test_partial_update_other_family(self):
+        client = APIClient(HTTP_X_REAL_IP='127.0.0.1')
+        client.force_authenticate(user=self.user2)
+
+        data = {
+            'title': 'new title',
+            'description': 'new description',
+            'thumbnail': 'newthumb.jpg',
+        }
+
+        url = '/api/gallery/{0}/'.format(self.gallery.id)
+        response = client.patch(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+
+
+    def test_create(self):
+        client = APIClient(HTTP_X_REAL_IP='127.0.0.1')
+        client.force_authenticate(user=self.user)
+        url = '/api/gallery/'
+
+        data = {
+            'family_id': self.family2.id, # try to switch families
+            'title': 'new gallery title',
+            'description': 'new gallery description',
+        }
+
+        response = client.post(url, data, format='json')
+
+        gallery = Gallery.objects.get(title='new gallery title')
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual('new gallery title', gallery.title)
+        self.assertEqual(self.family.id, gallery.family_id)
+        self.assertTrue(b'new gallery title' in response.content)
+
+
+    def test_create_requires_authentication(self):
+        client = APIClient(HTTP_X_REAL_IP='127.0.0.1')
+
+        url = '/api/gallery/'.format(self.gallery.id)
+
+        data = {
+            'title': 'new title',
+            'description': 'new description',
+        }
+
+        response = client.post(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+
+
+    def test_create_no_title(self):
+        client = APIClient(HTTP_X_REAL_IP='127.0.0.1')
+        client.force_authenticate(user=self.user)
+        url = '/api/gallery/'
+
+        data = {
+            'title': '',
+            'description': 'new gallery description',
+        }
+
+        response = client.post(url, data, format='json')
+
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
