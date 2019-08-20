@@ -14,13 +14,13 @@ class GalleryView(viewsets.GenericViewSet):
     serializer_class = GallerySerializer
 
     def get_queryset(self):
-        return Gallery.objects.filter(family_id = self.request.user.family_id).order_by('last_updated_date')[:20]
+        return Gallery.objects.filter(family_id = self.request.user.family_id).order_by('-last_updated_date')[:20]
 
     def list(self, request):
         '''
         Lists galleries in users family.
         '''
-        queryset = Gallery.objects.filter(family_id = self.request.user.family_id).order_by('last_updated_date')
+        queryset = Gallery.objects.filter(family_id = self.request.user.family_id).order_by('-last_updated_date')
 
         page = self.paginate_queryset(queryset)
 
