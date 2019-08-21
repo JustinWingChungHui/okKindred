@@ -22,7 +22,9 @@ class Gallery(models.Model):
 
     description = models.TextField(blank=True)
 
-    thumbnail = models.ImageField(blank=True, null=False)
+    thumbnail = models.ImageField(blank=True, null=False, width_field='thumbnail_width', height_field='thumbnail_height')
+    thumbnail_height = models.IntegerField(null=True)
+    thumbnail_width = models.IntegerField(null=True)
 
     #Tracking
     creation_date = models.DateTimeField(auto_now_add=True)

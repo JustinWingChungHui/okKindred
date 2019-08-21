@@ -46,7 +46,7 @@ class PersonViewSet(viewsets.ViewSet):
 
 
 
-    def update(self, request, pk=None):
+    def partial_update(self, request, pk=None):
         '''
         Updates a person record
         set fieldName and value

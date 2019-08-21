@@ -70,6 +70,7 @@ INSTALLED_APPS = (
     'invite_email_api',
     'image_api',
     'profile_image_api',
+    'gallery_api',
 )
 
 MIDDLEWARE = (

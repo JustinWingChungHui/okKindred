@@ -77,6 +77,9 @@ urlpatterns = [
 
     # Profile Image Api
     path('', include('profile_image_api.urls')),
+
+    # Gallerys Api
+    path('', include('gallery_api.urls')),
 ]
 
 if settings.DEBUG:

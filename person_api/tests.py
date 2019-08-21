@@ -132,7 +132,7 @@ class PersonApiTestCase(TestCase):
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
 
 
-    def test_update(self):
+    def test_partial_update(self):
         client = APIClient(HTTP_X_REAL_IP='127.0.0.1')
         client.force_authenticate(user=self.user)
 
@@ -142,7 +142,7 @@ class PersonApiTestCase(TestCase):
         }
 
         url = '/api/person/{0}/'.format(self.person.id)
-        response = client.put(url, data, format='json')
+        response = client.patch(url, data, format='json')
 
         self.person = Person.objects.get(id=self.person.id)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -150,7 +150,7 @@ class PersonApiTestCase(TestCase):
         self.assertEqual('Ada Lovelace II', self.person.name)
 
 
-    def test_update_other_family(self):
+    def test_partial_update_other_family(self):
         client = APIClient(HTTP_X_REAL_IP='127.0.0.1')
         client.force_authenticate(user=self.user2)
 
@@ -160,12 +160,12 @@ class PersonApiTestCase(TestCase):
         }
 
         url = '/api/person/{0}/'.format(self.person.id)
-        response = client.put(url, data, format='json')
+        response = client.patch(url, data, format='json')
 
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
 
 
-    def test_update_locked(self):
+    def test_partial_update_locked(self):
 
         locked_person = Person(name='Locked Person',
                         gender='O',
@@ -184,13 +184,13 @@ class PersonApiTestCase(TestCase):
         }
 
         url = '/api/person/{0}/'.format(locked_person.id)
-        response = client.put(url, data, format='json')
+        response = client.patch(url, data, format='json')
 
 
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
 
-    def test_update_field_not_whitelisted(self):
+    def test_partial_update_field_not_whitelisted(self):
 
         client = APIClient(HTTP_X_REAL_IP='127.0.0.1')
         client.force_authenticate(user=self.user)
@@ -201,14 +201,14 @@ class PersonApiTestCase(TestCase):
         }
 
         url = '/api/person/{0}/'.format(self.person.id)
-        response = client.put(url, data, format='json')
+        response = client.patch(url, data, format='json')
 
         self.person = Person.objects.get(id=self.person.id)
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
 
 
-    def test_update_email_for_other_user(self):
+    def test_partial_update_email_for_other_user(self):
 
         user = User.objects.create_user(email='adahorriblecousin@example.com',
                                         password='horrible',
@@ -224,13 +224,13 @@ class PersonApiTestCase(TestCase):
         }
 
         url = '/api/person/{0}/'.format(self.person.id)
-        response = client.put(url, data, format='json')
+        response = client.patch(url, data, format='json')
 
         self.person = Person.objects.get(id=self.person.id)
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
 
-    def test_update_locked_for_other_user(self):
+    def test_partial_update_locked_for_other_user(self):
 
         user = User.objects.create_user(email='adahorriblecousin@example.com',
                                         password='horrible',
@@ -246,7 +246,7 @@ class PersonApiTestCase(TestCase):
         }
 
         url = '/api/person/{0}/'.format(self.person.id)
-        response = client.put(url, data, format='json')
+        response = client.patch(url, data, format='json')
 
         self.person = Person.objects.get(id=self.person.id)
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
