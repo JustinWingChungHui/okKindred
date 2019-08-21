@@ -70,7 +70,7 @@ class GalleryView(viewsets.GenericViewSet):
             gallery.description = description
 
         thumbnail = request.data.get('thumbnail')
-        if description:
+        if thumbnail:
             gallery.thumbnail = thumbnail
 
 
