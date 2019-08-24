@@ -100,8 +100,10 @@ class ImageListView(viewsets.GenericViewSet):
 
         except Exception as e:
 
+
             if image:
                 image.delete_local_image_files()
+                image.delete()
 
             return HttpResponse(status=400, content=str(e))
 
