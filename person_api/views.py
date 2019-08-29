@@ -60,7 +60,7 @@ class PersonViewSet(viewsets.ViewSet):
 
         field_name = request.data.get('fieldName')
 
-        if not field_name or field_name not in [  'email', 'language','locked',
+        if not field_name or field_name not in ['email', 'language','locked',
                                 'birth_year','year_of_death','telephone_number',
                                 'website','address', 'skype_name',
                                 'facebook', 'twitter', 'linkedin',
@@ -70,7 +70,7 @@ class PersonViewSet(viewsets.ViewSet):
             return HttpResponse(status=403, content="Access denied to change confirmed user settings")
 
         #Check we don't change any email or language for a confirmed user
-        if person.user_id and field_name in ['email', 'language', 'locked',]:
+        if field_name in ['email', 'language', 'locked',]:
             if person.user_id != request.user.id:
                 return HttpResponse(status=403, content="Access denied to change confirmed user settings")
 
