@@ -8,7 +8,7 @@ from rest_framework.permissions import IsAuthenticated
 from common.utils import create_hash, intTryParse
 from gallery.models import Image, Gallery
 from gallery.models.image import upload_to
-from image_api.serializers import ImageListSerializer, ImageSerializer
+from image_api.serializers import ImageSerializer
 
 import os
 import PIL
@@ -18,7 +18,7 @@ MAX_FILE_SIZE = 15000000  # bytes
 class ImageListView(viewsets.GenericViewSet):
 
     permission_classes = (IsAuthenticated,)
-    serializer_class = ImageListSerializer
+    serializer_class = ImageSerializer
 
     def get_queryset(self):
         return Image.objects.filter(family_id = self.request.user.family_id).order_by('creation_date')[:20]
@@ -40,7 +40,7 @@ class ImageListView(viewsets.GenericViewSet):
             queryset= Image.objects.filter(tag__person_id = person_id).order_by('creation_date')
 
         page = self.paginate_queryset(queryset)
-        serializer = ImageListSerializer(page, many=True)
+        serializer = ImageSerializer(page, many=True)
 
         # return Response(serializer.data)
         return self.get_paginated_response(serializer.data)

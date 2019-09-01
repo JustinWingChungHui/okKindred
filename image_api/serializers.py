@@ -13,14 +13,3 @@ class ImageSerializer(serializers.HyperlinkedModelSerializer):
                     'thumbnail', 'thumbnail_height', 'thumbnail_width',
                     'large_thumbnail', 'large_thumbnail_height', 'large_thumbnail_width',
                     'date_taken', 'latitude', 'longitude', 'creation_date', 'last_updated_date')
-
-
-class ImageListSerializer(serializers.HyperlinkedModelSerializer):
-    '''
-    Defines fields to be serialized for an image list
-    '''
-    class Meta:
-        model = Image
-        fields = ('id', 'gallery_id', 'title',
-                    'thumbnail', 'thumbnail_height', 'thumbnail_width',
-                    'date_taken', 'latitude', 'longitude')
