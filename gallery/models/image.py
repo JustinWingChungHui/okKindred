@@ -143,6 +143,7 @@ class Image(models.Model):
         filename = create_hash(str(self.original_image)) + '.jpg'
         path_and_filename = upload_to(self, str(filename))
 
+        image = image.convert('RGB')
         image.save(settings.MEDIA_ROOT + str(path_and_filename), "JPEG", quality=90)
 
         return path_and_filename, image

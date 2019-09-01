@@ -12,7 +12,12 @@ from family_tree.models.person import Person
 from custom_user.models import User
 from gallery.models import Image, Gallery, Tag
 
-@override_settings(SECURE_SSL_REDIRECT=False, AXES_BEHIND_REVERSE_PROXY=False)
+from image_api.serializers import ImageSerializer
+
+@override_settings(
+    SECURE_SSL_REDIRECT=False,
+    MEDIA_ROOT=settings.MEDIA_ROOT_TEST,
+    AXES_BEHIND_REVERSE_PROXY=False)
 class ImageApiTestCase(TestCase):
     '''
     Tests for the Image API
@@ -173,4 +178,87 @@ class ImageApiTestCase(TestCase):
         client.force_authenticate(user=self.user2)
         url = '/api/image/{0}/'.format(self.image.id)
         response = client.get(url, format='json')
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+
+
+    def test_create(self):
+        '''
+        test that we can upload a file
+        '''
+        client = APIClient(HTTP_X_REAL_IP='127.0.0.1')
+        client.force_authenticate(user=self.user)
+
+        url = '/api/image/'
+        with open(self.test_image, 'rb') as fp:
+
+            data = {
+                'picture': fp,
+                'gallery_id': self.gallery.id,
+            }
+
+            response = client.post(url, data)
+
+        # Check image loads
+        image_id = json.loads(response.content)['id']
+        image = Image.objects.get(id=image_id)
+
+        image.delete_local_image_files()
+        image.delete_remote_image_files()
+
+        self.assertEqual(200, response.status_code)
+        self.assertEqual('test_image', image.title)
+
+
+    def test_create_requires_authentication(self):
+        client = APIClient(HTTP_X_REAL_IP='127.0.0.1')
+        url = '/api/image/'
+        with open(self.test_image, 'rb') as fp:
+
+            data = {
+                'picture': fp,
+                'gallery_id': self.gallery.id,
+            }
+
+            response = client.post(url, data)
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+
+    def test_create_other_family(self):
+        client = APIClient(HTTP_X_REAL_IP='127.0.0.1')
+        client.force_authenticate(user=self.user2)
+        url = '/api/image/'
+        with open(self.test_image, 'rb') as fp:
+
+            data = {
+                'picture': fp,
+                'gallery_id': self.gallery.id,
+            }
+
+            response = client.post(url, data)
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+
+
+    def test_destroy(self):
+        client = APIClient(HTTP_X_REAL_IP='127.0.0.1')
+        client.force_authenticate(user=self.user)
+        url = '/api/image/{0}/'.format(self.image.id)
+        response = client.delete(url, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+        count = Image.objects.filter(id=self.image.id).count()
+        self.assertEqual(0, count)
+
+
+    def test_destroy_requires_authentication(self):
+        client = APIClient(HTTP_X_REAL_IP='127.0.0.1')
+        url = '/api/image/{0}/'.format(self.image.id)
+        response = client.delete(url, format='json')
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+
+    def test_destroy_other_family(self):
+        client = APIClient(HTTP_X_REAL_IP='127.0.0.1')
+        client.force_authenticate(user=self.user2)
+        url = '/api/image/{0}/'.format(self.image.id)
+        response = client.delete(url, format='json')
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
