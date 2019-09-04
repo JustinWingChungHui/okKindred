@@ -12,7 +12,6 @@ from family_tree.models.person import Person
 from custom_user.models import User
 from gallery.models import Image, Gallery, Tag
 
-from image_api.serializers import ImageSerializer
 
 @override_settings(
     SECURE_SSL_REDIRECT=False,
@@ -262,3 +261,111 @@ class ImageApiTestCase(TestCase):
         url = '/api/image/{0}/'.format(self.image.id)
         response = client.delete(url, format='json')
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+
+
+    def test_partial_update(self):
+        self.image.upload_files_to_s3()
+
+        client = APIClient(HTTP_X_REAL_IP='127.0.0.1')
+        client.force_authenticate(user=self.user)
+        url = '/api/image/{0}/'.format(self.image.id)
+
+        data = {
+            'title': 'new title',
+            'description': 'new description',
+            'anticlockwise_angle': 90,
+            'latitude': 10,
+            'longitude': 20,
+        }
+
+        response = client.patch(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertTrue(b'new title' in response.content)
+        self.assertTrue(b'new description' in response.content)
+        self.assertTrue(b'10' in response.content)
+        self.assertTrue(b'20' in response.content)
+
+        self.image = Image.objects.get(id=self.image.id)
+        self.image.delete_local_image_files()
+        self.image.delete_remote_image_files()
+
+
+    def test_partial_update_requires_authentication(self):
+        client = APIClient(HTTP_X_REAL_IP='127.0.0.1')
+        url = '/api/image/{0}/'.format(self.image.id)
+
+        data = {
+            'title': 'new title',
+            'description': 'new description',
+            'anticlockwise_angle': 90,
+            'latitude': 10,
+            'longitude': 20,
+        }
+
+        response = client.patch(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+
+    def test_partial_update_other_family(self):
+        client = APIClient(HTTP_X_REAL_IP='127.0.0.1')
+        client.force_authenticate(user=self.user2)
+        url = '/api/image/{0}/'.format(self.image.id)
+
+        data = {
+            'title': 'new title',
+            'description': 'new description',
+            'anticlockwise_angle': 90,
+            'latitude': 10,
+            'longitude': 20,
+        }
+
+        response = client.patch(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+
+
+    def test_partial_update_invalid_title(self):
+        self.image.upload_files_to_s3()
+
+        client = APIClient(HTTP_X_REAL_IP='127.0.0.1')
+        client.force_authenticate(user=self.user)
+        url = '/api/image/{0}/'.format(self.image.id)
+
+        data = {
+            'title': '    ',
+            'description': 'new description',
+            'anticlockwise_angle': 90,
+            'latitude': 10,
+            'longitude': 20,
+        }
+
+        response = client.patch(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+        self.image = Image.objects.get(id=self.image.id)
+        self.image.delete_local_image_files()
+        self.image.delete_remote_image_files()
+
+
+    def test_partial_update_optional_data_missing(self):
+        self.image.upload_files_to_s3()
+
+        client = APIClient(HTTP_X_REAL_IP='127.0.0.1')
+        client.force_authenticate(user=self.user)
+        url = '/api/image/{0}/'.format(self.image.id)
+
+        data = {
+            'title': 'new title',
+            'description': 'new description',
+        }
+
+        response = client.patch(url, data, format='json')
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertTrue(b'new title' in response.content)
+        self.assertTrue(b'new description' in response.content)
+        self.assertTrue(b'"longitude":0.0' in response.content)
+        self.assertTrue(b'"latitude":0.0' in response.content)
+
+        self.image = Image.objects.get(id=self.image.id)
+        self.image.delete_local_image_files()
+        self.image.delete_remote_image_files()

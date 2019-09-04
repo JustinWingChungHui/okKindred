@@ -119,3 +119,40 @@ class ImageListView(viewsets.GenericViewSet):
         image.delete()
 
         return Response('OK')
+
+
+    def partial_update(self, request, pk=None):
+        '''
+        Editing image
+        '''
+        queryset = Image.objects.filter(family_id = request.user.family_id)
+        image = get_object_or_404(queryset, pk=pk)
+
+        title = self.request.data.get('title')
+        if not title or len(title.strip()) == 0:
+            return HttpResponse(status=400, content="Invalid title")
+
+
+        anticlockwise_angle, rotation_valid = intTryParse(request.data.get("anticlockwise_angle"))
+        if rotation_valid and anticlockwise_angle != 0:
+            image.rotate(anticlockwise_angle)
+
+        description = self.request.data.get('description')
+        if not title or len(title.strip()) == 0:
+            description = ""
+
+        image.title = title
+        image.description = description
+
+        latitude, latitude_valid = intTryParse(request.data.get("latitude"))
+        longitude, longitude_valid = intTryParse(request.data.get("longitude"))
+
+        if latitude_valid and longitude_valid and latitude != 0 and longitude != 0:
+            image.latitude = latitude
+            image.longitude = longitude
+
+        image.save()
+
+        serializer = ImageSerializer(image)
+        return Response(serializer.data)
+
