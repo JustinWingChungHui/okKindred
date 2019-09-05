@@ -28,7 +28,7 @@ class LocationApiTestCase(TestCase):
     def test_get(self):
         client = APIClient(HTTP_X_REAL_IP='127.0.0.1')
         client.force_authenticate(user=self.user)
-        url = '/api/location/?address=warrington'
+        url = '/api/location/?address=warrington,uk'
         response = client.get(url, format='json')
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
