@@ -44,3 +44,10 @@ def intTryParse(value):
         return int(value), True
     except:
         return value, False
+
+
+def floatTryParse(value):
+    try:
+        return float(value), True
+    except:
+        return value, False

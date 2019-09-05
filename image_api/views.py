@@ -5,7 +5,7 @@ from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 
-from common.utils import create_hash, intTryParse
+from common.utils import create_hash, intTryParse, floatTryParse
 from gallery.models import Image, Gallery
 from gallery.models.image import upload_to
 from image_api.serializers import ImageSerializer
@@ -144,8 +144,8 @@ class ImageListView(viewsets.GenericViewSet):
         image.title = title
         image.description = description
 
-        latitude, latitude_valid = intTryParse(request.data.get("latitude"))
-        longitude, longitude_valid = intTryParse(request.data.get("longitude"))
+        latitude, latitude_valid = floatTryParse(request.data.get("latitude"))
+        longitude, longitude_valid = floatTryParse(request.data.get("longitude"))
 
         if latitude_valid and longitude_valid and latitude != 0 and longitude != 0:
             image.latitude = latitude
