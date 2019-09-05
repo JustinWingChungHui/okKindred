@@ -80,6 +80,9 @@ urlpatterns = [
 
     # Gallerys Api
     path('', include('gallery_api.urls')),
+
+    # Location Api
+    path('', include('location_api.urls')),
 ]
 
 if settings.DEBUG:
