@@ -7,7 +7,7 @@ from rest_framework.test import APIClient
 from family_tree.models.family import Family
 from family_tree.models.person import Person
 from custom_user.models import User
-from gallery.models import Gallery
+from gallery.models import Gallery, Image
 import json
 import os
 import shutil
@@ -60,7 +60,15 @@ class GalleryApiTestCase(TestCase):
         self.person2.save()
 
         self.test_image = os.path.join(settings.BASE_DIR, 'gallery/tests/test_image.jpg')
-        self.test_image_destination = ''.join([settings.MEDIA_ROOT, '/test_image.jpg'])
+        self.test_image_destination = ''.join([settings.MEDIA_ROOT, 'galleries/', str(self.family.id), '/', str(self.gallery.id), '/test_image.jpg'])
+
+        directory = ''.join([settings.MEDIA_ROOT, 'galleries/', str(self.family.id), '/', str(self.gallery.id)])
+        if not os.path.exists(directory):
+            os.makedirs(directory)
+
+        #Copy test image to media area
+        shutil.copy2(self.test_image, self.test_image_destination)
+
 
 
     def test_list_requires_authentication(self):
@@ -136,6 +144,13 @@ class GalleryApiTestCase(TestCase):
 
     def test_partial_update(self):
         shutil.copy2(self.test_image, self.test_image_destination)
+
+        image = Image(gallery=self.gallery, family=self.family, original_image=''.join(['galleries/', str(self.family.id), '/', str(self.gallery.id), '/test_image.jpg']))
+        image.save()
+
+        image2 = Image(gallery=self.gallery, family=self.family, original_image=''.join(['galleries/', str(self.family.id), '/', str(self.gallery.id), '/test_image.jpg']))
+        image2.save()
+
         client = APIClient(HTTP_X_REAL_IP='127.0.0.1')
         client.force_authenticate(user=self.user)
         url = '/api/gallery/{0}/'.format(self.gallery.id)
@@ -144,7 +159,7 @@ class GalleryApiTestCase(TestCase):
             'family_id': self.family2.id, # try to switch families
             'title': 'new title',
             'description': 'new description',
-            'thumbnail': 'test_image.jpg',
+            'thumbnail_id': image2.id,
         }
 
         response = client.patch(url, data, format='json')
@@ -156,9 +171,32 @@ class GalleryApiTestCase(TestCase):
         self.assertEqual(self.family.id, gallery.family_id)
         self.assertTrue(b'new title' in response.content)
         self.assertTrue(b'new description' in response.content)
-        self.assertTrue(b'test_image.jpg' in response.content)
+        self.assertTrue(str(image2.thumbnail) in response.content.decode("utf-8"))
 
+        image.delete_local_image_files()
+        image.delete_remote_image_files()
+        image2.delete_local_image_files()
+        image2.delete_remote_image_files()
 
+    def test_partial_update_remove_thumbnail(self):
+
+        shutil.copy2(self.test_image, self.test_image_destination)
+        image = Image(gallery=self.gallery, family=self.family, original_image=''.join(['galleries/', str(self.family.id), '/', str(self.gallery.id), '/test_image.jpg']))
+        image.save()
+
+        client = APIClient(HTTP_X_REAL_IP='127.0.0.1')
+        client.force_authenticate(user=self.user)
+        url = '/api/gallery/{0}/'.format(self.gallery.id)
+
+        data = {
+            'thumbnail_id': '',
+        }
+
+        response = client.patch(url, data, format='json')
+        print(response.content)
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertTrue('"thumbnail":null' in response.content.decode("utf-8"))
 
     def test_partial_update_requires_authentication(self):
         client = APIClient(HTTP_X_REAL_IP='127.0.0.1')

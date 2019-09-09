@@ -4,7 +4,8 @@ from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 
-from gallery.models import Gallery
+from common.utils import intTryParse
+from gallery.models import Gallery, Image
 from gallery_api.serializers import GallerySerializer
 
 
@@ -69,9 +70,25 @@ class GalleryView(viewsets.GenericViewSet):
         if description:
             gallery.description = description
 
-        thumbnail = request.data.get('thumbnail')
-        if thumbnail:
-            gallery.thumbnail = thumbnail
+        thumbnail_id = request.data.get("thumbnail_id", None)
+        if thumbnail_id is not None:
+
+            thumbnail_id_number, thumbnail_id_number_valid = intTryParse(thumbnail_id)
+
+            if thumbnail_id_number_valid:
+
+                thumbnail_queryset = Image.objects.filter(family_id = request.user.family_id)
+                image = get_object_or_404(thumbnail_queryset, pk=thumbnail_id)
+
+                gallery.thumbnail = image.thumbnail
+                gallery.thumbnail_height = image.thumbnail_height
+                gallery.thumbnail_width = image.thumbnail_width
+
+            else:
+                # Remove thumbnail
+                gallery.thumbnail = ''
+                gallery.thumbnail_height = 0
+                gallery.thumbnail_width = 0
 
 
         gallery.save()

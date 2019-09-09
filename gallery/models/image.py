@@ -130,6 +130,8 @@ class Image(models.Model):
         #Set the gallery thumbnail
         if not self.gallery.thumbnail:
             self.gallery.thumbnail =  self.thumbnail
+            self.gallery.thumbnail_height =  self.thumbnail_height
+            self.gallery.thumbnail_width =  self.thumbnail_width
 
     def _create_thumbnail(self, size, image = None):
         '''
