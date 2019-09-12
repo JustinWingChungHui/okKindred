@@ -193,7 +193,6 @@ class GalleryApiTestCase(TestCase):
         }
 
         response = client.patch(url, data, format='json')
-        print(response.content)
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertTrue('"thumbnail":null' in response.content.decode("utf-8"))
