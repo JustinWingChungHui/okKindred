@@ -59,6 +59,7 @@ INSTALLED_APPS = (
     'sign_up',
     'maps',
     'debug_toolbar',
+    'django_extensions',
     'template_timings_panel',
     'autotranslate',
     'corsheaders',
@@ -71,6 +72,7 @@ INSTALLED_APPS = (
     'image_api',
     'profile_image_api',
     'gallery_api',
+    'image_tagging_api',
 )
 
 MIDDLEWARE = (
