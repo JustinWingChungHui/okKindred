@@ -83,6 +83,9 @@ urlpatterns = [
 
     # Location Api
     path('', include('location_api.urls')),
+
+    # Image tagging Api
+    path('', include('image_tagging_api.urls')),
 ]
 
 if settings.DEBUG:

@@ -5,7 +5,7 @@ from math import sin, cos, pi
 
 class Tag(models.Model):
     '''
-    Represents a family meber tag in an image
+    Represents a family member tag in an image
     '''
 
     class Meta:

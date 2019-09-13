@@ -37,7 +37,7 @@ class ImageListView(viewsets.GenericViewSet):
 
         person_id = self.request.query_params.get('person_id', None)
         if person_id is not None:
-            queryset= Image.objects.filter(tag__person_id = person_id).order_by('creation_date')
+            queryset= queryset.filter(tag__person_id = person_id).order_by('creation_date')
 
         page = self.paginate_queryset(queryset)
         serializer = ImageSerializer(page, many=True)
