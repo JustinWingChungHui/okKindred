@@ -59,7 +59,6 @@ INSTALLED_APPS = (
     'sign_up',
     'maps',
     'debug_toolbar',
-    'django_extensions',
     'template_timings_panel',
     'autotranslate',
     'corsheaders',
