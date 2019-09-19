@@ -215,7 +215,7 @@ class InviteEmailApiTestCase(TestCase):
         self.assertEqual(self.new_person.id, invite["person_id"])
 
 
-    def test_partial_update(self):
+    def test_confirmation_partial_update(self):
 
         invite = EmailConfirmation.objects.create(
                         email_address=self.new_person.email,
@@ -238,7 +238,7 @@ class InviteEmailApiTestCase(TestCase):
 
 
 
-    def test_partial_update_block_ip_after_unsuccessful_attempts(self):
+    def test_confirmation_partial_update_block_ip_after_unsuccessful_attempts(self):
 
         invite = EmailConfirmation.objects.create(
                         email_address=self.new_person.email,
@@ -261,7 +261,7 @@ class InviteEmailApiTestCase(TestCase):
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
 
 
-    def test_partial_update_password_too_short(self):
+    def test_confirmation_partial_update_password_too_short(self):
 
         invite = EmailConfirmation.objects.create(
                         email_address=self.new_person.email,
@@ -277,7 +277,7 @@ class InviteEmailApiTestCase(TestCase):
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
 
-    def test_partial_update_email_address_mismatch(self):
+    def test_confirmation_partial_update_email_address_mismatch(self):
 
         invite = EmailConfirmation.objects.create(
                         email_address='eh@eh.eh',
@@ -292,3 +292,35 @@ class InviteEmailApiTestCase(TestCase):
         response = client.patch(url, data,  format='json')
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
 
+
+    def test_confirmation_retrieve(self):
+        invite = EmailConfirmation.objects.create(
+                        email_address=self.new_person.email,
+                        person_id=self.new_person.id,
+                        user_who_invited_person=self.user)
+
+        client = APIClient(HTTP_X_REAL_IP='127.0.0.1')
+        url = '/api/invite_email_confirmation/{0}/'.format(invite.confirmation_key)
+        response = client.get(url,  format='json')
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertTrue(b'takahirose@example.com' in response.content)
+
+
+    def test_confirmation_retrieve_block_ip_after_unsuccessful_attempt(self):
+        invite = EmailConfirmation.objects.create(
+                        email_address=self.new_person.email,
+                        person_id=self.new_person.id,
+                        user_who_invited_person=self.user)
+
+        client = APIClient(HTTP_X_REAL_IP='127.0.0.19')
+        url = '/api/invite_email_confirmation/{0}/'.format('not_a_proper_key')
+
+        for x in range(0, 6):
+            response = client.get(url,  format='json')
+            self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+
+        # Check ip blocked after multiple failed attempts with correct key
+        url = '/api/invite_email_confirmation/{0}/'.format(invite.confirmation_key)
+        response = client.get(url,  format='json')
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)

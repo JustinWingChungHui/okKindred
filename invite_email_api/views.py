@@ -80,18 +80,11 @@ class InviteEmailConfirmationViewSet(viewsets.ViewSet):
 
     permission_classes = (AllowAny,)
 
-    def partial_update(self, request, pk):
-        '''
-        Handles the confirmation of invite and :
-        1. Creates a user correctly
-        2. Assigns the user to a person
-        3. Deletes the invite
-        4. Logs in and displays home page
-        '''
-
+    def get_invite(self, request, pk):
         #Check ip has not been locked
         if not AxesProxyHandler.is_allowed(request):
             raise Http404
+
 
         # Check confirmation key exists
         try:
@@ -103,6 +96,25 @@ class InviteEmailConfirmationViewSet(viewsets.ViewSet):
                                 credentials={'username': pk },
                                 request=request)
             raise Http404
+
+        return invite
+
+    def retrieve(self, request, pk):
+        invite = self.get_invite(request, pk)
+        serializer = InviteEmailSerializer(invite, context={'request': request})
+        return Response(serializer.data)
+
+
+    def partial_update(self, request, pk):
+        '''
+        Handles the confirmation of invite and :
+        1. Creates a user correctly
+        2. Assigns the user to a person
+        3. Deletes the invite
+        4. Logs in and displays home page
+        '''
+
+        invite = self.get_invite(request, pk)
 
         password = request.data.get("password")
 
