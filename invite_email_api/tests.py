@@ -213,3 +213,82 @@ class InviteEmailApiTestCase(TestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         invite = json.loads(response.content)
         self.assertEqual(self.new_person.id, invite["person_id"])
+
+
+    def test_partial_update(self):
+
+        invite = EmailConfirmation.objects.create(
+                        email_address=self.new_person.email,
+                        person_id=self.new_person.id,
+                        user_who_invited_person=self.user)
+
+        client = APIClient(HTTP_X_REAL_IP='127.0.0.1')
+        url = '/api/invite_email_confirmation/{0}/'.format(invite.confirmation_key)
+        data = {
+            'password': 'bestpasswordever',
+        }
+        response = client.patch(url, data,  format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+        self.new_person = Person.objects.get(pk=self.new_person.id)
+
+        # Check user assigned
+        newUser = User.objects.get(name=self.new_person.name)
+        self.assertIsNotNone(newUser)
+
+
+
+    def test_partial_update_block_ip_after_unsuccessful_attempts(self):
+
+        invite = EmailConfirmation.objects.create(
+                        email_address=self.new_person.email,
+                        person_id=self.new_person.id,
+                        user_who_invited_person=self.user)
+
+        client = APIClient(HTTP_X_REAL_IP='127.0.0.2')
+        url = '/api/invite_email_confirmation/{0}/'.format('invalid_key')
+        data = {
+            'password': 'bestpasswordever',
+        }
+
+        for x in range(0, 6):
+            response = client.patch(url, data,  format='json')
+            self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+
+        # Check ip blocked after multiple failed attempts with correct key
+        url = '/api/invite_email_confirmation/{0}/'.format(invite.confirmation_key)
+        response = client.patch(url, data,  format='json')
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+
+
+    def test_partial_update_password_too_short(self):
+
+        invite = EmailConfirmation.objects.create(
+                        email_address=self.new_person.email,
+                        person_id=self.new_person.id,
+                        user_who_invited_person=self.user)
+
+        client = APIClient(HTTP_X_REAL_IP='127.0.0.1')
+        url = '/api/invite_email_confirmation/{0}/'.format(invite.confirmation_key)
+        data = {
+            'password': 'short',
+        }
+        response = client.patch(url, data,  format='json')
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+
+    def test_partial_update_email_address_mismatch(self):
+
+        invite = EmailConfirmation.objects.create(
+                        email_address='eh@eh.eh',
+                        person_id=self.new_person.id,
+                        user_who_invited_person=self.user)
+
+        client = APIClient(HTTP_X_REAL_IP='127.0.0.1')
+        url = '/api/invite_email_confirmation/{0}/'.format(invite.confirmation_key)
+        data = {
+            'password': 'bestpasswordever',
+        }
+        response = client.patch(url, data,  format='json')
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+
