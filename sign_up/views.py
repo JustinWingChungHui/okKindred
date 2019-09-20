@@ -40,6 +40,7 @@ def sign_up_post(request):
     email = request.POST.get("email").strip().lower()
     gender = request.POST.get("gender")
     language = request.POST.get("language")
+    ip_address = request.META.get('HTTP_X_REAL_IP')
 
     # assign non required stuff
     birth_year, birth_year_valid = intTryParse(request.POST.get("birth_year"))
@@ -66,7 +67,8 @@ def sign_up_post(request):
                         gender = gender,
                         language = language,
                         address = address,
-                        birth_year = birth_year)
+                        birth_year = birth_year,
+                        ip_address = ip_address)
 
     translation.activate(language)
 

@@ -37,6 +37,8 @@ class SignUp(models.Model):
     confirmation_key = models.CharField(max_length=64, unique=True, blank = False)
     creation_date = models.DateTimeField(auto_now_add=True)
 
+    ip_address = models.CharField(max_length=64, blank = True, null = False, default='')
+
     objects = SignUpManager()
 
     class Meta:
