@@ -30,6 +30,7 @@ class SignUpViewSet(viewsets.ViewSet):
         email = request.data.get("email")
         gender = request.data.get("gender")
         language = request.data.get("language")
+        ip_address = request.META.get('HTTP_X_REAL_IP')
 
         if not (name and email and gender and language):
             return HttpResponse(status=404, content="Invalid name, email, gender, language")
@@ -65,7 +66,8 @@ class SignUpViewSet(viewsets.ViewSet):
                     gender = gender,
                     language = language,
                     address = address,
-                    birth_year = birth_year)
+                    birth_year = birth_year,
+                    ip_address = ip_address)
 
         serializer = SignUpSerializer(new_signup)
         return Response(serializer.data)

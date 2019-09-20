@@ -33,6 +33,7 @@ class SignUpApiTestCase(TestCase):
 
         new_sign_up = SignUp.objects.get(name='name')
         self.assertNotEqual(None, new_sign_up)
+        self.assertEqual('127.0.0.1', new_sign_up.ip_address)
 
 
     def test_create_sign_up_invalid_email(self):
