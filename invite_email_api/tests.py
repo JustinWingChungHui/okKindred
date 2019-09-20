@@ -305,6 +305,7 @@ class InviteEmailApiTestCase(TestCase):
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertTrue(b'takahirose@example.com' in response.content)
+        self.assertTrue(b'Taka Hirose' in response.content)
 
 
     def test_confirmation_retrieve_block_ip_after_unsuccessful_attempt(self):
