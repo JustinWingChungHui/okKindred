@@ -106,20 +106,30 @@ class SignUpApiTestCase(TestCase):
         self.assertNotEqual(None, user)
 
 
-    def test_sign_up_confirmation_invalid_confirmation_key(self):
+    def test_sign_up_confirmation_invalid_confirmation_key_and_blocks_ip(self):
         '''
         Tests that a 404 is raised for an invalid confirmation key
         '''
+        sign_up = SignUp.objects.create(
+                            name='joining user',
+                            gender = 'M',
+                            language = 'en',
+                            email_address = 'joininguser@iamanewuser.com')
 
         url = '/api/sign_up/{0}/'.format('not_proper_key')
 
-        client = APIClient(HTTP_X_REAL_IP='127.0.0.1')
+        client = APIClient(HTTP_X_REAL_IP='127.0.0.4')
         data = {
             'password': 'thisisagoodpassword666^!',
         }
 
-        response = client.put(url, data, format='json')
+        for x in range(0, 6):
+            response = client.put(url, data, format='json')
+            self.assertEqual(404, response.status_code)
 
+        # Check ip blocked even with correct key
+        url = '/api/sign_up/{0}/'.format(sign_up.confirmation_key)
+        response = client.put(url, data, format='json')
         self.assertEqual(404, response.status_code)
 
 

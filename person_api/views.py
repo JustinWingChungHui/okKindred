@@ -70,10 +70,15 @@ class PersonViewSet(viewsets.ViewSet):
             return HttpResponse(status=403, content="Access denied to change confirmed user settings")
 
         #Check we don't change any email or language for a confirmed user
-        if field_name in ['email', 'language', 'locked',]:
+        if person.user_id:
             if person.user_id != request.user.id:
-                return HttpResponse(status=403, content="Access denied to change confirmed user settings")
+                if field_name in ['email', 'language', 'locked']:
+                    return HttpResponse(status=403, content="Access denied to change confirmed user settings")
 
+        else:
+            # profile is not a user
+            if field_name == 'locked':
+                return HttpResponse(status=403, content="Access denied to change confirmed user settings")
 
         setattr(person, field_name, request.data.get('value'))
         person.save()

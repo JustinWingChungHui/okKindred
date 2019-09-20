@@ -16,6 +16,7 @@ class UserDetailSerializer(serializers.HyperlinkedModelSerializer):
     '''
     class Meta:
         model = User
-        fields = ('language', 'receive_update_emails', 'receive_photo_update_emails', 'date_joined')
+        fields = ('name', 'language', 'receive_update_emails', 'receive_photo_update_emails', 'date_joined')
+
 
 

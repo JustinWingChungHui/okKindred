@@ -6,7 +6,7 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 
 from common.utils import create_hash, intTryParse, floatTryParse
-from gallery.models import Image, Gallery
+from gallery.models import Image, Gallery, Tag
 from gallery.models.image import upload_to
 from image_api.serializers import ImageSerializer
 
@@ -136,6 +136,12 @@ class ImageListView(viewsets.GenericViewSet):
         anticlockwise_angle, rotation_valid = intTryParse(request.data.get("anticlockwise_angle"))
         if rotation_valid and anticlockwise_angle != 0:
             image.rotate(anticlockwise_angle)
+
+            # Rotate any image tags
+            for tag in list(Tag.objects.filter(image_id = image.id)):
+                tag.rotate(anticlockwise_angle)
+                tag.save()
+
 
         description = self.request.data.get('description')
         if not title or len(title.strip()) == 0:

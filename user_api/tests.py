@@ -83,7 +83,7 @@ class UserApiTestCase(TestCase):
         }
 
         url = '/api/user_settings/'
-        response = client.put(url, data, format='json')
+        response = client.patch(url, data, format='json')
 
         self.user = User.objects.get(id=self.user.id)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -103,7 +103,7 @@ class UserApiTestCase(TestCase):
         }
 
         url = '/api/user_settings/'
-        response = client.put(url, data, format='json')
+        response = client.patch(url, data, format='json')
 
         self.user = User.objects.get(id=self.user.id)
         self.assertEqual(response.status_code, status.HTTP_200_OK)

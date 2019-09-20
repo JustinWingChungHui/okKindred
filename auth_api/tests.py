@@ -134,9 +134,17 @@ class JWTAuthTest(TestCase):
         user_locked_out.disconnect(handler)
 
 
-    def test_api_docs_load(self):
+    def test_api_docs_loads(self):
         client = APIClient(HTTP_X_REAL_IP='127.0.0.1')
         client.force_authenticate(user=self.user)
         response = client.get('/api/docs/')
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+
+    def test_api_schema_loads(self):
+        client = APIClient(HTTP_X_REAL_IP='127.0.0.1')
+        client.force_authenticate(user=self.user)
+        response = client.get('/api/schema/')
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
