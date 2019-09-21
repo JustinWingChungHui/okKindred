@@ -46,7 +46,7 @@ class EmailConfirmationTestCase(TestCase): # pragma: no cover
 
         email_body = ec._create_email_body_html()
 
-        link = '<a href="' + settings.DOMAIN + '/accounts/invite_confirmation/earth/">' + settings.DOMAIN + '/accounts/invite_confirmation/earth/</a>'
+        link = '<a href="' + settings.DOMAIN + '/#/accounts/invite_confirmation/earth/">' + settings.DOMAIN + '/#/accounts/invite_confirmation/earth/</a>'
         self.assertEqual(True, 'invited by Zandra Rhodes' in email_body)
         self.assertEqual(True, link in email_body)
         self.assertEqual(True, 'Hello Tim Staffell' in email_body)

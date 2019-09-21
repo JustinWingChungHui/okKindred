@@ -42,11 +42,11 @@ class SignUpViewSet(viewsets.ViewSet):
         email = email.strip().lower()
 
         # assign non required stuff
-        birth_year, birth_year_valid = intTryParse(request.POST.get("birth_year"))
+        birth_year, birth_year_valid = intTryParse(request.data.get("birth_year"))
         if not birth_year_valid:
             birth_year = 0
 
-        address = request.POST.get("address")
+        address = request.data.get("address")
         if not address:
             address = ""
 

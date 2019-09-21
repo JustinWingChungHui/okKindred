@@ -77,7 +77,7 @@ class Tag(models.Model):
 
             content = translation.ugettext( """Hi {0}
                                                 You have been identified in a photo.
-                                                To see it, please go to {1}/gallery/{2}/?image_id={3}
+                                                To see it, please go to {1}/#/gallery/{2}/?image_id={3}
                                             """.format(person.user.name, settings.DOMAIN, image.gallery_id, image.id))
 
             content_html = self.create_email_body_html(person, image)

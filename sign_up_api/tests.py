@@ -22,7 +22,8 @@ class SignUpApiTestCase(TestCase):
             'email': 'email@email.com',
             'gender': 'F',
             'birth_year': 1960,
-            'language': 'en'
+            'language': 'en',
+            'address': 'Coventry, UK',
         }
 
         url = '/api/sign_up/'
@@ -34,6 +35,8 @@ class SignUpApiTestCase(TestCase):
         new_sign_up = SignUp.objects.get(name='name')
         self.assertNotEqual(None, new_sign_up)
         self.assertEqual('127.0.0.1', new_sign_up.ip_address)
+        self.assertEqual(1960, new_sign_up.birth_year)
+        self.assertEqual('Coventry, UK', new_sign_up.address)
 
 
     def test_create_sign_up_invalid_email(self):
