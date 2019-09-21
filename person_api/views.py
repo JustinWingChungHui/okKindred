@@ -5,7 +5,7 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 
 from family_tree.models import Person
-from family_tree.models.person import MALE, FEMALE, OTHER
+from family_tree.models.person import MALE, FEMALE, OTHER, NON_BINARY, PREFER_NOT_TO_SAY
 from family_tree.models.relation import PARTNERED, RAISED, RAISED_BY
 from person_api.serializers import PersonSerializer, PersonListSerializer
 from relation_api.views import create_relation
@@ -124,7 +124,7 @@ class PersonViewSet(viewsets.ViewSet):
              return HttpResponse(status=400, content="Invalid name")
 
         gender = request.data.get("gender")
-        if gender not in (MALE, FEMALE, OTHER):
+        if gender not in (MALE, FEMALE, OTHER, NON_BINARY, PREFER_NOT_TO_SAY):
             return HttpResponse(status=400, content="Invalid gender")
 
         birth_year, birth_year_valid = intTryParse(request.POST.get("birth_year"))

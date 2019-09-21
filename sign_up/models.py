@@ -109,7 +109,7 @@ class SignUp(models.Model):
         subject = translation.ugettext('ok!Kindred sign up confirmation')
 
         content = translation.ugettext( """Hi {0}
-                                            To confirm your sign up, please go to {1}/accounts/sign_up_confirmation={2}/
+                                            To confirm your sign up, please go to {1}/accounts/sign_up_confirmation/{2}/
                                         """.format(self.name, settings.DOMAIN, self.confirmation_key))
 
         content_html = self._create_email_body_html()

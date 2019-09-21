@@ -18,12 +18,17 @@ import bleach
 #Localised Gender choices https://docs.djangoproject.com/en/1.7/ref/models/fields/#choices
 FEMALE ='F'
 MALE ='M'
+NON_BINARY = 'N'
 OTHER = 'O'
+PREFER_NOT_TO_SAY = 'P'
+
 
 GENDER_CHOICES = (
     (FEMALE, _('Female')),
     (MALE, _('Male')),
+    (NON_BINARY, _('Non-Binary')),
     (OTHER, _('Other')),
+    (PREFER_NOT_TO_SAY, _('Prefer Not To Say')),
 )
 
 # Set when all relations are broken

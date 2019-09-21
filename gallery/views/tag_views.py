@@ -3,10 +3,6 @@ from family_tree.models import Person
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, Http404
 from django.shortcuts import get_object_or_404
-from django.utils import translation
-from django.core.mail import send_mail
-from django.template.loader import get_template
-from django.conf import settings
 import json
 
 @login_required
@@ -88,8 +84,7 @@ def create_tag(request, image_id):
     tag = Tag.objects.create(image_id=image_id, x1=x1, y1=y1, x2=x2, y2=y2, person_id=person_id)
 
     # Send notification email
-    if person.user and person.user.receive_photo_update_emails:
-        send_tag_notification_email(person, im)
+    tag.send_tag_notification_email()
 
     response =  {
                     'id': tag.id,
@@ -102,42 +97,3 @@ def create_tag(request, image_id):
                 }
     return HttpResponse(json.dumps(response), content_type="application/json")
 
-
-def send_tag_notification_email(person, image):
-    '''
-    Sends out an email to a user that they have been tagged in a photo
-    '''
-
-    language = person.user.language
-    translation.activate(language)
-
-    subject = translation.ugettext('You have been identified in a new photo in ok!Kindred')
-
-    content = translation.ugettext( """Hi {0}
-                                        You have been identified in a photo.
-                                        To see it, please go to {1}/gallery={2}/image={3}/
-                                    """.format(person.user.name, settings.DOMAIN, image.gallery_id, image.id))
-
-    content_html = create_email_body_html(person, image)
-
-
-    send_mail(subject, content, 'info@okkindred.com',[person.user.email], fail_silently=False, html_message=content_html)
-
-
-def create_email_body_html(person, image):
-    '''
-    Creates the email from a template
-    '''
-    language = person.user.language
-    translation.activate(language)
-
-    content_html = get_template('gallery/you_have_been_tagged.html').render(
-                    {
-                        'language' : language,
-                        'user' : person.user,
-                        'image' : image,
-                        'domain' : settings.DOMAIN,
-                        'person' : person,
-                    })
-
-    return content_html

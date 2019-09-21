@@ -9,7 +9,7 @@ from django.contrib.auth.signals import user_login_failed
 
 from custom_user.models import User
 from family_tree.models import Person
-from family_tree.models.person import MALE, FEMALE, OTHER
+from family_tree.models.person import MALE, FEMALE, OTHER, NON_BINARY, PREFER_NOT_TO_SAY
 from sign_up.models import SignUp
 
 from common.utils import intTryParse
@@ -35,7 +35,7 @@ class SignUpViewSet(viewsets.ViewSet):
         if not (name and email and gender and language):
             return HttpResponse(status=404, content="Invalid name, email, gender, language")
 
-        if gender not in (MALE, FEMALE, OTHER):
+        if gender not in (MALE, FEMALE, OTHER, NON_BINARY, PREFER_NOT_TO_SAY):
             return HttpResponse(status=400, content="Invalid gender")
 
         name = name.strip()
