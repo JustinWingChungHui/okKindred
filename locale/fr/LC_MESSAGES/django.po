@@ -21,7 +21,7 @@ msgstr ""
 
 #: auth_api/signals.py:54
 msgid "ok!Kindred Password Reset"
-msgstr ""
+msgstr "Réinitialisation du mot de passe"
 
 #: auth_api/signals.py:89
 #, fuzzy
