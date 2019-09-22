@@ -86,6 +86,9 @@ class TagView(viewsets.GenericViewSet):
 
         tag = Tag.objects.create(image_id=image.id, x1=x1, y1=y1, x2=x2, y2=y2, person_id=person.id)
 
+        # Send notification email
+        tag.send_tag_notification_email()
+
         serializer = TagSerializer(tag, many=False)
         return Response(serializer.data)
 
