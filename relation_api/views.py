@@ -1,4 +1,4 @@
-from django.http import Http404
+from django.http import Http404, HttpResponse
 from django.shortcuts import get_object_or_404
 from rest_framework import viewsets
 from rest_framework.response import Response
@@ -7,6 +7,7 @@ from rest_framework.permissions import IsAuthenticated
 from family_tree.models import Relation, Person
 from family_tree.models.person import ORPHANED_HIERARCHY_SCORE
 from family_tree.models.relation import PARTNERED, RAISED, RAISED_BY
+
 from relation_api.serializers import RelationSerializer
 from common.utils import intTryParse
 
@@ -53,10 +54,13 @@ class RelationViewSet(viewsets.ViewSet):
         relation_type, relation_type_valid  = intTryParse(request.data.get('relation_type'))
 
         if not (from_person_id_valid and to_person_id_valid and relation_type_valid):
-            raise Http404
+            return HttpResponse(status=400, content="Invalid to_person_id, from_person_id or relation_type")
 
         if relation_type not in (PARTNERED, RAISED, RAISED_BY):
-            raise Http404
+            return HttpResponse(status=400, content="Invalid relation_type")
+
+        if from_person_id == to_person_id:
+            return HttpResponse(status=400, content="from_person_id cannot be to_person_id")
 
         # Ensure people exist
         person_queryset = Person.objects.filter(family_id = request.user.family_id)
