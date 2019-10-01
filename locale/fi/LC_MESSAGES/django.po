@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-18 11:53+0000\n"
+"POT-Creation-Date: 2019-09-22 19:12+0000\n"
 "PO-Revision-Date: 2015-05-11 08:55+0000\n"
 "Last-Translator: b'Anonymous User'\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -24,10 +24,8 @@ msgid "ok!Kindred Password Reset"
 msgstr "ok!Kindred Salasanan Nollaus"
 
 #: auth_api/signals.py:89
-#, fuzzy
-#| msgid "ok!Kindred Password Reset"
 msgid "ok!Kindred Password Successfully Updated"
-msgstr "ok!Kindred Salasanan Nollaus"
+msgstr "ok!Kindred salasana päivitetty onnistuneesti"
 
 #: auth_api/templates/auth_api/password_changed.html:7
 #: auth_api/templates/auth_api/password_changed_plain.html:5
@@ -45,8 +43,8 @@ msgid ""
 "If you did not initiate this process, immediately contact us by replying to "
 "this email"
 msgstr ""
-"Jos et käynnistä tätä prosessia, ota välittömästi yhteyttä meihin vastaamalla"
-"Tämä sähköposti"
+"Jos et käynnistä tätä prosessia, ota välittömästi yhteyttä meihin "
+"vastaamallaTämä sähköposti"
 
 #: auth_api/templates/auth_api/password_reset.html:7
 #: auth_api/templates/auth_api/password_reset_plain.html:4
@@ -337,7 +335,18 @@ msgid "An invitation to ok!Kindred from {0}"
 msgstr "Kutsun ok! Kindred välillä {0}"
 
 #: email_confirmation/models.py:56
-#, python-brace-format
+#, fuzzy, python-brace-format
+#| msgid ""
+#| "Hi {0}\n"
+#| "                                            You have been invited by {1} "
+#| "to join ok!Kindred.\n"
+#| "                                            ok!Kindred is a collaborative "
+#| "family tree and private social network for you and you family.\n"
+#| "                                            A network has already been "
+#| "set up by one of your family members to help you keep in touch.\n"
+#| "                                            To join, please go to {2}/"
+#| "accounts/confirmation={3}/\n"
+#| "                                        "
 msgid ""
 "Hi {0}\n"
 "                                            You have been invited by {1} to "
@@ -346,8 +355,8 @@ msgid ""
 "family tree and private social network for you and you family.\n"
 "                                            A network has already been set "
 "up by one of your family members to help you keep in touch.\n"
-"                                            To join, please go to {2}/"
-"accounts/confirmation={3}/\n"
+"                                            To join, please go to {2}/#/"
+"accounts/invite_confirmation/{3}/\n"
 "                                        "
 msgstr ""
 "Hei {0}\n"
@@ -488,23 +497,31 @@ msgid ""
 "out more:"
 msgstr "Seuraavat ihmisten profiilit on päivitetty. Klikkaa niitä Lisätietoja:"
 
-#: family_tree/models/person.py:23
+#: family_tree/models/person.py:27
 #: family_tree/templates/family_tree/add_relation.html:59
 #: sign_up/templates/sign_up/sign_up.html:30
 msgid "Female"
 msgstr "Nainen"
 
-#: family_tree/models/person.py:24
+#: family_tree/models/person.py:28
 #: family_tree/templates/family_tree/add_relation.html:60
 #: sign_up/templates/sign_up/sign_up.html:31
 msgid "Male"
 msgstr "Uros"
 
-#: family_tree/models/person.py:25
+#: family_tree/models/person.py:29
+msgid "Non-Binary"
+msgstr ""
+
+#: family_tree/models/person.py:30
 #: family_tree/templates/family_tree/add_relation.html:61
 #: sign_up/templates/sign_up/sign_up.html:32
 msgid "Other"
 msgstr "muut"
+
+#: family_tree/models/person.py:31
+msgid "Prefer Not To Say"
+msgstr ""
 
 #: family_tree/models/relation.py:11
 #: family_tree/templates/family_tree/add_relation.html:32
@@ -848,6 +865,33 @@ msgstr "Profiili"
 msgid "File is too big"
 msgstr "Tiedosto on liian suuri"
 
+#: gallery/models/tag.py:76
+msgid "You have been identified in a new photo in ok!Kindred"
+msgstr "Sinut on tunnistettu uusi kuva in ok! Kindred"
+
+#: gallery/models/tag.py:78
+#, fuzzy, python-brace-format
+#| msgid ""
+#| "Hi {0}\n"
+#| "                                        You have been identified in a "
+#| "photo.\n"
+#| "                                        To see it, please go to {1}/"
+#| "gallery={2}/image={3}/\n"
+#| "                                    "
+msgid ""
+"Hi {0}\n"
+"                                                You have been identified in "
+"a photo.\n"
+"                                                To see it, please go to {1}/"
+"#/gallery/{2}/?image_id={3}\n"
+"                                            "
+msgstr ""
+"Hei {0}\n"
+"                                        Sinut on tunnistettu valokuvan.\n"
+"                                        Nähdä se, mene {1}/gallery={2}/"
+"image={3}/\n"
+"                                    "
+
 #: gallery/templates/gallery/edit_gallery.html:27
 #: gallery/templates/gallery/image_tagging.html:71
 msgid "Title"
@@ -992,60 +1036,45 @@ msgstr ""
 "\n"
 "Sinut on tunnistettu kuvaan ok! Kindred. Klikkaa seuraavaa linkkiä nähdä se:"
 
-#: gallery/views/tag_views.py:114
-msgid "You have been identified in a new photo in ok!Kindred"
-msgstr "Sinut on tunnistettu uusi kuva in ok! Kindred"
-
-#: gallery/views/tag_views.py:116
-#, python-brace-format
-msgid ""
-"Hi {0}\n"
-"                                        You have been identified in a "
-"photo.\n"
-"                                        To see it, please go to {1}/"
-"gallery={2}/image={3}/\n"
-"                                    "
-msgstr ""
-"Hei {0}\n"
-"                                        Sinut on tunnistettu valokuvan.\n"
-"                                        Nähdä se, mene {1}/gallery={2}/"
-"image={3}/\n"
-"                                    "
-
-#: okkindred/settings.py:163
+#: okkindred/settings.py:166
 msgid "English"
 msgstr "Englanti"
 
-#: okkindred/settings.py:164
+#: okkindred/settings.py:167
 msgid "Traditional Chinese"
 msgstr "Perinteinen kiina"
 
-#: okkindred/settings.py:165
+#: okkindred/settings.py:168
 msgid "Simplified Chinese"
 msgstr "Yksinkertaistettu kiina"
 
-#: okkindred/settings.py:166
+#: okkindred/settings.py:169
 msgid "Polish"
 msgstr "Kiillottaa"
 
-#: okkindred/settings.py:167
+#: okkindred/settings.py:170
 msgid "Finnish"
 msgstr "Suomalainen"
 
-#: okkindred/settings.py:168
+#: okkindred/settings.py:171
 msgid "French"
 msgstr "Ranskan kieli"
 
-#: sign_up/models.py:107
+#: sign_up/models.py:109
 msgid "ok!Kindred sign up confirmation"
 msgstr "ok! kindred rekisteröityä vahvistus"
 
-#: sign_up/models.py:109
-#, python-brace-format
+#: sign_up/models.py:111
+#, fuzzy, python-brace-format
+#| msgid ""
+#| "Hi {0}\n"
+#| "                                            To confirm your sign up, "
+#| "please go to {1}/accounts/sign_up_confirmation={2}/\n"
+#| "                                        "
 msgid ""
 "Hi {0}\n"
 "                                            To confirm your sign up, please "
-"go to {1}/accounts/sign_up_confirmation={2}/\n"
+"go to {1}/#/accounts/sign_up_confirmation/{2}/?language={3}\n"
 "                                        "
 msgstr ""
 "Hei {0}\n"

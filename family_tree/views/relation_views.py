@@ -7,7 +7,7 @@ from django.shortcuts import render
 
 from family_tree.models import Person, Relation
 from family_tree.models.person import ORPHANED_HIERARCHY_SCORE
-from family_tree.models.person import MALE, FEMALE, OTHER
+from family_tree.models.person import MALE, FEMALE, OTHER, NON_BINARY, PREFER_NOT_TO_SAY
 from family_tree.models.relation import PARTNERED, RAISED, RAISED_BY
 from family_tree.decorators import same_family_required
 from family_tree.services import relation_suggestion_service
@@ -58,7 +58,7 @@ def add_relation_post(request, person_id = 0, person = None):
             raise Http404
 
         gender = request.POST.get("gender")
-        if gender not in (MALE, FEMALE, OTHER):
+        if gender not in (MALE, FEMALE, OTHER, NON_BINARY, PREFER_NOT_TO_SAY):
             raise Http404
 
         birth_year, birth_year_valid = intTryParse(request.POST.get("birth_year"))

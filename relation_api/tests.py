@@ -198,3 +198,44 @@ class RelationApiTestCase(TestCase):
         }
         response = client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+
+
+    def test_create_invalid_parameter(self):
+        client = APIClient(HTTP_X_REAL_IP='127.0.0.1')
+        client.force_authenticate(user=self.user)
+        url = '/api/relation/'
+        data = {
+            'from_person_id': 'invalid parameter',
+            'to_person_id': self.person3.id,
+            'relation_type': RAISED
+        }
+
+        response = client.post(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+
+    def test_create_invalid_relation_type(self):
+        client = APIClient(HTTP_X_REAL_IP='127.0.0.1')
+        client.force_authenticate(user=self.user)
+        url = '/api/relation/'
+        data = {
+            'from_person_id': 'invalid parameter',
+            'to_person_id': self.person3.id,
+            'relation_type': 50000
+        }
+
+        response = client.post(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+    def test_create_related_to_self(self):
+        client = APIClient(HTTP_X_REAL_IP='127.0.0.1')
+        client.force_authenticate(user=self.user)
+        url = '/api/relation/'
+        data = {
+            'from_person_id': self.person3.id,
+            'to_person_id': self.person3.id,
+            'relation_type': RAISED
+        }
+
+        response = client.post(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)

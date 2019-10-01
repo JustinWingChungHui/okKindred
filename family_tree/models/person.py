@@ -18,12 +18,17 @@ import bleach
 #Localised Gender choices https://docs.djangoproject.com/en/1.7/ref/models/fields/#choices
 FEMALE ='F'
 MALE ='M'
+NON_BINARY = 'N'
 OTHER = 'O'
+PREFER_NOT_TO_SAY = 'P'
+
 
 GENDER_CHOICES = (
     (FEMALE, _('Female')),
     (MALE, _('Male')),
+    (NON_BINARY, _('Non-Binary')),
     (OTHER, _('Other')),
+    (PREFER_NOT_TO_SAY, _('Prefer Not To Say')),
 )
 
 # Set when all relations are broken
@@ -111,7 +116,7 @@ class Person(models.Model):
     allowed_print_tags = [
             # tags whitelist
             "h1", "h2", "h3", "h4", "h5", "h6",
-            "b", "i", "strong", "em", "tt","u","small",
+            "b", "i", "strong", "em", "tt","u","small","s",
             "p", "br",
             "span", "div", "blockquote", "code", "hr",
             "ul", "ol", "li", "dd", "dt",

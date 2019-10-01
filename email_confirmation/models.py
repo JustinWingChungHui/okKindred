@@ -57,7 +57,7 @@ class EmailConfirmation(models.Model):
                                             You have been invited by {1} to join ok!Kindred.
                                             ok!Kindred is a collaborative family tree and private social network for you and you family.
                                             A network has already been set up by one of your family members to help you keep in touch.
-                                            To join, please go to {2}/accounts/confirmation={3}/
+                                            To join, please go to {2}/#/accounts/invite_confirmation/{3}/
                                         """.format(self.person.name, self.user_who_invited_person.name, settings.DOMAIN, self.confirmation_key))
 
         content_html = self._create_email_body_html()
