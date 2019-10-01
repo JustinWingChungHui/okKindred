@@ -26,6 +26,11 @@ class SignUpViewSet(viewsets.ViewSet):
         '''
         Handles when a sign up is submitted
         '''
+
+        #Check ip has not been locked
+        if not AxesProxyHandler.is_allowed(request):
+            raise Http404
+
         name = request.data.get("name")
         email = request.data.get("email")
         gender = request.data.get("gender")

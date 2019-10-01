@@ -116,6 +116,7 @@ IPWARE_META_PRECEDENCE_ORDER = (
 # ensure lockouts don't happen during tests
 AXES_IP_WHITELIST = ['127.0.0.1']
 AXES_NEVER_LOCKOUT_WHITELIST = True
+AXES_IP_BLACKLIST = ['188.138.188.34', '5.61.51.32', '5.61.51.31', '185.17.149.137']
 
 CACHES = {
     'default': {

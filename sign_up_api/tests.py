@@ -38,6 +38,22 @@ class SignUpApiTestCase(TestCase):
         self.assertEqual(1960, new_sign_up.birth_year)
         self.assertEqual('Coventry, UK', new_sign_up.address)
 
+    def test_create_sign_up_blocked_ip(self):
+        client = APIClient(HTTP_X_REAL_IP='188.138.188.34')
+
+        data = {
+            'name': 'name',
+            'email': 'email@email.com',
+            'gender': 'F',
+            'birth_year': 1960,
+            'language': 'en',
+            'address': 'Coventry, UK',
+        }
+
+        url = '/api/sign_up/'
+        response = client.post(url, data, format='json')
+        self.assertEqual(404, response.status_code)
+
 
     def test_create_sign_up_invalid_email(self):
         '''
