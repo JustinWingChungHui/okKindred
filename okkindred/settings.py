@@ -57,7 +57,6 @@ INSTALLED_APPS = (
     'gallery',
     'django.contrib.admin',
     'sign_up',
-    'maps',
     'debug_toolbar',
     'template_timings_panel',
     'autotranslate',

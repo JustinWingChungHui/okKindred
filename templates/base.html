@@ -33,7 +33,7 @@
     <meta name="msapplication-TileImage" content="{% static 'img/mstile-144x144.png' %}">
     <meta name="theme-color" content="#ffffff">
 
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}" />
 
 	{% block extrastyle %}{% endblock %}
@@ -45,68 +45,7 @@
 </head>
 
 <body>
-    <div class="loading"></div>
-
-    {% block nav %}
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-      <div class="container">
-        <div class="navbar-header">
-
-
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                <span class="sr-only">{% trans "Toggle navigation" %}</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-
-
-            <a class="navbar-brand" href="/">ok!Kindred</a>
-        </div>
-
-            {% if user.is_authenticated %}
-
-                <div id="navbar" class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav">
-                        <li><a href="/">{% trans "Tree" %}</a></li> <!--use  class="active" to highlight it -->
-                        <li><a href="/map/">{% trans "Map" %}</a></li>
-                        <li><a href="/gallery/">{% trans "Gallery" %}</a></li>
-                        <li><a href="/search/">{% trans "Search" %}</a></li>
-                        <li><a href="/about/">{% trans "About" %}</a></li>
-                    </ul>
-
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><a href="/settings/">{% trans "Settings" %}</a></li>
-                        <li><a href="/accounts/logout/">{% trans "Log Out" %}</a></li>
-                    </ul>
-                </div><!--/.navbar-collapse -->
-
-            {% else %}
-
-                <div id="navbar" class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav">
-                    </ul>
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><a href="/accounts/login/">{%trans "Log In" %}</a></li>
-                    </ul>
-                </div>
-
-            {% endif %}
-
-
-        </div>
-
-
-    </nav>
-
-    {% endblock %}
-
-    <div id="bootstrapCssTest" class="hidden"></div>
-
     {% block content %}{% endblock %}
-
-    <script src="{% static 'js/node_modules/requirejs/require.js' %}"></script>
-    {% block extrascript %}{% endblock %}
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </body>
 </html>
