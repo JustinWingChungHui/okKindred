@@ -36,6 +36,11 @@ def sign_up_post(request):
     '''
     Handles when a sign up is submitted
     '''
+
+    #Check ip has not been locked
+    if not AxesProxyHandler.is_allowed(request):
+        raise Http404
+
     name = request.POST.get("name").strip()
     email = request.POST.get("email").strip().lower()
     gender = request.POST.get("gender")
