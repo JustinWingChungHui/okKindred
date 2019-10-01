@@ -6,7 +6,6 @@ from django.urls import path
 
 from rest_framework.schemas import get_schema_view
 
-import okkindred.views
 
 admin.autodiscover()
 
@@ -20,28 +19,6 @@ urlpatterns = [
     path('robots.txt',  TemplateView.as_view(template_name="robots.txt", content_type='text/plain')),
 
     path('admin/', admin.site.urls),
-
-    path('about/', okkindred.views.about, name='about'),
-    path('languages/', okkindred.views.languages, name='languages'),
-    path('', okkindred.views.index),
-
-    #Custom user urls
-    path('', include('custom_user.urls')),
-
-    #Sign Up urls
-    path('', include('sign_up.urls')),
-
-    #Email confirmation views
-    path('', include('email_confirmation.urls')),
-
-    #Maps Views
-    path('', include('maps.urls')),
-
-    #Family Tree Views
-    path('', include('family_tree.urls')),
-
-    # Gallery views
-    path('', include('gallery.urls')),
 
     # Django Rest Docs
     path('api/schema/', get_schema_view(
