@@ -71,6 +71,7 @@ INSTALLED_APPS = (
     'profile_image_api',
     'gallery_api',
     'image_tagging_api',
+    'message_queue',
 )
 
 MIDDLEWARE = (
@@ -284,5 +285,4 @@ def show_toolbar(request):
 DEBUG_TOOLBAR_CONFIG = {
     "SHOW_TOOLBAR_CALLBACK" : show_toolbar,
 }
-
 

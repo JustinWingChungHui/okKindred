@@ -14,7 +14,9 @@ import shutil
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
-@override_settings(SECURE_SSL_REDIRECT=False, MEDIA_ROOT=settings.MEDIA_ROOT_TEST, AXES_BEHIND_REVERSE_PROXY=False)
+@override_settings(SECURE_SSL_REDIRECT=False,
+                    MEDIA_ROOT=settings.MEDIA_ROOT_TEST,
+                    AXES_BEHIND_REVERSE_PROXY=False)
 class TestTagViews(TestCase): # pragma: no cover
     '''
     Test class for the gallery views

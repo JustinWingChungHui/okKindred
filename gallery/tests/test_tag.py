@@ -6,7 +6,8 @@ from django.test.utils import override_settings
 import os
 import shutil
 
-@override_settings(SECURE_SSL_REDIRECT=False, MEDIA_ROOT=settings.MEDIA_ROOT_TEST)
+@override_settings(SECURE_SSL_REDIRECT=False,
+                    MEDIA_ROOT=settings.MEDIA_ROOT_TEST)
 class TagTestCase(TestCase): # pragma: no cover
     '''
     Tests for the image class
@@ -53,6 +54,8 @@ class TagTestCase(TestCase): # pragma: no cover
         #Clear up
         self.image.delete_local_image_files()
         self.image.delete_remote_image_files()
+
+
 
 
 
