@@ -7,6 +7,7 @@ from rest_framework.response import Response
 
 from family_tree.models import Person
 from gallery.models import Tag, Image
+from message_queue.models import create_message
 from image_tagging_api.serializers import TagSerializer
 
 from common.utils import intTryParse, floatTryParse
@@ -85,6 +86,8 @@ class TagView(viewsets.GenericViewSet):
             return HttpResponse(status=400, content="Invalid x1, x2, y1, or y2")
 
         tag = Tag.objects.create(image_id=image.id, x1=x1, y1=y1, x2=x2, y2=y2, person_id=person.id)
+
+        create_message('resize_tag', tag.id)
 
         # Send notification email
         tag.send_tag_notification_email()
