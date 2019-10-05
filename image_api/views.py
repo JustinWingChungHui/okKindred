@@ -9,6 +9,7 @@ from common.utils import create_hash, intTryParse, floatTryParse
 from gallery.models import Image, Gallery, Tag
 from gallery.models.image import upload_to
 from image_api.serializers import ImageSerializer
+from message_queue.models import create_message
 
 import os
 import PIL
@@ -94,6 +95,8 @@ class ImageListView(viewsets.GenericViewSet):
 
             image.upload_files_to_s3()
             image.delete_local_image_files()
+
+            create_message('image_face_detect', image.id)
 
             serializer = ImageSerializer(image)
             return Response(serializer.data)

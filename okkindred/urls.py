@@ -63,6 +63,9 @@ urlpatterns = [
 
     # Image tagging Api
     path('', include('image_tagging_api.urls')),
+
+    # Suggested Image tagging Api
+    path('', include('suggested_image_tagging.urls')),
 ]
 
 if settings.DEBUG:

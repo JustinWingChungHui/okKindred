@@ -72,6 +72,7 @@ INSTALLED_APPS = (
     'gallery_api',
     'image_tagging_api',
     'message_queue',
+    'suggested_image_tagging',
 )
 
 MIDDLEWARE = (
