@@ -54,6 +54,9 @@ class SuggestedTagView(viewsets.GenericViewSet):
 
         new_tag = suggested_tag.convertToTag(person_id)
 
+        # Send notification email
+        new_tag.send_tag_notification_email()
+
         serializer = TagSerializer(new_tag)
         return Response(serializer.data)
 

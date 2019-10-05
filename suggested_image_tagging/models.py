@@ -30,6 +30,8 @@ class SuggestedTag(models.Model):
     creation_date = models.DateTimeField(auto_now_add=True)
     last_updated_date = models.DateTimeField(auto_now=True)
 
+    def __str__(self): # __unicode__ on Python 2
+        return '{0}_{1}'.format(self.image.title, self.id)
 
     def convertToTag(self, person_id):
         new_tag = Tag(image_id = self.image_id,
