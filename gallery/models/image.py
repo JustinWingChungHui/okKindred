@@ -12,10 +12,6 @@ import PIL
 import os
 
 
-# look at http://stackoverflow.com/questions/23977483/fit-images-with-different-aspect-ratios-into-multiple-rows-evenly
-#Look to add comments?
-#http://django-contrib-comments.readthedocs.org/en/latest/
-
 def upload_to(instance, filename):
     '''
     Defines a dynamic directory for files to be uploaded to

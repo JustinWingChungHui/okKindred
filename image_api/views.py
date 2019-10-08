@@ -22,7 +22,7 @@ class ImageListView(viewsets.GenericViewSet):
     serializer_class = ImageSerializer
 
     def get_queryset(self):
-        return Image.objects.filter(family_id = self.request.user.family_id).order_by('creation_date')[:20]
+        return Image.objects.filter(family_id = self.request.user.family_id).order_by('date_taken')[:20]
 
     def list(self, request):
         '''
@@ -30,15 +30,15 @@ class ImageListView(viewsets.GenericViewSet):
         Use query parameters ?gallery_id=<id> to filter by gallery or
         ?person_id=<id> to filter by tagged people
         '''
-        queryset = Image.objects.filter(family_id = self.request.user.family_id).order_by('creation_date')
+        queryset = Image.objects.filter(family_id = self.request.user.family_id).order_by('date_taken')
 
         gallery_id = self.request.query_params.get('gallery_id', None)
         if gallery_id is not None:
-            queryset = queryset.filter(gallery_id=gallery_id).order_by('creation_date')
+            queryset = queryset.filter(gallery_id=gallery_id).order_by('date_taken')
 
         person_id = self.request.query_params.get('person_id', None)
         if person_id is not None:
-            queryset= queryset.filter(tag__person_id = person_id).order_by('creation_date')
+            queryset= queryset.filter(tag__person_id = person_id).order_by('date_taken')
 
         page = self.paginate_queryset(queryset)
         serializer = ImageSerializer(page, many=True)
