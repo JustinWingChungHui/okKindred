@@ -73,6 +73,7 @@ INSTALLED_APPS = (
     'image_tagging_api',
     'message_queue',
     'suggested_image_tagging',
+    'facial_recognition',
 )
 
 MIDDLEWARE = (

@@ -7,6 +7,7 @@ from rest_framework.permissions import IsAuthenticated
 
 from common.utils import intTryParse, create_hash
 from family_tree.models import Person
+from message_queue.models import create_message
 
 from person_api.serializers import PersonListSerializer
 
@@ -59,6 +60,7 @@ class ProfileImageSet(viewsets.ViewSet):
         except Exception as e:
             return HttpResponse(status=400, content=str(e))
 
+        create_message('profile_photo_process', person.id)
 
         serializer = PersonListSerializer(person)
         return Response(serializer.data)

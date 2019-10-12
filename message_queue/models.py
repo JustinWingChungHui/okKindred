@@ -25,7 +25,8 @@ class Message(models.Model):
         indexes = [
                 models.Index(fields=['processed']),
                 models.Index(fields=['creation_date']),
-                models.Index(fields=['queue'])
+                models.Index(fields=['queue']),
+                models.Index(fields=['error']),
         ]
 
     queue = models.ForeignKey(Queue, blank=False, null=False, on_delete=models.CASCADE)
@@ -34,6 +35,9 @@ class Message(models.Model):
     integer_data = models.IntegerField(null=True)
     float_data = models.FloatField(null=True)
     date_data = models.DateTimeField(null=True)
+
+    error = models.BooleanField(default=False)
+    error_message = models.CharField(max_length=512, null = True, blank = True)
 
     #Tracking
     creation_date = models.DateTimeField(auto_now_add=True)

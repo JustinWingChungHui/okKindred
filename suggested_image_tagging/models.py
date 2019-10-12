@@ -39,7 +39,8 @@ class SuggestedTag(models.Model):
                         x1 = self.x1,
                         y1 = self.y1,
                         x2 = self.x2,
-                        y2 = self.y2)
+                        y2 = self.y2,
+                        face_detected = True)
 
         new_tag.save()
         self.delete()
