@@ -99,7 +99,7 @@ class PersonViewSet(viewsets.ViewSet):
 
         person.delete()
 
-        create_message('person_deleted_update_face_model', pk)
+        create_message('person_deleted_update_face_model', int(pk))
 
         return Response('OK')
 
