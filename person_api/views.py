@@ -1,3 +1,4 @@
+import json
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponse
 from rest_framework import viewsets
@@ -10,6 +11,7 @@ from family_tree.models.relation import PARTNERED, RAISED, RAISED_BY
 from person_api.serializers import PersonSerializer, PersonListSerializer
 from relation_api.views import create_relation
 from relation_api.serializers import RelationSerializer
+from message_queue.models import create_message
 
 from common.utils import intTryParse
 
@@ -97,6 +99,15 @@ class PersonViewSet(viewsets.ViewSet):
             return HttpResponse(status=403, content="Profile is a user and cannot be deleted")
 
         person.delete()
+
+        message = {
+            'family_id': request.user.family_id,
+            'person_id': int(pk)
+        }
+
+        message_encoded = json.dumps(message)
+
+        create_message('person_deleted_update_face_model', message_encoded)
 
         return Response('OK')
 
