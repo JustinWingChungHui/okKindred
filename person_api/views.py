@@ -10,6 +10,7 @@ from family_tree.models.relation import PARTNERED, RAISED, RAISED_BY
 from person_api.serializers import PersonSerializer, PersonListSerializer
 from relation_api.views import create_relation
 from relation_api.serializers import RelationSerializer
+from message_queue.models import create_message
 
 from common.utils import intTryParse
 
@@ -97,6 +98,8 @@ class PersonViewSet(viewsets.ViewSet):
             return HttpResponse(status=403, content="Profile is a user and cannot be deleted")
 
         person.delete()
+
+        create_message('person_deleted_update_face_model', pk)
 
         return Response('OK')
 
