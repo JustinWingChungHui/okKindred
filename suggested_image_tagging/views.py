@@ -9,6 +9,7 @@ from suggested_image_tagging.models import SuggestedTag
 
 from suggested_image_tagging.serializers import SuggestedTagSerializer
 from image_tagging_api.serializers import TagSerializer
+from message_queue.models import create_message
 
 from common.utils import intTryParse
 
@@ -56,6 +57,8 @@ class SuggestedTagView(viewsets.GenericViewSet):
 
         # Send notification email
         new_tag.send_tag_notification_email()
+
+        create_message('tag_converted_process', new_tag.id)
 
         serializer = TagSerializer(new_tag)
         return Response(serializer.data)

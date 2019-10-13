@@ -30,9 +30,10 @@ class QueueAdmin(admin.ModelAdmin):
 
 
 class MessageAdmin(admin.ModelAdmin):
-    list_display = ('id','queue','processed','last_updated_date','creation_date')
+    list_display = ('id','queue','processed','error','last_updated_date','creation_date')
     list_filter = (
         ('processed', admin.BooleanFieldListFilter),
+        ('error', admin.BooleanFieldListFilter),
     )
 
     ordering = ('-creation_date',)

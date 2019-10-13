@@ -30,6 +30,9 @@ class Tag(models.Model):
     x2 = models.FloatField(blank=False, null=False)
     y2 = models.FloatField(blank=False, null=False)
 
+    # face detected by AI
+    face_detected = models.BooleanField(default = False, null=False)
+
     #Tracking
     creation_date = models.DateTimeField(auto_now_add=True)
     last_updated_date = models.DateTimeField(auto_now=True)
