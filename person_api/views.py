@@ -1,3 +1,4 @@
+import json
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponse
 from rest_framework import viewsets
@@ -99,7 +100,14 @@ class PersonViewSet(viewsets.ViewSet):
 
         person.delete()
 
-        create_message('person_deleted_update_face_model', int(pk))
+        message = {
+            'family_id': request.user.family_id,
+            'person_id': int(pk)
+        }
+
+        message_encoded = json.dumps(message)
+
+        create_message('person_deleted_update_face_model', message_encoded)
 
         return Response('OK')
 
