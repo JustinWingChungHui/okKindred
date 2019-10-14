@@ -1,7 +1,7 @@
 from django.urls import path, include
 from rest_framework_simplejwt.views import TokenVerifyView, TokenRefreshView
 
-from auth_api.views import AppTokenObtainPairView
+from auth_api.views import AppTokenObtainPairView, is_locked
 
 urlpatterns = [
     # Rest JWT token auth
@@ -9,4 +9,6 @@ urlpatterns = [
     path('api/auth/refresh_token/', TokenRefreshView.as_view()),
     path('api/auth/verify_token/', TokenVerifyView.as_view()),
     path('api/reset-password/', include('django_rest_passwordreset.urls', namespace='password_reset')),
+    path('api/auth/is_locked/', is_locked),
+
 ]

@@ -1,5 +1,5 @@
-from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from django.http import Http404
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
 from family_tree.models import Person
 
