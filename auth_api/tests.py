@@ -66,6 +66,10 @@ class JWTAuthTest(TestCase):
         verify_new_token_response = client.post('/api/auth/verify_token/', new_auth_token, format='json')
         self.assertEqual(verify_new_token_response.status_code, status.HTTP_200_OK)
 
+        # Check ip not locked
+        locked_response = client.get('/api/auth/is_locked/', format='json')
+        self.assertEqual(b'false', locked_response.content)
+
 
     def test_jwt_fails_on_auth_incorrect_password(self):
         client = APIClient(HTTP_X_REAL_IP='127.0.0.1')
@@ -131,7 +135,12 @@ class JWTAuthTest(TestCase):
         self.assertNotEqual(final_response.status_code, status.HTTP_200_OK)
         self.assertTrue(self.signal_was_called)
 
+        # Check ip locked
+        locked_response = client.get('/api/auth/is_locked/', format='json')
+        self.assertEqual(b'true', locked_response.content)
+
         user_locked_out.disconnect(handler)
+
 
 
     def test_api_docs_loads(self):
