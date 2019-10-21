@@ -247,7 +247,6 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 20
 }
 
-
 CORS_ORIGIN_WHITELIST = secrets.CORS_ORIGIN_WHITELIST
 
 # JWT token for rest framework
