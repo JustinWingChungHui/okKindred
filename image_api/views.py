@@ -162,6 +162,10 @@ class ImageListView(viewsets.GenericViewSet):
 
         image.save()
 
+        # if we have rotated image, run facial recognition again
+        if rotation_valid and anticlockwise_angle != 0:
+            create_message('image_face_detect', image.id)
+
         serializer = ImageSerializer(image)
         return Response(serializer.data)
 
