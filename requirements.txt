@@ -1,10 +1,10 @@
 -f /usr/share/pip-wheels
 addict==2.2.1
 appdirs==1.4.3
-attrs==19.2.0
+attrs==19.3.0
 bleach==3.1.0
-boto3==1.9.248
-botocore==1.12.248
+boto3==1.10.2
+botocore==1.13.2
 certifi==2019.9.11
 chardet==3.0.4
 coreapi==2.3.3
@@ -13,7 +13,7 @@ coverage==4.5.4
 Django==2.2.6
 django-appconf==1.0.3
 django-autotranslate==1.1.0
-django-axes==5.0.15
+django-axes==5.0.18
 django-cors-headers==3.1.1
 django-debug-toolbar==2.0
 django-debug-toolbar-template-timings==0.9
@@ -38,7 +38,7 @@ MarkupSafe==1.1.1
 mysqlclient==1.4.4
 olefile==0.46
 packaging==19.2
-Pillow==6.2.0
+Pillow==6.2.1
 pipdeptree==0.13.2
 polib==1.1.0
 PyJWT==1.7.1
