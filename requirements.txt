@@ -3,14 +3,14 @@ addict==2.2.1
 appdirs==1.4.3
 attrs==19.3.0
 bleach==3.1.0
-boto3==1.10.2
-botocore==1.13.2
+boto3==1.10.9
+botocore==1.13.9
 certifi==2019.9.11
 chardet==3.0.4
 coreapi==2.3.3
 coreschema==0.0.4
 coverage==4.5.4
-Django==2.2.6
+Django==2.2.7
 django-appconf==1.0.3
 django-autotranslate==1.1.0
 django-axes==5.0.18

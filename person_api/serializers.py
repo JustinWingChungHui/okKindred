@@ -19,6 +19,7 @@ class PersonListSerializer(serializers.HyperlinkedModelSerializer):
     '''
     We only want to send limited data back when listing everyone
     '''
+
     class Meta:
         model = Person
         fields = ('id', 'name', 'birth_year', 'gender',
