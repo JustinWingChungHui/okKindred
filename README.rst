@@ -20,7 +20,7 @@ If you have ideas or want to add to this, please feel free!
 
 Architecture
 ------------
-The project is built using `Python Django <https://www.djangoproject.com/>`_ running on Python3.5
+The project is built using `Python Django <https://www.djangoproject.com/>`_ running on Python3.7 and the `Django REST Framework <https://www.django-rest-framework.org/>`_
 
 https://www.okkindred.com is hosted with `PythonAnywhere <https://www.pythonanywhere.com/?affiliate_id=00022aed>`_ (this link has my referal ID)
 
@@ -28,6 +28,10 @@ It also uses `Amazon Web Services S3 <https://aws.amazon.com/s3/>`_  to store po
 
 It also uses `Google Maps Geocoding API <https://developers.google.com/maps/documentation/geocoding/start>`_ and `Bing Maps API <https://www.microsoft.com/maps/>`_ to geolocate addresses
 so that it can plot where your family is on a map.
+
+The Frontend is a separate repo and is written in VueJS & Typescript https://github.com/JustinWingChungHui/okKindredUI_typescript
+
+Facial recognition routines are contained in a separate repo https://github.com/JustinWingChungHui/okkindred_facial_recognition
 
 
 
@@ -83,7 +87,7 @@ Here are instructions to get this project running on `PythonAnywhere <https://ww
 
  ``cd okKindred``
 
- ``mkvirtualenv YOURVIRTUALENVNAME --python=/usr/bin/python3.5``
+ ``mkvirtualenv YOURVIRTUALENVNAME --python=/usr/bin/python375``
 
  ``pip install -r requirements.txt``
 
@@ -157,27 +161,6 @@ schedule
 ~~~~~~~~
 
 Shell files that can be called by system scheduled tasks that trigger off various different things in the project
-
-
-Javascript/UI Overview
-----------------------
-
-The initial idea of the project was to use only small amounts of JavaScript and render as much on the server as possible to enable a good experience on lower end mobile browsers.
-However as the project grew, this made the user experience poor.  At some point the UI probably needs a major overhaul!
-
-The js files are located in ``static\js``
-
-Asynchronous Module Definition
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-`require.js <http://requirejs.org/>`_ is used to implement the Asynchronous Module Definition (AMD) pattern in order to tame some of the js that got everywhere.
-
-Note in ``static\js\common.js`` we also use multiple CDNs because certain CDNs are blocked in different parts of China especially over https.
-
-Bootstrap/JQuery/Bower
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-The UI is primarily driven by Bootstrap and JQuery. NPM is used as the package manager however Bower is used as the package manager for Jcrop only as it has a newer version.
 
 
 Mapping
