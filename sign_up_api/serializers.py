@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from sign_up.models import SignUp
 
-class SignUpSerializer(serializers.HyperlinkedModelSerializer):
+class SignUpSerializer(serializers.ModelSerializer):
     '''
     Defines fields to be serialized for a sign up model
     '''

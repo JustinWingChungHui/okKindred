@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from gallery.models import Gallery
 
-class GallerySerializer(serializers.HyperlinkedModelSerializer):
+class GallerySerializer(serializers.ModelSerializer):
     '''
     Defines fields to be serialized for a gallery
     '''

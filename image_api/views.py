@@ -78,7 +78,7 @@ class ImageListView(viewsets.GenericViewSet):
                 return HttpResponse(status=400, content='File too big')
 
             filename =  create_hash(uploaded.name) +'.jpg'
-            image = Image(gallery_id=gallery.id, family_id=gallery.family_id, title=name)
+            image = Image(gallery_id=gallery.id, family_id=gallery.family_id, title=name, uploaded_by=request.user)
 
             path = upload_to(image, filename)
 

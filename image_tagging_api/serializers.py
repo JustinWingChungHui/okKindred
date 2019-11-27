@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from gallery.models import Tag
 
-class TagSerializer(serializers.HyperlinkedModelSerializer):
+class TagSerializer(serializers.ModelSerializer):
     '''
     Defines fields to be serialized for a Tag
     '''

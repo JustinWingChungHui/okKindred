@@ -1,7 +1,7 @@
 from custom_user.models import User
 from rest_framework import serializers
 
-class UserSerializer(serializers.HyperlinkedModelSerializer):
+class UserSerializer(serializers.ModelSerializer):
     '''
     Defines fields to be serialised for a a list of Users
     '''
@@ -10,7 +10,7 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
         fields = ('email', 'name')
 
 # Serializers define the API representation.
-class UserDetailSerializer(serializers.HyperlinkedModelSerializer):
+class UserDetailSerializer(serializers.ModelSerializer):
     '''
     Defines fields to be serialised for a User
     '''
