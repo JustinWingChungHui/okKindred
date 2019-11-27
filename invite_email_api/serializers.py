@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from email_confirmation.models import EmailConfirmation
 
-class InviteEmailSerializer(serializers.HyperlinkedModelSerializer):
+class InviteEmailSerializer(serializers.ModelSerializer):
     '''
     Defines fields to be serialized for an invite email
     '''

@@ -2,7 +2,7 @@ from family_tree.models import Person
 from rest_framework import serializers
 
 # Serializers define the API representation.
-class PersonSerializer(serializers.HyperlinkedModelSerializer):
+class PersonSerializer(serializers.ModelSerializer):
     '''
     Defines fields to be serialised for a person
     '''
@@ -15,7 +15,7 @@ class PersonSerializer(serializers.HyperlinkedModelSerializer):
         'creation_date', 'last_updated_date')
 
 
-class PersonListSerializer(serializers.HyperlinkedModelSerializer):
+class PersonListSerializer(serializers.ModelSerializer):
     '''
     We only want to send limited data back when listing everyone
     '''

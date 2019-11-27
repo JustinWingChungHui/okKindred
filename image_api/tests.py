@@ -206,6 +206,7 @@ class ImageApiTestCase(TestCase):
 
         self.assertEqual(200, response.status_code)
         self.assertEqual('test_image', image.title)
+        self.assertTrue('Phil Collins', image.uploaded_by.name)
 
 
     def test_create_requires_authentication(self):

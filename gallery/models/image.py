@@ -6,6 +6,7 @@ from common.utils import create_hash
 from common.get_lat_lon_exif_pil import get_lat_lon_backup
 from common.s3_synch import upload_file_to_s3, remove_file_from_s3, get_file_from_s3
 
+from custom_user.models import User
 from gallery.models import Gallery
 
 import PIL
@@ -65,6 +66,7 @@ class Image(models.Model):
     #Tracking
     creation_date = models.DateTimeField(auto_now_add=True)
     last_updated_date = models.DateTimeField(auto_now=True)
+    uploaded_by = models.ForeignKey(User, blank=True, null=True, on_delete=models.SET_NULL)
 
 
     def __str__(self): # __unicode__ on Python 2
