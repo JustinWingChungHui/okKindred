@@ -58,8 +58,6 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'sign_up',
     'debug_toolbar',
-    'template_timings_panel',
-    'autotranslate',
     'corsheaders',
     'rest_framework',
     'django_rest_passwordreset',
@@ -77,11 +75,11 @@ INSTALLED_APPS = (
 )
 
 MIDDLEWARE = (
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.locale.LocaleMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -140,6 +138,8 @@ EMAIL_PORT = secrets.EMAIL_PORT
 EMAIL_HOST_USER = secrets.EMAIL_HOST_USER
 EMAIL_HOST_PASSWORD = secrets.EMAIL_HOST_PASSWORD
 DEFAULT_FROM_EMAIL = secrets.DEFAULT_FROM_EMAIL
+
+ADMINS = secrets.ADMINS
 
 
 #API Keys for external services
@@ -278,7 +278,6 @@ DEBUG_TOOLBAR_PANELS = [
     'debug_toolbar.panels.logging.LoggingPanel',
     'debug_toolbar.panels.redirects.RedirectsPanel',
     'debug_toolbar.panels.profiling.ProfilingPanel',
-    'template_timings_panel.panels.TemplateTimings.TemplateTimings',
 ]
 
 def show_toolbar(request):
