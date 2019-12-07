@@ -1,6 +1,7 @@
 from django.db import models
 from family_tree.models.person import Person
 from django.utils.translation import ugettext_lazy as _
+import reversion
 
 #Relation types.  Note that 'raised by' will resolve to 'raised' but inverse
 PARTNERED = 1
@@ -75,6 +76,7 @@ class RelationManager(models.Manager):
                             ,relation_type=new_type)
 
 
+@reversion.register()
 class Relation(models.Model):
     '''
     Represent a relation between two people

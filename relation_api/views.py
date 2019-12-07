@@ -10,6 +10,7 @@ from family_tree.models.relation import PARTNERED, RAISED, RAISED_BY
 
 from relation_api.serializers import RelationSerializer
 from common.utils import intTryParse
+import reversion
 
 
 # ViewSets define the view behavior for Django REST
@@ -38,9 +39,15 @@ class RelationViewSet(viewsets.ViewSet):
 
 
     def destroy(self, request, pk=None):
-        queryset = Relation.objects.filter(from_person__family_id = request.user.family_id)
-        relation = get_object_or_404(queryset, pk=pk)
-        relation.delete()
+
+        with reversion.create_revision():
+            queryset = Relation.objects.filter(from_person__family_id = request.user.family_id)
+            relation = get_object_or_404(queryset, pk=pk)
+            relation.delete()
+
+            # Store some meta-information.
+            reversion.set_user(request.user)
+            reversion.set_comment('Update ' + request.META.get('HTTP_X_REAL_IP'))
 
         return Response('OK')
 
@@ -67,13 +74,18 @@ class RelationViewSet(viewsets.ViewSet):
         from_person = get_object_or_404(person_queryset, pk=from_person_id)
         to_person = get_object_or_404(person_queryset, pk=to_person_id)
 
-        relation = create_relation(request.user, from_person, to_person, relation_type)
+        with reversion.create_revision():
+            relation = create_relation(request.user, from_person, to_person, relation_type)
 
-        if not relation:
-            raise Http404
+            if not relation:
+                raise Http404
 
-        serializer = RelationSerializer(relation, context={'request': request})
-        return Response(serializer.data)
+            # Store some meta-information.
+            reversion.set_user(request.user)
+            reversion.set_comment('Update ' + request.META.get('HTTP_X_REAL_IP'))
+
+            serializer = RelationSerializer(relation, context={'request': request})
+            return Response(serializer.data)
 
 
 
