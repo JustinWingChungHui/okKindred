@@ -5,8 +5,9 @@ Only change is to foreign keys becoming raw ID fields to reduce load
 
 from family_tree.models import Person, Relation, Family
 from django.contrib import admin
+from reversion.admin import VersionAdmin
 
-class PersonAdmin(admin.ModelAdmin):
+class PersonAdmin(VersionAdmin):
 
     fieldsets = [
           (None, {'fields': ['id','name','gender','family','locked','language','birth_year','year_of_death','photo',
@@ -25,7 +26,7 @@ class PersonAdmin(admin.ModelAdmin):
 admin.site.register(Person,PersonAdmin)
 
 
-class RelationAdmin(admin.ModelAdmin):
+class RelationAdmin(VersionAdmin):
     raw_id_fields = ('from_person','to_person')
 
 admin.site.register(Relation,RelationAdmin)

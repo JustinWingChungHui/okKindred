@@ -14,7 +14,7 @@ from relation_api.serializers import RelationSerializer
 from message_queue.models import create_message
 
 from common.utils import intTryParse
-
+import reversion
 
 # ViewSets define the view behavior for Django REST
 class PersonViewSet(viewsets.ViewSet):
@@ -54,38 +54,45 @@ class PersonViewSet(viewsets.ViewSet):
         set fieldName and value
         '''
         queryset = Person.objects.filter(family_id = request.user.family_id)
-        person = get_object_or_404(queryset, pk=pk)
 
-        #Make sure we can't change locked profiles
-        if person.locked and person.user_id != request.user.id:
-            return HttpResponse(status=403, content="Access denied to locked profile")
+        with reversion.create_revision():
+            person = get_object_or_404(queryset, pk=pk)
 
-        field_name = request.data.get('fieldName')
+            #Make sure we can't change locked profiles
+            if person.locked and person.user_id != request.user.id:
+                return HttpResponse(status=403, content="Access denied to locked profile")
 
-        if not field_name or field_name not in ['email', 'language','locked',
-                                'birth_year','year_of_death','telephone_number',
-                                'website','address', 'skype_name',
-                                'facebook', 'twitter', 'linkedin',
-                                'occupation', 'spoken_languages',
-                                'name', 'gender', 'biography']:
+            field_name = request.data.get('fieldName')
 
-            return HttpResponse(status=403, content="Access denied to change confirmed user settings")
+            if not field_name or field_name not in ['email', 'language','locked',
+                                    'birth_year','year_of_death','telephone_number',
+                                    'website','address', 'skype_name',
+                                    'facebook', 'twitter', 'linkedin',
+                                    'occupation', 'spoken_languages',
+                                    'name', 'gender', 'biography']:
 
-        #Check we don't change any email or language for a confirmed user
-        if person.user_id:
-            if person.user_id != request.user.id:
-                if field_name in ['email', 'language', 'locked']:
-                    return HttpResponse(status=403, content="Access denied to change confirmed user settings")
-
-        else:
-            # profile is not a user
-            if field_name == 'locked':
                 return HttpResponse(status=403, content="Access denied to change confirmed user settings")
 
-        setattr(person, field_name, request.data.get('value'))
-        person.save()
-        serializer = PersonSerializer(person)
-        return Response(serializer.data)
+            #Check we don't change any email or language for a confirmed user
+            if person.user_id:
+                if person.user_id != request.user.id:
+                    if field_name in ['email', 'language', 'locked']:
+                        return HttpResponse(status=403, content="Access denied to change confirmed user settings")
+
+            else:
+                # profile is not a user
+                if field_name == 'locked':
+                    return HttpResponse(status=403, content="Access denied to change confirmed user settings")
+
+            setattr(person, field_name, request.data.get('value'))
+            person.save()
+
+            # Store some meta-information.
+            reversion.set_user(request.user)
+            reversion.set_comment('Update ' + request.META.get('HTTP_X_REAL_IP'))
+
+            serializer = PersonSerializer(person)
+            return Response(serializer.data)
 
 
     def destroy(self, request, pk=None):
@@ -93,23 +100,29 @@ class PersonViewSet(viewsets.ViewSet):
         Deletes a person record if not associated with a user
         '''
         queryset = Person.objects.filter(family_id = request.user.family_id)
-        person = get_object_or_404(queryset, pk=pk)
 
-        if person.user_id:
-            return HttpResponse(status=403, content="Profile is a user and cannot be deleted")
+        with reversion.create_revision():
+            person = get_object_or_404(queryset, pk=pk)
 
-        person.delete()
+            if person.user_id:
+                return HttpResponse(status=403, content="Profile is a user and cannot be deleted")
 
-        message = {
-            'family_id': request.user.family_id,
-            'person_id': int(pk)
-        }
+            person.delete()
 
-        message_encoded = json.dumps(message)
+            # Store some meta-information.
+            reversion.set_user(request.user)
+            reversion.set_comment('Delete ' + request.META.get('HTTP_X_REAL_IP'))
 
-        create_message('person_deleted_update_face_model', message_encoded)
+            message = {
+                'family_id': request.user.family_id,
+                'person_id': int(pk)
+            }
 
-        return Response('OK')
+            message_encoded = json.dumps(message)
+
+            create_message('person_deleted_update_face_model', message_encoded)
+
+            return Response('OK')
 
 
     def create(self, request):
@@ -142,25 +155,30 @@ class PersonViewSet(viewsets.ViewSet):
         if not birth_year_valid:
             birth_year = 0
 
-        new_person = Person(name=name.strip(), gender=gender, family_id=from_person.family_id, birth_year=birth_year)
+        with reversion.create_revision():
+            new_person = Person(name=name.strip(), gender=gender, family_id=from_person.family_id, birth_year=birth_year)
 
-        address = request.data.get("address")
-        if address:
-            new_person.address = address
+            address = request.data.get("address")
+            if address:
+                new_person.address = address
 
-        # Hierarchy scores will eventually be deprecated
-        if relation_type == PARTNERED:
-            new_person.hierarchy_score = from_person.hierarchy_score
-        elif relation_type == RAISED:
-            new_person.hierarchy_score = from_person.hierarchy_score + 1
-        elif relation_type == RAISED_BY:
-            new_person.hierarchy_score = from_person.hierarchy_score - 1
-        new_person.save()
+            # Hierarchy scores will eventually be deprecated
+            if relation_type == PARTNERED:
+                new_person.hierarchy_score = from_person.hierarchy_score
+            elif relation_type == RAISED:
+                new_person.hierarchy_score = from_person.hierarchy_score + 1
+            elif relation_type == RAISED_BY:
+                new_person.hierarchy_score = from_person.hierarchy_score - 1
+            new_person.save()
 
-        relation = create_relation(request.user, from_person, new_person, relation_type)
-        relation_serializer = RelationSerializer(relation)
+            # Store some meta-information.
+            reversion.set_user(request.user)
+            reversion.set_comment('Create ' + request.META.get('HTTP_X_REAL_IP'))
 
-        person_serializer = PersonSerializer(new_person)
-        return Response({'person': person_serializer.data, 'relation': relation_serializer.data})
+            relation = create_relation(request.user, from_person, new_person, relation_type)
+            relation_serializer = RelationSerializer(relation)
+
+            person_serializer = PersonSerializer(new_person)
+            return Response({'person': person_serializer.data, 'relation': relation_serializer.data})
 
 

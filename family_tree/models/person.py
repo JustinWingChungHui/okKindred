@@ -14,6 +14,7 @@ from family_tree.models.family import Family
 
 import os
 import bleach
+import reversion
 
 #Localised Gender choices https://docs.djangoproject.com/en/1.7/ref/models/fields/#choices
 FEMALE ='F'
@@ -53,7 +54,7 @@ class NullableEmailField(models.EmailField):
         return value or None
 
 
-
+@reversion.register()
 class Person(models.Model):
     '''
     Represents a family member

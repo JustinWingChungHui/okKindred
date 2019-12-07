@@ -72,6 +72,7 @@ INSTALLED_APPS = (
     'message_queue',
     'suggested_image_tagging',
     'facial_recognition',
+    'reversion',
 )
 
 MIDDLEWARE = (
