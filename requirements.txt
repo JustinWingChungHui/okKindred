@@ -16,7 +16,7 @@ django-ipware==2.1.0
 django-rest-passwordreset==1.0.0
 django-reversion==3.0.5
 djangorestframework==3.10.3
-djangorestframework-simplejwt==4.3.0
+djangorestframework-simplejwt==4.4.0
 docutils==0.15.2
 ExifRead==2.1.2
 geographiclib==1.50
