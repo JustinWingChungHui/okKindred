@@ -24,7 +24,7 @@ def get_name(path):
 
             else: # path.steps[1].generation == 1
                 # Siblings
-                return get_sibling_titles()
+                return get_sibling_titles(path)
 
 
 
@@ -40,7 +40,7 @@ def get_name(path):
                 pass
 
             else: # path.steps[1].generation == 1
-                # Step childred
+                # Step children
                 pass
 
         else: # path.steps[1].generation == 1
@@ -51,7 +51,7 @@ def get_name(path):
                 pass
 
             elif path.steps[1].generation == 0:
-                # Child in law
+                # son/daughter in law
                 pass
 
             else: # path.steps[1].generation == 1
@@ -143,27 +143,27 @@ def get_grandparent_titles(path):
 def get_sibling_titles(path):
      # Sister
     if path.goal.gender == FEMALE:
-        if path.age_diff > 1:
+        if path.age_diff < 0:
             return ["Elder Sister"]
-        elif path.age_diff > 1:
+        elif path.age_diff > 0:
             return ["Younger Sister"]
         else:
             return ["Sister", "Elder Sister", "Younger Sister"]
 
     # Brother
     elif path.goal.gender == MALE:
-        if path.age_diff > 1:
+        if path.age_diff < 0:
             return ["Elder Brother"]
-        elif path.age_diff > 1:
+        elif path.age_diff > 0:
             return ["Younger Brother"]
         else:
             return ["Brother", "Elder Brother", "Younger Brother"]
 
     # Unknown
     else:
-        if path.age_diff > 1:
+        if path.age_diff < 0:
             return ["Elder Sister", "Elder Brother"]
-        elif path.age_diff > 1:
+        elif path.age_diff > 0:
             return ["Younger Sister", "Younger Brother"]
         else:
             return ["Sister", "Brother", "Elder Sister",

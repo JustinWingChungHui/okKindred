@@ -80,13 +80,14 @@ class Path():
         if self.start.birth_year == 0 or self.goal.birth_year == 0:
             self.age_diff = 0
 
-        if self.start.birth_year > self.goal.birth_year:
+        elif self.start.birth_year < self.goal.birth_year:
             self.age_diff = 1
 
-        if self.start.birth_year > self.goal.birth_year:
+        elif self.start.birth_year > self.goal.birth_year:
             self.age_diff = -1
 
-        self.age_diff = 0
+        else:
+            self.age_diff = 0
 
 
 

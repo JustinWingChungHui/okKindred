@@ -106,3 +106,31 @@ class PathToNameMapperTestCase(TestCase): # pragma: no cover
         result = get_name(path)
         self.assertEqual("Wife's Father", result[0])
 
+    def test_elder_sister(self):
+        person = Node(Person.objects.create(name='patient zero', gender='M', family_id=self.family.id, birth_year=1982))
+        dad = Node(Person.objects.create(name='dad', gender='M', family_id=self.family.id))
+        sister = Node(Person.objects.create(name='sister', gender='F', family_id=self.family.id, birth_year=1980))
+
+        path = Path(person, sister)
+        path.add_node(dad, RAISED_BY)
+        path.add_node(sister, RAISED)
+
+        result = get_name(path)
+
+        self.assertEqual("Elder Sister", result[0])
+
+    def test_brother_unknown_age(self):
+        person = Node(Person.objects.create(name='patient zero', gender='M', family_id=self.family.id, birth_year=1982))
+        dad = Node(Person.objects.create(name='dad', gender='M', family_id=self.family.id))
+        brother = Node(Person.objects.create(name='brother', gender='M', family_id=self.family.id))
+
+        path = Path(person, brother)
+        path.add_node(dad, RAISED_BY)
+        path.add_node(brother, RAISED)
+
+        result = get_name(path)
+
+        self.assertTrue("Brother" in result)
+        self.assertTrue("Elder Brother" in result)
+        self.assertTrue("Younger Brother" in result)
+
