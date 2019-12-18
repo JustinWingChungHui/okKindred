@@ -1,13 +1,13 @@
 -f /usr/share/pip-wheels
 asgiref==3.2.3
 bleach==3.1.0
-boto3==1.10.34
-botocore==1.13.34
+boto3==1.10.42
+botocore==1.13.42
 certifi==2019.11.28
 chardet==3.0.4
 coreapi==2.3.3
 coreschema==0.0.4
-Django==3.0
+Django==3.0.1
 django-appconf==1.0.3
 django-axes==5.0.20
 django-cors-headers==3.2.0
@@ -15,7 +15,7 @@ django-debug-toolbar==2.1
 django-ipware==2.1.0
 django-rest-passwordreset==1.0.0
 django-reversion==3.0.5
-djangorestframework==3.10.3
+djangorestframework==3.11.0
 djangorestframework-simplejwt==4.4.0
 docutils==0.15.2
 ExifRead==2.1.2

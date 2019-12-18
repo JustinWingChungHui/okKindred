@@ -9,10 +9,8 @@ def upload_file_to_s3(filename_and_path):
     '''
     file = str(filename_and_path)
 
-    s3 = boto3.resource('s3')
-
-    data = open(settings.MEDIA_ROOT + file, 'rb')
-    s3.Bucket(settings.AWS_STORAGE_BUCKET_NAME).put_object(Key=file, Body=data)
+    client = boto3.client('s3')
+    client.upload_file(settings.MEDIA_ROOT + file, settings.AWS_STORAGE_BUCKET_NAME, file)
 
 
 def remove_file_from_s3(filename_and_path):
