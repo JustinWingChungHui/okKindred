@@ -1,6 +1,5 @@
 from family_tree.models.person import FEMALE, MALE
-from chinese_relation_name.node import Node
-from chinese_relation_name.path import Path
+from chinese_relation_name.path_to_name_mapper_3rd_gen import get_3rd_gen_name
 
 
 def get_name(path):
@@ -11,61 +10,58 @@ def get_name(path):
     # 2 relations apart
     if len(path.titles) == 2:
 
+        # Parent
         if path.steps[0].generation == -1:
-            # Parent route
 
+            # Grandparents
             if path.steps[1].generation == -1:
-                # Grandparents
                 return get_grandparent_titles(path)
 
+            # Step Parents
             elif path.steps[1].generation == 0:
-                # Step Parents
                 return get_stepparents_titles(path)
 
+            # Siblings
             else: # path.steps[1].generation == 1
-                # Siblings
+
                 return get_sibling_titles(path)
 
 
-
+        # Parent
         elif path.steps[0].generation == 0:
-            # Partner route
 
+            # Parents in law
             if path.steps[1].generation == -1:
-                # Parents in law
                 return get_parents_in_law(path)
 
+            # Partner's Partner
             elif path.steps[1].generation == 0:
-                # Partner's Partner
-                pass
+                return ["Partner's Partner"]
 
+            # Step children
             else: # path.steps[1].generation == 1
-                # Step children
-                pass
+                return get_stepchildren(path)
 
+
+        # Child route
         else: # path.steps[1].generation == 1
-            # Child route
 
+            # Children's parent / ex-partner
             if path.steps[1].generation == -1:
-                # Children's parent
-                pass
+                return ["Child's Parent / ex-Partner"]
 
+            # son/daughter in law
             elif path.steps[1].generation == 0:
-                # son/daughter in law
-                pass
+                return get_child_in_law(path)
 
+            # Granchildren
             else: # path.steps[1].generation == 1
-                # Granchildren
-                pass
+                return get_grandchildren(path)
 
     # 3 relations apart
     if len(path.titles) == 3:
+        return get_3rd_gen_name(path)
 
-        # Great grandparents
-        if path.generation == -3:
-            pass
-
-        # Brain melt
 
 
 def get_parents_in_law(path):
@@ -109,6 +105,23 @@ def get_stepparents_titles(path):
         return ['Stepmother', 'Stepfather']
 
 
+def get_stepchildren(path):
+    # step childred
+    if path.goal.gender == FEMALE:
+        return ['Stepdaughter']
+    elif path.goal.gender == MALE:
+        return ['Stepson']
+    else:
+        return ['Stepdaughter', 'Stepson']
+
+def get_child_in_law(path):
+    # children in law
+    if path.goal.gender == FEMALE:
+        return ['Daughter In Law']
+    elif path.goal.gender == MALE:
+        return ['Son In Law']
+    else:
+        return ['Daughter In Law', 'Son In Law']
 
 def get_grandparent_titles(path):
 
@@ -168,3 +181,33 @@ def get_sibling_titles(path):
         else:
             return ["Sister", "Brother", "Elder Sister",
                         "Elder Brother", "Younger Sister", "Younger Brother"]
+
+
+def get_grandchildren(path):
+    # Daughter's side
+    if path.titles[0] == 'Daughter':
+        if path.goal.gender == FEMALE:
+            return ["Grandaughter Daughter's Side"]
+        elif path.goal.gender == MALE:
+            return ["Grandson Daughter's Side"]
+        else:
+            return ["Grandaughter Daughter's Side", "Grandson Daughter's Side"]
+
+    # Son's side
+    elif path.titles[0] == 'Son':
+        if path.goal.gender == FEMALE:
+            return ["Grandaughter Son's Side"]
+        elif path.goal.gender == MALE:
+            return ["Grandson Son's Side"]
+        else:
+            return ["Grandaughter Son's Side", "Grandson Son's Side"]
+
+    # Child gender not specified
+    else:
+        if path.goal.gender == FEMALE:
+            return ["Grandaughter Daughter's Side", "Grandaughter Son's Side"]
+        elif path.goal.gender == MALE:
+            return ["Grandson Daughter's Side", "Grandson Son's Side"]
+        else:
+            return ["Grandaughter Daughter's Side", "Grandson Daughter's Side",
+            "Grandaughter Son's Side", "Grandson Son's Side"]
