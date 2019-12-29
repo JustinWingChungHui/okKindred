@@ -17,11 +17,11 @@ def get_3rd_gen_name(path):
 
             # Step Grandparent
             elif path.steps[2].generation == 0:
-                return get_step_grandparent(path)
+                return []
 
             # Aunt/ Uncle
             else: #-1
-                pass
+                return get_aunt_uncle(path)
 
         # Step Parent
         elif path.steps[1].generation == 0:
@@ -170,5 +170,172 @@ def get_great_grandparents(path):
             return ['Maternal Great Grandmother', 'Maternal Great Grandfather',
                     'Paternal Great Grandmother', 'Paternal Great Grandfather']
 
-def get_step_grandparent(path):
-    pass
+
+def get_aunt_uncle(path):
+
+    parent = path.steps[0].to_node
+
+    # Mother's side
+    if path.titles[0] == 'Mother':
+
+        # Aunt
+        if path.goal.gender == FEMALE:
+
+            # Elder
+            if parent.compare_ages(path.goal) == -1:
+                return ["Mother's Elder Sister", "Mother's Sister"]
+
+             # Younger
+            elif parent.compare_ages(path.goal) == 1:
+                return ["Mother's Younger Sister", "Mother's Sister"]
+
+            # Unknown Age
+            else:
+                return ["Mother's Elder Sister", "Mother's Younger Sister", "Mother's Sister"]
+
+        # Uncle
+        elif path.goal.gender == MALE:
+
+            # Elder
+            if parent.compare_ages(path.goal) == -1:
+                return ["Mother's Elder Brother", "Mother's Brother"]
+
+             # Younger
+            elif parent.compare_ages(path.goal) == 1:
+                return ["Mother's Younger Brother", "Mother's Brother"]
+
+            # Unknown Age
+            else:
+                return ["Mother's Elder Brother", "Mother's Younger Brother", "Mother's Brother"]
+
+        # Either gender
+        else:
+
+            # Elder
+            if parent.compare_ages(path.goal) == 1:
+                return ["Mother's Elder Sister", "Mother's Sister",
+                        "Mother's Elder Brother", "Mother's Brother"]
+
+             # Younger
+            elif parent.compare_ages(path.goal) == -1:
+                return ["Mother's Younger Sister", "Mother's Sister",
+                        "Mother's Younger Brother", "Mother's Brother"]
+
+            # Unknown Age
+            else:
+                return ["Mother's Elder Sister", "Mother's Younger Sister", "Mother's Sister",
+                        "Mother's Elder Brother", "Mother's Younger Brother", "Mother's Brother"]
+
+    # Father's side
+    elif path.titles[0] == 'Father':
+
+        # Aunt
+        if path.goal.gender == FEMALE:
+
+            # Elder
+            if parent.compare_ages(path.goal) == -1:
+                return ["Father's Elder Sister", "Father's Sister"]
+
+             # Younger
+            elif parent.compare_ages(path.goal) == 1:
+                return ["Father's Younger Sister", "Father's Sister"]
+
+            # Unknown Age
+            else:
+                return ["Father's Elder Sister", "Father's Younger Sister", "Father's Sister"]
+
+        # Uncle
+        elif path.goal.gender == MALE:
+
+            # Elder
+            if parent.compare_ages(path.goal) == -1:
+                return ["Father's Elder Brother", "Father's Brother"]
+
+             # Younger
+            elif parent.compare_ages(path.goal) == 1:
+                return ["Father's Younger Brother", "Father's Brother"]
+
+            # Unknown Age
+            else:
+                return ["Father's Elder Brother", "Father's Younger Brother", "Father's Brother"]
+
+        # Either gender
+        else:
+
+            # Elder
+            if parent.compare_ages(path.goal) == -1:
+                return ["Father's Elder Sister", "Father's Sister",
+                        "Father's Elder Brother", "Father's Brother"]
+
+             # Younger
+            elif parent.compare_ages(path.goal) == 1:
+                return ["Father's Younger Sister", "Father's Sister",
+                        "Father's Younger Brother", "Father's Brother"]
+
+            # Unknown Age
+            else:
+                return ["Father's Elder Sister", "Father's Younger Sister", "Father's Sister",
+                        "Father's Elder Brother", "Father's Younger Brother", "Father's Brother"]
+
+    # Parent gender not specified
+    else:
+        # Aunt
+        if path.goal.gender == FEMALE:
+
+            # Elder
+            if parent.compare_ages(path.goal) == -1:
+                return ["Mother's Elder Sister", "Mother's Sister",
+                        "Father's Elder Sister", "Father's Sister"]
+
+             # Younger
+            elif parent.compare_ages(path.goal) == 1:
+                return ["Mother's Younger Sister", "Mother's Sister",
+                        "Father's Younger Sister", "Father's Sister"]
+
+            # Unknown Age
+            else:
+                return ["Mother's Elder Sister", "Mother's Younger Sister", "Mother's Sister",
+                        "Father's Elder Sister", "Father's Younger Sister", "Father's Sister"]
+
+        # Uncle
+        elif path.goal.gender == MALE:
+
+            # Elder
+            if parent.compare_ages(path.goal) == -1:
+                return ["Mother's Elder Brother", "Mother's Brother",
+                        "Father's Elder Brother", "Father's Brother"]
+
+             # Younger
+            elif parent.compare_ages(path.goal) == 1:
+                return ["Mother's Younger Brother", "Mother's Brother",
+                        "Father's Younger Brother", "Father's Brother"]
+
+            # Unknown Age
+            else:
+                return ["Mother's Elder Brother", "Mother's Younger Brother", "Mother's Brother",
+                        "Father's Elder Brother", "Father's Younger Brother", "Father's Brother"]
+
+        # Either gender
+        else:
+
+            # Elder
+            if parent.compare_ages(path.goal) == 1:
+                return ["Mother's Elder Sister", "Mother's Sister",
+                        "Mother's Elder Brother", "Mother's Brother",
+                        "Father's Elder Sister", "Father's Sister",
+                        "Father's Elder Brother", "Father's Brother"]
+
+             # Younger
+            elif parent.compare_ages(path.goal) == -1:
+                return ["Mother's Younger Sister", "Mother's Sister",
+                        "Mother's Younger Brother", "Mother's Brother",
+                        "Father's Younger Sister", "Father's Sister",
+                        "Father's Younger Brother", "Father's Brother"]
+
+            # Unknown Age
+            else:
+                return ["Mother's Elder Sister", "Mother's Younger Sister", "Mother's Sister",
+                        "Mother's Elder Brother", "Mother's Younger Brother", "Mother's Brother",
+                        "Father's Elder Sister", "Father's Younger Sister", "Father's Sister",
+                        "Father's Elder Brother", "Father's Younger Brother", "Father's Brother"]
+

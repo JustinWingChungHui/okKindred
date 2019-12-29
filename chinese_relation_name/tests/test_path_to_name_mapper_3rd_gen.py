@@ -72,3 +72,59 @@ class PathToNameMapper3rdGenTestCase(TestCase): # pragma: no cover
 
         self.assertTrue('Paternal Great Grandfather' in result)
         self.assertTrue('Maternal Great Grandfather' in result)
+
+
+    def test_step_grandparent(self):
+
+        person = Node(Person.objects.create(name='patient zero', gender='M', family_id=self.family.id))
+        mother = Node(Person.objects.create(name='mother', gender='F', family_id=self.family.id))
+        grandparent = Node(Person.objects.create(name='grandparent', gender='F', family_id=self.family.id))
+        step_grandparent = Node(Person.objects.create(name='step_grandparent', gender='M', family_id=self.family.id))
+
+
+        path = Path(person, step_grandparent)
+        path.add_node(mother, RAISED_BY)
+        path.add_node(grandparent, RAISED_BY)
+        path.add_node(step_grandparent, PARTNERED)
+
+        result = get_name(path)
+
+        self.assertEqual([], result)
+
+
+    def test_mothers_elder_sister(self):
+
+        person = Node(Person.objects.create(name='patient zero', gender='M', family_id=self.family.id))
+        mother = Node(Person.objects.create(name='mother', gender='F', family_id=self.family.id, birth_year=1990))
+        grandparent = Node(Person.objects.create(name='grandparent', gender='F', family_id=self.family.id))
+        aunt = Node(Person.objects.create(name='aunt', gender='F', family_id=self.family.id, birth_year=1988))
+
+
+        path = Path(person, aunt)
+        path.add_node(mother, RAISED_BY)
+        path.add_node(grandparent, RAISED_BY)
+        path.add_node(aunt, RAISED)
+
+        result = get_name(path)
+
+        self.assertTrue("Mother's Elder Sister" in result)
+        self.assertTrue("Mother's Sister" in result)
+
+
+    def test_fathers_younger_brother(self):
+
+        person = Node(Person.objects.create(name='patient zero', gender='M', family_id=self.family.id))
+        father = Node(Person.objects.create(name='father', gender='M', family_id=self.family.id, birth_year=1990))
+        grandparent = Node(Person.objects.create(name='grandparent', gender='F', family_id=self.family.id))
+        uncle = Node(Person.objects.create(name='uncle', gender='M', family_id=self.family.id, birth_year=1991))
+
+
+        path = Path(person, uncle)
+        path.add_node(father, RAISED_BY)
+        path.add_node(grandparent, RAISED_BY)
+        path.add_node(uncle, RAISED)
+
+        result = get_name(path)
+
+        self.assertTrue("Father's Younger Brother" in result)
+        self.assertTrue("Father's Brother" in result)

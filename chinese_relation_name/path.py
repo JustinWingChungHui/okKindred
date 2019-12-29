@@ -74,20 +74,11 @@ class Path():
     def set_success_properties(self):
         self.success = True
         for step in self.steps:
+            step.set_step_code()
             self.titles.append(step.step_title())
             self.generation += step.generation
 
-        if self.start.birth_year == 0 or self.goal.birth_year == 0:
-            self.age_diff = 0
-
-        elif self.start.birth_year < self.goal.birth_year:
-            self.age_diff = 1
-
-        elif self.start.birth_year > self.goal.birth_year:
-            self.age_diff = -1
-
-        else:
-            self.age_diff = 0
+        self.age_diff = self.start.compare_ages(self.goal)
 
 
 
@@ -100,6 +91,7 @@ class PathStep():
         self.to_node = to_node
         self.relation_type = relation_type
         self.generation = 0
+        self.code = ''
 
 
 
@@ -147,3 +139,44 @@ class PathStep():
 
         else:
             raise ValueError("unknown relation type")
+
+
+    def set_step_code(self):
+
+        if self.relation_type == PARTNERED:
+
+            self.generation = 0
+            gen_code = '='
+
+        elif self.relation_type == RAISED_BY:
+
+            self.generation = -1
+            gen_code = '-'
+
+
+        elif self.relation_type == RAISED:
+
+            self.generation = 1
+            gen_code = '+'
+
+
+        else:
+            raise ValueError("unknown relation type")
+
+        if self.to_node.gender == FEMALE:
+            self.code = gen_code + 'F'
+        elif self.to_node.gender == MALE:
+            self.code = gen_code + 'M'
+        else:
+            self.code = gen_code + 'O'
+
+
+
+
+
+
+
+
+
+
+
