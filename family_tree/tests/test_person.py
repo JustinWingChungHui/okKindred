@@ -224,7 +224,7 @@ class PersonTestCase(TestCase): # pragma: no cover
         width, height = image.size
 
         self.assertEqual(500, width)
-        self.assertEqual(343, height) #maintains aspect ratio
+        self.assertEqual(344, height) #maintains aspect ratio
 
         self.assertEqual('profile_photos/large_test_image.jpg', person.photo)
 
