@@ -134,3 +134,72 @@ class PathToNameMapperTestCase(TestCase): # pragma: no cover
         self.assertTrue("Elder Brother" in result)
         self.assertTrue("Younger Brother" in result)
 
+
+    def test_younger_sibling(self):
+        person = Node(Person.objects.create(name='patient zero', gender='M', family_id=self.family.id, birth_year=1982))
+        dad = Node(Person.objects.create(name='dad', gender='M', family_id=self.family.id))
+        sibling = Node(Person.objects.create(name='sibling', gender='O', family_id=self.family.id, birth_year=1990))
+
+        path = Path(person, sibling)
+        path.add_node(dad, RAISED_BY)
+        path.add_node(sibling, RAISED)
+
+        result = get_name(path)
+
+        self.assertTrue("Younger Brother" in result)
+        self.assertTrue("Younger Sister" in result)
+
+    def test_stepson(self):
+        person = Node(Person.objects.create(name='patient zero', gender='F', family_id=self.family.id))
+        partner = Node(Person.objects.create(name='partner', gender='F', family_id=self.family.id))
+        stepson = Node(Person.objects.create(name='stepson', gender='M', family_id=self.family.id))
+
+        path = Path(person, stepson)
+        path.add_node(partner, PARTNERED)
+        path.add_node(stepson, RAISED)
+
+        result = get_name(path)
+
+        self.assertTrue("Stepson" in result)
+
+    def test_daughter_in_law(self):
+        person = Node(Person.objects.create(name='patient zero', gender='F', family_id=self.family.id))
+        son = Node(Person.objects.create(name='son', gender='M', family_id=self.family.id))
+        daughter_in_law = Node(Person.objects.create(name='daughter in law', gender='F', family_id=self.family.id))
+
+        path = Path(person, daughter_in_law)
+        path.add_node(son, RAISED)
+        path.add_node(daughter_in_law, PARTNERED)
+
+        result = get_name(path)
+
+        self.assertTrue("Daughter In Law" in result)
+
+
+    def test_grandson_daughters_side(self):
+        person = Node(Person.objects.create(name='patient zero', gender='F', family_id=self.family.id))
+        daughter = Node(Person.objects.create(name='daughter', gender='F', family_id=self.family.id))
+        grandson = Node(Person.objects.create(name='grandson', gender='M', family_id=self.family.id))
+
+        path = Path(person, grandson)
+        path.add_node(daughter, RAISED)
+        path.add_node(grandson, RAISED)
+
+        result = get_name(path)
+
+        self.assertTrue("Grandson Daughter's Side" in result)
+
+
+    def test_granddaughter_unknown_side(self):
+        person = Node(Person.objects.create(name='patient zero', gender='F', family_id=self.family.id))
+        child = Node(Person.objects.create(name='child', gender='O', family_id=self.family.id))
+        granddaughter = Node(Person.objects.create(name='granddaughter', gender='F', family_id=self.family.id))
+
+        path = Path(person, granddaughter)
+        path.add_node(child, RAISED)
+        path.add_node(granddaughter, RAISED)
+
+        result = get_name(path)
+
+        self.assertTrue("Grandaughter Daughter's Side" in result)
+        self.assertTrue("Grandaughter Son's Side" in result)
