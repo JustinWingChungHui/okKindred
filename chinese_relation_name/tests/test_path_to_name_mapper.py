@@ -130,7 +130,6 @@ class PathToNameMapperTestCase(TestCase): # pragma: no cover
 
         result = get_name(path)
 
-        self.assertTrue("Brother" in result)
         self.assertTrue("Elder Brother" in result)
         self.assertTrue("Younger Brother" in result)
 
@@ -201,5 +200,5 @@ class PathToNameMapperTestCase(TestCase): # pragma: no cover
 
         result = get_name(path)
 
-        self.assertTrue("Grandaughter Daughter's Side" in result)
-        self.assertTrue("Grandaughter Son's Side" in result)
+        self.assertTrue("Granddaughter Daughter's Side" in result)
+        self.assertTrue("Granddaughter Son's Side" in result)

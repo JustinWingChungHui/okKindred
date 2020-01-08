@@ -67,8 +67,8 @@ map_codes = {
     '=*,+M': (lambda path: ["Stepson"]),
     '=*,+O': (lambda path: ["Stepdaughter", "Stepson"]),
 
-    # Child's parent / ex-partner
-    '+*,-*': (lambda path: ["Child's Parent/ex-Partner"]),
+    # Child's parent / ex-partner (not defined)
+    #'+*,-*': (lambda path: ["Child's Parent/ex-Partner"]),
 
     # Son/Daughter in law (do we have different terms for same sex relationships? e.g. +F,=F)
     '+*,=F': (lambda path: ["Daughter In Law"]),
@@ -76,16 +76,16 @@ map_codes = {
     '+*,=O': (lambda path: ["Daughter In Law", "Son in Law"]),
 
     # Grandchildren
-    '+F,+F': (lambda path: ["Grandaughter Daughter's Side"]),
+    '+F,+F': (lambda path: ["Granddaughter Daughter's Side"]),
     '+F,+M': (lambda path: ["Grandson Daughter's Side"]),
-    '+F,+O': (lambda path: ["Grandaughter Daughter's Side", "Grandson Daughter's Side"]),
-    '+M,+F': (lambda path: ["Grandaughter Son's Side"]),
+    '+F,+O': (lambda path: ["Granddaughter Daughter's Side", "Grandson Daughter's Side"]),
+    '+M,+F': (lambda path: ["Granddaughter Son's Side"]),
     '+M,+M': (lambda path: ["Grandson Son's Side"]),
-    '+M,+O': (lambda path: ["Grandaughter Son's Side", "Grandson Son's Side"]),
-    '+O,+F': (lambda path: ["Grandaughter Daughter's Side", "Grandaughter Son's Side"]),
+    '+M,+O': (lambda path: ["Granddaughter Son's Side", "Grandson Son's Side"]),
+    '+O,+F': (lambda path: ["Granddaughter Daughter's Side", "Granddaughter Son's Side"]),
     '+O,+M': (lambda path: ["Grandson Daughter's Side", "Grandson Son's Side"]),
-    '+O,+O': (lambda path: ["Grandaughter Daughter's Side", "Grandson Daughter's Side",
-                                "Grandaughter Son's Side", "Grandson Son's Side"]),
+    '+O,+O': (lambda path: ["Granddaughter Daughter's Side", "Grandson Daughter's Side",
+                                "Granddaughter Son's Side", "Grandson Son's Side"]),
 
     # --- Great Grandparents
     '-F,-*,-F': (lambda path: ["Maternal Great Grandmother"]),
@@ -103,14 +103,14 @@ map_codes = {
 
     # --+ Aunt/Uncles
     '-F,-*,+F': (lambda path: get_mothers_sister(path)),
-    '-F,-*,+M': (lambda path: get_mothers_brother(path)),
-    '-F,-*,+O': (lambda path: get_mothers_sister(path) + get_mothers_brother(path)),
+    '-F,-*,+M': (lambda path: ["Mother's Brother"]),
+    '-F,-*,+O': (lambda path: get_mothers_sister(path) + ["Mother's Brother"]),
     '-M,-*,+F': (lambda path: get_fathers_sister(path)),
     '-M,-*,+M': (lambda path: get_fathers_brother(path)),
     '-M,-*,+O': (lambda path: get_fathers_sister(path) + get_fathers_brother(path)),
     '-O,-*,+F': (lambda path: get_mothers_sister(path) + get_fathers_sister(path)),
-    '-O,-*,+M': (lambda path: get_mothers_brother(path) + get_fathers_brother(path)),
-    '-O,-*,+O': (lambda path: get_mothers_sister(path) + get_mothers_brother(path)
+    '-O,-*,+M': (lambda path: ["Mother's Brother"] + get_fathers_brother(path)),
+    '-O,-*,+O': (lambda path: get_mothers_sister(path) + ["Mother's Brother"]
                                 + get_fathers_sister(path) + get_fathers_brother(path)),
 
     # -=- Parents of step parents (not defined)
@@ -284,7 +284,7 @@ def get_sister(path):
     elif path.age_diff > 0:
         return ["Younger Sister"]
     else:
-        return ["Sister", "Elder Sister", "Younger Sister"]
+        return ["Elder Sister", "Younger Sister"]
 
 
 def get_brother(path):
@@ -293,7 +293,7 @@ def get_brother(path):
     elif path.age_diff > 0:
         return ["Younger Brother"]
     else:
-        return ["Brother", "Elder Brother", "Younger Brother"]
+        return ["Elder Brother", "Younger Brother"]
 
 
 def get_mothers_sister(path):
@@ -311,23 +311,6 @@ def get_mothers_sister(path):
     # Unknown Age
     else:
         return ["Mother's Elder Sister", "Mother's Younger Sister", "Mother's Sister"]
-
-
-def get_mothers_brother(path):
-
-    parent = path.steps[0].to_node
-
-    # Elder
-    if parent.compare_ages(path.goal) == -1:
-        return ["Mother's Elder Brother", "Mother's Brother"]
-
-     # Younger
-    elif parent.compare_ages(path.goal) == 1:
-        return ["Mother's Younger Brother", "Mother's Brother"]
-
-    # Unknown Age
-    else:
-        return ["Mother's Elder Brother", "Mother's Younger Brother", "Mother's Brother"]
 
 
 def get_fathers_sister(path):
@@ -474,7 +457,7 @@ def get_maternal_cousin(path, gender):
 
      # Younger
     elif path.start.compare_ages(path.goal) == 1:
-        return ["Maternal Younger {0} Cousin"]
+        return ["Maternal Younger {0} Cousin".format(gender)]
 
     # Unknown Age
     else:
@@ -490,7 +473,7 @@ def get_paternal_cousin(path, gender):
 
      # Younger
     elif path.start.compare_ages(path.goal) == 1:
-        return ["Paternal Younger {0} Cousin"]
+        return ["Paternal Younger {0} Cousin".format(gender)]
 
     # Unknown Age
     else:

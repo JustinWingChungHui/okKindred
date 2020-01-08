@@ -360,3 +360,23 @@ class PathToNameMapper3rdGenTestCase(TestCase): # pragma: no cover
         self.assertTrue("Paternal Elder Female Cousin" in result)
         self.assertTrue("Paternal Younger Female Cousin" in result)
 
+
+    def test_maternal_younger_cousin(self):
+        person = Node(Person.objects.create(name='patient zero', gender='M', family_id=self.family.id, birth_year=2000))
+        mother = Node(Person.objects.create(name='mother', gender='F', family_id=self.family.id))
+        grandmother = Node(Person.objects.create(name='grandmother', gender='F', family_id=self.family.id))
+        aunt = Node(Person.objects.create(name='aunt', gender='F', family_id=self.family.id))
+        cousin = Node(Person.objects.create(name='aunt husband', gender='O', family_id=self.family.id, birth_year=2005))
+
+        path = Path(person, cousin)
+        path.add_node(mother, RAISED_BY)
+        path.add_node(grandmother, RAISED_BY)
+        path.add_node(aunt, RAISED)
+        path.add_node(cousin, RAISED)
+
+        result = get_name(path)
+
+        self.assertTrue("Maternal Younger Male Cousin" in result)
+        self.assertTrue("Maternal Younger Female Cousin" in result)
+
+
