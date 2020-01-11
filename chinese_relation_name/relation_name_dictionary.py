@@ -123,13 +123,11 @@ relation_names = {
     # Stepchildren
     # same as children
     'Stepdaughter': RelationName('女', 'neoi5', ['女儿', '闺女'], ["nǚ'ér", "guī nǚ"]),
-
     'Stepson':      RelationName('仔', 'zai2', '儿子', 'érzi'),
 
     # Children In Law
     "Daughter In Law":  RelationName('新抱', 'san1 pou5', '媳婦', 'xí fù'),
-
-    "Son In Law":  RelationName('女婿', 'neoi5 sai3', '女婿', 'nǚ xu'),
+    "Son In Law":       RelationName('女婿', 'neoi5 sai3', '女婿', 'nǚ xu'),
 
     # Grandchildren
     "Granddaughter Daughter's Side":    RelationName('外孫女', 'ngoi6 syun1 neoi5', '外孫女', 'wài sūn nǚ'),
@@ -149,8 +147,42 @@ relation_names = {
     "Mother's Sister":          RelationName('姨姨', 'ji4 ji4', '姨', 'yí'),
     "Mother's Brother":         RelationName('舅父', 'kau5 fu6', '舅舅', 'jiùjiu'),
     "Father's Elder Sister":    RelationName('姑媽', 'gu1 maa1', '姑妈', 'gūmā'),
-    "Father's Younger Sister":    RelationName('姑姐', 'gu1 ze2 ', '', ''),
-    "Father's Sister":    RelationName('阿姑', 'aa3 gu1', '姑姑', 'gūgu'),
+    "Father's Younger Sister":  RelationName('姑姐', 'gu1 ze2 ', '', ''),
+    "Father's Sister":          RelationName('阿姑', 'aa3 gu1', '姑姑', 'gūgu'),
+
+
+    # Sibling's partner
+    "Elder Sibling's Wife":     RelationName('阿嫂', 'aa3 sou2', '嫂', 'sǎo'),
+    "Younger Sibling's Wife":   RelationName('姑奶', 'gu1 naai5', '弟婦', 'dì fù'),
+    "Elder Sibling's Husband":  RelationName('姐夫', 'ze2 fu1', '姐夫', 'jiě fu'),
+    "Younger Sibling's Husband":RelationName('妹夫', 'mui6 fu1', '姐夫', 'mèi fu'),
+
+    # Nieces/ Nephews
+    "Sister's Daughter":    RelationName('外甥女', 'ngoi6 saang1 neoi5', '外甥女', 'wài sheng nǚ'),
+    "Sister's Son":         RelationName('外甥', 'ngoi6 saang1', '外甥女', 'wài shēng'),
+    "Brother's Daughter":   RelationName('侄女', 'zat6 neoi5', '姪女', 'zhí nǚ'),
+    "Brother's Son":        RelationName('侄', 'zat6', '姪仔', 'zhí zǎi'),
+
+
+    # Brother/Sister in Law
+    "Wife's Elder Sister":          RelationName('大姨', 'daai6 ji4', '大姨', 'dà yí'),
+    "Wife's Younger Sister":        RelationName('姨仔', 'ji4 zai2', '小姨', 'xiǎo yí'),
+    "Wife's Elder Brother":         RelationName('大舅', 'daai6 kau5', '大舅', 'dà jiù'),
+    "Wife's Younger Brother":       RelationName('舅仔', 'kau5 zai2', '小舅', 'xiǎo jiù'),
+    "Husband's Elder Sister":       RelationName('姑奶', 'gu1 naai5', '大姑', 'dà gū'),
+    "Husband's Younger Sister":     RelationName('姑仔', 'gu1 zai2', '小姑', 'xiǎo gū'),
+    "Husband's Elder Brother":      RelationName('大伯', 'daai6 baa3', '大伯', 'dà bó'),
+    "Husband's Younger Brother":    RelationName('叔仔', 'suk1 zai2', '小叔', 'xiǎo shū'),
+
+    # 1st Cousins
+    "Maternal Elder Female Cousin":     RelationName('表姐', 'biu2 ze2', '表姐', 'biǎojiě'),
+    "Maternal Younger Female Cousin":   RelationName('表妹', 'biu2 mui6', '表妹', 'biǎomèi'),
+    "Maternal Elder Male Cousin":       RelationName('表哥', 'biu2 go1', '表哥', 'biǎogē'),
+    "Maternal Younger Male Cousin":     RelationName('表弟', 'biu2 dai6', '表弟', 'biǎodì'),
+    "Paternal Elder Female Cousin":     RelationName('堂家姐', 'tong4 gaa1 ze2', ['堂姊', '堂姐'], ['tángzǐ', 'tángjiě']),
+    "Paternal Younger Female Cousin":   RelationName('堂細妹', 'tong4 sai3 mui6', '堂妹', 'tángmèi'),
+    "Paternal Elder Male Cousin":       RelationName('堂阿哥', 'tong4 aa3 go1', ['堂兄', '堂哥'], ['tángxiōng', 'tánggē']),
+    "Paternal Younger Male Cousin":     RelationName('堂細佬', 'tong4 sai3 lou2', '堂弟', 'tángdì'),
 }
 
 
