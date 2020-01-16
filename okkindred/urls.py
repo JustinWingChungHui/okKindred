@@ -66,6 +66,9 @@ urlpatterns = [
 
     # Suggested Image tagging Api
     path('', include('suggested_image_tagging.urls')),
+
+    # Chinese Relation Names
+    path('', include('chinese_relation_name.urls')),
 ]
 
 if settings.DEBUG:

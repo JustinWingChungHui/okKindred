@@ -1,3 +1,4 @@
+from json import JSONEncoder
 
 class RelationName():
 
@@ -22,6 +23,16 @@ class RelationName():
             self.mandarin_pronounciation = mandarin_pronounciation
         else:
             self.mandarin_pronounciation = [mandarin_pronounciation]
+
+
+class RelationNameEncoder(JSONEncoder):
+
+    def default(self, obj):
+        if isinstance(obj, RelationName):
+            return obj.__dict__
+        #Let the base class handle the problem.
+        return JSONEncoder.default(self, obj)
+
 
 '''
 https://omniglot.com/language/kinship/cantonese.htm
