@@ -279,3 +279,104 @@ class PathToNameMapper3rdGenTestCase(TestCase): # pragma: no cover
         result = get_name(path)
 
         self.assertTrue("Great Grandchild" in result)
+
+
+    def test_mothers_sisters_husband(self):
+
+        person = Node(Person.objects.create(name='patient zero', gender='M', family_id=self.family.id))
+        mother = Node(Person.objects.create(name='mother', gender='F', family_id=self.family.id))
+        grandmother = Node(Person.objects.create(name='grandmother', gender='F', family_id=self.family.id))
+        aunt = Node(Person.objects.create(name='aunt', gender='F', family_id=self.family.id))
+        aunt_husband = Node(Person.objects.create(name='aunt husband', gender='M', family_id=self.family.id))
+
+        path = Path(person, aunt_husband)
+        path.add_node(mother, RAISED_BY)
+        path.add_node(grandmother, RAISED_BY)
+        path.add_node(aunt, RAISED)
+        path.add_node(aunt_husband, PARTNERED)
+
+        result = get_name(path)
+
+        self.assertTrue("Mother's Sister's Husband" in result)
+
+
+    def test_aunt_uncle(self):
+
+        person = Node(Person.objects.create(name='patient zero', gender='M', family_id=self.family.id))
+        parent = Node(Person.objects.create(name='parent', gender='O', family_id=self.family.id))
+        grandmother = Node(Person.objects.create(name='grandmother', gender='F', family_id=self.family.id))
+        aunt_uncle = Node(Person.objects.create(name='aunt_uncle', gender='OF', family_id=self.family.id))
+        aunt_uncle_partner = Node(Person.objects.create(name='aunt_uncle partner', gender='O', family_id=self.family.id))
+
+        path = Path(person, aunt_uncle_partner)
+        path.add_node(parent, RAISED_BY)
+        path.add_node(grandmother, RAISED_BY)
+        path.add_node(aunt_uncle, RAISED)
+        path.add_node(aunt_uncle_partner, PARTNERED)
+
+        result = get_name(path)
+
+        self.assertTrue("Mother's Sister's Husband" in result)
+        self.assertTrue("Mother's Brother's Wife" in result)
+        self.assertTrue("Father's Sister's Husband" in result)
+        self.assertTrue("Father's Brother's Wife" in result)
+
+
+    def test_maternal_male_elder_cousin(self):
+        person = Node(Person.objects.create(name='patient zero', gender='M', family_id=self.family.id, birth_year=2000))
+        mother = Node(Person.objects.create(name='mother', gender='F', family_id=self.family.id))
+        grandmother = Node(Person.objects.create(name='grandmother', gender='F', family_id=self.family.id))
+        aunt = Node(Person.objects.create(name='aunt', gender='F', family_id=self.family.id))
+        aunt_son = Node(Person.objects.create(name='aunt husband', gender='M', family_id=self.family.id, birth_year=1998))
+
+        path = Path(person, aunt_son)
+        path.add_node(mother, RAISED_BY)
+        path.add_node(grandmother, RAISED_BY)
+        path.add_node(aunt, RAISED)
+        path.add_node(aunt_son, RAISED)
+
+        result = get_name(path)
+
+        self.assertTrue("Maternal Elder Male Cousin" in result)
+
+
+    def test_paternal_cousin(self):
+        person = Node(Person.objects.create(name='patient zero', gender='M', family_id=self.family.id, birth_year=2000))
+        father = Node(Person.objects.create(name='father', gender='M', family_id=self.family.id))
+        grandmother = Node(Person.objects.create(name='grandmother', gender='F', family_id=self.family.id))
+        aunt = Node(Person.objects.create(name='aunt', gender='F', family_id=self.family.id))
+        cousin = Node(Person.objects.create(name='aunt husband', gender='O', family_id=self.family.id))
+
+        path = Path(person, cousin)
+        path.add_node(father, RAISED_BY)
+        path.add_node(grandmother, RAISED_BY)
+        path.add_node(aunt, RAISED)
+        path.add_node(cousin, RAISED)
+
+        result = get_name(path)
+
+        self.assertTrue("Paternal Elder Male Cousin" in result)
+        self.assertTrue("Paternal Younger Male Cousin" in result)
+        self.assertTrue("Paternal Elder Female Cousin" in result)
+        self.assertTrue("Paternal Younger Female Cousin" in result)
+
+
+    def test_maternal_younger_cousin(self):
+        person = Node(Person.objects.create(name='patient zero', gender='M', family_id=self.family.id, birth_year=2000))
+        mother = Node(Person.objects.create(name='mother', gender='F', family_id=self.family.id))
+        grandmother = Node(Person.objects.create(name='grandmother', gender='F', family_id=self.family.id))
+        aunt = Node(Person.objects.create(name='aunt', gender='F', family_id=self.family.id))
+        cousin = Node(Person.objects.create(name='aunt husband', gender='O', family_id=self.family.id, birth_year=2005))
+
+        path = Path(person, cousin)
+        path.add_node(mother, RAISED_BY)
+        path.add_node(grandmother, RAISED_BY)
+        path.add_node(aunt, RAISED)
+        path.add_node(cousin, RAISED)
+
+        result = get_name(path)
+
+        self.assertTrue("Maternal Younger Male Cousin" in result)
+        self.assertTrue("Maternal Younger Female Cousin" in result)
+
+

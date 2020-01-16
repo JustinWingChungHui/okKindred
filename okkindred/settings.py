@@ -73,6 +73,7 @@ INSTALLED_APPS = (
     'suggested_image_tagging',
     'facial_recognition',
     'reversion',
+    'chinese_relation_name',
 )
 
 MIDDLEWARE = (
