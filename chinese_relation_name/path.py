@@ -6,16 +6,18 @@ Represents a path from one node to a next
 '''
 class Path():
 
-    def __init__(self, start, goal):
+    def __init__(self):
         self.steps = []
         self.nodes = {}
-        self.nodes[start.id] = start
-        self.start = start
-        self.goal = goal
         self.success = False
         self.titles = []
         self.generation = 0
         self.age_diff = 0
+
+    def set_goals(self, start, goal):
+        self.nodes[start.id] = start
+        self.start = start
+        self.goal = goal
 
     def __str__(self):
         steps = [str(step) for step in self.steps]
@@ -46,7 +48,8 @@ class Path():
 
 
     def duplicate(self):
-        duplicate = Path(self.start, self.goal)
+        duplicate = Path()
+        duplicate.set_goals(self.start, self.goal)
         duplicate.nodes = self.nodes.copy()
         duplicate.steps = self.steps.copy()
         duplicate.success = self.success

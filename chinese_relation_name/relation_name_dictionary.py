@@ -144,7 +144,7 @@ relation_names = {
     "Granddaughter Daughter's Side":    RelationName('外孫女', 'ngoi6 syun1 neoi5', '外孫女', 'wài sūn nǚ'),
     "Grandson Daughter's Side":         RelationName('外孫', 'ngoi6 syun', '外孫仔', 'wài sūn zǎi'),
     "Granddaughter Son's Side":         RelationName('孫女', 'syun1 neoi5', '孫女', 'sūn nǚ'),
-    "Grandson Son's Side":              RelationName('孫', 'syun', '孫兒', 'sūn ér'),
+    "Grandson Son's Side":              RelationName('孫', 'syun1', '孫兒', 'sūn ér'),
 
     # Great Grandparents
     'Maternal Great Grandmother': RelationName('太婆', 'taai3 po2', '太姥姥',  'tài lǎo lao'),
