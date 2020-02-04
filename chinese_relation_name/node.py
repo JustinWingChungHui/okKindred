@@ -6,7 +6,6 @@ class Node():
 
     def __init__(self, person):
         self.id = person.id
-        self.name = person.name
         self.gender = person.gender
         self.birth_year = person.birth_year
 

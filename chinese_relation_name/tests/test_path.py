@@ -48,7 +48,8 @@ class PathTestCase(TestCase): # pragma: no cover
 
     def test_add_nodes_and_duplicate(self):
 
-        path = Path(self.person, self.grandma)
+        path = Path()
+        path.set_goals(self.person, self.grandma)
         path.add_node(self.mum, RAISED_BY)
 
         self.assertEqual(1, len(path.steps))
@@ -69,7 +70,8 @@ class PathTestCase(TestCase): # pragma: no cover
 
 
     def test_create_next_level_paths(self):
-        path = Path(self.person, self.great_grandma)
+        path = Path()
+        path.set_goals(self.person, self.great_grandma)
         path.add_node(self.mum, RAISED_BY)
 
         new_paths = path.create_next_level_paths()
@@ -79,40 +81,46 @@ class PathTestCase(TestCase): # pragma: no cover
 
 
     def test_step_title_mother(self):
-        path = Path(self.person, self.mum)
+        path = Path()
+        path.set_goals(self.person, self.mum)
         path.add_node(self.mum, RAISED_BY)
 
         self.assertEqual("Mother", path.steps[0].step_title())
 
 
     def test_step_title_father(self):
-        path = Path(self.person, self.dad)
+        path = Path()
+        path.set_goals(self.person, self.dad)
         path.add_node(self.dad, RAISED_BY)
 
         self.assertEqual("Father", path.steps[0].step_title())
 
 
     def test_step_title_husband(self):
-        path = Path(self.grandma, self.grandpa)
+        path = Path()
+        path.set_goals(self.grandma, self.grandpa)
         path.add_node(self.grandpa, PARTNERED)
 
         self.assertEqual("Husband", path.steps[0].step_title())
 
     def test_step_title_wife(self):
-        path = Path(self.grandpa, self.grandma)
+        path = Path()
+        path.set_goals(self.grandpa, self.grandma)
         path.add_node(self.grandma, PARTNERED)
 
         self.assertEqual("Wife", path.steps[0].step_title())
 
 
     def test_step_title_son(self):
-        path = Path(self.mum, self.person)
+        path = Path()
+        path.set_goals(self.mum, self.person)
         path.add_node(self.person, RAISED)
 
         self.assertEqual("Son", path.steps[0].step_title())
 
     def test_step_title_daughter(self):
-        path = Path(self.person, self.daughter)
+        path = Path()
+        path.set_goals(self.person, self.daughter)
         path.add_node(self.daughter, RAISED)
 
         self.assertEqual("Daughter", path.steps[0].step_title())

@@ -61,7 +61,8 @@ class Solver():
         paths = []
 
         for relation_type, relation in node.relations:
-            path = Path(node, goal_node)
+            path = Path()
+            path.set_goals(node, goal_node)
             paths.append(path)
 
             path.add_node(relation, relation_type)

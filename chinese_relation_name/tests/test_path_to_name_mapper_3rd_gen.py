@@ -27,7 +27,8 @@ class PathToNameMapper3rdGenTestCase(TestCase): # pragma: no cover
         maternal_great_grandmother = Node(Person.objects.create(name='maternal_great_grandmother', gender='F', family_id=self.family.id))
 
 
-        path = Path(person, maternal_great_grandmother)
+        path = Path()
+        path.set_goals(person, maternal_great_grandmother)
         path.add_node(mum, RAISED_BY)
         path.add_node(maternal_grandmother, RAISED_BY)
         path.add_node(maternal_great_grandmother, RAISED_BY)
@@ -45,7 +46,8 @@ class PathToNameMapper3rdGenTestCase(TestCase): # pragma: no cover
         paternal_great_grandfather = Node(Person.objects.create(name='paternal_great_grandfather', gender='M', family_id=self.family.id))
 
 
-        path = Path(person, paternal_great_grandfather)
+        path = Path()
+        path.set_goals(person, paternal_great_grandfather)
         path.add_node(dad, RAISED_BY)
         path.add_node(paternal_grandmother, RAISED_BY)
         path.add_node(paternal_great_grandfather, RAISED_BY)
@@ -63,7 +65,8 @@ class PathToNameMapper3rdGenTestCase(TestCase): # pragma: no cover
         great_grandfather = Node(Person.objects.create(name='great_grandfather', gender='M', family_id=self.family.id))
 
 
-        path = Path(person, great_grandfather)
+        path = Path()
+        path.set_goals(person, great_grandfather)
         path.add_node(parent, RAISED_BY)
         path.add_node(paternal_grandmother, RAISED_BY)
         path.add_node(great_grandfather, RAISED_BY)
@@ -82,7 +85,8 @@ class PathToNameMapper3rdGenTestCase(TestCase): # pragma: no cover
         step_grandparent = Node(Person.objects.create(name='step_grandparent', gender='M', family_id=self.family.id))
 
 
-        path = Path(person, step_grandparent)
+        path = Path()
+        path.set_goals(person, step_grandparent)
         path.add_node(mother, RAISED_BY)
         path.add_node(grandparent, RAISED_BY)
         path.add_node(step_grandparent, PARTNERED)
@@ -100,7 +104,8 @@ class PathToNameMapper3rdGenTestCase(TestCase): # pragma: no cover
         aunt = Node(Person.objects.create(name='aunt', gender='F', family_id=self.family.id, birth_year=1988))
 
 
-        path = Path(person, aunt)
+        path = Path()
+        path.set_goals(person, aunt)
         path.add_node(mother, RAISED_BY)
         path.add_node(grandparent, RAISED_BY)
         path.add_node(aunt, RAISED)
@@ -119,7 +124,8 @@ class PathToNameMapper3rdGenTestCase(TestCase): # pragma: no cover
         uncle = Node(Person.objects.create(name='uncle', gender='M', family_id=self.family.id, birth_year=1991))
 
 
-        path = Path(person, uncle)
+        path = Path()
+        path.set_goals(person, uncle)
         path.add_node(father, RAISED_BY)
         path.add_node(grandparent, RAISED_BY)
         path.add_node(uncle, RAISED)
@@ -136,7 +142,8 @@ class PathToNameMapper3rdGenTestCase(TestCase): # pragma: no cover
         sister = Node(Person.objects.create(name='sister', gender='F', family_id=self.family.id, birth_year=1989))
         sisters_husband = Node(Person.objects.create(name='sisters_husband', gender='M', family_id=self.family.id))
 
-        path = Path(person, sisters_husband)
+        path = Path()
+        path.set_goals(person, sisters_husband)
         path.add_node(father, RAISED_BY)
         path.add_node(sister, RAISED)
         path.add_node(sisters_husband, PARTNERED)
@@ -152,7 +159,8 @@ class PathToNameMapper3rdGenTestCase(TestCase): # pragma: no cover
         sibling = Node(Person.objects.create(name='sibling', gender='O', family_id=self.family.id))
         siblings_partner = Node(Person.objects.create(name='siblings_partner', gender='O', family_id=self.family.id))
 
-        path = Path(person, siblings_partner)
+        path = Path()
+        path.set_goals(person, siblings_partner)
         path.add_node(parent, RAISED_BY)
         path.add_node(sibling, RAISED)
         path.add_node(siblings_partner, PARTNERED)
@@ -171,7 +179,8 @@ class PathToNameMapper3rdGenTestCase(TestCase): # pragma: no cover
         brother = Node(Person.objects.create(name='brother', gender='M', family_id=self.family.id))
         brothers_daughter = Node(Person.objects.create(name='brothers_daughter', gender='F', family_id=self.family.id))
 
-        path = Path(person, brothers_daughter)
+        path = Path()
+        path.set_goals(person, brothers_daughter)
         path.add_node(parent, RAISED_BY)
         path.add_node(brother, RAISED)
         path.add_node(brothers_daughter, RAISED)
@@ -187,7 +196,8 @@ class PathToNameMapper3rdGenTestCase(TestCase): # pragma: no cover
         sister = Node(Person.objects.create(name='sister', gender='F', family_id=self.family.id))
         sisters_child = Node(Person.objects.create(name='sisters_child', gender='O', family_id=self.family.id))
 
-        path = Path(person, sisters_child)
+        path = Path()
+        path.set_goals(person, sisters_child)
         path.add_node(parent, RAISED_BY)
         path.add_node(sister, RAISED)
         path.add_node(sisters_child, RAISED)
@@ -204,7 +214,8 @@ class PathToNameMapper3rdGenTestCase(TestCase): # pragma: no cover
         wifes_mother = Node(Person.objects.create(name='wifes_mother', gender='F', family_id=self.family.id))
         wifes_sister = Node(Person.objects.create(name='wifes_sister', gender='F', family_id=self.family.id, birth_year=1998))
 
-        path = Path(person, wifes_sister)
+        path = Path()
+        path.set_goals(person, wifes_sister)
         path.add_node(wife, PARTNERED)
         path.add_node(wifes_mother, RAISED_BY)
         path.add_node(wifes_sister, RAISED)
@@ -220,7 +231,8 @@ class PathToNameMapper3rdGenTestCase(TestCase): # pragma: no cover
         partners_mother = Node(Person.objects.create(name='partner_mother', gender='F', family_id=self.family.id))
         partners_brother = Node(Person.objects.create(name='partner_brother', gender='M', family_id=self.family.id))
 
-        path = Path(person, partners_brother)
+        path = Path()
+        path.set_goals(person, partners_brother)
         path.add_node(partner, PARTNERED)
         path.add_node(partners_mother, RAISED_BY)
         path.add_node(partners_brother, RAISED)
@@ -239,7 +251,8 @@ class PathToNameMapper3rdGenTestCase(TestCase): # pragma: no cover
         childs_partner = Node(Person.objects.create(name='childs_partner', gender='O', family_id=self.family.id))
         childs_partners_mother = Node(Person.objects.create(name='childs_partners_mother', gender='F', family_id=self.family.id))
 
-        path = Path(person, childs_partners_mother)
+        path = Path()
+        path.set_goals(person, childs_partners_mother)
         path.add_node(child, RAISED)
         path.add_node(childs_partner, PARTNERED)
         path.add_node(childs_partners_mother, RAISED_BY)
@@ -255,7 +268,8 @@ class PathToNameMapper3rdGenTestCase(TestCase): # pragma: no cover
         grandchild = Node(Person.objects.create(name='grandchild', gender='M', family_id=self.family.id))
         great_grandchild = Node(Person.objects.create(name='great_grandchild', gender='F', family_id=self.family.id))
 
-        path = Path(person, great_grandchild)
+        path = Path()
+        path.set_goals(person, great_grandchild)
         path.add_node(child, RAISED)
         path.add_node(grandchild, RAISED)
         path.add_node(great_grandchild, RAISED)
@@ -271,7 +285,8 @@ class PathToNameMapper3rdGenTestCase(TestCase): # pragma: no cover
         grandchild = Node(Person.objects.create(name='grandchild', gender='M', family_id=self.family.id))
         great_grandchild = Node(Person.objects.create(name='great_grandchild', gender='F', family_id=self.family.id))
 
-        path = Path(person, great_grandchild)
+        path = Path()
+        path.set_goals(person, great_grandchild)
         path.add_node(child, RAISED)
         path.add_node(grandchild, RAISED)
         path.add_node(great_grandchild, RAISED)
@@ -289,7 +304,8 @@ class PathToNameMapper3rdGenTestCase(TestCase): # pragma: no cover
         aunt = Node(Person.objects.create(name='aunt', gender='F', family_id=self.family.id))
         aunt_husband = Node(Person.objects.create(name='aunt husband', gender='M', family_id=self.family.id))
 
-        path = Path(person, aunt_husband)
+        path = Path()
+        path.set_goals(person, aunt_husband)
         path.add_node(mother, RAISED_BY)
         path.add_node(grandmother, RAISED_BY)
         path.add_node(aunt, RAISED)
@@ -308,7 +324,8 @@ class PathToNameMapper3rdGenTestCase(TestCase): # pragma: no cover
         aunt_uncle = Node(Person.objects.create(name='aunt_uncle', gender='OF', family_id=self.family.id))
         aunt_uncle_partner = Node(Person.objects.create(name='aunt_uncle partner', gender='O', family_id=self.family.id))
 
-        path = Path(person, aunt_uncle_partner)
+        path = Path()
+        path.set_goals(person, aunt_uncle_partner)
         path.add_node(parent, RAISED_BY)
         path.add_node(grandmother, RAISED_BY)
         path.add_node(aunt_uncle, RAISED)
@@ -329,7 +346,8 @@ class PathToNameMapper3rdGenTestCase(TestCase): # pragma: no cover
         aunt = Node(Person.objects.create(name='aunt', gender='F', family_id=self.family.id))
         aunt_son = Node(Person.objects.create(name='aunt husband', gender='M', family_id=self.family.id, birth_year=1998))
 
-        path = Path(person, aunt_son)
+        path = Path()
+        path.set_goals(person, aunt_son)
         path.add_node(mother, RAISED_BY)
         path.add_node(grandmother, RAISED_BY)
         path.add_node(aunt, RAISED)
@@ -347,7 +365,8 @@ class PathToNameMapper3rdGenTestCase(TestCase): # pragma: no cover
         aunt = Node(Person.objects.create(name='aunt', gender='F', family_id=self.family.id))
         cousin = Node(Person.objects.create(name='aunt husband', gender='O', family_id=self.family.id))
 
-        path = Path(person, cousin)
+        path = Path()
+        path.set_goals(person, cousin)
         path.add_node(father, RAISED_BY)
         path.add_node(grandmother, RAISED_BY)
         path.add_node(aunt, RAISED)
@@ -368,7 +387,8 @@ class PathToNameMapper3rdGenTestCase(TestCase): # pragma: no cover
         aunt = Node(Person.objects.create(name='aunt', gender='F', family_id=self.family.id))
         cousin = Node(Person.objects.create(name='aunt husband', gender='O', family_id=self.family.id, birth_year=2005))
 
-        path = Path(person, cousin)
+        path = Path()
+        path.set_goals(person, cousin)
         path.add_node(mother, RAISED_BY)
         path.add_node(grandmother, RAISED_BY)
         path.add_node(aunt, RAISED)
