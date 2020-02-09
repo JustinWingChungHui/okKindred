@@ -31,6 +31,52 @@ class ChineseRelationNameViewsTestCase(TestCase):
         self.assertFalse(b"po4 po2" in response.content)
 
 
+    def test_get_relation_name_not_authenticated(self):
+        family = Family()
+        family.save()
+
+        User.objects.create_user(email='margaret_knight@example.com',
+                                        password='inventor',
+                                        name='Margaret Knight',
+                                        family = family)
+
+        person = Person.objects.create(name='patient zero', gender='M', family_id=family.id)
+
+        wife = Person.objects.create(name='wife', gender='F', family_id=family.id)
+        Relation.objects.create(from_person=wife, to_person=person, relation_type=PARTNERED)
+
+        client = APIClient(HTTP_X_REAL_IP='127.0.0.1')
+        url = '/api/relation_name/{0}/{1}/'.format(person.id, wife.id)
+        response = client.get(url, format='json')
+
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+
+    def test_get_relation_name_not_available_to_another_family(self):
+        family = Family()
+        family.save()
+
+        family2 = Family()
+        family2.save()
+
+        user = User.objects.create_user(email='margaret_knight@example.com',
+                                        password='inventor',
+                                        name='Margaret Knight',
+                                        family = family2)
+
+        person = Person.objects.create(name='patient zero', gender='M', family_id=family.id)
+
+        wife = Person.objects.create(name='wife', gender='F', family_id=family.id)
+        Relation.objects.create(from_person=wife, to_person=person, relation_type=PARTNERED)
+
+        client = APIClient(HTTP_X_REAL_IP='127.0.0.1')
+        client.force_authenticate(user=user)
+        url = '/api/relation_name/{0}/{1}/'.format(person.id, wife.id)
+        response = client.get(url, format='json')
+
+        self.assertFalse(b"Wife" in response.content)
+
+
     def test_get_relation_name(self):
         family = Family()
         family.save()

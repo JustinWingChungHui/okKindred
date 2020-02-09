@@ -16,7 +16,11 @@ class Solver():
         '''
         self.load_data(family_id)
         self.find_path(from_id, to_id)
-        return get_name(self.result)
+
+        if self.result:
+            return get_name(self.result)
+        else:
+            return []
 
 
     def load_data(self, family_id):
@@ -54,7 +58,10 @@ class Solver():
         '''
 
         if from_id == to_id:
-            return None
+            return
+
+        if not from_id in self.nodes or not to_id in self.nodes:
+            return
 
         node = self.nodes[from_id]
         goal_node = self.nodes[to_id]
@@ -68,7 +75,7 @@ class Solver():
             path.add_node(relation, relation_type)
 
             if path.success:
-
+                self.result = path
                 return path
 
         self.search_paths(paths)
