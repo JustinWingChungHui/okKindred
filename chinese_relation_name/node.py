@@ -20,8 +20,6 @@ class Node():
         elif self.birth_year < other_Node.birth_year:
             return 1
 
-        elif self.birth_year > other_Node.birth_year:
+        else: # self.birth_year > other_Node.birth_year:
             return -1
 
-        else:
-            return 0
