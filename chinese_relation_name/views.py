@@ -3,9 +3,9 @@ from django.http import JsonResponse
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny
 
-from family_tree.models.relation import Relation, RAISED, PARTNERED, RAISED_BY
+from family_tree.models.relation import RAISED, PARTNERED, RAISED_BY
 
-from chinese_relation_name.relation_name_dictionary import relation_names, RelationNameEncoder
+from chinese_relation_name.relation_name_dictionary import get_relation_names, relation_names, RelationNameEncoder
 from chinese_relation_name.solver import Solver
 from chinese_relation_name.node import Node
 from chinese_relation_name.path import Path, PathStep
@@ -27,8 +27,8 @@ def family_member_names(request):
     Public endpoint to get a list of family member names
     '''
     key = request.GET.get('name', None)
-    if key in relation_names:
-        result = relation_names[key]
+    if key:
+        result = get_relation_names([key])
     else:
         result = relation_names
 
@@ -42,7 +42,7 @@ def family_member_names(request):
 @permission_classes((AllowAny,))
 def solve_relation_name(request):
     '''
-    Public endpoint to get a realtion name between family members
+    Public endpoint to get a relation name between family members
     '''
     data = json.loads(request.body)
 
@@ -60,10 +60,7 @@ def solve_relation_name(request):
     path.set_success_properties()
     names = get_name(path)
 
-    results = {}
-    for name in names:
-        result = relation_names[name]
-        results[name] = result
+    results = get_relation_names(names)
 
     response = JsonResponse(results, encoder=RelationNameEncoder, safe=False)
 
@@ -83,10 +80,7 @@ def relation_name(request, from_person_id, to_person_id):
     solver = Solver()
     names = solver.solve(request.user.family_id, from_person_id, to_person_id)
 
-    results = {}
-    for name in names:
-        result = relation_names[name]
-        results[name] = result
+    results = get_relation_names(names)
 
 
     response = JsonResponse(results, encoder=RelationNameEncoder, safe=False)
