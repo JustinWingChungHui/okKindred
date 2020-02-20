@@ -135,6 +135,26 @@ class PathToNameMapper3rdGenTestCase(TestCase): # pragma: no cover
         self.assertTrue("Father's Younger Brother" in result)
         self.assertTrue("Father's Brother" in result)
 
+    def test_fathers_sister(self):
+
+        person = Node(Person.objects.create(name='patient zero', gender='M', family_id=self.family.id))
+        father = Node(Person.objects.create(name='father', gender='M', family_id=self.family.id, birth_year=1990))
+        grandparent = Node(Person.objects.create(name='grandparent', gender='F', family_id=self.family.id))
+        aunt = Node(Person.objects.create(name='aunt', gender='F', family_id=self.family.id))
+
+
+        path = Path()
+        path.set_goals(person, aunt)
+        path.add_node(father, RAISED_BY)
+        path.add_node(grandparent, RAISED_BY)
+        path.add_node(aunt, RAISED)
+
+        result = get_name(path)
+
+        self.assertTrue("Father's Elder Sister" in result)
+        self.assertTrue("Father's Younger Sister" in result)
+        self.assertTrue("Father's Sister" in result)
+
 
     def test_elder_sisters_husband(self):
         person = Node(Person.objects.create(name='patient zero', gender='M', family_id=self.family.id, birth_year=1990))
@@ -223,6 +243,22 @@ class PathToNameMapper3rdGenTestCase(TestCase): # pragma: no cover
         result = get_name(path)
 
         self.assertTrue("Wife's Younger Sister" in result)
+
+    def test_husbands_elder_sister(self):
+        person = Node(Person.objects.create(name='patient zero', gender='M', family_id=self.family.id))
+        husband = Node(Person.objects.create(name='husband', gender='M', family_id=self.family.id, birth_year=1990))
+        husbands_mother = Node(Person.objects.create(name='husbands_mother', gender='F', family_id=self.family.id))
+        husbands_sister = Node(Person.objects.create(name='husbands_sister', gender='F', family_id=self.family.id, birth_year=1988))
+
+        path = Path()
+        path.set_goals(person, husbands_sister)
+        path.add_node(husband, PARTNERED)
+        path.add_node(husbands_mother, RAISED_BY)
+        path.add_node(husbands_sister, RAISED)
+
+        result = get_name(path)
+
+        self.assertTrue("Husband's Elder Sister" in result)
 
 
     def test_partners_brother(self):

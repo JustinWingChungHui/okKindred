@@ -31,6 +31,13 @@ class PersonApiTestCase(TestCase):
                         user_id=self.user.id)
         self.person.save()
 
+        self.another_person = Person(name='Another Person',
+                        gender='F',
+                        email='anotherperson@example.com',
+                        family_id=self.family.id,
+                        language='en')
+        self.another_person.save()
+
         self.family2 = Family()
         self.family2.save()
 
@@ -380,3 +387,35 @@ class PersonApiTestCase(TestCase):
         response = client.post(url, data, format='json')
 
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+
+
+    def test_destroy_requires_authentication(self):
+        client = APIClient(HTTP_X_REAL_IP='127.0.0.1')
+        response = client.delete('/api/person/{0}/'.format(self.another_person.id), format='json')
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+
+    def test_destroy_other_family(self):
+        client = APIClient(HTTP_X_REAL_IP='127.0.0.1')
+        client.force_authenticate(user=self.user2)
+        response = client.delete('/api/person/{0}/'.format(self.another_person.id), format='json')
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+
+
+    def test_destroy_existing_user(self):
+        client = APIClient(HTTP_X_REAL_IP='127.0.0.1')
+        client.force_authenticate(user=self.user)
+        response = client.delete('/api/person/{0}/'.format(self.person.id), format='json')
+
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+
+
+    def test_destroy(self):
+        client = APIClient(HTTP_X_REAL_IP='127.0.0.1')
+        client.force_authenticate(user=self.user)
+        response = client.delete('/api/person/{0}/'.format(self.another_person.id), format='json')
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(0, Person.objects.filter(id=self.another_person.id).count())
