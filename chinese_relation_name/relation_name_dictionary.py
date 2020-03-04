@@ -150,6 +150,12 @@ relation_names = [
                 ['家姑', '家婆', '奶奶'],
                 ['jiā gū', 'jiā pó', 'nǎi nai']),
 
+    RelationName("Husband's Father",
+                '老爺',
+                'lou5 je4 ',
+                ['家公', '老爺'],
+                ['jiā gōng', 'lǎo yé']),
+
     # Stepchildren
     # same as children
     RelationName('Stepdaughter', '女', 'neoi5', ['女儿', '闺女'], ["nǚ'ér", "guī nǚ"]),
@@ -176,9 +182,13 @@ relation_names = [
     RelationName("Mother's Younger Sister", '阿姨', 'aa3 ji4', '阿姨', 'āyí'),
     RelationName("Mother's Sister", '姨姨', 'ji4 ji4', '姨', 'yí'),
     RelationName("Mother's Brother", '舅父', 'kau5 fu6', '舅舅', 'jiùjiu'),
+
+
     RelationName("Father's Elder Sister", '姑媽', 'gu1 maa1', '姑妈', 'gūmā'),
     RelationName("Father's Younger Sister", '姑姐', 'gu1 ze2 ', '', ''),
     RelationName("Father's Sister", '阿姑', 'aa3 gu1', '姑姑', 'gūgu'),
+    RelationName("Father's Elder Brother", ['阿伯','伯父'], ['aa3 baak3','baak3 fu6'] , '伯伯', 'bóbo'),
+    RelationName("Father's Younger Brother", ['阿叔','叔父'], ['aa3 suk1','suk1 fu6'], '叔叔', 'shūshu'),
 
 
     # Sibling's partner
