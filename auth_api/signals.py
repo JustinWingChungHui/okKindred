@@ -13,17 +13,22 @@ def handle_user_locked_out(sender, request, username, ip_address, **kwargs):
 
     subject = "ok!Kindred Account Locked Notification"
 
+    body = request.data
+
+    if body and 'password' in body:
+        body['password'] = '#######'
+
     content = """
         IP Address: {0} blocked for too many failed login attempts
 
-        Username: {1}
+        body: {1}
 
         Request Metadata:
         {2}
 
         Request Headers:
         {3}
-        """.format(ip_address, username, request.META, request.headers)
+        """.format(ip_address, body, request.META, request.headers)
 
     send_mail(
         subject,
