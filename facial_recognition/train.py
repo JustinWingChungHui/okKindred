@@ -32,6 +32,7 @@ def process_family(family_id):
         process_person(person, X, y)
 
     if (len(X) > 0):
+        print('Creating model')
         face_model.update_knn_classifier(X, y)
 
     else:
@@ -52,9 +53,11 @@ def process_person(person, X, y):
     if person.large_thumbnail:
         files.append(download_file(dir_name, person.large_thumbnail))
 
+
+
     # Get all face detected tags for person
     tags = Tag.objects.select_related('image'
-            ).filter(person_id= person.id
+            ).filter(person_id=person.id
             ).filter(face_detected=True)
 
 
