@@ -1,6 +1,5 @@
 from django.db import models
 from sklearn import neighbors
-
 from family_tree.models import Family
 
 import math
@@ -26,6 +25,9 @@ class FaceModel(models.Model):
 
 
     def update_knn_classifier(self, X, y):
+        '''
+        Updates the face recognition model
+        '''
         # Good estimate
         n_neighbors = int(round(math.sqrt(len(X))))
 
@@ -39,3 +41,6 @@ class FaceModel(models.Model):
         self.n_neighbors = n_neighbors
         self.trained_knn_model = pickle.dumps(knn_clf)
         self.save()
+
+
+

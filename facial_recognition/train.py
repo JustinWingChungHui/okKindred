@@ -32,11 +32,12 @@ def process_family(family_id):
         process_person(person, X, y)
 
     if (len(X) > 0):
-        print('Creating model')
         face_model.update_knn_classifier(X, y)
+        return face_model
 
     else:
         print('Not enough data to create model')
+        return None
 
 
 def process_person(person, X, y):
