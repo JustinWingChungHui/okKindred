@@ -16,7 +16,7 @@ def process_family(family_id):
     '''
 
     #Clearing working directory
-    clear_directory(settings.FACE_RECOG_TRAIN_FACE_RECOGNITION_TEMP_DIR)
+    clear_directory(settings.FACE_RECOG_TRAIN_TEMP_DIR)
 
     face_model = FaceModel(family_id=family_id)
 
@@ -43,7 +43,7 @@ def process_person(person, X, y):
     Processes images for one person
     '''
     # Creates directory for processing
-    dir_name = os.path.join(settings.FACE_RECOG_TRAIN_FACE_RECOGNITION_TEMP_DIR, str(person.id))
+    dir_name = os.path.join(settings.FACE_RECOG_TRAIN_TEMP_DIR, str(person.id))
     os.mkdir(dir_name)
 
     files = []

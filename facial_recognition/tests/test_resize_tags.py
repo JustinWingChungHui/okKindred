@@ -12,7 +12,7 @@ import shutil
 
 @override_settings(SSLIFY_DISABLE=True,
             MEDIA_ROOT=settings.MEDIA_ROOT_TEST,
-            FACE_RECOG_RESIZE_TAG_TEMP_DIR = settings.FACE_RECOG_RESIZE_TAG_TEST_DIR)
+            FACE_RECOG_TRAIN_TEMP_DIR = settings.FACE_RECOG_TRAIN_TEST_DIR)
 class ResizeTagsTestCase(TestCase): # pragma: no cover
 
     def setUp(self):

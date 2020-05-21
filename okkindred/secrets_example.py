@@ -80,11 +80,9 @@ CORS_ORIGIN_WHITELIST = (
 
 
 FACE_RECOG_RESIZE_TAG_TEMP_DIR = '/home/USERNAME/media/facial_recognition_dev/resize_tags/'
-FACE_RECOG_RESIZE_ALL_HISTORICAL_TAGS_TEMP_DIR = '/home/USERNAME/media/facial_recognition_dev/resize_all_historical_tags/'
 FACE_RECOG_IMAGE_FACE_DETECT_TEMP_DIR = '/home/USERNAME/media/facial_recognition_dev/image_face_detect/'
-FACE_RECOG_TRAIN_FACE_RECOGNITION_TEMP_DIR = '/home/USERNAME/media/facial_recognition_dev/train_face_recognition/'
+FACE_RECOG_TRAIN_TEMP_DIR = '/home/USERNAME/media/facial_recognition_dev/train_face_recognition/'
 
 FACE_RECOG_RESIZE_TAG_TEST_DIR = '/home/USERNAME/media/facial_recognition_dev/resize_tags/'
-FACE_RECOG_RESIZE_ALL_HISTORICAL_TAGS_TEST_DIR = '/home/USERNAME/media/facial_recognition_dev/resize_all_historical_tags/'
 FACE_RECOG_IMAGE_FACE_DETECT_TEST_DIR = '/home/USERNAME/media/facial_recognition_dev/image_face_detect/'
-FACE_RECOG_TRAIN_FACE_RECOGNITION_TEST_DIR = '/home/USERNAME/media/facial_recognition_dev/train_face_recognition/'
+FACE_RECOG_TRAIN_TEST_DIR = '/home/USERNAME/media/facial_recognition_dev/train_face_recognition/'

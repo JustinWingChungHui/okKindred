@@ -18,7 +18,7 @@ import shutil
 @override_settings(SSLIFY_DISABLE=True,
             MEDIA_ROOT=settings.MEDIA_ROOT_TEST,
             FACE_RECOG_IMAGE_FACE_DETECT_TEMP_DIR = settings.FACE_RECOG_IMAGE_FACE_DETECT_TEST_DIR,
-            FACE_RECOG_TRAIN_FACE_RECOGNITION_TEMP_DIR = settings.FACE_RECOG_TRAIN_FACE_RECOGNITION_TEST_DIR)
+            FACE_RECOG_TRAIN_TEMP_DIR = settings.FACE_RECOG_TRAIN_TEST_DIR)
 class PersonDeletedUpdateFaceModelTest(TestCase): # pragma: no cover
 
     def setUp(self):
@@ -30,7 +30,7 @@ class PersonDeletedUpdateFaceModelTest(TestCase): # pragma: no cover
 
         self.gallery = Gallery.objects.create(title="test_gallery", family_id=self.family.id)
 
-        clear_directory(settings.FACE_RECOG_TRAIN_FACE_RECOGNITION_TEST_DIR)
+        clear_directory(settings.FACE_RECOG_TRAIN_TEST_DIR)
 
         self.test_image = os.path.join(settings.BASE_DIR, 'facial_recognition/tests/test_image_woman.jpg')
         self.test_image_destination = ''.join([settings.MEDIA_ROOT, 'galleries/', str(self.family.id), '/', str(self.gallery.id), '/test_image.jpg'])

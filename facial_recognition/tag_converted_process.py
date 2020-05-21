@@ -45,7 +45,7 @@ def tag_converted_process(messages):
 
 def update_family_model(family_id, tags):
 
-    clear_directory(settings.FACE_RECOG_TRAIN_FACE_RECOGNITION_TEMP_DIR)
+    clear_directory(settings.FACE_RECOG_TRAIN_TEMP_DIR)
 
     # Getting Face Models for family
     face_model = FaceModel.objects.filter(family_id= family_id).first()
@@ -61,7 +61,7 @@ def update_family_model(family_id, tags):
         files = []
         for tag in tags:
             if tag.image.large_thumbnail:
-                file = get_file_for_tag(tag, tag.image, settings.FACE_RECOG_TRAIN_FACE_RECOGNITION_TEMP_DIR)
+                file = get_file_for_tag(tag, tag.image, settings.FACE_RECOG_TRAIN_TEMP_DIR)
                 files.append(file)
 
                 process_file(file, X, y, tag.person_id)

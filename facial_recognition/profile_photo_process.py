@@ -47,7 +47,7 @@ def profile_photo_process(messages):
 
 def update_family_model(family_id, people):
     # Updating family model
-    clear_directory(settings.FACE_RECOG_TRAIN_FACE_RECOGNITION_TEMP_DIR)
+    clear_directory(settings.FACE_RECOG_TRAIN_TEMP_DIR)
 
     # Getting Face Models for family
     face_model = FaceModel.objects.filter(family_id=family_id).first()
@@ -63,7 +63,7 @@ def update_family_model(family_id, people):
         files = []
         for person in people:
             if person.large_thumbnail:
-                file = download_file(settings.FACE_RECOG_TRAIN_FACE_RECOGNITION_TEMP_DIR, person.large_thumbnail)
+                file = download_file(settings.FACE_RECOG_TRAIN_TEMP_DIR, person.large_thumbnail)
                 files.append(file)
 
                 process_file(file, X, y, person.id)
