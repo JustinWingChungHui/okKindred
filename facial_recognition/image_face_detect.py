@@ -69,40 +69,42 @@ def image_face_detect(messages):
                     face_models[db_image.family_id] = face_model
 
                 if face_model:
+
+                    # Find encodings for faces in the image
+                    faces_encodings = face_recognition.face_encodings(image, known_face_locations=(location,))
+
                     # Match a family member to the face
 
                     # Load the training model (K nearest neighbours)
                     try:
                         trained_knn_model = pickle.loads(face_model.trained_knn_model)
+                        distances, fit_face_indexes = trained_knn_model.kneighbors(faces_encodings, n_neighbors=1)
+
                     except:
                         # Model needs rebuilding
                         print(traceback.format_exc())
                         print('Rebuild Model')
                         face_model = process_family(face_model.id)
                         trained_knn_model = pickle.loads(face_model.trained_knn_model)
-
-                    if face_model:
-                        # Find encodings for faces in the image
-                        faces_encodings = face_recognition.face_encodings(image, known_face_locations=(location,))
-
                         distances, fit_face_indexes = trained_knn_model.kneighbors(faces_encodings, n_neighbors=1)
 
 
-                        if len(distances) > 0 and len(distances[0]) > 0:
-                            fit_data_person_ids = pickle.loads(face_model.fit_data_person_ids)
 
-                            if len(fit_data_person_ids) > fit_face_indexes[0][0]:
+                    if len(distances) > 0 and len(distances[0]) > 0:
+                        fit_data_person_ids = pickle.loads(face_model.fit_data_person_ids)
 
-                                # Check person exists
-                                person_id = fit_data_person_ids[fit_face_indexes[0][0]]
-                                if Person.objects.filter(pk=person_id).exists():
+                        if len(fit_data_person_ids) > fit_face_indexes[0][0]:
 
-                                    # Adding matched person
-                                    new_suggested_tag.probability = distances[0][0]
-                                    new_suggested_tag.person_id = person_id
+                            # Check person exists
+                            person_id = fit_data_person_ids[fit_face_indexes[0][0]]
+                            if Person.objects.filter(pk=person_id).exists():
 
-                                else:
-                                    print('Invalid person_id: {}'.format(person_id))
+                                # Adding matched person
+                                new_suggested_tag.probability = distances[0][0]
+                                new_suggested_tag.person_id = person_id
+
+                            else:
+                                print('Invalid person_id: {}'.format(person_id))
 
                 new_suggested_tag.save()
 
