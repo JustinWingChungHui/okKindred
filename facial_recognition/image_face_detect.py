@@ -9,6 +9,7 @@ from suggested_image_tagging.models import SuggestedTag
 import face_recognition
 import datetime
 import pickle
+import traceback
 
 def image_face_detect(messages):
     '''
@@ -73,11 +74,12 @@ def image_face_detect(messages):
                     # Load the training model (K nearest neighbours)
                     try:
                         trained_knn_model = pickle.loads(face_model.trained_knn_model)
-                    except Exception as pickle_ex:
+                    except:
                         # Model needs rebuilding
-                        print(pickle_ex)
+                        print(traceback.format_exc())
                         print('Rebuild Model')
                         face_model = process_family(face_model.id)
+                        trained_knn_model = pickle.loads(face_model.trained_knn_model)
 
                     if face_model:
                         # Find encodings for faces in the image
@@ -111,12 +113,12 @@ def image_face_detect(messages):
             message.processed = True
             message.save()
 
-    except Exception as e:
-        print(e)
+    except:
+        print(traceback.format_exc())
 
         for message in messages:
             message.error = True
-            message.error_message = str(e)[:512]
+            message.error_message = str(traceback.format_exc())[:512]
             message.save()
 
 
