@@ -76,19 +76,8 @@ def image_face_detect(messages):
                     # Match a family member to the face
 
                     # Load the training model (K nearest neighbours)
-                    try:
-                        trained_knn_model = pickle.loads(face_model.trained_knn_model)
-                        distances, fit_face_indexes = trained_knn_model.kneighbors(faces_encodings, n_neighbors=1)
-
-                    except:
-                        # Model needs rebuilding
-                        print(traceback.format_exc())
-                        print('Rebuild Model')
-                        face_model = process_family(face_model.id)
-                        trained_knn_model = pickle.loads(face_model.trained_knn_model)
-                        distances, fit_face_indexes = trained_knn_model.kneighbors(faces_encodings, n_neighbors=1)
-
-
+                    trained_knn_model = pickle.loads(face_model.trained_knn_model)
+                    distances, fit_face_indexes = trained_knn_model.kneighbors(faces_encodings, n_neighbors=1)
 
                     if len(distances) > 0 and len(distances[0]) > 0:
                         fit_data_person_ids = pickle.loads(face_model.fit_data_person_ids)
