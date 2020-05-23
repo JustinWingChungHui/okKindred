@@ -33,6 +33,7 @@ def process_family(family_id):
 
     if (len(X) > 0):
         face_model.update_knn_classifier(X, y)
+        face_model.save()
         return face_model
 
     else:
