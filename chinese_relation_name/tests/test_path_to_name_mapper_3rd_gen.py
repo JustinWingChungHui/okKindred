@@ -298,7 +298,7 @@ class PathToNameMapper3rdGenTestCase(TestCase): # pragma: no cover
         self.assertTrue("Child's Mother In Law" in result)
 
 
-    def test_great_grandchild_male_lineage(self):
+    def test_female_great_grandchild_male_lineage(self):
         person = Node(Person.objects.create(name='patient zero', gender='M', family_id=self.family.id))
         child = Node(Person.objects.create(name='child', gender='M', family_id=self.family.id))
         grandchild = Node(Person.objects.create(name='grandchild', gender='M', family_id=self.family.id))
@@ -312,14 +312,14 @@ class PathToNameMapper3rdGenTestCase(TestCase): # pragma: no cover
 
         result = get_name(path)
 
-        self.assertTrue("Child of Son's Son" in result)
+        self.assertTrue("Son's Granddaughter" in result)
 
 
-    def test_great_grandchild_non_male_lineage(self):
+    def test_male_great_grandchild_non_other_lineage(self):
         person = Node(Person.objects.create(name='patient zero', gender='M', family_id=self.family.id))
-        child = Node(Person.objects.create(name='child', gender='F', family_id=self.family.id))
+        child = Node(Person.objects.create(name='child', gender='O', family_id=self.family.id))
         grandchild = Node(Person.objects.create(name='grandchild', gender='M', family_id=self.family.id))
-        great_grandchild = Node(Person.objects.create(name='great_grandchild', gender='F', family_id=self.family.id))
+        great_grandchild = Node(Person.objects.create(name='great_grandchild', gender='M', family_id=self.family.id))
 
         path = Path()
         path.set_goals(person, great_grandchild)
@@ -329,7 +329,8 @@ class PathToNameMapper3rdGenTestCase(TestCase): # pragma: no cover
 
         result = get_name(path)
 
-        self.assertTrue("Great Grandchild" in result)
+        self.assertTrue("Son's Grandson" in result)
+        self.assertTrue("Daughter's Grandson" in result)
 
 
     def test_mothers_sisters_husband(self):
@@ -351,8 +352,26 @@ class PathToNameMapper3rdGenTestCase(TestCase): # pragma: no cover
 
         self.assertTrue("Mother's Sister's Husband" in result)
 
+    def test_fathers_elder_sisters_husband(self):
 
-    def test_aunt_uncle(self):
+        person = Node(Person.objects.create(name='patient zero', gender='M', family_id=self.family.id))
+        father = Node(Person.objects.create(name='father', gender='M', family_id=self.family.id, birth_year=1992))
+        grandmother = Node(Person.objects.create(name='grandmother', gender='F', family_id=self.family.id))
+        aunt = Node(Person.objects.create(name='aunt', gender='F', family_id=self.family.id, birth_year=1990))
+        aunt_husband = Node(Person.objects.create(name='aunt husband', gender='M', family_id=self.family.id))
+
+        path = Path()
+        path.set_goals(person, aunt_husband)
+        path.add_node(father, RAISED_BY)
+        path.add_node(grandmother, RAISED_BY)
+        path.add_node(aunt, RAISED)
+        path.add_node(aunt_husband, PARTNERED)
+
+        result = get_name(path)
+
+        self.assertEqual(["Father's Elder Sister's Husband"], result)
+
+    def test_aunt_uncle_partner(self):
 
         person = Node(Person.objects.create(name='patient zero', gender='M', family_id=self.family.id))
         parent = Node(Person.objects.create(name='parent', gender='O', family_id=self.family.id))
@@ -371,8 +390,8 @@ class PathToNameMapper3rdGenTestCase(TestCase): # pragma: no cover
 
         self.assertTrue("Mother's Sister's Husband" in result)
         self.assertTrue("Mother's Brother's Wife" in result)
-        self.assertTrue("Father's Sister's Husband" in result)
-        self.assertTrue("Father's Brother's Wife" in result)
+        self.assertTrue("Father's Elder Sister's Husband" in result)
+        self.assertTrue("Father's Younger Brother's Wife" in result)
 
 
     def test_maternal_male_elder_cousin(self):
