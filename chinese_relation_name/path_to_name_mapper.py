@@ -174,11 +174,15 @@ map_codes = {
     # ++= Grandchild in law (not defined)
 
     # +++ Great Grandchildren
-    '+M,+M,+*': (lambda path: ["Child of Son's Son"]),
-    '+M,+F,+*': (lambda path: ["Great Grandchild"]),
-    '+M,+O,+*': (lambda path: ["Child of Son's Son", "Great Grandchild"]),
-    '+F,+*,+*': (lambda path: ["Great Grandchild"]),
-    '+O,+*,+*': (lambda path: ["Child of Son's Son", "Great Grandchild"]),
+    '+M,+*,+M': (lambda path: ["Son's Grandson"]),
+    '+M,+*,+F': (lambda path: ["Son's Granddaughter"]),
+    '+M,+*,+O': (lambda path: ["Son's Grandson", "Son's Granddaughter"]),
+    '+F,+*,+M': (lambda path: ["Daughter's Grandson"]),
+    '+F,+*,+F': (lambda path: ["Daughter's Granddaughter"]),
+    '+F,+*,+O': (lambda path: ["Daughter's Grandson", "Daughter's Granddaughter"]),
+    '+O,+*,+M': (lambda path: ["Son's Grandson", "Daughter's Grandson"]),
+    '+O,+*,+F': (lambda path: ["Son's Granddaughter", "Daughter's Granddaughter"]),
+    '+O,+*,+O': (lambda path: ["Son's Grandson", "Daughter's Grandson", "Son's Granddaughter", "Daughter's Granddaughter"]),
 
     # --+= Partners of aunts and uncles
     # Same sex couple provide all options
@@ -191,31 +195,25 @@ map_codes = {
     '-F,-*,+O,=F': (lambda path: ["Mother's Brother's Wife", "Mother's Brother's Wife"]),
     '-F,-*,+O,=M': (lambda path: ["Mother's Sister's Husband", "Mother's Brother's Wife"]),
     '-F,-*,+O,=O': (lambda path: ["Mother's Sister's Husband", "Mother's Brother's Wife"]),
-    '-M,-*,+F,=F': (lambda path: ["Father's Sister's Husband", "Father's Brother's Wife"]),
-    '-M,-*,+F,=M': (lambda path: ["Father's Sister's Husband"]),
-    '-M,-*,+F,=O': (lambda path: ["Father's Sister's Husband", "Father's Brother's Wife"]),
-    '-M,-*,+M,=F': (lambda path: ["Father's Brother's Wife"]),
-    '-M,-*,+M,=M': (lambda path: ["Father's Sister's Husband", "Father's Brother's Wife"]),
-    '-M,-*,+M,=O': (lambda path: ["Father's Sister's Husband", "Father's Brother's Wife"]),
-    '-M,-*,+O,=F': (lambda path: ["Father's Brother's Wife", "Father's Brother's Wife"]),
-    '-M,-*,+O,=M': (lambda path: ["Father's Sister's Husband", "Father's Brother's Wife"]),
-    '-M,-*,+O,=O': (lambda path: ["Father's Sister's Husband", "Father's Brother's Wife"]),
-    '-O,-*,+F,=F': (lambda path: ["Mother's Sister's Husband", "Mother's Brother's Wife",
-                                    "Father's Sister's Husband", "Father's Brother's Wife"]),
-    '-O,-*,+F,=M': (lambda path: ["Mother's Sister's Husband", "Father's Sister's Husband"]),
-    '-O,-*,+F,=O': (lambda path: ["Mother's Sister's Husband", "Mother's Brother's Wife",
-                                    "Father's Sister's Husband", "Father's Brother's Wife"]),
-    '-O,-*,+M,=F': (lambda path: ["Mother's Brother's Wife", "Father's Brother's Wife"]),
-    '-O,-*,+M,=M': (lambda path: ["Mother's Sister's Husband", "Mother's Brother's Wife",
-                                    "Father's Sister's Husband", "Father's Brother's Wife"]),
-    '-O,-*,+M,=O': (lambda path: ["Mother's Sister's Husband", "Mother's Brother's Wife",
-                                    "Father's Sister's Husband", "Father's Brother's Wife"]),
-    '-O,-*,+O,=F': (lambda path: ["Mother's Brother's Wife", "Mother's Brother's Wife",
-                                    "Father's Sister's Husband", "Father's Brother's Wife"]),
-    '-O,-*,+O,=M': (lambda path: ["Mother's Sister's Husband", "Mother's Brother's Wife",
-                                    "Father's Sister's Husband", "Father's Brother's Wife"]),
-    '-O,-*,+O,=O': (lambda path: ["Mother's Sister's Husband", "Mother's Brother's Wife",
-                                    "Father's Sister's Husband", "Father's Brother's Wife"]),
+    '-M,-*,+F,=F': (lambda path: get_fathers_sisters_husband(path) + get_fathers_brothers_wife(path)),
+    '-M,-*,+F,=M': (lambda path: get_fathers_sisters_husband(path)),
+    '-M,-*,+F,=O': (lambda path: get_fathers_sisters_husband(path) + get_fathers_brothers_wife(path)),
+    '-M,-*,+M,=F': (lambda path: get_fathers_brothers_wife(path)),
+    '-M,-*,+M,=M': (lambda path: get_fathers_sisters_husband(path) + get_fathers_brothers_wife(path)),
+    '-M,-*,+M,=O': (lambda path: get_fathers_sisters_husband(path) + get_fathers_brothers_wife(path)),
+    '-M,-*,+O,*': (lambda path: get_fathers_sisters_husband(path) + get_fathers_brothers_wife(path)),
+    '-O,-*,+F,=F': (lambda path: ["Mother's Sister's Husband", "Mother's Brother's Wife"]
+                                    + get_fathers_sisters_husband(path) + get_fathers_brothers_wife(path)),
+    '-O,-*,+F,=M': (lambda path: ["Mother's Sister's Husband"] + get_fathers_sisters_husband(path)),
+    '-O,-*,+F,=O': (lambda path: ["Mother's Sister's Husband", "Mother's Brother's Wife"]
+                                    + get_fathers_sisters_husband(path) + get_fathers_brothers_wife(path)),
+    '-O,-*,+M,=F': (lambda path: ["Mother's Brother's Wife"] + get_fathers_brothers_wife(path)),
+    '-O,-*,+M,=M': (lambda path: ["Mother's Sister's Husband", "Mother's Brother's Wife"]
+                                    + get_fathers_sisters_husband(path) + get_fathers_brothers_wife(path)),
+    '-O,-*,+M,=O': (lambda path: ["Mother's Sister's Husband", "Mother's Brother's Wife"]
+                                    + get_fathers_sisters_husband(path) + get_fathers_brothers_wife(path)),
+    '-O,-*,+O,=*': (lambda path: ["Mother's Sister's Husband", "Mother's Brother's Wife"]
+                                    + get_fathers_sisters_husband(path) + get_fathers_brothers_wife(path)),
 
     # Cousins
     '-F,-*,+*,+F': (lambda path: get_maternal_cousin(path, 'Female')),
@@ -480,6 +478,36 @@ def get_paternal_cousin(path, gender):
         return ["Paternal Elder {0} Cousin".format(gender),
                 "Paternal Younger {0} Cousin".format(gender)]
 
+
+def get_fathers_sisters_husband(path):
+
+    father = path.steps[0].to_node
+    fathers_sister = path.steps[2].to_node
+
+    if father.compare_ages(fathers_sister) == -1:
+        return ["Father's Elder Sister's Husband"]
+
+    elif father.compare_ages(fathers_sister) == 1:
+        return ["Father's Younger Sister's Husband"]
+
+    else:
+        return ["Father's Elder Sister's Husband",
+            "Father's Younger Sister's Husband"]
+
+def get_fathers_brothers_wife(path):
+
+    father = path.steps[0].to_node
+    fathers_brother = path.steps[2].to_node
+
+    if father.compare_ages(fathers_brother) == -1:
+        return ["Father's Elder Brother's Wife"]
+
+    elif father.compare_ages(fathers_brother) == 1:
+        return ["Father's Younger Brother's Wife"]
+
+    else:
+        return ["Father's Elder Brother's Husband",
+            "Father's Younger Brother's Wife"]
 
 
 
