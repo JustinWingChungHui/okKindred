@@ -11,10 +11,10 @@ coreschema==0.0.4
 coverage==5.1
 Django==3.0.8
 django-appconf==1.0.4
-django-axes==5.3.5
+django-axes==5.4.1
 django-cors-headers==3.4.0
 django-debug-toolbar==2.2
-django-ipware==2.1.0
+django-ipware==3.0.0
 django-rest-passwordreset==1.1.0
 django-reversion==3.0.7
 djangorestframework==3.11.0
@@ -34,7 +34,7 @@ jmespath==0.10.0
 joblib==0.16.0
 Markdown==3.2.2
 MarkupSafe==1.1.1
-mysqlclient==2.0.0
+mysqlclient==2.0.1
 numpy==1.19.0
 packaging==20.4
 Pillow==7.2.0
