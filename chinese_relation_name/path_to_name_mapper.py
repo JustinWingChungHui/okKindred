@@ -308,6 +308,15 @@ map_codes = {
                                     "Maternal Grandfather's Sister's Husband"] + get_grandfathers_brothers_wife(path, 'Maternal')
                                     + ["Paternal Grandmother's Sister's Husband", "Paternal Grandmother's Brother's Wife",
                                     "Paternal Grandfather's Sister's Husband"] + get_grandfathers_brothers_wife(path, 'Paternal')),
+
+    # Distant Aunts/Uncles
+
+    '-M,-M,-*,+M,+M': (lambda path: ["Paternal Grandfather's Brother's Son Older than Father",
+                                    "Paternal Grandfather's Brother's Son Younger than Father"]),
+    '-M,-M,-*,+M,+F': (lambda path: ["Paternal Grandfather's Brother's Daughter"]),
+    '-F,-M,-*,+M,+M': (lambda path: ["Maternal Grandfather's Brother's Son"]),
+    '-F,-M,-*,+M,+M': (lambda path: ["Maternal Grandfather's Brother's Daughter"]),
+
 }
 
 

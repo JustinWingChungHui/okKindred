@@ -237,6 +237,35 @@ relation_names = [
     RelationName("Father's Younger Sister's Husband", '姑丈', 'gu1 zoeng6', '姑夫', 'gū fu'),
     RelationName("Father's Elder Brother's Wife", '伯娘', 'baak3 noeng4', '伯母', 'bó mǔ'),
     RelationName("Father's Younger Brother's Wife", '阿嬸', 'aa3 sam2', '婶婶', 'shěn shěn'),
+
+    # Great Uncles/Aunts
+    RelationName("Maternal Grandmother's Sister", '外姨婆', 'ngoi6 ji4 po4', '外姨婆', 'wài yí pó'),
+    RelationName("Maternal Grandmother's Sister's Husband", '外姨公', 'ngoi6 ji4 gung1', '外姨婆', 'wài yí gōng'),
+    RelationName("Maternal Grandmother's Brother", '外舅公', 'ngoi6 kau5 gung1 ', '外舅公', 'wài jiù gōng'),
+    RelationName("Maternal Grandmother's Brother' Wife", '外舅婆', 'ngoi6 kau5 po4', '外舅婆', 'wài jiù po4'),
+
+    RelationName("Maternal Grandfather's Sister", ['外姑婆','外從祖姑'], ['ngoi6 gu1 po4','ngoi6 cung4 zou2 gu1'],
+                                                    ['外姑婆','外從祖姑'], ['wài gū pó','wài cóng zǔ gū']),
+    RelationName("Maternal Grandfather's Sister's Husband", ['外姑公','外丈公'], ['ngoi6 gu1 gung1','ngoi6 zoeng6 gung1'],
+                                                    ['外姑公','外丈公'], ['wài gū gōng','wài zhàng gōng']),
+    RelationName("Maternal Grandfather's Elder Brother", '外伯公', 'ngoi6 baak3 gung1', '外伯公', 'wài bó gōng'),
+    RelationName("Maternal Grandfather's Elder Brother's Wife", '外伯祖母', 'ngoi6 baak3 zou2 mou5', '外伯祖母', 'wài bó zǔ mǔ'),
+    RelationName("Maternal Grandfather's Younger Brother", '外伯叔公', 'ngoi6 baak3 suk1 gung1', '外伯叔公', 'wài bó shū gōng'),
+    RelationName("Maternal Grandfather's Younger Brother's Wife", '外伯嬸祖母', 'ngoi6 baak3 sam2 zou2 mou5 ', '外伯嬸祖母', 'wài bó shěn zǔ mǔ'),
+
+    RelationName("Paternal Grandmother's Sister", '姨婆', ' ji4 po4', '姨婆', 'yí pó'),
+    RelationName("Paternal Grandmother's Sister's Husband", '外姨公', ' ji4 gung1', '姨婆', 'yí gōng'),
+    RelationName("Paternal Grandmother's Brother", '舅公', 'kau5 gung1 ', '舅公', 'jiù gōng'),
+    RelationName("Paternal Grandmother's Brother' Wife", '舅婆', 'kau5 po4', '舅婆', 'jiù po4'),
+    RelationName("Paternal Grandfather's Sister", ['姑婆','從祖姑'], ['gu1 po4','cung4 zou2 gu1'],
+                                                    ['姑婆','從祖姑'], ['gū pó','cóng zǔ gū']),
+    RelationName("Paternal Grandfather's Sister's Husband", ['姑公','丈公'], ['gu1 gung1','zoeng6 gung1'],
+                                                    ['姑公','丈公'], ['gū gōng','zhàng gōng']),
+    RelationName("Paternal Grandfather's Elder Brother", '伯公', 'baak3 gung1', '伯公', 'bó gōng'),
+    RelationName("Paternal Grandfather's Younger Brother", '伯叔公', 'baak3 suk1 gung1', '伯叔公', 'bó shū gōng'),
+    RelationName("Paternal Grandfather's Younger Brother's Wife", '伯嬸祖母', 'baak3 sam2 zou2 mou5 ', '伯嬸祖母', 'bó shěn zǔ mǔ'),
+
+
 ]
 
 
