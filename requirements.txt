@@ -1,17 +1,16 @@
 -f /usr/share/pip-wheels
 asgiref==3.2.10
-bleach==3.1.5
-boto3==1.14.53
-botocore==1.17.53
+bleach==3.2.1
+boto3==1.15.1
+botocore==1.18.1
 certifi==2020.6.20
 chardet==3.0.4
 click==7.1.2
 coreapi==2.3.3
 coreschema==0.0.4
-coverage==5.2.1
+coverage==5.3
 Django==3.1.1
-django-appconf==1.0.4
-django-axes==5.5.0
+django-axes==5.6.1
 django-cors-headers==3.5.0
 django-debug-toolbar==2.2
 django-ipware==3.0.1
@@ -35,7 +34,7 @@ joblib==0.16.0
 Markdown==3.2.2
 MarkupSafe==1.1.1
 mysqlclient==2.0.1
-numpy==1.19.1
+numpy==1.19.2
 packaging==20.4
 Pillow==7.2.0
 pipdeptree==1.0.0
