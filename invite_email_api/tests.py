@@ -253,12 +253,12 @@ class InviteEmailApiTestCase(TestCase):
 
         for x in range(0, 6):
             response = client.patch(url, data,  format='json')
-            self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+            self.assertNotEqual(response.status_code, status.HTTP_200_OK)
 
         # Check ip blocked after multiple failed attempts with correct key
         url = '/api/invite_email_confirmation/{0}/'.format(invite.confirmation_key)
         response = client.patch(url, data,  format='json')
-        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
 
     def test_confirmation_partial_update_password_too_short(self):
@@ -319,9 +319,9 @@ class InviteEmailApiTestCase(TestCase):
 
         for x in range(0, 6):
             response = client.get(url,  format='json')
-            self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+            self.assertNotEqual(response.status_code, status.HTTP_200_OK)
 
         # Check ip blocked after multiple failed attempts with correct key
         url = '/api/invite_email_confirmation/{0}/'.format(invite.confirmation_key)
         response = client.get(url,  format='json')
-        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)

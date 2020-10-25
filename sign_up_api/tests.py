@@ -145,12 +145,12 @@ class SignUpApiTestCase(TestCase):
 
         for x in range(0, 6):
             response = client.put(url, data, format='json')
-            self.assertEqual(404, response.status_code)
+            self.assertNotEqual(200, response.status_code)
 
         # Check ip blocked even with correct key
         url = '/api/sign_up/{0}/'.format(sign_up.confirmation_key)
         response = client.put(url, data, format='json')
-        self.assertEqual(404, response.status_code)
+        self.assertNotEqual(200, response.status_code)
 
 
     def test_sign_up_confirmation_password_too_short(self):

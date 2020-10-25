@@ -104,7 +104,7 @@ WSGI_APPLICATION = 'okkindred.wsgi.application'
 
 
 #Django Axes config https://github.com/django-pci/django-axes
-AXES_LOGIN_FAILURE_LIMIT = 5
+AXES_FAILURE_LIMIT = 5
 AXES_COOLOFF_TIME = 24
 AXES_PROTECTED_LOGINS = ('/accounts/login/', '/accounts/auth/')
 
