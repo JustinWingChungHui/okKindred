@@ -5,6 +5,7 @@ from rest_framework.test import APIClient
 
 from custom_user.models import User
 from family_tree.models import Family, Person
+import json
 
 @override_settings(SECURE_SSL_REDIRECT=False, AXES_BEHIND_REVERSE_PROXY=False)
 class UserApiTestCase(TestCase):
@@ -43,6 +44,7 @@ class UserApiTestCase(TestCase):
         url = '/api/users/'
         response = client.get(url, format='json')
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+        json.loads(response.content)
 
 
     def test_list(self):
@@ -54,6 +56,7 @@ class UserApiTestCase(TestCase):
         self.assertTrue(b'user@example.com' in response.content)
         self.assertTrue(b'user2@example.com' in response.content)
         self.assertFalse(b'user3@example.com' in response.content)
+        json.loads(response.content)
 
 
     def test_get_requires_authentication(self):
@@ -61,6 +64,7 @@ class UserApiTestCase(TestCase):
         url = '/api/user_settings/'
         response = client.get(url, format='json')
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+        json.loads(response.content)
 
 
     def test_retrieve(self):
@@ -70,6 +74,7 @@ class UserApiTestCase(TestCase):
         response = client.get(url, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertTrue(b'receive_update_emails' in response.content)
+        json.loads(response.content)
 
 
     def test_update(self):
@@ -89,6 +94,7 @@ class UserApiTestCase(TestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertTrue(b'fi' in response.content)
         self.assertTrue(self.user.receive_update_emails)
+        json.loads(response.content)
 
 
     def test_cannot_update_other_user_values(self):
@@ -108,6 +114,7 @@ class UserApiTestCase(TestCase):
         self.user = User.objects.get(id=self.user.id)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertFalse(self.user.is_superuser)
+        json.loads(response.content)
 
 
     def test_change_password_requires_authentication(self):
@@ -120,6 +127,7 @@ class UserApiTestCase(TestCase):
 
         response = client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+        json.loads(response.content)
 
 
     def test_change_password_success(self):
@@ -132,6 +140,7 @@ class UserApiTestCase(TestCase):
         }
         response = client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
+        json.loads(response.content)
 
         user = User.objects.get(id=self.user.id)
         result = user.check_password('user12345')
@@ -145,6 +154,7 @@ class UserApiTestCase(TestCase):
         data= {}
         response = client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        json.loads(response.content)
 
 
     def test_change_password_invalid_old_password(self):
@@ -156,7 +166,8 @@ class UserApiTestCase(TestCase):
             'new_password': 'user12345'
         }
         response = client.post(url, data, format='json')
-        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+        json.loads(response.content)
 
 
     def test_change_password_too_short(self):
@@ -169,6 +180,7 @@ class UserApiTestCase(TestCase):
         }
         response = client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        json.loads(response.content)
 
 
     def test_delete_account_requires_authentication(self):
@@ -176,6 +188,7 @@ class UserApiTestCase(TestCase):
         url = '/api/delete_account/'
         response = client.post(url, format='json')
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+        json.loads(response.content)
 
 
     def test_delete_account_no_password(self):
@@ -186,7 +199,8 @@ class UserApiTestCase(TestCase):
             'password': '',
         }
         response = client.post(url, data, format='json')
-        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+        json.loads(response.content)
 
 
     def test_delete_account_last_user(self):
@@ -208,7 +222,7 @@ class UserApiTestCase(TestCase):
         }
         response = client.post(url, data, format='json')
 
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
         self.assertEqual(0, Person.objects.filter(id=person3.id).count())
         self.assertEqual(0, User.objects.filter(id=self.user3.id).count())
 
@@ -234,7 +248,7 @@ class UserApiTestCase(TestCase):
 
         response = client.post(url, data, format='json')
 
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
         self.assertEqual(1, Person.objects.filter(id=person.id).count())
         self.assertEqual(0, User.objects.filter(id=self.user.id).count())
 
@@ -260,6 +274,7 @@ class UserApiTestCase(TestCase):
 
         response = client.post(url, data, format='json')
 
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
         self.assertEqual(0, Person.objects.filter(id=person.id).count())
         self.assertEqual(0, User.objects.filter(id=self.user.id).count())
+

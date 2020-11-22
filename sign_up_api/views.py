@@ -1,7 +1,8 @@
 from django.core.exceptions import ValidationError
 from django.core.validators import validate_email
-from django.http import Http404, HttpResponse
+from django.http import Http404
 from rest_framework import viewsets
+from rest_framework.exceptions import PermissionDenied, ParseError
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
 from axes.handlers.proxy import AxesProxyHandler
@@ -38,10 +39,12 @@ class SignUpViewSet(viewsets.ViewSet):
         ip_address = request.META.get('HTTP_X_REAL_IP')
 
         if not (name and email and gender and language):
-            return HttpResponse(status=404, content="Invalid name, email, gender, language")
+            raise ParseError('Invalid name, email, gender, language')
+
 
         if gender not in (MALE, FEMALE, OTHER, NON_BINARY, PREFER_NOT_TO_SAY):
-            return HttpResponse(status=400, content="Invalid gender")
+            raise ParseError('Invalid gender')
+
 
         name = name.strip()
         email = email.strip().lower()
@@ -59,11 +62,13 @@ class SignUpViewSet(viewsets.ViewSet):
             validate_email(email)
         except ValidationError:
             # return invalid email template
-            return HttpResponse(status=404, content="Invalid Email")
+            raise ParseError('Invalid Email')
+
 
         #Check email is not being used
         if is_email_in_use(email):
-            return HttpResponse(status=404, content="Email in Use")
+            raise ParseError('Email in Use')
+
 
         new_signup = SignUp.objects.create(
                     name = name,
@@ -102,7 +107,8 @@ class SignUpViewSet(viewsets.ViewSet):
 
         #Invalid password should be checked bu UI
         if len(password) < 8:
-            return HttpResponse(status=404, content="Password too Short")
+            raise ParseError('Password too Short')
+
 
         user = sign_up.complete_registration(password)
 

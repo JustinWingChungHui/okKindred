@@ -91,6 +91,7 @@ class RelationApiTestCase(TestCase):
         client = APIClient(HTTP_X_REAL_IP='127.0.0.1')
         response = client.get('/api/relation/', format='json')
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+        json.loads(response.content)
 
 
     def test_list(self):
@@ -105,6 +106,7 @@ class RelationApiTestCase(TestCase):
         self.assertEqual(2, len(relations))
         self.assertNotEqual(self.relation3.id, relations[0]["id"])
         self.assertNotEqual(self.relation3.id, relations[1]["id"])
+        json.loads(response.content)
 
 
     def test_retrieve_requires_authentication(self):
@@ -112,6 +114,7 @@ class RelationApiTestCase(TestCase):
         url = '/api/relation/{0}/'.format(self.relation1.id)
         response = client.get(url, format='json')
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+        json.loads(response.content)
 
 
     def test_retrieve(self):
@@ -122,6 +125,7 @@ class RelationApiTestCase(TestCase):
         relation = json.loads(response.content)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(self.relation1.id, relation["id"])
+        json.loads(response.content)
 
 
     def test_retrieve_other_family(self):
@@ -130,6 +134,7 @@ class RelationApiTestCase(TestCase):
         url = '/api/relation/{0}/'.format(self.relation3.id)
         response = client.get(url, format='json')
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+        json.loads(response.content)
 
 
     def test_delete_requires_authentication(self):
@@ -137,6 +142,7 @@ class RelationApiTestCase(TestCase):
         url = '/api/relation/{0}/'.format(self.relation1.id)
         response = client.delete(url, format='json')
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+        json.loads(response.content)
 
 
     def test_delete_other_family(self):
@@ -145,6 +151,7 @@ class RelationApiTestCase(TestCase):
         url = '/api/relation/{0}/'.format(self.relation3.id)
         response = client.delete(url, format='json')
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+        json.loads(response.content)
 
 
     def test_delete(self):
@@ -157,6 +164,7 @@ class RelationApiTestCase(TestCase):
 
         count = Relation.objects.filter(pk = self.relation1.id).count()
         self.assertEqual(0, count)
+        json.loads(response.content)
 
 
     def test_create(self):
@@ -173,6 +181,7 @@ class RelationApiTestCase(TestCase):
         relation = json.loads(response.content)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertNotEqual(relation, None)
+        json.loads(response.content)
 
 
     def test_create_requires_authentication(self):
@@ -185,6 +194,7 @@ class RelationApiTestCase(TestCase):
         }
         response = client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+        json.loads(response.content)
 
 
     def test_create_other_family(self):
@@ -198,6 +208,7 @@ class RelationApiTestCase(TestCase):
         }
         response = client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+        json.loads(response.content)
 
 
     def test_create_invalid_parameter(self):
@@ -212,6 +223,7 @@ class RelationApiTestCase(TestCase):
 
         response = client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        json.loads(response.content)
 
 
     def test_create_invalid_relation_type(self):
@@ -226,6 +238,7 @@ class RelationApiTestCase(TestCase):
 
         response = client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        json.loads(response.content)
 
     def test_create_related_to_self(self):
         client = APIClient(HTTP_X_REAL_IP='127.0.0.1')
@@ -239,3 +252,4 @@ class RelationApiTestCase(TestCase):
 
         response = client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        json.loads(response.content)

@@ -73,6 +73,7 @@ class InviteEmailApiTestCase(TestCase):
         url = '/api/invite_email/{0}/'.format(self.person.id)
         response = client.get(url, format='json')
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+        json.loads(response.content)
 
 
     def test_retrieve(self):
@@ -83,6 +84,7 @@ class InviteEmailApiTestCase(TestCase):
         invite = json.loads(response.content)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(self.invite.person_id, invite["person_id"])
+        json.loads(response.content)
 
 
     def test_retrieve_other_family(self):
@@ -91,6 +93,7 @@ class InviteEmailApiTestCase(TestCase):
         url = '/api/invite_email/{0}/'.format(self.person.id)
         response = client.get(url, format='json')
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+        json.loads(response.content)
 
 
     def test_create(self):
@@ -119,6 +122,8 @@ class InviteEmailApiTestCase(TestCase):
         response = client.post(url, data,  format='json')
 
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+        json.loads(response.content)
+
 
     def test_create_other_family(self):
         client = APIClient(HTTP_X_REAL_IP='127.0.0.1')
@@ -131,6 +136,8 @@ class InviteEmailApiTestCase(TestCase):
 
         response = client.post(url, data,  format='json')
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+        json.loads(response.content)
+
 
     def test_create_invalid_person_id(self):
         client = APIClient(HTTP_X_REAL_IP='127.0.0.1')
@@ -159,6 +166,8 @@ class InviteEmailApiTestCase(TestCase):
         }
         response = client.post(url, data,  format='json')
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        json.loads(response.content)
+
 
 
     def test_create_no_email(self):
@@ -175,6 +184,8 @@ class InviteEmailApiTestCase(TestCase):
         }
         response = client.post(url, data,  format='json')
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        json.loads(response.content)
+
 
 
     def test_create_invite_exists_same_email(self):
@@ -193,6 +204,8 @@ class InviteEmailApiTestCase(TestCase):
         }
         response = client.post(url, data,  format='json')
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        json.loads(response.content)
+
 
 
     def test_create_invite_exists_different_email(self):
@@ -213,6 +226,7 @@ class InviteEmailApiTestCase(TestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         invite = json.loads(response.content)
         self.assertEqual(self.new_person.id, invite["person_id"])
+        json.loads(response.content)
 
 
     def test_confirmation_partial_update(self):
@@ -235,6 +249,7 @@ class InviteEmailApiTestCase(TestCase):
         # Check user assigned
         newUser = User.objects.get(name=self.new_person.name)
         self.assertIsNotNone(newUser)
+        json.loads(response.content)
 
 
 
@@ -261,6 +276,7 @@ class InviteEmailApiTestCase(TestCase):
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
 
+
     def test_confirmation_partial_update_password_too_short(self):
 
         invite = EmailConfirmation.objects.create(
@@ -275,6 +291,7 @@ class InviteEmailApiTestCase(TestCase):
         }
         response = client.patch(url, data,  format='json')
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        json.loads(response.content)
 
 
     def test_confirmation_partial_update_email_address_mismatch(self):
@@ -290,7 +307,9 @@ class InviteEmailApiTestCase(TestCase):
             'password': 'bestpasswordever',
         }
         response = client.patch(url, data,  format='json')
-        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        json.loads(response.content)
 
 
     def test_confirmation_retrieve(self):
@@ -306,6 +325,7 @@ class InviteEmailApiTestCase(TestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertTrue(b'takahirose@example.com' in response.content)
         self.assertTrue(b'Taka Hirose' in response.content)
+        json.loads(response.content)
 
 
     def test_confirmation_retrieve_block_ip_after_unsuccessful_attempt(self):
@@ -325,3 +345,5 @@ class InviteEmailApiTestCase(TestCase):
         url = '/api/invite_email_confirmation/{0}/'.format(invite.confirmation_key)
         response = client.get(url,  format='json')
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+

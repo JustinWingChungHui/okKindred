@@ -1,8 +1,8 @@
 from django.contrib.auth.signals import user_login_failed
-from django.http import HttpResponse, Http404
 from django.shortcuts import get_object_or_404
 
 from rest_framework import viewsets
+from rest_framework.exceptions import PermissionDenied, ParseError
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, AllowAny
 
@@ -42,17 +42,20 @@ class InviteEmailViewSet(viewsets.ViewSet):
         person_id = request.data.get('person_id')
 
         if not person_id:
-            return HttpResponse(status=400, content="Invalid person_id")
+            raise ParseError('Invalid person_id')
+
 
         person = get_object_or_404(queryset, pk=person_id)
 
         #ensure user does not already exist
         if person.user_id:
-            return HttpResponse(status=400, content="User already exists")
+            raise ParseError('User already exists')
+
 
         #ensure email exists
         if not person.email:
-            return HttpResponse(status=400, content="No Email Address")
+            raise ParseError('No Email Address')
+
 
         #Check a pending invite does not already exist to the email address
         try:
@@ -61,7 +64,8 @@ class InviteEmailViewSet(viewsets.ViewSet):
             pending_invite = None
 
         if pending_invite and pending_invite.email_address == person.email:
-            return HttpResponse(status=400, content="There is already a Pending Invite")
+            raise ParseError('There is already a Pending Invite')
+
 
         elif pending_invite:
             #Delete pending invite if email has changed
@@ -83,7 +87,7 @@ class InviteEmailConfirmationViewSet(viewsets.ViewSet):
     def get_invite(self, request, pk):
         #Check ip has not been locked
         if not AxesProxyHandler.is_allowed(request):
-            raise Http404
+            raise PermissionDenied('Requests from this ip addess has been locked for 48 hours')
 
 
         # Check confirmation key exists
@@ -95,7 +99,8 @@ class InviteEmailConfirmationViewSet(viewsets.ViewSet):
                                 sender=InviteEmailViewSet,
                                 credentials={'username': pk },
                                 request=request)
-            raise Http404
+
+            raise PermissionDenied('Invalid invite token')
 
         return invite
 
@@ -120,14 +125,16 @@ class InviteEmailConfirmationViewSet(viewsets.ViewSet):
 
         # Invalid password should be checked by UI
         if len(password) < 8:
-            return HttpResponse(status=400, content="Password too short")
+            raise ParseError('Password too short')
+
 
         # Do all the checks
         if invite.person.family is None \
             or invite.person.language is None \
             or invite.email_address != invite.person.email \
             or invite.email_address is None:
-            raise Http404
+            raise ParseError('Invalid parameters')
+
 
         user = User.objects.create_user(email=invite.email_address, password=password, name=invite.person.name, family_id=invite.person.family_id, language=invite.person.language)
         invite.person.user_id = user.id

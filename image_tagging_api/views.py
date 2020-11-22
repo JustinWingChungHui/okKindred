@@ -1,7 +1,7 @@
-from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 
 from rest_framework import viewsets
+from rest_framework.exceptions import ParseError
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
@@ -33,7 +33,8 @@ class TagView(viewsets.GenericViewSet):
         image_id = self.request.query_params.get('image_id', None)
 
         if image_id is None:
-            return HttpResponse(status=400, content='Invalid image_id')
+            raise ParseError('Invalid image_id')
+
 
         queryset = queryset.filter(image_id=image_id)
 
@@ -65,14 +66,16 @@ class TagView(viewsets.GenericViewSet):
 
         person_id, person_id_valid = intTryParse(request.data.get("person_id"))
         if not person_id_valid:
-            return HttpResponse(status=400, content="Invalid person_id")
+            raise ParseError('Invalid person_id')
+
 
         person_queryset = Person.objects.filter(family_id = self.request.user.family_id)
         person = get_object_or_404(person_queryset, pk=person_id)
 
         image_id, image_id_valid = intTryParse(request.data.get("image_id"))
         if not image_id_valid:
-            return HttpResponse(status=400, content="Invalid image_id")
+            raise ParseError('Invalid image_id')
+
 
         image_queryset = Image.objects.filter(family_id = self.request.user.family_id)
         image = get_object_or_404(image_queryset, pk=image_id)
@@ -83,7 +86,8 @@ class TagView(viewsets.GenericViewSet):
         y2, y2_valid = floatTryParse(request.data.get("y2"))
 
         if not (x1_valid and x2_valid and y1_valid and y2_valid):
-            return HttpResponse(status=400, content="Invalid x1, x2, y1, or y2")
+            raise ParseError('Invalid x1, x2, y1, or y2')
+
 
         tag = Tag.objects.create(image_id=image.id, x1=x1, y1=y1, x2=x2, y2=y2, person_id=person.id)
 

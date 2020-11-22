@@ -1,7 +1,7 @@
 import json
 from django.shortcuts import get_object_or_404
-from django.http import HttpResponse
-from rest_framework import viewsets
+from rest_framework import status, viewsets
+from rest_framework.exceptions import PermissionDenied, ParseError
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 
@@ -60,7 +60,7 @@ class PersonViewSet(viewsets.ViewSet):
 
             #Make sure we can't change locked profiles
             if person.locked and person.user_id != request.user.id:
-                return HttpResponse(status=403, content="Access denied to locked profile")
+                raise PermissionDenied('Access denied to locked profile')
 
             field_name = request.data.get('fieldName')
 
@@ -71,18 +71,21 @@ class PersonViewSet(viewsets.ViewSet):
                                     'occupation', 'spoken_languages',
                                     'name', 'gender', 'biography']:
 
-                return HttpResponse(status=403, content="Access denied to change confirmed user settings")
+                raise PermissionDenied('Access denied to change confirmed user settings')
+
 
             #Check we don't change any email or language for a confirmed user
             if person.user_id:
                 if person.user_id != request.user.id:
                     if field_name in ['email', 'language', 'locked']:
-                        return HttpResponse(status=403, content="Access denied to change confirmed user settings")
+                        raise PermissionDenied('Access denied to change confirmed user settings')
+
 
             else:
                 # profile is not a user
                 if field_name == 'locked':
-                    return HttpResponse(status=403, content="Access denied to change confirmed user settings")
+                    raise PermissionDenied('Access denied to change confirmed user settings')
+
 
             setattr(person, field_name, request.data.get('value'))
             person.save()
@@ -105,7 +108,7 @@ class PersonViewSet(viewsets.ViewSet):
             person = get_object_or_404(queryset, pk=pk)
 
             if person.user_id:
-                return HttpResponse(status=403, content="Profile is a user and cannot be deleted")
+                raise PermissionDenied('Profile is a user and cannot be deleted')
 
             person.delete()
 
@@ -122,7 +125,7 @@ class PersonViewSet(viewsets.ViewSet):
 
             create_message('person_deleted_update_face_model', message_encoded)
 
-            return Response('OK')
+            return Response(status=status.HTTP_204_NO_CONTENT)
 
 
     def create(self, request):
@@ -135,21 +138,25 @@ class PersonViewSet(viewsets.ViewSet):
 
         from_person_id, from_person_id_valid = intTryParse(request.data.get("from_person_id"))
         if not from_person_id_valid:
-            return HttpResponse(status=400, content="Invalid from_person_id")
+            raise ParseError('Invalid from_person_id')
+
 
         from_person = get_object_or_404(queryset, pk=from_person_id)
 
         relation_type, relation_type_valid = intTryParse(request.data.get("relation_type"))
         if not relation_type_valid or relation_type not in (PARTNERED, RAISED, RAISED_BY):
-            return HttpResponse(status=400, content="Invalid relation_type")
+            raise ParseError('Invalid relation_type')
+
 
         name = request.data.get("name")
         if not name or len(name.strip()) == 0:
-             return HttpResponse(status=400, content="Invalid name")
+            raise ParseError('Invalid name')
+
 
         gender = request.data.get("gender")
         if gender not in (MALE, FEMALE, OTHER, NON_BINARY, PREFER_NOT_TO_SAY):
-            return HttpResponse(status=400, content="Invalid gender")
+            raise ParseError('Invalid gender')
+
 
         birth_year, birth_year_valid = intTryParse(request.POST.get("birth_year"))
         if not birth_year_valid:

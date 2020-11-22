@@ -1,7 +1,7 @@
 from django.shortcuts import get_object_or_404
-from django.http import HttpResponse
 from django.conf import settings
 from rest_framework import viewsets
+from rest_framework.exceptions import PermissionDenied, ParseError
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 
@@ -25,7 +25,8 @@ class ProfileImageSet(viewsets.ViewSet):
 
         #Make sure we can't change locked profiles
         if person.locked and person.user_id != request.user.id:
-            return HttpResponse(status=403, content="Access denied to locked profile")
+            raise PermissionDenied('Access denied to locked profile')
+
 
         x, x_valid = intTryParse(request.data.get("x"))
         y, y_valid = intTryParse(request.data.get("y"))
@@ -34,7 +35,8 @@ class ProfileImageSet(viewsets.ViewSet):
         r, r_valid = intTryParse(request.data.get("r"))
 
         if not (x_valid and y_valid and w_valid and h_valid and r_valid):
-            return HttpResponse(status=400, content='Invalid crop parameters')
+            raise ParseError('Invalid crop parameters')
+
 
 
         try:
@@ -58,7 +60,8 @@ class ProfileImageSet(viewsets.ViewSet):
             person.save()
 
         except Exception as e:
-            return HttpResponse(status=400, content=str(e))
+            raise ParseError(str(e))
+
 
         create_message('profile_photo_process', person.id)
 

@@ -1,7 +1,7 @@
-from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 
 from rest_framework import viewsets
+from rest_framework.exceptions import PermissionDenied, ParseError
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
@@ -33,7 +33,8 @@ class SuggestedTagView(viewsets.GenericViewSet):
         image_id = self.request.query_params.get('image_id', None)
 
         if image_id is None:
-            return HttpResponse(status=400, content='Invalid image_id')
+            raise ParseError('Invalid image_id')
+
 
         queryset = queryset.filter(image_id=image_id)
 
@@ -51,7 +52,8 @@ class SuggestedTagView(viewsets.GenericViewSet):
 
         person_id, person_id_valid = intTryParse(request.data.get("person_id"))
         if not person_id_valid:
-            return HttpResponse(status=400, content="Invalid person_id")
+            raise ParseError('Invalid person_id')
+
 
         new_tag = suggested_tag.convertToTag(person_id)
 
