@@ -15,7 +15,7 @@ import shutil
 @override_settings(SECURE_SSL_REDIRECT=False,
                     AXES_BEHIND_REVERSE_PROXY=False,
                     MEDIA_ROOT=settings.MEDIA_ROOT_TEST,
-                    AWS_STORAGE_BUCKET_NAME=settings.AWS_STORAGE_BUCKET_NAME_TEST,)
+                    AWS_STORAGE_BUCKET_NAME=settings.AWS_STORAGE_BUCKET_NAME_TEST)
 class GalleryApiTestCase(TestCase):
     '''
     Tests for the Gallery API
@@ -69,6 +69,14 @@ class GalleryApiTestCase(TestCase):
 
         #Copy test image to media area
         shutil.copy2(self.test_image, self.test_image_destination)
+
+
+    def tearDown(self):
+
+        try:
+            os.remove(self.test_image_destination)
+        except:
+            pass
 
 
 
@@ -206,6 +214,8 @@ class GalleryApiTestCase(TestCase):
         self.assertTrue('"thumbnail":null' in response.content.decode("utf-8"))
         json.loads(response.content)
 
+        image.delete_local_image_files()
+        image.delete_remote_image_files()
 
     def test_partial_update_requires_authentication(self):
         client = APIClient(HTTP_X_REAL_IP='127.0.0.1')

@@ -51,6 +51,21 @@ class TrainTestCase(TestCase): # pragma: no cover
                                                             person_id=self.person.id, face_detected= True)
 
 
+    def tearDown(self):
+
+        try:
+            self.image.delete_local_image_files()
+            self.image.delete_remote_image_files()
+        except:
+            pass
+
+        try:
+            os.remove(self.test_image_destination)
+        except:
+            pass
+
+
+
     def test_get_file_for_tag(self):
 
         dir_name = settings.FACE_RECOG_TRAIN_TEST_DIR

@@ -56,10 +56,10 @@ class PersonDeletedUpdateFaceModelTest(TestCase): # pragma: no cover
 
         # Upload new image
         self.test_image2 = os.path.join(settings.BASE_DIR, 'facial_recognition/tests/test_image_woman_and_baby.jpg')
-        self.test_image2_image_destination = ''.join([settings.MEDIA_ROOT, 'galleries/', str(self.family.id), '/', str(self.gallery.id), '/test_image_woman_and_baby.jpg'])
+        self.test_image2_destination = ''.join([settings.MEDIA_ROOT, 'galleries/', str(self.family.id), '/', str(self.gallery.id), '/test_image_woman_and_baby.jpg'])
 
         # Copy to test area
-        shutil.copy2(self.test_image2, self.test_image2_image_destination)
+        shutil.copy2(self.test_image2, self.test_image2_destination)
 
 
         self.image2 = Image(gallery=self.gallery, family=self.family,
@@ -77,6 +77,29 @@ class PersonDeletedUpdateFaceModelTest(TestCase): # pragma: no cover
         process_family(self.family.id)
 
 
+    def tearDown(self):
+
+        try:
+            self.image.delete_local_image_files()
+            self.image.delete_remote_image_files()
+        except:
+            pass
+
+        try:
+            self.image2.delete_local_image_files()
+            self.image2.delete_remote_image_files()
+        except:
+            pass
+
+        try:
+            os.remove(self.test_image_destination)
+        except:
+            pass
+
+        try:
+            os.remove(self.test_image2_destination)
+        except:
+            pass
 
 
     def test_update_family_model(self):

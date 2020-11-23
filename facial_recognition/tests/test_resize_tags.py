@@ -45,6 +45,22 @@ class ResizeTagsTestCase(TestCase): # pragma: no cover
         self.tag = Tag.objects.create(image_id=self.image.id, x1=0.3, y1=0.2, x2=0.5, y2=0.4, person_id=self.person.id)
 
 
+    def tearDown(self):
+
+        try:
+            self.image.delete_local_image_files()
+            self.image.delete_remote_image_files()
+        except:
+            pass
+
+        try:
+            os.remove(self.test_image_destination)
+        except:
+            pass
+
+
+
+
     def test_tag_resizes(self):
 
         # Create a message to resize tag
@@ -60,6 +76,4 @@ class ResizeTagsTestCase(TestCase): # pragma: no cover
         self.assertTrue(abs(0.536 - resized_tag.x2) < 0.001)
         self.assertTrue(abs(0.381 - resized_tag.y2) < 0.001)
 
-        #Clear up
-        self.image.delete_local_image_files()
-        self.image.delete_remote_image_files()
+

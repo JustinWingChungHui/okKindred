@@ -53,6 +53,19 @@ class ImageFaceDetectTest(TestCase): # pragma: no cover
         # Create a trained model
         process_family(self.family.id)
 
+    def tearDown(self):
+
+        try:
+            self.image.delete_local_image_files()
+            self.image.delete_remote_image_files()
+        except:
+            pass
+
+        try:
+            os.remove(self.test_image_destination)
+        except:
+            pass
+
 
 
 

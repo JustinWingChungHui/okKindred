@@ -32,6 +32,14 @@ class ImageTestCase(TestCase): # pragma: no cover
         if not os.path.exists(directory):
             os.makedirs(directory)
 
+
+    def tearDown(self):
+        try:
+            os.remove(self.test_image_destination)
+        except:
+            pass
+
+
     def test_create_thumbnail(self):
         '''
         Tests that we can create a thumbnail
@@ -47,7 +55,7 @@ class ImageTestCase(TestCase): # pragma: no cover
 
         #Clear up mess afterwards
         os.remove(self.test_image_destination)
-        os.remove(settings.MEDIA_ROOT +thumbnail)
+        os.remove(settings.MEDIA_ROOT + thumbnail)
 
 
     def test_make_thumbnails_and_delete(self):
@@ -65,6 +73,7 @@ class ImageTestCase(TestCase): # pragma: no cover
 
         #Clear up mess afterwards
         image.delete_local_image_files()
+        image.delete_remote_image_files()
 
 
     def test_get_exif_data(self):
@@ -85,6 +94,8 @@ class ImageTestCase(TestCase): # pragma: no cover
 
         #Clear up mess afterwards
         os.remove(exif_test_image_destination)
+        image.delete_local_image_files()
+        image.delete_remote_image_files()
 
     def test_get_exif_data2(self):
         '''
@@ -104,6 +115,8 @@ class ImageTestCase(TestCase): # pragma: no cover
 
         #Clear up mess afterwards
         os.remove(exif_test_image_destination)
+        image.delete_local_image_files()
+        image.delete_remote_image_files()
 
     def test_save_and_rotate_image(self):
         '''

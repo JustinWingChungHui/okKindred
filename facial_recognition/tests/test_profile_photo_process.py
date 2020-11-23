@@ -53,8 +53,7 @@ class ProfilePhotoProcessTest(TestCase): # pragma: no cover
 
         # Upload new image
         self.test_image2 = os.path.join(settings.BASE_DIR, 'facial_recognition/tests/test_image_woman_and_baby.jpg')
-        self.test_image2_image_destination  = settings.MEDIA_ROOT + 'profile_photos/test_image_woman_and_baby.jpg'
-
+        self.test_image2_destination  = settings.MEDIA_ROOT + 'profile_photos/test_image_woman_and_baby.jpg'
 
 
         # Create a trained model
@@ -62,13 +61,33 @@ class ProfilePhotoProcessTest(TestCase): # pragma: no cover
 
 
 
+    def tearDown(self):
+
+        try:
+            self.image.delete_local_image_files()
+            self.image.delete_remote_image_files()
+        except:
+            pass
+
+        try:
+            os.remove(self.test_image_destination)
+        except:
+            pass
+
+        try:
+            os.remove(self.test_image2_destination)
+        except:
+            pass
+
+
+
     def test_profile_photo_process(self):
 
         # Copy to test area
-        shutil.copy2(self.test_image2, self.test_image2_image_destination)
+        shutil.copy2(self.test_image2, self.test_image2_destination)
 
         # Add profile photo
-        self.person.set_profile_image_crop_rotate_resize(self.test_image2_image_destination, 372, 406, 878, 1378, 0, True)
+        self.person.set_profile_image_crop_rotate_resize(self.test_image2_destination, 372, 406, 878, 1378, 0, True)
         self.person.save()
 
         profile_photo_process_id = Queue.objects.get(name='profile_photo_process').id

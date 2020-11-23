@@ -17,7 +17,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 @override_settings(SECURE_SSL_REDIRECT=False,
                     MEDIA_ROOT=settings.MEDIA_ROOT_TEST,
-                    AXES_BEHIND_REVERSE_PROXY=False)
+                    AXES_BEHIND_REVERSE_PROXY=False,
+                    AWS_STORAGE_BUCKET_NAME=settings.AWS_STORAGE_BUCKET_NAME_TEST)
 class TestTagViews(TestCase): # pragma: no cover
     '''
     Test class for the gallery views
@@ -74,6 +75,19 @@ class TestTagViews(TestCase): # pragma: no cover
                             )
         self.other_family_image.save()
 
+
+
+    def tearDown(self):
+        try:
+            self.image.delete_local_image_files()
+            self.image.delete_remote_image_files()
+        except:
+            pass
+
+        try:
+            os.remove(self.test_image_destination)
+        except:
+            pass
 
 
     def test_list(self):

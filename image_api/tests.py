@@ -97,36 +97,40 @@ class ImageApiTestCase(TestCase):
         try:
             self.image.delete_local_image_files()
             self.image.delete_remote_image_files()
-        finally:
+        except:
             pass
 
 
         try:
             self.image2.delete_local_image_files()
             self.image2.delete_remote_image_files()
-        finally:
+        except:
             pass
 
         # Delete any updates
         try:
-            count = Image.objects.filter(id=self.image.id).count()
-            if count:
-                self.image = Image.objects.get(id=self.image.id)
-                self.image.delete_local_image_files()
-                self.image.delete_remote_image_files()
-        finally:
+            self.image = Image.objects.get(id=self.image.id)
+            self.image.delete_local_image_files()
+            self.image.delete_remote_image_files()
+        except:
             pass
 
         try:
-            count = Image.objects.filter(id=self.image2.id).count()
-            if count:
-                self.image2 = Image.objects.get(id=self.image2.id)
-                self.image2.delete_local_image_files()
-                self.image2.delete_remote_image_files()
-        finally:
+            self.image2 = Image.objects.get(id=self.image2.id)
+            self.image2.delete_local_image_files()
+            self.image2.delete_remote_image_files()
+        except:
             pass
 
+        try:
+            os.remove(self.test_image_destination)
+        except:
+            pass
 
+        try:
+            os.remove(self.test_image2_destination)
+        except:
+            pass
 
 
     def test_list_requires_authentication(self):
