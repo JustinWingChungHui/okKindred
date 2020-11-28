@@ -15,6 +15,7 @@ from family_tree.models.family import Family
 import os
 import bleach
 import reversion
+import threading
 
 #Localised Gender choices https://docs.djangoproject.com/en/1.7/ref/models/fields/#choices
 FEMALE ='F'
@@ -337,20 +338,43 @@ class Person(models.Model):
             self.small_thumbnail = str(small_thumb_path)
             self.large_thumbnail = str(large_thumb_path)
 
-            upload_file_to_s3(self.photo)
-            upload_file_to_s3(self.small_thumbnail)
-            upload_file_to_s3(self.large_thumbnail)
+            t1 = threading.Thread(target=upload_file_to_s3, args=(self.photo,))
+            t2 = threading.Thread(target=upload_file_to_s3, args=(self.small_thumbnail,))
+            t3 = threading.Thread(target=upload_file_to_s3, args=(self.large_thumbnail,))
+
+            t1.start()
+            t2.start()
+            t3.start()
+
+            
 
             # Remove old photos from S3
             if old_photo:
                 old_photo_path = ''.join([settings.MEDIA_ROOT, str(old_photo)])
-                remove_file_from_s3(old_photo_path)
                 old_small_thumbnail_path = ''.join([settings.MEDIA_ROOT, str(old_small_thumbnail)])
-                remove_file_from_s3(old_small_thumbnail_path)
                 old_large_thumbnail_path = ''.join([settings.MEDIA_ROOT, str(old_large_thumbnail)])
-                remove_file_from_s3(old_large_thumbnail_path)
+                t4 = threading.Thread(target=remove_file_from_s3, args=(old_photo_path,))
+                t5 = threading.Thread(target=remove_file_from_s3, args=(old_small_thumbnail_path,))
+                t6 = threading.Thread(target=remove_file_from_s3, args=(old_large_thumbnail_path,))
+
+                t4.start()
+                t5.start()
+                t6.start()
+                t4.join()
+                t5.join()
+                t6.join()
+
+
+            t1.join()
+            t2.join()
+            t3.join()
 
         except:
+
+            try:
+                os.remove(path_and_filename)
+            except:
+                pass
 
             raise Exception("Invalid image!")
 
@@ -423,8 +447,15 @@ class Person(models.Model):
 
         self.large_thumbnail = 'profile_photos/' + large_thumb_name
 
-        upload_file_to_s3(self.small_thumbnail)
-        upload_file_to_s3(self.large_thumbnail)
+        t1 = threading.Thread(target=upload_file_to_s3, args=(self.small_thumbnail,))
+        t2 = threading.Thread(target=upload_file_to_s3, args=(self.large_thumbnail,))
+
+        t1.start()
+        t2.start()
+
+        t1.join()
+        t2.join()
+
 
 
     def rotate_photo(self, anticlockwise_angle):
@@ -456,15 +487,15 @@ class Person(models.Model):
         Removes the local copies of the image files
         '''
         photo = ''.join([settings.MEDIA_ROOT, str(self.photo)])
-        if os.path.exists(photo):
+        if self.photo and  os.path.exists(photo):
             os.remove(photo)
 
         small_thumb = ''.join([settings.MEDIA_ROOT, str(self.small_thumbnail)])
-        if os.path.exists(small_thumb):
+        if self.small_thumbnail and os.path.exists(small_thumb):
             os.remove(small_thumb)
 
         large_thumb = ''.join([settings.MEDIA_ROOT, str(self.large_thumbnail)])
-        if os.path.exists(large_thumb):
+        if self.large_thumbnail and os.path.exists(large_thumb):
             os.remove(large_thumb)
 
 
@@ -473,11 +504,18 @@ class Person(models.Model):
         Removes the remote copies of the image files
         '''
         photo = ''.join([settings.MEDIA_ROOT, str(self.photo)])
-        remove_file_from_s3(photo)
-
         small_thumb = ''.join([settings.MEDIA_ROOT, str(self.small_thumbnail)])
-        remove_file_from_s3(small_thumb)
-
         large_thumb = ''.join([settings.MEDIA_ROOT, str(self.large_thumbnail)])
-        remove_file_from_s3(large_thumb)
+
+        t1 = threading.Thread(target=remove_file_from_s3, args=(photo,))
+        t2 = threading.Thread(target=remove_file_from_s3, args=(small_thumb,))
+        t3 = threading.Thread(target=remove_file_from_s3, args=(large_thumb,))
+
+        t1.start()
+        t2.start()
+        t3.start()
+
+        t1.join()
+        t2.join()
+        t3.join()
 

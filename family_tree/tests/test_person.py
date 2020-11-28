@@ -10,7 +10,10 @@ from family_tree.models.relation import Relation, RAISED, PARTNERED, RAISED_BY
 from common import geocoder
 from PIL import Image
 
-@override_settings(SSLIFY_DISABLE=True, MEDIA_ROOT=settings.MEDIA_ROOT_TEST)
+@override_settings(SSLIFY_DISABLE=True, 
+                    AWS_STORAGE_BUCKET_NAME=settings.AWS_STORAGE_BUCKET_NAME_TEST, 
+                    MEDIA_ROOT=settings.MEDIA_ROOT_TEST,
+                    MEDIA_URL=settings.MEDIA_URL_TEST)
 class PersonTestCase(TestCase): # pragma: no cover
     '''
     This defines all the tests for all model logic for a Person
@@ -230,6 +233,8 @@ class PersonTestCase(TestCase): # pragma: no cover
 
         #Clear up mess afterwards
         os.remove(settings.MEDIA_ROOT + 'profile_photos/large_test_image.jpg')
+        person.remove_local_images()
+        person.remove_remote_images()
 
 
     def test_crop_and_resize_photo(self):
@@ -267,6 +272,9 @@ class PersonTestCase(TestCase): # pragma: no cover
 
         #Clear up mess afterwards
         os.remove(settings.MEDIA_ROOT + 'profile_photos/large_test_image.jpg')
+        person.remove_local_images()
+        person.remove_remote_images()
+
 
     def test_rotate_photo(self):
         '''
@@ -291,5 +299,7 @@ class PersonTestCase(TestCase): # pragma: no cover
 
         #Clear up mess afterwards
         os.remove(settings.MEDIA_ROOT + str(person.photo))
+        person.remove_local_images()
+        person.remove_remote_images()
 
 

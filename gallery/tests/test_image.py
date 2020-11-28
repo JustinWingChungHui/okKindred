@@ -10,7 +10,10 @@ import PIL
 import threading
 from datetime import datetime
 
-@override_settings(SECURE_SSL_REDIRECT=False, MEDIA_ROOT=settings.MEDIA_ROOT_TEST, AWS_STORAGE_BUCKET_NAME=settings.AWS_STORAGE_BUCKET_NAME_TEST,)
+@override_settings(SECURE_SSL_REDIRECT=False, 
+                MEDIA_ROOT=settings.MEDIA_ROOT_TEST,
+                MEDIA_URL=settings.MEDIA_URL_TEST,
+                AWS_STORAGE_BUCKET_NAME=settings.AWS_STORAGE_BUCKET_NAME_TEST,)
 class ImageTestCase(TestCase): # pragma: no cover
     '''
     Tests for the image class

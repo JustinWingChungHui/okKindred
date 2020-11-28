@@ -60,6 +60,7 @@ class ProfileImageSet(viewsets.ViewSet):
             person.save()
 
         except Exception as e:
+            
             raise ParseError(str(e))
 
 

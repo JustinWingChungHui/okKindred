@@ -11,6 +11,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 @override_settings(SSLIFY_DISABLE=True,
                     MEDIA_ROOT=settings.MEDIA_ROOT_TEST,
+                    MEDIA_URL=settings.MEDIA_URL_TEST,
                     AWS_STORAGE_BUCKET_NAME=settings.AWS_STORAGE_BUCKET_NAME_TEST,)
 class TestGallery(TestCase): # pragma: no cover
     '''
