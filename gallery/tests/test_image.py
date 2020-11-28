@@ -7,6 +7,7 @@ from django.utils.timezone import utc
 import os
 import shutil
 import PIL
+import threading
 from datetime import datetime
 
 @override_settings(SECURE_SSL_REDIRECT=False, MEDIA_ROOT=settings.MEDIA_ROOT_TEST, AWS_STORAGE_BUCKET_NAME=settings.AWS_STORAGE_BUCKET_NAME_TEST,)
@@ -73,7 +74,7 @@ class ImageTestCase(TestCase): # pragma: no cover
 
         #Clear up mess afterwards
         image.delete_local_image_files()
-        image.delete_remote_image_files()
+        threading.Thread(target=image.delete_remote_image_files).start()
 
 
     def test_get_exif_data(self):
@@ -95,7 +96,7 @@ class ImageTestCase(TestCase): # pragma: no cover
         #Clear up mess afterwards
         os.remove(exif_test_image_destination)
         image.delete_local_image_files()
-        image.delete_remote_image_files()
+        threading.Thread(target=image.delete_remote_image_files).start()
 
     def test_get_exif_data2(self):
         '''
@@ -116,7 +117,7 @@ class ImageTestCase(TestCase): # pragma: no cover
         #Clear up mess afterwards
         os.remove(exif_test_image_destination)
         image.delete_local_image_files()
-        image.delete_remote_image_files()
+        threading.Thread(target=image.delete_remote_image_files).start()
 
     def test_save_and_rotate_image(self):
         '''
@@ -127,11 +128,11 @@ class ImageTestCase(TestCase): # pragma: no cover
         shutil.copy2(self.test_image, self.test_image_destination)
 
         image = Image(gallery=self.gallery, family=self.family, original_image=''.join(['galleries/', str(self.family.id), '/', str(self.gallery.id), '/test_image.jpg']))
-        image.save();
+        image.save()
         image.upload_files_to_s3()
 
         image.rotate(90)
 
         #Clear up
         image.delete_local_image_files()
-        image.delete_remote_image_files()
+        threading.Thread(target=image.delete_remote_image_files).start()

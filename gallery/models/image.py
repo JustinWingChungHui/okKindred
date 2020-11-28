@@ -191,7 +191,15 @@ class Image(models.Model):
         '''
         try:
             os.remove(self._get_absolute_image_path(self.original_image))
+        except:
+            pass
+
+        try:
             os.remove(self._get_absolute_image_path(self.thumbnail))
+        except:
+            pass
+
+        try:
             os.remove(self._get_absolute_image_path(self.large_thumbnail))
         except:
             pass
@@ -204,7 +212,15 @@ class Image(models.Model):
         '''
         try:
             remove_file_from_s3(self.original_image)
+        except:
+            pass
+        
+        try:
             remove_file_from_s3(self.thumbnail)
+        except:
+            pass
+        
+        try:
             remove_file_from_s3(self.large_thumbnail)
         except:
             pass

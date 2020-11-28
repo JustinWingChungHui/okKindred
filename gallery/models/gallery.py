@@ -1,4 +1,5 @@
 from django.db import models
+import threading
 
 class Gallery(models.Model):
     '''
@@ -45,12 +46,13 @@ class Gallery(models.Model):
 
         images = Image.objects.filter(gallery_id = self.id)
 
-        try:
-            #Delete actual files
-            for im in images:
-                im.delete_image_files()
+        #Delete actual files
+        for im in images:
+            try:
+                im.delete_local_image_files()
+                threading.Thread(target=im.delete_remote_image_files).start()                
+            except:
+                pass
 
-            #Delete database records
-            images.delete()
-        except:
-            pass
+        #Delete database records
+        images.delete()

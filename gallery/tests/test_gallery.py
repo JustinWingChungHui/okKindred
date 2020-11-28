@@ -41,7 +41,7 @@ class TestGallery(TestCase): # pragma: no cover
         self.images = []
 
         for i in range(0,20):
-            self.images.append  (
+            self.images.append(
                                 Image(
                                     gallery=self.gallery,
                                     family=self.family,
@@ -55,6 +55,8 @@ class TestGallery(TestCase): # pragma: no cover
         '''
         Tests we can delete all images associated with gallery
         '''
+        for i in range(0,20):
+            self.images[i].save()
 
         self.gallery.delete_all_images()
 

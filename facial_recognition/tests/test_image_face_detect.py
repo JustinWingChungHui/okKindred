@@ -97,5 +97,9 @@ class ImageFaceDetectTest(TestCase): # pragma: no cover
         self.assertEqual(self.person.id, suggested_tags[0].person_id)
 
 
+        new_image.delete_local_image_files()
+        threading.Thread(target=new_image.delete_remote_image_files).start()
+
+
 
 

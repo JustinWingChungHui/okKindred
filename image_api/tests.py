@@ -6,6 +6,7 @@ from rest_framework.test import APIClient
 import json
 import os
 import shutil
+import threading
 
 from family_tree.models.family import Family
 from family_tree.models.person import Person
@@ -93,32 +94,23 @@ class ImageApiTestCase(TestCase):
 
 
     def tearDown(self):
-
-        try:
-            self.image.delete_local_image_files()
-            self.image.delete_remote_image_files()
-        except:
-            pass
-
-
-        try:
-            self.image2.delete_local_image_files()
-            self.image2.delete_remote_image_files()
-        except:
-            pass
+        self.image.delete_local_image_files()
+        threading.Thread(target=self.image.delete_remote_image_files).start()
+        self.image2.delete_local_image_files()
+        threading.Thread(target=self.image2.delete_remote_image_files).start()
 
         # Delete any updates
         try:
             self.image = Image.objects.get(id=self.image.id)
             self.image.delete_local_image_files()
-            self.image.delete_remote_image_files()
+            threading.Thread(target=self.image.delete_remote_image_files).start()
         except:
             pass
 
         try:
             self.image2 = Image.objects.get(id=self.image2.id)
             self.image2.delete_local_image_files()
-            self.image2.delete_remote_image_files()
+            threading.Thread(target=self.image2.delete_remote_image_files).start()
         except:
             pass
 

@@ -63,12 +63,8 @@ class ProfilePhotoProcessTest(TestCase): # pragma: no cover
 
 
     def tearDown(self):
-
-        try:
-            self.image.delete_local_image_files()
-            threading.Thread(target=self.image.delete_remote_image_files).start()
-        except:
-            pass
+        self.image.delete_local_image_files()
+        threading.Thread(target=self.image.delete_remote_image_files).start()
 
         try:
             os.remove(self.test_image_destination)
@@ -80,11 +76,9 @@ class ProfilePhotoProcessTest(TestCase): # pragma: no cover
         except:
             pass
 
-        try:
-            self.person.remove_local_images()
-            threading.Thread(target=self.person.remove_remote_images).start()
-        except:
-            pass
+        self.person.remove_local_images()
+        threading.Thread(target=self.person.remove_remote_images).start()
+
 
 
     def test_profile_photo_process(self):

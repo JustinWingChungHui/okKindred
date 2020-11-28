@@ -53,12 +53,8 @@ class TrainTestCase(TestCase): # pragma: no cover
 
 
     def tearDown(self):
-
-        try:
-            self.image.delete_local_image_files()
-            threading.Thread(target=self.image.delete_remote_image_files).start()
-        except:
-            pass
+        self.image.delete_local_image_files()
+        threading.Thread(target=self.image.delete_remote_image_files).start()
 
         try:
             os.remove(self.test_image_destination)

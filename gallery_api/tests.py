@@ -157,8 +157,6 @@ class GalleryApiTestCase(TestCase):
 
 
     def test_partial_update(self):
-        shutil.copy2(self.test_image, self.test_image_destination)
-
         image = Image(gallery=self.gallery, family=self.family, original_image=''.join(['galleries/', str(self.family.id), '/', str(self.gallery.id), '/test_image.jpg']))
         image.save()
 
@@ -182,6 +180,7 @@ class GalleryApiTestCase(TestCase):
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual('new title', gallery.title)
+        # check family has not switched
         self.assertEqual(self.family.id, gallery.family_id)
         self.assertTrue(b'new title' in response.content)
         self.assertTrue(b'new description' in response.content)
@@ -195,8 +194,6 @@ class GalleryApiTestCase(TestCase):
 
 
     def test_partial_update_remove_thumbnail(self):
-
-        shutil.copy2(self.test_image, self.test_image_destination)
         image = Image(gallery=self.gallery, family=self.family, original_image=''.join(['galleries/', str(self.family.id), '/', str(self.gallery.id), '/test_image.jpg']))
         image.save()
 

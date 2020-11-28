@@ -13,6 +13,7 @@ from suggested_image_tagging.models import SuggestedTag
 import json
 import os
 import shutil
+import threading
 
 @override_settings(SECURE_SSL_REDIRECT=False,
                     MEDIA_ROOT=settings.MEDIA_ROOT_TEST)
@@ -58,6 +59,20 @@ class SuggestedTagTestCase(TestCase): # pragma: no cover
 
         self.suggested_tag = SuggestedTag.objects.create(image_id=self.image.id, x1=0.1001, y1=0.2, x2=0.3, y2=0.4)
 
+
+    def tearDown(self):
+        self.image.delete_local_image_files()
+        threading.Thread(target=self.image.delete_remote_image_files).start()
+
+        self.image2.delete_local_image_files()
+        threading.Thread(target=self.image2.delete_remote_image_files).start()
+
+        try:
+            os.remove(self.test_image_destination)
+        except:
+            pass
+
+
     def test_convert_to_tag(self):
         '''
         Tests that we can rotate a tag correctly
@@ -67,10 +82,6 @@ class SuggestedTagTestCase(TestCase): # pragma: no cover
         self.assertTrue(new_tag.id > 0)
         self.assertEqual(self.person.id, new_tag.person_id)
         self.assertEqual(0.1001, new_tag.x1)
-
-        #Clear up
-        self.image.delete_local_image_files()
-        self.image.delete_remote_image_files()
 
 
     def test_list_suggested_tags(self):

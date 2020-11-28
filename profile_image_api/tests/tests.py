@@ -69,7 +69,7 @@ class ProfileImageApiTestCase(TestCase):
         json.loads(response.content)
 
         person.remove_local_images()
-        person.remove_remote_images();
+        person.remove_remote_images()
 
 
     def test_image_upload_without_authentication(self):
