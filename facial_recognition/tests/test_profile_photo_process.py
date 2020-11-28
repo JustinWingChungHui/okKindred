@@ -11,6 +11,7 @@ from message_queue.models import Queue, Message
 import os
 import pickle
 import shutil
+import threading
 
 @override_settings(SSLIFY_DISABLE=True,
             MEDIA_ROOT=settings.MEDIA_ROOT_TEST,
@@ -42,7 +43,7 @@ class ProfilePhotoProcessTest(TestCase): # pragma: no cover
 
         self.image = Image(gallery=self.gallery, family=self.family,
                             original_image=''.join(['galleries/', str(self.family.id), '/', str(self.gallery.id), '/test_image.jpg']))
-        self.image.save();
+        self.image.save()
         self.image.upload_files_to_s3()
 
         self.person = Person(name='Wallace', gender='M', email='wallace@creaturecomforts.com', family_id=self.family.id, language='en')
@@ -65,7 +66,7 @@ class ProfilePhotoProcessTest(TestCase): # pragma: no cover
 
         try:
             self.image.delete_local_image_files()
-            self.image.delete_remote_image_files()
+            threading.Thread(target=self.image.delete_remote_image_files).start()
         except:
             pass
 
@@ -79,6 +80,11 @@ class ProfilePhotoProcessTest(TestCase): # pragma: no cover
         except:
             pass
 
+        try:
+            self.person.remove_local_images()
+            threading.Thread(target=self.person.remove_remote_images).start()
+        except:
+            pass
 
 
     def test_profile_photo_process(self):
@@ -105,12 +111,8 @@ class ProfilePhotoProcessTest(TestCase): # pragma: no cover
         self.assertEqual(1, len(X))
         self.assertEqual(False, message.error)
 
-        self.person.remove_local_images()
-        self.person.remove_remote_images();
 
-        #Clear up
-        self.image.delete_local_image_files()
-        self.image.delete_remote_image_files()
+
 
 
 

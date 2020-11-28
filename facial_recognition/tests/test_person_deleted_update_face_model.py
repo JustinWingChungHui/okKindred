@@ -14,6 +14,8 @@ import json
 import os
 import pickle
 import shutil
+from common.utils import print_current_time
+import threading
 
 @override_settings(SSLIFY_DISABLE=True,
             MEDIA_ROOT=settings.MEDIA_ROOT_TEST,
@@ -45,7 +47,7 @@ class PersonDeletedUpdateFaceModelTest(TestCase): # pragma: no cover
 
         self.image = Image(gallery=self.gallery, family=self.family,
                             original_image=''.join(['galleries/', str(self.family.id), '/', str(self.gallery.id), '/test_image.jpg']))
-        self.image.save();
+        self.image.save()
         self.image.upload_files_to_s3()
 
         self.person = Person(name='Wallace', gender='M', email='wallace@creaturecomforts.com', family_id=self.family.id, language='en')
@@ -61,10 +63,9 @@ class PersonDeletedUpdateFaceModelTest(TestCase): # pragma: no cover
         # Copy to test area
         shutil.copy2(self.test_image2, self.test_image2_destination)
 
-
         self.image2 = Image(gallery=self.gallery, family=self.family,
                         original_image=''.join(['galleries/', str(self.family.id), '/', str(self.gallery.id), '/test_image_woman_and_baby.jpg']))
-        self.image2.save();
+        self.image2.save()
         self.image2.upload_files_to_s3()
 
         self.person2 = Person(name='Gromit', gender='M', email='gomit@creaturecomforts.com', family_id=self.family.id, language='en')
@@ -77,17 +78,18 @@ class PersonDeletedUpdateFaceModelTest(TestCase): # pragma: no cover
         process_family(self.family.id)
 
 
-    def tearDown(self):
 
+    def tearDown(self):
         try:
+            
             self.image.delete_local_image_files()
-            self.image.delete_remote_image_files()
+            threading.Thread(target=self.image.delete_remote_image_files).start()
         except:
             pass
 
         try:
             self.image2.delete_local_image_files()
-            self.image2.delete_remote_image_files()
+            threading.Thread(target=self.image2.delete_remote_image_files).start()
         except:
             pass
 
@@ -116,7 +118,9 @@ class PersonDeletedUpdateFaceModelTest(TestCase): # pragma: no cover
         self.assertEqual(1, len(X))
 
 
+
     def test_person_deleted_update_face_model(self):
+
 
         person_deleted_update_face_model_id = Queue.objects.get(name='person_deleted_update_face_model').id
 
@@ -135,5 +139,6 @@ class PersonDeletedUpdateFaceModelTest(TestCase): # pragma: no cover
         X = pickle.loads(face_model.fit_data_faces)
 
         self.assertEqual(1, len(X))
+
 
 

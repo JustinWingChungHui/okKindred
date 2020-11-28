@@ -1,4 +1,5 @@
 from django.db import connection
+from datetime import datetime
 import random
 import hashlib
 
@@ -51,3 +52,13 @@ def floatTryParse(value):
         return float(value), True
     except:
         return value, False
+
+
+def print_current_time(suffix):
+    now = datetime.now()
+
+    current_time = now.strftime("%H:%M:%S")
+    if suffix:
+        print("{0} {1}".format(suffix, current_time))
+    else:
+        print(current_time)
