@@ -1,6 +1,6 @@
 from django.shortcuts import get_object_or_404
-from django.http import HttpResponse
 from rest_framework import viewsets
+from rest_framework.exceptions import ParseError
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 
@@ -105,7 +105,8 @@ class GalleryView(viewsets.GenericViewSet):
         description = request.data.get('description')
 
         if not title:
-            return HttpResponse(status=400, content="Must have title")
+            raise ParseError('Must have title')
+
 
         gallery = Gallery.objects.create(family_id=family_id, title=title, description=description)
         serializer = GallerySerializer(gallery)

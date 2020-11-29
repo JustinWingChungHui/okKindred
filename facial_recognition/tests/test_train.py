@@ -11,9 +11,12 @@ from facial_recognition.file_downloader import clear_directory
 
 import os
 import shutil
+import threading
 
 @override_settings(SSLIFY_DISABLE=True,
             MEDIA_ROOT=settings.MEDIA_ROOT_TEST,
+            MEDIA_URL=settings.MEDIA_URL_TEST,
+            AWS_STORAGE_BUCKET_NAME=settings.AWS_STORAGE_BUCKET_NAME_TEST, 
             FACE_RECOG_TRAIN_TEMP_DIR = settings.FACE_RECOG_TRAIN_TEST_DIR)
 class TrainTestCase(TestCase): # pragma: no cover
 
@@ -41,14 +44,25 @@ class TrainTestCase(TestCase): # pragma: no cover
 
         self.image = Image(gallery=self.gallery, family=self.family,
                             original_image=''.join(['galleries/', str(self.family.id), '/', str(self.gallery.id), '/test_image.jpg']))
-        self.image.save();
+        self.image.save()
         self.image.upload_files_to_s3()
 
         self.person = Person(name='Wallace', gender='M', email='wallace@creaturecomforts.com', family_id=self.family.id, language='en')
         self.person.save()
 
-        self.tag = Tag.objects.create(image_id=self.image.id, x1=0.279, y1=0.188, x2=0.536, y2=0.381,
+        self.tag = Tag.objects.create(image_id=self.image.id, x1=0.2875, y1=0.1951, x2=0.5575, y2=0.3959,
                                                             person_id=self.person.id, face_detected= True)
+
+
+    def tearDown(self):
+        self.image.delete_local_image_files()
+        threading.Thread(target=self.image.delete_remote_image_files).start()
+
+        try:
+            os.remove(self.test_image_destination)
+        except:
+            pass
+
 
 
     def test_get_file_for_tag(self):
@@ -57,10 +71,6 @@ class TrainTestCase(TestCase): # pragma: no cover
         file = get_file_for_tag(self.tag, self.image, dir_name)
 
         self.assertIsNotNone(file)
-
-        #Clear up
-        self.image.delete_local_image_files()
-        self.image.delete_remote_image_files()
 
 
     def test_process_file(self):
@@ -74,16 +84,12 @@ class TrainTestCase(TestCase): # pragma: no cover
         self.assertEqual(1, len(X))
         self.assertEqual(1, len(y))
 
-        #Clear up
-        self.image.delete_local_image_files()
-        self.image.delete_remote_image_files()
-
 
     def test_process_person(self):
         path = settings.MEDIA_ROOT + 'profile_photos/large_test_image1.jpg'
         shutil.copy2(self.test_image, path)
 
-        self.person.set_profile_image_crop_rotate_resize(path, 1, 1, 1200, 1700, 0, True)
+        self.person.set_profile_image_crop_rotate_resize(path, 1, 1, 380, 380, 0, True)
         self.person.save()
 
         X = []
@@ -92,14 +98,11 @@ class TrainTestCase(TestCase): # pragma: no cover
         process_person(self.person, X, y)
 
         self.person.remove_local_images()
-        self.person.remove_remote_images();
+        self.person.remove_remote_images()
 
         self.assertEqual(2, len(X))
         self.assertEqual(2, len(y))
 
-        #Clear up
-        self.image.delete_local_image_files()
-        self.image.delete_remote_image_files()
 
 
     def test_process_family(self):
@@ -112,13 +115,10 @@ class TrainTestCase(TestCase): # pragma: no cover
         process_family(self.family.id)
 
         self.person.remove_local_images()
-        self.person.remove_remote_images();
+        self.person.remove_remote_images()
 
         face_model = FaceModel.objects.get(family_id=self.family.id)
 
         self.assertTrue(self.person.id in face_model.fit_data_person_ids)
         self.assertIsNotNone(face_model.trained_knn_model)
 
-        #Clear up
-        self.image.delete_local_image_files()
-        self.image.delete_remote_image_files()

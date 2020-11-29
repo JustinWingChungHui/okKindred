@@ -33,6 +33,8 @@ class FaceModel(models.Model):
 
         # Creating and training the KNN classifier
         knn_clf = neighbors.KNeighborsClassifier(n_neighbors=n_neighbors, algorithm='ball_tree', weights='distance')
+
+        
         knn_clf.fit(X, y)
 
         # 'Pickling and saving to db

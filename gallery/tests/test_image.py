@@ -7,9 +7,13 @@ from django.utils.timezone import utc
 import os
 import shutil
 import PIL
+import threading
 from datetime import datetime
 
-@override_settings(SECURE_SSL_REDIRECT=False, MEDIA_ROOT=settings.MEDIA_ROOT_TEST)
+@override_settings(SECURE_SSL_REDIRECT=False, 
+                MEDIA_ROOT=settings.MEDIA_ROOT_TEST,
+                MEDIA_URL=settings.MEDIA_URL_TEST,
+                AWS_STORAGE_BUCKET_NAME=settings.AWS_STORAGE_BUCKET_NAME_TEST,)
 class ImageTestCase(TestCase): # pragma: no cover
     '''
     Tests for the image class
@@ -32,6 +36,14 @@ class ImageTestCase(TestCase): # pragma: no cover
         if not os.path.exists(directory):
             os.makedirs(directory)
 
+
+    def tearDown(self):
+        try:
+            os.remove(self.test_image_destination)
+        except:
+            pass
+
+
     def test_create_thumbnail(self):
         '''
         Tests that we can create a thumbnail
@@ -47,7 +59,7 @@ class ImageTestCase(TestCase): # pragma: no cover
 
         #Clear up mess afterwards
         os.remove(self.test_image_destination)
-        os.remove(settings.MEDIA_ROOT +thumbnail)
+        os.remove(settings.MEDIA_ROOT + thumbnail)
 
 
     def test_make_thumbnails_and_delete(self):
@@ -65,6 +77,7 @@ class ImageTestCase(TestCase): # pragma: no cover
 
         #Clear up mess afterwards
         image.delete_local_image_files()
+        threading.Thread(target=image.delete_remote_image_files).start()
 
 
     def test_get_exif_data(self):
@@ -85,6 +98,8 @@ class ImageTestCase(TestCase): # pragma: no cover
 
         #Clear up mess afterwards
         os.remove(exif_test_image_destination)
+        image.delete_local_image_files()
+        threading.Thread(target=image.delete_remote_image_files).start()
 
     def test_get_exif_data2(self):
         '''
@@ -104,6 +119,8 @@ class ImageTestCase(TestCase): # pragma: no cover
 
         #Clear up mess afterwards
         os.remove(exif_test_image_destination)
+        image.delete_local_image_files()
+        threading.Thread(target=image.delete_remote_image_files).start()
 
     def test_save_and_rotate_image(self):
         '''
@@ -114,11 +131,11 @@ class ImageTestCase(TestCase): # pragma: no cover
         shutil.copy2(self.test_image, self.test_image_destination)
 
         image = Image(gallery=self.gallery, family=self.family, original_image=''.join(['galleries/', str(self.family.id), '/', str(self.gallery.id), '/test_image.jpg']))
-        image.save();
+        image.save()
         image.upload_files_to_s3()
 
         image.rotate(90)
 
         #Clear up
         image.delete_local_image_files()
-        image.delete_remote_image_files()
+        threading.Thread(target=image.delete_remote_image_files).start()

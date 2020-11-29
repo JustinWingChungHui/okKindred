@@ -7,6 +7,7 @@ from rest_framework.test import APIClient
 from custom_user.models import User
 from family_tree.models import Person, Family
 
+import json
 import os
 
 
@@ -15,6 +16,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 @override_settings(
     SECURE_SSL_REDIRECT = False,
     MEDIA_ROOT=settings.MEDIA_ROOT_TEST,
+    MEDIA_URL=settings.MEDIA_URL_TEST,
+    AWS_STORAGE_BUCKET_NAME=settings.AWS_STORAGE_BUCKET_NAME_TEST,
     AXES_BEHIND_REVERSE_PROXY = False)
 class ProfileImageApiTestCase(TestCase):
 
@@ -65,8 +68,10 @@ class ProfileImageApiTestCase(TestCase):
 
         # Clear up remote images
         person =  Person.objects.get(id=self.person.id)
+        json.loads(response.content)
+
         person.remove_local_images()
-        person.remove_remote_images();
+        person.remove_remote_images()
 
 
     def test_image_upload_without_authentication(self):
@@ -87,6 +92,7 @@ class ProfileImageApiTestCase(TestCase):
             response = client.put(url, data)
 
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+        json.loads(response.content)
 
 
     def test_image_upload_other_family(self):
@@ -111,6 +117,7 @@ class ProfileImageApiTestCase(TestCase):
             response = client.put(url, data)
 
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+        json.loads(response.content)
 
 
     def test_image_upload_invalid_parameter(self):
@@ -133,6 +140,7 @@ class ProfileImageApiTestCase(TestCase):
             response = client.put(url, data)
 
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        json.loads(response.content)
 
 
 
@@ -158,3 +166,5 @@ class ProfileImageApiTestCase(TestCase):
             response = client.put(url, data)
 
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        json.loads(response.content)
+

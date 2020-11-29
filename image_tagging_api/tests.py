@@ -9,6 +9,7 @@ from custom_user.models import User
 from gallery.models import Gallery, Image, Tag
 from family_tree.models import Family, Person
 
+import json
 import os
 import shutil
 
@@ -16,7 +17,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 @override_settings(SECURE_SSL_REDIRECT=False,
                     MEDIA_ROOT=settings.MEDIA_ROOT_TEST,
-                    AXES_BEHIND_REVERSE_PROXY=False)
+                    MEDIA_URL=settings.MEDIA_URL_TEST,
+                    AXES_BEHIND_REVERSE_PROXY=False,
+                    AWS_STORAGE_BUCKET_NAME=settings.AWS_STORAGE_BUCKET_NAME_TEST)
 class TestTagViews(TestCase): # pragma: no cover
     '''
     Test class for the gallery views
@@ -75,6 +78,19 @@ class TestTagViews(TestCase): # pragma: no cover
 
 
 
+    def tearDown(self):
+        try:
+            self.image.delete_local_image_files()
+            self.image.delete_remote_image_files()
+        except:
+            pass
+
+        try:
+            os.remove(self.test_image_destination)
+        except:
+            pass
+
+
     def test_list(self):
 
         client = APIClient(HTTP_X_REAL_IP='127.0.0.1')
@@ -88,6 +104,7 @@ class TestTagViews(TestCase): # pragma: no cover
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertTrue(b'"person_id":1' in response.content)
         self.assertTrue(b'"person_id":2' in response.content)
+        json.loads(response.content)
 
 
     def test_list_requires_authentication(self):
@@ -96,6 +113,7 @@ class TestTagViews(TestCase): # pragma: no cover
         response = client.get(url, format='json')
 
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+        json.loads(response.content)
 
 
     def test_list_other_family(self):
@@ -109,6 +127,7 @@ class TestTagViews(TestCase): # pragma: no cover
 
         self.assertFalse(b'"person_id":1' in response.content)
         self.assertFalse(b'"person_id":2' in response.content)
+        json.loads(response.content)
 
 
     def test_list_filter_by_person(self):
@@ -124,6 +143,7 @@ class TestTagViews(TestCase): # pragma: no cover
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertTrue(b'"person_id":1' in response.content)
         self.assertFalse(b'"person_id":2' in response.content)
+        json.loads(response.content)
 
 
     def test_destroy(self):
@@ -140,6 +160,7 @@ class TestTagViews(TestCase): # pragma: no cover
 
         tags = Tag.objects.filter(id=self.tag1.id)
         self.assertEqual(0, tags.count())
+        json.loads(response.content)
 
 
 
@@ -149,6 +170,7 @@ class TestTagViews(TestCase): # pragma: no cover
         response = client.delete(url, format='json')
 
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+        json.loads(response.content)
 
 
     def test_destroy_other_family(self):
@@ -161,6 +183,8 @@ class TestTagViews(TestCase): # pragma: no cover
         response = client.delete(url, format='json')
 
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+        json.loads(response.content)
+
 
     def test_create(self):
         client = APIClient(HTTP_X_REAL_IP='127.0.0.1')
@@ -182,6 +206,7 @@ class TestTagViews(TestCase): # pragma: no cover
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(0.1, new_tag.x1)
+        json.loads(response.content)
 
 
     def test_create_requires_authentication(self):
@@ -199,6 +224,7 @@ class TestTagViews(TestCase): # pragma: no cover
         response = client.post(url, data, format='json')
 
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+        json.loads(response.content)
 
 
     def test_create_person_other_family(self):
@@ -218,6 +244,8 @@ class TestTagViews(TestCase): # pragma: no cover
         response = client.post(url, data, format='json')
 
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+        json.loads(response.content)
+
 
     def test_create_image_other_family(self):
 
@@ -237,6 +265,8 @@ class TestTagViews(TestCase): # pragma: no cover
         response = client.post(url, data, format='json')
 
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+        json.loads(response.content)
+
 
 
     def test_create_invalid_x1(self):
@@ -256,3 +286,5 @@ class TestTagViews(TestCase): # pragma: no cover
         response = client.post(url, data, format='json')
 
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        json.loads(response.content)
+

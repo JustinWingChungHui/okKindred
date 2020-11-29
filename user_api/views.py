@@ -1,6 +1,7 @@
 from django_rest_passwordreset.signals import post_password_reset
 
 from rest_framework import generics, status
+from rest_framework.exceptions import PermissionDenied, ParseError
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
@@ -47,14 +48,15 @@ def password_change(request):
     new_password = request.data.get('new_password')
 
     if (not old_password or not new_password):
-        return Response("Missing parameters", status=status.HTTP_400_BAD_REQUEST)
+        raise ParseError('Missing parameters')
+
 
     if(not request.user.check_password(old_password)):
-        return Response("Incorrect previous password", status=status.HTTP_401_UNAUTHORIZED)
+        raise PermissionDenied('Incorrect previous password')
 
     #Invalid password
     if len(new_password) < 8:
-        return Response("Password too short", status=status.HTTP_400_BAD_REQUEST)
+        raise ParseError('Password too short')
 
     request.user.set_password(new_password)
     request.user.save()
@@ -76,7 +78,7 @@ def delete_account(request):
     password = request.data.get('password')
 
     if(not password or not request.user.check_password(password)):
-        return Response("Incorrect previous password", status=status.HTTP_401_UNAUTHORIZED)
+        raise PermissionDenied('Incorrect previous password')
 
     user_count = User.objects.filter(family_id = request.user.family_id).count()
 
@@ -105,6 +107,6 @@ def delete_account(request):
         #Delete the user
         request.user.delete()
 
-    return Response("OK")
+    return Response(status=status.HTTP_204_NO_CONTENT)
 
 

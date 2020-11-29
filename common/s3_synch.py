@@ -8,9 +8,9 @@ def upload_file_to_s3(filename_and_path):
     Uploads a file to S3
     '''
     file = str(filename_and_path)
-
-    client = boto3.client('s3')
-    client.upload_file(settings.MEDIA_ROOT + file, settings.AWS_STORAGE_BUCKET_NAME, file)
+    if file:
+        client = boto3.client('s3')
+        client.upload_file(settings.MEDIA_ROOT + file, settings.AWS_STORAGE_BUCKET_NAME, file)
 
 
 def remove_file_from_s3(filename_and_path):
@@ -18,9 +18,13 @@ def remove_file_from_s3(filename_and_path):
     Removes file from S3
     '''
     file = str(filename_and_path)
+    if file:
 
-    client = boto3.client('s3')
-    client.delete_object(Bucket=settings.AWS_STORAGE_BUCKET_NAME, Key=str(file))
+        try:
+            client = boto3.client('s3')
+            client.delete_object(Bucket=settings.AWS_STORAGE_BUCKET_NAME, Key=str(file))
+        except:
+            pass
 
 
 def get_file_from_s3(filename_and_path):

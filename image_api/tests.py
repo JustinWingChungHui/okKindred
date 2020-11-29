@@ -6,6 +6,7 @@ from rest_framework.test import APIClient
 import json
 import os
 import shutil
+import threading
 
 from family_tree.models.family import Family
 from family_tree.models.person import Person
@@ -16,6 +17,8 @@ from gallery.models import Image, Gallery, Tag
 @override_settings(
     SECURE_SSL_REDIRECT=False,
     MEDIA_ROOT=settings.MEDIA_ROOT_TEST,
+    MEDIA_URL=settings.MEDIA_URL_TEST,
+    AWS_STORAGE_BUCKET_NAME=settings.AWS_STORAGE_BUCKET_NAME_TEST,
     AXES_BEHIND_REVERSE_PROXY=False)
 class ImageApiTestCase(TestCase):
     '''
@@ -90,10 +93,45 @@ class ImageApiTestCase(TestCase):
         super(ImageApiTestCase, self).setUp()
 
 
+
+    def tearDown(self):
+        self.image.delete_local_image_files()
+        threading.Thread(target=self.image.delete_remote_image_files).start()
+        self.image2.delete_local_image_files()
+        threading.Thread(target=self.image2.delete_remote_image_files).start()
+
+        # Delete any updates
+        try:
+            self.image = Image.objects.get(id=self.image.id)
+            self.image.delete_local_image_files()
+            threading.Thread(target=self.image.delete_remote_image_files).start()
+        except:
+            pass
+
+        try:
+            self.image2 = Image.objects.get(id=self.image2.id)
+            self.image2.delete_local_image_files()
+            threading.Thread(target=self.image2.delete_remote_image_files).start()
+        except:
+            pass
+
+        try:
+            os.remove(self.test_image_destination)
+        except:
+            pass
+
+        try:
+            os.remove(self.test_image2_destination)
+        except:
+            pass
+
+
     def test_list_requires_authentication(self):
         client = APIClient(HTTP_X_REAL_IP='127.0.0.1')
         response = client.get('/api/image/?page=1', format='json')
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+        json.loads(response.content)
+
 
 
     def test_list_page1(self):
@@ -114,6 +152,8 @@ class ImageApiTestCase(TestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertTrue(str(self.image.thumbnail).encode() in response.content)
         self.assertTrue(str(self.image2.thumbnail).encode() in response.content)
+        json.loads(response.content)
+
 
 
     def test_list_page1_other_family(self):
@@ -134,6 +174,9 @@ class ImageApiTestCase(TestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertFalse(str(self.image.thumbnail).encode() in response.content)
         self.assertFalse(str(self.image2.thumbnail).encode() in response.content)
+        json.loads(response.content)
+
+
 
 
     def test_list_by_gallery(self):
@@ -144,6 +187,7 @@ class ImageApiTestCase(TestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertFalse(str(self.image.thumbnail).encode() in response.content)
         self.assertTrue(str(self.image2.thumbnail).encode() in response.content)
+        json.loads(response.content)
 
 
     def test_list_by_tagged_person(self):
@@ -154,6 +198,8 @@ class ImageApiTestCase(TestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertTrue(str(self.image.thumbnail).encode() in response.content)
         self.assertFalse(str(self.image2.thumbnail).encode() in response.content)
+        json.loads(response.content)
+
 
 
     def test_retrieve_requires_authentication(self):
@@ -161,6 +207,10 @@ class ImageApiTestCase(TestCase):
         url = '/api/image/{0}/'.format(self.image.id)
         response = client.get(url, format='json')
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+        json.loads(response.content)
+
+        os.remove(self.test_image_destination)
+        os.remove(self.test_image2_destination)
 
 
     def test_retrieve(self):
@@ -170,6 +220,7 @@ class ImageApiTestCase(TestCase):
         response = client.get(url, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertTrue(str(self.image.thumbnail).encode() in response.content)
+        json.loads(response.content)
 
 
     def test_retrieve_other_family(self):
@@ -178,6 +229,7 @@ class ImageApiTestCase(TestCase):
         url = '/api/image/{0}/'.format(self.image.id)
         response = client.get(url, format='json')
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+        json.loads(response.content)
 
 
     def test_create(self):
@@ -207,6 +259,7 @@ class ImageApiTestCase(TestCase):
         self.assertEqual(200, response.status_code)
         self.assertEqual('test_image', image.title)
         self.assertTrue('Phil Collins', image.uploaded_by.name)
+        json.loads(response.content)
 
 
     def test_create_requires_authentication(self):
@@ -221,6 +274,7 @@ class ImageApiTestCase(TestCase):
 
             response = client.post(url, data)
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+        json.loads(response.content)
 
 
     def test_create_other_family(self):
@@ -236,6 +290,7 @@ class ImageApiTestCase(TestCase):
 
             response = client.post(url, data)
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+        json.loads(response.content)
 
 
     def test_destroy(self):
@@ -247,6 +302,7 @@ class ImageApiTestCase(TestCase):
 
         count = Image.objects.filter(id=self.image.id).count()
         self.assertEqual(0, count)
+        json.loads(response.content)
 
 
     def test_destroy_requires_authentication(self):
@@ -254,6 +310,7 @@ class ImageApiTestCase(TestCase):
         url = '/api/image/{0}/'.format(self.image.id)
         response = client.delete(url, format='json')
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+        json.loads(response.content)
 
 
     def test_destroy_other_family(self):
@@ -262,6 +319,7 @@ class ImageApiTestCase(TestCase):
         url = '/api/image/{0}/'.format(self.image.id)
         response = client.delete(url, format='json')
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+        json.loads(response.content)
 
 
     def test_partial_update(self):
@@ -285,10 +343,8 @@ class ImageApiTestCase(TestCase):
         self.assertTrue(b'new description' in response.content)
         self.assertTrue(b'10' in response.content)
         self.assertTrue(b'20' in response.content)
+        json.loads(response.content)
 
-        self.image = Image.objects.get(id=self.image.id)
-        self.image.delete_local_image_files()
-        self.image.delete_remote_image_files()
 
 
     def test_partial_update_requires_authentication(self):
@@ -305,6 +361,7 @@ class ImageApiTestCase(TestCase):
 
         response = client.patch(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+        json.loads(response.content)
 
 
     def test_partial_update_other_family(self):
@@ -322,6 +379,7 @@ class ImageApiTestCase(TestCase):
 
         response = client.patch(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+        json.loads(response.content)
 
 
     def test_partial_update_invalid_title(self):
@@ -341,10 +399,9 @@ class ImageApiTestCase(TestCase):
 
         response = client.patch(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        json.loads(response.content)
 
-        self.image = Image.objects.get(id=self.image.id)
-        self.image.delete_local_image_files()
-        self.image.delete_remote_image_files()
+
 
 
     def test_partial_update_optional_data_missing(self):
@@ -366,7 +423,6 @@ class ImageApiTestCase(TestCase):
         self.assertTrue(b'new description' in response.content)
         self.assertTrue(b'"longitude":0.0' in response.content)
         self.assertTrue(b'"latitude":0.0' in response.content)
+        json.loads(response.content)
 
-        self.image = Image.objects.get(id=self.image.id)
-        self.image.delete_local_image_files()
-        self.image.delete_remote_image_files()
+

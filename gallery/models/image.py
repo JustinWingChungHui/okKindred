@@ -11,6 +11,7 @@ from gallery.models import Gallery
 
 import PIL
 import os
+import threading
 
 
 def upload_to(instance, filename):
@@ -191,7 +192,15 @@ class Image(models.Model):
         '''
         try:
             os.remove(self._get_absolute_image_path(self.original_image))
+        except:
+            pass
+
+        try:
             os.remove(self._get_absolute_image_path(self.thumbnail))
+        except:
+            pass
+
+        try:
             os.remove(self._get_absolute_image_path(self.large_thumbnail))
         except:
             pass
@@ -202,21 +211,36 @@ class Image(models.Model):
         Deletes the image and thumbnails associated with this
         object on s3
         '''
-        try:
-            remove_file_from_s3(self.original_image)
-            remove_file_from_s3(self.thumbnail)
-            remove_file_from_s3(self.large_thumbnail)
-        except:
-            pass
+
+        t1 = threading.Thread(target=remove_file_from_s3, args=(self.original_image,))
+        t2 = threading.Thread(target=remove_file_from_s3, args=(self.thumbnail,))
+        t3 = threading.Thread(target=remove_file_from_s3, args=(self.large_thumbnail,))
+
+        t1.start()
+        t2.start()
+        t3.start()
+        t1.join()
+        t2.join()
+        t3.join()
+
+
 
 
     def upload_files_to_s3(self):
         '''
         Uploads image and thumbnail files to s3
         '''
-        upload_file_to_s3(self.original_image)
-        upload_file_to_s3(self.thumbnail)
-        upload_file_to_s3(self.large_thumbnail)
+        t1 = threading.Thread(target=upload_file_to_s3, args=(self.original_image,))
+        t2 = threading.Thread(target=upload_file_to_s3, args=(self.thumbnail,))
+        t3 = threading.Thread(target=upload_file_to_s3, args=(self.large_thumbnail,))
+
+        t1.start()
+        t2.start()
+        t3.start()
+
+        t1.join()
+        t2.join()
+        t3.join()
 
 
     def rotate(self, anticlockwise_angle = 90):

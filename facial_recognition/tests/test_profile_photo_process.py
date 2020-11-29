@@ -11,9 +11,12 @@ from message_queue.models import Queue, Message
 import os
 import pickle
 import shutil
+import threading
 
 @override_settings(SSLIFY_DISABLE=True,
             MEDIA_ROOT=settings.MEDIA_ROOT_TEST,
+            MEDIA_URL=settings.MEDIA_URL_TEST,
+            AWS_STORAGE_BUCKET_NAME=settings.AWS_STORAGE_BUCKET_NAME_TEST, 
             FACE_RECOG_IMAGE_FACE_DETECT_TEMP_DIR = settings.FACE_RECOG_IMAGE_FACE_DETECT_TEST_DIR,
             FACE_RECOG_TRAIN_TEMP_DIR = settings.FACE_RECOG_TRAIN_TEST_DIR)
 class ProfilePhotoProcessTest(TestCase): # pragma: no cover
@@ -42,7 +45,7 @@ class ProfilePhotoProcessTest(TestCase): # pragma: no cover
 
         self.image = Image(gallery=self.gallery, family=self.family,
                             original_image=''.join(['galleries/', str(self.family.id), '/', str(self.gallery.id), '/test_image.jpg']))
-        self.image.save();
+        self.image.save()
         self.image.upload_files_to_s3()
 
         self.person = Person(name='Wallace', gender='M', email='wallace@creaturecomforts.com', family_id=self.family.id, language='en')
@@ -53,8 +56,7 @@ class ProfilePhotoProcessTest(TestCase): # pragma: no cover
 
         # Upload new image
         self.test_image2 = os.path.join(settings.BASE_DIR, 'facial_recognition/tests/test_image_woman_and_baby.jpg')
-        self.test_image2_image_destination  = settings.MEDIA_ROOT + 'profile_photos/test_image_woman_and_baby.jpg'
-
+        self.test_image2_destination  = settings.MEDIA_ROOT + 'profile_photos/test_image_woman_and_baby.jpg'
 
 
         # Create a trained model
@@ -62,13 +64,32 @@ class ProfilePhotoProcessTest(TestCase): # pragma: no cover
 
 
 
+    def tearDown(self):
+        self.image.delete_local_image_files()
+        threading.Thread(target=self.image.delete_remote_image_files).start()
+
+        try:
+            os.remove(self.test_image_destination)
+        except:
+            pass
+
+        try:
+            os.remove(self.test_image2_destination)
+        except:
+            pass
+
+        self.person.remove_local_images()
+        threading.Thread(target=self.person.remove_remote_images).start()
+
+
+
     def test_profile_photo_process(self):
 
         # Copy to test area
-        shutil.copy2(self.test_image2, self.test_image2_image_destination)
+        shutil.copy2(self.test_image2, self.test_image2_destination)
 
         # Add profile photo
-        self.person.set_profile_image_crop_rotate_resize(self.test_image2_image_destination, 372, 406, 878, 1378, 0, True)
+        self.person.set_profile_image_crop_rotate_resize(self.test_image2_destination, 372, 406, 878, 1378, 0, True)
         self.person.save()
 
         profile_photo_process_id = Queue.objects.get(name='profile_photo_process').id
@@ -86,12 +107,8 @@ class ProfilePhotoProcessTest(TestCase): # pragma: no cover
         self.assertEqual(1, len(X))
         self.assertEqual(False, message.error)
 
-        self.person.remove_local_images()
-        self.person.remove_remote_images();
 
-        #Clear up
-        self.image.delete_local_image_files()
-        self.image.delete_remote_image_files()
+
 
 
 

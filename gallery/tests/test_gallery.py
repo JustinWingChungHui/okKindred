@@ -9,7 +9,10 @@ import shutil
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
-@override_settings(SSLIFY_DISABLE=True, MEDIA_ROOT=settings.MEDIA_ROOT_TEST)
+@override_settings(SSLIFY_DISABLE=True,
+                    MEDIA_ROOT=settings.MEDIA_ROOT_TEST,
+                    MEDIA_URL=settings.MEDIA_URL_TEST,
+                    AWS_STORAGE_BUCKET_NAME=settings.AWS_STORAGE_BUCKET_NAME_TEST,)
 class TestGallery(TestCase): # pragma: no cover
     '''
     Test class for the gallery object
@@ -39,7 +42,7 @@ class TestGallery(TestCase): # pragma: no cover
         self.images = []
 
         for i in range(0,20):
-            self.images.append  (
+            self.images.append(
                                 Image(
                                     gallery=self.gallery,
                                     family=self.family,
@@ -53,6 +56,8 @@ class TestGallery(TestCase): # pragma: no cover
         '''
         Tests we can delete all images associated with gallery
         '''
+        for i in range(0,20):
+            self.images[i].save()
 
         self.gallery.delete_all_images()
 

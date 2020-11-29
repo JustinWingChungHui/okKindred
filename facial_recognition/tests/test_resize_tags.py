@@ -9,9 +9,12 @@ from facial_recognition.resize_tags import resize_tags
 
 import os
 import shutil
+import threading
 
 @override_settings(SSLIFY_DISABLE=True,
             MEDIA_ROOT=settings.MEDIA_ROOT_TEST,
+            MEDIA_URL=settings.MEDIA_URL_TEST,
+            AWS_STORAGE_BUCKET_NAME=settings.AWS_STORAGE_BUCKET_NAME_TEST, 
             FACE_RECOG_TRAIN_TEMP_DIR = settings.FACE_RECOG_TRAIN_TEST_DIR)
 class ResizeTagsTestCase(TestCase): # pragma: no cover
 
@@ -36,13 +39,25 @@ class ResizeTagsTestCase(TestCase): # pragma: no cover
         shutil.copy2(self.test_image, self.test_image_destination)
 
         self.image = Image(gallery=self.gallery, family=self.family, original_image=''.join(['galleries/', str(self.family.id), '/', str(self.gallery.id), '/test_image.jpg']))
-        self.image.save();
+        self.image.save()
         self.image.upload_files_to_s3()
 
         self.person = Person(name='Wallace', gender='M', email='wallace@creaturecomforts.com', family_id=self.family.id, language='en')
         self.person.save()
 
         self.tag = Tag.objects.create(image_id=self.image.id, x1=0.3, y1=0.2, x2=0.5, y2=0.4, person_id=self.person.id)
+
+
+    def tearDown(self):
+        self.image.delete_local_image_files()
+        threading.Thread(target=self.image.delete_remote_image_files).start()
+
+        try:
+            os.remove(self.test_image_destination)
+        except:
+            pass
+
+
 
 
     def test_tag_resizes(self):
@@ -55,11 +70,9 @@ class ResizeTagsTestCase(TestCase): # pragma: no cover
 
         resized_tag = Tag.objects.get(pk=self.tag.id)
 
-        self.assertTrue(abs(0.279 - resized_tag.x1) < 0.001)
-        self.assertTrue(abs(0.188 - resized_tag.y1) < 0.001)
-        self.assertTrue(abs(0.536 - resized_tag.x2) < 0.001)
-        self.assertTrue(abs(0.381 - resized_tag.y2) < 0.001)
+        self.assertTrue(abs(0.2875 - resized_tag.x1) < 0.001)
+        self.assertTrue(abs(0.1951 - resized_tag.y1) < 0.001)
+        self.assertTrue(abs(0.5575 - resized_tag.x2) < 0.001)
+        self.assertTrue(abs(0.3959 - resized_tag.y2) < 0.001)
 
-        #Clear up
-        self.image.delete_local_image_files()
-        self.image.delete_remote_image_files()
+

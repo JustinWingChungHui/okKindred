@@ -7,7 +7,10 @@ from django.test.utils import override_settings
 
 from message_queue.models import Queue, Message, create_message
 
-@override_settings(SECURE_SSL_REDIRECT=False, MEDIA_ROOT=settings.MEDIA_ROOT_TEST)
+@override_settings(SECURE_SSL_REDIRECT=False, 
+                    MEDIA_ROOT=settings.MEDIA_ROOT_TEST,
+                    MEDIA_URL=settings.MEDIA_URL_TEST,
+                    AWS_STORAGE_BUCKET_NAME=settings.AWS_STORAGE_BUCKET_NAME_TEST)
 class MessageQueueTestCase(TestCase): # pragma: no cover
     '''
     Tests for the Message Queue objects

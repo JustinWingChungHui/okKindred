@@ -1,7 +1,7 @@
 from django.conf import settings
-from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from rest_framework import viewsets
+from rest_framework.exceptions import ParseError
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 
@@ -65,7 +65,8 @@ class ImageListView(viewsets.GenericViewSet):
         gallery_id, gallery_id_valid = intTryParse(request.data.get("gallery_id"))
 
         if not gallery_id_valid:
-            return HttpResponse(status=400, content='Invalid gallery_id')
+            raise ParseError('Invalid gallery_id')
+
 
         # Check gallery is part of family
         gallery = get_object_or_404(queryset, pk=gallery_id)
@@ -75,7 +76,8 @@ class ImageListView(viewsets.GenericViewSet):
             name, ext = os.path.splitext(uploaded.name)
 
             if uploaded.size > MAX_FILE_SIZE:
-                return HttpResponse(status=400, content='File too big')
+                raise ParseError('File too big')
+
 
             filename =  create_hash(uploaded.name) +'.jpg'
             image = Image(gallery_id=gallery.id, family_id=gallery.family_id, title=name, uploaded_by=request.user)
@@ -108,7 +110,8 @@ class ImageListView(viewsets.GenericViewSet):
                 image.delete_local_image_files()
                 image.delete()
 
-            return HttpResponse(status=400, content=str(e))
+            raise ParseError(str(e))
+
 
 
     def destroy(self, request, pk=None):
@@ -133,7 +136,7 @@ class ImageListView(viewsets.GenericViewSet):
 
         title = self.request.data.get('title')
         if not title or len(title.strip()) == 0:
-            return HttpResponse(status=400, content="Invalid title")
+            raise ParseError('Invalid title')
 
 
         anticlockwise_angle, rotation_valid = intTryParse(request.data.get("anticlockwise_angle"))

@@ -12,9 +12,12 @@ from message_queue.models import Queue, Message
 import os
 import pickle
 import shutil
+import threading
 
 @override_settings(SSLIFY_DISABLE=True,
             MEDIA_ROOT=settings.MEDIA_ROOT_TEST,
+            MEDIA_URL=settings.MEDIA_URL_TEST,
+            AWS_STORAGE_BUCKET_NAME=settings.AWS_STORAGE_BUCKET_NAME_TEST, 
             FACE_RECOG_IMAGE_FACE_DETECT_TEMP_DIR = settings.FACE_RECOG_IMAGE_FACE_DETECT_TEST_DIR,
             FACE_RECOG_TRAIN_TEMP_DIR = settings.FACE_RECOG_TRAIN_TEST_DIR)
 class TagConvertedProcessTest(TestCase): # pragma: no cover
@@ -43,7 +46,7 @@ class TagConvertedProcessTest(TestCase): # pragma: no cover
 
         self.image = Image(gallery=self.gallery, family=self.family,
                             original_image=''.join(['galleries/', str(self.family.id), '/', str(self.gallery.id), '/test_image.jpg']))
-        self.image.save();
+        self.image.save()
         self.image.upload_files_to_s3()
 
         self.person = Person(name='Wallace', gender='M', email='wallace@creaturecomforts.com', family_id=self.family.id, language='en')
@@ -54,15 +57,15 @@ class TagConvertedProcessTest(TestCase): # pragma: no cover
 
         # Upload new image
         self.test_image2 = os.path.join(settings.BASE_DIR, 'facial_recognition/tests/test_image_woman_and_baby.jpg')
-        self.test_image2_image_destination = ''.join([settings.MEDIA_ROOT, 'galleries/', str(self.family.id), '/', str(self.gallery.id), '/test_image_woman_and_baby.jpg'])
+        self.test_image2_destination = ''.join([settings.MEDIA_ROOT, 'galleries/', str(self.family.id), '/', str(self.gallery.id), '/test_image_woman_and_baby.jpg'])
 
         # Copy to test area
-        shutil.copy2(self.test_image2, self.test_image2_image_destination)
+        shutil.copy2(self.test_image2, self.test_image2_destination)
 
 
         self.image2 = Image(gallery=self.gallery, family=self.family,
                         original_image=''.join(['galleries/', str(self.family.id), '/', str(self.gallery.id), '/test_image_woman_and_baby.jpg']))
-        self.image2.save();
+        self.image2.save()
         self.image2.upload_files_to_s3()
 
         self.person2 = Person(name='Gromit', gender='M', email='gomit@creaturecomforts.com', family_id=self.family.id, language='en')
@@ -71,6 +74,26 @@ class TagConvertedProcessTest(TestCase): # pragma: no cover
         # Create a trained model
         process_family(self.family.id)
 
+
+
+
+    def tearDown(self):
+
+        self.image.delete_local_image_files()
+        threading.Thread(target=self.image.delete_remote_image_files).start()
+
+        self.image2.delete_local_image_files()
+        threading.Thread(target=self.image2.delete_remote_image_files).start()
+
+        try:
+            os.remove(self.test_image_destination)
+        except:
+            pass
+
+        try:
+            os.remove(self.test_image2_destination)
+        except:
+            pass
 
 
     def test_person_deleted_update_face_model(self):

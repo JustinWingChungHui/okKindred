@@ -8,7 +8,10 @@ from family_tree.models.family import Family
 from PIL import Image
 
 
-@override_settings(SSLIFY_DISABLE=True, MEDIA_ROOT=settings.MEDIA_ROOT_TEST)
+@override_settings(SSLIFY_DISABLE=True, 
+                    AWS_STORAGE_BUCKET_NAME=settings.AWS_STORAGE_BUCKET_NAME_TEST, 
+                    MEDIA_ROOT=settings.MEDIA_ROOT_TEST,
+                    MEDIA_URL=settings.MEDIA_URL_TEST)
 class PersonImageProcessingTestCase(TestCase): # pragma: no cover
     '''
     This defines all the tests for all model logic for a Person

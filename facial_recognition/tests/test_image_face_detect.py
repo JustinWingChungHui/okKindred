@@ -11,9 +11,12 @@ from suggested_image_tagging.models import SuggestedTag
 
 import os
 import shutil
+import threading
 
 @override_settings(SSLIFY_DISABLE=True,
             MEDIA_ROOT=settings.MEDIA_ROOT_TEST,
+            MEDIA_URL=settings.MEDIA_URL_TEST,
+            AWS_STORAGE_BUCKET_NAME=settings.AWS_STORAGE_BUCKET_NAME_TEST, 
             FACE_RECOG_TRAIN_TEMP_DIR = settings.FACE_RECOG_TRAIN_TEST_DIR)
 class ImageFaceDetectTest(TestCase): # pragma: no cover
 
@@ -41,7 +44,7 @@ class ImageFaceDetectTest(TestCase): # pragma: no cover
 
         self.image = Image(gallery=self.gallery, family=self.family,
                             original_image=''.join(['galleries/', str(self.family.id), '/', str(self.gallery.id), '/test_image.jpg']))
-        self.image.save();
+        self.image.save()
         self.image.upload_files_to_s3()
 
         self.person = Person(name='Wallace', gender='M', email='wallace@creaturecomforts.com', family_id=self.family.id, language='en')
@@ -52,6 +55,19 @@ class ImageFaceDetectTest(TestCase): # pragma: no cover
 
         # Create a trained model
         process_family(self.family.id)
+
+    def tearDown(self):
+
+        try:
+            self.image.delete_local_image_files()
+            threading.Thread(target=self.image.delete_remote_image_files).start()
+        except:
+            pass
+
+        try:
+            os.remove(self.test_image_destination)
+        except:
+            pass
 
 
 
@@ -68,7 +84,7 @@ class ImageFaceDetectTest(TestCase): # pragma: no cover
 
         new_image = Image(gallery=self.gallery, family=self.family,
                         original_image=''.join(['galleries/', str(self.family.id), '/', str(self.gallery.id), '/test_image_woman_and_baby.jpg']))
-        new_image.save();
+        new_image.save()
         new_image.upload_files_to_s3()
 
         # Create a message to resize tag
@@ -81,6 +97,10 @@ class ImageFaceDetectTest(TestCase): # pragma: no cover
 
         self.assertEqual(2, suggested_tags.count())
         self.assertEqual(self.person.id, suggested_tags[0].person_id)
+
+
+        new_image.delete_local_image_files()
+        threading.Thread(target=new_image.delete_remote_image_files).start()
 
 
 

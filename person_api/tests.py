@@ -61,6 +61,7 @@ class PersonApiTestCase(TestCase):
         client = APIClient(HTTP_X_REAL_IP='127.0.0.1')
         response = client.get('/api/person/', format='json')
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+        json.loads(response.content)
 
 
     def test_list(self):
@@ -120,6 +121,7 @@ class PersonApiTestCase(TestCase):
         url = '/api/person/{0}/'.format(self.person.id)
         response = client.get(url, format='json')
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+        json.loads(response.content)
 
 
     def test_retrieve(self):
@@ -137,6 +139,7 @@ class PersonApiTestCase(TestCase):
         url = '/api/person/{0}/'.format(self.person.id)
         response = client.get(url, format='json')
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+        json.loads(response.content)
 
 
     def test_partial_update(self):
@@ -170,6 +173,7 @@ class PersonApiTestCase(TestCase):
         response = client.patch(url, data, format='json')
 
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+        json.loads(response.content)
 
 
     def test_partial_update_locked(self):
@@ -195,6 +199,7 @@ class PersonApiTestCase(TestCase):
 
 
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+        json.loads(response.content)
 
 
     def test_partial_update_field_not_whitelisted(self):
@@ -212,6 +217,7 @@ class PersonApiTestCase(TestCase):
 
         self.person = Person.objects.get(id=self.person.id)
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+        json.loads(response.content)
 
 
 
@@ -235,6 +241,7 @@ class PersonApiTestCase(TestCase):
 
         self.person = Person.objects.get(id=self.person.id)
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+        json.loads(response.content)
 
 
     def test_partial_update_locked_for_other_user(self):
@@ -257,6 +264,7 @@ class PersonApiTestCase(TestCase):
 
         self.person = Person.objects.get(id=self.person.id)
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+        json.loads(response.content)
 
 
 
@@ -299,6 +307,7 @@ class PersonApiTestCase(TestCase):
         response = client.post(url, data, format='json')
 
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+        json.loads(response.content)
 
 
     def test_create_person_other_family(self):
@@ -317,6 +326,7 @@ class PersonApiTestCase(TestCase):
         response = client.post(url, data, format='json')
 
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+        json.loads(response.content)
 
 
     def test_create_person_invalid_from_person(self):
@@ -333,6 +343,7 @@ class PersonApiTestCase(TestCase):
         response = client.post(url, data, format='json')
 
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        json.loads(response.content)
 
 
 
@@ -351,6 +362,7 @@ class PersonApiTestCase(TestCase):
         response = client.post(url, data, format='json')
 
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        json.loads(response.content)
 
 
 
@@ -369,6 +381,7 @@ class PersonApiTestCase(TestCase):
         response = client.post(url, data, format='json')
 
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        json.loads(response.content)
 
 
 
@@ -387,6 +400,8 @@ class PersonApiTestCase(TestCase):
         response = client.post(url, data, format='json')
 
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        json.loads(response.content)
+
 
 
 
@@ -394,6 +409,7 @@ class PersonApiTestCase(TestCase):
         client = APIClient(HTTP_X_REAL_IP='127.0.0.1')
         response = client.delete('/api/person/{0}/'.format(self.another_person.id), format='json')
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+        json.loads(response.content)
 
 
     def test_destroy_other_family(self):
@@ -401,14 +417,15 @@ class PersonApiTestCase(TestCase):
         client.force_authenticate(user=self.user2)
         response = client.delete('/api/person/{0}/'.format(self.another_person.id), format='json')
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+        json.loads(response.content)
 
 
     def test_destroy_existing_user(self):
         client = APIClient(HTTP_X_REAL_IP='127.0.0.1')
         client.force_authenticate(user=self.user)
         response = client.delete('/api/person/{0}/'.format(self.person.id), format='json')
-
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+        json.loads(response.content)
 
 
 
@@ -417,5 +434,6 @@ class PersonApiTestCase(TestCase):
         client.force_authenticate(user=self.user)
         response = client.delete('/api/person/{0}/'.format(self.another_person.id), format='json')
 
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
         self.assertEqual(0, Person.objects.filter(id=self.another_person.id).count())
+

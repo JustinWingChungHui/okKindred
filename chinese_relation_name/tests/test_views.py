@@ -6,7 +6,8 @@ from rest_framework.test import APIClient
 from custom_user.models import User
 from family_tree.models.person import Person
 from family_tree.models.family import Family
-from family_tree.models.relation import Relation, RAISED, PARTNERED, RAISED_BY
+from family_tree.models.relation import Relation, RAISED, PARTNERED
+import json
 
 @override_settings(SECURE_SSL_REDIRECT=False, AXES_BEHIND_REVERSE_PROXY=False)
 class ChineseRelationNameViewsTestCase(TestCase):
@@ -50,6 +51,7 @@ class ChineseRelationNameViewsTestCase(TestCase):
         response = client.get(url, format='json')
 
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+        json.loads(response.content)
 
 
     def test_get_relation_name_not_available_to_another_family(self):
