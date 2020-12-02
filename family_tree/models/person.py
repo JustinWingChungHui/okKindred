@@ -346,16 +346,11 @@ class Person(models.Model):
             t2.start()
             t3.start()
 
-            
-
             # Remove old photos from S3
             if old_photo:
-                old_photo_path = ''.join([settings.MEDIA_ROOT, str(old_photo)])
-                old_small_thumbnail_path = ''.join([settings.MEDIA_ROOT, str(old_small_thumbnail)])
-                old_large_thumbnail_path = ''.join([settings.MEDIA_ROOT, str(old_large_thumbnail)])
-                t4 = threading.Thread(target=remove_file_from_s3, args=(old_photo_path,))
-                t5 = threading.Thread(target=remove_file_from_s3, args=(old_small_thumbnail_path,))
-                t6 = threading.Thread(target=remove_file_from_s3, args=(old_large_thumbnail_path,))
+                t4 = threading.Thread(target=remove_file_from_s3, args=(old_photo,))
+                t5 = threading.Thread(target=remove_file_from_s3, args=(old_small_thumbnail,))
+                t6 = threading.Thread(target=remove_file_from_s3, args=(old_large_thumbnail,))
 
                 t4.start()
                 t5.start()
@@ -383,96 +378,6 @@ class Person(models.Model):
             # Need to check these images if testing
             if not test:
                 self.remove_local_images()
-
-
-
-
-    def set_hires_photo(self, filename):
-        '''
-        Checks file is an image and converts it to a small jpeg
-        DEPRECATED
-        '''
-        #Check this is a valid image
-        try:
-
-            path_and_filename = ''.join([settings.MEDIA_ROOT, 'profile_photos/', filename])
-            im = Image.open(path_and_filename)
-            im.verify()
-
-            #Open it again!
-            #http://stackoverflow.com/questions/12413649/python-image-library-attributeerror-nonetype-object-has-no-attribute-xxx
-            im = Image.open(path_and_filename).convert('RGB') #Convert to RGB
-            im.thumbnail((500,500), Image.ANTIALIAS) #Reasonble size to allow cropping down to 200x200
-
-            im.save(path_and_filename, "JPEG", quality=95)
-
-            self.photo = 'profile_photos/' + filename
-            upload_file_to_s3(self.photo)
-
-        except:
-            os.remove(path_and_filename)
-            raise Exception(tran("Invalid image!")) #Use tran here as it gets serialized so lazy tran fails
-
-
-
-    def crop_and_resize_photo(self, x, y, w, h):
-        '''
-        Crops the photo and produces a large and small thumbnail
-        DEPRECATED
-        '''
-
-        path_and_filename = ''.join([settings.MEDIA_ROOT, str(self.photo)])
-        im = Image.open(path_and_filename)
-
-        width, height=im.size
-
-        x = int(x)
-        y = int(y)
-        w = int(w)
-        h = int(h)
-
-        small_thumb_name = ''.join([create_hash(self.name), 'small_thumb', '.jpg'])
-        large_thumb_name = ''.join([create_hash(self.name), 'large_thumb', '.jpg'])
-
-        small_thumb = im.copy()
-        small_thumb.crop((x, y, x + w, y + h)
-            ).resize((80,80), Image.ANTIALIAS
-            ).save(''.join([settings.MEDIA_ROOT, 'profile_photos/', small_thumb_name]), "JPEG", quality=75)
-        self.small_thumbnail = 'profile_photos/' + small_thumb_name
-
-        large_thumb = im.copy()
-        large_thumb.crop((x, y, x + w, y + h)
-            ).resize((200,200), Image.ANTIALIAS
-            ).save(''.join([settings.MEDIA_ROOT, 'profile_photos/', large_thumb_name]), "JPEG", quality=75)
-
-        self.large_thumbnail = 'profile_photos/' + large_thumb_name
-
-        t1 = threading.Thread(target=upload_file_to_s3, args=(self.small_thumbnail,))
-        t2 = threading.Thread(target=upload_file_to_s3, args=(self.large_thumbnail,))
-
-        t1.start()
-        t2.start()
-
-        t1.join()
-        t2.join()
-
-
-
-    def rotate_photo(self, anticlockwise_angle):
-        '''
-        Rotates the photo
-        DEPRECATED
-        '''
-        path_and_filename = ''.join([settings.MEDIA_ROOT, str(self.photo)])
-        im = Image.open(path_and_filename)
-
-        new_image = im.rotate(anticlockwise_angle, resample=Image.BICUBIC, expand=True)
-        self.photo = ''.join(['profile_photos/', create_hash(self.name), '.jpg'])
-        new_image.save(''.join([settings.MEDIA_ROOT, str(self.photo)]))
-
-        os.remove(path_and_filename)
-        remove_file_from_s3(path_and_filename)
-
 
     def format_urls(self):
         '''
@@ -503,13 +408,10 @@ class Person(models.Model):
         '''
         Removes the remote copies of the image files
         '''
-        photo = ''.join([settings.MEDIA_ROOT, str(self.photo)])
-        small_thumb = ''.join([settings.MEDIA_ROOT, str(self.small_thumbnail)])
-        large_thumb = ''.join([settings.MEDIA_ROOT, str(self.large_thumbnail)])
 
-        t1 = threading.Thread(target=remove_file_from_s3, args=(photo,))
-        t2 = threading.Thread(target=remove_file_from_s3, args=(small_thumb,))
-        t3 = threading.Thread(target=remove_file_from_s3, args=(large_thumb,))
+        t1 = threading.Thread(target=remove_file_from_s3, args=(self.photo,))
+        t2 = threading.Thread(target=remove_file_from_s3, args=(self.small_thumbnail,))
+        t3 = threading.Thread(target=remove_file_from_s3, args=(self.large_thumbnail,))
 
         t1.start()
         t2.start()
