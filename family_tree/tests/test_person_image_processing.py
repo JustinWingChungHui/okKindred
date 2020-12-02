@@ -6,7 +6,7 @@ from django.conf import settings
 from family_tree.models.person import Person
 from family_tree.models.family import Family
 from PIL import Image
-
+import requests
 
 @override_settings(SSLIFY_DISABLE=True, 
                     AWS_STORAGE_BUCKET_NAME=settings.AWS_STORAGE_BUCKET_NAME_TEST, 
@@ -21,7 +21,6 @@ class PersonImageProcessingTestCase(TestCase): # pragma: no cover
 
         self.family = Family()
         self.family.save()
-
 
 
     def test_set_profile_image_crop_rotate_resize(self):
@@ -58,7 +57,8 @@ class PersonImageProcessingTestCase(TestCase): # pragma: no cover
         self.assertEqual(200, height)
 
         #Clear up mess afterwards
-        os.remove(path)
+        if os.path.exists(path):
+            os.remove(path)
         person.remove_local_images()
         person.remove_remote_images()
 
@@ -78,10 +78,27 @@ class PersonImageProcessingTestCase(TestCase): # pragma: no cover
         shutil.copy2(os.path.join(settings.BASE_DIR, 'family_tree/tests/large_test_image.jpg'), path)
         person = Person(name='陳港生', gender='M', family_id=self.family.id)
         person.set_profile_image_crop_rotate_resize(path, 10, 20, 200, 200, 90)
+        person.save()
+        photo = settings.MEDIA_URL + str(person.photo)
 
         shutil.copy2(os.path.join(settings.BASE_DIR, 'family_tree/tests/large_test_image.jpg'), path2)
-        person = Person(name='陳港生', gender='M', family_id=self.family.id)
         person.set_profile_image_crop_rotate_resize(path2, 10, 20, 200, 200, 90)
+        person.save()
+
+        # Check original photo has been removed
+        request = requests.get(photo)
+        self.assertNotEqual(200, request.status_code )
+
+        if os.path.exists(path):
+            os.remove(path)
+        if os.path.exists(path2):
+            os.remove(path2)
+
+        #Clear up mess afterwards
+        person.remove_local_images()
+        person.remove_remote_images()
+
+        
 
 
 
