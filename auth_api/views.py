@@ -27,8 +27,9 @@ def is_locked(request):
     try:
         accessAttempt = AccessAttempt.objects.get(ip_address = ip_address)
 
-        locked = accessAttempt.failures_since_start >= settings.AXES_LOGIN_FAILURE_LIMIT
+        locked = accessAttempt.failures_since_start >= settings.AXES_FAILURE_LIMIT
         return Response(locked)
     except:
+
         return Response(False)
 
