@@ -5,7 +5,7 @@ from django.template.loader import get_template
 from django.utils import translation
 
 from django_rest_passwordreset.signals import reset_password_token_created, post_password_reset
-
+from rest_framework.exceptions import PermissionDenied
 from axes.signals import user_locked_out
 
 @receiver(user_locked_out)
@@ -36,6 +36,8 @@ def handle_user_locked_out(sender, request, username, ip_address, **kwargs):
         'info@okkindred.com',
         ['info@okkindred.com'],
         fail_silently=False)
+
+    raise PermissionDenied("Too many failed login attempts")
 
 
 
