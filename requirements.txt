@@ -1,8 +1,7 @@
--f /usr/share/pip-wheels
 asgiref==3.3.1
 bleach==3.2.1
-boto3==1.16.40
-botocore==1.19.40
+boto3==1.16.43
+botocore==1.19.43
 certifi==2020.12.5
 chardet==4.0.0
 click==7.1.2
@@ -38,14 +37,14 @@ numpy==1.19.4
 packaging==20.8
 Pillow==8.0.1
 pipdeptree==1.0.0
-PyJWT==1.7.1
+PyJWT==2.0.0
 pyparsing==2.4.7
 python-dateutil==2.8.1
 pytz==2020.4
 PyYAML==5.3.1
 requests==2.25.1
 s3transfer==0.3.3
-scikit-learn==0.23.2
+scikit-learn==0.24.0
 scipy==1.5.4
 six==1.15.0
 sklearn==0.0
