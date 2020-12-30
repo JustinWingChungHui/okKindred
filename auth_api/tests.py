@@ -97,13 +97,6 @@ class JWTAuthTest(TestCase):
 
     def test_account_locks_out_on_multiple_invalid_login_attempts(self):
 
-        # self.signal_was_called = False
-
-        # def handler(sender, **kwargs):
-        #     self.signal_was_called = True
-
-        # user_locked_out.connect(handler)
-
         user = User.objects.create_user(email='adelegoldberg@example.com',
                                 password='smalltalk',
                                 name='Adele Goldberg',
@@ -136,15 +129,12 @@ class JWTAuthTest(TestCase):
         final_response = client.post('/api/auth/obtain_token/', correct_auth_details, format='json')
 
         self.assertNotEqual(final_response.status_code, status.HTTP_200_OK)
-        # self.assertTrue(self.signal_was_called)
 
 
         # Check ip locked
         locked_response = client.get('/api/auth/is_locked/', format='json')
 
         self.assertNotEqual(b'false', locked_response.content)
-
-        # user_locked_out.disconnect(handler)
 
 
 
