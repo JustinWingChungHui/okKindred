@@ -17,3 +17,12 @@ def handler505(request, *args, **argv):
     response = render(request, '505.html', {})
     response.status_code = 505
     return response
+
+
+def csrf_failure(request, *args, **argv):
+    '''
+    Custom csrf_failure handler
+    '''
+    response = render(request, 'csrf_failure.html', {})
+    response.status_code = 404
+    return response
