@@ -36,6 +36,7 @@ CSRF_COOKIE_HTTPONLY = True
 X_FRAME_OPTIONS = 'DENY'
 
 CSRF_FAILURE_VIEW = 'okkindred.views.csrf_failure'
+DEFAULT_AUTO_FIELD='django.db.models.AutoField'
 
 ALLOWED_HOSTS = secrets.ALLOWED_HOSTS
 INTERNAL_IPS = secrets.INTERNAL_IPS
