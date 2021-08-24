@@ -62,6 +62,7 @@ INSTALLED_APPS = (
     'corsheaders',
     'rest_framework',
     'django_rest_passwordreset',
+    'rest_framework_simplejwt.token_blacklist',
     'person_api',
     'relation_api',
     'auth_api',
