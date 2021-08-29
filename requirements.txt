@@ -1,7 +1,7 @@
 asgiref==3.4.1
-bleach==4.0.0
-boto3==1.18.27
-botocore==1.21.27
+bleach==4.1.0
+boto3==1.18.31
+botocore==1.21.31
 certifi==2021.5.30
 chardet==4.0.0
 charset-normalizer==2.0.4
