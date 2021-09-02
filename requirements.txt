@@ -1,7 +1,7 @@
 asgiref==3.4.1
 bleach==4.1.0
-boto3==1.18.31
-botocore==1.21.31
+boto3==1.18.34
+botocore==1.21.34
 certifi==2021.5.30
 chardet==4.0.0
 charset-normalizer==2.0.4
@@ -9,8 +9,8 @@ click==8.0.1
 coreapi==2.3.3
 coreschema==0.0.4
 coverage==5.5
-Django==3.2.6
-django-axes==5.21.0
+Django==3.2.7
+django-axes==5.23.0
 django-cors-headers==3.8.0
 django-debug-toolbar==3.2.2
 django-ipware==3.0.7
