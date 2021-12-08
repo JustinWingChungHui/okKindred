@@ -106,9 +106,9 @@ class SignUp(models.Model):
         language = self.language
         translation.activate(language)
 
-        subject = translation.ugettext('ok!Kindred sign up confirmation')
+        subject = translation.gettext('ok!Kindred sign up confirmation')
 
-        content = translation.ugettext( """Hi {0}
+        content = translation.gettext( """Hi {0}
                                             To confirm your sign up, please go to {1}/#/accounts/sign_up_confirmation/{2}/?language={3}
                                         """.format(self.name, settings.DOMAIN, self.confirmation_key, language))
 
