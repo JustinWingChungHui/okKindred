@@ -1,11 +1,10 @@
 from pathlib import Path
 from PIL import Image
 from django.db import models
-from django.utils.translation import ugettext_lazy as _, ugettext as tran
+from django.utils.translation import gettext_lazy as _
 from django.conf import settings
 from django.core.validators import validate_email
 
-from common.utils import create_hash
 from common.geocoder import geocode_address
 from common.s3_synch import upload_file_to_s3, remove_file_from_s3
 

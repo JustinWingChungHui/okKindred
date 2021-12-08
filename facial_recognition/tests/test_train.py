@@ -11,12 +11,11 @@ from facial_recognition.file_downloader import clear_directory
 
 import os
 import shutil
-import threading
 
 @override_settings(SSLIFY_DISABLE=True,
             MEDIA_ROOT=settings.MEDIA_ROOT_TEST,
             MEDIA_URL=settings.MEDIA_URL_TEST,
-            AWS_STORAGE_BUCKET_NAME=settings.AWS_STORAGE_BUCKET_NAME_TEST, 
+            AWS_STORAGE_BUCKET_NAME=settings.AWS_STORAGE_BUCKET_NAME_TEST,
             FACE_RECOG_TRAIN_TEMP_DIR = settings.FACE_RECOG_TRAIN_TEST_DIR)
 class TrainTestCase(TestCase): # pragma: no cover
 
@@ -56,7 +55,7 @@ class TrainTestCase(TestCase): # pragma: no cover
 
     def tearDown(self):
         self.image.delete_local_image_files()
-        threading.Thread(target=self.image.delete_remote_image_files).start()
+        self.image.delete_remote_image_files()
 
         try:
             os.remove(self.test_image_destination)

@@ -11,12 +11,11 @@ from message_queue.models import Queue, Message
 import os
 import pickle
 import shutil
-import threading
 
 @override_settings(SSLIFY_DISABLE=True,
             MEDIA_ROOT=settings.MEDIA_ROOT_TEST,
             MEDIA_URL=settings.MEDIA_URL_TEST,
-            AWS_STORAGE_BUCKET_NAME=settings.AWS_STORAGE_BUCKET_NAME_TEST, 
+            AWS_STORAGE_BUCKET_NAME=settings.AWS_STORAGE_BUCKET_NAME_TEST,
             FACE_RECOG_IMAGE_FACE_DETECT_TEMP_DIR = settings.FACE_RECOG_IMAGE_FACE_DETECT_TEST_DIR,
             FACE_RECOG_TRAIN_TEMP_DIR = settings.FACE_RECOG_TRAIN_TEST_DIR)
 class ProfilePhotoProcessTest(TestCase): # pragma: no cover
@@ -66,7 +65,7 @@ class ProfilePhotoProcessTest(TestCase): # pragma: no cover
 
     def tearDown(self):
         self.image.delete_local_image_files()
-        threading.Thread(target=self.image.delete_remote_image_files).start()
+        self.image.delete_remote_image_files()
 
         try:
             os.remove(self.test_image_destination)
@@ -79,7 +78,7 @@ class ProfilePhotoProcessTest(TestCase): # pragma: no cover
             pass
 
         self.person.remove_local_images()
-        threading.Thread(target=self.person.remove_remote_images).start()
+        self.person.remove_remote_images()
 
 
 

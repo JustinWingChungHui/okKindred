@@ -1,6 +1,6 @@
 from django.db import models
 from family_tree.models.person import Person
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 import reversion
 
 #Relation types.  Note that 'raised by' will resolve to 'raised' but inverse

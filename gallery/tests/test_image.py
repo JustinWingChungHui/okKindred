@@ -7,10 +7,9 @@ from django.utils.timezone import utc
 import os
 import shutil
 import PIL
-import threading
 from datetime import datetime
 
-@override_settings(SECURE_SSL_REDIRECT=False, 
+@override_settings(SECURE_SSL_REDIRECT=False,
                 MEDIA_ROOT=settings.MEDIA_ROOT_TEST,
                 MEDIA_URL=settings.MEDIA_URL_TEST,
                 AWS_STORAGE_BUCKET_NAME=settings.AWS_STORAGE_BUCKET_NAME_TEST,)
@@ -77,7 +76,7 @@ class ImageTestCase(TestCase): # pragma: no cover
 
         #Clear up mess afterwards
         image.delete_local_image_files()
-        threading.Thread(target=image.delete_remote_image_files).start()
+        image.delete_remote_image_files()
 
 
     def test_get_exif_data(self):
@@ -99,7 +98,7 @@ class ImageTestCase(TestCase): # pragma: no cover
         #Clear up mess afterwards
         os.remove(exif_test_image_destination)
         image.delete_local_image_files()
-        threading.Thread(target=image.delete_remote_image_files).start()
+        image.delete_remote_image_files()
 
     def test_get_exif_data2(self):
         '''
@@ -120,7 +119,7 @@ class ImageTestCase(TestCase): # pragma: no cover
         #Clear up mess afterwards
         os.remove(exif_test_image_destination)
         image.delete_local_image_files()
-        threading.Thread(target=image.delete_remote_image_files).start()
+        image.delete_remote_image_files()
 
     def test_save_and_rotate_image(self):
         '''
@@ -138,4 +137,4 @@ class ImageTestCase(TestCase): # pragma: no cover
 
         #Clear up
         image.delete_local_image_files()
-        threading.Thread(target=image.delete_remote_image_files).start()
+        image.delete_remote_image_files()

@@ -51,9 +51,9 @@ class EmailConfirmation(models.Model):
         language = self.person.language
         translation.activate(language)
 
-        subject = translation.ugettext('An invitation to ok!Kindred from {0}').format(self.user_who_invited_person.name)
+        subject = translation.gettext('An invitation to ok!Kindred from {0}').format(self.user_who_invited_person.name)
 
-        content = translation.ugettext( """Hi {0}
+        content = translation.gettext( """Hi {0}
                                             You have been invited by {1} to join ok!Kindred.
                                             ok!Kindred is a collaborative family tree and private social network for you and you family.
                                             A network has already been set up by one of your family members to help you keep in touch.

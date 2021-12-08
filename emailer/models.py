@@ -116,9 +116,9 @@ class EmailManager(models.Manager):
                 family_id = row['family_id']
                 new_people, updated_people = self._get_new_and_updated_people(family_id)
 
-            subject = translation.ugettext('ok!Kindred family update')
+            subject = translation.gettext('ok!Kindred family update')
 
-            content = translation.ugettext('One or more of your family has had details in ok!Kindred updated.')
+            content = translation.gettext('One or more of your family has had details in ok!Kindred updated.')
 
             content_html = get_template('emailer/people_updates.html').render(
                         {
