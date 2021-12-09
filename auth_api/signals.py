@@ -58,7 +58,7 @@ def password_reset_token_created(sender, instance, reset_password_token, *args, 
 
     translation.activate(language)
 
-    subject = translation.ugettext('ok!Kindred Password Reset')
+    subject = translation.gettext('ok!Kindred Password Reset')
 
     content = get_template('auth_api/password_reset_plain.html').render(
                 {
@@ -93,7 +93,7 @@ def post_password_reset(user, *args, **kwargs):
 
     translation.activate(language)
 
-    subject = translation.ugettext('ok!Kindred Password Successfully Updated')
+    subject = translation.gettext('ok!Kindred Password Successfully Updated')
 
     content = get_template('auth_api/password_changed_plain.html').render(
                 {

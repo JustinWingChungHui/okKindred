@@ -272,7 +272,7 @@ class GalleryApiTestCase(TestCase):
     def test_create_requires_authentication(self):
         client = APIClient(HTTP_X_REAL_IP='127.0.0.1')
 
-        url = '/api/gallery/'.format(self.gallery.id)
+        url = '/api/gallery/'
 
         data = {
             'title': 'new title',

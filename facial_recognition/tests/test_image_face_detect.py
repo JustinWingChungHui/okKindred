@@ -11,12 +11,11 @@ from suggested_image_tagging.models import SuggestedTag
 
 import os
 import shutil
-import threading
 
 @override_settings(SSLIFY_DISABLE=True,
             MEDIA_ROOT=settings.MEDIA_ROOT_TEST,
             MEDIA_URL=settings.MEDIA_URL_TEST,
-            AWS_STORAGE_BUCKET_NAME=settings.AWS_STORAGE_BUCKET_NAME_TEST, 
+            AWS_STORAGE_BUCKET_NAME=settings.AWS_STORAGE_BUCKET_NAME_TEST,
             FACE_RECOG_TRAIN_TEMP_DIR = settings.FACE_RECOG_TRAIN_TEST_DIR)
 class ImageFaceDetectTest(TestCase): # pragma: no cover
 
@@ -60,7 +59,7 @@ class ImageFaceDetectTest(TestCase): # pragma: no cover
 
         try:
             self.image.delete_local_image_files()
-            threading.Thread(target=self.image.delete_remote_image_files).start()
+            self.image.delete_remote_image_files()
         except:
             pass
 
@@ -100,7 +99,7 @@ class ImageFaceDetectTest(TestCase): # pragma: no cover
 
 
         new_image.delete_local_image_files()
-        threading.Thread(target=new_image.delete_remote_image_files).start()
+        new_image.delete_remote_image_files()
 
 
 
