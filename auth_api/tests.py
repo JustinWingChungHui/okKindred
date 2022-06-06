@@ -95,6 +95,48 @@ class JWTAuthTest(TestCase):
         self.assertNotEqual(verify_old_token_response.status_code, status.HTTP_200_OK)
 
 
+    def test_invalid_login_followed_by_valid_logon(self):
+        user = User.objects.create_user(email='margarethamilton@example.com',
+                                password='portable computer',
+                                name='Margaret Hamilton',
+                                family_id = self.family.id)
+
+        person = Person(name='Margaret Hamilton',
+                        gender='F',
+                        email='margarethamilton@example.com',
+                        family_id=self.family.id,
+                        language='en',
+                        user_id=user.id)
+        person.save()
+
+                # 127.0.0.1 is whitelisted
+        client = APIClient(HTTP_X_REAL_IP='127.0.0.2')
+
+        wrong_auth_details = {
+            'email': 'margarethamilton@example.com',
+            'password': 'compiler'
+        }
+
+        response = client.post('/api/auth/obtain_token/', wrong_auth_details, format='json')
+        self.assertNotEqual(response.status_code, status.HTTP_200_OK)
+
+        # Check ip is not locked
+        locked_response = client.get('/api/auth/is_locked/', format='json')
+        self.assertEqual(b'false', locked_response.content)
+
+        correct_auth_details = {
+            'email': 'margarethamilton@example.com',
+            'password': 'portable computer'
+        }
+
+        response = client.post('/api/auth/obtain_token/', correct_auth_details, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+        # Check ip is not locked
+        locked_response = client.get('/api/auth/is_locked/', format='json')
+        self.assertEqual(b'false', locked_response.content)
+
+
     def test_account_locks_out_on_multiple_invalid_login_attempts(self):
 
         user = User.objects.create_user(email='adelegoldberg@example.com',
@@ -120,6 +162,7 @@ class JWTAuthTest(TestCase):
 
         for x in range(0, 6):
             response = client.post('/api/auth/obtain_token/', wrong_auth_details, format='json')
+            self.assertNotEqual(response.status_code, status.HTTP_200_OK)
 
         correct_auth_details = {
             'email': 'adelegoldberg@example.com',
@@ -134,7 +177,7 @@ class JWTAuthTest(TestCase):
         # Check ip locked
         locked_response = client.get('/api/auth/is_locked/', format='json')
 
-        self.assertNotEqual(b'false', locked_response.content)
+        self.assertEqual(b'true', locked_response.content)
 
 
 

@@ -36,7 +36,7 @@ class SignUpViewSet(viewsets.ViewSet):
         email = request.data.get("email")
         gender = request.data.get("gender")
         language = request.data.get("language")
-        ip_address = request.META.get('HTTP_X_REAL_IP')
+        ip_address = request.META.get('HTTP_X_REAL_IP') or request.META.get('REMOTE_ADDR')
 
         if not (name and email and gender and language):
             raise ParseError('Invalid name, email, gender, language')
