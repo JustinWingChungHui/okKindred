@@ -29,7 +29,7 @@ def is_locked(request):
 
         locked = accessAttempt.failures_since_start >= settings.AXES_FAILURE_LIMIT
         return Response(locked)
-    except:
 
+    except:
         return Response(False)
 
