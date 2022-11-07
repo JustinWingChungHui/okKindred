@@ -1,6 +1,6 @@
 from gallery.models import Image, Tag
 from django.conf import settings
-from facial_recognition.file_downloader import download_file, get_file_name, clear_directory
+from common.file_downloader import download_file, get_file_name, clear_directory
 import face_recognition
 
 

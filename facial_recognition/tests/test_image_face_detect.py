@@ -3,7 +3,7 @@ from django.test import TestCase
 from django.test.utils import override_settings
 from gallery.models import Image, Gallery, Tag
 from family_tree.models import Family, Person
-from facial_recognition.file_downloader import clear_directory
+from common.file_downloader import clear_directory
 from facial_recognition.train import process_family
 from facial_recognition.image_face_detect import image_face_detect
 from message_queue.models import Queue, Message

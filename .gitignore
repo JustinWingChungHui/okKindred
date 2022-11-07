@@ -57,3 +57,4 @@ target/
 
 #okKindred specific
 secrets.py
+colorization_release_v2.caffemodel

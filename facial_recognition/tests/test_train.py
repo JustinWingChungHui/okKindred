@@ -7,7 +7,7 @@ from facial_recognition.models import FaceModel
 
 from facial_recognition.train import get_file_for_tag, process_file
 from facial_recognition.train import process_person, process_family
-from facial_recognition.file_downloader import clear_directory
+from common.file_downloader import clear_directory
 
 import os
 import shutil

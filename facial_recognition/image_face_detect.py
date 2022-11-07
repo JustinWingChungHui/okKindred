@@ -1,7 +1,7 @@
 from django.conf import settings
 from gallery.models import Image
 from family_tree.models import Person
-from facial_recognition.file_downloader import download_file, clear_directory
+from common.file_downloader import download_file, clear_directory
 from facial_recognition.models import FaceModel
 from suggested_image_tagging.models import SuggestedTag
 

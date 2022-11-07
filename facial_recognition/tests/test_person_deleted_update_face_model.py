@@ -4,7 +4,7 @@ from django.test.utils import override_settings
 from gallery.models import Image, Gallery, Tag
 from family_tree.models import Family, Person
 from facial_recognition.models import FaceModel
-from facial_recognition.file_downloader import clear_directory
+from common.file_downloader import clear_directory
 from facial_recognition.train import process_family
 from facial_recognition.person_deleted_update_face_model import update_family_model
 from facial_recognition.person_deleted_update_face_model import person_deleted_update_face_model

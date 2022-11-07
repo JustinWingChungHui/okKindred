@@ -4,7 +4,7 @@ from family_tree.models import Person
 from gallery.models import Tag
 from facial_recognition.models import FaceModel
 from django.conf import settings
-from facial_recognition.file_downloader import download_file, clear_directory
+from common.file_downloader import download_file, clear_directory
 import face_recognition
 import os
 
