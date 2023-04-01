@@ -31,6 +31,9 @@ class ImageTestCase(TestCase): # pragma: no cover
         self.test_image_destination = ''.join([settings.MEDIA_ROOT, 'galleries/', str(self.family.id), '/', str(self.gallery.id), '/test_image.jpg'])
         self.test_image_s3_key = ''.join(['galleries/', str(self.family.id), '/', str(self.gallery.id), '/test_image.jpg'])
 
+        self.test_png = os.path.join(settings.BASE_DIR, 'gallery/tests/test_image2.png')
+        self.test_png_destination = ''.join([settings.MEDIA_ROOT, 'galleries/', str(self.family.id), '/', str(self.gallery.id), '/test_image2.png'])
+
         directory = ''.join([settings.MEDIA_ROOT, 'galleries/', str(self.family.id), '/', str(self.gallery.id)])
         if not os.path.exists(directory):
             os.makedirs(directory)
@@ -105,7 +108,7 @@ class ImageTestCase(TestCase): # pragma: no cover
         Tests we can extract gps data from an image
         '''
         exif_test_image = os.path.join(settings.BASE_DIR, 'gallery/tests/exif_test_2.jpg')
-        exif_test_image_destination = ''.join([settings.MEDIA_ROOT, 'galleries/', str(self.family.id), '/', str(self.gallery.id), '/exif_test.jpg'])
+        exif_test_image_destination = ''.join([settings.MEDIA_ROOT, 'galleries/', str(self.family.id), '/', str(self.gallery.id), '/exif_test_2.jpg'])
         shutil.copy2(exif_test_image, exif_test_image_destination)
 
         image = Image(gallery=self.gallery, family=self.family, original_image=exif_test_image_destination)
@@ -138,3 +141,18 @@ class ImageTestCase(TestCase): # pragma: no cover
         #Clear up
         image.delete_local_image_files()
         image.delete_remote_image_files()
+
+    def test_save_png(self):
+        #Copy test image to media area
+        shutil.copy2(self.test_png, self.test_png_destination)
+
+        image = Image(gallery=self.gallery, family=self.family, original_image=''.join(['galleries/', str(self.family.id), '/', str(self.gallery.id), '/test_image2.png']))
+        image.save()
+        image.upload_files_to_s3()
+
+        image.rotate(90)
+
+        #Clear up
+        image.delete_local_image_files()
+        image.delete_remote_image_files()
+
