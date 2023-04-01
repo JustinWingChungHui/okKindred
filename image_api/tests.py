@@ -261,6 +261,37 @@ class ImageApiTestCase(TestCase):
         self.assertTrue('Phil Collins', image.uploaded_by.name)
         json.loads(response.content)
 
+    def test_create_png(self):
+        '''
+        test that we can upload a file
+        '''
+        client = APIClient(HTTP_X_REAL_IP='127.0.0.1')
+        client.force_authenticate(user=self.user)
+
+        test_image = os.path.join(settings.BASE_DIR, 'gallery/tests/test_image2.png')
+
+        url = '/api/image/'
+
+        with open(test_image, 'rb') as fp:
+
+            data = {
+                'picture': fp,
+                'gallery_id': self.gallery.id,
+            }
+
+            response = client.post(url, data)
+
+        # Check image loads
+        image_id = json.loads(response.content)['id']
+        image = Image.objects.get(id=image_id)
+
+        image.delete_local_image_files()
+        image.delete_remote_image_files()
+
+        self.assertEqual(200, response.status_code)
+        self.assertEqual('test_image2', image.title)
+        self.assertTrue('Phil Collins', image.uploaded_by.name)
+        json.loads(response.content)
 
     def test_create_requires_authentication(self):
         client = APIClient(HTTP_X_REAL_IP='127.0.0.1')

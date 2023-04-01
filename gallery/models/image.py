@@ -256,7 +256,7 @@ class Image(models.Model):
         large_thumbnail_path_and_filename = upload_to(self, str(create_hash(str(self.original_image)) + '.jpg'))
         large_thumbnail.save(settings.MEDIA_ROOT + str(large_thumbnail_path_and_filename), "JPEG", quality=95)
 
-        original_image = self._rotate_image(self.original_image, anticlockwise_angle)
+        original_image = self._rotate_image(self.original_image, anticlockwise_angle).convert('RGB')
         original_image_path_and_filename = upload_to(self, str(create_hash(str(self.original_image)) + '.jpg'))
         original_image.save(settings.MEDIA_ROOT + str(original_image_path_and_filename), "JPEG", quality=95)
 
