@@ -195,3 +195,4 @@ class JWTAuthTest(TestCase):
         response = client.get('/api/schema/')
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
+
