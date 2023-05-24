@@ -1,4 +1,3 @@
-from django.conf import settings
 from django.conf.urls import include
 from django.contrib import admin
 from django.views.generic import TemplateView
@@ -70,10 +69,6 @@ urlpatterns = [
     # Chinese Relation Names
     path('', include('chinese_relation_name.urls')),
 ]
-
-if settings.DEBUG:
-    import debug_toolbar
-    urlpatterns.append(path('__debug__/', include(debug_toolbar.urls)))
 
 
 
