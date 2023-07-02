@@ -319,12 +319,12 @@ class Person(models.Model):
 
             # small thumbnail
             small_thumb = im.copy()
-            small_thumb.thumbnail((80,80), Image.ANTIALIAS)
+            small_thumb.thumbnail((80,80), Image.LANCZOS)
             small_thumb.save(media_path.joinpath(small_thumb_path), "JPEG", quality=75)
 
             # large thumbnail
             large_thumb = im.copy()
-            large_thumb.thumbnail((200,200), Image.ANTIALIAS)
+            large_thumb.thumbnail((200,200), Image.LANCZOS)
             large_thumb.save(media_path.joinpath(large_thumb_path), "JPEG", quality=75)
 
             old_photo = self.photo
