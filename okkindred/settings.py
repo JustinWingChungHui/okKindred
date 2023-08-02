@@ -107,6 +107,7 @@ WSGI_APPLICATION = 'okkindred.wsgi.application'
 AXES_FAILURE_LIMIT = 5
 AXES_COOLOFF_TIME = 24
 AXES_PROTECTED_LOGINS = ('/accounts/login/', '/accounts/auth/')
+AXES_SENSITIVE_PARAMETERS = []
 
 # PythonAnywhere behind load balancer https://github.com/un33k/django-ipware
 # Log correct ip address to lockout multiple incorrect login attempts
