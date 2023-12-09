@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 
 import datetime
 from django.db import migrations, models
-from django.utils.timezone import utc
+from datetime import timezone
 
 
 class Migration(migrations.Migration):
@@ -18,7 +18,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='image',
             name='date_taken',
-            field=models.DateTimeField(db_index=True, default=datetime.datetime(2016, 4, 27, 14, 26, 6, 347165, tzinfo=utc)),
+            field=models.DateTimeField(db_index=True, default=datetime.datetime(2016, 4, 27, 14, 26, 6, 347165, tzinfo=timezone.utc)),
             preserve_default=False,
         ),
     ]

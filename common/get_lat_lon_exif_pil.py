@@ -1,5 +1,5 @@
 from datetime import datetime
-from django.utils.timezone import utc
+from datetime import timezone
 import exifread
 
 def get_lat_lon(path_name):
@@ -31,7 +31,7 @@ def get_lat_lon_backup(path_name):
     try:
         #date_time = None
         if date_time_original != None:
-            date_time = datetime.strptime(date_time_original.values,"%Y:%m:%d %H:%M:%S").replace(tzinfo=utc)
+            date_time = datetime.strptime(date_time_original.values,"%Y:%m:%d %H:%M:%S").replace(tzinfo=timezone.utc)
 
         if gps_latitude and gps_latitude_ref and gps_longitude and gps_longitude_ref:
             lat = _convert_exif_format_to_degrees(gps_latitude.values)
