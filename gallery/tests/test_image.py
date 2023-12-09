@@ -3,7 +3,7 @@ from gallery.models import Image, Gallery
 from family_tree.models import Family
 from django.conf import settings
 from django.test.utils import override_settings
-from django.utils.timezone import utc
+from datetime import timezone
 import os
 import shutil
 import PIL
@@ -94,7 +94,7 @@ class ImageTestCase(TestCase): # pragma: no cover
 
         image._populate_exif_data()
 
-        self.assertEqual(datetime(2014, 3, 30, 13, 18, 6).replace(tzinfo=utc), image.date_taken)
+        self.assertEqual(datetime(2014, 3, 30, 13, 18, 6).replace(tzinfo=timezone.utc), image.date_taken)
         self.assertEqual(True, image.latitude != 0)
         self.assertEqual(True, image.longitude != 0)
 
@@ -115,7 +115,7 @@ class ImageTestCase(TestCase): # pragma: no cover
 
         image._populate_exif_data()
 
-        self.assertEqual(datetime(2015, 6, 21, 13, 50, 35).replace(tzinfo=utc), image.date_taken)
+        self.assertEqual(datetime(2015, 6, 21, 13, 50, 35).replace(tzinfo=timezone.utc), image.date_taken)
         self.assertEqual(True, image.latitude != 0)
         self.assertEqual(True, image.longitude != 0)
 
