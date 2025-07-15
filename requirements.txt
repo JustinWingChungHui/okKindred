@@ -45,7 +45,7 @@ packaging==25.0
 pillow==11.3.0
 pipdeptree==2.27.0
 putz==1.0.1
-PyJWT==2.10.1
+PyJWT==2.9.0
 pyparsing==3.2.3
 pypi-search==2.0
 python-dateutil==2.9.0.post0
