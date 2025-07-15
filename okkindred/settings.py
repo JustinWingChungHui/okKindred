@@ -147,7 +147,6 @@ ADMINS = secrets.ADMINS
 
 #API Keys for external services
 GOOGLE_API_KEY = secrets.GOOGLE_API_KEY
-BING_MAPS_API_KEY = secrets.BING_MAPS_API_KEY
 MAP_BOX_TOKEN = secrets.MAP_BOX_TOKEN
 
 DATABASES = secrets.DATABASES
