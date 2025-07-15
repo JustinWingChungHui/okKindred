@@ -1,5 +1,5 @@
 from geopy.geocoders import GoogleV3
-from geopy.geocoders import Bing
+from geopy.geocoders import MapBox
 from django.conf import settings
 
 
@@ -28,11 +28,11 @@ def geocode_address(address):
 
 def _geocode_address_using_backup(address):
     '''
-    Gets the longitude and latitude of address for plotting on a map from backup service (Bing)
+    Gets the longitude and latitude of address for plotting on a map from backup service (Mapbox)
     '''
     try:
-        bing_locator = Bing(api_key = settings.BING_MAPS_API_KEY)
+        mapbox_locator = MapBox(api_key = settings.MAP_BOX_TOKEN)
 
-        return bing_locator.geocode(address)
+        return mapbox_locator.geocode(address)
     except:
         return
