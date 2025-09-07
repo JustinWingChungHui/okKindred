@@ -10,8 +10,8 @@ from family_tree.models.relation import Relation, RAISED, PARTNERED, RAISED_BY
 from common import geocoder
 from PIL import Image
 
-@override_settings(SSLIFY_DISABLE=True, 
-                    AWS_STORAGE_BUCKET_NAME=settings.AWS_STORAGE_BUCKET_NAME_TEST, 
+@override_settings(SSLIFY_DISABLE=True,
+                    AWS_STORAGE_BUCKET_NAME=settings.AWS_STORAGE_BUCKET_NAME_TEST,
                     MEDIA_ROOT=settings.MEDIA_ROOT_TEST,
                     MEDIA_URL=settings.MEDIA_URL_TEST)
 class PersonTestCase(TestCase): # pragma: no cover
@@ -200,6 +200,6 @@ class PersonTestCase(TestCase): # pragma: no cover
         Tests that the correct longitude and latitude are returned for a location in China
         using the backup geocoding service
         '''
-        location = geocoder._geocode_address_using_backup('星光大道 香港')
+        location = geocoder._geocode_address_using_backup('香港')
         self.assertEqual(22.3, round(location.latitude,1))
         self.assertEqual(114.2, round(location.longitude,1))
