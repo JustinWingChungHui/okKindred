@@ -1,17 +1,14 @@
 asgiref==3.12.1
-beautifulsoup4==4.15.0
 bleach==6.4.0
 boto==2.49.0
 boto3==1.43.72
 botocore==1.43.72
 build==1.5.0
 certifi==2026.7.22
-chardet==7.6.0
 charset-normalizer==3.5.1
 click==8.4.2
 coreapi==2.3.3
 coreschema==0.0.4
-coverage==7.15.4
 Django==6.0.8
 django-axes==8.3.1
 django-cors-headers==4.9.0
@@ -21,7 +18,6 @@ django-reversion==6.3.0
 djangorestframework==3.18.0
 djangorestframework_simplejwt==5.5.1
 dlib==20.0.1
-docopt==0.6.2
 docutils==0.23
 ExifRead==3.5.1
 face-recognition==1.3.0
@@ -43,11 +39,9 @@ Markdown==3.10.3
 MarkupSafe==3.0.3
 mysqlclient==2.2.8
 nab-index==0.0.13
-nab-provider==0.0.14
 nab-python==0.0.13
 nab-resolver==0.0.13
 narwhals==2.24.0
-nump==5.5.5.5
 numpy==2.5.2
 packaging==26.3
 pillow==12.3.0
@@ -65,7 +59,6 @@ scikit-learn==1.9.0
 scipy==1.18.0
 setuptools==84.0.0
 six==1.17.0
-soupsieve==2.9.2
 sqlparse==0.6.0
 threadpoolctl==3.6.0
 tomli==2.4.1
